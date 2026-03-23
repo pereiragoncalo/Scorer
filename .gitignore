@@ -1,22 +1,15 @@
 # Python
 __pycache__/
-*.py[cod]
-*.pyo
-*.pyd
+*.pyc
 .pytest_cache/
-.mypy_cache/
-.coverage
-htmlcov/
 
-# Virtual environments
+# Virtual env
 venv/
 .venv/
-env/
 
-# Build / packaging
+# Build
 build/
 dist/
-*.egg-info/
 
 # Kivy / Buildozer
 .buildozer/
@@ -24,17 +17,10 @@ bin/
 *.apk
 *.aab
 
-# IDE / editor
+# IDE
 .vscode/
 .idea/
 
-# OS files
+# Sistema
 .DS_Store
 Thumbs.db
-
-# Logs
-*.log
-
-# Local secrets/config
-.env
-.env.*
