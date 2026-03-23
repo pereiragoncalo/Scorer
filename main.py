@@ -9,7 +9,7 @@ def main():
     print("Remate válido:", shot_is_outside_small_box(30, 25, small_box))
     print("Direção do GR:", dive_direction(35, 50))
     print("Nova posição da bola:", update_ball_position(10, 20, 5, -2, 2))
-
+print("Scorer v1")
 
 if __name__ == "__main__":
     main()
