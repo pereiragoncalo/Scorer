@@ -1,9 +1,11 @@
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 .pytest_cache/
 
-# Virtual env
+# Ambientes virtuais
 venv/
 .venv/
 
@@ -11,16 +13,19 @@ venv/
 build/
 dist/
 
-# Kivy / Buildozer
+# Android / Kivy / Buildozer
 .buildozer/
 bin/
 *.apk
 *.aab
 
-# IDE
+# Editores
 .vscode/
 .idea/
 
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
