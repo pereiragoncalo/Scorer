@@ -394,3 +394,35 @@ SHA-256: 0177f4bb804474b341b02a8b208aa2f8289acf5d30655bdb4e64ffead7297910.
 Próximo: validar no telemóvel alinhamentos e renderização das fontes nos quatro
 ecrãs enviados pelo proprietário. Versão beta debug, sem teste físico desta
 versão, AAB ou publicação de loja.
+
+## 0.6.8 — alinhamento, splash e treino semanal
+
+Jogar alinhado às margens de Marcadores em landscape; ícone S seguido de CORER.
+Splash gerado/revisto com pé esquerdo apoiado, direito recuado e bola no chão.
+Uma sessão de treino por semana da carreira, reservada e gravada ao começar;
+reabrir/abandonar não permite repetir. Bónus único, rollback em falhas de save,
+compatibilidade com saves v2 anteriores, nova semana/época desbloqueia.
+
+Ficheiros: career.py, main.py, menu_ui.py, assets/splash.png, buildozer.spec,
+tests/test_career.py, ui_tests/test_menus.py, README, AGENTS, docs/UI_0.6.8.md.
+Baseline preservado (SHA-256 fed211d2ec63fe0275390b13ed4a1bcfcd18fa61238460b04b67d80ebca6205b).
+
+Verificação: 31 testes core/build/segurança + 22 Kivy passaram (53); py_compile
+e git diff --check. Logs /tmp/scorer-068-core-final.log e
+/tmp/scorer-068-ui-final.log. Corrigidos durante testes posição de Jogar em
+retrato, dimensões antigas após mudança de densidade e resumo de treino cortado.
+Capturas Kivy reais do menu e treino inspecionadas; não são capturas Android.
+
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+Logs build-0.6.8.log e verify-0.6.8.log em /workspace/striker-runtime.
+Assinatura v2 válida, mesmo certificado SHA-256
+84c17cdf31e2ee7c6e9c082bde539df6822bf48267a0603de9814d6e2846ef49; ZIP alinhado
+a 16 KB, 118 ELF AArch64 alinhados a 16 KB. API 36, mínimo 26, versão 1026608.
+Confirmados splash/presplash, ícone, fontes/licenças e bytecode atualizado no APK.
+Sem permissões declaradas, saves ou chaves privadas incluídas.
+APK: 29 433 977 bytes. SHA-256:
+44d3fe975b34e96f7095a426cb68f0d3b8fe69bd5d03bc18828941787557a4e2.
+
+Próximo: atualizar no telemóvel e verificar alinhamento, splash e treino semanal
+após reabrir/avançar semana. Beta debug, sem validação física desta versão,
+AAB ou assinatura release para loja.

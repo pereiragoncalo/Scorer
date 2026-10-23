@@ -256,6 +256,62 @@ class CareerTests(unittest.TestCase):
         self.assertNotIn('Luca Vale', c.current_league.scorer_goals)
         self.assertEqual(c.save_path.read_bytes(), before)
 
+    def test_training_once_per_career_week_persists_and_unlocks_after_match(self):
+        c = self.signed()
+        self.assertTrue(c.begin_training())
+        self.assertGreater(c.complete_training(2), 0)
+        stats = (c.stamina, c.morale)
+        self.assertFalse(c.begin_training())
+        self.assertEqual(c.complete_training(3), 0)
+        self.assertEqual((c.stamina, c.morale), stats)
+        restored = career.CareerMode()
+        self.assertTrue(restored.training_used_this_week)
+        self.assertFalse(restored.begin_training())
+        self.assertEqual((restored.stamina, restored.morale), stats)
+        home, away = restored.next_fixture()
+        restored.finish_match(home, away, 0, 1, forced_score=(1, 0))
+        self.assertFalse(restored.training_used_this_week)
+        self.assertTrue(restored.begin_training())
+        self.assertGreater(restored.complete_training(1), 0)
+
+    def test_training_reservation_survives_abandonment_and_new_season_resets(self):
+        c = self.signed()
+        self.assertTrue(c.begin_training())
+        restored = career.CareerMode()
+        self.assertFalse(restored.trained_this_week)
+        self.assertTrue(restored.training_used_this_week)
+        self.assertFalse(restored.begin_training())
+        restored._finish_season()
+        self.assertFalse(restored.training_used_this_week)
+        self.assertTrue(restored.begin_training())
+
+    def test_training_save_failures_preserve_reservation_and_rewards(self):
+        c = self.signed()
+        before = c.save_path.read_bytes()
+        with patch('career.os.replace', side_effect=OSError('disk full')):
+            self.assertFalse(c.begin_training())
+        self.assertFalse(c.training_used_this_week)
+        self.assertEqual(c.save_path.read_bytes(), before)
+        self.assertTrue(c.begin_training())
+        reserved = c.save_path.read_bytes()
+        stats = (c.stamina, c.morale)
+        with patch('career.os.replace', side_effect=OSError('disk full')):
+            self.assertEqual(c.complete_training(3), 0)
+        self.assertEqual((c.stamina, c.morale), stats)
+        self.assertTrue(c.training_used_this_week)
+        self.assertFalse(c.trained_this_week)
+        self.assertEqual(c.save_path.read_bytes(), reserved)
+
+    def test_older_completed_training_without_reservation_field_stays_locked(self):
+        c = self.signed()
+        c.complete_training(3)
+        data = json.loads(c.save_path.read_text())
+        data['career'].pop('training_session_week')
+        c.save_path.write_text(json.dumps(data))
+        restored = career.CareerMode()
+        self.assertTrue(restored.training_used_this_week)
+        self.assertFalse(restored.begin_training())
+
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'
         self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),

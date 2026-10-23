@@ -206,6 +206,81 @@ class MenuTests(unittest.TestCase):
         button.state = 'normal'
         self.assertEqual(button._face.pos[1], raised)
 
+    def test_play_matches_scorers_column_edges_and_brand_uses_icon_as_s(self):
+        previous = Metrics.density
+        try:
+            for density, size in ((1, (640, 360)), (1, (960, 540)), (1.64, (1280, 589)), (3, (2400, 1080))):
+                with self.subTest(density=density, size=size):
+                    Metrics.density = density
+                    Window.size = size
+                    self.game.size = size
+                    self.game.view = 'hub'
+                    self.game.draw()
+                    self.game._menu._signature = None
+                    self.game.draw()
+                    settle()
+                    buttons = [w for w in self.game.walk() if isinstance(w, MenuTile)]
+                    play = next(w for w in buttons if w.text == 'JOGAR')
+                    scorers = next(w for w in buttons if w.text == 'MARCADORES')
+                    self.assertAlmostEqual(play.x, scorers.x, delta=1)
+                    self.assertAlmostEqual(play.right, scorers.right, delta=1)
+                    self.assertTrue(any(isinstance(w, Label) and w.text == 'CORER' for w in self.game.walk()))
+        finally:
+            Metrics.density = previous
+
+    def test_weekly_training_blocks_repeat_and_reload_then_unlocks_next_week(self):
+        Window.size = (800, 360)
+        with isolated_game(saved=True) as game:
+            game._activate_ui('splash_continue')
+            game._activate_ui('load_game')
+            game._activate_ui('training')
+            game._activate_ui('training_start')
+            self.assertEqual(game.view, 'shot')
+            for _ in range(3):
+                game.result_text = 'GOAL!'
+                game._advance_after_shot()
+            self.assertEqual(game.view, 'training')
+            game.draw()
+            settle()
+            menu = game._menu
+            self.assertLessEqual(menu.body.height, menu.scroll.height + 1)
+            stats = (game.career.stamina, game.career.morale)
+            game._activate_ui('training_start')
+            self.assertEqual(game.view, 'training')
+            self.assertEqual((game.career.stamina, game.career.morale), stats)
+            game.career = CareerMode()
+            game.training_completed = False
+            game.draw()
+            settle()
+            button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'TREINO SEMANAL UTILIZADO')
+            self.assertTrue(button.disabled)
+            game.career.week += 1
+            game.draw()
+            settle()
+            button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'INICIAR TREINO')
+            self.assertFalse(button.disabled)
+
+    def test_active_training_cannot_restart_its_shot_counter(self):
+        with isolated_game(saved=True) as game:
+            game._activate_ui('splash_continue')
+            game._activate_ui('load_game')
+            game.start_training()
+            game.result_text = 'GOAL!'
+            game._advance_after_shot()
+            game.start_training()
+            self.assertEqual((game.training_shots_left, game.training_goals), (2, 1))
+            self.assertEqual(game.view, 'shot')
+
+    def test_failed_training_reservation_does_not_start_a_session(self):
+        with isolated_game(saved=True) as game:
+            game._activate_ui('splash_continue')
+            game._activate_ui('load_game')
+            with patch('career.os.replace', side_effect=OSError('disk full')):
+                game.start_training()
+            self.assertEqual(game.view, 'training')
+            self.assertFalse(game.career.training_used_this_week)
+            self.assertEqual(game.training_shots_left, 0)
+
     def test_all_menu_layouts_at_phone_sizes(self):
         for size in ((640, 360), (800, 360), (960, 540), (1280, 720), (360, 800), (320, 240)):
             Window.size = size

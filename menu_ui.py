@@ -2,7 +2,7 @@
 from career import EUROPE_PYRAMID_DEPTH, WORLD_COUNTRIES
 from kivy.graphics import Color, RoundedRectangle, Rectangle, Line
 from kivy.core.image import Image as CoreImage
-from kivy.metrics import dp, sp
+from kivy.metrics import dp, sp, Metrics
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
@@ -124,7 +124,8 @@ class CareerMenu(BoxLayout):
         signature = (self.game.view, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message,
                      c.current_league.name, tuple(c.agent_offers),
-                     self.game.training_completed, self.game.training_goals, c.world_unlocked)
+                     self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week,
+                     Metrics.density, Metrics.fontscale)
         if signature != self._signature:
             self._signature = signature
             self._build()
@@ -153,8 +154,9 @@ class CareerMenu(BoxLayout):
         brand = BoxLayout(orientation='vertical')
         if self.game.view == 'hub':
             header.height = dp(52)
-            header.add_widget(Image(source='assets/icon.png', size_hint_x=None, width=dp(48)))
-            brand.add_widget(BrandMark())
+            brand = BoxLayout(spacing=dp(2))
+            brand.add_widget(Image(source='assets/icon.png', size_hint_x=None, width=dp(48)))
+            brand.add_widget(BrandMark(word='CORER'))
         elif paged:
             header.height = dp(52)
             titles = {'standings': 'CLASSIFICAÇÃO', 'scorers': 'MARCADORES', 'calendar': 'CALENDÁRIO'}
@@ -212,13 +214,22 @@ class CareerMenu(BoxLayout):
 
     def _training(self):
         g, c = self.game, self.game.career
+        used = c.training_used_this_week
         card = self.card('Treino de finalização')
-        card.label('Três remates à baliza. Melhora a energia e a confiança antes do próximo jogo.')
-        if g.training_completed:
+        if g.training_completed and c.trained_this_week:
             card.label(f'Treino concluído · {g.training_goals}/3 golos', heading=True)
             card.label(f'Energia: {g.training_stamina_before:.1f} para {c.stamina:.1f}')
+        elif not used:
+            card.label('Uma sessão de três remates por semana da carreira.')
+            card.label('A sessão é descontada ao começar.', muted=True)
+        else:
+            card.label('O treino desta semana já foi utilizado.', muted=True)
         card.label(f'Energia atual: {c.stamina:.1f}/20', muted=True)
-        card.add_widget(self._button('NOVO TREINO' if g.training_completed else 'INICIAR TREINO', 'training_start', accent=True))
+        button = self._button('TREINO SEMANAL UTILIZADO' if used else 'INICIAR TREINO', 'training_start', accent=True)
+        button.disabled = used
+        card.add_widget(button)
+        if used:
+            card.label('Novo treino disponível na próxima semana.', muted=True)
 
     def _compact_list(self):
         c = self.game.career
@@ -441,8 +452,9 @@ class MainDashboard(BoxLayout):
                                      halign='center', size_hint_x=0.18))
         teams.add_widget(BoundedLabel(text=away, font_size=sp(18), bold=True, halign='center'))
         self.match.add_widget(teams)
-        footer = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
-        footer.add_widget(BoundedLabel(text=c.format_date(c.current_date), font_size=sp(11), color=MUTED))
+        footer = self.footer = FloatLayout(size_hint_y=None, height=dp(52))
+        footer.add_widget(BoundedLabel(text=c.format_date(c.current_date), font_size=sp(11), color=MUTED,
+                                      size_hint=(0.43, 1), pos_hint={'x': 0, 'y': 0}))
         self.play = MenuTile('JOGAR', lambda: menu.action('play'), accent=True)
         self.play.size_hint_x, self.play.width = None, dp(136)
         footer.add_widget(self.play)
@@ -471,6 +483,10 @@ class MainDashboard(BoxLayout):
                               ('MARCADORES', 'scorers'), ('CALENDÁRIO', 'calendar'), ('AGENTE', 'agent')]:
             button = MenuTile(title, lambda name=action: menu.action(name))
             self.actions.add_widget(button)
+            if action == 'scorers':
+                self.markers = button
+        self.markers.bind(pos=self._align_play, size=self._align_play)
+        self.footer.bind(pos=self._align_play, size=self._align_play)
         self.add_widget(self.actions)
         self.status = BoundedLabel(text=c.message, color=MUTED, font_size=sp(11),
                                    size_hint_y=None, height=dp(24))
@@ -501,6 +517,19 @@ class MainDashboard(BoxLayout):
         self.hero.orientation = 'vertical' if portrait else 'horizontal'
         self.match.size_hint = (1, 0.60) if portrait else (0.66, 1)
         self.season.size_hint = (1, 0.40) if portrait else (0.34, 1)
+        self._align_play()
+
+    def _align_play(self, *_):
+        if self.play.parent is not self.footer:
+            return
+        if self.actions.cols == 5:
+            self.play.pos_hint = {}
+            self.play.width = self.markers.width
+            self.play.x = self.markers.x
+        else:
+            self.play.pos_hint = {'right': 1, 'y': 0}
+            self.play.width = min(dp(160), self.footer.width * 0.48)
+        self.play.y = self.footer.y
 
 
 class PlayerScreen(FloatLayout):
@@ -631,10 +660,10 @@ class CompactTable(EdgePanel):
 
 class BrandMark(BoxLayout):
     """Licensed sports display face with a subordinate author credit."""
-    def __init__(self, centered=False, **kwargs):
+    def __init__(self, centered=False, word='SCORER', **kwargs):
         super().__init__(orientation='vertical', spacing=0, **kwargs)
         alignment = 'center' if centered else 'left'
-        self.wordmark = BoundedLabel(text='SCORER', font_name='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',
+        self.wordmark = BoundedLabel(text=word, font_name='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',
                                      font_size=sp(32), halign=alignment, size_hint_y=0.70)
         self.credit = BoundedLabel(text='by clemir', font_name='assets/fonts/Barlow-Regular.ttf',
                                    font_size=sp(11), halign=alignment, color=MUTED, size_hint_y=0.30)

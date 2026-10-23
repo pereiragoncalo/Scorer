@@ -974,6 +974,12 @@ class StrikerGame(Widget):
 
 
     def start_training(self) -> None:
+        if self.view == "shot" and self.shot_context == "training":
+            return
+        if not self.career.begin_training():
+            self.view = "training"
+            self.draw()
+            return
         self.training_completed = False
         self.training_stamina_before = self.career.stamina
         self.training_gain = 0.0

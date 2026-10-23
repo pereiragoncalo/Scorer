@@ -94,3 +94,10 @@ fontes incluídas offline com licença. Ajustados eixos de texto nos menus,
 indicadores e painel de oportunidade/resultado; texto dos botões centrado na face.
 Corrigida a seta em falta no resumo de energia do treino.
 [Alterações, fontes, 45 testes e limitações](docs/UI_0.6.7.md).
+
+## SCORER 0.6.8 — treino semanal e menu
+
+Jogar alinhado com Marcadores; ícone S seguido de CORER. Splash com preparação
+do remate coerente. Uma sessão de treino por semana da carreira, descontada
+ao começar e persistente ao reabrir.
+[Alterações, 53 testes e limitações](docs/UI_0.6.8.md).

@@ -657,6 +657,7 @@ class CareerMode:
         self.last_result = ""
         self.message = "Escolhe o primeiro contrato da tua carreira."
         self.last_training_week = -1
+        self.training_session_week = -1
         self.cup_active = True
         self.cup_round_index = 0
         self.fixture_history: list[dict[str, object]] = []
@@ -1205,14 +1206,41 @@ class CareerMode:
         )
 
 
+    @property
+    def training_used_this_week(self) -> bool:
+        return self.trained_this_week or self.training_session_week == self.week
+
+    def begin_training(self) -> bool:
+        """Reserve the career week's sole session before opening its first shot."""
+        if not self.club_name:
+            self.message = "Escolhe um clube antes de treinar."
+            return False
+        if self.training_used_this_week:
+            self.message = "O treino desta semana já foi utilizado. Volta na próxima semana."
+            return False
+        previous = self.training_session_week
+        self.training_session_week = self.week
+        self.message = "Treino semanal iniciado."
+        if self.save() is False:
+            self.training_session_week = previous
+            return False
+        return True
+
     def complete_training(self, goals: int) -> float:
-        previous_stamina = self.stamina
+        if self.trained_this_week:
+            self.message = "O treino desta semana já foi concluído."
+            return 0.0
+        goals = max(0, min(3, int(goals)))
+        previous = (self.stamina, self.morale, self.last_training_week, self.training_session_week)
         self.stamina = clamp(self.stamina + 1.25 + goals * 0.25, 0.0, 20.0)
         self.morale = clamp(self.morale + max(0, goals - 1) * 0.20, 0.0, 20.0)
         self.last_training_week = self.week
-        self.message = f"Treino concluido: {goals}/3 golos. Stamina aumentou."
-        self.save()
-        return self.stamina - previous_stamina
+        self.training_session_week = self.week
+        self.message = f"Treino concluído: {goals}/3 golos. Energia aumentou."
+        if self.save() is False:
+            self.stamina, self.morale, self.last_training_week, self.training_session_week = previous
+            return 0.0
+        return self.stamina - previous[0]
 
 
     def _simulate_world_round(self) -> None:
@@ -1389,6 +1417,7 @@ class CareerMode:
         self.season += 1
         self.week = 0
         self.last_training_week = -1
+        self.training_session_week = -1
         self.cup_active = True
         self.cup_round_index = 0
         self.cup_history.clear()
@@ -1455,6 +1484,7 @@ class CareerMode:
             "last_result": self.last_result,
             "message": self.message,
             "last_training_week": self.last_training_week,
+            "training_session_week": self.training_session_week,
             "cup_active": self.cup_active,
             "cup_round_index": self.cup_round_index,
             "cup_history": self.cup_history,
@@ -1606,6 +1636,7 @@ class CareerMode:
             self.last_result = data.get("last_result", "")
             self.message = data.get("message", "Carreira carregada.")
             self.last_training_week = int(data.get("last_training_week", -1))
+            self.training_session_week = int(data.get("training_session_week", self.last_training_week))
             migrated_cup_round = sum(
                 1 for cup_week in CUP_WEEKS if cup_week < self.week
             )
