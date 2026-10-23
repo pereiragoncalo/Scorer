@@ -9,6 +9,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 import math
@@ -23,7 +24,8 @@ class FlowLabel(Label):
     def __init__(self, **kwargs):
         kwargs.setdefault('color', INK)
         kwargs.setdefault('font_size', sp(15))
-        super().__init__(size_hint_y=None, halign='left', valign='middle', **kwargs)
+        kwargs.setdefault('halign', 'left')
+        super().__init__(size_hint_y=None, valign='middle', **kwargs)
         self.bind(width=self._wrap, texture_size=self._height)
         self._wrap()
 
@@ -61,12 +63,12 @@ class TouchButton(Button):
         pressed = self.state == 'down'
         inset = dp(1 if pressed else 4)
         self._base.pos, self._base.size = self.pos, self.size
-        self._face.pos = (self.x, self.y + inset)
+        self._face.pos = (self.x, self.y + inset / 2)
         self._face.size = (self.width, max(1, self.height - inset))
         self._gloss.pos = (self.x + dp(2), self._face.pos[1] + self._face.size[1] * 0.56)
         self._gloss.size = (max(1, self.width - dp(4)), self._face.size[1] * 0.40)
         self._gloss_color.a = 0.025 if pressed or self.disabled else 0.12
-        self._rim.rounded_rectangle = (self.x + dp(1), self.y + inset + dp(1),
+        self._rim.rounded_rectangle = (self.x + dp(1), self._face.pos[1] + dp(1),
                                       max(1, self.width - dp(2)), max(1, self.height - inset - dp(2)), dp(9))
         face = (0.10, 0.48, 0.34, 1) if self._accent else (0.10, 0.24, 0.29, 1)
         factor = 0.6 if self.disabled else 0.82 if pressed else 1
@@ -152,17 +154,15 @@ class CareerMenu(BoxLayout):
         if self.game.view == 'hub':
             header.height = dp(52)
             header.add_widget(Image(source='assets/icon.png', size_hint_x=None, width=dp(48)))
-            brand.add_widget(BoundedLabel(text='SCORER', font_size=sp(22), bold=True))
-            brand.add_widget(BoundedLabel(text='by clemir', font_size=sp(11), color=MUTED))
+            brand.add_widget(BrandMark())
         elif paged:
             header.height = dp(52)
             titles = {'standings': 'CLASSIFICAÇÃO', 'scorers': 'MARCADORES', 'calendar': 'CALENDÁRIO'}
             brand.add_widget(BoundedLabel(text=titles[self.game.view], font_size=sp(20), bold=True))
             brand.add_widget(BoundedLabel(text=self.game.career.current_league.name, font_size=sp(11), color=MUTED))
         else:
-            brand.add_widget(FlowLabel(text='SCORER', font_size=sp(22), bold=True))
-            brand.add_widget(FlowLabel(text='CARREIRA DE AVANÇADO', font_size=sp(10), color=MUTED))
-            brand.bind(minimum_height=lambda widget, value: setattr(header, 'height', max(dp(60), value)))
+            header.height = dp(52)
+            brand.add_widget(BrandMark())
         header.add_widget(brand)
         if self.game.view == 'hub':
             profile = MenuTile('JOGADOR', lambda: self.action('profile'))
@@ -216,7 +216,7 @@ class CareerMenu(BoxLayout):
         card.label('Três remates à baliza. Melhora a energia e a confiança antes do próximo jogo.')
         if g.training_completed:
             card.label(f'Treino concluído · {g.training_goals}/3 golos', heading=True)
-            card.label(f'Energia: {g.training_stamina_before:.1f} → {c.stamina:.1f}')
+            card.label(f'Energia: {g.training_stamina_before:.1f} para {c.stamina:.1f}')
         card.label(f'Energia atual: {c.stamina:.1f}/20', muted=True)
         card.add_widget(self._button('NOVO TREINO' if g.training_completed else 'INICIAR TREINO', 'training_start', accent=True))
 
@@ -280,7 +280,7 @@ class MatchNotice(BoxLayout):
         self.button = MenuTile('CONTINUAR', self.proceed, accent=True)
         self.button.size_hint_x = None
         self.button.width = dp(176)
-        self.button.pos_hint = {'right': 1}
+        self.button.pos_hint = {'center_x': 0.5}
         self.add_widget(self.button)
         self.body.bind(minimum_height=self._fit_panel)
         self.button.bind(height=self._fit_panel)
@@ -304,10 +304,10 @@ class MatchNotice(BoxLayout):
         self.signature = signature
         self.body.clear_widgets()
         title = game.match_summary if game.match_finished else 'OPORTUNIDADE'
-        self.body.add_widget(FlowLabel(text=title, font_size=sp(17), bold=True, color=GREEN))
+        self.body.add_widget(FlowLabel(text=title, font_size=sp(17), bold=True, color=GREEN, halign='center'))
         detail = (f'Moral {game.career.morale:.1f}/20  ·  Energia {game.career.stamina:.1f}/20'
                   if game.match_finished else 'Prepara o teu remate e marca a diferença.')
-        self.body.add_widget(FlowLabel(text=detail, font_size=sp(13)))
+        self.body.add_widget(FlowLabel(text=detail, font_size=sp(13), halign='center'))
         self.button.text = 'CONTINUAR' if game.match_finished else 'JOGAR OPORTUNIDADE'
 
     def proceed(self):
@@ -390,10 +390,10 @@ class EntryScreen(FloatLayout):
         super().__init__()
         self.menu = menu
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
-        self.panel.add_widget(BoundedLabel(text='SCORER by clemir', font_size=sp(20), bold=True,
-                                          size_hint_y=None, height=dp(28)))
+        self.brand = BrandMark(centered=True, size_hint_y=None, height=dp(52))
+        self.panel.add_widget(self.brand)
         self.info = BoundedLabel(text='A tua carreira. Uma divisão. Todos os golos contam.',
-                                 color=MUTED, font_size=sp(12))
+                                 color=MUTED, font_size=sp(12), halign='center')
         if menu.game.career.message.startswith('Não foi possível'):
             self.info.text = menu.game.career.message
         self.panel.add_widget(self.info)
@@ -402,6 +402,7 @@ class EntryScreen(FloatLayout):
         load.disabled = not menu.game.career.save_path.is_file()
         self.panel.add_widget(load)
         self.panel.add_widget(MenuTile('SAIR', menu.game._request_exit))
+        self.panel.canvas.before.remove(self.panel.edge)
         self.add_widget(self.panel)
         self.bind(pos=self._fit, size=self._fit)
         self._fit()
@@ -421,11 +422,11 @@ class MainDashboard(BoxLayout):
         super().__init__(orientation='vertical', spacing=dp(6))
         self.menu = menu
         c = menu.game.career
-        self.identity = BoxLayout(size_hint_y=None, height=dp(36), spacing=dp(12))
+        self.identity = BoxLayout(size_hint_y=None, height=dp(36), spacing=dp(12), padding=[dp(10), 0])
         self.identity.add_widget(BoundedLabel(text=c.player_name, font_size=sp(18), bold=True, color=GREEN))
-        self.identity.add_widget(BoundedLabel(text=c.club_name, font_size=sp(14)))
+        self.identity.add_widget(BoundedLabel(text=c.club_name, font_size=sp(14), halign='center'))
         self.identity.add_widget(BoundedLabel(text=f'Energia {c.stamina:.1f}/20 · Moral {c.morale:.1f}/20',
-                                             color=MUTED, font_size=sp(11)))
+                                             color=MUTED, font_size=sp(11), halign='right'))
         self.add_widget(self.identity)
         self.hero = BoxLayout(spacing=dp(12))
         self.match = EdgePanel(orientation='vertical', size_hint_x=0.66)
@@ -452,11 +453,14 @@ class MainDashboard(BoxLayout):
                                            bold=True, size_hint_y=None, height=dp(16)))
         numbers = BoxLayout(spacing=dp(8))
         for number, title in ((c.matches, 'JOGOS'), (c.goals, 'GOLOS')):
-            column = BoxLayout(orientation='vertical')
-            column.add_widget(BoundedLabel(text=str(number), font_size=sp(30), bold=True, halign='center'))
+            anchor = AnchorLayout()
+            column = BoxLayout(orientation='vertical', size_hint=(1, None), height=dp(68), spacing=dp(4))
+            column.add_widget(BoundedLabel(text=str(number), font_size=sp(30), bold=True, halign='center',
+                                           size_hint_y=None, height=dp(44)))
             column.add_widget(BoundedLabel(text=title, font_size=sp(10), color=MUTED, halign='center',
                                            size_hint_y=None, height=dp(20)))
-            numbers.add_widget(column)
+            anchor.add_widget(column)
+            numbers.add_widget(anchor)
         self.season.add_widget(numbers)
         self.season.add_widget(BoundedLabel(text=c.current_league.name + (' · 1 DIVISÃO' if not c.world_unlocked else ''),
                                            color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
@@ -623,3 +627,16 @@ class CompactTable(EdgePanel):
         self.counter.text = f'{self.page + 1}/{self.pages}'
         self.previous.disabled = self.page == 0
         self.next.disabled = self.page == self.pages - 1
+
+
+class BrandMark(BoxLayout):
+    """Licensed sports display face with a subordinate author credit."""
+    def __init__(self, centered=False, **kwargs):
+        super().__init__(orientation='vertical', spacing=0, **kwargs)
+        alignment = 'center' if centered else 'left'
+        self.wordmark = BoundedLabel(text='SCORER', font_name='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',
+                                     font_size=sp(32), halign=alignment, size_hint_y=0.70)
+        self.credit = BoundedLabel(text='by clemir', font_name='assets/fonts/Barlow-Regular.ttf',
+                                   font_size=sp(11), halign=alignment, color=MUTED, size_hint_y=0.30)
+        self.add_widget(self.wordmark)
+        self.add_widget(self.credit)

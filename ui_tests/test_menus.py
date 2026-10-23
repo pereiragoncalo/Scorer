@@ -198,6 +198,7 @@ class MenuTests(unittest.TestCase):
         settle()
         button = next(w for w in self.game.walk() if isinstance(w, MenuTile) and w.text == 'JOGAR')
         raised = button._face.pos[1]
+        self.assertAlmostEqual(button._face.pos[1] + button._face.size[1] / 2, button.center_y)
         normal = tuple(button._face_color.rgba)
         button.state = 'down'
         self.assertLess(button._face.pos[1], raised)

@@ -362,3 +362,35 @@ Baseline mantém fed211d2ec63fe0275390b13ed4a1bcfcd18fa61238460b04b67d80ebca6205
 Próximo: atualizar no telemóvel, alterar nome através de Jogador e verificar a
 persistência ao reabrir, teclado, feedback dos botões e navegação por páginas.
 Validação física desta versão pendente. Sem AAB ou assinatura release nesta etapa.
+
+## 0.6.7 — alinhamentos e marca tipográfica
+
+Pedido a partir de quatro capturas do proprietário: alinhar textos e melhorar a
+fonte de SCORER by clemir. Marca nativa partilhada em Barlow Condensed ExtraBold
+Italic + Barlow Regular, incluídas offline com licenças SIL OFL. Ajustados alinhamento
+da entrada, identidade/indicadores e números/legendas da época; oportunidade e
+resultado centrados. Face/rebordo dos botões alinhados com o centro do texto.
+Seta não renderizada na energia do treino substituída por «para».
+
+Ficheiros: menu_ui.py, ui_tests/test_menus.py, assets/fonts (2 TTF e 2 licenças),
+buildozer.spec, README, AGENTS e docs/UI_0.6.7.md. Sem alteração do motor, carreira,
+saves, arte do splash ou ícone. Fontes originais obtidas do repositório oficial
+Google Fonts e redistribuídas sem modificações com a licença.
+
+Verificação: py_compile; 27 testes core/build/segurança + 18 Kivy aprovados (45).
+Suite Kivy final em `/tmp/scorer-067-ui-final.log`; core em
+`/tmp/scorer-067-core.log`. Inspecionadas capturas reais da janela Kivy de entrada,
+menu, treino concluído e oportunidade em 1280×589/densidade 1,64, runtime
+`scorer-067-*.png`. Não são capturas Android.
+
+Compilação real com `bash tools/android/run.sh python tools/build_android.py -v android debug`.
+Logs `build-0.6.7.log` e `verify-0.6.7.log` em `/workspace/striker-runtime`.
+Assinatura v2 válida, mesmo certificado, ZIP alinhado a 16 KB e 118 ELF AArch64
+alinhados a 16 KB; Android API 36, mínimo 26. Confirmados hashes de ambas as fontes
+e licenças dentro de assets/private.tar; novo BrandMark no bytecode e presplash
+inalterado. Sem saves ou chaves privadas no pacote.
+SHA-256: 0177f4bb804474b341b02a8b208aa2f8289acf5d30655bdb4e64ffead7297910.
+
+Próximo: validar no telemóvel alinhamentos e renderização das fontes nos quatro
+ecrãs enviados pelo proprietário. Versão beta debug, sem teste físico desta
+versão, AAB ou publicação de loja.

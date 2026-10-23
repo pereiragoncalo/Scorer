@@ -86,3 +86,11 @@ abrir **Jogador** no menu principal; o progresso mantém-se. Splash com crédito
 clemir menor, botões arredondados com relevo e listas de classificação,
 marcadores e calendário paginadas, sem scroll horizontal/vertical.
 [Alterações, 45 testes e limitações](docs/UI_0.6.6.md).
+
+## SCORER 0.6.7 — alinhamento e tipografia
+
+Marca nativa com Barlow Condensed ExtraBold Italic e crédito Barlow Regular,
+fontes incluídas offline com licença. Ajustados eixos de texto nos menus,
+indicadores e painel de oportunidade/resultado; texto dos botões centrado na face.
+Corrigida a seta em falta no resumo de energia do treino.
+[Alterações, fontes, 45 testes e limitações](docs/UI_0.6.7.md).
