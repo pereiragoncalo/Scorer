@@ -31,3 +31,10 @@ Isto verifica apenas sintaxe. A funcionalidade Android exige um ambiente de buil
 4. Fim de uma partida, avanço de carreira e exportação/instalação testados.
 5. APK assinado disponibilizável; AAB preparado para Play (aprovação não garantida).
 6. Direitos dos conteúdos e privacidade verificados antes da publicação pública.
+
+## Fase 1 — candidato de código 0.6.1
+
+A carreira original está em `career.py`, importável sem Kivy; `main.py` mantém a
+interface. Testes: `python3 -m unittest discover -s tests -v`.
+Ver [build Android e limitações](docs/ANDROID_BUILD.md) e [resultados](docs/BUILD_LOG.md).
+Ainda não existe APK/AAB compilado ou validado nesta fase.
