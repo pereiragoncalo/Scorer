@@ -293,3 +293,39 @@ Logs locais `build-0.6.4.log` e `verify-0.6.4.log` em
 `/workspace/striker-runtime`. Próximo: instalar atualização no telemóvel e validar
 menu, ícone, splash e transições treino/oportunidade/resultado. Sem AAB ou build
 release de loja nesta etapa; teste físico de 0.6.4 pendente.
+
+## 0.6.5 — splash persistente, novo/carregar e FREE explícito
+
+Feedback: splash desaparecia na rotação, faltava escolha de carreira ao abrir,
+nome «England Division 4» sugeria várias divisões e menu precisava de redesign.
+
+Alterados: main.py, career.py, menu_ui.py, assets/menu_stadium.png,
+buildozer.spec, suites core/Kivy, README, AGENTS e docs/UI_0.6.5.md.
+Detalhes e referência visual consultada (imagem de menu FIFA 2000) no relatório.
+Não foi integrado código ou material de outros jogos. Novo fundo original.
+
+25 testes sem interface + 15 Kivy aprovados (40). Comandos:
+`python3 -m py_compile career.py main.py menu_ui.py`;
+`python3 -m unittest discover -s tests -v`;
+`KIVY_HOME=/workspace/striker-runtime/kivy /workspace/striker-venv/bin/python -m unittest discover -s ui_tests -v`.
+Logs core/UI em `/tmp/scorer-065-core-final.log` e
+`/tmp/scorer-065-ui-final.log`. Cobrem persistência do splash através de tempo,
+rotação e toque real, carregamento explícito, ausência de autogravação antes da
+escolha, confirmação/cancelamento/backup atómico, saves inválidos, transferência
+FREE e duas épocas mantendo uma única liga, migração do nome sem perder progresso.
+
+Capturas reais da janela Kivy 1280×589/densidade 1,64 inspecionadas: menu,
+entrada e splash, em `/workspace/striker-runtime/scorer-065-*.png`.
+Não equivalem a capturas nem testes Android. Baseline SHA-256 permanece
+fed211d2ec63fe0275390b13ed4a1bcfcd18fa61238460b04b67d80ebca6205b.
+
+Build real: `bash tools/android/run.sh python tools/build_android.py -v android debug`.
+Logs `build-0.6.5.log` e `verify-0.6.5.log` no runtime. Assinatura v2 debug válida,
+mesmo certificado, versão 0.6.5/API 36/mínimo 26/arm64. ZIP alinhado a 16 KB e
+118 ELF AArch64 verificados. Ícone, presplash e assets (incluindo fundo novo)
+conferem com fontes; sem saves, backups ou chaves de assinatura no pacote.
+SHA-256 APK: 2334c6447665e711edf91d2f6cd70bd34b9acd360f824ec130adce21b2dca7e4.
+
+Próximo: testar no telemóvel rotação/espera sem tocar no splash, toque para
+Novo jogo/Carregar jogo e carregamento da carreira anterior, nome Liga Scorer e
+navegação do menu. Sem teste físico desta versão, AAB ou assinatura release.

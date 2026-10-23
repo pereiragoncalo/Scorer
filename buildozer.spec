@@ -4,9 +4,9 @@ package.name = striker
 package.domain = com.clemir
 source.dir = .
 source.exclude_dirs = baseline,tests,ui_tests,docs,tools,.git,.buildozer,bin
-source.exclude_patterns = striker_career.json,*.keystore,*.jks,*.log
+source.exclude_patterns = striker_career*.json,*.keystore,*.jks,*.log
 source.include_exts = py,png,jpg,jpeg,kv,json,atlas,ttf
-version = 0.6.4
+version = 0.6.5
 requirements = python3,kivy==2.3.1,chardet==5.2.0
 orientation = landscape
 fullscreen = 1

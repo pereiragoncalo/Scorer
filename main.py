@@ -227,8 +227,10 @@ class StrikerGame(Widget):
         self._menu = None
         self._match_notice = None
         self._exit_popup = None
-        self.career = CareerMode()
-        self.view = "hub" if self.career.club_name else "offers"
+        self._new_game_popup = None
+        self._career_started = False
+        self.career = CareerMode(autoload=False)
+        self.view = "splash"
         self.shot_context = "career"
         self.ui_buttons: list[tuple[float, float, float, float, str, object]] = []
         self.table_page = 0
@@ -2342,8 +2344,57 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     # Controlos
     # ------------------------------------------------------------------
+    def _request_new_game(self):
+        if self.view != "start" or self._new_game_popup is not None:
+            return
+        if not self.career.save_path.exists():
+            self._start_new_career()
+            return
+        content = BoxLayout(orientation="vertical", spacing=dp(12), padding=dp(12))
+        content.add_widget(FlowLabel(text="Já existe uma carreira. Queres começar de novo? "
+                                    "A carreira antiga será protegida numa cópia local antes da substituição."))
+        buttons = BoxLayout(size_hint_y=None, height=dp(56), spacing=dp(12))
+        popup = Popup(title="Começar uma nova carreira?", content=content,
+                      size_hint=(0.9, None), height=min(Window.height - dp(16), dp(300)),
+                      auto_dismiss=False)
+        buttons.add_widget(TouchButton("CANCELAR", popup.dismiss))
+        buttons.add_widget(TouchButton("NOVO JOGO", self._start_new_career, accent=True))
+        content.add_widget(buttons)
+        popup.bind(on_dismiss=lambda *_: setattr(self, "_new_game_popup", None))
+        self._new_game_popup = popup
+        popup.open()
+
+    def _start_new_career(self):
+        if self.view != "start":
+            return
+        if not self.career.backup_before_new_game():
+            if self._new_game_popup is not None:
+                self._new_game_popup.dismiss()
+            self.draw()
+            return
+        if self._new_game_popup is not None:
+            self._new_game_popup.dismiss()
+        self.career = CareerMode(autoload=False)
+        self._career_started = False
+        self.training_completed = False
+        self.training_goals = 0
+        self.match_finished = False
+        self.awaiting_chance = False
+        self.view = "offers"
+        self.draw()
+
+    def _load_career(self):
+        if self.view != "start":
+            return
+        if self.career.load():
+            self._career_started = True
+            self.view = "hub"
+        else:
+            self.career.message = "Não foi possível carregar esta carreira. O ficheiro antigo foi preservado."
+        self.draw()
+
     def _request_exit(self):
-        if self._exit_popup is not None or self.view not in ("hub", "offers"):
+        if self._exit_popup is not None or self.view not in ("hub", "offers", "start"):
             return
         content = BoxLayout(orientation="vertical", spacing=dp(12), padding=dp(12))
         message = "A carreira será guardada antes de sair."
@@ -2376,8 +2427,10 @@ class StrikerGame(Widget):
             app.stop()
 
     def _on_key_down(self, _window, key, _scancode, codepoint, _modifiers):
+        if self.view == "splash":
+            return True
         if key == 27:  # ESC
-            if self.view not in ("hub", "offers") and self.career.club_name:
+            if self.view not in ("hub", "offers", "start") and self.career.club_name:
                 self.view = "hub"
                 return True
             self._request_exit()
@@ -2467,10 +2520,17 @@ class StrikerGame(Widget):
 
 
     def _activate_ui(self, action: str, value: object = None) -> None:
-        if action == "exit":
+        if action == "splash_continue" and self.view == "splash":
+            self.view = "start"
+        elif action == "new_game" and self.view == "start":
+            self._request_new_game()
+        elif action == "load_game":
+            self._load_career()
+        elif action == "exit":
             self._request_exit()
         elif action == "accept_offer":
             self.career.accept_starting_offer(str(value))
+            self._career_started = bool(self.career.club_name)
             self.view = "hub"
         elif action == "hub":
             self.view = "hub"
@@ -4783,12 +4843,12 @@ class StrikerApp(App):
 
 
     def on_pause(self):
-        if self.root is not None:
+        if self.root is not None and self.root._career_started:
             self.root.career.save()
         return True
 
     def on_stop(self):
-        if self.root is not None:
+        if self.root is not None and self.root._career_started:
             self.root.career.save()
 
     def build(self):

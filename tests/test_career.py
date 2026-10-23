@@ -166,10 +166,66 @@ class CareerTests(unittest.TestCase):
 
     def test_save_outcome_and_fictional_free_division(self):
         c = self.signed()
-        self.assertEqual(c.current_league.name, 'Divisão Scorer')
+        self.assertEqual(c.current_league.name, 'Liga Scorer')
         self.assertTrue(c.save())
         with patch('career.os.replace', side_effect=OSError('disk full')):
             self.assertFalse(c.save())
+
+    def test_explicit_load_leaves_saved_career_untouched_until_selected(self):
+        saved = self.signed()
+        saved.goals = 17
+        saved.save()
+        before = saved.save_path.read_bytes()
+        fresh = career.CareerMode(autoload=False)
+        self.assertEqual(fresh.club_name, '')
+        self.assertEqual(fresh.save_path.read_bytes(), before)
+        self.assertTrue(fresh.load())
+        self.assertEqual(fresh.goals, 17)
+        self.assertEqual(fresh.save_path.read_bytes(), before)
+
+    def test_new_game_backup_is_atomic_and_failure_preserves_existing_files(self):
+        c = self.signed()
+        before = c.save_path.read_bytes()
+        self.assertTrue(c.backup_before_new_game())
+        backup = c.save_path.with_name('striker_career.previous.json')
+        self.assertEqual(backup.read_bytes(), before)
+        c.goals = 88
+        c.save()
+        updated = c.save_path.read_bytes()
+        with patch('career.os.replace', side_effect=OSError('disk full')):
+            self.assertFalse(c.backup_before_new_game())
+        self.assertEqual(c.save_path.read_bytes(), updated)
+        self.assertEqual(backup.read_bytes(), before)
+        self.assertEqual(list(c.save_path.parent.glob('*.tmp')), [])
+
+    def test_legacy_division_label_migrates_without_losing_progress(self):
+        c = self.signed()
+        c.goals, c.matches, c.week = 11, 6, 8
+        c.save()
+        original = json.loads(c.save_path.read_text())
+        for old_name in ('England Division 4', 'Divisão Striker', 'Divisão Scorer'):
+            data = json.loads(json.dumps(original))
+            data['career']['league_name'] = old_name
+            c.save_path.write_text(json.dumps(data))
+            restored = career.CareerMode()
+            self.assertEqual(restored.current_league.name, 'Liga Scorer')
+            self.assertEqual((restored.goals, restored.matches, restored.week), (11, 6, 8))
+            self.assertEqual(restored.club_name, c.club_name)
+            self.assertTrue(all(club.league == 'Liga Scorer' for club in restored.current_league.clubs))
+
+    def test_free_transfer_offers_and_seasons_stay_in_only_one_division(self):
+        c = self.signed()
+        c.goals, c.matches, c.morale = 100, 10, 20
+        self.assertTrue(all(key == career.FREE_LEAGUE_KEY for _, key in c.generate_agent_offers(guaranteed=True)))
+        old_club = c.club_name
+        c.agent_offers = [('Foreign FC', 'Portugal|1')]
+        c.accept_transfer('Foreign FC', 'Portugal|1')
+        self.assertEqual(c.club_name, old_club)
+        for _ in range(2):
+            c.club.points = 9999
+            c._finish_season()
+            self.assertEqual(c.league_key, career.FREE_LEAGUE_KEY)
+            self.assertEqual(sum(c.is_league_playable(key) for key in c.leagues), 1)
 
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'

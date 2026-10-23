@@ -433,7 +433,7 @@ CLUB_KIT_HEX: dict[str, tuple[str, str, str, str]] = {}
 
 def division_name(country: str, tier: int) -> str:
     if country == "England" and tier == 4:
-        return "Divisão Scorer"
+        return "Liga Scorer"
     names = DIVISION_NAMES.get(country, ())
     if 0 < tier <= len(names):
         return names[tier - 1]
@@ -636,7 +636,7 @@ class CareerMode:
     LEGACY_SAVE_VERSION = 1
 
 
-    def __init__(self, entitlement_provider: Optional[EntitlementProvider] = None) -> None:
+    def __init__(self, entitlement_provider: Optional[EntitlementProvider] = None, *, autoload: bool = True) -> None:
         self.entitlements = EntitlementManager(entitlement_provider)
         self._locked_world_career: Optional[dict[str, object]] = None
         self.player_name = "Alex Silva"
@@ -672,7 +672,8 @@ class CareerMode:
         self._build_world()
         self._new_starting_offers()
         self._migrate_legacy_save()
-        self.load()
+        if autoload:
+            self.load()
 
 
     @property
@@ -1476,13 +1477,41 @@ class CareerMode:
         return True
 
 
-    def load(self) -> None:
+    def backup_before_new_game(self) -> bool:
+        """Preserve the current save atomically before the user starts a new career."""
+        temporary = None
+        try:
+            source = self.save_path
+            if not source.exists():
+                return True
+            content = source.read_bytes()
+            with tempfile.NamedTemporaryFile(dir=source.parent, prefix=".striker-backup-",
+                                             suffix=".tmp", delete=False) as output:
+                temporary = Path(output.name)
+                output.write(content)
+                output.flush()
+                os.fsync(output.fileno())
+            os.replace(temporary, source.with_name("striker_career.previous.json"))
+            return True
+        except OSError:
+            self.message = "Não foi possível proteger a carreira antiga. Novo jogo cancelado."
+            return False
+        finally:
+            if temporary is not None:
+                try:
+                    temporary.unlink(missing_ok=True)
+                except OSError:
+                    pass  # Cleanup failure must not allow a new career to replace the save.
+
+    def load(self) -> bool:
         # Work on isolated state: a damaged save must not partially replace a career.
         candidate = object.__new__(type(self))
         candidate.__dict__ = {key: (value if key == "entitlements" else copy.deepcopy(value))
                               for key, value in self.__dict__.items()}
         if candidate._load_saved_state():
             self.__dict__.update(candidate.__dict__)
+            return bool(self.club_name)
+        return False
 
     def _load_saved_state(self) -> bool:
         try:
@@ -1586,6 +1615,10 @@ class CareerMode:
             self.last_offer_week = int(data.get("last_offer_week", -99))
             league = self.current_league
             saved_league_name = data.get("league_name")
+            if key == FREE_LEAGUE_KEY and saved_league_name in (
+                "England Division 4", "Divisão Striker", "Divisão Scorer"
+            ):
+                saved_league_name = "Liga Scorer"
             if saved_league_name:
                 try:
                     league.name = sanitize_local_display_name(saved_league_name, limit=56)
@@ -1594,6 +1627,9 @@ class CareerMode:
             saved_clubs = data.get("clubs", [])
             if saved_clubs:
                 league.clubs = [CareerClub(**club) for club in saved_clubs]
+            if key == FREE_LEAGUE_KEY:
+                for club in league.clubs:
+                    club.league = league.name
             league.round_index = int(data.get("league_round", 0))
             league.scorer_goals = {
                 str(name): int(goals) for name, goals in data.get("scorers", {}).items()

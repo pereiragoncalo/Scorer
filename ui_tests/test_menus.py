@@ -3,6 +3,8 @@ import os
 import tempfile
 import unittest
 from unittest.mock import patch
+from contextlib import contextmanager
+from types import SimpleNamespace
 
 from kivy.clock import Clock
 from kivy.core.window import Window
@@ -12,7 +14,8 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.tests.common import UnitTestTouch
 
-from main import StrikerGame
+from main import StrikerGame, StrikerApp
+from career import CareerMode
 from menu_ui import TouchButton, MenuTile
 
 
@@ -20,6 +23,29 @@ def settle():
     for _ in range(18):
         Clock.tick()
         Clock.tick_draw()
+
+
+@contextmanager
+def isolated_game(saved=False, corrupt=False):
+    with tempfile.TemporaryDirectory() as root, patch.dict(os.environ, STRIKER_SAVE_DIR=root):
+        c = CareerMode()
+        if saved:
+            c.accept_starting_offer(c.offers[0])
+            c.goals = 17
+            c.save()
+        if corrupt:
+            c.save_path.write_text('{broken')
+        game = StrikerGame()
+        Window.add_widget(game)
+        try:
+            yield game
+        finally:
+            for popup in (game._exit_popup, game._new_game_popup):
+                if popup is not None:
+                    popup.dismiss()
+            Clock.unschedule(game.update)
+            Window.remove_widget(game)
+            Window.unbind(on_key_down=game._on_key_down)
 
 
 class MenuTests(unittest.TestCase):
@@ -40,11 +66,83 @@ class MenuTests(unittest.TestCase):
         cls.env.stop()
         cls.temp.cleanup()
 
+    def test_splash_survives_rotation_and_time_until_real_touch(self):
+        with isolated_game(saved=True) as game:
+            before = game.career.save_path.read_bytes()
+            for size in ((360, 800), (1280, 589), (960, 540)):
+                Window.size = size
+                game.size = size
+                for _ in range(12):
+                    game.update(1)
+                settle()
+                self.assertEqual(game.view, 'splash')
+                self.assertEqual(game.career.club_name, '')
+            StrikerApp.on_pause(SimpleNamespace(root=game))
+            StrikerApp.on_stop(SimpleNamespace(root=game))
+            self.assertEqual(game.career.save_path.read_bytes(), before)
+            touch = UnitTestTouch(*game.center)
+            touch.touch_down()
+            touch.touch_up()
+            settle()
+            self.assertEqual(game.view, 'start')
+            labels = [w.text for w in game.walk() if isinstance(w, TouchButton)]
+            self.assertEqual(set(labels), {'NOVO JOGO', 'CARREGAR JOGO', 'SAIR'})
+            self.assertEqual(game.career.save_path.read_bytes(), before)
+            game._activate_ui('load_game')
+            settle()
+            self.assertEqual(game.view, 'hub')
+            self.assertEqual(game.career.goals, 17)
+
+    def test_new_game_cancel_and_confirmation_preserve_old_save(self):
+        with isolated_game(saved=True) as game:
+            before = game.career.save_path.read_bytes()
+            game._activate_ui('splash_continue')
+            game.draw()
+            game._activate_ui('new_game')
+            settle()
+            self.assertIsNotNone(game._new_game_popup)
+            game._new_game_popup.dismiss()
+            self.assertEqual(game.view, 'start')
+            self.assertEqual(game.career.save_path.read_bytes(), before)
+            game._activate_ui('new_game')
+            game._start_new_career()
+            settle()
+            self.assertEqual(game.view, 'offers')
+            self.assertEqual(game.career.save_path.read_bytes(), before)
+            self.assertEqual(game.career.save_path.with_name('striker_career.previous.json').read_bytes(), before)
+            self.assertFalse(game._career_started)
+            game._activate_ui('accept_offer', game.career.offers[0])
+            self.assertTrue(game._career_started)
+            self.assertEqual(game.career.goals, 0)
+            self.assertEqual(game.career.save_path.with_name('striker_career.previous.json').read_bytes(), before)
+
+    def test_new_game_backup_failure_and_corrupt_load_stay_on_entry(self):
+        with isolated_game(corrupt=True) as game:
+            game._activate_ui('splash_continue')
+            game._load_career()
+            self.assertEqual(game.view, 'start')
+            self.assertEqual(game.career.save_path.read_text(), '{broken')
+            with patch.object(game.career, 'backup_before_new_game', return_value=False):
+                game._start_new_career()
+            self.assertEqual(game.view, 'start')
+            self.assertEqual(game.career.save_path.read_text(), '{broken')
+
+    def test_load_is_disabled_when_no_save_exists(self):
+        with isolated_game() as game:
+            game._activate_ui('splash_continue')
+            game.draw()
+            settle()
+            load = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'CARREGAR JOGO')
+            self.assertTrue(load.disabled)
+            game._activate_ui('new_game')
+            self.assertEqual(game.view, 'offers')
+            self.assertIsNone(game._new_game_popup)
+
     def test_all_menu_layouts_at_phone_sizes(self):
         for size in ((640, 360), (800, 360), (960, 540), (1280, 720), (360, 800), (320, 240)):
             Window.size = size
             self.game.size = size
-            for view in ('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent'):
+            for view in ('start', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent'):
                 with self.subTest(size=size, view=view):
                     self.game.view = view
                     self.game.draw()

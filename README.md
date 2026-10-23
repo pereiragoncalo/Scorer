@@ -68,3 +68,13 @@ com Sair apenas no cabeçalho. Listas de classificação/calendário continuam
 navegáveis por deslocação. Painel final dimensionado pelo conteúdo, botão
 Continuar limitado a 176 dp. Splash «SCORER by clemir» e ícone próprio Android.
 Ver [verificação da versão](docs/UI_0.6.4.md).
+
+## SCORER 0.6.5 — escolher a carreira ao abrir
+
+O splash permanece até tocar no ecrã, inclusive depois de rodar. Segue-se
+Novo jogo / Carregar jogo / Sair. Novo jogo com save existente exige confirmação
+e cópia local de segurança; cancelar ou fechar antes da escolha preserva o save.
+Nome legado «England Division 4» migra para Liga Scorer sem apagar progresso:
+FREE permite uma única divisão. Novo menu com fundo original de estádio,
+próximo jogo destacado e navegação inferior, sem scroll.
+[Alterações, referência visual, 40 testes e limitações](docs/UI_0.6.5.md).

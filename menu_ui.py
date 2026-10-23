@@ -1,19 +1,21 @@
 """Responsive, touch-friendly career menus for the original Kivy game."""
 from career import EUROPE_PYRAMID_DEPTH, WORLD_COUNTRIES
-from kivy.graphics import Color, RoundedRectangle
+from kivy.graphics import Color, RoundedRectangle, Rectangle, Line
+from kivy.core.image import Image as CoreImage
 from kivy.metrics import dp, sp
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.progressbar import ProgressBar
 from kivy.uix.scrollview import ScrollView
 
 INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
-MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world'))
+MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start'))
 
 
 class FlowLabel(Label):
@@ -73,13 +75,17 @@ class CareerMenu(BoxLayout):
         self.game = game
         self._signature = None
         with self.canvas.before:
-            Color(0.012, 0.035, 0.05, 1)
+            Color(1, 1, 1, 1)
+            self._stadium = Rectangle(texture=CoreImage('assets/menu_stadium.png').texture,
+                                      pos=self.pos, size=self.size)
+            self._shade = Color(0.012, 0.035, 0.05, 0.62)
             self._background = RoundedRectangle(pos=self.pos, size=self.size, radius=[0])
         self.bind(pos=self._rect, size=self._rect)
         self.sync()
 
     def _rect(self, *_):
         self._background.pos, self._background.size = self.pos, self.size
+        self._stadium.pos, self._stadium.size = self.pos, self.size
 
     def sync(self):
         self.pos, self.size = self.game.pos, self.game.size
@@ -101,6 +107,13 @@ class CareerMenu(BoxLayout):
 
     def _build(self):
         self.clear_widgets()
+        self._shade.a = 1 if self.game.view == 'splash' else 0.62
+        if self.game.view in ('splash', 'start'):
+            self.padding = self.spacing = 0
+            self.scroll = None
+            self.body = SplashScreen(self) if self.game.view == 'splash' else EntryScreen(self)
+            self.add_widget(self.body)
+            return
         self.padding = dp(12) if self.game.view == 'hub' else dp(16)
         self.spacing = dp(8) if self.game.view == 'hub' else dp(12)
         header = BoxLayout(size_hint_y=None, height=dp(60), spacing=dp(8))
@@ -288,7 +301,8 @@ class BoundedLabel(Label):
         kwargs.setdefault('font_size', sp(13))
         kwargs.setdefault('max_lines', 2)
         self._preferred_font = kwargs['font_size']
-        super().__init__(halign='left', valign='middle', shorten=True,
+        kwargs.setdefault('halign', 'left')
+        super().__init__(valign='middle', shorten=True,
                          shorten_from='right', **kwargs)
         self.bind(size=self._bounds)
         self._bounds()
@@ -313,63 +327,149 @@ class MenuTile(TouchButton):
         self.text_size = (max(1, self.width - dp(16)), max(1, self.height - dp(12)))
 
 
-class MainDashboard(BoxLayout):
-    """One screen for all primary actions, with no ScrollView or hidden buttons."""
-    def __init__(self, menu):
-        super().__init__(orientation='vertical', spacing=dp(8))
-        self.menu = menu
-        c = menu.game.career
-        self.row = BoxLayout(spacing=dp(16))
-        self.add_widget(self.row)
-        self.summary = BoxLayout(orientation='vertical', padding=dp(12), spacing=dp(2))
-        with self.summary.canvas.before:
-            Color(0.035, 0.10, 0.12, 1)
-            self.background = RoundedRectangle(pos=self.summary.pos, size=self.summary.size, radius=[dp(10)])
-        self.summary.bind(pos=self._rect, size=self._rect)
-        self.identity = BoundedLabel(text=c.player_name, font_size=sp(18), bold=True, color=GREEN)
-        self.club = BoundedLabel(text=c.club_name, font_size=sp(14))
-        self.meta = BoundedLabel(text=f'{c.current_league.name} · {c.format_date(c.current_date)}', color=MUTED, font_size=sp(11))
-        self.stats = BoundedLabel(text=f'Energia {c.stamina:.1f}/20   ·   Moral {c.morale:.1f}/20', font_size=sp(12))
-        self.totals = BoundedLabel(text=f'{c.matches} jogos   ·   {c.goals} golos', font_size=sp(12), color=MUTED)
-        fixture = c.next_match()
-        next_game = f'{fixture[1].name} vs {fixture[2].name}' if fixture else 'Época concluída'
-        self.fixture_heading = BoundedLabel(text='PRÓXIMO JOGO', font_size=sp(10), color=MUTED)
-        self.fixture = BoundedLabel(text=next_game, font_size=sp(12))
-        self.fields = (self.identity, self.club, self.meta, self.stats, self.totals, self.fixture_heading, self.fixture)
-        for field in self.fields:
-            self.summary.add_widget(field)
-        self.row.add_widget(self.summary)
-        self.actions = GridLayout(cols=2, spacing=dp(8))
-        for title, action in [('JOGAR', 'play'), ('TREINO', 'training'),
-                              ('CLASSIFICAÇÃO', 'standings'), ('MARCADORES', 'scorers'),
-                              ('CALENDÁRIO', 'calendar'), ('AGENTE', 'agent')]:
-            self.actions.add_widget(MenuTile(title, lambda name=action: menu.action(name), accent=action == 'play'))
-        if c.world_unlocked:
-            self.actions.add_widget(MenuTile('MUNDO', lambda: menu.action('world')))
-            self.actions.add_widget(MenuTile('EDITOR LOCAL', lambda: menu.action('editor')))
-        self.row.add_widget(self.actions)
-        self.status = BoundedLabel(text=c.message, color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(28))
-        self.add_widget(self.status)
-        self.bind(size=self._arrange)
-        self.row.bind(size=self._arrange)
-        self._arrange()
+class EdgePanel(BoxLayout):
+    """Quiet stadium overlay with one accent edge, rather than large solid tiles."""
+    def __init__(self, **kwargs):
+        kwargs.setdefault('padding', dp(10))
+        kwargs.setdefault('spacing', dp(4))
+        super().__init__(**kwargs)
+        with self.canvas.before:
+            Color(0.02, 0.06, 0.09, 0.90)
+            self.background = RoundedRectangle(pos=self.pos, size=self.size, radius=[dp(6)])
+            Color(*GREEN)
+            self.edge = Line(points=[self.x, self.top, self.right, self.top], width=1)
+        self.bind(pos=self._rect, size=self._rect)
 
     def _rect(self, *_):
-        self.background.pos, self.background.size = self.summary.pos, self.summary.size
+        self.background.pos, self.background.size = self.pos, self.size
+        self.edge.points = [self.x, self.top, self.right, self.top]
+
+
+class SplashScreen(FloatLayout):
+    def __init__(self, menu):
+        super().__init__()
+        self.menu = menu
+        self.add_widget(Image(source='assets/splash.png', fit_mode='contain'))
+        self.add_widget(BoundedLabel(text='TAP TO START', font_size=sp(13), bold=True,
+                                    halign='center', size_hint=(1, None), height=dp(32),
+                                    pos_hint={'x': 0, 'y': 0}))
+
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos) and not getattr(touch, 'is_mouse_scrolling', False):
+            self.menu.action('splash_continue')
+            return True
+        return super().on_touch_down(touch)
+
+
+class EntryScreen(FloatLayout):
+    def __init__(self, menu):
+        super().__init__()
+        self.menu = menu
+        self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
+        self.panel.add_widget(BoundedLabel(text='SCORER by clemir', font_size=sp(20), bold=True,
+                                          size_hint_y=None, height=dp(28)))
+        self.info = BoundedLabel(text='A tua carreira. Uma divisão. Todos os golos contam.',
+                                 color=MUTED, font_size=sp(12))
+        if menu.game.career.message.startswith('Não foi possível'):
+            self.info.text = menu.game.career.message
+        self.panel.add_widget(self.info)
+        self.panel.add_widget(MenuTile('NOVO JOGO', lambda: menu.action('new_game'), accent=True))
+        load = MenuTile('CARREGAR JOGO', lambda: menu.action('load_game'))
+        load.disabled = not menu.game.career.save_path.is_file()
+        self.panel.add_widget(load)
+        self.panel.add_widget(MenuTile('SAIR', menu.game._request_exit))
+        self.add_widget(self.panel)
+        self.bind(pos=self._fit, size=self._fit)
+        self._fit()
+
+    def _fit(self, *_):
+        self.panel.size = (min(self.width - dp(24), dp(340)), min(self.height - dp(16), dp(280)))
+        self.panel.center = self.center
+        if self.panel.height < dp(250) and self.info.parent is self.panel:
+            self.panel.remove_widget(self.info)
+        elif self.panel.height >= dp(250) and self.info.parent is None:
+            self.panel.add_widget(self.info, index=3)
+
+
+class MainDashboard(BoxLayout):
+    """Match first; secondary destinations form one compact navigation strip."""
+    def __init__(self, menu):
+        super().__init__(orientation='vertical', spacing=dp(6))
+        self.menu = menu
+        c = menu.game.career
+        self.identity = BoxLayout(size_hint_y=None, height=dp(36), spacing=dp(12))
+        self.identity.add_widget(BoundedLabel(text=c.player_name, font_size=sp(18), bold=True, color=GREEN))
+        self.identity.add_widget(BoundedLabel(text=c.club_name, font_size=sp(14)))
+        self.identity.add_widget(BoundedLabel(text=f'Energia {c.stamina:.1f}/20 · Moral {c.morale:.1f}/20',
+                                             color=MUTED, font_size=sp(11)))
+        self.add_widget(self.identity)
+        self.hero = BoxLayout(spacing=dp(12))
+        self.match = EdgePanel(orientation='vertical', size_hint_x=0.66)
+        self.match.add_widget(BoundedLabel(text='PRÓXIMO JOGO', color=GREEN, font_size=sp(10),
+                                          bold=True, size_hint_y=None, height=dp(16)))
+        fixture = c.next_match()
+        teams = BoxLayout(spacing=dp(8))
+        home = fixture[1].name if fixture else 'Época concluída'
+        away = fixture[2].name if fixture else ''
+        teams.add_widget(BoundedLabel(text=home, font_size=sp(18), bold=True, halign='center'))
+        teams.add_widget(BoundedLabel(text='VS' if fixture else '', font_size=sp(11), color=MUTED,
+                                     halign='center', size_hint_x=0.18))
+        teams.add_widget(BoundedLabel(text=away, font_size=sp(18), bold=True, halign='center'))
+        self.match.add_widget(teams)
+        footer = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        footer.add_widget(BoundedLabel(text=c.format_date(c.current_date), font_size=sp(11), color=MUTED))
+        self.play = MenuTile('JOGAR', lambda: menu.action('play'), accent=True)
+        self.play.size_hint_x, self.play.width = None, dp(136)
+        footer.add_widget(self.play)
+        self.match.add_widget(footer)
+        self.hero.add_widget(self.match)
+        self.season = EdgePanel(orientation='vertical', size_hint_x=0.34)
+        self.season.add_widget(BoundedLabel(text='A TUA ÉPOCA', color=GREEN, font_size=sp(10),
+                                           bold=True, size_hint_y=None, height=dp(16)))
+        numbers = BoxLayout(spacing=dp(8))
+        for number, title in ((c.matches, 'JOGOS'), (c.goals, 'GOLOS')):
+            column = BoxLayout(orientation='vertical')
+            column.add_widget(BoundedLabel(text=str(number), font_size=sp(30), bold=True, halign='center'))
+            column.add_widget(BoundedLabel(text=title, font_size=sp(10), color=MUTED, halign='center',
+                                           size_hint_y=None, height=dp(20)))
+            numbers.add_widget(column)
+        self.season.add_widget(numbers)
+        self.season.add_widget(BoundedLabel(text=c.current_league.name + (' · 1 DIVISÃO' if not c.world_unlocked else ''),
+                                           color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
+        self.hero.add_widget(self.season)
+        self.add_widget(self.hero)
+        self.actions = GridLayout(cols=5, spacing=dp(6), size_hint_y=None, height=dp(52))
+        for title, action in [('TREINO', 'training'), ('CLASSIFICAÇÃO', 'standings'),
+                              ('MARCADORES', 'scorers'), ('CALENDÁRIO', 'calendar'), ('AGENTE', 'agent')]:
+            button = MenuTile(title, lambda name=action: menu.action(name))
+            self.actions.add_widget(button)
+        self.add_widget(self.actions)
+        self.status = BoundedLabel(text=c.message, color=MUTED, font_size=sp(11),
+                                   size_hint_y=None, height=dp(24))
+        self.add_widget(self.status)
+        self.bind(size=self._arrange)
+        self._arrange()
 
     def _arrange(self, *_):
-        portrait = self.width < dp(480) and self.height > self.width
-        self.row.orientation = 'vertical' if portrait else 'horizontal'
-        self.summary.size_hint = (1, 0.48) if portrait else (0.42, 1)
-        self.actions.size_hint = (1, 0.52) if portrait else (0.58, 1)
-        short = not portrait and self.row.height < dp(200)
-        self.actions.cols = 3 if short else 2
-        self.summary.spacing = dp(1) if short else dp(2)
-        self.summary.padding = dp(8) if short else dp(12)
-        # Extra metadata is still available in Calendar; keep essential identity
-        # and controls readable on exceptionally short desktop/test windows.
-        visible = (self.identity, self.club, self.stats, self.fixture) if short else self.fields
-        if tuple(reversed(self.summary.children)) != visible:
-            self.summary.clear_widgets()
-            for field in visible:
-                self.summary.add_widget(field)
+        tiny = self.height < dp(215)
+        portrait = self.width < dp(480) and self.height > dp(400)
+        self.identity.height = dp(24 if tiny else 36)
+        if tiny:
+            if self.hero.parent is self:
+                self.remove_widget(self.hero)
+                self.play.parent.remove_widget(self.play)
+                self.play.size_hint_x = 1
+                self.actions.add_widget(self.play, index=len(self.actions.children))
+            self.actions.cols = 3
+        else:
+            if self.hero.parent is None:
+                self.actions.remove_widget(self.play)
+                self.play.size_hint_x, self.play.width = None, dp(136)
+                self.match.children[0].add_widget(self.play)
+                self.add_widget(self.hero, index=2)
+            self.actions.cols = 2 if portrait else 5
+        rows = (len(self.actions.children) + self.actions.cols - 1) // self.actions.cols
+        self.actions.height = rows * dp(52) + (rows - 1) * dp(6)
+        self.hero.orientation = 'vertical' if portrait else 'horizontal'
+        self.match.size_hint = (1, 0.60) if portrait else (0.66, 1)
+        self.season.size_hint = (1, 0.40) if portrait else (0.34, 1)
