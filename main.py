@@ -74,7 +74,7 @@ from kivy.uix.label import Label as UiLabel
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp
-from menu_ui import CareerMenu, MENU_VIEWS, FlowLabel, TouchButton
+from menu_ui import CareerMenu, MENU_VIEWS, FlowLabel, TouchButton, MatchNotice
 from kivy.utils import platform
 
 
@@ -225,6 +225,7 @@ class StrikerGame(Widget):
 
 
         self._menu = None
+        self._match_notice = None
         self._exit_popup = None
         self.career = CareerMode()
         self.view = "hub" if self.career.club_name else "offers"
@@ -2342,7 +2343,7 @@ class StrikerGame(Widget):
     # Controlos
     # ------------------------------------------------------------------
     def _request_exit(self):
-        if self._exit_popup is not None:
+        if self._exit_popup is not None or self.view not in ("hub", "offers"):
             return
         content = BoxLayout(orientation="vertical", spacing=dp(12), padding=dp(12))
         message = "A carreira será guardada antes de sair."
@@ -2353,7 +2354,7 @@ class StrikerGame(Widget):
         message_scroll.add_widget(FlowLabel(text=message))
         content.add_widget(message_scroll)
         buttons = BoxLayout(spacing=dp(12), size_hint_y=None, height=dp(56))
-        popup = Popup(title="Sair do Striker?", content=content,
+        popup = Popup(title="Sair do Scorer?", content=content,
                       size_hint=(0.9, None), height=min(Window.height - dp(16), dp(280)),
                       auto_dismiss=False)
         buttons.bind(minimum_height=buttons.setter("height"))
@@ -2422,7 +2423,7 @@ class StrikerGame(Widget):
 
 
     def on_touch_down(self, touch):
-        if self._menu is not None:
+        if self._menu is not None or self._match_notice is not None:
             super().on_touch_down(touch)
             return True
         for x, y, width, height, action, value in reversed(self.ui_buttons):
@@ -2525,6 +2526,9 @@ class StrikerGame(Widget):
     # Desenho
     # ------------------------------------------------------------------
     def draw(self) -> None:
+        # Detach native overlay before clearing scene instructions; retain its layout.
+        if self._match_notice is not None and self._match_notice.parent is self:
+            self.remove_widget(self._match_notice)
         if self.view in MENU_VIEWS:
             self.ui_buttons.clear()
             if self._menu is None:
@@ -2556,7 +2560,7 @@ class StrikerGame(Widget):
                     anchor="center",
                 )
                 self._draw_text(
-                    "STRIKER IS DESIGNED FOR LANDSCAPE",
+                    "SCORER IS DESIGNED FOR LANDSCAPE",
                     self.center_x,
                     self.center_y - 32,
                     font_size=max(13, int(self.width * 0.025)),
@@ -2611,7 +2615,13 @@ class StrikerGame(Widget):
 
             if self.view == "match":
                 self._draw_match_overlay()
-            self._ui_button("SAIR", self.right - dp(104), self.y + dp(12), dp(88), dp(48), "exit")
+        if self.view == "match" and (self.match_finished or self.awaiting_chance):
+            if self._match_notice is None:
+                self._match_notice = MatchNotice(self)
+            self._match_notice.sync()
+            self.add_widget(self._match_notice)
+        else:
+            self._match_notice = None
 
 
     def _draw_career_screen(self) -> None:
@@ -2626,7 +2636,7 @@ class StrikerGame(Widget):
 
 
         self._draw_text(
-            "STRIKER  CAREER",
+            "SCORER  CAREER",
             self.x + 34,
             self.top - 42,
             font_size=max(22, int(self.height * 0.043)),
@@ -2779,7 +2789,7 @@ class StrikerGame(Widget):
         season_text = f"{career.season}/{str(career.season + 1)[-2:]}"
         margin = max(28.0, self.width * 0.035)
         gap = max(14.0, self.width * 0.012)
-        content_top = self.top - 82
+        content_top = self.top - dp(64)
         content_bottom = self.y + 92
         content_height = content_top - content_bottom
         usable_width = self.width - margin * 2 - gap
@@ -2848,7 +2858,7 @@ class StrikerGame(Widget):
             next_text = f"PROXIMO: {prefix} | {home.name}  vs  {away.name}"
         else:
             next_text = "EPOCA CONCLUIDA"
-        self._draw_text("PROXIMO JOGO", left_x + 20, content_bottom + 100, max(11, int(self.height * 0.019)), (0.58, 0.72, 0.70, 1.0))
+        self._draw_text("PROXIMO JOGO", left_x + 20, content_bottom + 100, dp(12), (0.58, 0.72, 0.70, 1.0))
         self._draw_text(next_text.replace("PROXIMO: ", ""), left_x + 20, content_bottom + 66, max(13, int(self.height * 0.022)), (1.0, 0.86, 0.38, 1.0), max_width=left_width - 40)
 
 
@@ -2875,7 +2885,7 @@ class StrikerGame(Widget):
         world_label = (
             "MUNDO DO FUTEBOL"
             if self.career.world_unlocked
-            else "STRIKER WORLD — BLOQUEADO"
+            else "SCORER WORLD — BLOQUEADO"
         )
         self._ui_button(world_label, button_x, row_y[3], button_width, button_height, "world")
         self._ui_button("EDITOR LOCAL", button_x + button_width + inner_gap, row_y[3], button_width, button_height, "editor")
@@ -2896,7 +2906,7 @@ class StrikerGame(Widget):
             "TREINO DE FINALIZACAO",
             self.center_x,
             self.top - 96,
-            max(19, int(self.height * 0.034)),
+            dp(20),
             (0.35, 1.0, 0.66, 1.0),
             "center",
         )
@@ -3092,7 +3102,7 @@ class StrikerGame(Widget):
             f"CALENDARIO  |  {self.career.format_date(self.career.current_date)}",
             self.center_x,
             self.top - 95,
-            max(19, int(self.height * 0.034)),
+            dp(20),
             (0.35, 1.0, 0.66, 1.0),
             "center",
         )
@@ -3146,7 +3156,7 @@ class StrikerGame(Widget):
 
     def _draw_agent_screen(self) -> None:
         window_state = "JANELA ABERTA" if self.career.transfer_window_open else "JANELA FECHADA"
-        self._draw_text(f"FALAR COM O AGENTE  |  {window_state}", self.center_x, self.top - 95, max(19, int(self.height * 0.034)), (0.35, 1.0, 0.66, 1.0), "center")
+        self._draw_text(f"FALAR COM O AGENTE  |  {window_state}", self.center_x, self.top - 95, dp(20), (0.35, 1.0, 0.66, 1.0), "center")
         panel_width = min(680.0, self.width * 0.66)
         panel_x = self.center_x - panel_width / 2
         panel_top = self.top - 125
@@ -3224,75 +3234,33 @@ class StrikerGame(Widget):
         final_minute = 90 + self.match_stoppage
         minute = min(int(self.match_minute), final_minute)
         shown = f"90+{minute - 90}" if minute > 90 else f"{minute:02d}"
-        bar_width = min(self.width * 0.72, 920.0)
+        bar_width = min(self.width * 0.94, dp(920))
         bar_x = self.center_x - bar_width / 2
         Color(0.01, 0.03, 0.04, 0.91)
-        Rectangle(pos=(bar_x, self.top - 82), size=(bar_width, 62))
+        Rectangle(pos=(bar_x, self.top - dp(64)), size=(bar_width, dp(52)))
         Color(0.30, 0.90, 0.58, 0.75)
-        Line(rectangle=(bar_x, self.top - 82, bar_width, 62), width=1.0)
-        team_font = max(12, int(self.height * 0.023))
-        badge_size = min(44.0, self.height * 0.060)
-        self._draw_club_badge(self.match_home.name, bar_x + bar_width * 0.075, self.top - 51, badge_size)
-        self._draw_club_badge(self.match_away.name, bar_x + bar_width * 0.925, self.top - 51, badge_size)
-        self._draw_text(self.match_home.name, bar_x + bar_width * 0.28, self.top - 51, team_font, (0.94, 0.98, 0.97, 1.0), "center", max_width=bar_width * 0.30)
-        self._draw_text(f"{self.match_home_score}  -  {self.match_away_score}", self.center_x, self.top - 51, max(19, int(self.height * 0.034)), (0.36, 1.0, 0.66, 1.0), "center", max_width=bar_width * 0.16)
-        self._draw_text(self.match_away.name, bar_x + bar_width * 0.72, self.top - 51, team_font, (0.94, 0.98, 0.97, 1.0), "center", max_width=bar_width * 0.30)
-        info_width = min(self.width * 0.58, 720.0)
+        Line(rectangle=(bar_x, self.top - dp(64), bar_width, dp(52)), width=1.0)
+        team_font = dp(14)
+        badge_size = dp(26)
+        self._draw_club_badge(self.match_home.name, bar_x + bar_width * 0.075, self.top - dp(38), badge_size)
+        self._draw_club_badge(self.match_away.name, bar_x + bar_width * 0.925, self.top - dp(38), badge_size)
+        self._draw_text(self.match_home.name, bar_x + bar_width * 0.28, self.top - dp(38), team_font, (0.94, 0.98, 0.97, 1.0), "center", max_width=bar_width * 0.30)
+        self._draw_text(f"{self.match_home_score}  -  {self.match_away_score}", self.center_x, self.top - dp(38), dp(20), (0.36, 1.0, 0.66, 1.0), "center", max_width=bar_width * 0.16)
+        self._draw_text(self.match_away.name, bar_x + bar_width * 0.72, self.top - dp(38), team_font, (0.94, 0.98, 0.97, 1.0), "center", max_width=bar_width * 0.30)
+        info_width = min(self.width * 0.94, dp(720))
         info_x = self.center_x - info_width / 2
         Color(0.01, 0.03, 0.04, 0.86)
-        Rectangle(pos=(info_x, self.y + 16), size=(info_width, 42))
+        Rectangle(pos=(info_x, self.y + dp(8)), size=(info_width, dp(28)))
         self._draw_text(
             f"{shown}'  |  {self.career.format_date(self.career.current_date)}  |  "
             f"{self.career.cup_name if self.match_is_cup else ('PORTUGAL' if self.match_is_international else self.career.current_league.name)}",
             self.center_x,
-            self.y + 37,
-            max(11, int(self.height * 0.019)),
+            self.y + dp(22),
+            dp(12),
             (0.90, 0.95, 0.92, 1.0),
             "center",
             max_width=info_width - 20,
         )
-        if self.awaiting_chance and not self.match_finished:
-            alert_width = min(self.width * 0.48, 610.0)
-            Color(0.01, 0.035, 0.045, 0.95)
-            Rectangle(
-                pos=(self.center_x - alert_width / 2, self.center_y - 86),
-                size=(alert_width, 172),
-            )
-            Color(0.35, 1.0, 0.66, 0.92)
-            Line(
-                rectangle=(self.center_x - alert_width / 2, self.center_y - 86, alert_width, 172),
-                width=1.4,
-            )
-            self._draw_text(
-                "CHANCE",
-                self.center_x,
-                self.center_y + 28,
-                max(34, int(self.height * 0.072)),
-                (1.0, 0.86, 0.38, 1.0),
-                "center",
-            )
-            self._draw_text(
-                "TOCA NO ECRA PARA JOGAR A OPORTUNIDADE",
-                self.center_x,
-                self.center_y - 40,
-                max(12, int(self.height * 0.021)),
-                (0.90, 0.96, 0.94, 1.0),
-                "center",
-                max_width=alert_width - 28,
-            )
-        if self.match_finished:
-            Color(0.01, 0.035, 0.045, 0.94)
-            Rectangle(pos=(self.center_x - self.width * 0.32, self.center_y - 82), size=(self.width * 0.64, 164))
-            self._draw_text(self.match_summary, self.center_x, self.center_y + 28, max(20, int(self.height * 0.036)), (0.35, 1.0, 0.66, 1.0), "center", max_width=self.width * 0.58)
-            self._draw_text(
-                f"Moral {self.career.morale:.1f}/20  |  Stamina {self.career.stamina:.1f}/20",
-                self.center_x,
-                self.center_y - 14,
-                max(13, int(self.height * 0.022)),
-                (0.90, 0.95, 0.94, 1.0),
-                "center",
-            )
-            self._ui_button("CONTINUAR", self.center_x - 110, self.center_y - 67, 220, 48, "match_continue", accent=True)
 
 
     def _ensure_static_layers(self) -> None:
@@ -4791,6 +4759,13 @@ class StrikerGame(Widget):
             if max_width is None or texture.width <= max_width or chosen_size <= 8:
                 break
             chosen_size -= 1
+        if max_width is not None and texture.width > max_width:
+            # Even the minimum font can overflow with edited or long club names.
+            label = CoreLabel(text=text, font_size=chosen_size, color=color,
+                              text_size=(max(1, max_width), None), shorten=True,
+                              shorten_from="right", max_lines=1)
+            label.refresh()
+            texture = label.texture
         if anchor == "center":
             position = (x - texture.width / 2.0, y - texture.height / 2.0)
         elif anchor == "right":
@@ -4804,7 +4779,7 @@ class StrikerGame(Widget):
 
 
 class StrikerApp(App):
-    title = "Striker"
+    title = "Scorer"
 
 
     def on_pause(self):

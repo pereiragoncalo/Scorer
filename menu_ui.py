@@ -102,7 +102,7 @@ class CareerMenu(BoxLayout):
         self.clear_widgets()
         header = BoxLayout(size_hint_y=None, height=dp(60), spacing=dp(8))
         brand = BoxLayout(orientation='vertical')
-        brand.add_widget(FlowLabel(text='STRIKER', font_size=sp(22), bold=True))
+        brand.add_widget(FlowLabel(text='SCORER', font_size=sp(22), bold=True))
         brand.add_widget(FlowLabel(text='CARREIRA DE AVANÇADO', font_size=sp(10), color=MUTED))
         brand.bind(minimum_height=lambda widget, value: setattr(header, "height", max(dp(60), value)))
         header.add_widget(brand)
@@ -110,9 +110,10 @@ class CareerMenu(BoxLayout):
             back = self._button('VOLTAR', 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
-        exit_button = TouchButton('SAIR', self.game._request_exit)
-        exit_button.size_hint_x, exit_button.width = None, dp(76)
-        header.add_widget(exit_button)
+        if self.game.view in ('hub', 'offers'):
+            exit_button = TouchButton('SAIR', self.game._request_exit)
+            exit_button.size_hint_x, exit_button.width = None, dp(76)
+            header.add_widget(exit_button)
         self.add_widget(header)
         self.scroll = ScrollView(do_scroll_x=False, bar_width=dp(4), scroll_type=['bars', 'content'])
         self.body = GridLayout(cols=1, spacing=dp(16), padding=[0, 0, dp(4), dp(12)], size_hint_y=None)
@@ -250,3 +251,50 @@ class CareerMenu(BoxLayout):
         for country in sorted(WORLD_COUNTRIES):
             depth = EUROPE_PYRAMID_DEPTH.get(country, 1)
             self.card(country).label(f'{depth} divisões')
+
+
+class MatchNotice(BoxLayout):
+    """Scroll long match messages while keeping the action reachable on phones."""
+    def __init__(self, game, **kwargs):
+        super().__init__(orientation='vertical', padding=dp(14), spacing=dp(10),
+                         size_hint=(None, None), **kwargs)
+        self.game = game
+        self.signature = None
+        with self.canvas.before:
+            Color(0.015, 0.055, 0.065, 0.97)
+            self.background = RoundedRectangle(pos=self.pos, size=self.size, radius=[dp(14)])
+        self.bind(pos=self._rect, size=self._rect)
+        self.scroll = ScrollView(do_scroll_x=False)
+        self.body = BoxLayout(orientation='vertical', spacing=dp(10), size_hint_y=None)
+        self.body.bind(minimum_height=self.body.setter('height'))
+        self.scroll.add_widget(self.body)
+        self.add_widget(self.scroll)
+        self.button = TouchButton('CONTINUAR', self.proceed, accent=True)
+        self.add_widget(self.button)
+
+    def _rect(self, *_):
+        self.background.pos, self.background.size = self.pos, self.size
+
+    def sync(self):
+        game = self.game
+        self.size = (min(game.width - dp(24), dp(620)),
+                     max(dp(96), min(dp(260), game.height - dp(116))))
+        self.center = game.center
+        signature = (game.match_finished, game.match_summary, game.career.morale, game.career.stamina)
+        if signature == self.signature:
+            return
+        self.signature = signature
+        self.body.clear_widgets()
+        title = game.match_summary if game.match_finished else 'OPORTUNIDADE'
+        self.body.add_widget(FlowLabel(text=title, font_size=sp(20), bold=True, color=GREEN))
+        detail = (f'Moral {game.career.morale:.1f}/20  ·  Energia {game.career.stamina:.1f}/20'
+                  if game.match_finished else 'Prepara o teu remate e marca a diferença.')
+        self.body.add_widget(FlowLabel(text=detail))
+        self.button.text = 'CONTINUAR' if game.match_finished else 'JOGAR OPORTUNIDADE'
+
+    def proceed(self):
+        if self.game.match_finished:
+            self.game._activate_ui('match_continue')
+        else:
+            self.game._begin_pending_chance()
+        self.game.draw()

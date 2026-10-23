@@ -239,3 +239,25 @@ World simulation has full-depth European pyramids but only one tier in many
 other countries; a true worldwide all-divisions product and safe name importer
 remain future tasks. Next: owner tests update-in-place, scrolling/text, exit and
 career recovery; then offline fictional stadium advertising.
+
+## 0.6.3 — SCORER, splash e auditoria de UI/persistência
+
+Pedido do proprietário: Sair exclusivamente no menu principal, corrigir texto
+sobreposto do resultado, splash com jogador a rematar/crédito clemir e auditoria.
+Nome corrigido pelo proprietário para SCORER, texto do splash em inglês.
+
+Ficheiros: `main.py`, `menu_ui.py`, `career.py`, `buildozer.spec`,
+`assets/splash.png`, testes de carreira e Kivy, README e relatório
+`docs/AUDIT_0.6.3.md`. Motor e baseline preservados.
+
+Validação: py_compile dos três módulos, 21 testes de carreira/build/segurança e
+10 testes Kivy aprovados. Captura da janela Kivy 1280×589 inspecionada após
+corrigir a configuração inicial do tamanho da janela do capturador (primeira
+captura tinha viewport de 800 px). Não confundir com teste Android.
+Compilação real: `bash tools/android/run.sh python tools/build_android.py -v android debug`.
+Assinatura v2 debug, ZIP 16 KB e todos os 118 ELF AArch64 alinhados a 16 KB.
+Mesmo certificado e applicationId da beta 0.6.2. Sem permissões solicitadas.
+Logs completos no ambiente: `/workspace/striker-runtime/build-0.6.3-final.log`,
+`verify-0.6.3.log`; próxima tarefa é validar esta atualização no telemóvel,
+percorrendo splash, menu, treino, oportunidade, resultado e gravação/reabertura.
+Sem validação física de 0.6.3, sem AAB ou assinatura release nesta etapa.

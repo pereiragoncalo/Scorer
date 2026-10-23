@@ -159,6 +159,41 @@ class MenuTests(unittest.TestCase):
         settle()
         self.assertIsNotNone(self.game._menu)
 
+    def test_exit_is_only_on_main_menu(self):
+        for view in ('hub', 'offers', 'training', 'standings', 'agent', 'match', 'shot'):
+            self.game.view = view
+            self.game.draw()
+            settle()
+            labels = [w.text for w in self.game.walk() if isinstance(w, TouchButton)]
+            self.assertEqual('SAIR' in labels, view in ('hub', 'offers'))
+
+    def test_finished_panel_wraps_and_continue_returns_to_career(self):
+        self.game.match_finished = True
+        self.game.match_summary = 'FINAL Northgate City Athletic Football Club 0-0 Highmoor Athletic United'
+        self.game.awaiting_chance = False
+        for size in ((640, 360), (1280, 589), (960, 540)):
+            self.game.view = 'match'
+            Window.size = size
+            self.game.size = size
+            self.game.draw()
+            settle()
+            panel = self.game._match_notice
+            self.assertIsNotNone(panel)
+            self.assertGreaterEqual(panel.button.height, dp(52))
+            self.assertGreaterEqual(panel.scroll.y, panel.button.top)
+            self.assertLessEqual(panel.top, self.game.top)
+            for widget in panel.body.children:
+                self.assertLessEqual(widget.texture_size[0], widget.width + 2)
+                self.assertLessEqual(widget.texture_size[1], widget.height + 2)
+            # Scene redraws must preserve the native widget canvas.
+            self.game.draw()
+            settle()
+            self.assertIs(panel.parent, self.game)
+        panel.button.dispatch('on_release')
+        settle()
+        self.assertEqual(self.game.view, 'hub')
+        self.game.match_finished = False
+
     def test_free_hides_paid_editor_and_world_actions(self):
         self.game.view = 'hub'
         self.game.draw()

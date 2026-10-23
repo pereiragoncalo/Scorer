@@ -26,6 +26,22 @@ class CareerTests(unittest.TestCase):
         c.accept_starting_offer(c.offers[0])
         return c
 
+    def test_damaged_save_is_rejected_without_partial_mutation(self):
+        c = self.signed()
+        original = json.loads(c.save_path.read_text())
+        for field, value in (('national_cup_winners', []), ('morale', float('nan')),
+                             ('clubs', [{'name': 'Broken'}]), ('player_name', [])):
+            with self.subTest(field=field):
+                data = json.loads(json.dumps(original))
+                data['career']['goals'] = 999
+                data['career'][field] = value
+                contents = json.dumps(data)
+                c.save_path.write_text(contents)
+                before = (c.goals, c.club_name, c.current_league.clubs[0].name)
+                c.load()
+                self.assertEqual((c.goals, c.club_name, c.current_league.clubs[0].name), before)
+                self.assertEqual(c.save_path.read_text(), contents)
+
     def test_headless_import_has_no_kivy_or_files(self):
         result = subprocess.run([sys.executable, '-c',
             'import career,sys; assert "kivy" not in sys.modules'],
@@ -150,7 +166,7 @@ class CareerTests(unittest.TestCase):
 
     def test_save_outcome_and_fictional_free_division(self):
         c = self.signed()
-        self.assertEqual(c.current_league.name, 'Divisão Striker')
+        self.assertEqual(c.current_league.name, 'Divisão Scorer')
         self.assertTrue(c.save())
         with patch('career.os.replace', side_effect=OSError('disk full')):
             self.assertFalse(c.save())

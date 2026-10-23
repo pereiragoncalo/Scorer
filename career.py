@@ -3,6 +3,7 @@ from __future__ import annotations
 
 
 import json
+import copy
 import hashlib
 import math
 import os
@@ -432,7 +433,7 @@ CLUB_KIT_HEX: dict[str, tuple[str, str, str, str]] = {}
 
 def division_name(country: str, tier: int) -> str:
     if country == "England" and tier == 4:
-        return "Divisão Striker"
+        return "Divisão Scorer"
     names = DIVISION_NAMES.get(country, ())
     if 0 < tier <= len(names):
         return names[tier - 1]
@@ -1328,7 +1329,7 @@ class CareerMode:
             self.message = "A transferencia so pode ser concluida durante uma janela aberta."
             return
         if not self.is_league_playable(league_key):
-            self.message = "Essa liga requer o desbloqueio Striker World."
+            self.message = "Essa liga requer o acesso Scorer World."
             return
         if (club_name, league_key) not in self.agent_offers:
             return
@@ -1476,6 +1477,14 @@ class CareerMode:
 
 
     def load(self) -> None:
+        # Work on isolated state: a damaged save must not partially replace a career.
+        candidate = object.__new__(type(self))
+        candidate.__dict__ = {key: (value if key == "entitlements" else copy.deepcopy(value))
+                              for key, value in self.__dict__.items()}
+        if candidate._load_saved_state():
+            self.__dict__.update(candidate.__dict__)
+
+    def _load_saved_state(self) -> bool:
         try:
             if not self.save_path.exists():
                 return
@@ -1509,8 +1518,21 @@ class CareerMode:
                 self.message = (
                     "Carreira WORLD preservada. Restaura o acesso World para a continuar."
                 )
-                return
+                return True
             data = active
+            for name in ("national_cup_winners", "scorers", "international_status"):
+                if not isinstance(data.get(name, {}), dict):
+                    raise ValueError("Invalid saved mapping")
+            for name in ("form_goals", "cup_history", "fixture_history", "agent_offers", "clubs"):
+                if not isinstance(data.get(name, []), list):
+                    raise ValueError("Invalid saved list")
+            for name in ("player_name", "club_name", "nationality", "message", "last_result"):
+                if name in data and not isinstance(data[name], str):
+                    raise ValueError("Invalid saved text")
+            for name in ("morale", "stamina"):
+                value = float(data.get(name, 10))
+                if not math.isfinite(value) or not 0 <= value <= 20:
+                    raise ValueError("Invalid saved player state")
             if data.get("save_version") != self.SAVE_VERSION:
                 return
             key = data.get("league_key", "England|4")
@@ -1587,9 +1609,10 @@ class CareerMode:
                     for home, away in other_league.pairings():
                         other_league.simulate_fixture(home, away, self.rng)
                     other_league.round_index += 1
-        except (OSError, ValueError, TypeError, KeyError):
-            # Um save antigo ou incompleto nunca impede o jogo de arrancar.
-            self.club_name = ""
+            return True
+        except (OSError, ValueError, TypeError, KeyError, AttributeError, OverflowError):
+            # Keep both the original file and all pre-load state intact.
+            return False
 
 
 

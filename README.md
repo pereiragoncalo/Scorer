@@ -52,3 +52,11 @@ KIVY_HOME=/workspace/striker-runtime/kivy /workspace/striker-venv/bin/python -m 
 A separação FREE/World e funcionalidades ainda por implementar estão descritas
 em [modelo de produto](docs/PRODUCT_MODEL.md). Free tem uma divisão; a aplicação
 paga separada e o editor de importação mundial ainda não são produtos entregues.
+
+## SCORER 0.6.3 — identidade e correções
+
+Nome público atualizado para **SCORER**, splash em inglês com crédito clemir.
+Sair só no menu principal, painel final responsivo e leitura segura de saves
+malformados. Mantidos identificador Android e formato de carreira para atualização.
+Ver [auditoria, testes e limitações](docs/AUDIT_0.6.3.md). Suite: 21 testes sem
+interface e 10 testes Kivy; esta beta ainda exige validação no telemóvel.
