@@ -1,31 +1,13 @@
-# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.pytest_cache/
-
-# Ambientes virtuais
-venv/
-.venv/
-
-# Build
-build/
-dist/
-
-# Android / Kivy / Buildozer
+*.py[cod]
 .buildozer/
 bin/
-*.apk
+.venv/
+.env
+*.keystore
+*.jks
 *.aab
-
-# Editores
-.vscode/
-.idea/
-
-# Sistema
-.DS_Store
-Thumbs.db
-
-# Logs
+*.apk
+striker_career.json
+striker_*.wav
 *.log

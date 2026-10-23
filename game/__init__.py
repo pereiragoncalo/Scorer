@@ -1,1 +1,0 @@
-# pacote game do Scorer
