@@ -227,6 +227,35 @@ class CareerTests(unittest.TestCase):
             self.assertEqual(c.league_key, career.FREE_LEAGUE_KEY)
             self.assertEqual(sum(c.is_league_playable(key) for key in c.leagues), 1)
 
+    def test_player_name_change_preserves_progress_and_scorer_identity(self):
+        c = self.signed()
+        old = c.player_name
+        c.goals, c.matches = 7, 4
+        c.current_league.scorer_goals.update({old: 7, 'Outro Jogador': 3})
+        c.save()
+        self.assertTrue(c.set_player_name('  Luca   Vale  '))
+        restored = career.CareerMode()
+        self.assertEqual((restored.player_name, restored.goals, restored.matches), ('Luca Vale', 7, 4))
+        self.assertNotIn(old, restored.current_league.scorer_goals)
+        self.assertEqual(restored.current_league.scorer_goals['Luca Vale'], 7)
+        self.assertEqual(restored.current_league.scorer_goals['Outro Jogador'], 3)
+
+    def test_player_name_validation_and_save_failure_do_not_replace_career(self):
+        c = self.signed()
+        c.current_league.scorer_goals[c.player_name] = 9
+        c.current_league.scorer_goals['Outro Jogador'] = 3
+        c.save()
+        before = c.save_path.read_bytes()
+        for name in ('', 'x', '\n\t', 'Outro Jogador'):
+            with self.subTest(name=name), self.assertRaises(ValueError):
+                c.set_player_name(name)
+        with patch('career.os.replace', side_effect=OSError('disk full')):
+            self.assertFalse(c.set_player_name('Luca Vale'))
+        self.assertEqual(c.player_name, 'Alex Silva')
+        self.assertEqual(c.current_league.scorer_goals['Alex Silva'], 9)
+        self.assertNotIn('Luca Vale', c.current_league.scorer_goals)
+        self.assertEqual(c.save_path.read_bytes(), before)
+
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'
         self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),

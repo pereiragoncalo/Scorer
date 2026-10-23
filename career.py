@@ -775,6 +775,25 @@ class CareerMode:
     def cup_name(self) -> str:
         return national_cup_name(self.current_league.country)
 
+    def set_player_name(self, requested_name: object) -> bool:
+        """Rename the player and their scorer entry without changing career progress."""
+        name = sanitize_local_display_name(requested_name, limit=32)
+        old = self.player_name
+        scorers = self.current_league.scorer_goals
+        if name != old and name in scorers:
+            raise ValueError("Já existe um marcador com esse nome. Escolhe outro nome.")
+        previous = dict(scorers)
+        self.player_name = name
+        if old in scorers:
+            scorers[name] = scorers.pop(old)
+        if not self.save():
+            self.player_name = old
+            scorers.clear()
+            scorers.update(previous)
+            return False
+        self.message = f"Jogador: {name}."
+        return True
+
     def rename_current_club(self, requested_name: object) -> str:
         """Rename only the user's current club locally; never fetch external assets."""
         new_name = sanitize_local_display_name(requested_name)

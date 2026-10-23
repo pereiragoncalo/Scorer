@@ -9,13 +9,14 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.progressbar import ProgressBar
 from kivy.uix.scrollview import ScrollView
+from kivy.uix.textinput import TextInput
+import math
 
 INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
-MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start'))
+MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile'))
 
 
 class FlowLabel(Label):
@@ -35,14 +36,42 @@ class FlowLabel(Label):
 
 class TouchButton(Button):
     def __init__(self, text, callback, accent=False, **kwargs):
+        self._accent = accent
         super().__init__(text=text, size_hint_y=None, height=dp(52),
                          font_size=sp(14), bold=True, color=INK,
-                         background_normal='', background_down='',
-                         background_color=(0.08, 0.42, 0.30, 1) if accent else (0.08, 0.19, 0.22, 1),
+                         background_normal='', background_down='', background_disabled_normal='',
+                         background_color=(0, 0, 0, 0),
                          halign='center', valign='middle', **kwargs)
+        with self.canvas.before:
+            self._base_color = Color(0.02, 0.07, 0.09, 1)
+            self._base = RoundedRectangle(radius=[dp(9)])
+            self._face_color = Color(0.10, 0.25, 0.29, 1)
+            self._face = RoundedRectangle(radius=[dp(9)])
+            self._gloss_color = Color(0.65, 0.85, 0.85, 0.12)
+            self._gloss = RoundedRectangle(radius=[dp(8)])
+            self._light_color = Color(0.4, 0.62, 0.65, 0.7)
+            self._rim = Line(rounded_rectangle=(0, 0, 1, 1, dp(9)), width=1)
         self.bind(width=self._fit, texture_size=self._fit)
+        self.bind(pos=self._relief, size=self._relief, state=self._relief, disabled=self._relief)
         self.bind(on_release=lambda *_: callback())
         self._fit()
+        self._relief()
+
+    def _relief(self, *_):
+        pressed = self.state == 'down'
+        inset = dp(1 if pressed else 4)
+        self._base.pos, self._base.size = self.pos, self.size
+        self._face.pos = (self.x, self.y + inset)
+        self._face.size = (self.width, max(1, self.height - inset))
+        self._gloss.pos = (self.x + dp(2), self._face.pos[1] + self._face.size[1] * 0.56)
+        self._gloss.size = (max(1, self.width - dp(4)), self._face.size[1] * 0.40)
+        self._gloss_color.a = 0.025 if pressed or self.disabled else 0.12
+        self._rim.rounded_rectangle = (self.x + dp(1), self.y + inset + dp(1),
+                                      max(1, self.width - dp(2)), max(1, self.height - inset - dp(2)), dp(9))
+        face = (0.10, 0.48, 0.34, 1) if self._accent else (0.10, 0.24, 0.29, 1)
+        factor = 0.6 if self.disabled else 0.82 if pressed else 1
+        self._face_color.rgba = tuple(v * factor for v in face[:3]) + (1,)
+        self._light_color.a = 0.25 if pressed or self.disabled else 0.7
 
     def _fit(self, *_):
         self.text_size = (max(dp(1), self.width - dp(24)), None)
@@ -52,7 +81,7 @@ class TouchButton(Button):
 class Card(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', size_hint_y=None,
-                         padding=dp(18), spacing=dp(12), **kwargs)
+                         padding=dp(12), spacing=dp(6), **kwargs)
         self.bind(minimum_height=self.setter('height'))
         with self.canvas.before:
             Color(0.035, 0.10, 0.12, 1)
@@ -108,14 +137,16 @@ class CareerMenu(BoxLayout):
     def _build(self):
         self.clear_widgets()
         self._shade.a = 1 if self.game.view == 'splash' else 0.62
-        if self.game.view in ('splash', 'start'):
+        if self.game.view in ('splash', 'start', 'profile'):
             self.padding = self.spacing = 0
             self.scroll = None
-            self.body = SplashScreen(self) if self.game.view == 'splash' else EntryScreen(self)
+            self.body = (SplashScreen(self) if self.game.view == 'splash' else
+                         PlayerScreen(self) if self.game.view == 'profile' else EntryScreen(self))
             self.add_widget(self.body)
             return
-        self.padding = dp(12) if self.game.view == 'hub' else dp(16)
-        self.spacing = dp(8) if self.game.view == 'hub' else dp(12)
+        paged = self.game.view in ('standings', 'scorers', 'calendar')
+        self.padding = dp(8) if paged else dp(12) if self.game.view == 'hub' else dp(16)
+        self.spacing = dp(6) if paged else dp(8) if self.game.view == 'hub' else dp(12)
         header = BoxLayout(size_hint_y=None, height=dp(60), spacing=dp(8))
         brand = BoxLayout(orientation='vertical')
         if self.game.view == 'hub':
@@ -123,11 +154,20 @@ class CareerMenu(BoxLayout):
             header.add_widget(Image(source='assets/icon.png', size_hint_x=None, width=dp(48)))
             brand.add_widget(BoundedLabel(text='SCORER', font_size=sp(22), bold=True))
             brand.add_widget(BoundedLabel(text='by clemir', font_size=sp(11), color=MUTED))
+        elif paged:
+            header.height = dp(52)
+            titles = {'standings': 'CLASSIFICAÇÃO', 'scorers': 'MARCADORES', 'calendar': 'CALENDÁRIO'}
+            brand.add_widget(BoundedLabel(text=titles[self.game.view], font_size=sp(20), bold=True))
+            brand.add_widget(BoundedLabel(text=self.game.career.current_league.name, font_size=sp(11), color=MUTED))
         else:
             brand.add_widget(FlowLabel(text='SCORER', font_size=sp(22), bold=True))
             brand.add_widget(FlowLabel(text='CARREIRA DE AVANÇADO', font_size=sp(10), color=MUTED))
             brand.bind(minimum_height=lambda widget, value: setattr(header, 'height', max(dp(60), value)))
         header.add_widget(brand)
+        if self.game.view == 'hub':
+            profile = MenuTile('JOGADOR', lambda: self.action('profile'))
+            profile.size_hint_x, profile.width = None, dp(88)
+            header.add_widget(profile)
         if self.game.view not in ('hub', 'offers'):
             back = self._button('VOLTAR', 'hub')
             back.size_hint_x, back.width = None, dp(88)
@@ -140,6 +180,11 @@ class CareerMenu(BoxLayout):
         if self.game.view == 'hub':
             self.scroll = None
             self.body = MainDashboard(self)
+            self.add_widget(self.body)
+            return
+        if self.game.view in ('standings', 'scorers', 'calendar'):
+            self.scroll = None
+            self.body = self._compact_list()
             self.add_widget(self.body)
             return
         self.scroll = ScrollView(do_scroll_x=False, bar_width=dp(4), scroll_type=['bars', 'content'])
@@ -159,8 +204,11 @@ class CareerMenu(BoxLayout):
     def _offers(self):
         card = self.card('O teu primeiro contrato')
         card.label('Uma divisão. A tua carreira começa aqui.', muted=True)
+        grid = GridLayout(cols=2, spacing=dp(6), size_hint_y=None)
+        grid.bind(minimum_height=grid.setter('height'))
+        card.add_widget(grid)
         for club in self.game.career.offers:
-            card.add_widget(self._button(club, 'accept_offer', club, accent=True))
+            grid.add_widget(self._button(club, 'accept_offer', club, accent=True))
 
     def _training(self):
         g, c = self.game, self.game.career
@@ -172,48 +220,24 @@ class CareerMenu(BoxLayout):
         card.label(f'Energia atual: {c.stamina:.1f}/20', muted=True)
         card.add_widget(self._button('NOVO TREINO' if g.training_completed else 'INICIAR TREINO', 'training_start', accent=True))
 
-    def _table(self, headings, rows, widths):
-        # Both axes scroll at small widths; numeric columns never overlap names.
-        self.scroll.do_scroll_x = True
-        self.body.size_hint_x = None
-        minimum_width = sum(dp(value) for value in widths) + dp(40 + 4 * (len(widths) - 1))
-        self.scroll.bind(width=lambda widget, value: setattr(self.body, 'width', max(value, minimum_width)))
-        self.body.width = max(self.scroll.width, minimum_width)
-        card = self.card()
-        for index, values in enumerate([headings] + list(rows)):
-            row = BoxLayout(size_hint_y=None, height=dp(50), spacing=dp(4))
-            for text, width in zip(values, widths):
-                cell = Label(text=str(text), size_hint_x=None, width=dp(width), font_size=sp(14),
-                             color=GREEN if index == 0 else INK, bold=index == 0,
-                             halign='left', valign='middle', shorten=True, shorten_from='right', max_lines=1)
-                cell.bind(size=lambda widget, value: setattr(widget, 'text_size', value))
-                cell.text_size = cell.size
-                row.add_widget(cell)
-            card.add_widget(row)
-
-    def _standings(self):
-        self.card('Classificação').label(self.game.career.current_league.name, muted=True)
-        rows = [(i + 1, club.name, club.played, club.won, club.drawn, club.lost,
-                 club.goals_for, club.goals_against, club.goal_difference, club.points)
-                for i, club in enumerate(self.game.career.current_league.table())]
-        self._table(('POS', 'CLUBE', 'J', 'V', 'E', 'D', 'GM', 'GS', 'DG', 'PTS'), rows,
-                    (36, 220, 36, 36, 36, 36, 40, 40, 40, 44))
-
-    def _scorers(self):
+    def _compact_list(self):
         c = self.game.career
-        ranking = dict(c.current_league.scorer_goals)
-        ranking[c.player_name] = c.goals
-        self.card('Marcadores')
-        self._table(('POS', 'JOGADOR', 'GOLOS'),
-                    [(i + 1, name, goals) for i, (name, goals) in enumerate(sorted(ranking.items(), key=lambda item: (-item[1], item[0]))[:30])],
-                    (40, 320, 64))
-
-    def _calendar(self):
-        self.card('Calendário')
-        for entry in self.game.career.calendar_entries():
-            card = self.card(str(entry.get('date', '')))
-            card.label(f"{entry.get('home', '')} vs {entry.get('away', '')}")
-            card.label(f"{entry.get('competition', '')} · {entry.get('status', '')}", muted=True)
+        if self.game.view == 'standings':
+            rows = [(i + 1, club.name, club.played, club.won, club.drawn, club.lost,
+                     club.goals_for, club.goals_against, club.goal_difference, club.points)
+                    for i, club in enumerate(c.current_league.table())]
+            return CompactTable('CLASSIFICAÇÃO · ' + c.current_league.name,
+                                ('POS', 'CLUBE', 'J', 'V', 'E', 'D', 'GM', 'GS', 'DG', 'PTS'),
+                                rows, focus=c.club_name, summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7))
+        if self.game.view == 'scorers':
+            ranking = dict(c.current_league.scorer_goals)
+            ranking[c.player_name] = c.goals
+            rows = [(i + 1, name, goals) for i, (name, goals) in enumerate(sorted(ranking.items(), key=lambda x: (-x[1], x[0])))]
+            return CompactTable('MARCADORES', ('POS', 'JOGADOR', 'GOLOS'), rows, focus=c.player_name)
+        rows = [(str(e.get('date', ''))[8:10] + '/' + str(e.get('date', ''))[5:7], f"{e.get('home', '')} vs {e.get('away', '')}",
+                 e.get('competition', ''), e.get('status', '')) for e in c.calendar_entries()]
+        return CompactTable(f'CALENDÁRIO · {c.season}/{str(c.season + 1)[-2:]}', ('DATA', 'JOGO', 'COMPETIÇÃO', 'ESTADO'), rows,
+                            summary=(0, 1, 3), detail=(0, 1, 2))
 
     def _agent(self):
         c = self.game.career
@@ -473,3 +497,129 @@ class MainDashboard(BoxLayout):
         self.hero.orientation = 'vertical' if portrait else 'horizontal'
         self.match.size_hint = (1, 0.60) if portrait else (0.66, 1)
         self.season.size_hint = (1, 0.40) if portrait else (0.34, 1)
+
+
+class PlayerScreen(FloatLayout):
+    def __init__(self, menu):
+        super().__init__()
+        self.menu = menu
+        self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
+        self.panel.add_widget(BoundedLabel(text='O TEU JOGADOR', bold=True, font_size=sp(18),
+                                          size_hint_y=None, height=dp(28)))
+        existing = menu.game._profile_return == 'hub'
+        self.name = TextInput(text=menu.game.career.player_name if existing else '',
+                              hint_text='Nome do jogador', multiline=False, write_tab=False,
+                              font_size=sp(17), padding=[dp(12), dp(12)],
+                              size_hint_y=None, height=dp(52), background_color=(0.08, 0.17, 0.20, 1),
+                              foreground_color=INK, cursor_color=GREEN)
+        self.panel.add_widget(self.name)
+        message = menu.game.career.message
+        self.panel.add_widget(BoundedLabel(text=message if ('nome' in message or 'marcador' in message or 'guardar' in message)
+                                          else 'Escolhe o teu nome. O progresso é mantido.',
+                                          color=MUTED, font_size=sp(12)))
+        actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        actions.add_widget(MenuTile('CANCELAR', lambda: menu.action('cancel_profile')))
+        actions.add_widget(MenuTile('GUARDAR' if existing else 'CONTINUAR',
+                                    lambda: self.submit(), accent=True))
+        self.panel.add_widget(actions)
+        self.add_widget(self.panel)
+        self.name.bind(on_text_validate=lambda *_: self.submit())
+        self.bind(pos=self._fit, size=self._fit)
+        self._fit()
+
+    def submit(self):
+        self.name.focus = False
+        self.menu.action('save_profile', self.name.text)
+
+    def _fit(self, *_):
+        self.panel.size = (min(self.width - dp(24), dp(420)), min(self.height - dp(16), dp(250)))
+        self.panel.center = self.center
+
+
+class CompactTable(EdgePanel):
+    """All rows remain accessible through pages; no horizontal or vertical scroll."""
+    def __init__(self, title, headings, rows, focus=None, summary=None, detail=None):
+        super().__init__(orientation='vertical', padding=dp(6), spacing=dp(3))
+        self.headings, self.rows, self.focus = tuple(headings), list(rows), focus
+        self.summary, self.detail = summary, detail
+        self.show_detail = False
+        self.page = 0
+        self.page_size = 1
+        self.title = BoundedLabel(text=title, bold=True, color=GREEN, font_size=sp(12),
+                                  size_hint_y=None, height=dp(20))
+        self.add_widget(self.title)
+        self.head = BoxLayout(size_hint_y=None, height=dp(22), spacing=dp(3))
+        self.add_widget(self.head)
+        self.lines = BoxLayout(orientation='vertical')
+        self.add_widget(self.lines)
+        self.controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(6))
+        self.previous = MenuTile('ANTERIOR', lambda: self.move(-1))
+        self.next = MenuTile('SEGUINTE', lambda: self.move(1))
+        self.controls.add_widget(self.previous)
+        self.counter = BoundedLabel(halign='center', font_size=sp(11), size_hint_x=None, width=dp(46))
+        self.controls.add_widget(self.counter)
+        self.controls.add_widget(self.next)
+        if focus:
+            self.controls.add_widget(MenuTile('MEU LUGAR', self.jump_to_focus))
+        if detail:
+            self.controls.add_widget(MenuTile('DADOS', self.toggle_detail))
+        self.add_widget(self.controls)
+        self.bind(size=self._render)
+        self._render()
+
+    def move(self, amount):
+        self.page = max(0, min(self.pages - 1, self.page + amount))
+        self._render()
+
+    @property
+    def pages(self):
+        return max(1, math.ceil(len(self.rows) / self.page_size))
+
+    def jump_to_focus(self):
+        index = next((i for i, row in enumerate(self.rows) if str(row[1]) == self.focus), 0)
+        self.page = index // self.page_size
+        self._render()
+
+    def toggle_detail(self):
+        self.show_detail = not self.show_detail
+        self._render()
+
+    def _cells(self, row, values, indices, heading=False, highlighted=False):
+        count = len(indices)
+        for index in indices:
+            weight = 0.48 if index == 1 else 0.52 / max(1, count - 1)
+            label = BoundedLabel(text=str(values[index]), font_size=sp(12),
+                                  bold=heading or highlighted, max_lines=1,
+                                  color=GREEN if heading or highlighted else INK,
+                                  size_hint_x=weight,
+                                  halign='left' if index == 1 else 'center')
+            row.add_widget(label)
+
+    def _render(self, *_):
+        if not hasattr(self, 'controls'):
+            return
+        line_height = max(dp(24), sp(12) * 1.35)
+        available = max(line_height, self.height - dp(115))
+        self.page_size = max(1, int(available // line_height))
+        self.page = max(0, min(self.page, self.pages - 1))
+        indices = (self.detail if self.show_detail else self.summary) if self.summary else tuple(range(len(self.headings)))
+        if self.summary and self.width >= dp(720) and not self.show_detail:
+            indices = tuple(range(len(self.headings)))
+        self.head.clear_widgets()
+        self._cells(self.head, self.headings, indices, heading=True)
+        self.lines.clear_widgets()
+        start = self.page * self.page_size
+        self.visible_rows = self.rows[start:start + self.page_size]
+        for offset, values in enumerate(self.visible_rows):
+            row = BoxLayout(size_hint_y=None, height=line_height, spacing=dp(3))
+            highlighted = self.focus is not None and str(values[1]) == self.focus
+            with row.canvas.before:
+                Color(0.10, 0.35, 0.28, 0.75 if highlighted else 0.18 if offset % 2 == 0 else 0.02)
+                background = Rectangle(pos=row.pos, size=row.size)
+            row.bind(pos=lambda w, v, bg=background: setattr(bg, 'pos', v),
+                     size=lambda w, v, bg=background: setattr(bg, 'size', v))
+            self._cells(row, values, indices, highlighted=highlighted)
+            self.lines.add_widget(row)
+        self.counter.text = f'{self.page + 1}/{self.pages}'
+        self.previous.disabled = self.page == 0
+        self.next.disabled = self.page == self.pages - 1

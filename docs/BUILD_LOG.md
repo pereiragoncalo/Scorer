@@ -329,3 +329,36 @@ SHA-256 APK: 2334c6447665e711edf91d2f6cd70bd34b9acd360f824ec130adce21b2dca7e4.
 Próximo: testar no telemóvel rotação/espera sem tocar no splash, toque para
 Novo jogo/Carregar jogo e carregamento da carreira anterior, nome Liga Scorer e
 navegação do menu. Sem teste físico desta versão, AAB ou assinatura release.
+
+## 0.6.6 — nome do jogador, relevo e redução de scroll
+
+Pedido: explicar/remover a imposição de Alex Silva, diminuir by clemir na mesma
+posição, botões arredondados com efeito 3D e menos scroll nas páginas do jogo.
+
+Alterados `career.py`, `main.py`, `menu_ui.py`, `assets/splash.png`,
+`buildozer.spec`, testes, README, AGENTS e `docs/UI_0.6.6.md`.
+Novo jogo exige nome antes do contrato; botão Jogador altera carreira existente
+sem reiniciar. Renomeia também o marcador, valida nomes/colisões e reverte se a
+gravação falhar. Botões partilham cantos arredondados, base, face elevada, brilho
+e estado premido. Classificação, marcadores e calendário usam páginas sem
+ScrollView, incluindo salto para clube/jogador e alternância de dados, sem
+ocultar/remover registos. Cards compactados e propostas em duas colunas.
+
+Verificação: py_compile dos três módulos; 27 testes core/build/segurança e 18 Kivy
+aprovados (45). Primeira verificação detetou acesso errado a `.y` numa instrução
+RoundedRectangle (API correta é `pos[1]`); corrigido no teste e no brilho do botão.
+Suite final e capturas reais da janela Kivy inspecionadas: menu, classificação e
+formulário, 1280×589/densidade 1,64. Não são capturas/testes Android.
+Logs: `/tmp/scorer-066-core-final.log`, `/tmp/scorer-066-ui-final.log`.
+
+Compilação real: `bash tools/android/run.sh python tools/build_android.py -v android debug`.
+Logs runtime `build-0.6.6.log` e `verify-0.6.6.log`. Assinatura v2 válida e mesmo
+certificado; versão 0.6.6/API 36/mínimo 26/arm64, ZIP 16 KB e 118 ELF AArch64
+alinhados a 16 KB verificados. Ícone, presplash e novo código de perfil/listas
+confirmados dentro do APK; sem saves, backups ou chaves privadas incluídos.
+SHA-256: fae82e4dea96a491a66fef31cb31f081400a11016938a4208f6f3b7d884ba4b8.
+Baseline mantém fed211d2ec63fe0275390b13ed4a1bcfcd18fa61238460b04b67d80ebca6205b.
+
+Próximo: atualizar no telemóvel, alterar nome através de Jogador e verificar a
+persistência ao reabrir, teclado, feedback dos botões e navegação por páginas.
+Validação física desta versão pendente. Sem AAB ou assinatura release nesta etapa.

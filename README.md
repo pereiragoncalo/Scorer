@@ -78,3 +78,11 @@ Nome legado «England Division 4» migra para Liga Scorer sem apagar progresso:
 FREE permite uma única divisão. Novo menu com fundo original de estádio,
 próximo jogo destacado e navegação inferior, sem scroll.
 [Alterações, referência visual, 40 testes e limitações](docs/UI_0.6.5.md).
+
+## SCORER 0.6.6 — personalização e navegação compacta
+
+Novo jogo pede o nome do jogador. Para alterar Alex Silva numa carreira existente,
+abrir **Jogador** no menu principal; o progresso mantém-se. Splash com crédito
+clemir menor, botões arredondados com relevo e listas de classificação,
+marcadores e calendário paginadas, sem scroll horizontal/vertical.
+[Alterações, 45 testes e limitações](docs/UI_0.6.6.md).

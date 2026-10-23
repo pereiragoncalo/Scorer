@@ -18,13 +18,14 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 
 ## Safety and technical rules
 - Saves now use Kivy App.user_data_dir on Android, with legacy migration and a desktop/test override. Preserve compatible saves; a failed save must not exit the app or erase previous data.
-- Default player is fictional (Alex Silva). Preserve existing user names and saves; ship no official club assets or real name packs.
+- Alex Silva is only the legacy fictional default. New careers must ask for a safe player name before the first contract; existing names change only through the Player action, retaining progress and scorer identity. Preserve saves; ship no official club assets or real name packs.
 - Preserve privacy (no hidden analytics or external upload), fictitious clubs and original content, safe input handling. No secrets or signing keys in source/repo.
 - Target Android API 36 or newer. Debug APK 0.6.1 was genuinely built and the owner reports it runs without crashes. Every subsequent APK needs its own build/static checks and device validation. The reference manifest in docs is not automatically merged by Buildozer; release gates still apply.
 - APK and AAB must be genuinely generated and tested on Android, not claimed ready based solely on Python syntax compilation. Test landscape orientation and touchscreen usability.
 - Public game identity is SCORER by clemir. Keep the existing Android package/save identifiers for upgrade compatibility.
 - Startup must retain the Kivy splash until a touch, including through rotation. Then offer New game / Load game / Exit without autoload. New game with an existing save requires in-app confirmation and an atomic private backup; never save unselected state on pause/stop.
 - FREE displays Liga Scorer: migrate only automatic legacy league labels, retaining progress and custom names. Internal England|4 is a compatibility key, not four playable divisions.
+- Buttons use rounded raised Kivy surfaces with visible pressed feedback. Standings, scorers and calendar use compact readable pages, with every row accessible and no horizontal scrolling; do not shrink touch controls below 48 dp.
 - The main menu must fit on one screen without scrolling, with all six FREE actions and Exit visible. Use compact responsive columns and bounded summary text. Other lists may scroll. Keep touch targets at least 48 dp and save-before-exit confirmation. Test real Kivy layouts across phone aspect ratios; do not treat geometry checks as screenshots or device validation.
 - Work in small reviewable commits; never overwrite the baseline or mark tasks DONE without test evidence. Log tests and failures in `docs/BUILD_LOG.md`.
 - On every change, run available syntax/static checks, add tests for changed logic, and report limitations honestly.

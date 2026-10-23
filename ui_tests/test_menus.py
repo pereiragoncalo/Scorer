@@ -16,7 +16,7 @@ from kivy.tests.common import UnitTestTouch
 
 from main import StrikerGame, StrikerApp
 from career import CareerMode
-from menu_ui import TouchButton, MenuTile
+from menu_ui import TouchButton, MenuTile, CompactTable
 
 
 def settle():
@@ -107,10 +107,12 @@ class MenuTests(unittest.TestCase):
             game._activate_ui('new_game')
             game._start_new_career()
             settle()
-            self.assertEqual(game.view, 'offers')
+            self.assertEqual(game.view, 'profile')
             self.assertEqual(game.career.save_path.read_bytes(), before)
             self.assertEqual(game.career.save_path.with_name('striker_career.previous.json').read_bytes(), before)
             self.assertFalse(game._career_started)
+            game._activate_ui('save_profile', 'Test Player')
+            self.assertEqual(game.view, 'offers')
             game._activate_ui('accept_offer', game.career.offers[0])
             self.assertTrue(game._career_started)
             self.assertEqual(game.career.goals, 0)
@@ -135,14 +137,79 @@ class MenuTests(unittest.TestCase):
             load = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'CARREGAR JOGO')
             self.assertTrue(load.disabled)
             game._activate_ui('new_game')
-            self.assertEqual(game.view, 'offers')
+            self.assertEqual(game.view, 'profile')
             self.assertIsNone(game._new_game_popup)
+
+    def test_player_setup_requires_name_and_existing_player_can_be_renamed(self):
+        with isolated_game() as game:
+            game._activate_ui('splash_continue')
+            game._activate_ui('new_game')
+            game._activate_ui('save_profile', '')
+            self.assertEqual(game.view, 'profile')
+            game.draw()
+            settle()
+            form = game._menu.body
+            self.assertEqual(form.name.text, '')
+            form.name.text = 'Luca Vale'
+            form.submit()
+            self.assertEqual(game.view, 'offers')
+            game._activate_ui('accept_offer', game.career.offers[0])
+            game._activate_ui('profile')
+            game.draw()
+            settle()
+            form = game._menu.body
+            self.assertEqual(form.name.text, 'Luca Vale')
+            form.name.text = 'Alex Costa'
+            form.submit()
+            self.assertEqual(game.view, 'hub')
+            self.assertEqual(CareerMode().player_name, 'Alex Costa')
+
+    def test_tables_page_through_every_row_without_scrolling(self):
+        Window.size = (640, 360)
+        self.game.size = Window.size
+        for view in ('standings', 'scorers', 'calendar'):
+            with self.subTest(view=view):
+                self.game.view = view
+                self.game.draw()
+                settle()
+                table = self.game._menu.body
+                self.assertIsInstance(table, CompactTable)
+                self.assertFalse(any(isinstance(w, ScrollView) for w in table.walk()))
+                self.assertGreaterEqual(table.page_size, 6)
+                found = []
+                for _ in range(table.pages):
+                    found.extend(table.visible_rows)
+                    self.assertGreaterEqual(table.lines.y, table.controls.top)
+                    table.next.dispatch('on_release')
+                    settle()
+                self.assertEqual(found, table.rows)
+                if table.focus:
+                    table.jump_to_focus()
+                    self.assertTrue(any(str(row[1]) == table.focus for row in table.visible_rows))
+                table.toggle_detail()
+                settle()
+                for row in table.lines.children:
+                    self.assertGreaterEqual(row.x, table.x)
+                    self.assertLessEqual(row.right, table.right)
+
+    def test_buttons_have_visible_press_depth(self):
+        self.game.view = 'hub'
+        self.game.draw()
+        settle()
+        button = next(w for w in self.game.walk() if isinstance(w, MenuTile) and w.text == 'JOGAR')
+        raised = button._face.pos[1]
+        normal = tuple(button._face_color.rgba)
+        button.state = 'down'
+        self.assertLess(button._face.pos[1], raised)
+        self.assertNotEqual(tuple(button._face_color.rgba), normal)
+        button.state = 'normal'
+        self.assertEqual(button._face.pos[1], raised)
 
     def test_all_menu_layouts_at_phone_sizes(self):
         for size in ((640, 360), (800, 360), (960, 540), (1280, 720), (360, 800), (320, 240)):
             Window.size = size
             self.game.size = size
-            for view in ('start', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent'):
+            for view in ('start', 'profile', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent'):
                 with self.subTest(size=size, view=view):
                     self.game.view = view
                     self.game.draw()
@@ -198,7 +265,7 @@ class MenuTests(unittest.TestCase):
                     menu = self.game._menu
                     self.assertFalse(any(isinstance(w, ScrollView) for w in menu.walk()))
                     buttons = [w for w in menu.walk() if isinstance(w, TouchButton)]
-                    self.assertEqual(len(buttons), 7)
+                    self.assertEqual(len(buttons), 8)
                     for button in buttons:
                         self.assertGreaterEqual(button.width, dp(48) - 1)
                         self.assertGreaterEqual(button.height, dp(48) - 1)

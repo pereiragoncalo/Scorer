@@ -229,6 +229,7 @@ class StrikerGame(Widget):
         self._exit_popup = None
         self._new_game_popup = None
         self._career_started = False
+        self._profile_return = "offers"
         self.career = CareerMode(autoload=False)
         self.view = "splash"
         self.shot_context = "career"
@@ -2380,7 +2381,8 @@ class StrikerGame(Widget):
         self.training_goals = 0
         self.match_finished = False
         self.awaiting_chance = False
-        self.view = "offers"
+        self._profile_return = "offers"
+        self.view = "profile"
         self.draw()
 
     def _load_career(self):
@@ -2526,6 +2528,17 @@ class StrikerGame(Widget):
             self._request_new_game()
         elif action == "load_game":
             self._load_career()
+        elif action == "profile" and self.view == "hub":
+            self._profile_return = "hub"
+            self.view = "profile"
+        elif action == "save_profile" and self.view == "profile":
+            try:
+                if self.career.set_player_name(value):
+                    self.view = self._profile_return
+            except ValueError as error:
+                self.career.message = str(error) if "marcador" in str(error) else "Introduz um nome com pelo menos 2 caracteres."
+        elif action == "cancel_profile" and self.view == "profile":
+            self.view = "hub" if self._profile_return == "hub" else "start"
         elif action == "exit":
             self._request_exit()
         elif action == "accept_offer":
