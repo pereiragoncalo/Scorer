@@ -117,3 +117,59 @@ Additional tool verification:
 - The SDK setup now checks the SHA256 of the licence text accepted in this chat;
   changed licence terms stop setup for owner review rather than being accepted
   silently. This is a licence-change guard, not an artifact checksum override.
+
+## 2026-10-23 — after user publication: real debug APK build
+
+Runtime status now reports configuration revision 2 and the published custom
+hosts. Actual Git read to skia.googlesource.com/skcms succeeded (exit 0); the
+network policy state itself is reported unknown, so readiness is based on that
+specific successful operation. Completed libjxl's pinned recursive submodules.
+No second publication was required for the previous network blocker.
+
+Native build completed host Python 3.14.2, libffi, OpenSSL, Python arm64, SDL,
+pyjnius and Kivy. Source build fallback warnings about missing prebuilt wheels
+were expected and did not establish failure. Actual later failures and fixes:
+- Isolated pip lost certificate environment variables. Added a supported pip
+  cert configuration at cache/user/.config/pip/pip.conf, preserving other options.
+  Test without PIP_CERT/SSL_CERT_FILE/REQUESTS_CA_BUNDLE successfully fetched the
+  setuptools index. No trusted-host flag or TLS bypass used.
+- Gradle Java did not consume HTTP_PROXY/HTTPS_PROXY. Added Java proxy properties.
+  First derived them outside Docker, where hostname proxy is outer-only; that
+  failed UnknownHostException. Corrected derivation inside Docker using its
+  reachable inherited proxy. Gradle then downloaded and built successfully.
+- Added four configuration/security tests: pip settings preserved/repeatable,
+  invalid pip config preserved, Java uses managed proxy, and proxy credentials
+  are rejected without disclosure. Total: 18 PASS on Python 3.12 and built
+  host Python 3.14.2; no skips.
+
+First generated APK failed static native checks: chardet 7.7.0 bundled 17 Linux
+x86_64 extensions (e_machine 62), also with insufficient 16 KB alignment. Rejected
+that artifact. Pinned chardet==5.2.0 (pure Python) in buildozer.spec. A naive
+rebuild retained the stale distribution because p4a matches recipe names, not
+versions. Removed only the generated dist and stale chardet target files while
+retaining native build caches. Packaging venv then exposed two pip versions
+(25.3/26.2.2 metadata) and failed BuildDependencyInstallError import; recreated
+only that generated venv. Rebuild exited 0, producing corrected debug APK.
+
+Final artifact:
+- bin/striker-0.6.1-arm64-v8a-debug.apk (20,761,765 bytes)
+- SHA256 00211bb14422a9eeff5b4ab6ba3ea227b2e174c490fee7dbfdca215b61586a2b
+- `apksigner verify --verbose`: PASS, v2, one debug signer.
+- `zipalign -c -P 16 4`: PASS.
+- tools/android/verify_elf_alignment.py: PASS, all 118 ELF files AArch64 and
+  LOAD alignment >= 16 KB, including extensions inside compressed libpybundle.so.
+- chardet 5.2.0 import and ASCII detection in built host Python: PASS.
+- aapt: package com.clemir.striker, version 0.6.1, min SDK 26, target/compile 36,
+  native arm64-v8a, landscape, no requested permissions.
+- Generated debug manifest has debuggable=true and allowBackup=true. The reference
+  release policy is not merged; backup/release policy remains a release gate.
+- Earlier repeat packaging warnings about SDL Java patches were checked using
+  reverse patch dry runs: both succeeded, proving patches already applied.
+- App private payload has 4 entries (career/main/sitecustomize bytecode and p4a
+  environment settings); no baseline/tests/tools packaged.
+
+Game logic/baseline unchanged in this revision. No Android device installation,
+touch gameplay, lifecycle persistence or 16 KB device execution was performed.
+No AAB, release signing, public publication, payments or sponsor work performed.
+Next: install corrected debug APK on real Android hardware and execute the
+functional acceptance checklist before considering release or ad-board work.

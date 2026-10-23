@@ -14,5 +14,4 @@ exec env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u 
  -e APP_ANDROID_SKIP_UPDATE=1 \
  -e APP_ANDROID_SDK_PATH=/work/toolchain/android-sdk \
  -e APP_ANDROID_NDK_PATH=/work/toolchain/android-sdk/ndk/28.2.13676358 \
- -e JAVA_TOOL_OPTIONS=-Djavax.net.ssl.trustStore=/work/cache/java-cacerts \
- striker-android-build:phase1 "$@"
+ striker-android-build:phase1 bash -ec 'striker_java_options="$(python /work/source/tools/android/java_proxy_options.py)"; export JAVA_TOOL_OPTIONS="$striker_java_options"; exec "$@"' -- "$@"

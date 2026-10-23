@@ -2,6 +2,7 @@
 set -euo pipefail
 cd /workspace/Scorer
 mkdir -p /workspace/striker-android-build/cache/user /workspace/striker-android-build/cache/python-user/lib/python3.12/site-packages
+python3 tools/android/configure_pip_trust.py
 BUILDX_CONFIG=/workspace/striker-android-build/buildx \
  env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH \
  docker --host=unix:///var/run/docker.sock build \

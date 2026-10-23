@@ -37,4 +37,4 @@ Isto verifica apenas sintaxe. A funcionalidade Android exige um ambiente de buil
 A carreira original está em `career.py`, importável sem Kivy; `main.py` mantém a
 interface. Testes: `python3 -m unittest discover -s tests -v`.
 Ver [build Android e limitações](docs/ANDROID_BUILD.md) e [resultados](docs/BUILD_LOG.md).
-Ainda não existe APK/AAB compilado ou validado nesta fase.
+Já foi compilado um APK debug arm64 0.6.1, com assinatura e alinhamento ELF/ZIP verificados. A instalação e jogabilidade em Android ainda não foram testadas; não é uma versão de distribuição. Não foi gerado AAB.

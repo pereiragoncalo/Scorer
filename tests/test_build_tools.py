@@ -3,6 +3,8 @@ import runpy
 from pathlib import Path
 import sys
 import types
+import tempfile
+import configparser
 import unittest
 from unittest.mock import patch
 
@@ -21,6 +23,48 @@ class BuildLogTests(unittest.TestCase):
         self.assertTrue(messages)
         self.assertNotIn('must-never-appear', '\n'.join(messages))
         self.assertNotIn('EXAMPLE_API_KEY', '\n'.join(messages))
+
+    def test_pip_trust_preserves_existing_settings_and_repeats(self):
+        path = Path(__file__).resolve().parents[1] / 'tools/android/configure_pip_trust.py'
+        configure = runpy.run_path(str(path))['configure']
+        with tempfile.TemporaryDirectory() as temp:
+            config_path = Path(temp) / 'pip.conf'
+            config_path.write_text('[global]\ntimeout = 45\n[index]\ncustom = keep\n')
+            configure(config_path)
+            first = config_path.read_text()
+            configure(config_path)
+            self.assertEqual(config_path.read_text(), first)
+            config = configparser.ConfigParser()
+            config.read(config_path)
+            self.assertEqual(config['global']['cert'], '/run/ca-bundle.crt')
+            self.assertEqual(config['global']['timeout'], '45')
+            self.assertEqual(config['index']['custom'], 'keep')
+            self.assertFalse(config.has_option('global', 'trusted-host'))
+
+    def test_invalid_pip_config_is_not_overwritten(self):
+        path = Path(__file__).resolve().parents[1] / 'tools/android/configure_pip_trust.py'
+        configure = runpy.run_path(str(path))['configure']
+        with tempfile.TemporaryDirectory() as temp:
+            config_path = Path(temp) / 'pip.conf'
+            config_path.write_text('not a valid configuration')
+            with self.assertRaises(configparser.Error):
+                configure(config_path)
+            self.assertEqual(config_path.read_text(), 'not a valid configuration')
+
+    def test_java_uses_managed_proxy_and_keeps_tls_trust(self):
+        path = Path(__file__).resolve().parents[1] / 'tools/android/java_proxy_options.py'
+        options = runpy.run_path(str(path))['options']
+        result = options({'HTTPS_PROXY': 'http://proxy.example:8080'})
+        self.assertIn('-Dhttps.proxyHost=proxy.example', result)
+        self.assertIn('-Dhttps.proxyPort=8080', result)
+        self.assertIn('-Djavax.net.ssl.trustStore=', result)
+
+    def test_java_does_not_expose_proxy_credentials(self):
+        path = Path(__file__).resolve().parents[1] / 'tools/android/java_proxy_options.py'
+        options = runpy.run_path(str(path))['options']
+        with self.assertRaisesRegex(ValueError, 'managed unauthenticated') as caught:
+            options({'HTTPS_PROXY': 'http://username:private-value@proxy.example:8080'})
+        self.assertNotIn('private-value', str(caught.exception))
 
 
 if __name__ == '__main__':
