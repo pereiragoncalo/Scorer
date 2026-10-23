@@ -37,4 +37,18 @@ Isto verifica apenas sintaxe. A funcionalidade Android exige um ambiente de buil
 A carreira original está em `career.py`, importável sem Kivy; `main.py` mantém a
 interface. Testes: `python3 -m unittest discover -s tests -v`.
 Ver [build Android e limitações](docs/ANDROID_BUILD.md) e [resultados](docs/BUILD_LOG.md).
-Já foi compilado um APK debug arm64 0.6.1, com assinatura e alinhamento ELF/ZIP verificados. A instalação e jogabilidade em Android ainda não foram testadas; não é uma versão de distribuição. Não foi gerado AAB.
+Já foi compilado um APK debug arm64 0.6.1, com assinatura e alinhamento ELF/ZIP verificados. O proprietário confirmou que 0.6.1 abre e corre sem crashes no Android; não é uma versão de distribuição. Não foi gerado AAB.
+
+## 0.6.2 — menus responsivos
+
+O proprietário confirmou que 0.6.1 abre e corre sem crashes no telemóvel.
+A nova interface 0.6.2 usa texto multilinha, deslocação, alvos de toque de 52 dp e
+botão Sair com confirmação/gravação. Mantém a mesma aplicação/carreira.
+
+Testes Kivy reais, além da suite sem interface:
+```sh
+KIVY_HOME=/workspace/striker-runtime/kivy /workspace/striker-venv/bin/python -m unittest discover -s ui_tests -v
+```
+A separação FREE/World e funcionalidades ainda por implementar estão descritas
+em [modelo de produto](docs/PRODUCT_MODEL.md). Free tem uma divisão; a aplicação
+paga separada e o editor de importação mundial ainda não são produtos entregues.

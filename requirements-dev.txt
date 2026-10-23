@@ -7,14 +7,17 @@ docutils==0.23
 filelock==4.2.4
 filetype==1.2.0
 idna==3.20
+iniconfig==2.3.1
 Kivy==2.3.1
 Kivy-Garden==0.1.5
 packaging==26.3
 pexpect==4.9.0
 platformdirs==4.13.5
+pluggy==1.7.0
 ptyprocess==0.7.0
 pyflakes==3.4.0
 Pygments==2.21.0
+pytest==8.4.2
 python-discovery==1.6.4
 requests==2.34.2
 setuptools==75.8.2

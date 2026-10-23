@@ -137,6 +137,24 @@ class CareerTests(unittest.TestCase):
             self.assertFalse(c.save_path.exists())
         self.assertTrue(legacy.exists())
 
+    def test_local_editor_renames_and_preserves_saved_career(self):
+        c = self.signed()
+        c.goals = 5
+        c.rename_current_club('Clube Inventado')
+        c.rename_current_competition('Liga Inventada')
+        restored = career.CareerMode()
+        self.assertEqual(restored.club_name, 'Clube Inventado')
+        self.assertIsNotNone(restored.club)
+        self.assertEqual(restored.current_league.name, 'Liga Inventada')
+        self.assertEqual(restored.goals, 5)
+
+    def test_save_outcome_and_fictional_free_division(self):
+        c = self.signed()
+        self.assertEqual(c.current_league.name, 'Divisão Striker')
+        self.assertTrue(c.save())
+        with patch('career.os.replace', side_effect=OSError('disk full')):
+            self.assertFalse(c.save())
+
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'
         self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),

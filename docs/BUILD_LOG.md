@@ -173,3 +173,69 @@ touch gameplay, lifecycle persistence or 16 KB device execution was performed.
 No AAB, release signing, public publication, payments or sponsor work performed.
 Next: install corrected debug APK on real Android hardware and execute the
 functional acceptance checklist before considering release or ad-board work.
+
+## 2026-10-23 — 0.6.2 responsive menus and exit
+
+Owner reports 0.6.1 runs on an Android phone without crashes; menu text overflow
+was observed. This is owner feedback, not a full automated hardware acceptance.
+Owner clarified product: FREE has exactly one division, funded exclusively by
+stadium advertising; World is a separate paid app with fictional defaults and a
+local name editor/importer. Updated AGENTS/ROADMAP and docs/PRODUCT_MODEL.md.
+No payments, paid artifact, advertisements or remote name downloads added here.
+
+Changes:
+- Added menu_ui.py: native Kivy layouts for offers/hub/training/standings/scorers/
+  calendar/agent/world, wrapped labels, adaptive columns, vertical/horizontal
+  scrolling, 52 dp touch buttons and fixed navigation header. Compact hub puts
+  Play/actions before statistics. Menu tree is retained between frames and only
+  rebuilt when career/view state changes. Stadium, simulation and career logic
+  remain the original Python/Kivy implementation.
+- main.py routes real widget touches before game shooting, adds save/exit modal,
+  prevents simulation advancing while exit confirmation is open, and saves on
+  Android pause/stop. A failed explicit save prevents exit. Menus can fit portrait
+  windows; gameplay retains landscape. No claim about all possible device/notch
+  configurations without device tests.
+- career.py reports save success/failure and fixes the pre-existing current_club
+  reference in the local rename method. Tests prove edited names/progress survive
+  restart. New FREE career division displays fictional Divisão Striker; existing
+  saved/custom names remain compatible. FREE menu/action guard hides paid editor
+  and World actions; save edits still cannot unlock World.
+- buildozer.spec 0.6.2, excludes ui_tests from APK. Development requirements add
+  pinned pytest for Kivy's real touch-test helpers. Baseline unchanged.
+
+Validation:
+- `python3 -m unittest discover -s tests -v`: 20 PASS, no skips.
+- `KIVY_HOME=/workspace/striker-runtime/kivy /workspace/striker-venv/bin/python
+  -m unittest discover -s ui_tests -v`: 8 PASS, no skips. Includes 7 menu views
+  across 640x360, 800x360, 960x540, 1280x720, 360x800 and 320x240 (42 layout
+  combinations), system font scale 1.6, native touch navigation, training/game
+  transition, visible Play button, cancel exit, save-before-stop ordering and
+  remaining open after save failure. Numeric cells stay within their rows.
+- Initial GUI test dependency pytest was missing; installed/pinned it, then reran
+  real tests successfully. A first Widget.export_to_png capture did not represent
+  live rendering, so inspected actual App event-loop Window screenshots instead.
+  Corrected table minimum width to account for cell spacing/card padding so
+  trailing numeric columns are reachable by horizontal scrolling.
+- Live Linux SDL2/Mesa app opened and produced reviewed screenshots at 960x540,
+  640x360 and 360x800. These are desktop renders, not Android store screenshots.
+  UI result logs/screenshots: /workspace/striker-runtime/menu-tests/.
+- Python syntax, pyflakes on menu_ui/ui_tests/changed career tests and diff
+  whitespace: PASS. No claim that all legacy main.py lint warnings were fixed.
+- `bash tools/android/run.sh python tools/build_android.py -v android debug`:
+  PASS, actual native APK, final log cache/build-0.6.2-final.log.
+- Actual final APK: signature v2 PASS, `zipalign -c -P 16 4` PASS; all 118 bundled
+  ELF libraries AArch64 with LOAD alignment >=16 KB PASS. Development signing
+  certificate matches 0.6.1; package/application ID retained for in-place updates.
+- APK private payload includes career/main/menu_ui/sitecustomize bytecode and p4a
+  environment file, with no tests/baseline/tools.
+
+Artifact: bin/striker-0.6.2-arm64-v8a-debug.apk (20,774,313 bytes)
+SHA256: 87b55632503d132a357fec2c3583d29715d2d3b23d02b9c51623b9859327b387
+Copy: /workspace/deliverables/Striker-0.6.2-arm64-debug.apk
+
+Limitations: new APK not yet tested on the owner's phone. No release APK/AAB,
+public distribution, real advertisements or paid World application. Existing
+World simulation has full-depth European pyramids but only one tier in many
+other countries; a true worldwide all-divisions product and safe name importer
+remain future tasks. Next: owner tests update-in-place, scrolling/text, exit and
+career recovery; then offline fictional stadium advertising.

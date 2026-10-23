@@ -12,8 +12,8 @@ R: repor as estatísticas.
 ESC: sair.
 
 
-O jogo não usa imagens nem ficheiros KV. Toda a interface e o estádio são
-desenhados no Canvas do Kivy e a carreira é guardada automaticamente.
+A partida e o estádio usam o Canvas do Kivy. Os menus usam layouts Kivy
+responsivos sem ficheiros KV. A carreira é guardada automaticamente.
 """
 
 
@@ -37,8 +37,8 @@ from kivy.config import Config
 
 
 
-Config.set("graphics", "minimum_width", "800")
-Config.set("graphics", "minimum_height", "500")
+Config.set("graphics", "minimum_width", "320")
+Config.set("graphics", "minimum_height", "240")
 Config.set("graphics", "width", "1280")
 Config.set("graphics", "height", "720")
 Config.set("graphics", "resizable", "1")
@@ -73,6 +73,8 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label as UiLabel
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
+from kivy.metrics import dp
+from menu_ui import CareerMenu, MENU_VIEWS, FlowLabel, TouchButton
 from kivy.utils import platform
 
 
@@ -222,6 +224,8 @@ class StrikerGame(Widget):
         self.crowd_visible = 0
 
 
+        self._menu = None
+        self._exit_popup = None
         self.career = CareerMode()
         self.view = "hub" if self.career.club_name else "offers"
         self.shot_context = "career"
@@ -1022,6 +1026,8 @@ class StrikerGame(Widget):
         # O limite evita saltos gigantes ao regressar de segundo plano; a
         # física continua dividida em passos de 1/60 s para não atravessar
         # jogadores, postes ou redes entre duas atualizações.
+        if self._exit_popup is not None:
+            return
         frame_dt = clamp(dt, 0.0, 0.12)
         self.elapsed += frame_dt
         self.state_age += frame_dt
@@ -2335,12 +2341,45 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     # Controlos
     # ------------------------------------------------------------------
+    def _request_exit(self):
+        if self._exit_popup is not None:
+            return
+        content = BoxLayout(orientation="vertical", spacing=dp(12), padding=dp(12))
+        message = "A carreira será guardada antes de sair."
+        if self.view in ("match", "shot"):
+            message += " O treino ou jogo em curso terá de ser repetido."
+        from kivy.uix.scrollview import ScrollView
+        message_scroll = ScrollView(do_scroll_x=False)
+        message_scroll.add_widget(FlowLabel(text=message))
+        content.add_widget(message_scroll)
+        buttons = BoxLayout(spacing=dp(12), size_hint_y=None, height=dp(56))
+        popup = Popup(title="Sair do Striker?", content=content,
+                      size_hint=(0.9, None), height=min(Window.height - dp(16), dp(280)),
+                      auto_dismiss=False)
+        buttons.bind(minimum_height=buttons.setter("height"))
+        buttons.add_widget(TouchButton("CONTINUAR", popup.dismiss))
+        buttons.add_widget(TouchButton("GUARDAR E SAIR", self._confirm_exit, accent=True))
+        content.add_widget(buttons)
+        popup.bind(on_dismiss=lambda *_: setattr(self, "_exit_popup", None))
+        self._exit_popup = popup
+        popup.open()
+
+    def _confirm_exit(self):
+        if self.career.save() is False:
+            if self._exit_popup is not None:
+                self._exit_popup.dismiss()
+            self.draw()
+            return
+        app = App.get_running_app()
+        if app is not None:
+            app.stop()
+
     def _on_key_down(self, _window, key, _scancode, codepoint, _modifiers):
         if key == 27:  # ESC
             if self.view not in ("hub", "offers") and self.career.club_name:
                 self.view = "hub"
                 return True
-            App.get_running_app().stop()
+            self._request_exit()
             return True
         if key == 32:  # ESPAÇO
             if self.view == "shot":
@@ -2383,6 +2422,9 @@ class StrikerGame(Widget):
 
 
     def on_touch_down(self, touch):
+        if self._menu is not None:
+            super().on_touch_down(touch)
+            return True
         for x, y, width, height, action, value in reversed(self.ui_buttons):
             if x <= touch.x <= x + width and y <= touch.y <= y + height:
                 self._activate_ui(action, value)
@@ -2424,7 +2466,9 @@ class StrikerGame(Widget):
 
 
     def _activate_ui(self, action: str, value: object = None) -> None:
-        if action == "accept_offer":
+        if action == "exit":
+            self._request_exit()
+        elif action == "accept_offer":
             self.career.accept_starting_offer(str(value))
             self.view = "hub"
         elif action == "hub":
@@ -2458,10 +2502,11 @@ class StrikerGame(Widget):
             if self.career.world_unlocked:
                 self.view = "world"
             else:
-                self.career.message = "STRIKER WORLD requer o desbloqueio premium verificado."
+                self.career.message = "Striker World será uma aplicação separada. Esta edição tem uma divisão."
                 self.view = "hub"
         elif action == "editor":
-            self._open_local_editor()
+            if self.career.world_unlocked:
+                self._open_local_editor()
         elif action == "table_prev":
             self.table_page = max(0, self.table_page - 1)
         elif action == "table_next":
@@ -2480,6 +2525,18 @@ class StrikerGame(Widget):
     # Desenho
     # ------------------------------------------------------------------
     def draw(self) -> None:
+        if self.view in MENU_VIEWS:
+            self.ui_buttons.clear()
+            if self._menu is None:
+                self.canvas.clear()
+                self._menu = CareerMenu(self)
+                self.add_widget(self._menu)
+            self._menu.sync()
+            return
+        if self._menu is not None:
+            self.remove_widget(self._menu)
+            self._menu = None
+        self.ui_buttons.clear()
         landscape = self.width >= self.height
 
 
@@ -2554,6 +2611,7 @@ class StrikerGame(Widget):
 
             if self.view == "match":
                 self._draw_match_overlay()
+            self._ui_button("SAIR", self.right - dp(104), self.y + dp(12), dp(88), dp(48), "exit")
 
 
     def _draw_career_screen(self) -> None:
@@ -2683,7 +2741,7 @@ class StrikerGame(Widget):
     def _open_local_editor(self) -> None:
         """Small local-only editor for club and competition display names."""
         career = self.career
-        club = career.current_club
+        club = career.club
         if club is None:
             career.message = "Editor indisponivel sem clube ativo."
             return
@@ -4748,6 +4806,15 @@ class StrikerGame(Widget):
 class StrikerApp(App):
     title = "Striker"
 
+
+    def on_pause(self):
+        if self.root is not None:
+            self.root.career.save()
+        return True
+
+    def on_stop(self):
+        if self.root is not None:
+            self.root.career.save()
 
     def build(self):
         force_android_landscape()

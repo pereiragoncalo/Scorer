@@ -431,6 +431,8 @@ CLUB_KIT_HEX: dict[str, tuple[str, str, str, str]] = {}
 
 
 def division_name(country: str, tier: int) -> str:
+    if country == "England" and tier == 4:
+        return "Divisão Striker"
     names = DIVISION_NAMES.get(country, ())
     if 0 < tier <= len(names):
         return names[tier - 1]
@@ -774,7 +776,7 @@ class CareerMode:
     def rename_current_club(self, requested_name: object) -> str:
         """Rename only the user's current club locally; never fetch external assets."""
         new_name = sanitize_local_display_name(requested_name)
-        club = self.current_club
+        club = self.club
         if club is None:
             raise ValueError("no active club")
         old_name = club.name
@@ -1407,9 +1409,9 @@ class CareerMode:
         self.form_goals.clear()
 
 
-    def save(self) -> None:
+    def save(self) -> bool:
         if not self.club_name:
-            return
+            return True
         league = self.current_league
         data = {
             "save_version": self.SAVE_VERSION,
@@ -1469,6 +1471,8 @@ class CareerMode:
                     temporary.unlink(missing_ok=True)
         except OSError:
             self.message = "Nao foi possivel guardar a carreira. Tenta novamente."
+            return False
+        return True
 
 
     def load(self) -> None:

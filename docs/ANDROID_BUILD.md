@@ -1,4 +1,18 @@
-# Android build — phase 1 (0.6.1, not an APK release)
+# Android build and verification
+
+## Latest candidate — 0.6.2 FREE
+
+Responsive career menus and save-before-exit confirmation. Actual debug APK:
+`bin/striker-0.6.2-arm64-v8a-debug.apk`, 20,774,313 bytes.
+SHA256 `87b55632503d132a357fec2c3583d29715d2d3b23d02b9c51623b9859327b387`.
+20 core/security tests plus 8 real Kivy UI tests pass. Signature v2, ZIP alignment
+and all 118 AArch64 ELF files' >=16 KB alignment pass. Same package and debug
+certificate as 0.6.1. Install as an update to preserve career data; do not uninstall
+or clear application storage. User reports 0.6.1 runs without crashes; 0.6.2 needs
+its own device tests. No AAB/release artifact or paid World application yet.
+Use the verification commands below with version 0.6.2. See BUILD_LOG.md for
+layout matrix and PRODUCT_MODEL.md for the clarified two-app plan.
+
 
 Use the existing checkout; do not create a worktree for cloud tasks.
 
@@ -84,7 +98,7 @@ an internal import; recreated only that generated virtualenv. The corrected
 build completed successfully. Do not reuse an old distribution blindly after
 changing dependency pins; inspect the final artifact, including Python bundles.
 
-Current artifact: `bin/striker-0.6.1-arm64-v8a-debug.apk`, 20,761,765 bytes.
+First-phase artifact: `bin/striker-0.6.1-arm64-v8a-debug.apk`, 20,761,765 bytes.
 SHA256: `00211bb14422a9eeff5b4ab6ba3ea227b2e174c490fee7dbfdca215b61586a2b`.
 This is signed with a development/debug key, not a distribution release.
 
