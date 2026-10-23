@@ -60,3 +60,11 @@ Sair só no menu principal, painel final responsivo e leitura segura de saves
 malformados. Mantidos identificador Android e formato de carreira para atualização.
 Ver [auditoria, testes e limitações](docs/AUDIT_0.6.3.md). Suite: 21 testes sem
 interface e 10 testes Kivy; esta beta ainda exige validação no telemóvel.
+
+## SCORER 0.6.4 — menu de um só ecrã e identidade visual
+
+Menu principal sem scroll: resumo compacto da carreira e seis ações visíveis,
+com Sair apenas no cabeçalho. Listas de classificação/calendário continuam
+navegáveis por deslocação. Painel final dimensionado pelo conteúdo, botão
+Continuar limitado a 176 dp. Splash «SCORER by clemir» e ícone próprio Android.
+Ver [verificação da versão](docs/UI_0.6.4.md).

@@ -261,3 +261,35 @@ Logs completos no ambiente: `/workspace/striker-runtime/build-0.6.3-final.log`,
 `verify-0.6.3.log`; próxima tarefa é validar esta atualização no telemóvel,
 percorrendo splash, menu, treino, oportunidade, resultado e gravação/reabertura.
 Sem validação física de 0.6.3, sem AAB ou assinatura release nesta etapa.
+
+## 0.6.4 — menu sem scroll, caixas compactas e ícone
+
+Feedback do proprietário: caixas demasiado grandes, menu principal com scroll,
+crédito clemir insuficiente; pedido adicional de ícone profissional.
+
+Alterados `menu_ui.py`, `ui_tests/test_menus.py`, `assets/splash.png`, novo
+`assets/icon.png`, `buildozer.spec`, README, AGENTS e `docs/UI_0.6.4.md`.
+Main menu passa a dashboard sem ScrollView, com seis ações simultaneamente
+visíveis. Painel final dimensionado ao conteúdo, botão de largura limitada.
+Splash e ícone originais gerados para esta aplicação; splash inclui a assinatura
+«SCORER by clemir» com destaque. Simulação, baseline e saves não alterados.
+
+Verificação: py_compile; 21 testes sem interface e 11 testes Kivy aprovados.
+Novo teste cobre seis combinações de ecrã/densidade, limites dos botões,
+alvos de pelo menos 48 dp, ausência de sobreposição e ausência de ScrollView.
+Capturas reais da janela Kivy 1280×589/densidade 1,64 inspecionadas: identificada
+e corrigida concatenação de linhas de estatísticas e ordem dos campos durante
+mudança de dimensões. Última captura do menu: `scorer-064-hub0003.png` no
+runtime; captura do painel: `scorer-064-match0001.png`. Não são capturas Android.
+
+Build real: `bash tools/android/run.sh python tools/build_android.py -v android debug`.
+Assinatura v2 debug válida, mesmo certificado das betas anteriores; ZIP e 118 ELF
+AArch64 com alinhamento 16 KB verificados. API 36/mínimo 26, mesmo applicationId.
+Hashes dos recursos reais Android `res/mipmap/icon.png` e presplash e respetivos
+assets privados conferem com as imagens fontes. Nenhuma chave de assinatura
+incluída no APK. SHA-256 do APK:
+`de061bd542b89488ede8f4161be609ed2e8a85caaec6409f2fe7d83d2bef1363`.
+Logs locais `build-0.6.4.log` e `verify-0.6.4.log` em
+`/workspace/striker-runtime`. Próximo: instalar atualização no telemóvel e validar
+menu, ícone, splash e transições treino/oportunidade/resultado. Sem AAB ou build
+release de loja nesta etapa; teste físico de 0.6.4 pendente.

@@ -6,6 +6,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
+from kivy.uix.image import Image
 from kivy.uix.progressbar import ProgressBar
 from kivy.uix.scrollview import ScrollView
 
@@ -100,11 +101,19 @@ class CareerMenu(BoxLayout):
 
     def _build(self):
         self.clear_widgets()
+        self.padding = dp(12) if self.game.view == 'hub' else dp(16)
+        self.spacing = dp(8) if self.game.view == 'hub' else dp(12)
         header = BoxLayout(size_hint_y=None, height=dp(60), spacing=dp(8))
         brand = BoxLayout(orientation='vertical')
-        brand.add_widget(FlowLabel(text='SCORER', font_size=sp(22), bold=True))
-        brand.add_widget(FlowLabel(text='CARREIRA DE AVANÇADO', font_size=sp(10), color=MUTED))
-        brand.bind(minimum_height=lambda widget, value: setattr(header, "height", max(dp(60), value)))
+        if self.game.view == 'hub':
+            header.height = dp(52)
+            header.add_widget(Image(source='assets/icon.png', size_hint_x=None, width=dp(48)))
+            brand.add_widget(BoundedLabel(text='SCORER', font_size=sp(22), bold=True))
+            brand.add_widget(BoundedLabel(text='by clemir', font_size=sp(11), color=MUTED))
+        else:
+            brand.add_widget(FlowLabel(text='SCORER', font_size=sp(22), bold=True))
+            brand.add_widget(FlowLabel(text='CARREIRA DE AVANÇADO', font_size=sp(10), color=MUTED))
+            brand.bind(minimum_height=lambda widget, value: setattr(header, 'height', max(dp(60), value)))
         header.add_widget(brand)
         if self.game.view not in ('hub', 'offers'):
             back = self._button('VOLTAR', 'hub')
@@ -115,6 +124,11 @@ class CareerMenu(BoxLayout):
             exit_button.size_hint_x, exit_button.width = None, dp(76)
             header.add_widget(exit_button)
         self.add_widget(header)
+        if self.game.view == 'hub':
+            self.scroll = None
+            self.body = MainDashboard(self)
+            self.add_widget(self.body)
+            return
         self.scroll = ScrollView(do_scroll_x=False, bar_width=dp(4), scroll_type=['bars', 'content'])
         self.body = GridLayout(cols=1, spacing=dp(16), padding=[0, 0, dp(4), dp(12)], size_hint_y=None)
         self.body.bind(minimum_height=self.body.setter('height'))
@@ -134,49 +148,6 @@ class CareerMenu(BoxLayout):
         card.label('Uma divisão. A tua carreira começa aqui.', muted=True)
         for club in self.game.career.offers:
             card.add_widget(self._button(club, 'accept_offer', club, accent=True))
-
-    def _hub(self):
-        c = self.game.career
-        grid = GridLayout(cols=1, spacing=dp(16), size_hint_y=None)
-        grid.bind(minimum_height=grid.setter('height'))
-        self.body.add_widget(grid)
-        summary = Card()
-        grid.add_widget(summary)
-        summary.label(c.player_name, heading=True)
-        summary.label(c.club_name)
-        summary.label(f'{c.current_league.name} · {c.season}/{str(c.season + 1)[-2:]}', muted=True)
-        summary.label(c.format_date(c.current_date), muted=True)
-        for title, value in (('ENERGIA', c.stamina), ('MORAL', c.morale)):
-            summary.label(f'{title}  {value:.1f}/20', muted=True)
-            summary.add_widget(ProgressBar(max=20, value=value, size_hint_y=None, height=dp(10)))
-        summary.label(f'{c.matches} jogos   ·   {c.goals} golos')
-        fixture = c.next_match()
-        summary.label('PRÓXIMO JOGO', heading=True)
-        summary.label(f'{fixture[1].name} vs {fixture[2].name}' if fixture else 'Época concluída')
-        actions = Card()
-        grid.add_widget(actions)
-        actions.label('A tua carreira', heading=True)
-        for title, action in [('JOGAR', 'play'), ('TREINO · 3 REMATES', 'training'),
-                              ('CLASSIFICAÇÃO', 'standings'), ('MARCADORES', 'scorers'),
-                              ('CALENDÁRIO', 'calendar'), ('AGENTE', 'agent')]:
-            actions.add_widget(self._button(title, action, accent=action == 'play'))
-        if c.world_unlocked:
-            actions.add_widget(self._button('MUNDO DO FUTEBOL', 'world'))
-            actions.add_widget(self._button('EDITOR LOCAL', 'editor'))
-        def arrange(widget, width):
-            wide = width >= dp(760)
-            order = (summary, actions) if wide else (actions, summary)
-            if getattr(widget, '_card_order', None) != order:
-                widget._card_order = order
-                widget.clear_widgets()
-                widget.cols = 2 if wide else 1
-                for card in order:
-                    widget.add_widget(card)
-        grid.bind(width=arrange)
-        arrange(grid, grid.width)
-        status = self.card()
-        status.label(c.message)
-        status.label('EDIÇÃO GRATUITA · UMA DIVISÃO', muted=True)
 
     def _training(self):
         g, c = self.game, self.game.career
@@ -269,27 +240,37 @@ class MatchNotice(BoxLayout):
         self.body.bind(minimum_height=self.body.setter('height'))
         self.scroll.add_widget(self.body)
         self.add_widget(self.scroll)
-        self.button = TouchButton('CONTINUAR', self.proceed, accent=True)
+        self.button = MenuTile('CONTINUAR', self.proceed, accent=True)
+        self.button.size_hint_x = None
+        self.button.width = dp(176)
+        self.button.pos_hint = {'right': 1}
         self.add_widget(self.button)
+        self.body.bind(minimum_height=self._fit_panel)
+        self.button.bind(height=self._fit_panel)
+
+    def _fit_panel(self, *_):
+        available = max(dp(96), self.game.height - dp(128))
+        natural = self.body.minimum_height + self.button.height + dp(38)
+        self.height = min(natural, available)
+        self.center = self.game.center
 
     def _rect(self, *_):
         self.background.pos, self.background.size = self.pos, self.size
 
     def sync(self):
         game = self.game
-        self.size = (min(game.width - dp(24), dp(620)),
-                     max(dp(96), min(dp(260), game.height - dp(116))))
-        self.center = game.center
+        self.width = min(game.width * 0.76, dp(460))
+        self._fit_panel()
         signature = (game.match_finished, game.match_summary, game.career.morale, game.career.stamina)
         if signature == self.signature:
             return
         self.signature = signature
         self.body.clear_widgets()
         title = game.match_summary if game.match_finished else 'OPORTUNIDADE'
-        self.body.add_widget(FlowLabel(text=title, font_size=sp(20), bold=True, color=GREEN))
+        self.body.add_widget(FlowLabel(text=title, font_size=sp(17), bold=True, color=GREEN))
         detail = (f'Moral {game.career.morale:.1f}/20  ·  Energia {game.career.stamina:.1f}/20'
                   if game.match_finished else 'Prepara o teu remate e marca a diferença.')
-        self.body.add_widget(FlowLabel(text=detail))
+        self.body.add_widget(FlowLabel(text=detail, font_size=sp(13)))
         self.button.text = 'CONTINUAR' if game.match_finished else 'JOGAR OPORTUNIDADE'
 
     def proceed(self):
@@ -298,3 +279,97 @@ class MatchNotice(BoxLayout):
         else:
             self.game._begin_pending_chance()
         self.game.draw()
+
+
+class BoundedLabel(Label):
+    """A concise dashboard field, constrained to its allocated area."""
+    def __init__(self, **kwargs):
+        kwargs.setdefault('color', INK)
+        kwargs.setdefault('font_size', sp(13))
+        kwargs.setdefault('max_lines', 2)
+        self._preferred_font = kwargs['font_size']
+        super().__init__(halign='left', valign='middle', shorten=True,
+                         shorten_from='right', **kwargs)
+        self.bind(size=self._bounds)
+        self._bounds()
+
+    def _bounds(self, *_):
+        self.font_size = min(self._preferred_font, max(dp(10), self.height * 0.82))
+        self.text_size = (max(1, self.width), max(1, self.height))
+
+
+class MenuTile(TouchButton):
+    """Fixed touch area: labels cannot expand the main menu beyond the screen."""
+    def __init__(self, text, callback, accent=False):
+        super().__init__(text, callback, accent=accent)
+        self.font_size = sp(13)
+        self.shorten = True
+        self.shorten_from = 'right'
+        self.max_lines = 2
+        self.height = dp(52)
+        self._fit()
+
+    def _fit(self, *_):
+        self.text_size = (max(1, self.width - dp(16)), max(1, self.height - dp(12)))
+
+
+class MainDashboard(BoxLayout):
+    """One screen for all primary actions, with no ScrollView or hidden buttons."""
+    def __init__(self, menu):
+        super().__init__(orientation='vertical', spacing=dp(8))
+        self.menu = menu
+        c = menu.game.career
+        self.row = BoxLayout(spacing=dp(16))
+        self.add_widget(self.row)
+        self.summary = BoxLayout(orientation='vertical', padding=dp(12), spacing=dp(2))
+        with self.summary.canvas.before:
+            Color(0.035, 0.10, 0.12, 1)
+            self.background = RoundedRectangle(pos=self.summary.pos, size=self.summary.size, radius=[dp(10)])
+        self.summary.bind(pos=self._rect, size=self._rect)
+        self.identity = BoundedLabel(text=c.player_name, font_size=sp(18), bold=True, color=GREEN)
+        self.club = BoundedLabel(text=c.club_name, font_size=sp(14))
+        self.meta = BoundedLabel(text=f'{c.current_league.name} · {c.format_date(c.current_date)}', color=MUTED, font_size=sp(11))
+        self.stats = BoundedLabel(text=f'Energia {c.stamina:.1f}/20   ·   Moral {c.morale:.1f}/20', font_size=sp(12))
+        self.totals = BoundedLabel(text=f'{c.matches} jogos   ·   {c.goals} golos', font_size=sp(12), color=MUTED)
+        fixture = c.next_match()
+        next_game = f'{fixture[1].name} vs {fixture[2].name}' if fixture else 'Época concluída'
+        self.fixture_heading = BoundedLabel(text='PRÓXIMO JOGO', font_size=sp(10), color=MUTED)
+        self.fixture = BoundedLabel(text=next_game, font_size=sp(12))
+        self.fields = (self.identity, self.club, self.meta, self.stats, self.totals, self.fixture_heading, self.fixture)
+        for field in self.fields:
+            self.summary.add_widget(field)
+        self.row.add_widget(self.summary)
+        self.actions = GridLayout(cols=2, spacing=dp(8))
+        for title, action in [('JOGAR', 'play'), ('TREINO', 'training'),
+                              ('CLASSIFICAÇÃO', 'standings'), ('MARCADORES', 'scorers'),
+                              ('CALENDÁRIO', 'calendar'), ('AGENTE', 'agent')]:
+            self.actions.add_widget(MenuTile(title, lambda name=action: menu.action(name), accent=action == 'play'))
+        if c.world_unlocked:
+            self.actions.add_widget(MenuTile('MUNDO', lambda: menu.action('world')))
+            self.actions.add_widget(MenuTile('EDITOR LOCAL', lambda: menu.action('editor')))
+        self.row.add_widget(self.actions)
+        self.status = BoundedLabel(text=c.message, color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(28))
+        self.add_widget(self.status)
+        self.bind(size=self._arrange)
+        self.row.bind(size=self._arrange)
+        self._arrange()
+
+    def _rect(self, *_):
+        self.background.pos, self.background.size = self.summary.pos, self.summary.size
+
+    def _arrange(self, *_):
+        portrait = self.width < dp(480) and self.height > self.width
+        self.row.orientation = 'vertical' if portrait else 'horizontal'
+        self.summary.size_hint = (1, 0.48) if portrait else (0.42, 1)
+        self.actions.size_hint = (1, 0.52) if portrait else (0.58, 1)
+        short = not portrait and self.row.height < dp(200)
+        self.actions.cols = 3 if short else 2
+        self.summary.spacing = dp(1) if short else dp(2)
+        self.summary.padding = dp(8) if short else dp(12)
+        # Extra metadata is still available in Calendar; keep essential identity
+        # and controls readable on exceptionally short desktop/test windows.
+        visible = (self.identity, self.club, self.stats, self.fixture) if short else self.fields
+        if tuple(reversed(self.summary.children)) != visible:
+            self.summary.clear_widgets()
+            for field in visible:
+                self.summary.add_widget(field)

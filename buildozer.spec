@@ -6,11 +6,12 @@ source.dir = .
 source.exclude_dirs = baseline,tests,ui_tests,docs,tools,.git,.buildozer,bin
 source.exclude_patterns = striker_career.json,*.keystore,*.jks,*.log
 source.include_exts = py,png,jpg,jpeg,kv,json,atlas,ttf
-version = 0.6.3
+version = 0.6.4
 requirements = python3,kivy==2.3.1,chardet==5.2.0
 orientation = landscape
 fullscreen = 1
 presplash.filename = assets/splash.png
+icon.filename = assets/icon.png
 android.presplash_color = #06191f
 android.permissions =
 android.api = 36

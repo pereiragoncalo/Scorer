@@ -1,4 +1,4 @@
-# Striker Android — repository instructions for Codex
+# SCORER Android — repository instructions for Codex
 
 ## Absolute scope
 - This project is the original Python/Kivy Android app. **Do not use or port the Striker HTML/web version** and do not rewrite the game in another engine.
@@ -22,7 +22,8 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 - Preserve privacy (no hidden analytics or external upload), fictitious clubs and original content, safe input handling. No secrets or signing keys in source/repo.
 - Target Android API 36 or newer. Debug APK 0.6.1 was genuinely built and the owner reports it runs without crashes. Every subsequent APK needs its own build/static checks and device validation. The reference manifest in docs is not automatically merged by Buildozer; release gates still apply.
 - APK and AAB must be genuinely generated and tested on Android, not claimed ready based solely on Python syntax compilation. Test landscape orientation and touchscreen usability.
-- Menus must wrap text, keep touch targets at least 48 dp, scroll instead of overflowing, and provide save-before-exit confirmation. Test real Kivy layouts across phone aspect ratios; do not treat geometry checks as screenshots or device validation.
+- Public game identity is SCORER by clemir. Keep the existing Android package/save identifiers for upgrade compatibility.
+- The main menu must fit on one screen without scrolling, with all six FREE actions and Exit visible. Use compact responsive columns and bounded summary text. Other lists may scroll. Keep touch targets at least 48 dp and save-before-exit confirmation. Test real Kivy layouts across phone aspect ratios; do not treat geometry checks as screenshots or device validation.
 - Work in small reviewable commits; never overwrite the baseline or mark tasks DONE without test evidence. Log tests and failures in `docs/BUILD_LOG.md`.
 - On every change, run available syntax/static checks, add tests for changed logic, and report limitations honestly.
 - Never submit to Google Play, turn on real payments, buy ads, or contact sponsors without explicit human approval.

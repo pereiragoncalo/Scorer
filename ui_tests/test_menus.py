@@ -9,10 +9,11 @@ from kivy.core.window import Window
 from kivy.metrics import dp, Metrics
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.scrollview import ScrollView
 from kivy.tests.common import UnitTestTouch
 
 from main import StrikerGame
-from menu_ui import TouchButton
+from menu_ui import TouchButton, MenuTile
 
 
 def settle():
@@ -50,12 +51,13 @@ class MenuTests(unittest.TestCase):
                     settle()
                     menu = self.game._menu
                     self.assertIsNotNone(menu)
-                    self.assertGreater(menu.scroll.height, 0)
+                    self.assertGreater(menu.body.height, 0)
                     for widget in menu.walk():
                         if isinstance(widget, TouchButton):
                             self.assertGreaterEqual(widget.height, dp(52) - 1)
-                            self.assertLessEqual(widget.texture_size[0], widget.width - dp(24) + 2)
-                            self.assertLessEqual(widget.texture_size[1], widget.height - dp(20) + 2)
+                            padding = (16, 12) if isinstance(widget, MenuTile) else (24, 20)
+                            self.assertLessEqual(widget.texture_size[0], widget.width - dp(padding[0]) + 2)
+                            self.assertLessEqual(widget.texture_size[1], widget.height - dp(padding[1]) + 2)
                         elif isinstance(widget, Label) and not widget.shorten:
                             self.assertLessEqual(widget.texture_size[0], widget.width + 2)
                             self.assertLessEqual(widget.texture_size[1], widget.height + 2)
@@ -77,8 +79,42 @@ class MenuTests(unittest.TestCase):
         menu = self.game._menu
         play = next(w for w in menu.walk() if isinstance(w, TouchButton) and w.text == 'JOGAR')
         x, y = play.to_window(*play.center)
-        self.assertGreater(y, menu.scroll.y)
-        self.assertLess(y, menu.scroll.top)
+        self.assertGreater(y, menu.body.y)
+        self.assertLess(y, menu.body.top)
+
+    def test_main_menu_has_no_scroll_and_all_actions_are_visible(self):
+        previous = Metrics.density
+        try:
+            for density, size in ((1, (640, 360)), (1, (800, 360)),
+                                  (1.64, (1280, 589)), (3, (2400, 1080)),
+                                  (1, (360, 800)), (1, (320, 240))):
+                with self.subTest(density=density, size=size):
+                    Metrics.density = density
+                    Window.size = size
+                    self.game.size = size
+                    self.game.view = 'hub'
+                    self.game.draw()
+                    self.game._menu._signature = None
+                    self.game.draw()
+                    settle()
+                    menu = self.game._menu
+                    self.assertFalse(any(isinstance(w, ScrollView) for w in menu.walk()))
+                    buttons = [w for w in menu.walk() if isinstance(w, TouchButton)]
+                    self.assertEqual(len(buttons), 7)
+                    for button in buttons:
+                        self.assertGreaterEqual(button.width, dp(48) - 1)
+                        self.assertGreaterEqual(button.height, dp(48) - 1)
+                        self.assertGreaterEqual(button.x, menu.x - 1)
+                        self.assertGreaterEqual(button.y, menu.y - 1)
+                        self.assertLessEqual(button.right, menu.right + 1)
+                        self.assertLessEqual(button.top, menu.top + 1)
+                    for i, a in enumerate(buttons):
+                        for b in buttons[i+1:]:
+                            overlap = min(a.right, b.right) - max(a.x, b.x)
+                            if overlap > 1:
+                                self.assertLessEqual(min(a.top, b.top) - max(a.y, b.y), 1)
+        finally:
+            Metrics.density = previous
 
     def test_large_system_font_stays_in_menu_bounds(self):
         previous = Metrics.fontscale
@@ -92,7 +128,7 @@ class MenuTests(unittest.TestCase):
             self.game.draw()
             settle()
             menu = self.game._menu
-            self.assertGreater(menu.scroll.height, 0)
+            self.assertGreater(menu.body.height, 0)
             for widget in menu.walk():
                 if isinstance(widget, Label):
                     self.assertGreater(widget.texture_size[1], 0)
@@ -182,6 +218,9 @@ class MenuTests(unittest.TestCase):
             self.assertGreaterEqual(panel.button.height, dp(52))
             self.assertGreaterEqual(panel.scroll.y, panel.button.top)
             self.assertLessEqual(panel.top, self.game.top)
+            self.assertLessEqual(panel.height, panel.body.minimum_height + panel.button.height + dp(40))
+            self.assertLess(panel.button.width, panel.width * 0.6)
+            self.assertLessEqual(panel.height, dp(200))
             for widget in panel.body.children:
                 self.assertLessEqual(widget.texture_size[0], widget.width + 2)
                 self.assertLessEqual(widget.texture_size[1], widget.height + 2)
