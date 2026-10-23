@@ -6,6 +6,10 @@ from buildozer import Buildozer
 
 
 class WorkspaceBuildozer(Buildozer):
+    def log_env(self, level, env):
+        """Never dump process credentials when a build command fails."""
+        self.error("Environment values omitted from build logs")
+
     @property
     def global_buildozer_dir(self):
         return str(Path(os.environ.get('STRIKER_BUILD_CACHE',

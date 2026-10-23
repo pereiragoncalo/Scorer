@@ -24,39 +24,81 @@ retained and an existing destination never overwritten. Saves use same-directory
 atomic replacement; write failures leave the old save intact and show a message.
 Android storage was tested with a simulated App, not on hardware.
 
-## Build prerequisites and commands
+## Cloud Android toolchain — prepared 2026-10-23
 
-The current machine has a Java 21 runtime, **no javac**, and no prepared SDK/NDK.
-APT metadata has no package candidates and system directories are read-only.
-Provide a Linux Android build image with a full JDK (17+; verify compatibility
-with the selected Gradle), git, unzip/zip, C/C++ build tools, autoconf, automake,
-libtool, pkg-config, cmake, zlib/ffi/SSL development headers, SDK command line
-tools, Android platform 36 and NDK r28c. Use platform/official package signatures
-and checksums and keep TLS verification enabled. Accept SDK licences only after
-reviewing their terms; automatic acceptance remains disabled.
+The missing host JDK/build packages were resolved with the managed Docker daemon.
+`tools/android/Dockerfile` pins the Python 3.12 Bookworm base image by digest and
+installs JDK 17, autoconf/automake/libtool, pkg-config, C/C++ tools, cmake/ninja,
+zip/unzip and development headers. Builds use the task user's UID 1000.
+Host system files and HOME are unchanged. Session proxy and CA verification are
+preserved for Git, Python, curl and Java; session CA files are mounted at runtime,
+not embedded in the image. Java uses a refreshed external trust store.
+
+From `/workspace/Scorer` in this managed cloud environment:
 
 ```sh
-cd /workspace/Scorer
-export PATH=/workspace/striker-venv/bin:$PATH
-python tools/build_android.py -v android debug
-# After debug install and actual device acceptance:
-python tools/build_android.py -v android release
+bash tools/android/setup.sh
+bash tools/android/run.sh python tools/build_android.py -v android debug
+# Only after actual debug/device acceptance, prepare the release AAB:
+bash tools/android/run.sh python tools/build_android.py -v android release
 ```
 
-The helper changes only Buildozer's global cache location to
-`/workspace/striker-build-cache` (override STRIKER_BUILD_CACHE on another machine).
-It does not change HOME. Local build output is .buildozer/ and bin/.
-Set APP_ANDROID_SDK_PATH and APP_ANDROID_NDK_PATH to provisioned SDK/NDK paths
-if needed (Buildozer configuration environment overrides). Buildozer 1.5.0's
-SDK bootstrap is old; an existing modern SDK may need its sdkmanager path adapted
-or a reviewed Buildozer update. This has not been exercised past the javac check.
+`setup.sh` was executed successfully, including repeat installation. It installs
+stable SDK packages: API 36, build-tools 36.0.0, platform-tools and NDK
+28.2.13676358 (r28c). CLI tools are pinned to version 19.0 because the newest CLI
+changed its licence command contract. Official metadata was fetched via verified
+HTTPS; downloaded archives were checked against Google's published checksums.
+The owner explicitly accepted the Google Android SDK terms in this chat on
+2026-10-23; the setup script records acceptance for these stable packages only.
+Do not add preview licences under that authorization.
+
+State is retained outside the checkout under `/workspace/striker-android-build`:
+`android-sdk/`, `cache/` (Gradle, Python user packages, Java trust store, Buildozer
+cache and logs). The Docker image is `striker-android-build:phase1`.
+Live containers are disposable. If the image is absent in a future task, rerun
+setup after the managed Docker daemon health check described by the runtime skill.
+Runtime paths inside the container start with `/work`.
+`APP_ANDROID_SKIP_UPDATE=1` prevents Buildozer's broad automatic SDK updates.
+The first bootstrap ran before this correction and additionally installed
+build-tools 37.0.0; both installed versions were recorded, not represented as
+an exclusively 36.0.0 build. Actual Gradle tool selection is still unverified.
+Build outputs remain in `.buildozer/` and `bin/`; no application artifact exists.
+
+### Current build blocker and exact resume point
+
+Buildozer passed Java/SDK/NDK checks, installed p4a host dependencies and downloaded
+native sources. It then failed while recursively cloning SDL2_image's libjxl
+submodule: `https://skia.googlesource.com/skcms` returned proxy CONNECT 403.
+The required domain was saved in the environment configuration draft; a draft
+save does not apply the policy. Review/save/publish the environment configuration
+to activate it. Do not bypass the proxy, TLS verification or dependency checks.
+
+After a meaningful policy change, verify access and finish the partial checkout
+before resuming. The original p4a recipe skips nonempty checkout directories, so
+simply retrying without repairing missing submodules can hide this prerequisite:
+
+```sh
+bash tools/android/run.sh git ls-remote https://skia.googlesource.com/skcms HEAD
+bash tools/android/run.sh git -C /work/source/.buildozer/android/platform/build-arm64-v8a/build/bootstrap_builds/sdl2/jni/SDL2_image/external/libjxl submodule update --init --recursive
+bash tools/android/run.sh python tools/build_android.py -v android debug
+```
+
+The preflight/submodule commands above are pending the network change, not claimed
+as passed. No source mirrors, submodule versions or checksums were substituted.
+Raw external build logs live in `cache/build-debug.log`; build command failures
+now omit environment values. Do not share logs blindly.
+
+Drive remains separate: the session exposes no Google Drive connector or identity.
+`drive.google.com` and `drive.usercontent.google.com` were added to the draft;
+network permission alone does not authenticate private downloads/uploads. The
+uploaded starter ZIP already supplied the source. Delivery to Drive still needs
+an authenticated connection made available to this session, or manual ZIP sync.
 
 `buildozer.spec` selects debug APK, release AAB, target API 36, min/NDK API 26,
 arm64-v8a, Kivy 2.3.1, NDK 28c and pins python-for-android master commit
 58d21141f17c889bf8585f5665921d72028f8831. Upstream sources were inspected:
 its Python recipe defaults to 3.14.2 and its Gradle plugin to 8.11.0. These are
-**candidate settings, not a validated combination**. The host Python tested here
-is 3.12.14. Some upstream recommendation constants remain stale (MAX_NDK_VERSION
+**candidate settings, not a validated combination**. The outer Python tested here is 3.12.14; the pinned container uses 3.12.15. Some upstream recommendation constants remain stale (MAX_NDK_VERSION
 25 vs recommended 28c). Resolve build errors using evidence, not lowered targets.
 
 NDK r28 and modern AGP are appropriate starting points for 16 KB pages, but do
