@@ -13,7 +13,7 @@ def prepare():
     target.mkdir(exist_ok=True)
     marker.write_text('Generated World preview build source. Not a paid release.\n')
     shutil.copytree(source, target, dirs_exist_ok=True, ignore=shutil.ignore_patterns(
-        '.git', '.buildozer', 'bin', '__pycache__', 'baseline', 'tests', 'ui_tests', 'docs', '*.apk'))
+        '.git', '.buildozer', 'bin', '__pycache__', 'baseline', 'tests', 'ui_tests', 'docs', 'server', 'release', '*.apk', '*.jks', '*.keystore', '*.pem', '*.p12', 'striker_career*.json'))
     identity = target / 'edition.py'
     identity.write_text(identity.read_text().replace('WORLD_PREVIEW = False', 'WORLD_PREVIEW = True', 1))
     spec = configparser.ConfigParser(interpolation=None)

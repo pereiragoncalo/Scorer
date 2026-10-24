@@ -1,3 +1,19 @@
+# SCORER — current preparation 0.6.25
+
+Original Python/Kivy Android game. **One application**, com.clemir.striker:
+Free plus a planned one-time World/editor/ad-free upgrade through Google Play.
+This replaces the historical separate-World-app plan below.
+
+Play Billing and the server-side verifier are prepared but **payments are disabled**.
+The actual rehearsal AAB uses TEST advertising and is not signed for production.
+Verification: 79 core/security tests + 46 actual Kivy tests passed. The AAB was
+compiled and statically checked, not installed or purchase-tested through Play.
+For backend tests in a fresh development environment, install server/requirements.txt
+separately; those dependencies never belong in Buildozer requirements.
+
+See [Play build, release gates and account tasks](docs/play/README.md) and
+[verification results](docs/BUILD_LOG.md). No store upload or payment activation.
+
 # STRIKER Android — base para trabalhar com Codex
 
 ## Estado em 23/10/2026

@@ -234,7 +234,7 @@ class StrikerGame(Widget):
         self._match_notice = None
         self._exit_popup = None
         self._new_game_popup = None
-        self.ads = create_ad_breaks(android=(platform == "android" and not edition.WORLD_PREVIEW))
+        self.ads = create_ad_breaks(android=(platform == "android" and not edition.is_world()))
         self.reward_ad_status = ""
         self._next_reward_poll = 0.0
         self.help_page = 0
@@ -244,10 +244,17 @@ class StrikerGame(Widget):
         self.world_country = "England"
         self.world_league_key = "England|4"
         self._names_picker = None
+        from billing import PlayWorldAccess
+        self.billing = PlayWorldAccess()
+        self._billing_next_poll = 0.0
+        self.billing.prepare()
         self._privacy_return = "start"
         self._career_started = False
         self._profile_return = "offers"
         self.career = CareerMode(edition.entitlement_provider(), autoload=False, starter_country=phone_country(platform == "android"))
+        if self.career.world_unlocked:
+            self.ads.entry_visible(False)
+            self.ads = create_ad_breaks(android=False)
         self.view = "splash"
         self.shot_context = "career"
         self.ui_buttons: list[tuple[float, float, float, float, str, object]] = []
@@ -1103,6 +1110,12 @@ class StrikerGame(Widget):
 
 
     def update(self, dt: float) -> None:
+        if self.view in ('start', 'hub', 'upgrade') and self.elapsed >= self._billing_next_poll:
+            self._billing_next_poll = self.elapsed + 2.0
+            if not self.career.world_unlocked and self.billing.verified_now():
+                self._adopt_world_purchase()
+            elif self.career.world_unlocked and not edition.WORLD_PREVIEW and not self.billing.verified_now():
+                self._preserve_unverified_world()
         # Não deita fora tempo quando o desenho demora mais num telemóvel.
         # O limite evita saltos gigantes ao regressar de segundo plano; a
         # física continua dividida em passos de 1/60 s para não atravessar
@@ -2568,6 +2581,9 @@ class StrikerGame(Widget):
         if self._new_game_popup is not None:
             self._new_game_popup.dismiss()
         self.career = CareerMode(edition.entitlement_provider(), autoload=False, starter_country=phone_country(platform == "android"))
+        if self.career.world_unlocked:
+            self.ads.entry_visible(False)
+            self.ads = create_ad_breaks(android=False)
         self._career_started = False
         self.training_completed = False
         self.training_goals = 0
@@ -2584,6 +2600,9 @@ class StrikerGame(Widget):
             self._career_started = True
             self.ads.start()
             self.view = "hub"
+        elif self.career._locked_world_career is not None:
+            self.view = 'upgrade'
+            self.billing.restore()
         else:
             self.career.message = 'Unable to load this career. Your previous save has been preserved.'
         self.draw()
@@ -2804,17 +2823,21 @@ class StrikerGame(Widget):
         elif action == 'help_page':
             self.help_page = max(0, min(3, self.help_page + int(value)))
         elif action == 'upgrade':
+            self.billing.prepare()
             self.view = 'upgrade'
-        elif action == 'open_world_preview' and self.view == 'upgrade':
-            try:
-                from jnius import autoclass
-                host = autoclass('org.kivy.android.PythonActivity').mActivity
-                intent = host.getPackageManager().getLaunchIntentForPackage('com.clemir.strikerworld.preview')
-                if intent is None or host.getPackageManager().checkSignatures(host.getPackageName(), 'com.clemir.strikerworld.preview') != 0:
-                    raise ValueError('trusted preview not installed')
-                host.startActivity(intent)
-            except Exception:
-                self.career.message = 'Install the separate World preview APK first. Your Free career is preserved.'
+        elif action == 'buy_world' and self.view == 'upgrade':
+            if not self.career.world_unlocked:
+                self.billing.purchase()
+        elif action == 'restore_world' and self.view == 'upgrade':
+            self.billing.restore()
+        elif action == 'open_privacy_policy' and self.view == 'privacy':
+            import release_settings
+            if release_settings.PRIVACY_URL:
+                try:
+                    import webbrowser
+                    webbrowser.open(release_settings.PRIVACY_URL)
+                except Exception:
+                    self.career.message = 'Unable to open the privacy policy. Please try again later.'
         elif action == 'world_country' and self.career.world_unlocked:
             self.world_country = str(value)
             self.career.activate_world_country(self.world_country)
@@ -3080,6 +3103,39 @@ class StrikerGame(Widget):
     def _names_message(self, text):
         self.career.message = text
         self.draw()
+
+    def _preserve_unverified_world(self):
+        """At a safe menu boundary, preserve World progress before requiring restore."""
+        if self._career_started and not self.career.save():
+            return
+        from billing import PlayWorldAccess
+        locked = CareerMode(PlayWorldAccess(self.billing.bridge, self.billing.activity), autoload=False,
+                            starter_country=self.career.suggested_country)
+        locked.load()
+        self.career = locked
+        self._career_started = False
+        self.ads = create_ad_breaks(android=(platform == 'android'))
+        self.view = 'upgrade'
+
+    def _adopt_world_purchase(self):
+        """Preserve the current career before rebuilding missing World leagues."""
+        from billing import PlayWorldAccess
+        provider = PlayWorldAccess(self.billing.bridge, self.billing.activity)
+        if not provider.has_world_access():
+            return
+        try:
+            if self._career_started:
+                upgraded = self.career.upgrade_to_world(provider)
+            else:
+                upgraded = CareerMode(provider, autoload=False, starter_country=self.career.suggested_country)
+            self.ads.entry_visible(False)
+            self.ads = create_ad_breaks(android=False)
+            self.career = upgraded
+            self.career.message = 'World unlocked. Your career is preserved.'
+            if self.view == 'upgrade':
+                self.view = 'hub' if self._career_started else 'start'
+        except (OSError, ValueError, RuntimeError):
+            self.career.message = 'World is owned, but the career could not be upgraded safely. Free progress is preserved. Please retry.'
 
     def _preview_names_json(self, raw):
         try:
@@ -5151,6 +5207,10 @@ class StrikerApp(App):
         if self.root is not None and self.root._career_started:
             self.root.career.save()
         return True
+
+    def on_resume(self):
+        if self.root is not None:
+            self.root.billing.restore()
 
     def on_stop(self):
         if self.root is not None and self.root._career_started:

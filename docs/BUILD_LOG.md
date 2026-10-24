@@ -968,3 +968,87 @@ Billing/AD_ID/AdServices. No private saves/keys in either private archive.
 Logs: build-0.6.24-{free,world}-final.log / verify-0.6.24-{free,world}.log.
 Next: install alongside Free, test locale/English contracts, Help/Upgrade, World
 season/transfer, document export/import and alias persistence on Android.
+
+## 0.6.25 — single-app World purchase and Play preparation
+
+Owner correction supersedes 0.6.24: a single com.clemir.striker application with an
+optional one-time World/editor/ad-free upgrade, not a second paid app. Play account
+is under verification; no owner AdMob IDs/public policy/support details or production
+signing/service credentials are available. This revision performs no Play upload,
+real purchase, payment activation, service deployment or public store rollout.
+
+Changes: native Google Play Billing 8.0.0 bridge, SKU scorer_world_upgrade, real price
+query/checkout readiness, pending/cancelled/already-owned handling, Restore on request
+and resume, fail-closed Python ownership snapshot, transactional same-app career
+upgrade and private backup. BillingConfig.ENABLED remains false in source/rehearsal.
+World removes the ad backend; expired/unverified World progress is retained for
+restore. Historical companion launch/package query removed from shipping code.
+Native SAF name-file bridge now accompanies the same application.
+
+Server-only verifier checks package/product/token with Android Publisher API,
+rejects pending/cancelled/consumed/test production purchases, acknowledges completed
+purchases and signs installation/nonce-bound RSA SHA256 licences with seven-day
+expiry. Client verifies signatures and bounds before private caching. No private key,
+ADC credential, career/player name or payment card enters the APK or verification
+request. Backend is prepared, not deployed or tested against a real Google purchase.
+Deployment controls, licence testers/refunds/expiry and device tests remain required.
+
+Release staging/public-config validation, actual bundle inspector, 16KiB audit and
+env-only signing helper added under tools/play. Production template correctly exits2
+for missing owner identity/contact/policy/AdMob/Billing configuration. Rehearsal uses
+TEST ads and disabled purchases, fixed numeric versionCode1026625, API36/min26 ARM64,
+backup=false, cleartext=false, release not debuggable. Server/config/saves/key material
+excluded. Privacy screen describes local storage/purchase data and can link the final
+policy/contact once configured. Draft listing (EN/PT), policy, Data Safety inventory,
+server deployment guide and Console handoff in docs/play and server/README.md.
+
+Verification of the final source:
+- `python -m unittest discover -s tests -v`: **79 PASS**, 11.780s.
+- Actual Kivy suite: **46 PASS**, 46.344s. Total **125 tests**. New tests exercise
+  production gating, manifest restrictions, no state change from an unverified Buy,
+  provider snapshots, same-app progress/UID/table/training preservation, failed-save
+  preservation, invalid/pending/refunded/consumed/test receipt rejection, signing/tamper,
+  acknowledgement, bounded request schema, redacted service failures and disabled UI.
+- `python -m py_compile` changed/new modules, `bash -n` wrappers and
+  `git diff --check`: PASS. Immutable baseline tests retained.
+- Actual final `android release` AAB generated from isolated staging at
+  /workspace/Scorer-play-qa-0625-final, log build-0.6.25-play-final.log.
+  Unsigned rehearsal AAB: **34,722,073 bytes**, SHA256
+  `4836b8f689cc1d4e2e131911950948dd0eba47733ee7b143d768cfa9a7824240`.
+- Official bundletool1.18.1 validates the actual AAB. Manifest inspector PASS:
+  com.clemir.striker, versionCode1026625, target36/min26, no debuggable/backup/cleartext,
+  Billing/Internet present, no AD_ID/AdServices/storage/location/camera/microphone or
+  legacy World companion query. SDK browser/billing intent queries are retained.
+- Bundle config PAGE_ALIGNMENT_16K; **118 ELF LOAD alignments >=16KiB** pass,
+  including Python extensions inside the compressed bundle. Native Billing, ad and
+  SAF bridges and Python modules found; no saves/private signing/server files.
+- bundletool generated a universal **DEBUG-signed inspection APK**, 35,045,477 bytes,
+  SHA256 `391a78b5335fe608468991439e2a74ac90957ccdc1528eb8cabb5d7a15d53246`.
+  apksigner v2/v3 and zipalign16KiB pass. Compiled edition flag false; javap of the
+  actual compiled BillingConfig confirms ENABLED=false, empty verifier/public key.
+- Signing helper first found only a JRE on the outer host, then passed inside the
+  full-JDK build container using the **existing public DEBUG key only** on a separate
+  clearly labelled test copy. This proves the helper, not production signing. The
+  delivered rehearsal AAB stays unsigned; self-signed debug warnings are expected.
+
+Issues resolved: Buildozer passes shell-wrapped XML through an argv list, causing
+invalid application attributes in release manifests. Fixed only those two XML argv
+wrappers in WorkspaceBuildozer, tested without shell evaluation, then rebuilt
+successfully. The first audit incorrectly rejected all queries (including legitimate
+Google SDK intents); refined it to reject the old companion package and added tests.
+An old test asserted a literal Android status message; retained its actual fallback
+contract (nonempty readable status/no blocking ads) after generalising production text.
+One UI assertion found changed charge wording; restored the explicit “does not charge”
+explanation. Final suites pass. No physics/career balance changes in this revision.
+
+Logs outside Git: /tmp/scorer-0625-{core,ui}-final.log,
+/workspace/striker-runtime/{build-0.6.25-play-final,verify-0.6.25-play-final}.log.
+Actual audit files are in bin/play-audit-0.6.25; public readiness/hashes are recorded in
+docs/play/READINESS_0.6.25.json. APK/AAB inspection is not phone or Play execution.
+
+Next: finish account/public metadata/AdMob setup, agree price and approve a configured
+licence-test candidate; deploy verifier with protected server keys/Google permissions,
+configure Play product/upload signing, then perform real Play tests and current Android
+screenshots/pre-launch/16KiB device checks before asking for publication approval.
+Existing debug beta certificates differ from a future production Play signing key;
+do not uninstall beta/private saves without a tested preservation/transfer plan.

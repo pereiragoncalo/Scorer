@@ -823,6 +823,34 @@ class CareerMode:
         return self.entitlements.restore_world_access()
 
 
+    def upgrade_to_world(self, provider):
+        """Transactional same-app upgrade; caller supplies independently verified access."""
+        if not EntitlementManager(provider).world_unlocked:
+            raise ValueError('Verified World ownership required')
+        if not self.save():
+            raise OSError('Could not preserve the Free career')
+        original = self.save_path.read_bytes()
+        backup = self.save_path.with_suffix('.world-upgrade-backup.json')
+        temporary = None
+        try:
+            with tempfile.NamedTemporaryFile(dir=backup.parent, prefix='.world-upgrade-', delete=False) as out:
+                temporary = Path(out.name)
+                out.write(original)
+                out.flush()
+                os.fsync(out.fileno())
+            os.replace(temporary, backup)
+        finally:
+            if temporary is not None:
+                temporary.unlink(missing_ok=True)
+        candidate = CareerMode(provider, autoload=False, starter_country=self.suggested_country)
+        candidate.load()
+        fields = ('club_name', 'league_key', 'player_name', 'week', 'matches', 'goals', 'season')
+        if any(getattr(candidate, key) != getattr(self, key) for key in fields):
+            raise ValueError('Career upgrade failed preservation checks')
+        if not candidate.save():
+            raise OSError('Could not save the upgraded career')
+        return candidate
+
     @property
     def product_mode(self) -> str:
         return "WORLD" if self.world_unlocked else "FREE"

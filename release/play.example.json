@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "version_code": 1026625,
+  "developer_name": "",
+  "support_email": "",
+  "privacy_url": "",
+  "admob": {
+    "app_id": "",
+    "banner_id": "",
+    "interstitial_id": "",
+    "rewarded_id": ""
+  },
+  "billing": {
+    "enabled": false,
+    "product_id": "scorer_world_upgrade",
+    "verify_url": "",
+    "license_public_key": ""
+  }
+}

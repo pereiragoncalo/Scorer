@@ -452,6 +452,33 @@ class MenuTests(unittest.TestCase):
             self.assertTrue(any('does not charge' in w.text for w in game.walk() if isinstance(w,Label)))
             self.assertEqual(game.career.save_path.read_bytes(),before)
 
+    def test_single_app_upgrade_has_disabled_buy_and_restore_without_preview_launch(self):
+        with isolated_game(saved=True) as game:
+            before = game.career.save_path.read_bytes()
+            game.view = 'hub'; game._activate_ui('upgrade'); game.draw(); settle()
+            buttons = {w.text: w for w in game.walk() if isinstance(w, TouchButton)}
+            self.assertIn('RESTORE PURCHASE', buttons)
+            self.assertTrue(buttons['UPGRADE TO WORLD'].disabled)
+            self.assertFalse(any('PREVIEW' in text or 'INSTALLED' in text for text in buttons))
+            game._activate_ui('buy_world'); game._activate_ui('restore_world')
+            self.assertFalse(game.career.world_unlocked)
+            self.assertEqual(game.career.save_path.read_bytes(), before)
+
+    def test_verified_single_app_upgrade_preserves_loaded_career_and_removes_ads(self):
+        from billing import PlayWorldAccess
+        class VerifiedBridge:
+            def hasAccess(self, activity): return True
+        with isolated_game(saved=True) as game:
+            game.view = 'start'; game._load_career()
+            before = (game.career.club_name, game.career.player_name, game.career.goals)
+            game.billing = PlayWorldAccess(VerifiedBridge())
+            game.view = 'upgrade'; game._adopt_world_purchase(); game.draw(); settle()
+            self.assertTrue(game.career.world_unlocked)
+            self.assertEqual((game.career.club_name, game.career.player_name, game.career.goals), before)
+            self.assertEqual(game.view, 'hub')
+            self.assertIsNone(game.ads.backend)
+            self.assertTrue(game.career.save_path.with_suffix('.world-upgrade-backup.json').is_file())
+
     def test_world_browser_editor_uses_aliases_without_switching_career(self):
         from world_ui import NamesEditor
         with patch('edition.WORLD_PREVIEW',True), patch('main.phone_country',return_value='Portugal'):

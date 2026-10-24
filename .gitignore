@@ -11,3 +11,10 @@ bin/
 striker_career.json
 striker_*.wav
 *.log
+
+# Private release configuration, licences and signing material
+release.local.json
+*.pem
+*.p12
+*.apks
+striker_career*.json

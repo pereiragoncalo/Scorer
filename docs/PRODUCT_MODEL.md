@@ -1,3 +1,19 @@
+# Current decision — 0.6.25: one application with a World purchase
+
+The owner explicitly replaced the earlier separate-app model. Ship only
+com.clemir.striker: Free has one chosen division, and a one-time, non-consumable
+Google Play product scorer_world_upgrade unlocks World, the local name editor
+and ad-free play inside the same installation. Preserve existing Free career,
+player identity, fixtures, progress and private saves when upgrading. No subscription
+or external payment link. Existing World Preview APKs are historical test tools.
+
+Billing is prepared but disabled. Google Play price/confirmation, purchase query,
+pending/cancelled handling, Restore purchase, server verification/acknowledgement
+and signed seven-day offline licence are implemented. Service deployment, owner
+configuration, real Play tester/device/refund tests and explicit activation approval
+remain pending. See [Play preparation](play/README.md). Sections below are history
+and do not override this decision.
+
 # Atualização 0.6.24 — World e Upgrade em teste
 
 A pedido do proprietário, Free ganha HELP e UPGRADE informativo. Novas carreiras

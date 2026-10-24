@@ -13,6 +13,8 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 import math
+import edition
+import release_settings
 
 INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
@@ -123,7 +125,7 @@ class CareerMenu(BoxLayout):
     def sync(self):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
-        signature = (self.game.view, c.player_name, c.club_name, c.season, c.week,
+        signature = ((self.game.billing.status, self.game.billing.price, self.game.billing.can_purchase) if self.game.view == 'upgrade' else None, self.game.view, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals,
@@ -318,9 +320,11 @@ class CareerMenu(BoxLayout):
     def _privacy(self):
         card = self.card('Privacy & advertising')
         if self.game.career.world_unlocked:
-            card.label('World preview is ad-free and works offline. Careers and imported names stay on this device. No payments are enabled in this preview.')
+            card.label('World is ad-free. A verified purchase supports up to seven days of offline access before an online ownership check. Careers and imported names stay on this device; there is no SCORER account.')
+            self._privacy_contact(card)
             return
-        card.label('This beta uses Google TEST ads only. They do not generate revenue.')
+        card.label('This version uses Google advertising.' if release_settings.is_production() else 'This test version uses Google TEST ads only. They do not generate revenue.')
+        self._privacy_contact(card)
         card.label('A banner may appear on the opening menu after the splash. Full-screen ads may appear '
                    'between matches, never during a shot. Training offers an optional ad for +1 morale. '
                    'No connection or no available ad? You can keep playing.')
@@ -336,6 +340,16 @@ class CareerMenu(BoxLayout):
         if self.game.ads.privacy_required:
             card.add_widget(MenuTile('AD PRIVACY OPTIONS', lambda: self.game.ads.privacy_options()))
 
+    def _privacy_contact(self, card):
+        card.label('Careers and name edits are stored privately on this device. Uninstalling or clearing app data removes them; a new game keeps a private backup. There is no SCORER account or career upload.', muted=True)
+        card.label('When purchases are enabled, Google Play and the developer verification service check your World purchase. The service receives the purchase token and a random installation ID, never your player name or career. No card details are handled by SCORER.', muted=True)
+        if release_settings.DEVELOPER_NAME:
+            card.label('Developer: ' + release_settings.DEVELOPER_NAME, muted=True)
+        if release_settings.SUPPORT_EMAIL:
+            card.label('Support: ' + release_settings.SUPPORT_EMAIL, muted=True)
+        if release_settings.PRIVACY_URL:
+            card.add_widget(self._button('FULL PRIVACY POLICY', 'open_privacy_policy'))
+
     def _help(self):
         from world_ui import HELP_PAGES
         title, text = HELP_PAGES[self.game.help_page]
@@ -349,13 +363,18 @@ class CareerMenu(BoxLayout):
 
     def _upgrade(self):
         card = self.card('SCORER WORLD — upgrade information')
-        card.label('World is a separate ad-free application. Opening this page does not charge you or unlock paid content.')
-        card.label('World preview: worldwide fictional domestic leagues, promotions and transfers, local country starting contracts, plus England Division 4.')
-        card.label('The editor changes display names and can import your own club, league and squad names from local JSON. Existing stats and career identities stay intact.')
-        card.label('Your Free career remains here. World preview starts a separate career; automatic migration and store purchases are not enabled.')
-        card.add_widget(self._button('OPEN INSTALLED WORLD PREVIEW', 'open_world_preview', accent=True))
-        card.label('No price or checkout is active. Commercial release needs testing and approval.', muted=True)
-        if self.game.career.message.startswith('Install the separate'):
+        card.label('World is a one-time upgrade inside SCORER. It unlocks worldwide fictional leagues and the local name editor, and removes ads. Opening this page does not charge you.')
+        card.label('World includes worldwide fictional domestic leagues, promotions and transfers, local starting contracts and England Division 4.')
+        card.label('The editor changes display names and imports your own club, league and squad names from local JSON. Existing statistics stay intact.')
+        card.label('Keep playing your existing career in this app. No second installation or subscription is required.')
+        card.label('Purchases use Google Play. Pending, cancelled or unverified payments never unlock World. Restore uses the purchasing Google account.', muted=True)
+        buy = self._button('UPGRADE TO WORLD' + (' · ' + self.game.billing.price if self.game.billing.price else ''), 'buy_world', accent=True)
+        buy.disabled = not self.game.billing.can_purchase
+        card.add_widget(buy)
+        card.add_widget(self._button('RESTORE PURCHASE', 'restore_world'))
+        card.label(self.game.billing.status, muted=True)
+        card.label('Only Google Play displays the final price and payment confirmation.' + ('' if release_settings.is_production() else ' No payment is activated in this test build.'), muted=True)
+        if self.game.career.message.startswith('World is owned'):
             card.label(self.game.career.message)
 
     def _world_country(self):
@@ -531,7 +550,7 @@ class EntryScreen(FloatLayout):
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
         self.brand = Image(source='assets/menu_logo.png', size_hint_y=None, height=dp(52))
         self.panel.add_widget(self.brand)
-        self.info = BoundedLabel(text='World preview. Ad-free. No payments.' if menu.game.career.world_unlocked else 'One division. Google test ads. See Privacy.',
+        self.info = BoundedLabel(text=('World unlocked. Ad-free. Local name editor.' if not edition.WORLD_PREVIEW else 'World preview. Ad-free. No payments.') if menu.game.career.world_unlocked else ('One division. Contains ads. See Privacy.' if release_settings.is_production() else 'One division. Google test ads. See Privacy.'),
                                  color=MUTED, font_size=sp(12), halign='center')
         if menu.game.career.message.startswith('Unable to continue'):
             self.info.text = menu.game.career.message

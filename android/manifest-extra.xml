@@ -1,7 +1,5 @@
-<!-- All requests are child-directed/under-age tagged; do not request advertising ID or Sandbox APIs. -->
+<!-- No Advertising ID or Privacy Sandbox APIs for this audience. -->
 <uses-permission xmlns:tools="http://schemas.android.com/tools" android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
 <uses-permission xmlns:tools="http://schemas.android.com/tools" android:name="android.permission.ACCESS_ADSERVICES_AD_ID" tools:node="remove" />
 <uses-permission xmlns:tools="http://schemas.android.com/tools" android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" tools:node="remove" />
 <uses-permission xmlns:tools="http://schemas.android.com/tools" android:name="android.permission.ACCESS_ADSERVICES_TOPICS" tools:node="remove" />
-
-<queries><package android:name="com.clemir.strikerworld.preview" /></queries>

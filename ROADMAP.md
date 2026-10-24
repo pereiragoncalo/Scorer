@@ -20,7 +20,7 @@
 ## Google Play em paralelo
 - Abrir/verificar Play Console; conta pode exigir teste fechado com 12 pessoas por 14 dias seguidos antes de solicitar produção.
 - Configurar AAB com target API 36, privacidade, conteúdos, classificação etária, declaração de publicidade e testes.
-- World passa a aplicação paga separada, conforme docs/PRODUCT_MODEL.md. Não integrar compras/desbloqueio no FREE. Preparar cobertura mundial e editor/importador antes de qualquer cobrança ou publicação aprovada.
+- Decisão atual 0.6.25: uma só aplicação com compra única Google Play para World/editor e remoção de anúncios. Preservar carreira Free no upgrade. Preparar e testar Billing/verificação/restauro sem ativar pagamentos ou publicação antes de aprovação explícita.
 - Play Store depende de revisão externa; não prometer aprovação até 06/11.
 
 ## Estratégia de comunidade

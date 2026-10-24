@@ -24,6 +24,21 @@ class BuildLogTests(unittest.TestCase):
         self.assertNotIn('must-never-appear', '\n'.join(messages))
         self.assertNotIn('EXAMPLE_API_KEY', '\n'.join(messages))
 
+    def test_manifest_arguments_are_xml_not_literal_shell_quotes(self):
+        fake = types.ModuleType('buildozer'); fake.Buildozer = object
+        path = Path(__file__).resolve().parents[1] / 'tools/build_android.py'
+        with patch.dict(sys.modules, {'buildozer': fake}):
+            normalize = runpy.run_path(str(path))['normalize_manifest_args']
+        xml = '<uses-permission android:name="example" />'
+        app = 'android:usesCleartextTraffic="false"'
+        result = normalize(['python', '--extra-manifest-xml="'+xml+'"',
+                            '--extra-manifest-application-arguments="'+app.replace('"', '\\"')+'"',
+                            '--name', 'SCORER Play QA', '$(must-not-execute)'])
+        self.assertEqual(result[1], '--extra-manifest-xml='+xml)
+        self.assertEqual(result[2], '--extra-manifest-application-arguments='+app)
+        self.assertEqual(result[-1], '$(must-not-execute)')
+        self.assertEqual(result[-2], 'SCORER Play QA')
+
     def test_pip_trust_preserves_existing_settings_and_repeats(self):
         path = Path(__file__).resolve().parents[1] / 'tools/android/configure_pip_trust.py'
         configure = runpy.run_path(str(path))['configure']

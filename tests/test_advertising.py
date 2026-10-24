@@ -104,5 +104,6 @@ class AdvertisingTests(unittest.TestCase):
             for key in range(4):
                 ads.match_completed(key)
                 self.assertFalse(ads.continue_after_match())
-            self.assertIn('Android', ads.status)
+            self.assertIsInstance(ads.status, str)
+            self.assertTrue(ads.status.strip())
         self.assertIsNone(create_ad_breaks().backend)

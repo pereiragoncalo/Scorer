@@ -1,0 +1,48 @@
+{
+  "version": "0.6.25",
+  "version_code": 1026625,
+  "package": "com.clemir.striker",
+  "model": "single app; non-consumable World upgrade",
+  "core_tests": 79,
+  "kivy_tests": 46,
+  "payments_enabled": false,
+  "admob": "official TEST IDs only",
+  "aab_signing": "unsigned rehearsal",
+  "compiled_billing_enabled": false,
+  "compiled_world_preview": false,
+  "target_sdk": 36,
+  "min_sdk": 26,
+  "architecture": "arm64-v8a",
+  "elf_16k_aligned_count": 118,
+  "bundle_16k_alignment": true,
+  "derived_apk_signature": "existing DEBUG certificate; v2/v3 verified",
+  "production_gate": "blocked as expected",
+  "missing_public_configuration": [
+    "Public developer identity is required",
+    "Public support email is required",
+    "Public HTTPS privacy policy URL is required",
+    "Owner production AdMob ID required: app_id",
+    "Owner production AdMob ID required: banner_id",
+    "Owner production AdMob ID required: interstitial_id",
+    "Owner production AdMob ID required: rewarded_id",
+    "Each AdMob placement must have a distinct ID",
+    "World purchase must be configured and approved before this production profile"
+  ],
+  "play_account": "owner reports under verification",
+  "backend": "prepared, not deployed",
+  "device_tests": "pending",
+  "real_play_purchase_tests": "pending",
+  "store_upload": "not performed",
+  "artifacts": [
+    {
+      "file": "Scorer-0.6.25-Play-QA-UNSIGNED.aab",
+      "bytes": 34722073,
+      "sha256": "4836b8f689cc1d4e2e131911950948dd0eba47733ee7b143d768cfa9a7824240"
+    },
+    {
+      "file": "Scorer-0.6.25-Play-QA-debug-signed.apk",
+      "bytes": 35045477,
+      "sha256": "391a78b5335fe608468991439e2a74ac90957ccdc1528eb8cabb5d7a15d53246"
+    }
+  ]
+}

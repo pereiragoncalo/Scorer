@@ -87,7 +87,7 @@ class AdBreaks:
 
     @property
     def status(self):
-        return self._call('status') or 'Test ads are available on Android only.'
+        return self._call('status') or 'Ads are unavailable on this device.'
 
     @property
     def privacy_required(self):
@@ -97,8 +97,8 @@ class AdBreaks:
         self._call('privacy_options')
 
 
-class AndroidTestAds:
-    """Java bridge is locked to Google's official test ad units."""
+class AndroidAds:
+    """Native ad bridge; IDs are set by the isolated build configuration."""
     def __init__(self):
         from jnius import autoclass
         self.activity = autoclass('org.kivy.android.PythonActivity').mActivity
@@ -149,7 +149,7 @@ def create_ad_breaks(android=False):
     backend = None
     if android:
         try:
-            backend = AndroidTestAds()
+            backend = AndroidAds()
         except Exception:
             pass
     return AdBreaks(backend)

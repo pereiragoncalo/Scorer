@@ -27,14 +27,11 @@ import com.google.android.ump.ConsentInformation;
 import com.google.android.ump.ConsentRequestParameters;
 import com.google.android.ump.UserMessagingPlatform;
 
-/** Official TEST ads only. Never substitute production IDs for device testing. */
+/** IDs come from public build configuration; testing always uses official test IDs. */
 public final class ScorerAds {
-    public static final String TEST_UNIT = "ca-app-pub-3940256099942544/1033173712";
-    public static final String TEST_BANNER = "ca-app-pub-3940256099942544/6300978111";
     private static AdView banner;
     private static boolean entryVisible = false;
     private static long bannerRetryAfter = 0;
-    public static final String TEST_REWARD = "ca-app-pub-3940256099942544/5224354917";
     private static RewardedAd rewardAd;
     private static boolean rewardWanted = false, rewardLoading = false;
     private static volatile boolean rewardReady = false;
@@ -45,7 +42,7 @@ public final class ScorerAds {
     private static InterstitialAd ad;
     private static volatile boolean ready = false;
     private static volatile boolean reserved = false;
-    private static volatile String status = "Test ads have not started.";
+    private static volatile String status = "Ads have not started.";
     private static ConsentInformation consent;
     private static boolean consentBusy = false, initBusy = false, initialized = false;
     private static boolean loading = false;
@@ -113,26 +110,26 @@ public final class ScorerAds {
         ad = null;
         if (SystemClock.elapsedRealtime() < retryAfter) return;
         loading = true;
-        status = "Loading a Google TEST ad.";
-        breakStatus = "Loading the between-match TEST ad.";
+        status = "Loading a Google ad.";
+        breakStatus = "Loading the between-match ad.";
         Bundle extras = new Bundle();
         extras.putString("npa", "1");
         AdRequest request = new AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter.class, extras).build();
-        InterstitialAd.load(activity, TEST_UNIT, request, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(activity, AdsConfig.INTERSTITIAL, request, new InterstitialAdLoadCallback() {
             @Override public void onAdLoaded(@NonNull InterstitialAd loaded) {
                 loading = false;
                 ad = loaded;
                 loadedAt = SystemClock.elapsedRealtime();
                 ready = true;
-                status = "Google TEST ad ready. No revenue in this beta.";
-                breakStatus = "Between-match TEST ad ready.";
+                status = "Google ad ready.";
+                breakStatus = "Between-match ad ready.";
             }
             @Override public void onAdFailedToLoad(@NonNull LoadAdError error) {
                 loading = false;
                 ad = null;
                 ready = false;
                 retryAfter = SystemClock.elapsedRealtime() + 60000;
-                status = "Test ad unavailable - you can keep playing.";
+                status = "Ad unavailable - you can keep playing.";
                 breakStatus = "Between-match ad unavailable (code " + error.getCode() + ").";
             }
         });
@@ -163,7 +160,7 @@ public final class ScorerAds {
         AdView view = new AdView(activity);
         banner = view;
         view.setAdSize(AdSize.BANNER); // Fixed 320x50 dp; Kivy reserves a separate 64 dp footer.
-        view.setAdUnitId(TEST_BANNER);
+        view.setAdUnitId(AdsConfig.BANNER);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
             Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
@@ -172,7 +169,7 @@ public final class ScorerAds {
         view.setAdListener(new AdListener() {
             @Override public void onAdLoaded() {
                 if (!entryVisible || banner != view) return;
-                status = "Google TEST banner ready. No revenue in this beta.";
+                status = "Google banner ready.";
             }
             @Override public void onAdFailedToLoad(@NonNull LoadAdError error) {
                 if (banner != view) return;
@@ -204,8 +201,8 @@ public final class ScorerAds {
                 @Override public void onAdDismissedFullScreenContent() { finish(activity); }
                 @Override public void onAdFailedToShowFullScreenContent(@NonNull AdError error) { finish(activity); }
             });
-            status = "Showing a Google TEST ad.";
-            breakStatus = "Showing the between-match TEST ad.";
+            status = "Showing a Google ad.";
+            breakStatus = "Showing the between-match ad.";
             current.show(activity);
         });
         return true;
@@ -251,10 +248,10 @@ public final class ScorerAds {
         rewardAd = null;
         if (SystemClock.elapsedRealtime() < rewardRetryAfter) return;
         rewardLoading = true;
-        rewardStatus = "Loading the optional morale TEST ad.";
+        rewardStatus = "Loading the optional morale ad.";
         Bundle extras = new Bundle();
         extras.putString("npa", "1");
-        RewardedAd.load(activity, TEST_REWARD,
+        RewardedAd.load(activity, AdsConfig.REWARDED,
             new AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter.class, extras).build(),
             new RewardedAdLoadCallback() {
                 @Override public void onAdLoaded(@NonNull RewardedAd loaded) {
@@ -262,7 +259,7 @@ public final class ScorerAds {
                     rewardLoadedAt = SystemClock.elapsedRealtime();
                     rewardReady = true;
                     rewardLoading = false;
-                    rewardStatus = "Optional morale TEST ad ready.";
+                    rewardStatus = "Optional morale ad ready.";
                 }
                 @Override public void onAdFailedToLoad(@NonNull LoadAdError error) {
                     rewardAd = null;
@@ -298,7 +295,7 @@ public final class ScorerAds {
                     rewardStatus = "Reward ad could not be shown. No morale granted.";
                 }
             });
-            rewardStatus = "Showing the optional morale TEST ad.";
+            rewardStatus = "Showing the optional morale ad.";
             current.show(activity, item -> {
                 // Only the Google onUserEarnedReward callback can create this record.
                 // No reward on load/show/dismiss. Context stays local, not in AdRequest.
