@@ -490,7 +490,7 @@ class MenuTests(unittest.TestCase):
                 'training': {'START TRAINING', 'BACK'},
                 'standings': {'PREVIOUS', 'NEXT', 'MY POSITION', 'STATS', 'BACK'},
                 'scorers': {'PREVIOUS', 'NEXT', 'MY POSITION', 'BACK'},
-                'calendar': {'PREVIOUS', 'NEXT', 'STATS', 'BACK'},
+                'calendar': {'PREVIOUS', 'NEXT', 'BACK'},
                 'agent': {'FIND OFFERS', 'BACK'},
             }
             for view, required in expected.items():
@@ -499,6 +499,8 @@ class MenuTests(unittest.TestCase):
                 settle()
                 labels = {w.text for w in game.walk() if isinstance(w, Label)}
                 self.assertTrue(required <= labels, (view, required - labels))
+                if view == 'calendar':
+                    self.assertNotIn('STATS', labels)
             game._profile_return = 'hub'
             game.view = 'profile'
             game._activate_ui('save_profile', '')

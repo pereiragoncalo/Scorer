@@ -867,3 +867,21 @@ Actual build tools/android/run.sh python tools/build_android.py -v android debug
  SHA256 d2d938c1f8331a81db65f037b652a65c1632b8a4ad8282932a67bd4a1f008114.
  Logs build-0.6.20.log and verify-0.6.20.log in /workspace/striker-runtime.
  Next: actual phone training, hard shots, keeper catch/fall, scoreboard and flags.
+
+## 0.6.21 — complete fixtures and progressive cup draws
+
+Changes: docs/UI_0.6.21.md. Files: career.py, menu_ui.py, buildozer.spec,
+core/Kivy tests, AGENTS, README and docs. 51 core/build/security tests and
+38 real Kivy tests pass (89). Syntax/whitespace and baseline hash pass.
+An initial UI regression from calling the removed detail view was fixed by
+a safe no-op for tables without details; all UI tests rerun successfully.
+Full schedule and 35-result persistence/reload tested; cup draws stable through
+all eight rounds/final with no repeated eliminated opponent.
+
+Actual Android build: build-0.6.21-final.log. Static verification: signature v2
+with existing debug certificate, ZIP16KB and all 118 AArch64 ELF alignments,
+package com.clemir.striker/versionCode1026621, target36/min26, no permissions.
+Payload checked: no saves or signing keys. verify-0.6.21.log retained outsideGit.
+APK 30217021 bytes, SHA256 77e8f0c8ce4e3c842ecb101164cd5ff381c251efbc3f575808d48a992043713b.
+Desktop fixtures screenshot inspected; current APK not tested on a phone.
+Next: phone fixture pages, save/load, cup progression and weekly training.

@@ -187,3 +187,10 @@ shots, slower morale loss and stronger goal reward. Club-specific fictional
 scorer names preserve saved totals. Standing saves hold the ball during a
 forward fall; corner flags and a broadcast-style scoreboard improve presentation.
 [87 tests, measured balance and Android verification](docs/UI_0.6.20.md).
+
+## SCORER 0.6.21 — season draw and cup progression
+
+Fixtures shows the complete league calendar without a STATS submenu. New season
+league draws are fixed from the start; cup opponents appear one round at a time
+through the final. League dates remain fixed after cup elimination.
+[Changes, save compatibility and 89 tests](docs/UI_0.6.21.md).

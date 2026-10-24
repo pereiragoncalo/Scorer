@@ -63,6 +63,59 @@ class CareerTests(unittest.TestCase):
         restored.current_league.migrate_scorer_names(c.player_name)
         self.assertEqual(scores[new], 11)
 
+    def test_full_league_draw_dates_survive_results_elimination_and_reload(self):
+        c = self.signed()
+        def upcoming():
+            return {e['status']: (e['date'], e['home'], e['away'])
+                    for e in c.calendar_entries()
+                    if e['competition'] == c.current_league.name and not e['played']}
+        initial = upcoming()
+        self.assertEqual(len(initial), 46)
+        self.assertEqual(len(set(initial.values())), 46)
+        cup = [e for e in c.calendar_entries() if e['competition'] == c.cup_name]
+        self.assertEqual(len(cup), 1)
+        self.assertEqual(cup[0]['status'], 'ROUND 1')
+        for _ in range(35):
+            kind, home, away = c.next_match()
+            score = (0, 1) if home.name == c.club_name else (1, 0)
+            c.finish_match(home, away, 0, 1, forced_score=score, competition=kind)
+            for round_name, fixture in upcoming().items():
+                self.assertEqual(fixture, initial[round_name])
+        self.assertFalse(c.cup_active)
+        self.assertFalse(any(not e['played'] and e['competition'] == c.cup_name
+                             for e in c.calendar_entries()))
+        c.save()
+        restored = career.CareerMode()
+        self.assertTrue(restored.load())
+        self.assertEqual(restored.calendar_entries(), c.calendar_entries())
+        self.assertEqual(sum(bool(e['played']) for e in c.calendar_entries()), 35)
+
+    def test_cup_draw_is_stable_one_round_at_a_time_until_final(self):
+        c = self.signed()
+        opponents = set()
+        for index, week in enumerate(career.CUP_WEEKS):
+            c.week = week
+            first = c._cup_fixture_for_week(week)
+            self.assertEqual(first, c._cup_fixture_for_week(week))
+            if index + 1 < len(career.CUP_WEEKS):
+                self.assertIsNone(c._cup_fixture_for_week(career.CUP_WEEKS[index + 1]))
+            other = next(club.name for club in first if club.name != c.club_name)
+            self.assertNotIn(other, opponents)
+            opponents.add(other)
+            c.save()
+            restored = career.CareerMode()
+            restored.load()
+            self.assertEqual(tuple(x.name for x in first),
+                             tuple(x.name for x in restored._cup_fixture_for_week(week)))
+            kind, home, away = c.next_match()
+            self.assertEqual(kind, 'cup')
+            score = (1, 0) if home.name == c.club_name else (0, 1)
+            c.finish_match(home, away, 1, 0, forced_score=score, competition='cup')
+            self.assertEqual(c.cup_round_index, index + 1)
+        self.assertFalse(c.cup_active)
+        self.assertIsNone(c._cup_fixture_for_week())
+        self.assertIn('FINAL:', c.cup_history[-1])
+
     def test_damaged_save_is_rejected_without_partial_mutation(self):
         c = self.signed()
         original = json.loads(c.save_path.read_text())

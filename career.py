@@ -919,7 +919,18 @@ class CareerMode:
         player = self.club
         if player is None:
             return None
-        week_number = self.week if requested_week is None else requested_week
+        if self.cup_round_index >= len(CUP_WEEKS) or not self.cup_active:
+            return None
+        week_number = CUP_WEEKS[self.cup_round_index]
+        if requested_week is not None and requested_week != week_number:
+            return None
+        eliminated = {
+            str(entry.get(side, ''))
+            for entry in self.fixture_history
+            if entry.get('competition') == self.cup_name
+            and str(entry.get('date', '')) >= date(self.season, 7, 12).isoformat()
+            for side in ('home', 'away') if entry.get(side) != self.club_name
+        }
         cup_rng = random.Random(
             self.world_seed + self.season * 1009 + week_number * 7919
         )
@@ -927,13 +938,13 @@ class CareerMode:
 
         # Em Inglaterra, a carreira começa na League Two e segue a lógica da
         # FA Cup: L1/L2 na 1.ª ronda proper e PL/Championship a partir da 3.ª.
-        # Os adversários são sempre nomes reais, nunca os placeholders do mundo.
+        # Use the bundled fictional club identities, excluding defeated opponents.
         if self.current_league.country == "England":
             round_index = self.cup_round_index
             names = list(FA_CUP_EARLY_REAL_CLUBS)
             if round_index >= 2:
                 names.extend(FA_CUP_BIG_REAL_CLUBS)
-            names = [name for name in names if name != self.club_name]
+            names = [name for name in names if name != self.club_name and name not in eliminated]
             if not names:
                 return None
             opponent_name = cup_rng.choice(names)
@@ -960,7 +971,7 @@ class CareerMode:
                 for league in self.leagues.values()
                 if league.country == self.current_league.country
                 for club in league.clubs
-                if club.name != self.club_name
+                if club.name != self.club_name and club.name not in eliminated
                 and not (club.name.startswith(prefix) and club.name.endswith(" FC"))
             ]
             if not candidates:
@@ -986,53 +997,48 @@ class CareerMode:
         return None
 
 
+    def _skip_reserved_cup_breaks(self) -> None:
+        while self.week in CUP_WEEKS and not (
+            self.cup_active and self.cup_round_index < len(CUP_WEEKS)
+            and self.week == CUP_WEEKS[self.cup_round_index]
+        ):
+            self.week += 1
+
     def calendar_entries(self) -> list[dict[str, object]]:
-        """Resultados recentes e próximos jogos com datas de calendário."""
-        entries = list(self.fixture_history[-4:])
+        """Full league run-in; only the current cup round has a drawn opponent.
+
+        Cup dates are reserved even after elimination, so league dates never
+        move when a cup result changes. Pagination keeps the full list usable.
+        """
+        start = date(self.season, 7, 12)
+        entries = [dict(e) for e in self.fixture_history
+                   if str(e.get('date', '')) >= start.isoformat()]
         future_week = self.week
         future_round = self.current_league.round_index
-        future_cup_round = self.cup_round_index
-        upcoming = 0
-        while upcoming < 8 and future_week < self.week + 60:
-            match_date = date(self.season, 7, 12) + timedelta(weeks=future_week)
-            if (
-                self.cup_active
-                and future_cup_round < len(CUP_WEEKS)
-                and future_week == CUP_WEEKS[future_cup_round]
-            ):
-                fixture = self._cup_fixture_for_week(future_week)
+        while future_round < self.current_league.total_rounds:
+            match_date = start + timedelta(weeks=future_week)
+            if future_week in CUP_WEEKS:
+                if (self.cup_active and self.cup_round_index < len(CUP_WEEKS)
+                        and future_week == CUP_WEEKS[self.cup_round_index]):
+                    fixture = self._cup_fixture_for_week(future_week)
+                    if fixture:
+                        entries.append({
+                            "date": match_date.isoformat(), "competition": self.cup_name,
+                            "home": fixture[0].name, "away": fixture[1].name,
+                            "status": CUP_ROUNDS[self.cup_round_index], "played": False,
+                        })
+            else:
+                fixture = next((pair for pair in self.current_league.pairings(future_round)
+                                if self.club_name in (pair[0].name, pair[1].name)), None)
                 if fixture:
                     entries.append({
-                        "date": match_date.isoformat(),
-                        "competition": self.cup_name,
-                        "home": fixture[0].name,
-                        "away": fixture[1].name,
-                        "status": CUP_ROUNDS[future_cup_round],
-                        "played": False,
+                        "date": match_date.isoformat(), "competition": self.current_league.name,
+                        "home": fixture[0].name, "away": fixture[1].name,
+                        "status": f"Matchweek {future_round + 1}", "played": False,
                     })
-                    upcoming += 1
-                future_cup_round += 1
-            elif future_round < self.current_league.total_rounds:
-                fixture = next(
-                    (
-                        pair for pair in self.current_league.pairings(future_round)
-                        if self.club_name in (pair[0].name, pair[1].name)
-                    ),
-                    None,
-                )
-                if fixture:
-                    entries.append({
-                        "date": match_date.isoformat(),
-                        "competition": self.current_league.name,
-                        "home": fixture[0].name,
-                        "away": fixture[1].name,
-                        "status": f"Matchweek {future_round + 1}",
-                        "played": False,
-                    })
-                    upcoming += 1
                 future_round += 1
             future_week += 1
-        return entries
+        return sorted(entries, key=lambda entry: str(entry.get('date', '')))
 
 
     def _build_world(self) -> None:
@@ -1066,6 +1072,7 @@ class CareerMode:
                     )
                     for club_name in names
                 ]
+                random.Random(f"{self.world_seed}:{self.season}:{country}:{tier}").shuffle(clubs)
                 league = WorldLeague(country, name, tier, clubs)
                 self.leagues[league.key] = league
 
@@ -1214,7 +1221,7 @@ class CareerMode:
                 "status": self.last_result,
                 "played": True,
             })
-            self.fixture_history = self.fixture_history[-20:]
+            self.fixture_history = self.fixture_history[-128:]
             self.save()
             return portugal_goals, opponent_goals
 
@@ -1258,7 +1265,7 @@ class CareerMode:
                 player_won = (
                     home_goals > away_goals if player_home else away_goals > home_goals
                 )
-            self.cup_active = player_won
+            self.cup_active = player_won and self.cup_round_index + 1 < len(CUP_ROUNDS)
             round_name = self.cup_round_label
             self.cup_history.append(
                 f"{round_name}: {home.name} {score[0]}-{score[1]} {away.name}{decision}"
@@ -1276,6 +1283,7 @@ class CareerMode:
 
 
         self.week += 1
+        self._skip_reserved_cup_breaks()
         self.matches += 1
         self.goals += player_goals
         self.missed_chances += player_misses
@@ -1299,7 +1307,7 @@ class CareerMode:
             "status": f"{home_goals}-{away_goals}{decision}",
             "played": True,
         })
-        self.fixture_history = self.fixture_history[-20:]
+        self.fixture_history = self.fixture_history[-128:]
         if competition == "league":
             self._simulate_world_round()
         self._check_national_team()
@@ -1578,6 +1586,7 @@ class CareerMode:
                     candidates, weights=weights, k=1
                 )[0].name
         for world_league in self.leagues.values():
+            random.Random(f"{self.world_seed}:{self.season}:{world_league.key}").shuffle(world_league.clubs)
             world_league.schedule_version = 2
             world_league.round_index = 0
             world_league.scorer_goals.clear()
@@ -1792,7 +1801,7 @@ class CareerMode:
             self.fixture_history = [
                 dict(value) for value in data.get("fixture_history", [])
                 if isinstance(value, dict)
-            ][-20:]
+            ][-128:]
             for entry in self.fixture_history:
                 if key == FREE_LEAGUE_KEY and entry.get("competition") == "Liga Scorer":
                     entry["competition"] = "Scorer League"
@@ -1851,6 +1860,7 @@ class CareerMode:
                 if self.player_name in league.scorer_goals:
                     league.scorer_goals[formatted_name] = league.scorer_goals.pop(self.player_name)
                 self.player_name = formatted_name
+            self._skip_reserved_cup_breaks()
             self.international_status.update(data.get("international_status", {}))
             # Mantém todos os outros campeonatos na mesma semana da carreira
             # depois de fechar e voltar a abrir o jogo.

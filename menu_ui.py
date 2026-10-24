@@ -254,7 +254,7 @@ class CareerMenu(BoxLayout):
         rows = [(str(e.get('date', ''))[8:10] + '/' + str(e.get('date', ''))[5:7], f"{e.get('home', '')} vs {e.get('away', '')}",
                  e.get('competition', ''), e.get('status', '')) for e in c.calendar_entries()]
         return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
-                            summary=(0, 1, 3), detail=(0, 1, 2))
+                            summary=(0, 1, 2, 3))
 
     def _agent(self):
         c = self.game.career
@@ -639,6 +639,8 @@ class CompactTable(EdgePanel):
         self._render()
 
     def toggle_detail(self):
+        if not self.detail:
+            return
         self.show_detail = not self.show_detail
         self._render()
 
