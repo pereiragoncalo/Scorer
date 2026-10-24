@@ -1097,4 +1097,3 @@ Logs: /tmp/scorer-0626-core.log, /tmp/scorer-0626-ui-final.log,
 /workspace/striker-runtime/build-0.6.26-free-final.log and verify-0.6.26-free.log.
 Next: owner validates Free new-game offers and existing career on Android; configure
 and explicitly approve Play licence testing before testing live World ownership/modes.
-
