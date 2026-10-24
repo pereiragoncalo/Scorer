@@ -426,3 +426,25 @@ APK: 29 433 977 bytes. SHA-256:
 Próximo: atualizar no telemóvel e verificar alinhamento, splash e treino semanal
 após reabrir/avançar semana. Beta debug, sem validação física desta versão,
 AAB ou assinatura release para loja.
+
+## 0.6.9 — base do nome alinhada com o ícone
+
+Pedido: alinhar CORER com a parte inferior do S do ícone. O cabeçalho agora
+agrupa ícone e palavra numa mesma linha, com altura partilhada e crédito
+by clemir por baixo alinhado com o texto. Mantida a altura total do cabeçalho.
+Ficheiros: menu_ui.py, buildozer.spec, README.md e este log.
+
+31 testes core/build/segurança + 22 Kivy passaram (53), py_compile e
+git diff --check. Captura real da janela Kivy em 1280×589/densidade 1,64
+inspecionada em scorer-069-hub0001.png; bases visuais do S e CORER alinhadas.
+Sem alterações à carreira ou aos seus saves. O primeiro comando de captura
+falhou por xvfb-run não instalado; usado SDL_VIDEODRIVER=offscreen com sucesso.
+
+APK beta debug 0.6.9 realmente compilado. Assinatura v2 válida, mesmo certificado
+e identificador Android; ZIP e 118 ELF alinhados a 16 KB. Código atualizado
+confirmado no pacote, sem saves/chaves privadas incluídos.
+Logs build-0.6.9.log e verify-0.6.9.log em /workspace/striker-runtime;
+testes /tmp/scorer-069-core.log e /tmp/scorer-069-ui.log.
+SHA-256: 6fb5c0fe24463bbc1371a332201ccb195a68baef08625f61e88b4691e1eeaff0.
+Próxima tarefa: confirmar alinhamento no telemóvel. Validação física desta
+versão pendente; sem AAB/assinatura release nesta correção visual.

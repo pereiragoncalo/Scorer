@@ -154,9 +154,7 @@ class CareerMenu(BoxLayout):
         brand = BoxLayout(orientation='vertical')
         if self.game.view == 'hub':
             header.height = dp(52)
-            brand = BoxLayout(spacing=dp(2))
-            brand.add_widget(Image(source='assets/icon.png', size_hint_x=None, width=dp(48)))
-            brand.add_widget(BrandMark(word='CORER'))
+            brand = BrandMark(word='CORER', with_icon=True)
         elif paged:
             header.height = dp(52)
             titles = {'standings': 'CLASSIFICAÇÃO', 'scorers': 'MARCADORES', 'calendar': 'CALENDÁRIO'}
@@ -660,12 +658,31 @@ class CompactTable(EdgePanel):
 
 class BrandMark(BoxLayout):
     """Licensed sports display face with a subordinate author credit."""
-    def __init__(self, centered=False, word='SCORER', **kwargs):
+    def __init__(self, centered=False, word='SCORER', with_icon=False, **kwargs):
         super().__init__(orientation='vertical', spacing=0, **kwargs)
         alignment = 'center' if centered else 'left'
         self.wordmark = BoundedLabel(text=word, font_name='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',
                                      font_size=sp(32), halign=alignment, size_hint_y=0.70)
         self.credit = BoundedLabel(text='by clemir', font_name='assets/fonts/Barlow-Regular.ttf',
                                    font_size=sp(11), halign=alignment, color=MUTED, size_hint_y=0.30)
-        self.add_widget(self.wordmark)
-        self.add_widget(self.credit)
+        if with_icon:
+            # Give the S and remaining letters the same line, independent of
+            # the credit below. The icon's inset and font cap height then align.
+            row = BoxLayout(size_hint_y=0.70, spacing=dp(2))
+            self.icon = Image(source='assets/icon.png', size_hint_x=None)
+            self.wordmark.size_hint_y = 1
+            row.add_widget(self.icon)
+            row.add_widget(self.wordmark)
+            credit_row = BoxLayout(size_hint_y=0.30)
+            self.credit.size_hint_y = 1
+            credit_row.add_widget(self.credit)
+            def align_icon(*_):
+                self.icon.width = row.height
+                credit_row.padding = (row.height + dp(2), 0, 0, 0)
+            row.bind(height=align_icon)
+            align_icon()
+            self.add_widget(row)
+            self.add_widget(credit_row)
+        else:
+            self.add_widget(self.wordmark)
+            self.add_widget(self.credit)

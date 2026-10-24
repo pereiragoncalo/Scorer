@@ -101,3 +101,8 @@ Jogar alinhado com Marcadores; ícone S seguido de CORER. Splash com preparaçã
 do remate coerente. Uma sessão de treino por semana da carreira, descontada
 ao começar e persistente ao reabrir.
 [Alterações, 53 testes e limitações](docs/UI_0.6.8.md).
+
+## SCORER 0.6.9 — alinhamento da marca
+
+S do ícone e CORER na mesma linha, com as bases visuais alinhadas.
+Crédito by clemir por baixo. Ajuste apenas visual do cabeçalho principal.
