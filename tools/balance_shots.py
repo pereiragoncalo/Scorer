@@ -21,7 +21,7 @@ from main import StrikerGame, PHYSICS_STEP
 from kivy.clock import Clock
 
 
-def experiment(samples=240, max_seconds=15):
+def experiment(samples=240, max_seconds=15, strategy="uniform"):
     results = {}
     previous_random = random.getstate()
     with tempfile.TemporaryDirectory() as root, patch.dict(os.environ, STRIKER_SAVE_DIR=root):
@@ -40,7 +40,7 @@ def experiment(samples=240, max_seconds=15):
                     game._prepare_next_shot()
                     game.power = 0.85
                     target = random.Random(98000 + seed)
-                    x, z = target.uniform(-3.25, 3.25), target.uniform(0.25, 2.20)
+                    x, z = ((3.45 if seed % 2 else -3.45), 2.25) if strategy == "corners" else (target.uniform(-3.25, 3.25), target.uniform(0.25, 2.20))
                     with patch.object(game, '_play_goal_crowd_sound'):
                         game.shoot(x, z)
                         for _ in range(int(max_seconds / PHYSICS_STEP)):
@@ -62,7 +62,8 @@ def experiment(samples=240, max_seconds=15):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--samples', type=int, default=240)
+    parser.add_argument('--strategy', choices=('uniform', 'corners'), default='uniform')
     args = parser.parse_args()
     if not 1 <= args.samples <= 10000:
         parser.error('--samples must be between 1 and 10000')
-    print(json.dumps(experiment(args.samples), sort_keys=True))
+    print(json.dumps(experiment(args.samples, strategy=args.strategy), sort_keys=True))

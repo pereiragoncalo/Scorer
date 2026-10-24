@@ -504,6 +504,29 @@ def poisson_goal(rng: random.Random, mean: float) -> int:
 
 
 
+# League Two 2022/23–2024/25 pooled goals: 4316 / 1656 fixtures.
+# Aggregated reference and reproducible sources: docs/REALISM_0.6.17.md.
+MATCH_HOME_GOALS = 1.43
+MATCH_AWAY_GOALS = 1.18
+CLEAR_CHANCE_CONVERSION = 0.51
+HARD_CHANCE_CONVERSION = 0.18
+
+
+def realistic_goal_means(home_rating: float, away_rating: float) -> tuple[float, float]:
+    """Share an empirical goal budget by quality without capping actual scores."""
+    advantage = math.log(MATCH_HOME_GOALS / MATCH_AWAY_GOALS) + (home_rating - away_rating) / 18.0
+    home_share = 1.0 / (1.0 + math.exp(-clamp(advantage, -4.0, 4.0)))
+    total = MATCH_HOME_GOALS + MATCH_AWAY_GOALS
+    return total * home_share, total * (1.0 - home_share)
+
+
+def expected_highlight_goals(chances: int, clear_probability: float) -> float:
+    if chances <= 0:
+        return 0.0
+    return (chances * HARD_CHANCE_CONVERSION
+            + clamp(clear_probability, 0.0, 1.0) * (CLEAR_CHANCE_CONVERSION - HARD_CHANCE_CONVERSION))
+
+
 @dataclass
 class CareerClub:
     name: str
@@ -613,17 +636,18 @@ class WorldLeague:
         away: CareerClub,
         rng: random.Random,
         forced_score: Optional[tuple[int, int]] = None,
+        *, player_club: str = "", player_goals: int = 0,
     ) -> tuple[int, int]:
         if forced_score is None:
-            strength = (home.rating - away.rating) / 18.0
-            home_goals = poisson_goal(rng, clamp(1.35 + strength + 0.20, 0.25, 3.25))
-            away_goals = poisson_goal(rng, clamp(1.15 - strength, 0.20, 3.05))
+            home_mean, away_mean = realistic_goal_means(home.rating, away.rating)
+            home_goals = poisson_goal(rng, home_mean)
+            away_goals = poisson_goal(rng, away_mean)
         else:
             home_goals, away_goals = forced_score
         home.add_result(home_goals, away_goals)
         away.add_result(away_goals, home_goals)
-        self._add_scorers(home, home_goals, rng)
-        self._add_scorers(away, away_goals, rng)
+        self._add_scorers(home, max(0, home_goals - (player_goals if home.name == player_club else 0)), rng)
+        self._add_scorers(away, max(0, away_goals - (player_goals if away.name == player_club else 0)), rng)
         return home_goals, away_goals
 
 
@@ -632,9 +656,9 @@ class WorldLeague:
             "Silva", "Smith", "Garcia", "Martin", "Costa", "Muller",
             "Rossi", "Santos", "Brown", "Novak", "Kaya", "Andersson",
         )
-        short = club.name.split()[0]
+        short = club.name
         for _ in range(goals):
-            scorer = f"{rng.choice(surnames)} ({short})"
+            scorer = f"{rng.choices(surnames, weights=(32,18,12,8,7,6,5,4,3,2,2,1), k=1)[0]} ({short})"
             self.scorer_goals[scorer] = self.scorer_goals.get(scorer, 0) + 1
 
 
@@ -1123,9 +1147,10 @@ class CareerMode:
 
 
         difference = competitive_strength(home) - competitive_strength(away)
-        home_mean = clamp(1.42 + difference * 1.45, 0.22, 3.35)
-        away_mean = clamp(1.08 - difference * 1.35, 0.18, 3.05)
-        return home_mean, away_mean
+        advantage = math.log(MATCH_HOME_GOALS / MATCH_AWAY_GOALS) + difference * 1.55
+        share = 1.0 / (1.0 + math.exp(-advantage))
+        total = MATCH_HOME_GOALS + MATCH_AWAY_GOALS
+        return total * share, total * (1.0 - share)
 
 
     def finish_match(
@@ -1141,8 +1166,9 @@ class CareerMode:
         match_date = self.current_date
         if is_international:
             if forced_score is None:
-                portugal_goals = poisson_goal(self.rng, 0.85) + player_goals
-                opponent_goals = poisson_goal(self.rng, 1.10)
+                home_mean, away_mean = realistic_goal_means(home.rating, away.rating)
+                portugal_goals = poisson_goal(self.rng, max(0.05, home_mean - 0.35)) + player_goals
+                opponent_goals = poisson_goal(self.rng, away_mean)
             else:
                 portugal_goals, opponent_goals = forced_score
             self.international_caps += 1
@@ -1163,12 +1189,16 @@ class CareerMode:
 
 
         league = self.current_league
+        previous_league_goals = league.scorer_goals.get(self.player_name, 0)
         if forced_score is not None:
             score = forced_score
         else:
             player_home = home.name == self.club_name
-            player_base = poisson_goal(self.rng, 0.72)
-            opponent_base = poisson_goal(self.rng, 1.12)
+            home_mean, away_mean = self.fixture_goal_means(home, away)
+            player_mean = home_mean if player_home else away_mean
+            opponent_mean = away_mean if player_home else home_mean
+            player_base = poisson_goal(self.rng, max(0.05, player_mean - 0.35))
+            opponent_base = poisson_goal(self.rng, opponent_mean)
             if player_home:
                 score = (player_base + player_goals, opponent_base)
             else:
@@ -1207,7 +1237,8 @@ class CareerMode:
         else:
             for fixture_home, fixture_away in league.pairings():
                 if {fixture_home.name, fixture_away.name} == {home.name, away.name}:
-                    league.simulate_fixture(fixture_home, fixture_away, self.rng, score)
+                    league.simulate_fixture(fixture_home, fixture_away, self.rng, score,
+                                            player_club=self.club_name, player_goals=player_goals)
                 else:
                     league.simulate_fixture(fixture_home, fixture_away, self.rng)
             league.round_index += 1
@@ -1219,7 +1250,8 @@ class CareerMode:
         self.missed_chances += player_misses
         self.form_goals.append(player_goals)
         self.form_goals = self.form_goals[-8:]
-        league.scorer_goals[self.player_name] = self.goals
+        if competition != "cup":
+            league.scorer_goals[self.player_name] = previous_league_goals + player_goals
         self._update_attributes(player_goals, player_misses)
 
 

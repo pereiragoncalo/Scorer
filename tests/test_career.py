@@ -488,6 +488,54 @@ class CareerTests(unittest.TestCase):
         self.assertTrue(all(a <= b <= 3 for a, b in zip(no_goals, three_goals)))
         self.assertGreater(sum(three_goals), sum(no_goals))
 
+    def test_league_scorers_conserve_goals_and_exclude_cup_goals(self):
+        c = self.signed()
+        home, away = c.next_fixture()
+        player_home = home.name == c.club_name
+        c.finish_match(home, away, 1, 1, forced_score=(2, 1) if player_home else (1, 2))
+        league = c.current_league
+        self.assertEqual(sum(league.scorer_goals.values()), sum(club.goals_for for club in league.clubs))
+        self.assertEqual(league.scorer_goals[c.player_name], 1)
+        scorer_before = dict(league.scorer_goals)
+        c.finish_match(c.club, next(club for club in league.clubs if club.name != c.club_name),
+                       2, 0, forced_score=(2, 0), competition='cup')
+        self.assertEqual(c.goals, 3)
+        self.assertEqual(league.scorer_goals, scorer_before)
+        restored = career.CareerMode()
+        self.assertEqual(restored.goals, 3)
+        self.assertEqual(restored.current_league.scorer_goals[c.player_name], 1)
+
+    def test_scorer_roles_share_existing_goals_without_merging_club_names(self):
+        import random
+        clubs = [career.CareerClub('United One', 'England', 'Test', 4, 60),
+                 career.CareerClub('United Two', 'England', 'Test', 4, 60)]
+        league = career.WorldLeague('England', 'Test', 4, clubs)
+        league._add_scorers(clubs[0], 10000, random.Random(177))
+        self.assertEqual(sum(league.scorer_goals.values()), 10000)
+        self.assertTrue(0.29 <= max(league.scorer_goals.values())/10000 <= 0.35)
+        league._add_scorers(clubs[1], 1000, random.Random(178))
+        self.assertEqual(sum(league.scorer_goals.values()), 11000)
+        self.assertTrue(any('(United One)' in name for name in league.scorer_goals))
+        self.assertTrue(any('(United Two)' in name for name in league.scorer_goals))
+
+    def test_empirical_goal_budget_and_expected_personal_contribution(self):
+        import random
+        home, away = career.realistic_goal_means(70, 70)
+        self.assertAlmostEqual(home, 1.43)
+        self.assertAlmostEqual(away, 1.18)
+        for ratings in ((90, 50), (50, 90), (70, 70)):
+            a,b=career.realistic_goal_means(*ratings)
+            self.assertAlmostEqual(a+b, 2.61)
+            self.assertGreater(a, 0)
+            self.assertGreater(b, 0)
+        rng=random.Random(1492)
+        totals=[career.poisson_goal(rng, home)+career.poisson_goal(rng, away) for _ in range(10000)]
+        self.assertAlmostEqual(sum(totals)/len(totals), 2.61, delta=0.06)
+        self.assertTrue(0.10 < sum(n>=5 for n in totals)/len(totals) < 0.15)
+        self.assertEqual(career.expected_highlight_goals(0, 0.6), 0)
+        self.assertAlmostEqual(career.expected_highlight_goals(1, 0), 0.18)
+        self.assertAlmostEqual(career.expected_highlight_goals(3, 0.6), 0.738)
+
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'
         self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),

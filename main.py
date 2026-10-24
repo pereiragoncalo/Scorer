@@ -85,7 +85,7 @@ Window.clearcolor = (0.025, 0.055, 0.075, 1.0)
 
 
 
-from career import GRAVITY, GOAL_WIDTH, GOAL_HEIGHT, GOAL_DEPTH, VEIL_TOP_DEPTH, VEIL_TOUCH_DEPTH, VEIL_SAG, VEIL_SLOPE_LENGTH, VEIL_PATH_LENGTH, NET_RIPPLE_DURATION, PHYSICS_STEP, POST_RADIUS, BALL_RADIUS, START_Y, GOALKEEPER_Y, GOALKEEPER_SCALE, PLAYER_SCALE, FIELD_PLAYER_SCALE, HEADER_BALL_HEIGHT, STAND_CONCRETE, STAND_RISER, STAND_TREAD, STAND_EDGE, STAND_RAIL, STAND_ROOF, STAND_ROWS, STAND_CORNER_X, STAND_FRONT_Y, STAND_ROW_DEPTH, STAND_TREAD_DEPTH, STAND_ROW_RISE, SHOT_ORIGINS, HEADER_ORIGINS, PENALTY_ORIGIN, FREE_KICK_ORIGINS, CAMERA_POSITION, CAMERA_VERTICAL_FOV, clamp, length3, dot3, subtract3, normalize3, CAMERA_FORWARD, CAMERA_RIGHT, CAMERA_UP, Ball, NetRipple, FieldPlayer, EUROPE_PYRAMID_DEPTH, EUROPE_COUNTRIES, WORLD_COUNTRIES, club_kit, poisson_goal, CareerClub, CareerMode
+from career import realistic_goal_means, expected_highlight_goals, GRAVITY, GOAL_WIDTH, GOAL_HEIGHT, GOAL_DEPTH, VEIL_TOP_DEPTH, VEIL_TOUCH_DEPTH, VEIL_SAG, VEIL_SLOPE_LENGTH, VEIL_PATH_LENGTH, NET_RIPPLE_DURATION, PHYSICS_STEP, POST_RADIUS, BALL_RADIUS, START_Y, GOALKEEPER_Y, GOALKEEPER_SCALE, PLAYER_SCALE, FIELD_PLAYER_SCALE, HEADER_BALL_HEIGHT, STAND_CONCRETE, STAND_RISER, STAND_TREAD, STAND_EDGE, STAND_RAIL, STAND_ROOF, STAND_ROWS, STAND_CORNER_X, STAND_FRONT_Y, STAND_ROW_DEPTH, STAND_TREAD_DEPTH, STAND_ROW_RISE, SHOT_ORIGINS, HEADER_ORIGINS, PENALTY_ORIGIN, FREE_KICK_ORIGINS, CAMERA_POSITION, CAMERA_VERTICAL_FOV, clamp, length3, dot3, subtract3, normalize3, CAMERA_FORWARD, CAMERA_RIGHT, CAMERA_UP, Ball, NetRipple, FieldPlayer, EUROPE_PYRAMID_DEPTH, EUROPE_COUNTRIES, WORLD_COUNTRIES, club_kit, poisson_goal, CareerClub, CareerMode
 
 def force_android_landscape() -> None:
     """Pede landscape ao Android, tanto em APK como no Pydroid/Kivy Launcher."""
@@ -776,39 +776,20 @@ class StrikerGame(Widget):
         self.match_home_score = 0
         self.match_away_score = 0
         self.match_goal_event_index = 0
-        if self.match_is_international:
-            rating_difference = (self.match_home.rating - self.match_away.rating) / 18.0
-            home_mean = clamp(1.42 + rating_difference, 0.30, 3.20)
-            away_mean = clamp(1.08 - rating_difference, 0.22, 3.00)
-            home_ai = poisson_goal(self.career.rng, home_mean * 0.58)
-            away_ai = poisson_goal(self.career.rng, away_mean)
-        elif self.match_is_cup:
-            rating_difference = (self.match_home.rating - self.match_away.rating) / 18.0
-            home_mean = clamp(1.42 + rating_difference, 0.24, 3.35)
-            away_mean = clamp(1.08 - rating_difference, 0.20, 3.10)
-            player_home = self.match_home.name == self.career.club_name
-            if player_home:
-                home_mean *= 0.58
-            else:
-                away_mean *= 0.58
-            home_ai = poisson_goal(self.career.rng, home_mean)
-            away_ai = poisson_goal(self.career.rng, away_mean)
+        player_home = self.match_is_international or self.match_home.name == self.career.club_name
+        if self.match_is_cup or self.match_is_international:
+            home_mean, away_mean = realistic_goal_means(self.match_home.rating, self.match_away.rating)
         else:
-            player_home = bool(
-                self.match_home and self.match_home.name == self.career.club_name
-            )
-            home_mean, away_mean = self.career.fixture_goal_means(
-                self.match_home, self.match_away
-            )
-            # A parte ofensiva da equipa do jogador é reduzida porque os seus
-            # próprios remates são acrescentados interativamente. O adversário
-            # usa o valor completo, fortemente influenciado pela classificação.
-            if player_home:
-                home_mean *= 0.58
-            else:
-                away_mean *= 0.58
-            home_ai = poisson_goal(self.career.rng, home_mean)
-            away_ai = poisson_goal(self.career.rng, away_mean)
+            home_mean, away_mean = self.career.fixture_goal_means(self.match_home, self.match_away)
+        # Reserve the expected personal contribution from the team budget,
+        # rather than adding it on top of a full team's simulated goals.
+        personal_mean = expected_highlight_goals(chance_total, chance_profile.clear_chance_probability)
+        if player_home:
+            home_mean = max(0.05, home_mean - personal_mean)
+        else:
+            away_mean = max(0.05, away_mean - personal_mean)
+        home_ai = poisson_goal(self.career.rng, home_mean)
+        away_ai = poisson_goal(self.career.rng, away_mean)
         goal_events = [
             (self.career.rng.randint(2, final_minute), "home")
             for _ in range(home_ai)
@@ -1589,8 +1570,8 @@ class StrikerGame(Widget):
             self._move_goalkeeper_towards(
                 step_target,
                 dt,
-                max_speed=2.75 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 1.95,
-                acceleration=13.0 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 10.5,
+                max_speed=3.60 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 1.95,
+                acceleration=16.0 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 10.5,
             )
             self.goalkeeper_dive_start_x = self.goalkeeper_x
             return
@@ -1678,8 +1659,21 @@ class StrikerGame(Widget):
             + 0.20 * self.shot_distance_factor
             + (1.0 - self.power) * (0.05 + 0.08 * self.shot_distance_factor)
         )
-        destination_x = self.aim_x + random.uniform(-spread, spread)
-        destination_z = self.aim_z + random.uniform(-spread, spread)
+        if self.shot_context == "match" and self.current_chance_difficulty in ("easy", "hard"):
+            # A touch selects intent, not a perfectly repeatable laser shot.
+            # Resolve accuracy once at contact; the resulting ball remains physical.
+            condition = clamp((self.career.stamina + self.career.morale) / 40.0, 0.25, 1.0)
+            pressure = self.current_chance_difficulty == "hard"
+            error_x = 0.95 if pressure else 0.40
+            error_z = 0.65 if pressure else 0.30
+            if self.shot_type == "penalty":
+                error_x, error_z = 0.20, 0.16
+            control = (1.20 - condition * 0.35) * (1.0 + abs(self.power - 0.80) * 0.5)
+            destination_x = self.aim_x + random.gauss(0.0, error_x * control)
+            destination_z = self.aim_z + random.gauss(0.0, error_z * control)
+        else:
+            destination_x = self.aim_x + random.uniform(-spread, spread)
+            destination_z = self.aim_z + random.uniform(-spread, spread)
 
 
         # O tempo de voo adapta-se à distância e à potência do remate.
@@ -1690,8 +1684,8 @@ class StrikerGame(Widget):
             shot_speed = 17.0 + self.power * 8.0
             flight_time = clamp(horizontal_distance / shot_speed, 0.28, 0.82)
         else:
-            shot_speed = 24.0 + self.power * 11.0
-            flight_time = clamp(horizontal_distance / shot_speed, 0.20, 0.78)
+            shot_speed = (18.0 + self.power * 8.0) if self.shot_context == "match" else 24.0 + self.power * 11.0
+            flight_time = clamp(horizontal_distance / shot_speed, 0.20, 1.15 if self.shot_context == "match" else 0.78)
 
 
         self.ball.vx = (destination_x - self.ball.x) / flight_time
@@ -1717,7 +1711,7 @@ class StrikerGame(Widget):
         hard = self.shot_context == "match" and self.current_chance_difficulty == "hard"
         if hard:
             self.goalkeeper_read_error = random.gauss(0.0, 0.09)
-            reaction_low, reaction_high = 0.07, 0.13
+            reaction_low, reaction_high = 0.14, 0.22
         self.goalkeeper_reaction = random.uniform(reaction_low, reaction_high)
         self.goalkeeper_dive_speed = 5.8 if hard else 3.90 + 0.80 * self.shot_distance_factor
         dive_delta = self.goalkeeper_target_x - self.goalkeeper_x
@@ -3260,7 +3254,7 @@ class StrikerGame(Widget):
     def _draw_scorers_screen(self) -> None:
         league = self.career.current_league
         scorers = dict(league.scorer_goals)
-        scorers[self.career.player_name] = self.career.goals
+        scorers.setdefault(self.career.player_name, 0)
         ranking = sorted(scorers.items(), key=lambda item: (item[1], item[0]), reverse=True)[:12]
         self._draw_text(f"TOP SCORERS  -  {league.name}", self.center_x, self.top - 95, max(18, int(self.height * 0.032)), (0.35, 1.0, 0.66, 1.0), "center")
         panel_width = min(self.width * 0.68, 850.0)

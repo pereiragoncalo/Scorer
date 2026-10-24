@@ -705,3 +705,66 @@ SHA-256: 9c2e0f6776a1cadefd46ef58ad35d42f599fc1cf456aa31f1531f1f10ad5441b.
 Próximo: atualizar sem desinstalar e confirmar oportunidades nas próximas
 partidas após treino. Não é preciso recomeçar a carreira. Validação física
 desta versão pendente; sem AAB/assinatura release nesta etapa.
+
+## 0.6.17 — investigação e calibração de golos
+
+Investigadas três épocas completas de League Two/Premier League (2022/23–
+2024/25) em openfootball/england e duas épocas de remates (2017/18–2018/19)
+no espelho público FootballData. Fornecedor direto devolveu 403; usados
+repositórios públicos com revisões e hashes fixados. League Two: 4316 golos
+em 1656 jogos, média 2,606. Remates: 2867 golos/24377 remates/9373 enquadrados
+(~11,76% e ~30,59%). Fontes, distinções e limites em docs/REALISM_0.6.17.md
+e docs/data/real_football_reference.json; nenhum pack real/nome oficial no APK.
+
+Auditoria: toque direto permitia repetir cantos quase infalíveis; velocidade
+e limite de voo aceleravam remates longos. Ajustada dispersão física de saída
+por pressão/condição/potência, velocidade horizontal 18–26 m/s e máximo de voo
+1,15 s em jogo; treino conserva comportamento original. GR hard passa a reação
+0,14–0,22 s e melhor deslocação. Golos mantêm-se decididos pela física.
+Orçamento de golos simulado 1,43/1,18 (total 2,61), dividido por força/posição;
+a contribuição esperada do jogador é reservada antes de sortear colegas.
+Corrigida dupla atribuição de golos pessoais a NPCs, exclusão de taça da
+classificação da liga e uso do contador correto no UI. Distribuição NPC passa
+de uniforme a papéis ponderados, sem criar golos extra e com identidade pelo
+clube completo. Papéis são hipótese do modelo, não medição dos CSVs.
+Progresso e golos históricos preservados; defeitos históricos não reconstruídos
+sem dados suficientes. Mínimo de participação após treino e adversários mantidos.
+
+43 testes core/build/segurança + 36 Kivy passaram (79), py_compile e
+git diff --check. Novos testes de conservação/taça/reload, orçamento de golos,
+papéis, velocidades, dispersão sem resultado pré-determinado, treino intacto e
+reserva de golos em casa/fora. Logs /tmp/scorer-0617-core-final.log e
+/tmp/scorer-0617-ui-final.log. Não houve falhas de implementação nas suites;
+a validação física revelou o limite de voo antigo e motivou repetição dos
+ensaios afetados/compilação após a correção. Sem alterações de geometria/arte.
+
+Ensaios reproduzíveis com saves temporários e baseline da3db00 isolada:
+- 100 épocas/55200 jogos: 2,720 para 2,620 golos/jogo; 5+ golos 13,97% para
+  12,58%; líder de marcadores médio 13,82 para 29,31 com os mesmos golos
+  redistribuídos por papéis (não é comparação com jogadores reais).
+- 240 remates físicos por perfil/estratégia: canto hard 85,8% para 30,0%;
+  canto easy 100% para 48,3%; alvos variados hard 18,3%, easy 50,8%.
+- 100 partidas completas com bot instantâneo aos cantos: 3,64 para 2,81
+  golos/jogo, 190 para 67 golos pessoais, 28% para 13% jogos com 5+ golos.
+  Outros 100 jogos com alvos variados: 2,85 golos/jogo e 37 golos pessoais.
+Resultados/condições em docs/data/simulation_0.6.17.json. Bots não são testes
+humanos/Android, amostras são limitadas e sequências de épocas divergem.
+Ferramentas tools/analyse_football_data.py, calibrate_goals.py,
+calibrate_playable.py e balance_shots.py permitem reprodução.
+
+Ficheiros alterados: career.py, main.py, menu_ui.py, buildozer.spec, testes
+core/Kivy, ferramentas acima, AGENTS, README e relatório/dados. Baseline imutável
+continua fed211d2ec63fe0275390b13ed4a1bcfcd18fa61238460b04b67d80ebca6205b.
+
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+APK beta debug arm64 0.6.17, versionCode 1026617, API 36/mínimo 26.
+Assinatura v2 válida com certificado anterior; ZIP e 118 ELF alinhados a 16 KB.
+Código final de golos/voo/dispersão confirmado no APK; arte conferida por bytes.
+Sem permissões declaradas, CSVs brutos, saves ou chaves privadas incluídos.
+Logs build-0.6.17.log e verify-0.6.17.log em /workspace/striker-runtime.
+Tamanho 30210325 bytes. SHA-256: 542314cb93bf31ef0509c6fbf249395aebf37f06d1e9fa884510a625d2d9b5e5.
+
+Próximo: jogar várias partidas no telefone, avaliar justiça da mira e frequência
+de golos. Validação física/equilíbrio humano pendentes. Modelo FREE calibrado
+para League Two, sem alegar que todas as ligas mundiais foram calibradas.
+Sem AAB/assinatura release nesta etapa.

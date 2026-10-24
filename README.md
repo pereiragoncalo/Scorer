@@ -157,3 +157,11 @@ Completing weekly training now guarantees at least one match opportunity.
 Training goals help earn extras within the opponent's existing limits.
 Very strong opponents still allow exactly one hard chance. Existing saves
 continue without starting over. [Fix and validation](docs/UI_0.6.16.md).
+
+## SCORER 0.6.17 — researched goal realism
+
+Calibrated scoring against three full League Two seasons and historical shot
+data. Match finishing has physical pressure/accuracy; teammate goals reserve
+the player's contribution. Fixed duplicate scorer attribution and cup goals
+in league rankings. Existing progress and guaranteed trained participation
+remain. [Sources, experiments, 79 tests and limitations](docs/REALISM_0.6.17.md).

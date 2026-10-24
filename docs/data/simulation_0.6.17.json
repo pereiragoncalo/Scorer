@@ -1,0 +1,112 @@
+{
+  "baseline_source_commit": "da3db00",
+  "fixed_shots_corners_after": {
+    "easy": {
+      "GOAL!": 116,
+      "MISS!": 124
+    },
+    "hard": {
+      "GOAL!": 72,
+      "MISS!": 120,
+      "SAVED!": 48
+    },
+    "standard": {
+      "GOAL!": 203,
+      "MISS!": 32,
+      "SAVED!": 5
+    }
+  },
+  "fixed_shots_corners_before": {
+    "easy": {
+      "GOAL!": 240
+    },
+    "hard": {
+      "GOAL!": 206,
+      "MISS!": 34
+    },
+    "standard": {
+      "GOAL!": 218,
+      "MISS!": 22
+    }
+  },
+  "fixed_shots_uniform_after": {
+    "easy": {
+      "GOAL!": 122,
+      "MISS!": 10,
+      "SAVED!": 108
+    },
+    "hard": {
+      "GOAL!": 44,
+      "MISS!": 71,
+      "SAVED!": 125
+    },
+    "standard": {
+      "GOAL!": 99,
+      "MISS!": 20,
+      "SAVED!": 121
+    }
+  },
+  "playable_after_corners": {
+    "conversion": 0.3582887700534759,
+    "draw_rate": 0.26,
+    "five_plus_rate": 0.13,
+    "goals_per_match": 2.81,
+    "matches": 100,
+    "nil_nil_rate": 0.06,
+    "personal_chances": 187,
+    "personal_goals": 67,
+    "strategy": "corners"
+  },
+  "playable_after_uniform": {
+    "conversion": 0.25517241379310346,
+    "draw_rate": 0.23,
+    "five_plus_rate": 0.18,
+    "goals_per_match": 2.85,
+    "matches": 100,
+    "nil_nil_rate": 0.06,
+    "personal_chances": 145,
+    "personal_goals": 37,
+    "strategy": "uniform"
+  },
+  "playable_before_corners": {
+    "conversion": 0.8636363636363636,
+    "draw_rate": 0.08,
+    "five_plus_rate": 0.28,
+    "goals_per_match": 3.64,
+    "matches": 100,
+    "nil_nil_rate": 0.0,
+    "personal_chances": 220,
+    "personal_goals": 190,
+    "strategy": "corners"
+  },
+  "research_sources": {
+    "football_data_mirror_commit": "53a64a101e064879bade9458bdaf7a76662a7523",
+    "openfootball_commit": "9ee7a0c351805c99cc334478a9bf04b7d0432fec"
+  },
+  "team_seasons_after": {
+    "away": 1.1822101449275362,
+    "draw_rate": 0.25074275362318843,
+    "five_plus_rate": 0.12577898550724637,
+    "goals_per_match": 2.620126811594203,
+    "home": 1.4379166666666667,
+    "matches": 55200,
+    "nil_nil_rate": 0.0730072463768116,
+    "seasons": 100,
+    "top_scorer_max": 38,
+    "top_scorer_mean": 29.31,
+    "top_scorer_min": 24
+  },
+  "team_seasons_before": {
+    "away": 1.1522282608695653,
+    "draw_rate": 0.2328804347826087,
+    "five_plus_rate": 0.13972826086956522,
+    "goals_per_match": 2.7198188405797104,
+    "home": 1.567590579710145,
+    "matches": 55200,
+    "nil_nil_rate": 0.06748188405797101,
+    "seasons": 100,
+    "top_scorer_max": 17,
+    "top_scorer_mean": 13.82,
+    "top_scorer_min": 12
+  }
+}

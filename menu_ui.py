@@ -248,7 +248,7 @@ class CareerMenu(BoxLayout):
                                 rows, focus=c.club_name, summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7))
         if self.game.view == 'scorers':
             ranking = dict(c.current_league.scorer_goals)
-            ranking[c.player_name] = c.goals
+            ranking.setdefault(c.player_name, 0)
             rows = [(i + 1, name, goals) for i, (name, goals) in enumerate(sorted(ranking.items(), key=lambda x: (-x[1], x[0])))]
             return CompactTable('TOP SCORERS', ('POS', 'PLAYER', 'GOALS'), rows, focus=c.player_name)
         rows = [(str(e.get('date', ''))[8:10] + '/' + str(e.get('date', ''))[5:7], f"{e.get('home', '')} vs {e.get('away', '')}",

@@ -311,7 +311,8 @@ class MenuTests(unittest.TestCase):
             game._prepare_next_shot()
             game.power = 0.85
             game.shoot(2.0, 1.0)
-            self.assertLessEqual(game.goalkeeper_reaction, 0.13)
+            self.assertGreaterEqual(game.goalkeeper_reaction, 0.14)
+            self.assertLessEqual(game.goalkeeper_reaction, 0.22)
             self.assertAlmostEqual(game.goalkeeper_dive_speed, 5.8)
             game.start_training()
             self.assertEqual(game.shot_context, 'training')
@@ -371,6 +372,66 @@ class MenuTests(unittest.TestCase):
                 self.assertEqual(game.career.week, week + 1)
             self.assertEqual(game.career.goals, 0)
             self.assertEqual(game.career.matches, 2)
+
+    def test_scorer_menu_uses_league_goals_instead_of_all_competitions(self):
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            game.career.goals = 5
+            game.career.current_league.scorer_goals[game.career.player_name] = 2
+            game.view = 'scorers'
+            game.draw()
+            settle()
+            table = game._menu.body
+            own = next(row for row in table.rows if row[1] == game.career.player_name)
+            self.assertEqual(own[2], 2)
+
+    def test_pressured_touch_aim_has_physical_dispersion_without_changing_training(self):
+        import math
+        import random
+        previous = random.getstate()
+        self.addCleanup(random.setstate, previous)
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            game.shot_context, game.view = 'match', 'shot'
+            game.current_chance_difficulty = 'hard'
+            xs, zs = [], []
+            for seed in range(50):
+                random.seed(8810+seed)
+                game._prepare_next_shot()
+                game.power = 0.85
+                game.shoot(3.45, 2.25)
+                self.assertLessEqual(math.hypot(game.ball.vx, game.ball.vy), 18 + 0.85*8 + 0.0001)
+                flight = game.ball.y / -game.ball.vy
+                xs.append(game.ball.x+game.ball.vx*flight)
+                zs.append(game.ball.z+game.ball.vz*flight-0.5*9.81*flight*flight)
+                self.assertFalse(game.outcome_registered)
+            self.assertGreater(max(xs)-min(xs), 2)
+            self.assertTrue(any(x > game.goal_half_width for x in xs))
+            self.assertTrue(any(x < game.goal_half_width for x in xs))
+            game.shot_context = 'training'
+            game._prepare_next_shot()
+            game.power = 0.85
+            game.shoot(0, 1)
+            flight = game.ball.y / -game.ball.vy
+            self.assertLess(abs(game.ball.x+game.ball.vx*flight), 0.3)
+
+    def test_teammate_goals_reserve_the_players_expected_share_home_and_away(self):
+        from career import OpponentChanceProfile, expected_highlight_goals
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            c = game.career
+            c.last_training_week = c.week
+            player = c.club
+            other = next(club for club in c.current_league.clubs if club.name != player.name)
+            for at_home in (True, False):
+                fixture = ('league', player, other) if at_home else ('league', other, player)
+                means = []
+                with patch.object(c, 'next_match', return_value=fixture), patch.object(c, 'chance_count', return_value=2), patch.object(c, 'opponent_chance_profile', return_value=OpponentChanceProfile(0, 3, 0.6)), patch.object(c, 'fixture_goal_means', return_value=(1.43, 1.18)), patch('main.poisson_goal', side_effect=lambda rng, mean: means.append(mean) or 0):
+                    game.start_career_match()
+                personal = expected_highlight_goals(2, 0.6)
+                self.assertAlmostEqual(sum(means)+personal, 2.61)
+                self.assertAlmostEqual(means[0], 1.43-personal if at_home else 1.43)
+                self.assertAlmostEqual(means[1], 1.18 if at_home else 1.18-personal)
 
     def test_english_menu_labels_and_name_validation(self):
         with isolated_game(saved=True) as game:

@@ -1,0 +1,108 @@
+{
+  "results": [
+    {
+      "away_goals": 463,
+      "division": "1-premierleague",
+      "draws": 87,
+      "five_plus": 64,
+      "home_goals": 621,
+      "matches": 380,
+      "nil_nil": 23,
+      "season": "2022-23",
+      "sha256": "c85a2f8ac64975435b8359eb923eaa09e48f33d47672c8b32d2c6e99a8cec5f0"
+    },
+    {
+      "away_goals": 586,
+      "division": "4-league2",
+      "draws": 160,
+      "five_plus": 53,
+      "home_goals": 708,
+      "matches": 552,
+      "nil_nil": 54,
+      "season": "2022-23",
+      "sha256": "f44dca0baa9adf6f4b64c5df0f7753568f1dfaf285063e41c71550d441e5862b"
+    },
+    {
+      "away_goals": 562,
+      "division": "1-premierleague",
+      "draws": 82,
+      "five_plus": 86,
+      "home_goals": 684,
+      "matches": 380,
+      "nil_nil": 11,
+      "season": "2023-24",
+      "sha256": "0bfb4a7fffe0b1bf7318955686eafeb28fc9676346ae433259e7409d69551450"
+    },
+    {
+      "away_goals": 744,
+      "division": "4-league2",
+      "draws": 131,
+      "five_plus": 99,
+      "home_goals": 901,
+      "matches": 552,
+      "nil_nil": 27,
+      "season": "2023-24",
+      "sha256": "8db60f9939a72bc1fea6ce22931030621bbbb59dcecfec63437d963b032ef0a8"
+    },
+    {
+      "away_goals": 540,
+      "division": "1-premierleague",
+      "draws": 93,
+      "five_plus": 59,
+      "home_goals": 575,
+      "matches": 380,
+      "nil_nil": 16,
+      "season": "2024-25",
+      "sha256": "e39716b01af0c8654a9fae7b5555e6b02f506ea05239e0d0eef41936ba80e1e3"
+    },
+    {
+      "away_goals": 620,
+      "division": "4-league2",
+      "draws": 158,
+      "five_plus": 62,
+      "home_goals": 757,
+      "matches": 552,
+      "nil_nil": 48,
+      "season": "2024-25",
+      "sha256": "01028c16116b90129aadba05ef4d84a9985eeb165c11535a87b7ec5dc50d0f19"
+    }
+  ],
+  "shots": [
+    {
+      "division": "Premier",
+      "goals": 1018,
+      "matches": 380,
+      "on_target": 3190,
+      "season": "2017-2018",
+      "sha256": "4f3389365ef3f7ac966764ed8ba67cf3b79f5aebed18dd224099c4b2c98bc67b",
+      "shots": 9290
+    },
+    {
+      "division": "League-2",
+      "goals": 1458,
+      "matches": 552,
+      "on_target": 4711,
+      "season": "2017-2018",
+      "sha256": "5b119c844f19ee83ade4334ecb878ff5c54cebceeb7e971ca890f07247a0d3c3",
+      "shots": 12152
+    },
+    {
+      "division": "Premier",
+      "goals": 1072,
+      "matches": 380,
+      "on_target": 3309,
+      "season": "2018-2019",
+      "sha256": "7c096b3c2ecd54c6993d22eeea73450c2bde11e3457238b226b8f43c62dfc35e",
+      "shots": 9606
+    },
+    {
+      "division": "League-2",
+      "goals": 1409,
+      "matches": 552,
+      "on_target": 4662,
+      "season": "2018-2019",
+      "sha256": "7494db528e217926bd03d9d469dd52d7043c85b8c9e9fc7f477ea5675383291c",
+      "shots": 12225
+    }
+  ]
+}
