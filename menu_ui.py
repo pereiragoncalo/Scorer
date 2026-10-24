@@ -157,7 +157,7 @@ class CareerMenu(BoxLayout):
             brand = BrandMark(word='CORER', with_icon=True)
         elif paged:
             header.height = dp(52)
-            titles = {'standings': 'CLASSIFICAÇÃO', 'scorers': 'MARCADORES', 'calendar': 'CALENDÁRIO'}
+            titles = {'standings': 'STANDINGS', 'scorers': 'TOP SCORERS', 'calendar': 'FIXTURES'}
             brand.add_widget(BoundedLabel(text=titles[self.game.view], font_size=sp(20), bold=True))
             brand.add_widget(BoundedLabel(text=self.game.career.current_league.name, font_size=sp(11), color=MUTED))
         else:
@@ -165,15 +165,15 @@ class CareerMenu(BoxLayout):
             brand.add_widget(BrandMark())
         header.add_widget(brand)
         if self.game.view == 'hub':
-            profile = MenuTile('JOGADOR', lambda: self.action('profile'))
+            profile = MenuTile('PLAYER', lambda: self.action('profile'))
             profile.size_hint_x, profile.width = None, dp(88)
             header.add_widget(profile)
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('VOLTAR', 'hub')
+            back = self._button('BACK', 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view in ('hub', 'offers'):
-            exit_button = TouchButton('SAIR', self.game._request_exit)
+            exit_button = TouchButton('EXIT', self.game._request_exit)
             exit_button.size_hint_x, exit_button.width = None, dp(76)
             header.add_widget(exit_button)
         self.add_widget(header)
@@ -202,8 +202,8 @@ class CareerMenu(BoxLayout):
         return card
 
     def _offers(self):
-        card = self.card('O teu primeiro contrato')
-        card.label('Uma divisão. A tua carreira começa aqui.', muted=True)
+        card = self.card('Your first contract')
+        card.label('One division. Your career starts here.', muted=True)
         grid = GridLayout(cols=2, spacing=dp(6), size_hint_y=None)
         grid.bind(minimum_height=grid.setter('height'))
         card.add_widget(grid)
@@ -213,21 +213,21 @@ class CareerMenu(BoxLayout):
     def _training(self):
         g, c = self.game, self.game.career
         used = c.training_used_this_week
-        card = self.card('Treino de finalização')
+        card = self.card('Finishing practice')
         if g.training_completed and c.trained_this_week:
-            card.label(f'Treino concluído · {g.training_goals}/3 golos', heading=True)
-            card.label(f'Energia: {g.training_stamina_before:.1f} para {c.stamina:.1f}')
+            card.label(f'Training complete · {g.training_goals}/3 goals', heading=True)
+            card.label(f'Energy: {g.training_stamina_before:.1f} to {c.stamina:.1f}')
         elif not used:
-            card.label('Uma sessão de três remates por semana da carreira.')
-            card.label('A sessão é descontada ao começar.', muted=True)
+            card.label('One three-shot session per career week.')
+            card.label('Your weekly session is used when you start.', muted=True)
         else:
-            card.label('O treino desta semana já foi utilizado.', muted=True)
-        card.label(f'Energia atual: {c.stamina:.1f}/20', muted=True)
-        button = self._button('TREINO SEMANAL UTILIZADO' if used else 'INICIAR TREINO', 'training_start', accent=True)
+            card.label('This week’s training session has been used.', muted=True)
+        card.label(f'Current energy: {c.stamina:.1f}/20', muted=True)
+        button = self._button('WEEKLY TRAINING USED' if used else 'START TRAINING', 'training_start', accent=True)
         button.disabled = used
         card.add_widget(button)
         if used:
-            card.label('Novo treino disponível na próxima semana.', muted=True)
+            card.label('Training available again next week.', muted=True)
 
     def _compact_list(self):
         c = self.game.career
@@ -235,39 +235,39 @@ class CareerMenu(BoxLayout):
             rows = [(i + 1, club.name, club.played, club.won, club.drawn, club.lost,
                      club.goals_for, club.goals_against, club.goal_difference, club.points)
                     for i, club in enumerate(c.current_league.table())]
-            return CompactTable('CLASSIFICAÇÃO · ' + c.current_league.name,
-                                ('POS', 'CLUBE', 'J', 'V', 'E', 'D', 'GM', 'GS', 'DG', 'PTS'),
+            return CompactTable('STANDINGS · ' + c.current_league.name,
+                                ('POS', 'CLUB', 'P', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'PTS'),
                                 rows, focus=c.club_name, summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7))
         if self.game.view == 'scorers':
             ranking = dict(c.current_league.scorer_goals)
             ranking[c.player_name] = c.goals
             rows = [(i + 1, name, goals) for i, (name, goals) in enumerate(sorted(ranking.items(), key=lambda x: (-x[1], x[0])))]
-            return CompactTable('MARCADORES', ('POS', 'JOGADOR', 'GOLOS'), rows, focus=c.player_name)
+            return CompactTable('TOP SCORERS', ('POS', 'PLAYER', 'GOALS'), rows, focus=c.player_name)
         rows = [(str(e.get('date', ''))[8:10] + '/' + str(e.get('date', ''))[5:7], f"{e.get('home', '')} vs {e.get('away', '')}",
                  e.get('competition', ''), e.get('status', '')) for e in c.calendar_entries()]
-        return CompactTable(f'CALENDÁRIO · {c.season}/{str(c.season + 1)[-2:]}', ('DATA', 'JOGO', 'COMPETIÇÃO', 'ESTADO'), rows,
+        return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
                             summary=(0, 1, 3), detail=(0, 1, 2))
 
     def _agent(self):
         c = self.game.career
-        card = self.card('O teu agente')
+        card = self.card('Your agent')
         card.label(c.message)
-        card.label('Janela aberta' if c.transfer_window_open else 'Janela fechada · julho/agosto e janeiro/fevereiro', muted=True)
+        card.label('Transfer window open' if c.transfer_window_open else 'Window closed · Jul/Aug and Jan/Feb', muted=True)
         for club, key in c.agent_offers:
             card.add_widget(self._button(f'{club}\n{c.leagues[key].name}', 'transfer', (club, key)))
-        card.add_widget(self._button('PROCURAR PROPOSTAS', 'agent_refresh'))
+        card.add_widget(self._button('FIND OFFERS', 'agent_refresh'))
 
     def _world(self):
         if not self.game.career.world_unlocked:
-            self.card('Edição gratuita').label('Uma divisão disponível nesta edição.')
+            self.card('Free edition').label('One division available in this edition.')
             return
-        self.card('Mundo do futebol')
-        competitions = self.card('Competições')
+        self.card('World football')
+        competitions = self.card('Competitions')
         for title, status in self.game.career.international_status.items():
             competitions.label(f'{title} · {status}')
         for country in sorted(WORLD_COUNTRIES):
             depth = EUROPE_PYRAMID_DEPTH.get(country, 1)
-            self.card(country).label(f'{depth} divisões')
+            self.card(country).label(f'{depth} divisions')
 
 
 class MatchNotice(BoxLayout):
@@ -286,7 +286,7 @@ class MatchNotice(BoxLayout):
         self.body.bind(minimum_height=self.body.setter('height'))
         self.scroll.add_widget(self.body)
         self.add_widget(self.scroll)
-        self.button = MenuTile('CONTINUAR', self.proceed, accent=True)
+        self.button = MenuTile('CONTINUE', self.proceed, accent=True)
         self.button.size_hint_x = None
         self.button.width = dp(176)
         self.button.pos_hint = {'center_x': 0.5}
@@ -312,12 +312,12 @@ class MatchNotice(BoxLayout):
             return
         self.signature = signature
         self.body.clear_widgets()
-        title = game.match_summary if game.match_finished else 'OPORTUNIDADE'
+        title = game.match_summary if game.match_finished else 'CHANCE'
         self.body.add_widget(FlowLabel(text=title, font_size=sp(17), bold=True, color=GREEN, halign='center'))
-        detail = (f'Moral {game.career.morale:.1f}/20  ·  Energia {game.career.stamina:.1f}/20'
-                  if game.match_finished else 'Prepara o teu remate e marca a diferença.')
+        detail = (f'Morale {game.career.morale:.1f}/20  ·  Energy {game.career.stamina:.1f}/20'
+                  if game.match_finished else 'Line up your shot and make the difference.')
         self.body.add_widget(FlowLabel(text=detail, font_size=sp(13), halign='center'))
-        self.button.text = 'CONTINUAR' if game.match_finished else 'JOGAR OPORTUNIDADE'
+        self.button.text = 'CONTINUE' if game.match_finished else 'PLAY CHANCE'
 
     def proceed(self):
         if self.game.match_finished:
@@ -401,16 +401,16 @@ class EntryScreen(FloatLayout):
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
         self.brand = BrandMark(centered=True, size_hint_y=None, height=dp(52))
         self.panel.add_widget(self.brand)
-        self.info = BoundedLabel(text='A tua carreira. Uma divisão. Todos os golos contam.',
+        self.info = BoundedLabel(text='Your career. One division. Every goal counts.',
                                  color=MUTED, font_size=sp(12), halign='center')
-        if menu.game.career.message.startswith('Não foi possível'):
+        if menu.game.career.message.startswith('Unable to continue'):
             self.info.text = menu.game.career.message
         self.panel.add_widget(self.info)
-        self.panel.add_widget(MenuTile('NOVO JOGO', lambda: menu.action('new_game'), accent=True))
-        load = MenuTile('CARREGAR JOGO', lambda: menu.action('load_game'))
+        self.panel.add_widget(MenuTile('NEW GAME', lambda: menu.action('new_game'), accent=True))
+        load = MenuTile('LOAD GAME', lambda: menu.action('load_game'))
         load.disabled = not menu.game.career.save_path.is_file()
         self.panel.add_widget(load)
-        self.panel.add_widget(MenuTile('SAIR', menu.game._request_exit))
+        self.panel.add_widget(MenuTile('EXIT', menu.game._request_exit))
         self.panel.canvas.before.remove(self.panel.edge)
         self.add_widget(self.panel)
         self.bind(pos=self._fit, size=self._fit)
@@ -434,16 +434,16 @@ class MainDashboard(BoxLayout):
         self.identity = BoxLayout(size_hint_y=None, height=dp(36), spacing=dp(12), padding=[dp(10), 0])
         self.identity.add_widget(BoundedLabel(text=c.player_name, font_size=sp(18), bold=True, color=GREEN))
         self.identity.add_widget(BoundedLabel(text=c.club_name, font_size=sp(14), halign='center'))
-        self.identity.add_widget(BoundedLabel(text=f'Energia {c.stamina:.1f}/20 · Moral {c.morale:.1f}/20',
+        self.identity.add_widget(BoundedLabel(text=f'Energy {c.stamina:.1f}/20 · Morale {c.morale:.1f}/20',
                                              color=MUTED, font_size=sp(11), halign='right'))
         self.add_widget(self.identity)
         self.hero = BoxLayout(spacing=dp(12))
         self.match = EdgePanel(orientation='vertical', size_hint_x=0.66)
-        self.match.add_widget(BoundedLabel(text='PRÓXIMO JOGO', color=GREEN, font_size=sp(10),
+        self.match.add_widget(BoundedLabel(text='NEXT MATCH', color=GREEN, font_size=sp(10),
                                           bold=True, size_hint_y=None, height=dp(16)))
         fixture = c.next_match()
         teams = BoxLayout(spacing=dp(8))
-        home = fixture[1].name if fixture else 'Época concluída'
+        home = fixture[1].name if fixture else 'Season complete'
         away = fixture[2].name if fixture else ''
         teams.add_widget(BoundedLabel(text=home, font_size=sp(18), bold=True, halign='center'))
         teams.add_widget(BoundedLabel(text='VS' if fixture else '', font_size=sp(11), color=MUTED,
@@ -453,16 +453,16 @@ class MainDashboard(BoxLayout):
         footer = self.footer = FloatLayout(size_hint_y=None, height=dp(52))
         footer.add_widget(BoundedLabel(text=c.format_date(c.current_date), font_size=sp(11), color=MUTED,
                                       size_hint=(0.43, 1), pos_hint={'x': 0, 'y': 0}))
-        self.play = MenuTile('JOGAR', lambda: menu.action('play'), accent=True)
+        self.play = MenuTile('PLAY', lambda: menu.action('play'), accent=True)
         self.play.size_hint_x, self.play.width = None, dp(136)
         footer.add_widget(self.play)
         self.match.add_widget(footer)
         self.hero.add_widget(self.match)
         self.season = EdgePanel(orientation='vertical', size_hint_x=0.34)
-        self.season.add_widget(BoundedLabel(text='A TUA ÉPOCA', color=GREEN, font_size=sp(10),
+        self.season.add_widget(BoundedLabel(text='YOUR SEASON', color=GREEN, font_size=sp(10),
                                            bold=True, size_hint_y=None, height=dp(16)))
         numbers = BoxLayout(spacing=dp(8))
-        for number, title in ((c.matches, 'JOGOS'), (c.goals, 'GOLOS')):
+        for number, title in ((c.matches, 'MATCHES'), (c.goals, 'GOALS')):
             anchor = AnchorLayout()
             column = BoxLayout(orientation='vertical', size_hint=(1, None), height=dp(68), spacing=dp(4))
             column.add_widget(BoundedLabel(text=str(number), font_size=sp(30), bold=True, halign='center',
@@ -472,13 +472,13 @@ class MainDashboard(BoxLayout):
             anchor.add_widget(column)
             numbers.add_widget(anchor)
         self.season.add_widget(numbers)
-        self.season.add_widget(BoundedLabel(text=c.current_league.name + (' · 1 DIVISÃO' if not c.world_unlocked else ''),
+        self.season.add_widget(BoundedLabel(text=c.current_league.name + (' · 1 DIVISION' if not c.world_unlocked else ''),
                                            color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
         self.hero.add_widget(self.season)
         self.add_widget(self.hero)
         self.actions = GridLayout(cols=5, spacing=dp(6), size_hint_y=None, height=dp(52))
-        for title, action in [('TREINO', 'training'), ('CLASSIFICAÇÃO', 'standings'),
-                              ('MARCADORES', 'scorers'), ('CALENDÁRIO', 'calendar'), ('AGENTE', 'agent')]:
+        for title, action in [('TRAINING', 'training'), ('STANDINGS', 'standings'),
+                              ('TOP SCORERS', 'scorers'), ('FIXTURES', 'calendar'), ('AGENT', 'agent')]:
             button = MenuTile(title, lambda name=action: menu.action(name))
             self.actions.add_widget(button)
             if action == 'scorers':
@@ -535,22 +535,22 @@ class PlayerScreen(FloatLayout):
         super().__init__()
         self.menu = menu
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
-        self.panel.add_widget(BoundedLabel(text='O TEU JOGADOR', bold=True, font_size=sp(18),
+        self.panel.add_widget(BoundedLabel(text='YOUR PLAYER', bold=True, font_size=sp(18),
                                           size_hint_y=None, height=dp(28)))
         existing = menu.game._profile_return == 'hub'
         self.name = TextInput(text=menu.game.career.player_name if existing else '',
-                              hint_text='Nome do jogador', multiline=False, write_tab=False,
+                              hint_text='Player name', multiline=False, write_tab=False,
                               font_size=sp(17), padding=[dp(12), dp(12)],
                               size_hint_y=None, height=dp(52), background_color=(0.08, 0.17, 0.20, 1),
                               foreground_color=INK, cursor_color=GREEN)
         self.panel.add_widget(self.name)
         message = menu.game.career.message
-        self.panel.add_widget(BoundedLabel(text=message if ('nome' in message or 'marcador' in message or 'guardar' in message)
-                                          else 'Escolhe o teu nome. O progresso é mantido.',
+        self.panel.add_widget(BoundedLabel(text=message if ('name' in message.lower() or 'scorer' in message.lower() or 'save' in message.lower())
+                                          else 'Choose your name. Your progress is kept.',
                                           color=MUTED, font_size=sp(12)))
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
-        actions.add_widget(MenuTile('CANCELAR', lambda: menu.action('cancel_profile')))
-        actions.add_widget(MenuTile('GUARDAR' if existing else 'CONTINUAR',
+        actions.add_widget(MenuTile('CANCEL', lambda: menu.action('cancel_profile')))
+        actions.add_widget(MenuTile('SAVE' if existing else 'CONTINUE',
                                     lambda: self.submit(), accent=True))
         self.panel.add_widget(actions)
         self.add_widget(self.panel)
@@ -584,16 +584,16 @@ class CompactTable(EdgePanel):
         self.lines = BoxLayout(orientation='vertical')
         self.add_widget(self.lines)
         self.controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(6))
-        self.previous = MenuTile('ANTERIOR', lambda: self.move(-1))
-        self.next = MenuTile('SEGUINTE', lambda: self.move(1))
+        self.previous = MenuTile('PREVIOUS', lambda: self.move(-1))
+        self.next = MenuTile('NEXT', lambda: self.move(1))
         self.controls.add_widget(self.previous)
         self.counter = BoundedLabel(halign='center', font_size=sp(11), size_hint_x=None, width=dp(46))
         self.controls.add_widget(self.counter)
         self.controls.add_widget(self.next)
         if focus:
-            self.controls.add_widget(MenuTile('MEU LUGAR', self.jump_to_focus))
+            self.controls.add_widget(MenuTile('MY POSITION', self.jump_to_focus))
         if detail:
-            self.controls.add_widget(MenuTile('DADOS', self.toggle_detail))
+            self.controls.add_widget(MenuTile('STATS', self.toggle_detail))
         self.add_widget(self.controls)
         self.bind(size=self._render)
         self._render()

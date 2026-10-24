@@ -66,6 +66,33 @@ class MenuTests(unittest.TestCase):
         cls.env.stop()
         cls.temp.cleanup()
 
+    def test_english_menu_labels_and_name_validation(self):
+        with isolated_game(saved=True) as game:
+            game.view = 'start'
+            game._load_career()
+            expected = {
+                'start': {'NEW GAME', 'LOAD GAME', 'EXIT'},
+                'hub': {'PLAY', 'TRAINING', 'STANDINGS', 'TOP SCORERS', 'FIXTURES', 'AGENT', 'PLAYER', 'EXIT'},
+                'training': {'START TRAINING', 'BACK'},
+                'standings': {'PREVIOUS', 'NEXT', 'MY POSITION', 'STATS', 'BACK'},
+                'scorers': {'PREVIOUS', 'NEXT', 'MY POSITION', 'BACK'},
+                'calendar': {'PREVIOUS', 'NEXT', 'STATS', 'BACK'},
+                'agent': {'FIND OFFERS', 'BACK'},
+            }
+            for view, required in expected.items():
+                game.view = view
+                game.draw()
+                settle()
+                labels = {w.text for w in game.walk() if isinstance(w, Label)}
+                self.assertTrue(required <= labels, (view, required - labels))
+            game._profile_return = 'hub'
+            game.view = 'profile'
+            game._activate_ui('save_profile', '')
+            settle()
+            self.assertEqual(game.career.message, 'Enter a name with at least 2 characters.')
+            self.assertTrue(any(isinstance(w, Label) and w.text == game.career.message
+                                for w in game.walk()))
+
     def test_splash_survives_rotation_and_time_until_real_touch(self):
         with isolated_game(saved=True) as game:
             before = game.career.save_path.read_bytes()
@@ -86,7 +113,7 @@ class MenuTests(unittest.TestCase):
             settle()
             self.assertEqual(game.view, 'start')
             labels = [w.text for w in game.walk() if isinstance(w, TouchButton)]
-            self.assertEqual(set(labels), {'NOVO JOGO', 'CARREGAR JOGO', 'SAIR'})
+            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'EXIT'})
             self.assertEqual(game.career.save_path.read_bytes(), before)
             game._activate_ui('load_game')
             settle()
@@ -134,7 +161,7 @@ class MenuTests(unittest.TestCase):
             game._activate_ui('splash_continue')
             game.draw()
             settle()
-            load = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'CARREGAR JOGO')
+            load = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'LOAD GAME')
             self.assertTrue(load.disabled)
             game._activate_ui('new_game')
             self.assertEqual(game.view, 'profile')
@@ -196,7 +223,7 @@ class MenuTests(unittest.TestCase):
         self.game.view = 'hub'
         self.game.draw()
         settle()
-        button = next(w for w in self.game.walk() if isinstance(w, MenuTile) and w.text == 'JOGAR')
+        button = next(w for w in self.game.walk() if isinstance(w, MenuTile) and w.text == 'PLAY')
         raised = button._face.pos[1]
         self.assertAlmostEqual(button._face.pos[1] + button._face.size[1] / 2, button.center_y)
         normal = tuple(button._face_color.rgba)
@@ -220,8 +247,8 @@ class MenuTests(unittest.TestCase):
                     self.game.draw()
                     settle()
                     buttons = [w for w in self.game.walk() if isinstance(w, MenuTile)]
-                    play = next(w for w in buttons if w.text == 'JOGAR')
-                    scorers = next(w for w in buttons if w.text == 'MARCADORES')
+                    play = next(w for w in buttons if w.text == 'PLAY')
+                    scorers = next(w for w in buttons if w.text == 'TOP SCORERS')
                     self.assertAlmostEqual(play.x, scorers.x, delta=1)
                     self.assertAlmostEqual(play.right, scorers.right, delta=1)
                     self.assertTrue(any(isinstance(w, Label) and w.text == 'CORER' for w in self.game.walk()))
@@ -252,12 +279,12 @@ class MenuTests(unittest.TestCase):
             game.training_completed = False
             game.draw()
             settle()
-            button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'TREINO SEMANAL UTILIZADO')
+            button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'WEEKLY TRAINING USED')
             self.assertTrue(button.disabled)
             game.career.week += 1
             game.draw()
             settle()
-            button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'INICIAR TREINO')
+            button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'START TRAINING')
             self.assertFalse(button.disabled)
 
     def test_active_training_cannot_restart_its_shot_counter(self):
@@ -318,7 +345,7 @@ class MenuTests(unittest.TestCase):
         self.game.draw()
         settle()
         menu = self.game._menu
-        play = next(w for w in menu.walk() if isinstance(w, TouchButton) and w.text == 'JOGAR')
+        play = next(w for w in menu.walk() if isinstance(w, TouchButton) and w.text == 'PLAY')
         x, y = play.to_window(*play.center)
         self.assertGreater(y, menu.body.y)
         self.assertLess(y, menu.body.top)
@@ -388,12 +415,12 @@ class MenuTests(unittest.TestCase):
         self.game.draw()
         settle()
         menu = self.game._menu
-        button = next(w for w in menu.walk() if isinstance(w, TouchButton) and w.text == 'CLASSIFICAÇÃO')
+        button = next(w for w in menu.walk() if isinstance(w, TouchButton) and w.text == 'STANDINGS')
         # Native widget callback, followed by independent real touch on header Back.
         button.dispatch('on_release')
         settle()
         self.assertEqual(self.game.view, 'standings')
-        back = next(w for w in self.game._menu.walk() if isinstance(w, TouchButton) and w.text == 'VOLTAR')
+        back = next(w for w in self.game._menu.walk() if isinstance(w, TouchButton) and w.text == 'BACK')
         touch = UnitTestTouch(*back.center)
         touch.touch_down()
         touch.touch_up()
@@ -426,7 +453,7 @@ class MenuTests(unittest.TestCase):
         self.game.view = 'training'
         self.game.draw()
         settle()
-        button = next(w for w in self.game._menu.walk() if isinstance(w, TouchButton) and 'TREINO' in w.text)
+        button = next(w for w in self.game._menu.walk() if isinstance(w, TouchButton) and 'TRAINING' in w.text)
         button.dispatch('on_release')
         settle()
         self.assertEqual(self.game.view, 'shot')
@@ -442,7 +469,7 @@ class MenuTests(unittest.TestCase):
             self.game.draw()
             settle()
             labels = [w.text for w in self.game.walk() if isinstance(w, TouchButton)]
-            self.assertEqual('SAIR' in labels, view in ('hub', 'offers'))
+            self.assertEqual('EXIT' in labels, view in ('hub', 'offers'))
 
     def test_finished_panel_wraps_and_continue_returns_to_career(self):
         self.game.match_finished = True
@@ -479,8 +506,8 @@ class MenuTests(unittest.TestCase):
         self.game.draw()
         settle()
         buttons = [w.text for w in self.game._menu.walk() if isinstance(w, TouchButton)]
-        self.assertNotIn('EDITOR LOCAL', buttons)
-        self.assertNotIn('MUNDO DO FUTEBOL', buttons)
+        self.assertNotIn('LOCAL EDITOR', buttons)
+        self.assertNotIn('WORLD FOOTBALL', buttons)
         with patch.object(self.game, '_open_local_editor') as editor:
             self.game._activate_ui('editor')
             editor.assert_not_called()

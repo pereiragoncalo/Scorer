@@ -90,13 +90,13 @@ PENALTY_ORIGIN = (0.0, 11.0)
 # são calculadas a partir do calendário interno, que começa em 12 Jul 2026.
 CUP_WEEKS = (17, 21, 26, 31, 34, 38, 41, 45)
 CUP_ROUNDS = (
-    "1.a RONDA",
-    "2.a RONDA",
-    "3.a RONDA",
-    "4.a RONDA",
-    "5.a RONDA",
-    "QUARTOS-DE-FINAL",
-    "MEIAS-FINAIS",
+    'ROUND 1',
+    'ROUND 2',
+    'ROUND 3',
+    'ROUND 4',
+    'ROUND 5',
+    'QUARTER-FINAL',
+    'SEMI-FINAL',
     "FINAL",
 )
 
@@ -433,7 +433,7 @@ CLUB_KIT_HEX: dict[str, tuple[str, str, str, str]] = {}
 
 def division_name(country: str, tier: int) -> str:
     if country == "England" and tier == 4:
-        return "Liga Scorer"
+        return "Scorer League"
     names = DIVISION_NAMES.get(country, ())
     if 0 < tier <= len(names):
         return names[tier - 1]
@@ -655,7 +655,7 @@ class CareerMode:
         self.international_goals = 0
         self.called_up = False
         self.last_result = ""
-        self.message = "Escolhe o primeiro contrato da tua carreira."
+        self.message = 'Choose the first contract of your career.'
         self.last_training_week = -1
         self.training_session_week = -1
         self.cup_active = True
@@ -756,8 +756,8 @@ class CareerMode:
     @staticmethod
     def format_date(value: date) -> str:
         months = (
-            "JAN", "FEV", "MAR", "ABR", "MAI", "JUN",
-            "JUL", "AGO", "SET", "OUT", "NOV", "DEZ",
+            "JAN", 'FEB', "MAR", 'APR', 'MAY', "JUN",
+            "JUL", 'AUG', 'SEP', 'OCT', "NOV", 'DEC',
         )
         return f"{value.day:02d} {months[value.month - 1]} {value.year}"
 
@@ -782,7 +782,7 @@ class CareerMode:
         old = self.player_name
         scorers = self.current_league.scorer_goals
         if name != old and name in scorers:
-            raise ValueError("Já existe um marcador com esse nome. Escolhe outro nome.")
+            raise ValueError('A scorer already has that name. Choose another name.')
         previous = dict(scorers)
         self.player_name = name
         if old in scorers:
@@ -792,7 +792,7 @@ class CareerMode:
             scorers.clear()
             scorers.update(previous)
             return False
-        self.message = f"Jogador: {name}."
+        self.message = f"Player: {name}."
         return True
 
     def rename_current_club(self, requested_name: object) -> str:
@@ -805,7 +805,7 @@ class CareerMode:
         club.name = new_name
         if self.club_name == old_name:
             self.club_name = new_name
-        self.message = f"Nome local do clube alterado para {new_name}."
+        self.message = f"Local club name changed to {new_name}."
         self.save()
         return new_name
 
@@ -813,7 +813,7 @@ class CareerMode:
         """Rename the current league locally and persist it in the career save."""
         new_name = sanitize_local_display_name(requested_name, limit=56)
         self.current_league.name = new_name
-        self.message = f"Nome local da competicao alterado para {new_name}."
+        self.message = f"Local competition name changed to {new_name}."
         self.save()
         return new_name
 
@@ -956,7 +956,7 @@ class CareerMode:
                         "competition": self.current_league.name,
                         "home": fixture[0].name,
                         "away": fixture[1].name,
-                        "status": f"Jornada {future_round + 1}",
+                        "status": f"Matchweek {future_round + 1}",
                         "played": False,
                     })
                     upcoming += 1
@@ -1019,7 +1019,7 @@ class CareerMode:
         if club_name not in self.offers:
             return
         self.club_name = club_name
-        self.message = f"Contrato assinado com {club_name}."
+        self.message = f"Contract signed with {club_name}."
         self.save()
 
 
@@ -1213,14 +1213,14 @@ class CareerMode:
     def begin_training(self) -> bool:
         """Reserve the career week's sole session before opening its first shot."""
         if not self.club_name:
-            self.message = "Escolhe um clube antes de treinar."
+            self.message = 'Choose a club before training.'
             return False
         if self.training_used_this_week:
-            self.message = "O treino desta semana já foi utilizado. Volta na próxima semana."
+            self.message = 'This week’s training session has been used. Come back next week.'
             return False
         previous = self.training_session_week
         self.training_session_week = self.week
-        self.message = "Treino semanal iniciado."
+        self.message = 'Weekly training started.'
         if self.save() is False:
             self.training_session_week = previous
             return False
@@ -1228,7 +1228,7 @@ class CareerMode:
 
     def complete_training(self, goals: int) -> float:
         if self.trained_this_week:
-            self.message = "O treino desta semana já foi concluído."
+            self.message = 'This week’s training is already complete.'
             return 0.0
         goals = max(0, min(3, int(goals)))
         previous = (self.stamina, self.morale, self.last_training_week, self.training_session_week)
@@ -1236,7 +1236,7 @@ class CareerMode:
         self.morale = clamp(self.morale + max(0, goals - 1) * 0.20, 0.0, 20.0)
         self.last_training_week = self.week
         self.training_session_week = self.week
-        self.message = f"Treino concluído: {goals}/3 golos. Energia aumentou."
+        self.message = f"Training complete: {goals}/3 goals. Energy increased."
         if self.save() is False:
             self.stamina, self.morale, self.last_training_week, self.training_session_week = previous
             return 0.0
@@ -1289,7 +1289,7 @@ class CareerMode:
             and recent >= 4 and self.morale >= 13.0 and self.week % 4 == 0
         )
         if self.called_up:
-            self.message = "Foste convocado para a Selecao Nacional!"
+            self.message = 'You have been called up to the national team!'
 
 
     def generate_agent_offers(
@@ -1345,8 +1345,8 @@ class CareerMode:
         self.agent_offers = candidates
         self.last_offer_week = self.week
         self.message = (
-            f"O agente encontrou {len(candidates)} proposta(s)."
-            if candidates else "Ainda nao ha propostas. Marca golos e volta a tentar."
+            f"Your agent found {len(candidates)} offer(s)."
+            if candidates else 'No offers yet. Score goals and try again.'
         )
         self.save()
         return candidates
@@ -1368,16 +1368,16 @@ class CareerMode:
             self.generate_agent_offers(guaranteed=True)
             if self.agent_offers:
                 self.message = (
-                    f"O teu agente recebeu {len(self.agent_offers)} nova(s) proposta(s)!"
+                    f"Your agent received {len(self.agent_offers)} new offer(s)!"
                 )
 
 
     def accept_transfer(self, club_name: str, league_key: str) -> None:
         if not self.transfer_window_open:
-            self.message = "A transferencia so pode ser concluida durante uma janela aberta."
+            self.message = 'Transfers can only be completed during an open window.'
             return
         if not self.is_league_playable(league_key):
-            self.message = "Essa liga requer o acesso Scorer World."
+            self.message = 'That league requires Scorer World.'
             return
         if (club_name, league_key) not in self.agent_offers:
             return
@@ -1385,7 +1385,7 @@ class CareerMode:
         self.league_key = league_key
         self.agent_offers.clear()
         self.cup_active = False
-        self.message = f"Transferencia concluida para {club_name}."
+        self.message = f"Transfer completed to {club_name}."
         self.save()
 
 
@@ -1425,7 +1425,7 @@ class CareerMode:
         self.last_offer_week = -99
         self.morale = clamp(self.morale + (2 if promoted else -1 if relegated else 0), 0, 20)
         self.stamina = clamp(self.stamina + 3.0, 0, 20)
-        self.message = f"Epoca terminada em {position}. Nova epoca {self.season}/{str(self.season + 1)[-2:]}."
+        self.message = f"Season finished in position {position}. New season {self.season}/{str(self.season + 1)[-2:]}."
         if self.season % 4 == 0:
             self.international_status["European Championship"] = f"Winner: {self.rng.choice(EUROPE_COUNTRIES)}"
         else:
@@ -1521,7 +1521,7 @@ class CareerMode:
                 if temporary is not None:
                     temporary.unlink(missing_ok=True)
         except OSError:
-            self.message = "Nao foi possivel guardar a carreira. Tenta novamente."
+            self.message = 'Unable to save your career. Please try again.'
             return False
         return True
 
@@ -1543,7 +1543,7 @@ class CareerMode:
             os.replace(temporary, source.with_name("striker_career.previous.json"))
             return True
         except OSError:
-            self.message = "Não foi possível proteger a carreira antiga. Novo jogo cancelado."
+            self.message = 'Unable to back up your previous career. New game cancelled.'
             return False
         finally:
             if temporary is not None:
@@ -1594,7 +1594,7 @@ class CareerMode:
             if not self.is_league_playable(key_for_access):
                 self._locked_world_career = active
                 self.message = (
-                    "Carreira WORLD preservada. Restaura o acesso World para a continuar."
+                    'WORLD career preserved. Restore World access to continue it.'
                 )
                 return True
             data = active
@@ -1634,7 +1634,7 @@ class CareerMode:
             self.international_goals = int(data.get("international_goals", 0))
             self.called_up = bool(data.get("called_up", False))
             self.last_result = data.get("last_result", "")
-            self.message = data.get("message", "Carreira carregada.")
+            self.message = 'Career loaded.'
             self.last_training_week = int(data.get("last_training_week", -1))
             self.training_session_week = int(data.get("training_session_week", self.last_training_week))
             migrated_cup_round = sum(
@@ -1655,6 +1655,12 @@ class CareerMode:
                 dict(value) for value in data.get("fixture_history", [])
                 if isinstance(value, dict)
             ][-20:]
+            for entry in self.fixture_history:
+                if key == FREE_LEAGUE_KEY and entry.get("competition") == "Liga Scorer":
+                    entry["competition"] = "Scorer League"
+                status = entry.get("status")
+                if isinstance(status, str) and status.startswith("Jornada "):
+                    entry["status"] = "Matchweek " + status[len("Jornada "):]
             self.agent_offers = [
                 (str(value[0]), str(value[1]))
                 for value in data.get("agent_offers", [])
@@ -1666,9 +1672,9 @@ class CareerMode:
             league = self.current_league
             saved_league_name = data.get("league_name")
             if key == FREE_LEAGUE_KEY and saved_league_name in (
-                "England Division 4", "Divisão Striker", "Divisão Scorer"
+                "England Division 4", "Divisão Striker", "Divisão Scorer", "Liga Scorer"
             ):
-                saved_league_name = "Liga Scorer"
+                saved_league_name = "Scorer League"
             if saved_league_name:
                 try:
                     league.name = sanitize_local_display_name(saved_league_name, limit=56)

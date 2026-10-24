@@ -448,3 +448,38 @@ testes /tmp/scorer-069-core.log e /tmp/scorer-069-ui.log.
 SHA-256: 6fb5c0fe24463bbc1371a332201ccb195a68baef08625f61e88b4691e1eeaff0.
 Próxima tarefa: confirmar alinhamento no telemóvel. Validação física desta
 versão pendente; sem AAB/assinatura release nesta correção visual.
+
+## 0.6.10 — jogo em inglês
+
+Traduzidos menus nativos e Canvas, confirmação de saída/novo jogo, perfil,
+erros de nome/save, contratos, agente, transferências, treino, jogo, datas,
+tabelas, calendário e acesso World. Liga automática passa a Scorer League;
+nomes personalizados não são traduzidos. Saves v2 anteriores mantêm progresso:
+Liga Scorer migra, calendário histórico atualiza campos gerados e mensagem
+transitória ao carregar passa a Career loaded. Esta edição permanece em inglês
+independentemente da língua do Android; seleção automática não implementada.
+Estratégia futura documentada em docs/UI_0.6.10.md.
+
+Ficheiros: career.py, main.py, menu_ui.py, buildozer.spec, tests/test_career.py,
+ui_tests/test_menus.py, AGENTS, README e docs/UI_0.6.10.md. Baseline preservado.
+
+32 testes core/build/segurança + 23 Kivy passaram (55), py_compile e
+git diff --check. Novo teste cobre meses em inglês e migração de feedback,
+calendário e liga sem perda de nomes/progresso. Novo teste Kivy percorre sete
+menus e valida feedback de nome. A primeira execução deste teste começou no
+splash, pelo que o carregamento foi corretamente recusado e faltou MY POSITION;
+corrigida a preparação para entrar em Start antes de carregar, sem relaxar
+a asserção. Logs /tmp/scorer-0610-core.log e /tmp/scorer-0610-ui-final.log.
+Capturas reais Kivy do menu e treino concluído inspecionadas em 1280×589,
+densidade 1,64; textos visíveis. Não são capturas Android.
+
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+APK beta debug arm64 versão 0.6.10, versionCode 1026610, API 36/mínimo 26.
+Assinatura v2 verificada com o certificado anterior, ZIP e 118 ELF alinhados
+a 16 KB. Strings inglesas conferidas no bytecode do APK. Sem permissões
+declaradas, saves ou chaves privadas incluídos. Logs build-0.6.10.log e
+verify-0.6.10.log em /workspace/striker-runtime.
+Tamanho: 29434161 bytes. SHA-256: d1fd7b3614e2e26793bef67da4aa0d47b09ba8d5f7e24853f6f510865113f9e6.
+
+Próximo: validar a versão inglesa no telemóvel, incluindo partida e diálogos.
+Validação física desta versão pendente. Sem AAB/assinatura release nesta etapa.

@@ -733,7 +733,7 @@ class StrikerGame(Widget):
         else:
             scheduled = self.career.next_match()
             if scheduled is None:
-                self.career.message = "A epoca terminou. Fala com o agente ou inicia a nova epoca."
+                self.career.message = 'The season has ended. Talk to your agent or start the new season.'
                 self.view = "hub"
                 return
             self.match_competition, self.match_home, self.match_away = scheduled
@@ -1000,8 +1000,8 @@ class StrikerGame(Widget):
                 self.training_gain = self.career.complete_training(self.training_goals)
                 self.training_completed = True
                 self.training_summary = (
-                    f"{self.training_goals}/3 golos  |  "
-                    f"stamina +{self.training_gain:.2f}"
+                    f"{self.training_goals}/3 goals  |  "
+                    f"energy +{self.training_gain:.2f}"
                 )
                 self.view = "training"
                 self.shot_context = "career"
@@ -2358,14 +2358,14 @@ class StrikerGame(Widget):
             self._start_new_career()
             return
         content = BoxLayout(orientation="vertical", spacing=dp(12), padding=dp(12))
-        content.add_widget(FlowLabel(text="Já existe uma carreira. Queres começar de novo? "
-                                    "A carreira antiga será protegida numa cópia local antes da substituição."))
+        content.add_widget(FlowLabel(text="You already have a career. Start again? "
+                                    "Your previous career will be backed up locally before it is replaced."))
         buttons = BoxLayout(size_hint_y=None, height=dp(56), spacing=dp(12))
-        popup = Popup(title="Começar uma nova carreira?", content=content,
+        popup = Popup(title='Start a new career?', content=content,
                       size_hint=(0.9, None), height=min(Window.height - dp(16), dp(300)),
                       auto_dismiss=False)
-        buttons.add_widget(TouchButton("CANCELAR", popup.dismiss))
-        buttons.add_widget(TouchButton("NOVO JOGO", self._start_new_career, accent=True))
+        buttons.add_widget(TouchButton('CANCEL', popup.dismiss))
+        buttons.add_widget(TouchButton('NEW GAME', self._start_new_career, accent=True))
         content.add_widget(buttons)
         popup.bind(on_dismiss=lambda *_: setattr(self, "_new_game_popup", None))
         self._new_game_popup = popup
@@ -2398,27 +2398,27 @@ class StrikerGame(Widget):
             self._career_started = True
             self.view = "hub"
         else:
-            self.career.message = "Não foi possível carregar esta carreira. O ficheiro antigo foi preservado."
+            self.career.message = 'Unable to load this career. Your previous save has been preserved.'
         self.draw()
 
     def _request_exit(self):
         if self._exit_popup is not None or self.view not in ("hub", "offers", "start"):
             return
         content = BoxLayout(orientation="vertical", spacing=dp(12), padding=dp(12))
-        message = "A carreira será guardada antes de sair."
+        message = 'Your career will be saved before you exit.'
         if self.view in ("match", "shot"):
-            message += " O treino ou jogo em curso terá de ser repetido."
+            message += ' The current match will need to be replayed. A started training session remains used.'
         from kivy.uix.scrollview import ScrollView
         message_scroll = ScrollView(do_scroll_x=False)
         message_scroll.add_widget(FlowLabel(text=message))
         content.add_widget(message_scroll)
         buttons = BoxLayout(spacing=dp(12), size_hint_y=None, height=dp(56))
-        popup = Popup(title="Sair do Scorer?", content=content,
+        popup = Popup(title='Exit Scorer?', content=content,
                       size_hint=(0.9, None), height=min(Window.height - dp(16), dp(280)),
                       auto_dismiss=False)
         buttons.bind(minimum_height=buttons.setter("height"))
-        buttons.add_widget(TouchButton("CONTINUAR", popup.dismiss))
-        buttons.add_widget(TouchButton("GUARDAR E SAIR", self._confirm_exit, accent=True))
+        buttons.add_widget(TouchButton('CONTINUE', popup.dismiss))
+        buttons.add_widget(TouchButton('SAVE AND EXIT', self._confirm_exit, accent=True))
         content.add_widget(buttons)
         popup.bind(on_dismiss=lambda *_: setattr(self, "_exit_popup", None))
         self._exit_popup = popup
@@ -2542,7 +2542,7 @@ class StrikerGame(Widget):
                 if self.career.set_player_name(value):
                     self.view = self._profile_return
             except ValueError as error:
-                self.career.message = str(error) if "marcador" in str(error) else "Introduz um nome com pelo menos 2 caracteres."
+                self.career.message = str(error) if "scorer" in str(error) else 'Enter a name with at least 2 characters.'
         elif action == "cancel_profile" and self.view == "profile":
             self.view = "hub" if self._profile_return == "hub" else "start"
         elif action == "exit":
@@ -2582,7 +2582,7 @@ class StrikerGame(Widget):
             if self.career.world_unlocked:
                 self.view = "world"
             else:
-                self.career.message = "Striker World será uma aplicação separada. Esta edição tem uma divisão."
+                self.career.message = 'Scorer World will be a separate app. This edition has one division.'
                 self.view = "hub"
         elif action == "editor":
             if self.career.world_unlocked:
@@ -2796,7 +2796,7 @@ class StrikerGame(Widget):
 
     def _draw_offers_screen(self) -> None:
         self._draw_text(
-            "PRIMEIRO CONTRATO",
+            'FIRST CONTRACT',
             self.center_x,
             self.top - 105,
             max(22, int(self.height * 0.040)),
@@ -2804,7 +2804,7 @@ class StrikerGame(Widget):
             "center",
         )
         self._draw_text(
-            f"Recebeste {len(self.career.offers)} proposta(s) da League Two. Escolhe o clube:",
+            f"You received {len(self.career.offers)} contract offer(s). Choose your club:",
             self.center_x,
             self.top - 150,
             max(13, int(self.height * 0.023)),
@@ -2832,22 +2832,22 @@ class StrikerGame(Widget):
         career = self.career
         club = career.club
         if club is None:
-            career.message = "Editor indisponivel sem clube ativo."
+            career.message = 'Editor unavailable without an active club.'
             return
 
         layout = BoxLayout(orientation="vertical", spacing=8, padding=12)
-        layout.add_widget(UiLabel(text="Nomes locais — apenas neste dispositivo", size_hint_y=None, height=36))
-        club_input = TextInput(text=club.name, multiline=False, hint_text="Nome do clube")
-        league_input = TextInput(text=career.current_league.name, multiline=False, hint_text="Nome da competicao")
+        layout.add_widget(UiLabel(text='Local names — on this device only', size_hint_y=None, height=36))
+        club_input = TextInput(text=club.name, multiline=False, hint_text='Club name')
+        league_input = TextInput(text=career.current_league.name, multiline=False, hint_text='Competition name')
         layout.add_widget(club_input)
         layout.add_widget(league_input)
         controls = BoxLayout(size_hint_y=None, height=46, spacing=8)
-        save_button = Button(text="GUARDAR")
-        cancel_button = Button(text="CANCELAR")
+        save_button = Button(text='SAVE')
+        cancel_button = Button(text='CANCEL')
         controls.add_widget(save_button)
         controls.add_widget(cancel_button)
         layout.add_widget(controls)
-        popup = Popup(title="EDITOR LOCAL", content=layout, size_hint=(0.72, 0.62), auto_dismiss=False)
+        popup = Popup(title='LOCAL EDITOR', content=layout, size_hint=(0.72, 0.62), auto_dismiss=False)
 
         def save_names(_button) -> None:
             try:
@@ -2855,7 +2855,7 @@ class StrikerGame(Widget):
                 career.rename_current_competition(league_input.text)
                 popup.dismiss()
             except ValueError as exc:
-                career.message = f"Nome invalido: {exc}."
+                career.message = f"Invalid name: {exc}."
 
         save_button.bind(on_release=save_names)
         cancel_button.bind(on_release=lambda _button: popup.dismiss())
@@ -2890,7 +2890,7 @@ class StrikerGame(Widget):
             max_width=left_width - 40,
         )
         self._draw_text(
-            f"{league.name}  |  {career.format_date(career.current_date)}  |  Epoca {season_text}",
+            f"{league.name}  |  {career.format_date(career.current_date)}  |  Season {season_text}",
             left_x + 20,
             content_top - 72 * vertical_scale,
             max(12, int(self.height * 0.021)),
@@ -2898,10 +2898,10 @@ class StrikerGame(Widget):
             max_width=left_width - 40,
         )
         bar_width = left_width - 40
-        self._draw_value_bar("STAMINA", career.stamina, left_x + 20, content_top - 132 * vertical_scale, bar_width)
-        self._draw_value_bar("MORAL", career.morale, left_x + 20, content_top - 174 * vertical_scale, bar_width)
+        self._draw_value_bar('ENERGY', career.stamina, left_x + 20, content_top - 132 * vertical_scale, bar_width)
+        self._draw_value_bar('MORALE', career.morale, left_x + 20, content_top - 174 * vertical_scale, bar_width)
         self._draw_text(
-            f"JOGOS  {career.matches:02d}     GOLOS  {career.goals:02d}",
+            f"MATCHES  {career.matches:02d}     GOALS  {career.goals:02d}",
             left_x + 20,
             content_top - 222 * vertical_scale,
             max(12, int(self.height * 0.021)),
@@ -2909,15 +2909,15 @@ class StrikerGame(Widget):
             max_width=left_width - 40,
         )
         self._draw_text(
-            f"PORTUGAL  {career.international_caps:02d} jogos / {career.international_goals:02d} golos",
+            f"PORTUGAL  {career.international_caps:02d} matches / {career.international_goals:02d} goals",
             left_x + 20,
             content_top - 258 * vertical_scale,
             max(12, int(self.height * 0.021)),
             (0.90, 0.95, 0.94, 1.0),
             max_width=left_width - 40,
         )
-        window_text = "JANELA ABERTA" if career.transfer_window_open else "JANELA FECHADA"
-        training_text = "TREINO FEITO" if career.trained_this_week else "SEM TREINO ESTA SEMANA"
+        window_text = 'WINDOW OPEN' if career.transfer_window_open else 'WINDOW CLOSED'
+        training_text = 'TRAINING COMPLETE' if career.trained_this_week else 'NO TRAINING THIS WEEK'
         self._draw_text(
             f"{window_text}  |  {training_text}",
             left_x + 20,
@@ -2930,15 +2930,15 @@ class StrikerGame(Widget):
 
         scheduled = career.next_match()
         if career.called_up:
-            next_text = "PROXIMO: PORTUGAL - JOGO INTERNACIONAL"
+            next_text = 'NEXT: PORTUGAL - INTERNATIONAL MATCH'
         elif scheduled:
             competition, home, away = scheduled
             prefix = career.cup_name if competition == "cup" else league.name
-            next_text = f"PROXIMO: {prefix} | {home.name}  vs  {away.name}"
+            next_text = f"NEXT: {prefix} | {home.name}  vs  {away.name}"
         else:
-            next_text = "EPOCA CONCLUIDA"
-        self._draw_text("PROXIMO JOGO", left_x + 20, content_bottom + 100, dp(12), (0.58, 0.72, 0.70, 1.0))
-        self._draw_text(next_text.replace("PROXIMO: ", ""), left_x + 20, content_bottom + 66, max(13, int(self.height * 0.022)), (1.0, 0.86, 0.38, 1.0), max_width=left_width - 40)
+            next_text = 'SEASON COMPLETE'
+        self._draw_text('NEXT MATCH', left_x + 20, content_bottom + 100, dp(12), (0.58, 0.72, 0.70, 1.0))
+        self._draw_text(next_text.replace('NEXT: ', ""), left_x + 20, content_bottom + 66, max(13, int(self.height * 0.022)), (1.0, 0.86, 0.38, 1.0), max_width=left_width - 40)
 
 
         self._draw_text("MENU", right_x + 22, content_top - 34, max(13, int(self.height * 0.022)), (0.62, 0.78, 0.74, 1.0))
@@ -2955,19 +2955,19 @@ class StrikerGame(Widget):
             button_area_top - button_height - row * (button_height + inner_gap)
             for row in range(4)
         ]
-        self._ui_button("JOGAR", button_x, row_y[0], button_width, button_height, "play", accent=True)
-        self._ui_button("TREINO (3 REMATES)", button_x + button_width + inner_gap, row_y[0], button_width, button_height, "training")
-        self._ui_button("CLASSIFICACAO", button_x, row_y[1], button_width, button_height, "standings")
-        self._ui_button("MELHORES MARCADORES", button_x + button_width + inner_gap, row_y[1], button_width, button_height, "scorers")
-        self._ui_button("CALENDARIO", button_x, row_y[2], button_width, button_height, "calendar")
-        self._ui_button("FALAR COM O AGENTE", button_x + button_width + inner_gap, row_y[2], button_width, button_height, "agent")
+        self._ui_button('PLAY', button_x, row_y[0], button_width, button_height, "play", accent=True)
+        self._ui_button('TRAINING (3 SHOTS)', button_x + button_width + inner_gap, row_y[0], button_width, button_height, "training")
+        self._ui_button('STANDINGS', button_x, row_y[1], button_width, button_height, "standings")
+        self._ui_button('TOP SCORERS', button_x + button_width + inner_gap, row_y[1], button_width, button_height, "scorers")
+        self._ui_button('FIXTURES', button_x, row_y[2], button_width, button_height, "calendar")
+        self._ui_button('TALK TO AGENT', button_x + button_width + inner_gap, row_y[2], button_width, button_height, "agent")
         world_label = (
-            "MUNDO DO FUTEBOL"
+            'WORLD FOOTBALL'
             if self.career.world_unlocked
-            else "SCORER WORLD — BLOQUEADO"
+            else 'SCORER WORLD — LOCKED'
         )
         self._ui_button(world_label, button_x, row_y[3], button_width, button_height, "world")
-        self._ui_button("EDITOR LOCAL", button_x + button_width + inner_gap, row_y[3], button_width, button_height, "editor")
+        self._ui_button('LOCAL EDITOR', button_x + button_width + inner_gap, row_y[3], button_width, button_height, "editor")
 
 
         Color(0.02, 0.075, 0.085, 0.92)
@@ -2982,7 +2982,7 @@ class StrikerGame(Widget):
         panel_bottom = self.y + 92
         panel_height = panel_top - panel_bottom
         self._draw_text(
-            "TREINO DE FINALIZACAO",
+            'FINISHING PRACTICE',
             self.center_x,
             self.top - 96,
             dp(20),
@@ -2996,7 +2996,7 @@ class StrikerGame(Widget):
         content_width = panel_width - 84
         if self.training_completed:
             self._draw_text(
-                "TREINO CONCLUIDO",
+                'TRAINING COMPLETE',
                 self.center_x,
                 panel_top - 58,
                 max(20, int(self.height * 0.036)),
@@ -3004,7 +3004,7 @@ class StrikerGame(Widget):
                 "center",
             )
             self._draw_text(
-                f"GOLOS  {self.training_goals}/3",
+                f"GOALS  {self.training_goals}/3",
                 self.center_x,
                 panel_top - 112,
                 max(16, int(self.height * 0.028)),
@@ -3020,24 +3020,24 @@ class StrikerGame(Widget):
                 "center",
             )
             self._draw_value_bar(
-                "STAMINA",
+                'ENERGY',
                 self.career.stamina,
                 content_x,
                 panel_top - 212,
                 content_width,
             )
             self._draw_text(
-                f"AUMENTO  +{self.training_gain:.2f}",
+                f"GAIN  +{self.training_gain:.2f}",
                 self.center_x,
                 panel_top - 260,
                 max(13, int(self.height * 0.023)),
                 (0.42, 1.0, 0.69, 1.0),
                 "center",
             )
-            button_label = "NOVO TREINO"
+            button_label = 'TRAINING'
         else:
             self._draw_text(
-                "3 REMATES A BALIZA",
+                '3 SHOTS AT GOAL',
                 self.center_x,
                 panel_top - 62,
                 max(20, int(self.height * 0.036)),
@@ -3045,7 +3045,7 @@ class StrikerGame(Widget):
                 "center",
             )
             self._draw_text(
-                "Faz tres remates. Cada treino aumenta a stamina e os golos dao um pequeno bonus.",
+                'Take three shots. Training improves energy and goals give a small bonus.',
                 self.center_x,
                 panel_top - 118,
                 max(13, int(self.height * 0.023)),
@@ -3054,14 +3054,14 @@ class StrikerGame(Widget):
                 max_width=content_width,
             )
             self._draw_value_bar(
-                "STAMINA",
+                'ENERGY',
                 self.career.stamina,
                 content_x,
                 panel_top - 190,
                 content_width,
             )
             self._draw_text(
-                "O treino pode ser repetido antes do proximo jogo.",
+                'One training session per career week, used when you start.',
                 self.center_x,
                 panel_top - 242,
                 max(12, int(self.height * 0.021)),
@@ -3069,7 +3069,7 @@ class StrikerGame(Widget):
                 "center",
                 max_width=content_width,
             )
-            button_label = "INICIAR TREINO"
+            button_label = 'START TRAINING'
 
 
         button_width = min(360.0, panel_width - 84)
@@ -3083,7 +3083,7 @@ class StrikerGame(Widget):
             accent=True,
         )
         self._ui_button(
-            "VOLTAR",
+            'BACK',
             self.x + max(30.0, self.width * 0.055),
             self.y + 24,
             150,
@@ -3097,7 +3097,7 @@ class StrikerGame(Widget):
         table = league.table()
         start = self.table_page * 11
         rows = table[start:start + 11]
-        self._draw_text(f"CLASSIFICACAO  -  {league.name}", self.center_x, self.top - 95, max(18, int(self.height * 0.032)), (0.35, 1.0, 0.66, 1.0), "center")
+        self._draw_text(f"STANDINGS  -  {league.name}", self.center_x, self.top - 95, max(18, int(self.height * 0.032)), (0.35, 1.0, 0.66, 1.0), "center")
         margin = max(32.0, self.width * 0.055)
         panel_x = self.x + margin
         panel_width = self.width - margin * 2
@@ -3108,9 +3108,9 @@ class StrikerGame(Widget):
         Color(0.045, 0.17, 0.17, 1.0)
         Rectangle(pos=(panel_x, panel_top - 50), size=(panel_width, 50))
         number_columns = (0.56, 0.62, 0.68, 0.74, 0.80, 0.86, 0.92, 0.975)
-        headers = ("J", "V", "E", "D", "GM", "GS", "DG", "PTS")
+        headers = ('P', 'W', 'D', 'L', 'GF', 'GA', 'GD', "PTS")
         self._draw_text("POS", panel_x + panel_width * 0.040, header_y, max(10, int(self.height * 0.018)), (0.65, 0.78, 0.79, 1.0), "center")
-        self._draw_text("CLUBE", panel_x + panel_width * 0.075, header_y, max(10, int(self.height * 0.018)), (0.65, 0.78, 0.79, 1.0))
+        self._draw_text('CLUB', panel_x + panel_width * 0.075, header_y, max(10, int(self.height * 0.018)), (0.65, 0.78, 0.79, 1.0))
         for fraction, header in zip(number_columns, headers):
             self._draw_text(header, panel_x + panel_width * fraction, header_y, max(10, int(self.height * 0.018)), (0.65, 0.78, 0.79, 1.0), "center")
         row_height = (panel_top - panel_bottom - 50) / 11
@@ -3133,7 +3133,7 @@ class StrikerGame(Widget):
             for fraction, value in zip(number_columns, values):
                 self._draw_text(str(value), panel_x + panel_width * fraction, center_y, font, color, "center", max_width=panel_width * 0.05)
         button_y = self.y + 24
-        self._ui_button("VOLTAR", self.x + margin, button_y, 150, 48, "hub")
+        self._ui_button('BACK', self.x + margin, button_y, 150, 48, "hub")
         self._ui_button("<", self.right - margin - 180, button_y, 80, 48, "table_prev")
         self._ui_button(">", self.right - margin - 80, button_y, 80, 48, "table_next")
 
@@ -3143,7 +3143,7 @@ class StrikerGame(Widget):
         scorers = dict(league.scorer_goals)
         scorers[self.career.player_name] = self.career.goals
         ranking = sorted(scorers.items(), key=lambda item: (item[1], item[0]), reverse=True)[:12]
-        self._draw_text(f"MELHORES MARCADORES  -  {league.name}", self.center_x, self.top - 95, max(18, int(self.height * 0.032)), (0.35, 1.0, 0.66, 1.0), "center")
+        self._draw_text(f"TOP SCORERS  -  {league.name}", self.center_x, self.top - 95, max(18, int(self.height * 0.032)), (0.35, 1.0, 0.66, 1.0), "center")
         panel_width = min(self.width * 0.68, 850.0)
         panel_x = self.center_x - panel_width / 2
         panel_top = self.top - 126
@@ -3152,10 +3152,10 @@ class StrikerGame(Widget):
         Color(0.045, 0.17, 0.17, 1.0)
         Rectangle(pos=(panel_x, panel_top - 46), size=(panel_width, 46))
         self._draw_text("POS", panel_x + panel_width * 0.08, panel_top - 23, max(10, int(self.height * 0.018)), (0.65, 0.78, 0.79, 1.0), "center")
-        self._draw_text("JOGADOR / CLUBE", panel_x + panel_width * 0.16, panel_top - 23, max(10, int(self.height * 0.018)), (0.65, 0.78, 0.79, 1.0))
-        self._draw_text("GOLOS", panel_x + panel_width * 0.92, panel_top - 23, max(10, int(self.height * 0.018)), (0.65, 0.78, 0.79, 1.0), "center")
+        self._draw_text('PLAYER / CLUB', panel_x + panel_width * 0.16, panel_top - 23, max(10, int(self.height * 0.018)), (0.65, 0.78, 0.79, 1.0))
+        self._draw_text('GOALS', panel_x + panel_width * 0.92, panel_top - 23, max(10, int(self.height * 0.018)), (0.65, 0.78, 0.79, 1.0), "center")
         if not ranking:
-            self._draw_text("A epoca ainda nao comecou.", self.center_x, self.center_y, max(16, int(self.height * 0.028)), (0.85, 0.92, 0.91, 1.0), "center")
+            self._draw_text('The season has not started yet.', self.center_x, self.center_y, max(16, int(self.height * 0.028)), (0.85, 0.92, 0.91, 1.0), "center")
         row_height = (panel_top - panel_bottom - 46) / 12
         for index, (name, goals) in enumerate(ranking):
             is_player = name == self.career.player_name
@@ -3172,13 +3172,13 @@ class StrikerGame(Widget):
             self._draw_text(f"{index + 1:02d}", panel_x + panel_width * 0.08, center_y, font, color, "center")
             self._draw_text(name, panel_x + panel_width * 0.16, center_y, font, color, max_width=panel_width * 0.66)
             self._draw_text(f"{goals:02d}", panel_x + panel_width * 0.92, center_y, font, color, "center")
-        self._ui_button("VOLTAR", self.x + max(30.0, self.width * 0.055), self.y + 24, 150, 48, "hub")
+        self._ui_button('BACK', self.x + max(30.0, self.width * 0.055), self.y + 24, 150, 48, "hub")
 
 
     def _draw_calendar_screen(self) -> None:
         entries = self.career.calendar_entries()
         self._draw_text(
-            f"CALENDARIO  |  {self.career.format_date(self.career.current_date)}",
+            f"FIXTURES  |  {self.career.format_date(self.career.current_date)}",
             self.center_x,
             self.top - 95,
             dp(20),
@@ -3195,10 +3195,10 @@ class StrikerGame(Widget):
         Rectangle(pos=(panel_x, panel_top - 46), size=(panel_width, 46))
         columns = (0.08, 0.25, 0.49, 0.92)
         for fraction, label, anchor in (
-            (columns[0], "DATA", "center"),
-            (columns[1], "COMPETICAO", "center"),
-            (columns[2], "JOGO", "center"),
-            (columns[3], "ESTADO", "center"),
+            (columns[0], 'DATE', "center"),
+            (columns[1], 'COMPETITION', "center"),
+            (columns[2], 'MATCH', "center"),
+            (columns[3], 'STATUS', "center"),
         ):
             self._draw_text(
                 label,
@@ -3230,12 +3230,12 @@ class StrikerGame(Widget):
             self._draw_text(str(entry.get("competition", "")), panel_x + panel_width * columns[1], center_y, font, color, "center", max_width=panel_width * 0.20)
             self._draw_text(match_text, panel_x + panel_width * columns[2], center_y, font, color, "center", max_width=panel_width * 0.42)
             self._draw_text(str(entry.get("status", "")), panel_x + panel_width * columns[3], center_y, font, color, "center", max_width=panel_width * 0.13)
-        self._ui_button("VOLTAR", self.x + margin, self.y + 24, 150, 48, "hub")
+        self._ui_button('BACK', self.x + margin, self.y + 24, 150, 48, "hub")
 
 
     def _draw_agent_screen(self) -> None:
-        window_state = "JANELA ABERTA" if self.career.transfer_window_open else "JANELA FECHADA"
-        self._draw_text(f"FALAR COM O AGENTE  |  {window_state}", self.center_x, self.top - 95, dp(20), (0.35, 1.0, 0.66, 1.0), "center")
+        window_state = 'WINDOW OPEN' if self.career.transfer_window_open else 'WINDOW CLOSED'
+        self._draw_text(f"TALK TO AGENT  |  {window_state}", self.center_x, self.top - 95, dp(20), (0.35, 1.0, 0.66, 1.0), "center")
         panel_width = min(680.0, self.width * 0.66)
         panel_x = self.center_x - panel_width / 2
         panel_top = self.top - 125
@@ -3251,15 +3251,15 @@ class StrikerGame(Widget):
             label = f"{club_name}  -  {league.name} ({league.country})"
             self._ui_button(label, panel_x + 20, panel_top - 75 - bh - index * (bh + 8), bw, bh, "transfer", (club_name, league_key), accent=index == 0)
         margin = max(30.0, self.width * 0.055)
-        self._ui_button("VOLTAR", self.x + margin, self.y + 24, 150, 48, "hub")
-        refresh_label = "PROCURAR NOVAS PROPOSTAS" if self.career.transfer_window_open else "JUL-AGO / JAN-FEV"
+        self._ui_button('BACK', self.x + margin, self.y + 24, 150, 48, "hub")
+        refresh_label = 'FIND NEW OFFERS' if self.career.transfer_window_open else 'JUL–AUG / JAN–FEB'
         self._ui_button(refresh_label, self.right - margin - 300, self.y + 24, 300, 48, "agent_refresh")
 
 
     def _draw_world_screen(self) -> None:
         league_count = len(self.career.leagues)
         self._draw_text(
-            f"MUNDO DO FUTEBOL  |  {len(WORLD_COUNTRIES)} associacoes  |  {league_count} campeonatos",
+            f"WORLD FOOTBALL  |  {len(WORLD_COUNTRIES)} associations  |  {league_count} leagues",
             self.center_x,
             self.top - 92,
             max(16, int(self.height * 0.029)),
@@ -3278,7 +3278,7 @@ class StrikerGame(Widget):
         Color(0.045, 0.17, 0.17, 1.0)
         Rectangle(pos=(x_left, panel_top - 48), size=(panel_width, 48))
         Rectangle(pos=(x_right, panel_top - 48), size=(panel_width, 48))
-        self._draw_text("COMPETICOES INTERNACIONAIS", x_left + 18, panel_top - 24, max(13, int(self.height * 0.023)), (1.0, 0.86, 0.38, 1.0), max_width=panel_width - 36)
+        self._draw_text('INTERNATIONAL COMPETITIONS', x_left + 18, panel_top - 24, max(13, int(self.height * 0.023)), (1.0, 0.86, 0.38, 1.0), max_width=panel_width - 36)
         for index, (name, status) in enumerate(self.career.international_status.items()):
             row_y = panel_top - 76 - index * self.height * 0.062
             self._draw_text(name, x_left + 18, row_y, max(9, int(self.height * 0.017)), (0.62, 0.78, 0.74, 1.0), max_width=panel_width * 0.46)
@@ -3286,23 +3286,23 @@ class StrikerGame(Widget):
         cup_row_y = panel_top - 76 - len(self.career.international_status) * self.height * 0.062
         cup_winner = self.career.national_cup_winners.get(self.career.current_league.country)
         if cup_winner:
-            cup_status = f"Ultimo vencedor: {cup_winner}"
+            cup_status = f"Last winner: {cup_winner}"
         elif self.career.cup_active:
             cup_status = self.career.cup_round_label
         else:
-            cup_status = "Eliminado"
+            cup_status = 'Eliminated'
         self._draw_text(self.career.cup_name, x_left + 18, cup_row_y, max(9, int(self.height * 0.017)), (0.62, 0.78, 0.74, 1.0), max_width=panel_width * 0.46)
         self._draw_text(cup_status, x_left + panel_width - 18, cup_row_y, max(9, int(self.height * 0.017)), (0.88, 0.94, 0.93, 1.0), "right", max_width=panel_width * 0.47)
 
 
-        self._draw_text("PIRAMIDES EUROPEIAS NACIONAIS", x_right + 18, panel_top - 24, max(13, int(self.height * 0.023)), (1.0, 0.86, 0.38, 1.0), max_width=panel_width - 36)
+        self._draw_text('EUROPEAN LEAGUE PYRAMIDS', x_right + 18, panel_top - 24, max(13, int(self.height * 0.023)), (1.0, 0.86, 0.38, 1.0), max_width=panel_width - 36)
         start = self.world_page * 9
         for index, country in enumerate(EUROPE_COUNTRIES[start:start + 9]):
             depth = EUROPE_PYRAMID_DEPTH[country]
             row_y = panel_top - 76 - index * self.height * 0.050
             self._draw_text(country, x_right + 18, row_y, max(9, int(self.height * 0.017)), (0.88, 0.94, 0.93, 1.0), max_width=panel_width * 0.65)
-            self._draw_text(f"{depth} divisoes", x_right + panel_width - 18, row_y, max(9, int(self.height * 0.017)), (0.62, 0.78, 0.74, 1.0), "right", max_width=panel_width * 0.28)
-        self._ui_button("VOLTAR", self.x + margin, self.y + 24, 150, 48, "hub")
+            self._draw_text(f"{depth} divisions", x_right + panel_width - 18, row_y, max(9, int(self.height * 0.017)), (0.62, 0.78, 0.74, 1.0), "right", max_width=panel_width * 0.28)
+        self._ui_button('BACK', self.x + margin, self.y + 24, 150, 48, "hub")
         self._ui_button("<", self.right - margin - 180, self.y + 24, 80, 48, "world_prev")
         self._ui_button(">", self.right - margin - 80, self.y + 24, 80, 48, "world_next")
 
@@ -4763,7 +4763,7 @@ class StrikerGame(Widget):
             Color(0.92, 0.98, 0.95, 0.92)
             Line(rectangle=(timer_x, timer_y, timer_width, timer_height), width=1.2)
             self._draw_text(
-                f"TEMPO PARA REMATAR   {self.shot_time_left:0.1f} s",
+                f"TIME TO SHOOT   {self.shot_time_left:0.1f} s",
                 self.center_x,
                 timer_y + timer_height / 2,
                 max(15, int(self.height * 0.028)),

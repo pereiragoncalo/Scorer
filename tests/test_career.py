@@ -105,7 +105,7 @@ class CareerTests(unittest.TestCase):
             c.save()
         self.assertEqual(c.save_path.read_bytes(), before)
         self.assertEqual(list(c.save_path.parent.glob('*.tmp')), [])
-        self.assertIn('guardar', c.message)
+        self.assertIn('save', c.message)
 
     def test_corrupt_save_does_not_crash(self):
         p = self.root / 'saves' / 'striker_career.json'
@@ -166,7 +166,7 @@ class CareerTests(unittest.TestCase):
 
     def test_save_outcome_and_fictional_free_division(self):
         c = self.signed()
-        self.assertEqual(c.current_league.name, 'Liga Scorer')
+        self.assertEqual(c.current_league.name, 'Scorer League')
         self.assertTrue(c.save())
         with patch('career.os.replace', side_effect=OSError('disk full')):
             self.assertFalse(c.save())
@@ -203,15 +203,40 @@ class CareerTests(unittest.TestCase):
         c.goals, c.matches, c.week = 11, 6, 8
         c.save()
         original = json.loads(c.save_path.read_text())
-        for old_name in ('England Division 4', 'Divisão Striker', 'Divisão Scorer'):
+        for old_name in ('England Division 4', 'Divisão Striker', 'Divisão Scorer', 'Liga Scorer'):
             data = json.loads(json.dumps(original))
             data['career']['league_name'] = old_name
             c.save_path.write_text(json.dumps(data))
             restored = career.CareerMode()
-            self.assertEqual(restored.current_league.name, 'Liga Scorer')
+            self.assertEqual(restored.current_league.name, 'Scorer League')
             self.assertEqual((restored.goals, restored.matches, restored.week), (11, 6, 8))
             self.assertEqual(restored.club_name, c.club_name)
-            self.assertTrue(all(club.league == 'Liga Scorer' for club in restored.current_league.clubs))
+            self.assertTrue(all(club.league == 'Scorer League' for club in restored.current_league.clubs))
+
+    def test_english_dates_and_old_portuguese_save_feedback(self):
+        from datetime import date
+        expected = ('JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+                    'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC')
+        for month, abbreviation in enumerate(expected, 1):
+            self.assertEqual(career.CareerMode.format_date(date(2026, month, 2)),
+                             f'02 {abbreviation} 2026')
+        c = self.signed()
+        c.goals, c.week = 8, 3
+        c.save()
+        data = json.loads(c.save_path.read_text())
+        data['career']['message'] = 'Treino concluído: 2/3 golos. Energia aumentou.'
+        data['career']['league_name'] = 'Liga Scorer'
+        data['career']['fixture_history'] = [{'date': '2026-07-12',
+            'competition': 'Liga Scorer', 'home': c.club_name, 'away': 'Nome Próprio',
+            'status': 'Jornada 1', 'played': True}]
+        c.save_path.write_text(json.dumps(data))
+        restored = career.CareerMode()
+        self.assertEqual(restored.message, 'Career loaded.')
+        self.assertEqual(restored.current_league.name, 'Scorer League')
+        self.assertEqual((restored.goals, restored.week), (8, 3))
+        self.assertEqual(restored.fixture_history[0]['status'], 'Matchweek 1')
+        self.assertEqual(restored.fixture_history[0]['competition'], 'Scorer League')
+        self.assertEqual(restored.fixture_history[0]['away'], 'Nome Próprio')
 
     def test_free_transfer_offers_and_seasons_stay_in_only_one_division(self):
         c = self.signed()

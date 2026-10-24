@@ -106,3 +106,10 @@ ao começar e persistente ao reabrir.
 
 S do ícone e CORER na mesma linha, com as bases visuais alinhadas.
 Crédito by clemir por baixo. Ajuste apenas visual do cabeçalho principal.
+
+## SCORER 0.6.10 — English edition
+
+All generated game text is in English, including menus, feedback, dates and
+confirmations. Existing careers retain progress and custom names. This edition
+stays in English on every phone; automatic language selection requires future
+translations. [Changes and localisation approach](docs/UI_0.6.10.md).
