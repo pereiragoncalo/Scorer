@@ -431,7 +431,7 @@ FAMOUS_CLUBS = {
 }
 
 
-# Generic kit palette only; no official club colours/logos are shipped.
+# Free kit palettes stay generic. World colour references live in world_clubs.py; no official logos.
 CLUB_KIT_HEX: dict[str, tuple[str, str, str, str]] = {}
 
 
@@ -938,7 +938,7 @@ class CareerMode:
     def difficulty_profile(self, international: bool = False) -> tuple[float, float]:
         """Tempo de remate e velocidade da mira para o nível competitivo."""
         if international:
-            base_time, aim_speed = 3.75, 3.18
+            base_time, aim_speed = 3.75, 3.65 if self.world_unlocked else 3.18
         else:
             tier = self.club.tier if self.club else 4
             profiles = {
@@ -949,6 +949,8 @@ class CareerMode:
                 5: (6.65, 1.72),
             }
             base_time, aim_speed = profiles.get(tier, (6.65, 1.72))
+            if self.world_unlocked:
+                aim_speed = {1: 3.25, 2: 2.75, 3: 2.30, 4: 1.90, 5: 1.55}.get(tier, 1.55)
         if not self.trained_this_week:
             base_time -= 1.20
         return max(2.70, base_time), aim_speed
@@ -1180,14 +1182,25 @@ class CareerMode:
         return tuple(result)
 
     def display_club(self, club):
-        return self.display_aliases['clubs'].get(club.uid, club.name) if self.world_unlocked else club.name
+        if not self.world_unlocked:
+            return club.name
+        from world_clubs import display_name
+        return self.display_aliases['clubs'].get(club.uid, display_name(club))
+
+    def kit_for_club(self, club):
+        if self.world_unlocked:
+            from world_clubs import style
+            row = style(club)
+            if row and row.get('colours'):
+                return tuple(hex_rgba(value) for value in row['colours'])
+        return club_kit(club.name)
 
     def display_league(self, league):
         return self.display_aliases['leagues'].get(league.key, league.name) if self.world_unlocked else league.name
 
     def display_text(self, text, country=None):
         text = str(text)
-        if not self.world_unlocked or not any(self.display_aliases.get(s) for s in ('clubs', 'leagues')):
+        if not self.world_unlocked:
             return text
         import re
         country = country or self.current_league.country
@@ -1201,8 +1214,9 @@ class CareerMode:
                 if key in self.display_aliases['leagues']:
                     mapping[league.name] = self.display_aliases['leagues'][key]
                 for club in league.clubs:
-                    if club.uid in self.display_aliases['clubs']:
-                        mapping[club.name] = self.display_aliases['clubs'][club.uid]
+                    display = self.display_club(club)
+                    if display != club.name:
+                        mapping[club.name] = display
             pattern = re.compile('|'.join(re.escape(k) for k in sorted(mapping, key=len, reverse=True))) if mapping else None
             self._alias_pattern[country] = (pattern, mapping, {})
         pattern, mapping, cache = self._alias_pattern[country]
@@ -1231,7 +1245,7 @@ class CareerMode:
         league = self.leagues[league_key or self.league_key]
         return {'version': 1,
                 'leagues': {league.key: self.display_aliases['leagues'].get(league.key, league.name)},
-                'clubs': {c.uid: self.display_aliases['clubs'].get(c.uid, c.name) for c in league.clubs},
+                'clubs': {c.uid: self.display_club(c) for c in league.clubs},
                 'players': {f'{c.uid}:{i}': self.display_aliases['players'].get(f'{c.uid}:{i}', name)
                             for c in league.clubs for i, name in enumerate(league.squad_names(c.name))}}
 
@@ -1321,14 +1335,15 @@ class CareerMode:
     def chance_count(self, opponent: Optional[CareerClub] = None) -> int:
         factor = clamp((self.stamina + self.morale) / 40.0, 0.05, 1.0)
         profile = self.opponent_chance_profile(opponent)
-        # A completed mandatory session must lead to at least one playable
-        # highlight. Training goals help earn extra chances, never bypassing
-        # the opponent's cap or its ban on clear chances.
+        # Morale floors supersede opponent quantity caps, never its ban on clear chances.
+        # Boundary values are strict: 10 has no morale floor, 15 still has a floor of two.
         trained = self.trained_this_week
         training_goals = self.training_session_goals if trained and self.training_session_week == self.week else 0
         training_bonus = clamp(training_goals, 0, 3) * 0.15
         centre = 0.4 + factor * 2.5 + training_bonus - profile.pressure * 1.5
-        return int(clamp(round(self.rng.gauss(centre, 0.70)), 1 if trained else 0, profile.max_chances))
+        floor = 3 if self.morale > 15 else 2 if self.morale > 10 else 1 if trained else 0
+        ceiling = max(floor, profile.max_chances)
+        return int(clamp(round(self.rng.gauss(centre, 0.70)), floor, ceiling))
 
 
     def fixture_goal_means(

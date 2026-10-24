@@ -1,3 +1,14 @@
+# SCORER 0.6.27 — World presentation and play balance
+
+World aim accelerates by division. Morale >10 guarantees at least2 match chances;
+>15 guarantees3 (both modes). World uses real-city/local-form fictional club names,
+reference colours where known, and an in-editor JSON format example. Free names,
+separate career slots and existing saves stay intact.
+
+**139 tests passed**; Free and a same-app owner QA APK were genuinely built and
+statically checked. QA temporarily opens World for testing only, with no purchases.
+[Coverage, exact behaviour and test/build evidence](docs/WORLD_0.6.27.md).
+
 # SCORER 0.6.26 — Free and World careers
 
 Free starts directly in **Scorer League**, with no country selector. World uses

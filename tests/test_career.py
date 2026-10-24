@@ -497,7 +497,8 @@ class CareerTests(unittest.TestCase):
         tired = [c.chance_count() for _ in range(500)]
         self.assertTrue(all(0 <= value <= 3 for value in fit + tired))
         self.assertGreater(sum(fit), sum(tired))
-        self.assertGreater(len(set(fit)), 1)
+        self.assertEqual(set(fit), {3})
+        self.assertGreater(len(set(tired)), 1)
 
     def test_player_initials_format_on_save_and_legacy_load_with_scorer_key(self):
         c = self.signed()
@@ -552,7 +553,7 @@ class CareerTests(unittest.TestCase):
         top = c.opponent_chance_profile(opponent)
         self.assertGreater(top.pressure, bottom.pressure)
         self.assertEqual((top.max_chances, top.clear_chance_probability), (1, 0))
-        c.stamina = c.morale = 20
+        c.stamina, c.morale = 20, 10
         opponent.rating, opponent.points = 45, 0
         c.rng.seed(17000)
         weak_counts = [c.chance_count(opponent) for _ in range(500)]
@@ -589,6 +590,7 @@ class CareerTests(unittest.TestCase):
             self.assertTrue(c.record_training_shot(True))
         c.complete_training(3)
         c = career.CareerMode()
+        c.morale = 10  # Exercise the training floor below the new morale thresholds.
         for rating in (45, 70, 95):
             opponent = career.CareerClub('Test opponent', 'England', 'Test league', 4, rating)
             cap = c.opponent_chance_profile(opponent).max_chances

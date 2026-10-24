@@ -165,3 +165,7 @@ account/device/service/signing gates. See [full build log](../BUILD_LOG.md).
 
 The 0.6.26 code/Android APK is validated separately in [the revision report](../UI_0.6.26.md).
 Rebuild and validate the AAB from the final chosen source revision before signing/upload.
+
+Current 0.6.27 World presentation, editor format and morale rules are in
+[the revision report](../WORLD_0.6.27.md). The same-app owner QA test entitlement
+must remain false in any production/rehearsal submission candidate.

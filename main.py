@@ -649,7 +649,7 @@ class StrikerGame(Widget):
 
 
     def _draw_club_badge(
-        self, club_name: str, center_x: float, center_y: float, size: float, display_name: Optional[str] = None
+        self, club_name: str, center_x: float, center_y: float, size: float, display_name: Optional[str] = None, club: Optional[CareerClub] = None
     ) -> None:
         texture = self._club_badge_textures.get(club_name)
         if texture is not None:
@@ -665,7 +665,7 @@ class StrikerGame(Widget):
                 size=(width, height),
             )
             return
-        shirt, _shorts, _socks, trim = club_kit(club_name)
+        shirt, _shorts, _socks, trim = self.career.kit_for_club(club) if club is not None else club_kit(club_name)
         shield_width = size * 0.72
         shield_height = size * 0.82
         Color(*shirt)
@@ -712,8 +712,10 @@ class StrikerGame(Widget):
                 if self.match_home.name == player_name
                 else self.match_home.name
             )
-        player_kit = club_kit(player_name)
-        opponent_kit = club_kit(opponent_name)
+        player_club = next((c for c in (self.match_home, self.match_away) if c and c.name == player_name), None)
+        opponent_club = next((c for c in (self.match_home, self.match_away) if c and c.name == opponent_name), None)
+        player_kit = self.career.kit_for_club(player_club) if player_club and not self.match_is_international else club_kit(player_name)
+        opponent_kit = self.career.kit_for_club(opponent_club) if opponent_club and not self.match_is_international else club_kit(opponent_name)
         colour_distance = sum(
             abs(player_kit[0][index] - opponent_kit[0][index])
             for index in range(3)
@@ -2867,6 +2869,8 @@ class StrikerGame(Widget):
             self.view = 'editor'
         elif action == 'editor_club' and self.career.world_unlocked and self.view == 'editor':
             self.editor_club_index = (self.editor_club_index + int(value)) % len(self.career.leagues[self.editor_key].clubs)
+        elif action == 'names_format' and self.career.world_unlocked and self.view == 'editor':
+            self._show_names_format()
         elif action in ('names_import', 'names_export') and self.career.world_unlocked and self.view == 'editor':
             from android_names import NameFiles
             if self._names_picker is None:
@@ -3182,6 +3186,27 @@ class StrikerGame(Widget):
         self.ads.entry_visible(False)
         self.ads = create_ad_breaks(android=False)
         self.draw()
+
+    def _show_names_format(self):
+        league = self.career.leagues[self.editor_key]
+        club = league.clubs[self.editor_club_index % len(league.clubs)]
+        template = self.career.names_template(self.editor_key)
+        example = {'version': 1, 'leagues': template['leagues'],
+                   'clubs': {club.uid: template['clubs'][club.uid]},
+                   'players': {club.uid + ':0': template['players'][club.uid + ':0']}}
+        content = BoxLayout(orientation='vertical', spacing=dp(8), padding=dp(12))
+        content.add_widget(FlowLabel(text='Export Template > edit names on the right > Import JSON > preview > Apply. '
+                                    'Keep version 1 and every ID on the left. UTF-8 JSON, no comments; '
+                                    '256 KiB / 4096 entries maximum; names 2–56 characters. Omitted entries stay unchanged.'))
+        example_text = '{\n' + ',\n'.join('  ' + json.dumps(key) + ': ' + json.dumps(value, ensure_ascii=False) for key, value in example.items()) + '\n}'
+        code = TextInput(text=example_text, readonly=True, is_focusable=False,
+                         multiline=True, font_size=dp(13), background_color=(.04,.09,.12,1),
+                         foreground_color=(.92,.97,.95,1))
+        content.add_widget(code)
+        popup = Popup(title='NAME FILE FORMAT — JSON', content=content, size_hint=(.94,.9))
+        content.add_widget(TouchButton('CLOSE', popup.dismiss))
+        self._names_format_popup = popup
+        popup.open()
 
     def _preview_names_json(self, raw):
         try:
@@ -3721,7 +3746,7 @@ class StrikerGame(Widget):
         for club, score, row in ((self.match_home, self.match_home_score, 0.73),
                                  (self.match_away, self.match_away_score, 0.27)):
             cy = y + height * row
-            self._draw_club_badge(club.name, x + dp(12), cy, dp(15), display_name=self.career.display_club(club))
+            self._draw_club_badge(club.name, x + dp(12), cy, dp(15), display_name=self.career.display_club(club), club=club)
             self._draw_text(self.career.display_club(club), x + dp(24), cy, dp(11),
                             (0.94, 0.98, 0.97, 1), max_width=teams_width - dp(50))
             self._draw_text(str(score), x + teams_width - dp(14), cy, dp(14),

@@ -344,6 +344,7 @@ class CareerMenu(BoxLayout):
     def _privacy_contact(self, card):
         card.label('Careers and name edits are stored privately on this device. Uninstalling or clearing app data removes them; a new game keeps a private backup. There is no SCORER account or career upload.', muted=True)
         card.label('When purchases are enabled, Google Play and the developer verification service check your World purchase. The service receives the purchase token and a random installation ID, never your player name or career. No card details are handled by SCORER.', muted=True)
+        card.label('City data: GeoNames via github.com/datasets/world-cities (CC BY 4.0); adapted names. Licence: creativecommons.org/licenses/by/4.0/. Club/city references: OpenFootball (CC0); country metadata: Annexare (MIT). Licences included.', muted=True)
         if release_settings.DEVELOPER_NAME:
             card.label('Developer: ' + release_settings.DEVELOPER_NAME, muted=True)
         if release_settings.SUPPORT_EMAIL:
@@ -409,7 +410,7 @@ class CareerMenu(BoxLayout):
     def _agent(self):
         c = self.game.career
         card = self.card('Your agent')
-        card.label(c.message)
+        card.label(c.display_text(c.message))
         card.label('Transfer window open' if c.transfer_window_open else 'Window closed · Jul/Aug and Jan/Feb', muted=True)
         for club, key in c.agent_offers:
             card.add_widget(self._button(c.display_text(f'{club}\n{c.leagues[key].name}', c.leagues[key].country), 'transfer', (club, key)))
@@ -659,7 +660,7 @@ class MainDashboard(BoxLayout):
         self.markers.bind(pos=self._align_play, size=self._align_play)
         self.footer.bind(pos=self._align_play, size=self._align_play)
         self.add_widget(self.actions)
-        self.status = BoundedLabel(text=c.message if c.trained_this_week else 'Complete weekly training to unlock Play.', color=MUTED, font_size=sp(11),
+        self.status = BoundedLabel(text=c.display_text(c.message) if c.trained_this_week else 'Complete weekly training to unlock Play.', color=MUTED, font_size=sp(11),
                                    size_hint_y=None, height=dp(24))
         self.add_widget(self.status)
         self.bind(size=self._arrange)

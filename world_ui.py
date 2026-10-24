@@ -10,7 +10,7 @@ HELP_PAGES = (
     ('YOUR CAREER', 'Choose New Game or Load Game. Pick a player name and a first contract. Free starts in Scorer League with no country selection. World has a separate career, with local-country contracts and England Division 4 as an option.'),
     ('TRAIN, THEN PLAY', 'Complete the three-shot weekly training to unlock Play. A session can be resumed and cannot be repeated that week. Energy and morale influence your opportunities. Progress saves automatically.'),
     ('TAKE YOUR CHANCE', 'Tap inside the goal to aim and shoot, or use the shoot control with the moving aim. Watch power and the time-to-shoot countdown. Opponent strength changes chance quantity and difficulty. Continue at half-time and full-time.'),
-    ('ADS, WORLD & NAMES', 'Free uses ads when available, without blocking offline play. Optional training ads can earn +1 morale once per career week. World is a ad-free edition with worldwide fictional leagues and a local names editor. Upgrade explains availability; it never charges automatically.'),
+    ('ADS, WORLD & NAMES', 'Free uses ads when available, without blocking offline play. Optional training ads can earn +1 morale once per career week. World unlocks ad-free play with worldwide fictional leagues and a local names editor. Upgrade explains availability; it never charges automatically.'),
 )
 
 
@@ -91,7 +91,7 @@ class NamesEditor(Card):
         controls.add_widget(MenuTile('NEXT CLUB', lambda: menu.action('editor_club', 1)))
         self.add_widget(controls)
         inputs = BoxLayout(size_hint_y=None, height=dp(80), spacing=dp(8))
-        for title, text, attr in [('CLUB NAME', c.display_aliases['clubs'].get(club.uid, club.name), 'club_name'),
+        for title, text, attr in [('CLUB NAME', c.display_club(club), 'club_name'),
                                  ('LEAGUE NAME', c.display_aliases['leagues'].get(league.key, league.name), 'league_name')]:
             column = BoxLayout(orientation='vertical', spacing=dp(4))
             column.add_widget(BoundedLabel(text=title, font_size=sp(12), size_hint_y=None, height=dp(20)))
@@ -107,6 +107,7 @@ class NamesEditor(Card):
         files.add_widget(MenuTile('SAVE NAMES', self.save_names, accent=True))
         files.add_widget(MenuTile('EXPORT TEMPLATE', lambda: menu.action('names_export')))
         files.add_widget(MenuTile('IMPORT JSON', lambda: menu.action('names_import')))
+        files.add_widget(MenuTile('JSON FORMAT', lambda: menu.action('names_format')))
         self.add_widget(files)
         note = self.label('Export this league’s clubs and players; import JSON to preview. Names stay on this device.', muted=True)
         note.font_size = sp(12)

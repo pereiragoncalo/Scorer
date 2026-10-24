@@ -1097,3 +1097,14 @@ Logs: /tmp/scorer-0626-core.log, /tmp/scorer-0626-ui-final.log,
 /workspace/striker-runtime/build-0.6.26-free-final.log and verify-0.6.26-free.log.
 Next: owner validates Free new-game offers and existing career on Android; configure
 and explicitly approve Play licence testing before testing live World ownership/modes.
+
+## 0.6.27 — World aim, morale floors, club presentation and JSON guide
+
+See [full revision report](WORLD_0.6.27.md): 88 core/security + 51 Kivy = 139 PASS;
+actual Free and same-package owner QA APKs built and statically verified. World
+presentation uses unchanged canonical UIDs, 9896 display rows, real city/local forms
+and available colour references. Coverage limits and licences are documented.
+New morale floors supersede old opponent quantity caps without creating easy elite
+chances or adding simulated goals on top of the reserved budget. JSON FORMAT uses
+valid selected IDs and does not modify saved aliases. QA opens World only for owner
+testing with Billing disabled; no paid ownership or Google Play release claimed.

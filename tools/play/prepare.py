@@ -100,7 +100,8 @@ def prepare(config, target, channel, source=ROOT):
     shutil.copyfile(source/'buildozer.spec', target/'buildozer.spec')
     def ignored(directory, names):
         return [n for n in names if n == '__pycache__' or n.startswith('.') or
-                Path(n).suffix.lower() in ('.jks', '.keystore', '.pem', '.p12', '.json', '.log')]
+                (Path(n).suffix.lower() in ('.jks', '.keystore', '.pem', '.p12', '.log') or
+                (Path(n).suffix.lower() == '.json' and not (Path(directory) == source/'assets/data' and n == 'world_clubs.json')))]
     for directory in ('assets', 'android', 'tools'):
         shutil.copytree(source/directory, target/directory, ignore=ignored)
     (target/'edition.py').write_text((target/'edition.py').read_text().replace('WORLD_PREVIEW = True', 'WORLD_PREVIEW = False'))

@@ -547,12 +547,58 @@ class MenuTests(unittest.TestCase):
                 self.assertEqual(editor.club.name,original)
                 self.assertFalse(game.ads.backend)
 
+    def test_world_editor_json_format_shows_valid_ids_without_changing_saved_names(self):
+        import json
+        from kivy.uix.textinput import TextInput
+        with patch('edition.WORLD_PREVIEW',True), isolated_game() as game:
+            game.career.accept_starting_offer(game.career.offers[0])
+            before=game.career.save_path.read_bytes()
+            game.editor_key=game.career.league_key;game.view='editor';game.draw();settle()
+            self.assertIn('JSON FORMAT',{w.text for w in game.walk() if isinstance(w,Label)})
+            game._activate_ui('names_format');settle()
+            popup=game._names_format_popup
+            try:
+                code=next(w for w in popup.walk() if isinstance(w,TextInput) and w.readonly)
+                example=json.loads(code.text)
+                clean=game.career.preview_names(code.text)
+                self.assertEqual(example['version'],1)
+                self.assertEqual(len(clean['clubs']),1)
+                self.assertEqual(len(clean['players']),1)
+                self.assertTrue(next(iter(clean['players'])).endswith(':0'))
+                self.assertEqual(game.career.save_path.read_bytes(),before)
+            finally:popup.dismiss();settle()
+
+    def test_world_division_changes_the_actual_match_aim_speed(self):
+        with patch('edition.WORLD_PREVIEW',True),isolated_game() as game:
+            c=game.career;c.accept_starting_offer(c.offers[0]);c.last_training_week=c.week;c.morale=16
+            opponent=next(club for club in c.current_league.clubs if club.name!=c.club_name);opponent.rating=95
+            speeds=[]
+            with patch.object(c,'next_match',return_value=('league',c.club,opponent)):
+                for tier in (4,1):
+                    c.club.tier=tier;game.start_career_match();game.awaiting_chance=True;game._begin_pending_chance()
+                    speeds.append(game.current_aim_speed)
+                    self.assertEqual(game.current_chance_difficulty,'hard')
+            self.assertGreater(speeds[1],speeds[0])
+
+    def test_high_morale_elite_match_gets_three_hard_chances_and_reserved_goal_budget(self):
+        with isolated_game(saved=True) as game:
+            game.career.load();c=game.career;c.morale=16;c.stamina=20;c.last_training_week=c.week
+            opponent=next(club for club in c.current_league.clubs if club.name!=c.club_name)
+            opponent.rating=95
+            with patch.object(c,'next_match',return_value=('league',c.club,opponent)):
+                game.start_career_match()
+            self.assertEqual(len(game.match_chance_minutes),3)
+            self.assertEqual(game.match_easy_chance_index,-1)
+            for _ in range(3):
+                game.awaiting_chance=True;game._begin_pending_chance()
+                self.assertEqual(game.current_chance_difficulty,'hard')
+
     def test_opponent_controls_chance_plan_for_home_and_away_matches(self):
         with isolated_game(saved=True) as game:
             game.career.load()
             c = game.career
             c.last_training_week = c.week
-            c.stamina = c.morale = 20
+            c.stamina, c.morale = 20, 10
             player = c.club
             opponent = next(club for club in c.current_league.clubs if club.name != player.name)
             for at_home in (True, False):

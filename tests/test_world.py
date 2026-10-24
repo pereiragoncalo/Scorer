@@ -137,14 +137,16 @@ class WorldTests(unittest.TestCase):
             if pair:break
         self.assertIsNotNone(pair)
         first,second=pair
+        second_display=c.display_club(second)
         c.apply_names({'version':1,'clubs':{first.uid:'One Club Only'}})
         self.assertEqual(c.display_club(first),'One Club Only')
-        self.assertEqual(c.display_club(second),second.name)
-        self.assertEqual(c.display_text(second.name,second.country),second.name)
+        self.assertEqual(c.display_club(second),second_display)
+        self.assertEqual(c.display_text(second.name,second.country),second_display)
 
     def test_invalid_or_failed_names_import_never_partially_changes_names(self):
         c=self.world();uid=c.club.uid
         before=c.save_path.read_bytes()
+        before_display=c.display_text(c.club_name)
         for pack in [{'version':1,'clubs':{uid:'Valid Name','unknown':'Bad Name'}},
                      {'version':1,'clubs':{uid:'https://example.com'}},
                      {'version':1,'clubs':{uid:'[color=red]Bad'}},
@@ -156,6 +158,6 @@ class WorldTests(unittest.TestCase):
         with self.assertRaises(ValueError):c.preview_names('x'*262145)
         with patch.object(c,'save',return_value=False):
             with self.assertRaises(ValueError):c.apply_names({'version':1,'clubs':{uid:'Valid Name'}})
-        self.assertEqual(c.display_text(c.club_name),c.club_name)
+        self.assertEqual(c.display_text(c.club_name),before_display)
         free=CareerMode(autoload=False)
         with self.assertRaises(ValueError):free.preview_names({'version':1,'clubs':{uid:'Valid Name'}})

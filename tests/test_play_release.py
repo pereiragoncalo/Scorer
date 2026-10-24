@@ -46,16 +46,35 @@ class ReleaseTests(unittest.TestCase):
             (source/'main.py').write_text('print("game")\n')
             (source/'buildozer.spec').write_bytes((ROOT/'buildozer.spec').read_bytes())
             (source/'assets/private.jks').write_text('must not copy')
+            (source/'assets/data').mkdir()
+            (source/'assets/data/world_clubs.json').write_text('{"version":1,"clubs":{}}')
+            (source/'assets/data/private.json').write_text('must not copy')
             (source/'android/secret.pem').write_text('must not copy')
             (source/'striker_career.json').write_text('must not copy')
             (source/'server').mkdir(); (source/'server/private.py').write_text('must not copy')
             target = prepare(self.config(), base/'stage', 'rehearsal', source)
             names = [str(p.relative_to(target)) for p in target.rglob('*')]
             self.assertFalse(any('private.jks' in n or 'secret.pem' in n or 'striker_career' in n or 'server/' in n for n in names))
+            self.assertTrue((target/'assets/data/world_clubs.json').is_file())
+            self.assertFalse((target/'assets/data/private.json').exists())
             self.assertIn('package.name = striker', (target/'buildozer.spec').read_text())
             self.assertIn('ENABLED = false', (target/'android/src/com/clemir/striker/billing/BillingConfig.java').read_text())
             with self.assertRaises(ValueError): prepare(self.config(), target, 'rehearsal', source)
             with self.assertRaises(ValueError): prepare(self.config(), source/'nested', 'rehearsal', source)
+
+    def test_world_qa_uses_same_app_separate_slots_and_never_enables_billing(self):
+        from tools.prepare_world_qa import prepare_qa
+        before=(ROOT/'edition.py').read_bytes()
+        with tempfile.TemporaryDirectory() as temp:
+            target=prepare_qa(Path(temp)/'owner-qa')
+            self.assertIn('WORLD_PREVIEW = True',(target/'edition.py').read_text())
+            self.assertIn('package.name = striker',(target/'buildozer.spec').read_text())
+            self.assertIn('package.domain = com.clemir',(target/'buildozer.spec').read_text())
+            self.assertIn('ENABLED = false',(target/'android/src/com/clemir/striker/billing/BillingConfig.java').read_text())
+            self.assertIn('qa-world',(target/'release_settings.py').read_text())
+            self.assertTrue((target/'assets/data/world_clubs.json').is_file())
+            self.assertFalse((target/'server').exists())
+        self.assertEqual((ROOT/'edition.py').read_bytes(),before)
 
     def test_manifest_gate_rejects_debug_backup_cleartext_and_legacy_companion(self):
         from tools.play.verify import inspect_manifest
