@@ -275,6 +275,11 @@ def sanitize_local_display_name(value: object, *, limit: int = 48) -> str:
     return cleaned
 
 
+def capitalise_player_initials(name: str) -> str:
+    """Uppercase word initials without changing internal spelling (e.g. McDonald)."""
+    return " ".join(word[:1].upper() + word[1:] for word in name.split(" "))
+
+
 class EntitlementProvider(Protocol):
     """Production entitlement source contract; billing implementation arrives later."""
 
@@ -780,7 +785,8 @@ class CareerMode:
 
     def set_player_name(self, requested_name: object) -> bool:
         """Rename the player and their scorer entry without changing career progress."""
-        name = sanitize_local_display_name(requested_name, limit=32)
+        name = sanitize_local_display_name(capitalise_player_initials(
+            sanitize_local_display_name(requested_name, limit=32)), limit=32)
         old = self.player_name
         scorers = self.current_league.scorer_goals
         if name != old and name in scorers:
@@ -1717,6 +1723,13 @@ class CareerMode:
             league.scorer_goals = {
                 str(name): int(goals) for name, goals in data.get("scorers", {}).items()
             }
+            # Migrate the active player's spelling and scorer key together.
+            # Do not overwrite another scorer if an older save has a collision.
+            formatted_name = capitalise_player_initials(self.player_name)
+            if formatted_name != self.player_name and formatted_name not in league.scorer_goals:
+                if self.player_name in league.scorer_goals:
+                    league.scorer_goals[formatted_name] = league.scorer_goals.pop(self.player_name)
+                self.player_name = formatted_name
             self.international_status.update(data.get("international_status", {}))
             # Mantém todos os outros campeonatos na mesma semana da carreira
             # depois de fechar e voltar a abrir o jogo.

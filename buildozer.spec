@@ -6,7 +6,7 @@ source.dir = .
 source.exclude_dirs = baseline,tests,ui_tests,docs,tools,.git,.buildozer,bin
 source.exclude_patterns = striker_career*.json,*.keystore,*.jks,*.log
 source.include_exts = py,png,jpg,jpeg,kv,json,atlas,ttf,license
-version = 0.6.13
+version = 0.6.14
 requirements = python3,kivy==2.3.1,chardet==5.2.0
 orientation = landscape
 fullscreen = 1

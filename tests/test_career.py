@@ -57,7 +57,7 @@ class CareerTests(unittest.TestCase):
         c.save()
         restored = career.CareerMode()
         self.assertEqual((restored.player_name, restored.club_name, restored.goals),
-                         ('Nome existente', c.club_name, 7))
+                         ('Nome Existente', c.club_name, 7))
 
     def test_free_only_one_division_and_invalid_offer(self):
         c = career.CareerMode()
@@ -125,7 +125,7 @@ class CareerTests(unittest.TestCase):
             self.assertEqual(legacy.read_bytes(), restored.save_path.read_bytes())
             restored.player_name = 'Existing destination'
             restored.save()
-            self.assertEqual(career.CareerMode().player_name, 'Existing destination')
+            self.assertEqual(career.CareerMode().player_name, 'Existing Destination')
 
     def test_android_uses_app_private_storage(self):
         fake = types.ModuleType('kivy.app')
@@ -143,7 +143,7 @@ class CareerTests(unittest.TestCase):
         data['save_version'] = 1
         data['player_name'] = 'Legacy player'
         c.save_path.write_text(json.dumps(data))
-        self.assertEqual(career.CareerMode().player_name, 'Legacy player')
+        self.assertEqual(career.CareerMode().player_name, 'Legacy Player')
 
     def test_unrecognised_migration_is_not_copied(self):
         legacy = self.root / 'striker_career.json'
@@ -371,6 +371,41 @@ class CareerTests(unittest.TestCase):
         self.assertTrue(all(0 <= value <= 3 for value in fit + tired))
         self.assertGreater(sum(fit), sum(tired))
         self.assertGreater(len(set(fit)), 1)
+
+    def test_player_initials_format_on_save_and_legacy_load_with_scorer_key(self):
+        c = self.signed()
+        self.assertTrue(c.set_player_name('  joão   da silva  '))
+        self.assertEqual(c.player_name, 'João Da Silva')
+        self.assertTrue(c.set_player_name('sean McDonald'))
+        self.assertEqual(c.player_name, 'Sean McDonald')
+        c.player_name = 'gonçalo pereira'
+        c.goals, c.matches = 11, 8
+        c.current_league.scorer_goals = {'gonçalo pereira': 11, 'Other Scorer': 5}
+        c.save()
+        restored = career.CareerMode()
+        self.assertEqual((restored.player_name, restored.goals, restored.matches), ('Gonçalo Pereira', 11, 8))
+        self.assertEqual(restored.current_league.scorer_goals, {'Gonçalo Pereira': 11, 'Other Scorer': 5})
+        self.assertTrue(restored.save())
+        self.assertEqual(career.CareerMode().player_name, 'Gonçalo Pereira')
+
+    def test_initials_collision_preserves_scores_and_failed_rename_keeps_save(self):
+        c = self.signed()
+        c.current_league.scorer_goals.update({'Luca Vale': 9, c.player_name: 3})
+        c.save()
+        before = c.save_path.read_bytes()
+        with self.assertRaises(ValueError):
+            c.set_player_name('luca vale')
+        self.assertEqual(c.save_path.read_bytes(), before)
+        with patch('career.os.replace', side_effect=OSError('disk full')):
+            self.assertFalse(c.set_player_name('joão da silva'))
+        self.assertEqual(c.player_name, 'Alex Silva')
+        self.assertEqual(c.save_path.read_bytes(), before)
+        c.player_name = 'luca vale'
+        c.current_league.scorer_goals['luca vale'] = 2
+        c.save()
+        restored = career.CareerMode()
+        self.assertEqual(restored.current_league.scorer_goals['Luca Vale'], 9)
+        self.assertEqual(restored.current_league.scorer_goals['luca vale'], 2)
 
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'

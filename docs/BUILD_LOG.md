@@ -608,3 +608,34 @@ Tamanho 30206997 bytes. SHA-256: ff747656022880c3d11cd0cf027c09babdf60f93f357eaa
 
 Próximo: jogar várias partidas no telefone e avaliar conversão dos lances
 difíceis. Validação física/equilíbrio humano pendentes. Sem AAB/assinatura release.
+
+## 0.6.14 — contador agregado e iniciais do jogador
+
+TIME TO SHOOT integrado numa faixa de 22 dp colada por baixo do marcador,
+com a mesma margem esquerda e largura. Barra de progresso fina; duração,
+dificuldade e cronómetro da partida não alterados.
+Nome do jogador passa a ter inicial maiúscula em cada componente separado
+por espaços ao guardar perfil ou carregar carreira. Mantidas grafia interna
+e letras acentuadas. Migração da chave de marcadores acompanha o nome, sem
+apagar golos. Colisão com outro marcador num save antigo mantém ambos os
+registos intactos; editar perfil permite escolher nome sem ambiguidade.
+
+Ficheiros: main.py, career.py, buildozer.spec, tests/test_career.py,
+ui_tests/test_menus.py, AGENTS, README e docs/UI_0.6.14.md. Baseline preservado.
+36 testes core/build/segurança + 31 Kivy passaram (67), py_compile e
+git diff --check. Logs /tmp/scorer-0614-core.log e /tmp/scorer-0614-ui.log.
+Cobertura de nomes acentuados, maiúsculas internas, migração com golos,
+colisões, rollback e geometria do contador em três densidades.
+Captura real Kivy scorer-0614-shot0001.png inspecionada em 1280×589/densidade
+1,64. Contador agregado visível; não é captura Android.
+
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+APK beta debug arm64 0.6.14, versionCode 1026614, API 36/mínimo 26.
+Assinatura v2 válida com certificado anterior; ZIP e 118 ELF alinhados a 16 KB.
+Código atualizado confirmado no APK; sem permissões declaradas, saves ou chaves
+privadas incluídos. Logs build-0.6.14.log/verify-0.6.14.log em
+/workspace/striker-runtime. Tamanho 30207473 bytes.
+SHA-256: eb9af3189e0a6f835d2ea768051b3cc408f6d0448b19b571ec9d03a03e74111c.
+
+Próximo: validar contador e nome no menu/marcadores no telefone. Validação
+física desta versão pendente; sem AAB/assinatura release nesta etapa.

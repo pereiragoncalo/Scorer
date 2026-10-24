@@ -3427,6 +3427,11 @@ class StrikerGame(Widget):
         return (self.x + dp(8), self.top - dp(54),
                 min(dp(280), self.width - dp(16)), dp(46))
 
+    def _shot_timer_bounds(self):
+        x, y, width, _ = self._scoreboard_bounds()
+        height = dp(22)
+        return x, y - height, width, height
+
     def _draw_match_overlay(self) -> None:
         if self.match_home is None or self.match_away is None:
             return
@@ -4840,10 +4845,7 @@ class StrikerGame(Widget):
 
 
         if self.shot_context == "match" and self.state == self.STATE_AIMING:
-            timer_width = min(340.0, self.width * 0.28)
-            timer_x = self.center_x - timer_width / 2
-            timer_height = dp(30)
-            timer_y = self.top - dp(88) - timer_height
+            timer_x, timer_y, timer_width, timer_height = self._shot_timer_bounds()
             ratio = clamp(
                 self.shot_time_left / max(0.01, self.shot_time_limit), 0.0, 1.0
             )
@@ -4857,16 +4859,16 @@ class StrikerGame(Widget):
             )
             Color(*timer_color)
             Rectangle(
-                pos=(timer_x + 3, timer_y + 3),
-                size=((timer_width - 6) * ratio, timer_height - 6),
+                pos=(timer_x + dp(2), timer_y + dp(2)),
+                size=((timer_width - dp(4)) * ratio, dp(3)),
             )
             Color(0.92, 0.98, 0.95, 0.92)
             Line(rectangle=(timer_x, timer_y, timer_width, timer_height), width=1.2)
             self._draw_text(
                 f"TIME TO SHOOT   {self.shot_time_left:0.1f} s",
-                self.center_x,
-                timer_y + timer_height / 2,
-                max(15, int(self.height * 0.028)),
+                timer_x + timer_width / 2,
+                timer_y + timer_height * 0.57,
+                dp(11),
                 (1.0, 1.0, 1.0, 1.0),
                 "center",
                 max_width=timer_width - 18,

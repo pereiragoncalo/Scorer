@@ -136,3 +136,10 @@ all others have harder positions, defensive pressure and sharper goalkeeping.
 New icon-based SCORER logo on the main and entry menus, without by clemir.
 Existing career totals remain intact.
 [Changes, 65 tests and 720 physical shot samples](docs/UI_0.6.13.md).
+
+## SCORER 0.6.14 — timer and player initials
+
+TIME TO SHOOT is attached directly beneath the scoreboard. Player-name
+initials are capitalised automatically on profile save and career load,
+keeping progress and scorer identity.
+[Changes, 67 tests and limitations](docs/UI_0.6.14.md).
