@@ -541,6 +541,13 @@ class CareerClub:
 
 
 
+@dataclass(frozen=True)
+class OpponentChanceProfile:
+    pressure: float
+    max_chances: int
+    clear_chance_probability: float
+
+
 @dataclass
 class WorldLeague:
     country: str
@@ -1041,12 +1048,40 @@ class CareerMode:
         return None
 
 
-    def chance_count(self) -> int:
+    def opponent_chance_profile(self, opponent: Optional[CareerClub] = None) -> OpponentChanceProfile:
+        """Combine opponent quality with its own league position, once at kick-off."""
+        if opponent is None:
+            return OpponentChanceProfile(0.0, 3, 0.60)
+        quality = clamp((opponent.rating - 45.0) / 45.0, 0.0, 1.0)
+        rank_strength, rank_weight, played = 0.0, 0.0, 0
+        for league in self.leagues.values():
+            if league.country != opponent.country or league.tier != opponent.tier:
+                continue
+            table = league.table()
+            match = next(((index, club) for index, club in enumerate(table)
+                          if club.name == opponent.name), None)
+            if match is not None:
+                index, listed_club = match
+                played = listed_club.played
+                rank_strength = 1.0 - index / max(1, len(table) - 1)
+                # Early tables carry little evidence; an unplayed table has none.
+                rank_weight = 0.45 * min(max(0, played) / 5.0, 1.0)
+                break
+        pressure = quality * (1.0 - rank_weight) + rank_strength * rank_weight
+        # An elite squad or an established top-15% side is a very strong opponent.
+        if quality >= 0.88 or (played >= 5 and rank_strength >= 0.85):
+            pressure = max(0.80, pressure)
+        if pressure >= 0.72:
+            return OpponentChanceProfile(pressure, 1, 0.0)
+        if pressure >= 0.50:
+            return OpponentChanceProfile(pressure, 2, 0.15)
+        return OpponentChanceProfile(pressure, 3, 0.60 * (1.0 - pressure / 0.72))
+
+    def chance_count(self, opponent: Optional[CareerClub] = None) -> int:
         factor = clamp((self.stamina + self.morale) / 40.0, 0.05, 1.0)
-        # Fewer personal highlights keep a striker season in proportion to
-        # simulated scorers. A clear chance is not guaranteed every match.
-        centre = 0.4 + factor * 2.5
-        return int(clamp(round(self.rng.gauss(centre, 0.70)), 0, 3))
+        profile = self.opponent_chance_profile(opponent)
+        centre = 0.4 + factor * 2.5 - profile.pressure * 1.5
+        return int(clamp(round(self.rng.gauss(centre, 0.70)), 0, profile.max_chances))
 
 
     def fixture_goal_means(

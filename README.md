@@ -143,3 +143,10 @@ TIME TO SHOOT is attached directly beneath the scoreboard. Player-name
 initials are capitalised automatically on profile save and career load,
 keeping progress and scorer identity.
 [Changes, 67 tests and limitations](docs/UI_0.6.14.md).
+
+## SCORER 0.6.15 — chances depend on the opponent
+
+Opponent quality and league position now determine chance quantity and clear
+chance probability. Very strong opponents allow at most one chance, always
+hard. Energy/morale still matter and career progress is retained.
+[Rules, 70 tests and limitations](docs/UI_0.6.15.md).

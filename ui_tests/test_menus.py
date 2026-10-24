@@ -271,7 +271,8 @@ class MenuTests(unittest.TestCase):
             game.career.last_training_week = game.career.week
             seen_easy, seen_no_easy = False, False
             types = set()
-            with patch.object(game.career, 'chance_count', return_value=3):
+            from career import OpponentChanceProfile
+            with patch.object(game.career, 'chance_count', return_value=3), patch.object(game.career, 'opponent_chance_profile', return_value=OpponentChanceProfile(0, 3, 0.60)):
                 for seed in range(60):
                     game.career.rng.seed(9700 + seed)
                     game.start_career_match()
@@ -315,6 +316,37 @@ class MenuTests(unittest.TestCase):
             game.start_training()
             self.assertEqual(game.shot_context, 'training')
             self.assertEqual(game.training_shots_left, 3)
+
+    def test_opponent_controls_chance_plan_for_home_and_away_matches(self):
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            c = game.career
+            c.last_training_week = c.week
+            c.stamina = c.morale = 20
+            player = c.club
+            opponent = next(club for club in c.current_league.clubs if club.name != player.name)
+            for at_home in (True, False):
+                pair = ('league', player, opponent) if at_home else ('league', opponent, player)
+                with patch.object(c, 'next_match', return_value=pair):
+                    opponent.rating = 95
+                    for seed in range(20):
+                        c.rng.seed(1100 + seed)
+                        game.start_career_match()
+                        self.assertLessEqual(len(game.match_chance_minutes), 1)
+                        self.assertEqual(game.match_easy_chance_index, -1)
+                        if game.match_chance_minutes:
+                            game.awaiting_chance = True
+                            game._begin_pending_chance()
+                            self.assertEqual(game.current_chance_difficulty, 'hard')
+                    opponent.rating, player.rating = 45, 95
+                    counts, clear = [], False
+                    for seed in range(20):
+                        c.rng.seed(1100 + seed)
+                        game.start_career_match()
+                        counts.append(len(game.match_chance_minutes))
+                        clear |= game.match_easy_chance_index >= 0
+                    self.assertGreater(max(counts), 1)
+                    self.assertTrue(clear)
 
     def test_english_menu_labels_and_name_validation(self):
         with isolated_game(saved=True) as game:

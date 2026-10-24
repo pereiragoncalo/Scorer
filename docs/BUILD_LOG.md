@@ -639,3 +639,37 @@ SHA-256: eb9af3189e0a6f835d2ea768051b3cc408f6d0448b19b571ec9d03a03e74111c.
 
 Próximo: validar contador e nome no menu/marcadores no telefone. Validação
 física desta versão pendente; sem AAB/assinatura release nesta etapa.
+
+## 0.6.15 — oportunidades dependentes do adversário
+
+Quantidade e probabilidade de oportunidade fácil passam a depender do rating
+e posição do adversário na liga dele. Energia/moral mantidas. Perfil definido
+ao início do jogo com o adversário correto, em casa ou fora. Adversário muito
+forte: no máximo uma oportunidade, sempre difícil; forte: máximo duas, 15% de
+atribuir uma fácil; restantes: máximo três, probabilidade fácil até 60% a descer
+com a pressão. Zero oportunidades continua possível.
+Classificação tem peso gradual até cinco jogos; uma tabela sem jogos não
+conta. Elite ou top-15% após cinco jogos força o perfil muito forte. Taças
+consultam a liga do adversário; seleções/sem tabela usam apenas rating.
+Simulação de resultados, física, treino, UI e progresso existente não alterados.
+
+Ficheiros: career.py, main.py, buildozer.spec, tests/test_career.py,
+ui_tests/test_menus.py, AGENTS, README e docs/UI_0.6.15.md. Baseline preservado.
+38 testes core/build/segurança + 32 Kivy passaram (70); py_compile e
+git diff --check. Novos testes cobrem qualidade/posição, 500 amostras pareadas
+fraco/forte, liga própria do adversário de taça, seleções, tabela sem jogos e
+integração em casa/fora. Teste genérico de tipos de remate usa perfil fraco
+explícito para isolar a regra de no máximo uma chance fácil. Sem falhas novas
+na execução. Logs /tmp/scorer-0615-core.log e /tmp/scorer-0615-ui.log.
+Sem mudanças visuais; não foram produzidas novas capturas de ecrã nesta etapa.
+
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+APK beta debug arm64 0.6.15, versionCode 1026615, API 36/mínimo 26.
+Assinatura v2 válida com certificado anterior; ZIP e 118 ELF alinhados a 16 KB.
+Perfil e uso do adversário confirmados no bytecode empacotado. Sem permissões
+declaradas, saves ou chaves privadas incluídos. Logs build-0.6.15.log e
+verify-0.6.15.log em /workspace/striker-runtime. Tamanho 30208805 bytes.
+SHA-256: f99019b28fe69cb43bd657a6af5c647d59cd98b41378d38da2ba308a1dd3841f.
+
+Próximo: comparar partidas contra líderes, equipas intermédias e fracas no
+telefone. Validação física/equilíbrio humano pendentes; sem AAB/assinatura release.

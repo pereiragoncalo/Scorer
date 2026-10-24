@@ -760,13 +760,16 @@ class StrikerGame(Widget):
         self.match_half = 1
         self.match_halftime = False
         self.scoreboard_flash_until = 0.0
-        chance_total = self.career.chance_count()
+        player_home = self.match_is_international or self.match_home.name == self.career.club_name
+        opponent = self.match_away if player_home else self.match_home
+        chance_profile = self.career.opponent_chance_profile(opponent)
+        chance_total = self.career.chance_count(opponent)
         final_minute = 90 + self.match_first_stoppage + self.match_stoppage
         self.match_chance_minutes = sorted(
             self.career.rng.sample(range(3, final_minute), min(chance_total, final_minute - 3))
         )
         self.match_chance_index = 0
-        self.match_easy_chance_index = self.career.rng.randrange(len(self.match_chance_minutes)) if self.match_chance_minutes and self.career.rng.random() < 0.60 else -1
+        self.match_easy_chance_index = self.career.rng.randrange(len(self.match_chance_minutes)) if self.match_chance_minutes and self.career.rng.random() < chance_profile.clear_chance_probability else -1
         self.current_chance_difficulty = "standard"
         self.match_player_goals = 0
         self.match_player_misses = 0

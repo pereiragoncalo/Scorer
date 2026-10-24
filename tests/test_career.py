@@ -407,6 +407,54 @@ class CareerTests(unittest.TestCase):
         self.assertEqual(restored.current_league.scorer_goals['Luca Vale'], 9)
         self.assertEqual(restored.current_league.scorer_goals['luca vale'], 2)
 
+    def test_opponent_quality_and_table_position_both_reduce_opportunities(self):
+        c = self.signed()
+        clubs = c.current_league.clubs
+        opponent = next(club for club in clubs if club.name != c.club_name)
+        for index, club in enumerate(clubs):
+            club.played, club.points = 12, 12 + index // 3
+        opponent.points, opponent.rating = 12, 45
+        weak_quality = c.opponent_chance_profile(opponent)
+        opponent.rating = 90
+        high_quality = c.opponent_chance_profile(opponent)
+        self.assertGreater(high_quality.pressure, weak_quality.pressure)
+        self.assertEqual((high_quality.max_chances, high_quality.clear_chance_probability), (1, 0))
+        opponent.rating, opponent.points = 60, 0
+        bottom = c.opponent_chance_profile(opponent)
+        opponent.points = 36
+        top = c.opponent_chance_profile(opponent)
+        self.assertGreater(top.pressure, bottom.pressure)
+        self.assertEqual((top.max_chances, top.clear_chance_probability), (1, 0))
+        c.stamina = c.morale = 20
+        opponent.rating, opponent.points = 45, 0
+        c.rng.seed(17000)
+        weak_counts = [c.chance_count(opponent) for _ in range(500)]
+        opponent.rating, opponent.points = 95, 36
+        c.rng.seed(17000)
+        strong_counts = [c.chance_count(opponent) for _ in range(500)]
+        self.assertTrue(all(0 <= n <= 1 for n in strong_counts))
+        self.assertTrue(all(strong <= weak for strong, weak in zip(strong_counts, weak_counts)))
+        self.assertGreater(sum(weak_counts), sum(strong_counts))
+
+    def test_chance_profile_uses_opponents_own_table_and_no_unplayed_rank(self):
+        c = self.signed()
+        league = next(league for league in c.leagues.values() if league.country == 'Germany' and league.tier == 1)
+        opponent = league.clubs[-1]
+        opponent.rating = 60
+        for club in league.clubs:
+            club.played, club.points = 0, 0
+        unplayed = c.opponent_chance_profile(opponent)
+        league.clubs.reverse()
+        self.assertEqual(c.opponent_chance_profile(opponent), unplayed)
+        for club in league.clubs:
+            club.played, club.points = 8, 8
+        opponent.points = 24
+        cup_profile = c.opponent_chance_profile(opponent)
+        self.assertEqual((cup_profile.max_chances, cup_profile.clear_chance_probability), (1, 0))
+        national = career.CareerClub('National opponent', 'Germany', 'National Team', 1, 95)
+        self.assertEqual(c.opponent_chance_profile(national).max_chances, 1)
+        self.assertEqual(c.opponent_chance_profile(national).clear_chance_probability, 0)
+
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'
         self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),
