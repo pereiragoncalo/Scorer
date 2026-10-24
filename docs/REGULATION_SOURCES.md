@@ -1,5 +1,17 @@
 # Competition regulations: source audit
 
+Expanded research batch: see [the collection index](regulations/README.md),
+[review notes](regulations/REVIEW_NOTES.md),
+[31-source catalogue](regulations/source_catalogue.json) and
+[212-region coverage matrix](regulations/country_coverage.json). The batch retains
+10 complete PDFs locally and records 100 retrieval attempts, including failures.
+No complete country model or gameplay implementation is certified by this audit.
+
+Correction to the initial network check below: HTTP 200 established connectivity,
+but the attempted EFL pages contained navigation rather than readable regulation
+bodies; UEFA document links returned JavaScript shells. The expanded catalogue
+records these limitations explicitly.
+
 Checked on 2026-10-24. This is research evidence, not a statement that the
 corresponding rules have been implemented or that every country is verified.
 

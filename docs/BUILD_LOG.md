@@ -1108,3 +1108,27 @@ New morale floors supersede old opponent quantity caps without creating easy eli
 chances or adding simulated goals on top of the reserved budget. JSON FORMAT uses
 valid selected IDs and does not modify saved aliases. QA opens World only for owner
 testing with Billing disabled; no paid ownership or Google Play release claimed.
+
+## 2026-10-24 — official regulation collection, research batch
+
+Research-only batch; see [collection index](regulations/README.md) and
+[reviewed sections](regulations/REVIEW_NOTES.md). Selected catalogue: 31 sources;
+10 complete PDFs cached outside the app; 100 retrieval attempts including errors;
+coverage matrix includes all 212 existing game regions, none marked fully verified.
+Partial primary-source review covers Portugal professional progression, MLS 2026,
+OFC Champions League 2026, OFC Professional League 2026, AFCON provisions adopted
+in 2023, historical CAF club-document warnings and UEFA 2026/27 season calendars.
+
+Validation PASS: JSON parsing, unique IDs/regions, all coverage source references,
+stored source bytes and SHA-256 hashes, PDF signatures and relative Markdown links;
+`git diff --check` passed. Zero cache metadata mismatches. HTTP 200 EFL navigation
+and UEFA JavaScript shells explicitly do not count as regulation text. Incomplete
+RFEF PDF download and blocked document hosts are recorded. Supplemental file-host
+allowances saved in environment draft; tool requires environment review/save and
+Publish to apply them. No game code changed by this research batch, no new APK,
+gameplay regression or Android device testing claimed. Pre-existing gameplay work
+in the checkout remains separate and uncommitted.
+
+Next: retrieve blocked primary documents after network configuration applies;
+verify full current-season rules, eligibility, tiebreakers and amendments by country
+before implementing or labelling any model an exact reproduction.

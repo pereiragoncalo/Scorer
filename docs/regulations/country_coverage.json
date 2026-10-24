@@ -1,0 +1,1300 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-24",
+  "regions_in_current_game": 212,
+  "note": "All-country exactness remains unverified, including countries with partial primary-source review. Continental rules do not establish domestic country rules.",
+  "countries": [
+    {
+      "country": "Albania",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Andorra",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Armenia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Austria",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Azerbaijan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Belarus",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Belgium",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Bosnia and Herzegovina",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Bulgaria",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Croatia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Cyprus",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Czechia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Denmark",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "England",
+      "source_ids": [
+        "england-premier-handbook-2026",
+        "efl-playoffs"
+      ],
+      "complete_country_model_verified": false,
+      "status": "partial_sources"
+    },
+    {
+      "country": "Estonia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Faroe Islands",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Finland",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "France",
+      "source_ids": [
+        "france-general-2026-27",
+        "france-ligue3-admin"
+      ],
+      "complete_country_model_verified": false,
+      "status": "partial_sources"
+    },
+    {
+      "country": "Georgia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Germany",
+      "source_ids": [
+        "germany-third-statute",
+        "germany-match-rules",
+        "germany-implementation"
+      ],
+      "complete_country_model_verified": false,
+      "status": "partial_sources"
+    },
+    {
+      "country": "Gibraltar",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Greece",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Hungary",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Iceland",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Israel",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Italy",
+      "source_ids": [
+        "italy-noif-competition"
+      ],
+      "complete_country_model_verified": false,
+      "status": "partial_sources"
+    },
+    {
+      "country": "Kazakhstan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Kosovo",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Latvia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Liechtenstein",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Lithuania",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Luxembourg",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Malta",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Moldova",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Montenegro",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Netherlands",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "North Macedonia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Northern Ireland",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Norway",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Poland",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Portugal",
+      "source_ids": [
+        "portugal-competition-2026-27",
+        "portugal-official-2026-27"
+      ],
+      "complete_country_model_verified": false,
+      "status": "partial_sources"
+    },
+    {
+      "country": "Republic of Ireland",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Romania",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Russia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "San Marino",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Scotland",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Serbia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Slovakia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Slovenia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Spain",
+      "source_ids": [
+        "spain-competition-framework",
+        "spain-bases"
+      ],
+      "complete_country_model_verified": false,
+      "status": "partial_sources"
+    },
+    {
+      "country": "Sweden",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Switzerland",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Turkey",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Ukraine",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Wales",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Argentina",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Bolivia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Brazil",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Chile",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Colombia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Ecuador",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Paraguay",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Peru",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Uruguay",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Venezuela",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Anguilla",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Antigua and Barbuda",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Aruba",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Bahamas",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Barbados",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Belize",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Bermuda",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "British Virgin Islands",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Canada",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Cayman Islands",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Costa Rica",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Cuba",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Curacao",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Dominica",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Dominican Republic",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "El Salvador",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Grenada",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Guatemala",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Guyana",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Haiti",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Honduras",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Jamaica",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Mexico",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Montserrat",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Nicaragua",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Panama",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Puerto Rico",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Saint Kitts and Nevis",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Saint Lucia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Saint Vincent and the Grenadines",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Suriname",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Trinidad and Tobago",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Turks and Caicos Islands",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "United States",
+      "source_ids": [
+        "usa-mls"
+      ],
+      "complete_country_model_verified": false,
+      "status": "partial_sources"
+    },
+    {
+      "country": "US Virgin Islands",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Afghanistan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Australia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Bahrain",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Bangladesh",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Bhutan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Brunei",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Cambodia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "China",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Chinese Taipei",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Guam",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Hong Kong",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "India",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Indonesia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Iran",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Iraq",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Japan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Jordan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Kuwait",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Kyrgyzstan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Laos",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Lebanon",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Macau",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Malaysia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Maldives",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Mongolia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Myanmar",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Nepal",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "North Korea",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Northern Mariana Islands",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Oman",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Pakistan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Palestine",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Philippines",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Qatar",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Saudi Arabia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Singapore",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "South Korea",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Sri Lanka",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Syria",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Tajikistan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Thailand",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Timor-Leste",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Turkmenistan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "United Arab Emirates",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Uzbekistan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Vietnam",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Yemen",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Algeria",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Angola",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Benin",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Botswana",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Burkina Faso",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Burundi",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Cameroon",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Cape Verde",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Central African Republic",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Chad",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Comoros",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Congo",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "DR Congo",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Djibouti",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Egypt",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Equatorial Guinea",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Eritrea",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Eswatini",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Ethiopia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Gabon",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Gambia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Ghana",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Guinea",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Guinea-Bissau",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Ivory Coast",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Kenya",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Lesotho",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Liberia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Libya",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Madagascar",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Malawi",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Mali",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Mauritania",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Mauritius",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Morocco",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Mozambique",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Namibia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Niger",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Nigeria",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Rwanda",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Sao Tome and Principe",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Senegal",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Seychelles",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Sierra Leone",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Somalia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "South Africa",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "South Sudan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Sudan",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Tanzania",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Togo",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Tunisia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Uganda",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Zambia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Zimbabwe",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "American Samoa",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Cook Islands",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Fiji",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "New Caledonia",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "New Zealand",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Papua New Guinea",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Samoa",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Solomon Islands",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Tahiti",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Tonga",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    },
+    {
+      "country": "Vanuatu",
+      "source_ids": [],
+      "complete_country_model_verified": false,
+      "status": "not_yet_collected"
+    }
+  ]
+}
