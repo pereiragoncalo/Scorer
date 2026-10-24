@@ -768,3 +768,48 @@ Próximo: jogar várias partidas no telefone, avaliar justiça da mira e frequê
 de golos. Validação física/equilíbrio humano pendentes. Modelo FREE calibrado
 para League Two, sem alegar que todas as ligas mundiais foram calibradas.
 Sem AAB/assinatura release nesta etapa.
+
+## 0.6.18 — alternância casa/fora no campeonato
+
+Corrigida orientação dos emparelhamentos: antes a paridade da jornada era
+aplicada a todos os pares e podia criar longas sequências casa/fora. Versão 2
+fixa a paridade por par, alternando o primeiro, e reordena a segunda volta
+(inversão com desfasamento de duas jornadas). Cada equipa tem no máximo uma
+quebra de alternância por volta, incluindo transição para a segunda; nunca
+três jogos seguidos na mesma condição. Adversários uma vez em cada volta com
+local invertido; 24 equipas: 46 jogos, 23 casa e 23 fora. Pausas corrigidas para
+casos ímpares de teste. Taças conservam sorteio independente.
+
+Novo campo opcional schedule_version no save v2. Saves antigos migram já apenas
+se todos os jogos realizados mantiverem adversário/local (normalmente 0–1
+jornadas em FREE). Épocas antigas incompatíveis mantêm o calendário inteiro
+até terminarem e mudam na época seguinte. Preservados resultados/progresso;
+sem pedir novo jogo ou substituir retroativamente jogos realizados.
+
+47 testes core/build/segurança + 37 Kivy passaram (84), py_compile e
+git diff --check. Verificação completa de campeonatos com 2–32 equipas, pares
+únicos, locais invertidos, contagens iguais, regra por volta/transição e ausência
+de triplas. Hashes dos calendários legados 5/24 equipas preservados. Testes de
+save/load com 0/1/2 jornadas, histórico/pontos/golos, mudança de época,
+recarregamento e rejeição transacional de versão desconhecida. Kivy confirma
+o mesmo próximo jogo no calendário, menu e lançamento.
+Primeiro teste Kivy herdou viewport minúsculo onde o resumo é ocultado de
+propósito; preparação corrigida para 960×540 com cleanup, sem mudar o UI.
+A análise inicial da transição entre voltas encontrou uma quebra adicional
+para duas equipas; corrigida ordenação da segunda volta e adicionada asserção
+que também conta essa fronteira. Logs /tmp/scorer-0618-core-final.log e
+/tmp/scorer-0618-ui-final.log. Sem alterações de arte/geometria ou novas capturas.
+
+Ficheiros: career.py, buildozer.spec, testes core/Kivy, AGENTS, README e
+docs/UI_0.6.18.md. Baseline preservado (fed211d2ec63fe0275390b13ed4a1bcfcd18fa61238460b04b67d80ebca6205b).
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+APK beta debug arm64 0.6.18, versionCode 1026618, API 36/mínimo 26.
+Assinatura v2 válida, mesmo certificado; ZIP e 118 ELF alinhados a 16 KB.
+Código do calendário/migração confirmado no APK. Sem permissões declaradas,
+saves ou chaves privadas incluídos. Logs build-0.6.18.log/verify-0.6.18.log
+em /workspace/striker-runtime. Tamanho 30211485 bytes.
+SHA-256: 385892f68d4706661128d35160e3e838daee2f0bc82dfe76ec8ce50355a05697.
+
+Próximo: verificar calendário do campeonato em época nova/compatível no telefone.
+Época legada incompatível preservada até à seguinte. Validação física desta
+versão pendente; sem AAB/assinatura release nesta etapa.

@@ -579,6 +579,7 @@ class WorldLeague:
     clubs: list[CareerClub]
     round_index: int = 0
     scorer_goals: dict[str, int] = field(default_factory=dict)
+    schedule_version: int = 2
 
 
     @property
@@ -588,7 +589,10 @@ class WorldLeague:
 
     @property
     def total_rounds(self) -> int:
-        return (len(self.clubs) - 1) * 2
+        count = len(self.clubs)
+        if count < 2:
+            return 0
+        return (count if self.schedule_version == 2 and count % 2 else count - 1) * 2
 
 
     def table(self) -> list[CareerClub]:
@@ -603,28 +607,34 @@ class WorldLeague:
 
     def pairings(self, round_number: Optional[int] = None) -> list[tuple[CareerClub, CareerClub]]:
         count = len(self.clubs)
-        if count < 2:
+        requested = self.round_index if round_number is None else round_number
+        if count < 2 or requested < 0 or requested >= self.total_rounds:
             return []
         indexes = list(range(count))
         if count % 2:
-            indexes.append(-1)
+            # A fixed bye leaves odd-sized leagues alternating between played
+            # fixtures too. Preserve the old rotating bye in legacy seasons.
+            indexes = [-1] + indexes if self.schedule_version == 2 else indexes + [-1]
             count += 1
-        requested = self.round_index if round_number is None else round_number
-        phase = requested // (count - 1)
-        rotation = requested % (count - 1)
-        fixed = indexes[0]
+        phase, rotation = divmod(requested, count - 1)
+        if self.schedule_version == 2 and phase:
+            # Reverse and offset return rounds by two. This also limits breaks
+            # counted across the leg boundary, without an immediate rematch
+            # in leagues with at least four clubs.
+            rotation = (count - 4 - rotation) % (count - 1)
         rotating = indexes[1:]
         rotating = rotating[-rotation:] + rotating[:-rotation] if rotation else rotating
-        ordered = [fixed] + rotating
-        matches: list[tuple[CareerClub, CareerClub]] = []
+        ordered = [indexes[0]] + rotating
+        matches = []
         for index in range(count // 2):
-            left = ordered[index]
-            right = ordered[count - 1 - index]
+            left, right = ordered[index], ordered[count - 1 - index]
             if left < 0 or right < 0:
                 continue
-            if (rotation + index) % 2:
+            flip = ((rotation % 2 if index == 0 else index % 2)
+                    if self.schedule_version == 2 else (rotation + index) % 2)
+            if flip:
                 left, right = right, left
-            if phase % 2:
+            if phase:
                 left, right = right, left
             matches.append((self.clubs[left], self.clubs[right]))
         return matches
@@ -1548,6 +1558,7 @@ class CareerMode:
                     candidates, weights=weights, k=1
                 )[0].name
         for world_league in self.leagues.values():
+            world_league.schedule_version = 2
             world_league.round_index = 0
             world_league.scorer_goals.clear()
             for club in world_league.clubs:
@@ -1595,6 +1606,7 @@ class CareerMode:
             "agent_offers": self.agent_offers,
             "last_offer_week": self.last_offer_week,
             "league_round": league.round_index,
+            "schedule_version": league.schedule_version,
             "league_name": league.name,
             "clubs": [asdict(club) for club in league.clubs],
             "scorers": league.scorer_goals,
@@ -1775,6 +1787,11 @@ class CareerMode:
                 and self.is_league_playable(str(value[1]))
             ][:5]
             self.last_offer_week = int(data.get("last_offer_week", -99))
+            schedule_version = int(data.get("schedule_version", 1))
+            if schedule_version not in (1, 2):
+                raise ValueError("Unsupported saved schedule")
+            for world_league in self.leagues.values():
+                world_league.schedule_version = schedule_version
             league = self.current_league
             saved_league_name = data.get("league_name")
             if key == FREE_LEAGUE_KEY and saved_league_name in (
@@ -1793,6 +1810,16 @@ class CareerMode:
                 for club in league.clubs:
                     club.league = league.name
             league.round_index = int(data.get("league_round", 0))
+            if schedule_version == 1:
+                # Upgrade only if every completed fixture retains its opponent
+                # and venue. Never silently rewrite past home/away results.
+                played = range(min(max(0, league.round_index), league.total_rounds))
+                old_fixtures = [[(h.name, a.name) for h, a in league.pairings(r)] for r in played]
+                league.schedule_version = 2
+                compatible = all(old == [(h.name, a.name) for h, a in league.pairings(r)]
+                                 for r, old in enumerate(old_fixtures))
+                for world_league in self.leagues.values():
+                    world_league.schedule_version = 2 if compatible else 1
             league.scorer_goals = {
                 str(name): int(goals) for name, goals in data.get("scorers", {}).items()
             }

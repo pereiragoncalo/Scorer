@@ -536,6 +536,100 @@ class CareerTests(unittest.TestCase):
         self.assertAlmostEqual(career.expected_highlight_goals(1, 0), 0.18)
         self.assertAlmostEqual(career.expected_highlight_goals(3, 0.6), 0.738)
 
+    def test_balanced_double_round_robin_for_even_and_odd_leagues(self):
+        from collections import Counter
+        for count in range(2, 33):
+            with self.subTest(clubs=count):
+                clubs=[career.CareerClub(str(i),'England','Test',4,60) for i in range(count)]
+                league=career.WorldLeague('England','Test',4,clubs)
+                half=league.total_rounds//2
+                venues={club.name:['',''] for club in clubs}
+                opponents=[Counter(),Counter()]
+                directed=Counter()
+                for round_number in range(league.total_rounds):
+                    fixtures=league.pairings(round_number)
+                    self.assertEqual(len(fixtures), count//2)
+                    playing=[]
+                    for home,away in fixtures:
+                        self.assertNotEqual(home.name,away.name)
+                        playing.extend((home.name,away.name))
+                        venues[home.name][round_number//half]+='H'
+                        venues[away.name][round_number//half]+='A'
+                        opponents[round_number//half][tuple(sorted((home.name,away.name)))]+=1
+                        directed[(home.name,away.name)]+=1
+                    self.assertEqual(len(playing),len(set(playing)))
+                self.assertEqual(opponents[0],opponents[1])
+                self.assertEqual(len(opponents[0]),count*(count-1)//2)
+                self.assertTrue(all(n==1 for n in opponents[0].values()))
+                self.assertTrue(all(n==1 for n in directed.values()))
+                for halves in venues.values():
+                    for pattern in halves:
+                        self.assertEqual(len(pattern),count-1)
+                        self.assertLessEqual(sum(a==b for a,b in zip(pattern,pattern[1:])),1)
+                        self.assertLessEqual(abs(pattern.count('H')-pattern.count('A')),1)
+                    crossing=halves[0][-1:]+halves[1]
+                    self.assertLessEqual(sum(a==b for a,b in zip(crossing,crossing[1:])),1)
+                    full=''.join(halves)
+                    self.assertEqual(full.count('H'),count-1)
+                    self.assertEqual(full.count('A'),count-1)
+                    self.assertNotIn('HHH',full)
+                    self.assertNotIn('AAA',full)
+                self.assertEqual(league.pairings(-1),[])
+                self.assertEqual(league.pairings(league.total_rounds),[])
+                league.round_index=1
+                self.assertEqual(league.pairings(),league.pairings(1))
+
+    def test_legacy_calendar_matches_original_fixture_snapshot(self):
+        for count,digest in ((5,'274d3dd0ba10d717304a55dda1b2b5b57b049682f244c113a9381eeb73af28b5'),
+                             (24,'610a672a086cb2d69697acad311a07c291ede564a4a1b2b762265a014f5e8993')):
+            clubs=[career.CareerClub(str(i),'England','Test',4,60) for i in range(count)]
+            league=career.WorldLeague('England','Test',4,clubs,schedule_version=1)
+            fixtures=[[(int(h.name),int(a.name)) for h,a in league.pairings(r)] for r in range(league.total_rounds)]
+            actual=hashlib.sha256(json.dumps(fixtures,separators=(',',':')).encode()).hexdigest()
+            self.assertEqual(actual,digest)
+
+    def test_calendar_save_round_trip_and_safe_legacy_upgrade(self):
+        def fixtures(league):
+            return [[(h.name,a.name) for h,a in league.pairings(r)] for r in range(league.total_rounds)]
+        for played in (0,1,2):
+            with self.subTest(played=played):
+                c=career.CareerMode(autoload=False)
+                c.accept_starting_offer(c.offers[0]);c.cup_active=False
+                for league in c.leagues.values():
+                    league.schedule_version=1
+                for _ in range(played):
+                    home,away=c.next_fixture()
+                    c.finish_match(home,away,1,0,forced_score=(1,0) if home.name==c.club_name else (0,1))
+                c.save()
+                before=fixtures(c.current_league)
+                history=list(c.fixture_history)
+                stats=(c.goals,c.matches,c.week,c.club.points)
+                data=json.loads(c.save_path.read_text());data['career'].pop('schedule_version')
+                c.save_path.write_text(json.dumps(data))
+                restored=career.CareerMode()
+                self.assertEqual(restored.current_league.schedule_version,2 if played<=1 else 1)
+                self.assertEqual((restored.goals,restored.matches,restored.week,restored.club.points),stats)
+                self.assertEqual(restored.fixture_history,history)
+                after=fixtures(restored.current_league)
+                self.assertEqual(after[:played],before[:played])
+                if played>=2:
+                    self.assertEqual(after,before)
+                    restored._finish_season()
+                    self.assertTrue(all(league.schedule_version==2 for league in restored.leagues.values()))
+                restored.save()
+                loaded=career.CareerMode()
+                self.assertEqual(loaded.current_league.schedule_version,2)
+                self.assertEqual(fixtures(loaded.current_league),fixtures(restored.current_league))
+
+    def test_unknown_saved_calendar_version_does_not_replace_active_career(self):
+        c=self.signed();before=c.player_name
+        data=json.loads(c.save_path.read_text());data['career']['schedule_version']=999
+        data['career']['player_name']='Unexpected'
+        c.save_path.write_text(json.dumps(data));raw=c.save_path.read_bytes()
+        self.assertFalse(c.load())
+        self.assertEqual(c.player_name,before)
+        self.assertEqual(c.save_path.read_bytes(),raw)
+
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'
         self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),

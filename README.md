@@ -165,3 +165,11 @@ data. Match finishing has physical pressure/accuracy; teammate goals reserve
 the player's contribution. Fixed duplicate scorer attribution and cup goals
 in league rankings. Existing progress and guaranteed trained participation
 remain. [Sources, experiments, 79 tests and limitations](docs/REALISM_0.6.17.md).
+
+## SCORER 0.6.18 — balanced league calendar
+
+League fixtures alternate home/away with at most one repeated pair per leg,
+no triples, reversed return venues and equal full-season totals. In-progress
+legacy calendars are retained when changing them would rewrite played fixtures;
+new seasons use the new rule. Cup draws remain independent.
+[Rules, save compatibility, 84 tests and limitations](docs/UI_0.6.18.md).

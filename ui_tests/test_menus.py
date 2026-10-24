@@ -433,6 +433,24 @@ class MenuTests(unittest.TestCase):
                 self.assertAlmostEqual(means[0], 1.43-personal if at_home else 1.43)
                 self.assertAlmostEqual(means[1], 1.18 if at_home else 1.18-personal)
 
+    def test_calendar_and_main_menu_use_the_same_balanced_fixture(self):
+        self.addCleanup(setattr, Window, 'size', Window.size)
+        Window.size=(960,540)
+        with isolated_game(saved=True) as game:
+            game.size=Window.size
+            game.career.load();game.career.cup_active=False
+            game.career.last_training_week=game.career.week
+            fixture=game.career.next_match()
+            expected=(fixture[1].name,fixture[2].name)
+            game.view='calendar';game.draw();settle()
+            table=game._menu.body
+            self.assertTrue(any(row[1] == f'{expected[0]} vs {expected[1]}' for row in table.rows))
+            game.view='hub';game.draw();settle()
+            labels={w.text for w in game.walk() if isinstance(w,Label)}
+            self.assertTrue(set(expected)<=labels)
+            game.start_career_match()
+            self.assertEqual((game.match_home.name,game.match_away.name),expected)
+
     def test_english_menu_labels_and_name_validation(self):
         with isolated_game(saved=True) as game:
             game.view = 'start'
