@@ -211,3 +211,11 @@ ads respect 60 seconds. Training offers an optional RewardedAd for +1 morale, on
 per career week, capped20. Only the SDK earned callback awards it; saves/receipts
 prevent duplicate credit. Still official TEST IDs, no production revenue.
 [101 tests, implementation and device checks](docs/UI_0.6.23.md).
+
+## SCORER 0.6.24 — Help, local contracts and World preview
+
+Help on entry/hub, informative Upgrade, phone-locale starting contracts or England
+Division4; Free still has one selected playable division. Separate ad-free World
+preview: 212 regions/758 fictional tiers, worldwide transfers and a local display
+names editor with bounded JSON templates/import preview. No billing or automatic
+career migration. [111 tests, builds and limits](docs/WORLD_0.6.24.md).

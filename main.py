@@ -75,6 +75,8 @@ from kivy.uix.label import Label as UiLabel
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp
+import edition
+from device_locale import phone_country
 from advertising import create_ad_breaks
 from menu_ui import CareerMenu, MENU_VIEWS, FlowLabel, TouchButton, MatchNotice
 from kivy.utils import platform
@@ -232,13 +234,20 @@ class StrikerGame(Widget):
         self._match_notice = None
         self._exit_popup = None
         self._new_game_popup = None
-        self.ads = create_ad_breaks(android=(platform == "android"))
+        self.ads = create_ad_breaks(android=(platform == "android" and not edition.WORLD_PREVIEW))
         self.reward_ad_status = ""
         self._next_reward_poll = 0.0
+        self.help_page = 0
+        self.help_origin = "start"
+        self.editor_key = "England|4"
+        self.editor_club_index = 0
+        self.world_country = "England"
+        self.world_league_key = "England|4"
+        self._names_picker = None
         self._privacy_return = "start"
         self._career_started = False
         self._profile_return = "offers"
-        self.career = CareerMode(autoload=False)
+        self.career = CareerMode(edition.entitlement_provider(), autoload=False, starter_country=phone_country(platform == "android"))
         self.view = "splash"
         self.shot_context = "career"
         self.ui_buttons: list[tuple[float, float, float, float, str, object]] = []
@@ -631,7 +640,7 @@ class StrikerGame(Widget):
 
 
     def _draw_club_badge(
-        self, club_name: str, center_x: float, center_y: float, size: float
+        self, club_name: str, center_x: float, center_y: float, size: float, display_name: Optional[str] = None
     ) -> None:
         texture = self._club_badge_textures.get(club_name)
         if texture is not None:
@@ -673,7 +682,7 @@ class StrikerGame(Widget):
             ),
             width=1.2,
         )
-        initials = "".join(word[0] for word in club_name.split()[:3]).upper()
+        initials = "".join(word[0] for word in (display_name or self.career.display_text(club_name)).split()[:3]).upper()
         self._draw_text(
             initials,
             center_x,
@@ -893,7 +902,10 @@ class StrikerGame(Widget):
         self.match_finished = True
         self.ads.match_completed((self.career.season, self.career.week, self.career.last_result, self.match_competition))
         self.awaiting_chance = False
-        self.match_summary = f"FINAL  {self.career.last_result}"
+        import re
+        labels = {self.match_home.name: self.career.display_club(self.match_home), self.match_away.name: self.career.display_club(self.match_away)}
+        result = re.sub('|'.join(re.escape(k) for k in sorted(labels, key=len, reverse=True)), lambda m: labels[m.group()], self.career.last_result)
+        self.match_summary = f"FINAL  {result}"
 
 
     def _begin_pending_chance(self) -> None:
@@ -2555,7 +2567,7 @@ class StrikerGame(Widget):
             return
         if self._new_game_popup is not None:
             self._new_game_popup.dismiss()
-        self.career = CareerMode(autoload=False)
+        self.career = CareerMode(edition.entitlement_provider(), autoload=False, starter_country=phone_country(platform == "android"))
         self._career_started = False
         self.training_completed = False
         self.training_goals = 0
@@ -2768,7 +2780,9 @@ class StrikerGame(Widget):
                 self.view = "hub"
         elif action == "editor":
             if self.career.world_unlocked:
-                self._open_local_editor()
+                self.editor_key = self.career.league_key
+                self.editor_club_index = next((i for i,c in enumerate(self.career.current_league.clubs) if c.name == self.career.club_name), 0)
+                self.view = "editor"
         elif action == "table_prev":
             self.table_page = max(0, self.table_page - 1)
         elif action == "table_next":
@@ -2779,6 +2793,48 @@ class StrikerGame(Widget):
         elif action == "world_next":
             pages = max(0, (len(EUROPE_COUNTRIES) - 1) // 9)
             self.world_page = min(pages, self.world_page + 1)
+        elif action == 'start_country' and not self.career.club_name and self.view == 'offers':
+            self.career.choose_start_country(str(value))
+        elif action == 'help':
+            self.help_origin = self.view if self.view in ('start', 'hub') else 'hub'
+            self.help_page = 0
+            self.view = 'help'
+        elif action == 'help_back':
+            self.view = self.help_origin
+        elif action == 'help_page':
+            self.help_page = max(0, min(3, self.help_page + int(value)))
+        elif action == 'upgrade':
+            self.view = 'upgrade'
+        elif action == 'open_world_preview' and self.view == 'upgrade':
+            try:
+                from jnius import autoclass
+                host = autoclass('org.kivy.android.PythonActivity').mActivity
+                intent = host.getPackageManager().getLaunchIntentForPackage('com.clemir.strikerworld.preview')
+                if intent is None or host.getPackageManager().checkSignatures(host.getPackageName(), 'com.clemir.strikerworld.preview') != 0:
+                    raise ValueError('trusted preview not installed')
+                host.startActivity(intent)
+            except Exception:
+                self.career.message = 'Install the separate World preview APK first. Your Free career is preserved.'
+        elif action == 'world_country' and self.career.world_unlocked:
+            self.world_country = str(value)
+            self.career.activate_world_country(self.world_country)
+            self.career.save()
+            self.view = 'world_country'
+        elif action == 'world_league' and self.career.world_unlocked and value in self.career.leagues:
+            self.world_league_key = value
+            self.view = 'world_league'
+        elif action == 'edit_browsed' and self.career.world_unlocked:
+            self.editor_key = self.world_league_key
+            self.editor_club_index = 0
+            self.view = 'editor'
+        elif action == 'editor_club' and self.career.world_unlocked and self.view == 'editor':
+            self.editor_club_index = (self.editor_club_index + int(value)) % len(self.career.leagues[self.editor_key].clubs)
+        elif action in ('names_import', 'names_export') and self.career.world_unlocked and self.view == 'editor':
+            from android_names import NameFiles
+            if self._names_picker is None:
+                self._names_picker = NameFiles(self._preview_names_json, self._names_message)
+            text = json.dumps(self.career.names_template(self.editor_key), ensure_ascii=False, indent=2) if action == 'names_export' else None
+            self._names_picker.pick(text)
         elif action == "privacy":
             self._privacy_return = self.view if self.view in ('start', 'hub') else 'start'
             self.view = 'privacy'
@@ -3020,6 +3076,37 @@ class StrikerGame(Widget):
                 accent=index == 0,
             )
 
+
+    def _names_message(self, text):
+        self.career.message = text
+        self.draw()
+
+    def _preview_names_json(self, raw):
+        try:
+            pack = self.career.preview_names(raw)
+        except ValueError as error:
+            self._names_message(str(error))
+            return
+        layout = BoxLayout(orientation='vertical', spacing=dp(10), padding=dp(10))
+        counts = ', '.join(f'{len(pack[k])} {k}' for k in ('clubs', 'leagues', 'players'))
+        scroll = __import__('kivy.uix.scrollview', fromlist=['ScrollView']).ScrollView(do_scroll_x=False)
+        details = FlowLabel(text='Preview: ' + counts + '\n\n' + '\n'.join(
+            f'{k}: {v}' for section in ('clubs', 'leagues', 'players') for k,v in list(pack[section].items())[:6]))
+        scroll.add_widget(details)
+        layout.add_widget(scroll)
+        controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        popup = Popup(title='PREVIEW LOCAL NAME PACK', content=layout, size_hint=(.92,.9), auto_dismiss=False)
+        def apply():
+            try:
+                self.career.apply_names(pack)
+                self._names_message('Name pack applied. Career progress is unchanged.')
+                popup.dismiss()
+            except ValueError as error:
+                self._names_message(str(error))
+        controls.add_widget(TouchButton('APPLY NAMES', apply, accent=True))
+        controls.add_widget(TouchButton('CANCEL', popup.dismiss))
+        layout.add_widget(controls)
+        popup.open()
 
     def _open_local_editor(self) -> None:
         """Small local-only editor for club and competition display names."""
@@ -3322,7 +3409,7 @@ class StrikerGame(Widget):
             color = (0.42, 1.0, 0.69, 1.0) if is_player else (0.90, 0.95, 0.94, 1.0)
             font = max(9, int(self.height * 0.0175))
             self._draw_text(f"{position:02d}", panel_x + panel_width * 0.040, center_y, font, color, "center")
-            self._draw_text(club.name, panel_x + panel_width * 0.075, center_y, font, color, max_width=panel_width * 0.455)
+            self._draw_text(self.career.display_club(club), panel_x + panel_width * 0.075, center_y, font, color, max_width=panel_width * 0.455)
             values = (club.played, club.won, club.drawn, club.lost, club.goals_for, club.goals_against, f"{club.goal_difference:+d}", club.points)
             for fraction, value in zip(number_columns, values):
                 self._draw_text(str(value), panel_x + panel_width * fraction, center_y, font, color, "center", max_width=panel_width * 0.05)
@@ -3532,8 +3619,8 @@ class StrikerGame(Widget):
         for club, score, row in ((self.match_home, self.match_home_score, 0.73),
                                  (self.match_away, self.match_away_score, 0.27)):
             cy = y + height * row
-            self._draw_club_badge(club.name, x + dp(12), cy, dp(15))
-            self._draw_text(club.name, x + dp(24), cy, dp(11),
+            self._draw_club_badge(club.name, x + dp(12), cy, dp(15), display_name=self.career.display_club(club))
+            self._draw_text(self.career.display_club(club), x + dp(24), cy, dp(11),
                             (0.94, 0.98, 0.97, 1), max_width=teams_width - dp(50))
             self._draw_text(str(score), x + teams_width - dp(14), cy, dp(14),
                             (0.36, 1.0, 0.66, 1), "center", max_width=dp(24))
@@ -5057,7 +5144,7 @@ class StrikerGame(Widget):
 
 
 class StrikerApp(App):
-    title = "Scorer"
+    title = "Scorer World Preview" if edition.WORLD_PREVIEW else "Scorer"
 
 
     def on_pause(self):

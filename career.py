@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import copy
 import hashlib
+from functools import lru_cache
 import math
 import os
 import random
@@ -372,7 +373,7 @@ NORTH_AMERICA_COUNTRIES = tuple(
     "Anguilla|Antigua and Barbuda|Aruba|Bahamas|Barbados|Belize|Bermuda|British Virgin Islands|Canada|Cayman Islands|Costa Rica|Cuba|Curacao|Dominica|Dominican Republic|El Salvador|Grenada|Guatemala|Guyana|Haiti|Honduras|Jamaica|Mexico|Montserrat|Nicaragua|Panama|Puerto Rico|Saint Kitts and Nevis|Saint Lucia|Saint Vincent and the Grenadines|Suriname|Trinidad and Tobago|Turks and Caicos Islands|United States|US Virgin Islands".split("|")
 )
 ASIA_COUNTRIES = tuple(
-    "Afghanistan|Australia|Bahrain|Bangladesh|Bhutan|Brunei|Cambodia|China|Chinese Taipei|Guam|Hong Kong|India|Indonesia|Iran|Iraq|Japan|Jordan|Kuwait|Kyrgyzstan|Laos|Lebanon|Macau|Malaysia|Maldives|Mongolia|Myanmar|Nepal|North Korea|Northern Mariana Islands|Oman|Pakistan|Palestine|Philippines|Qatar|Saudi Arabia|Singapore|South Korea|Sri Lanka|Syria|Tajikistan|Thailand|Timor-Leste|Turkmenistan|United Arab Emirates|Uzbekistan|Vietnam".split("|")
+    "Afghanistan|Australia|Bahrain|Bangladesh|Bhutan|Brunei|Cambodia|China|Chinese Taipei|Guam|Hong Kong|India|Indonesia|Iran|Iraq|Japan|Jordan|Kuwait|Kyrgyzstan|Laos|Lebanon|Macau|Malaysia|Maldives|Mongolia|Myanmar|Nepal|North Korea|Northern Mariana Islands|Oman|Pakistan|Palestine|Philippines|Qatar|Saudi Arabia|Singapore|South Korea|Sri Lanka|Syria|Tajikistan|Thailand|Timor-Leste|Turkmenistan|United Arab Emirates|Uzbekistan|Vietnam|Yemen".split("|")
 )
 AFRICA_COUNTRIES = tuple(
     "Algeria|Angola|Benin|Botswana|Burkina Faso|Burundi|Cameroon|Cape Verde|Central African Republic|Chad|Comoros|Congo|DR Congo|Djibouti|Egypt|Equatorial Guinea|Eritrea|Eswatini|Ethiopia|Gabon|Gambia|Ghana|Guinea|Guinea-Bissau|Ivory Coast|Kenya|Lesotho|Liberia|Libya|Madagascar|Malawi|Mali|Mauritania|Mauritius|Morocco|Mozambique|Namibia|Niger|Nigeria|Rwanda|Sao Tome and Principe|Senegal|Seychelles|Sierra Leone|Somalia|South Africa|South Sudan|Sudan|Tanzania|Togo|Tunisia|Uganda|Zambia|Zimbabwe".split("|")
@@ -527,6 +528,23 @@ def expected_highlight_goals(chances: int, clear_probability: float) -> float:
             + clamp(clear_probability, 0.0, 1.0) * (CLEAR_CHANCE_CONVERSION - HARD_CHANCE_CONVERSION))
 
 
+def ensure_club_uid(club):
+    if not club.uid:
+        club.uid = hashlib.sha256(f'{club.country}:{club.tier}:{club.name}'.encode()).hexdigest()[:20]
+    return club.uid
+
+
+@lru_cache(maxsize=2048)
+def fictional_club_names(country, tier, count):
+    first = ('Amber', 'Birch', 'Cedar', 'Dawn', 'Elm', 'Fern', 'Glen', 'Hazel', 'Iron', 'Juniper', 'Kings', 'Lark', 'Moor', 'North', 'Oak', 'Pine')
+    second = ('brook', 'crest', 'dale', 'field', 'ford', 'gate', 'haven', 'hill', 'mere', 'mont', 'ridge', 'shore', 'vale', 'view', 'well', 'wick')
+    endings = (' Athletic', ' City', ' FC', ' Rovers', ' Town', ' United', ' Rangers', ' Wanderers')
+    reserved = set(FAMOUS_CLUBS.get(country, ())) | (set(LEAGUE_TWO_2026) if country == 'England' else set())
+    pool = [a+b+c for a in first for b in second for c in endings if a+b+c not in reserved]
+    random.Random(country).shuffle(pool)
+    return pool[(tier-1)*24:(tier-1)*24+count]
+
+
 @dataclass
 class CareerClub:
     name: str
@@ -534,6 +552,7 @@ class CareerClub:
     league: str
     tier: int
     rating: float
+    uid: str = ""
     played: int = 0
     won: int = 0
     drawn: int = 0
@@ -703,7 +722,7 @@ class CareerMode:
     LEGACY_SAVE_VERSION = 1
 
 
-    def __init__(self, entitlement_provider: Optional[EntitlementProvider] = None, *, autoload: bool = True) -> None:
+    def __init__(self, entitlement_provider: Optional[EntitlementProvider] = None, *, autoload: bool = True, starter_country: str = "England") -> None:
         self.entitlements = EntitlementManager(entitlement_provider)
         self._locked_world_career: Optional[dict[str, object]] = None
         self.player_name = "Alex Silva"
@@ -716,6 +735,12 @@ class CareerMode:
         self.morale_ad_token = ""
         self.club_name = ""
         self.league_key = FREE_LEAGUE_KEY
+        self.free_start_key = FREE_LEAGUE_KEY
+        self.suggested_country = starter_country if starter_country in WORLD_COUNTRIES else "England"
+        self.display_aliases = {"version": 1, "clubs": {}, "leagues": {}, "players": {}}
+        self._alias_pattern = None
+        self.alias_revision = 0
+        self._active_world_countries = set()
         self.matches = 0
         self.goals = 0
         self.missed_chances = 0
@@ -742,7 +767,8 @@ class CareerMode:
         self.offers: list[str] = []
         self.agent_offers: list[tuple[str, str]] = []
         self._build_world()
-        self._new_starting_offers()
+        self.choose_start_country(self.suggested_country)
+
         self._migrate_legacy_save()
         if autoload:
             self.load()
@@ -803,7 +829,7 @@ class CareerMode:
 
 
     def is_league_playable(self, league_key: str) -> bool:
-        return self.world_unlocked or league_key == FREE_LEAGUE_KEY
+        return self.world_unlocked or league_key == self.free_start_key
 
 
     @property
@@ -921,9 +947,9 @@ class CareerMode:
         player = self.club
         if player is None:
             return None
-        if self.cup_round_index >= len(CUP_WEEKS) or not self.cup_active:
+        if self.cup_round_index >= len(self.cup_weeks) or not self.cup_active:
             return None
-        week_number = CUP_WEEKS[self.cup_round_index]
+        week_number = self.cup_weeks[self.cup_round_index]
         if requested_week is not None and requested_week != week_number:
             return None
         eliminated = {
@@ -987,8 +1013,8 @@ class CareerMode:
     def next_match(self) -> Optional[tuple[str, CareerClub, CareerClub]]:
         if (
             self.cup_active
-            and self.cup_round_index < len(CUP_WEEKS)
-            and self.week == CUP_WEEKS[self.cup_round_index]
+            and self.cup_round_index < len(self.cup_weeks)
+            and self.week == self.cup_weeks[self.cup_round_index]
         ):
             cup_fixture = self._cup_fixture_for_week()
             if cup_fixture:
@@ -1000,9 +1026,9 @@ class CareerMode:
 
 
     def _skip_reserved_cup_breaks(self) -> None:
-        while self.week in CUP_WEEKS and not (
-            self.cup_active and self.cup_round_index < len(CUP_WEEKS)
-            and self.week == CUP_WEEKS[self.cup_round_index]
+        while self.week in self.cup_weeks and not (
+            self.cup_active and self.cup_round_index < len(self.cup_weeks)
+            and self.week == self.cup_weeks[self.cup_round_index]
         ):
             self.week += 1
 
@@ -1019,9 +1045,9 @@ class CareerMode:
         future_round = self.current_league.round_index
         while future_round < self.current_league.total_rounds:
             match_date = start + timedelta(weeks=future_week)
-            if future_week in CUP_WEEKS:
-                if (self.cup_active and self.cup_round_index < len(CUP_WEEKS)
-                        and future_week == CUP_WEEKS[self.cup_round_index]):
+            if future_week in self.cup_weeks:
+                if (self.cup_active and self.cup_round_index < len(self.cup_weeks)
+                        and future_week == self.cup_weeks[self.cup_round_index]):
                     fixture = self._cup_fixture_for_week(future_week)
                     if fixture:
                         entries.append({
@@ -1045,9 +1071,9 @@ class CareerMode:
 
     def _build_world(self) -> None:
         for country in WORLD_COUNTRIES:
-            depth = EUROPE_PYRAMID_DEPTH.get(country, 1)
+            depth = EUROPE_PYRAMID_DEPTH.get(country, 4 if self.world_unlocked else 1)
             for tier in range(1, depth + 1):
-                name = division_name(country, tier)
+                name = "England Division 4" if self.world_unlocked and country == "England" and tier == 4 else division_name(country, tier)
                 if country == "England" and tier == 4:
                     names = list(LEAGUE_TWO_2026)
                 else:
@@ -1057,10 +1083,7 @@ class CareerMode:
                     elif country == "England" and tier == 1:
                         count = 20
                     famous = list(FAMOUS_CLUBS.get(country, ())) if tier == 1 else []
-                    names = famous + [
-                        f"{country} {tier}-{number:02d} FC"
-                        for number in range(1, count - len(famous) + 1)
-                    ]
+                    names = famous + fictional_club_names(country, tier, count - len(famous))
                 base = 88.0 - (tier - 1) * 8.0
                 if country not in ("England", "Spain", "Germany", "Italy", "France", "Portugal"):
                     base -= 4.0
@@ -1070,12 +1093,18 @@ class CareerMode:
                         country,
                         name,
                         tier,
-                        clamp(base + self.rng.uniform(-7.0, 7.0), 35.0, 96.0),
+                        clamp(base + (random.Random(f"rating:{country}:{tier}:{club_name}").uniform(-7.0, 7.0) if self.world_unlocked else self.rng.uniform(-7.0, 7.0)), 35.0, 96.0),
                     )
                     for club_name in names
                 ]
-                random.Random(f"{self.world_seed}:{self.season}:{country}:{tier}").shuffle(clubs)
+                for club in clubs:
+                    ensure_club_uid(club)
+                if self.world_unlocked:
+                    clubs.sort(key=lambda club: club.uid)
+                random.Random(f"{self.world_seed}:{self.season}:{country}|{tier}" if self.world_unlocked else f"{self.world_seed}:{self.season}:{country}:{tier}").shuffle(clubs)
                 league = WorldLeague(country, name, tier, clubs)
+                for club in clubs:
+                    ensure_club_uid(club)
                 self.leagues[league.key] = league
 
 
@@ -1091,8 +1120,141 @@ class CareerMode:
 
     def _new_starting_offers(self) -> None:
         amount = self.rng.randint(1, 5)
-        self.offers = self.rng.sample(list(LEAGUE_TWO_2026), amount)
+        self.offers = self.rng.sample([club.name for club in self.current_league.clubs], amount)
 
+
+    def choose_start_country(self, country: str) -> bool:
+        if self.club_name or country not in WORLD_COUNTRIES:
+            return False
+        tiers = [league.tier for league in self.leagues.values() if league.country == country]
+        tier = 4 if country == 'England' else max(tiers)
+        self.free_start_key = self.league_key = f"{country}|{tier}"
+        if not self.world_unlocked:
+            self.current_league.name = 'Scorer League'
+            for club in self.current_league.clubs:
+                club.league = 'Scorer League'
+        self._active_world_countries.add(country)
+        self._new_starting_offers()
+        return True
+
+    def activate_world_country(self, country: str) -> None:
+        if not self.world_unlocked or country not in WORLD_COUNTRIES:
+            return
+        target = self.current_league.round_index
+        for league in self.leagues.values():
+            if league.country != country or league.key == self.league_key:
+                continue
+            if country not in self._active_world_countries:
+                league.clubs.sort(key=lambda club: club.uid)
+                random.Random(f'{self.world_seed}:{self.season}:{league.key}').shuffle(league.clubs)
+            while league.round_index < min(target, league.total_rounds):
+                rng = random.Random(f"{self.world_seed}:{self.season}:{league.key}:{league.round_index}")
+                for home, away in league.pairings():
+                    league.simulate_fixture(home, away, rng)
+                league.round_index += 1
+        self._active_world_countries.add(country)
+
+    @property
+    def cup_weeks(self):
+        if self.current_league.total_rounds == 46:
+            return CUP_WEEKS
+        scale = (self.current_league.total_rounds + len(CUP_WEEKS)) / 54
+        result = []
+        for week in CUP_WEEKS:
+            result.append(max(round(week * scale), result[-1] + 1 if result else 1))
+        return tuple(result)
+
+    def display_club(self, club):
+        return self.display_aliases['clubs'].get(club.uid, club.name) if self.world_unlocked else club.name
+
+    def display_league(self, league):
+        return self.display_aliases['leagues'].get(league.key, league.name) if self.world_unlocked else league.name
+
+    def display_text(self, text, country=None):
+        text = str(text)
+        if not self.world_unlocked or not any(self.display_aliases.get(s) for s in ('clubs', 'leagues')):
+            return text
+        import re
+        country = country or self.current_league.country
+        if self._alias_pattern is None:
+            self._alias_pattern = {}
+        if country not in self._alias_pattern:
+            mapping = {}
+            for key, league in self.leagues.items():
+                if league.country != country:
+                    continue
+                if key in self.display_aliases['leagues']:
+                    mapping[league.name] = self.display_aliases['leagues'][key]
+                for club in league.clubs:
+                    if club.uid in self.display_aliases['clubs']:
+                        mapping[club.name] = self.display_aliases['clubs'][club.uid]
+            pattern = re.compile('|'.join(re.escape(k) for k in sorted(mapping, key=len, reverse=True))) if mapping else None
+            self._alias_pattern[country] = (pattern, mapping, {})
+        pattern, mapping, cache = self._alias_pattern[country]
+        if text not in cache:
+            if len(cache) >= 2048:
+                cache.clear()
+            cache[text] = pattern.sub(lambda match: mapping[match.group()], text) if pattern else text
+        return cache[text]
+
+    def display_scorer(self, name):
+        if not self.world_unlocked or name == self.player_name:
+            return name
+        for club in self.current_league.clubs:
+            suffix = f" ({club.name})"
+            if name.endswith(suffix):
+                base = name[:-len(suffix)]
+                roster = self.current_league.squad_names(club.name)
+                if base in roster:
+                    base = self.display_aliases['players'].get(f"{club.uid}:{roster.index(base)}", base)
+                return f"{base} ({self.display_club(club)})"
+        return name
+
+    def names_template(self, league_key=None):
+        if not self.world_unlocked:
+            raise ValueError('The names editor requires World.')
+        league = self.leagues[league_key or self.league_key]
+        return {'version': 1,
+                'leagues': {league.key: self.display_aliases['leagues'].get(league.key, league.name)},
+                'clubs': {c.uid: self.display_aliases['clubs'].get(c.uid, c.name) for c in league.clubs},
+                'players': {f'{c.uid}:{i}': self.display_aliases['players'].get(f'{c.uid}:{i}', name)
+                            for c in league.clubs for i, name in enumerate(league.squad_names(c.name))}}
+
+    def preview_names(self, raw):
+        if not self.world_unlocked:
+            raise ValueError('The names editor requires World.')
+        from name_packs import validate_pack
+        return validate_pack(raw, self.leagues)
+
+    def apply_names(self, pack):
+        clean = self.preview_names(pack)
+        previous = copy.deepcopy(self.display_aliases)
+        # A failed backup must prevent changing the current save.
+        if self.save_path.exists():
+            backup = self.save_path.with_suffix('.names-backup.json')
+            temporary = None
+            try:
+                with tempfile.NamedTemporaryFile(dir=self.save_path.parent, prefix='.names-', delete=False) as handle:
+                    temporary = handle.name
+                    handle.write(self.save_path.read_bytes())
+                    handle.flush()
+                    os.fsync(handle.fileno())
+                os.replace(temporary, backup)
+            except OSError:
+                if temporary:
+                    try:
+                        Path(temporary).unlink(missing_ok=True)
+                    except OSError:
+                        pass
+                raise ValueError('Could not back up the career. No names changed.') from None
+        for section in ('clubs', 'leagues', 'players'):
+            self.display_aliases[section].update(clean[section])
+        self._alias_pattern = None
+        self.alias_revision += 1
+        if not self.save():
+            self.display_aliases = previous
+            raise ValueError('Could not save names. Previous names were kept.')
+        return clean
 
     def accept_starting_offer(self, club_name: str) -> None:
         if club_name not in self.offers:
@@ -1304,6 +1466,7 @@ class CareerMode:
         self.fixture_history.append({
             "date": match_date.isoformat(),
             "competition": self.cup_name if competition == "cup" else league.name,
+            "country": league.country,
             "home": home.name,
             "away": away.name,
             "status": f"{home_goals}-{away_goals}{decision}",
@@ -1410,10 +1573,13 @@ class CareerMode:
 
     def _simulate_world_round(self) -> None:
         for key, league in self.leagues.items():
+            if self.world_unlocked and league.country not in self._active_world_countries:
+                continue
             if key == self.league_key or league.round_index >= league.total_rounds:
                 continue
+            round_rng = random.Random(f'{self.world_seed}:{self.season}:{key}:{league.round_index}') if self.world_unlocked else self.rng
             for home, away in league.pairings():
-                league.simulate_fixture(home, away, self.rng)
+                league.simulate_fixture(home, away, round_rng)
             league.round_index += 1
 
 
@@ -1463,8 +1629,8 @@ class CareerMode:
         if not self.transfer_window_open:
             self.agent_offers.clear()
             self.message = (
-                "A janela de transferencias esta fechada. "
-                "Abre em julho-agosto e janeiro-fevereiro."
+                "The transfer window is closed. "
+                "It opens in July/August and January/February."
             )
             return []
         performance = self.goals / max(1, self.matches)
@@ -1480,7 +1646,7 @@ class CareerMode:
         candidates: list[tuple[str, str]] = []
         leagues = [
             league for league in self.leagues.values()
-            if league.country in EUROPE_PYRAMID_DEPTH
+            if (self.world_unlocked or league.country in EUROPE_PYRAMID_DEPTH)
             and best_tier <= league.tier <= min(5, current_tier + 1)
         ]
         # Clubes do mesmo país surgem com maior frequência, mas boas épocas
@@ -1489,7 +1655,7 @@ class CareerMode:
         leagues.extend(domestic * 2)
         if not self.world_unlocked:
             # FREE has exactly one playable division.
-            leagues = [self.leagues[FREE_LEAGUE_KEY]]
+            leagues = [self.current_league]
         self.rng.shuffle(leagues)
         seen: set[tuple[str, str]] = set()
         current_rating = self.club.rating if self.club else 60.0
@@ -1546,6 +1712,7 @@ class CareerMode:
             return
         if (club_name, league_key) not in self.agent_offers:
             return
+        self.activate_world_country(self.leagues[league_key].country)
         self.club_name = club_name
         self.league_key = league_key
         self.agent_offers.clear()
@@ -1570,13 +1737,15 @@ class CareerMode:
             # FREE never crosses the single playable division boundary.
             promoted = relegated = False
             target_tier = league.tier
-            target_key = FREE_LEAGUE_KEY
+            target_key = self.league_key
         if old_club and target_key in self.leagues and target_key != self.league_key:
             target = self.leagues[target_key]
             displaced = min(target.clubs, key=lambda club: club.rating)
             target.clubs.remove(displaced)
+            league.clubs.remove(old_club)
+            league.clubs.append(CareerClub(displaced.name, league.country, league.name, league.tier, displaced.rating, uid=displaced.uid))
             target.clubs.append(
-                CareerClub(old_club.name, league.country, target.name, target_tier, old_club.rating + (2 if promoted else -2))
+                CareerClub(old_club.name, league.country, target.name, target_tier, old_club.rating + (2 if promoted else -2), uid=old_club.uid)
             )
             self.league_key = target_key
         self.season += 1
@@ -1636,6 +1805,13 @@ class CareerMode:
         league = self.current_league
         data = {
             "save_version": self.SAVE_VERSION,
+            "edition": self.product_mode,
+            "free_start_key": self.free_start_key,
+            "display_aliases": self.display_aliases if self.world_unlocked else {},
+            "world_state": {k: {'clubs': [asdict(c) for c in v.clubs], 'round': v.round_index,
+                                 'scorers': v.scorer_goals, 'name': v.name, 'schedule': v.schedule_version}
+                            for k, v in self.leagues.items()
+                            if self.world_unlocked and v.country in self._active_world_countries and k != self.league_key},
             "player_name": self.player_name,
             "nationality": self.nationality,
             "season": self.season,
@@ -1767,7 +1943,10 @@ class CareerMode:
             if active is None:
                 return
             key_for_access = str(active.get("league_key", FREE_LEAGUE_KEY))
-            if not self.is_league_playable(key_for_access):
+            chosen = str(active.get('free_start_key', FREE_LEAGUE_KEY))
+            valid_starts = {f'{c}|{4 if c == "England" else EUROPE_PYRAMID_DEPTH.get(c, 1)}' for c in WORLD_COUNTRIES}
+            self.free_start_key = chosen if chosen in valid_starts or (self.world_unlocked and chosen in self.leagues) else FREE_LEAGUE_KEY
+            if (active.get('edition') == 'WORLD' and not self.world_unlocked) or not self.is_league_playable(key_for_access):
                 self._locked_world_career = active
                 self.message = (
                     'WORLD career preserved. Restore World access to continue it.'
@@ -1820,7 +1999,7 @@ class CareerMode:
             if not 0 <= self.training_session_goals <= self.training_shots_taken <= 3:
                 raise ValueError("Invalid saved training state")
             migrated_cup_round = sum(
-                1 for cup_week in CUP_WEEKS if cup_week < self.week
+                1 for cup_week in self.cup_weeks if cup_week < self.week
             )
             self.cup_active = bool(data.get("cup_active", True))
             self.cup_round_index = int(
@@ -1858,7 +2037,7 @@ class CareerMode:
                 world_league.schedule_version = schedule_version
             league = self.current_league
             saved_league_name = data.get("league_name")
-            if key == FREE_LEAGUE_KEY and saved_league_name in (
+            if not self.world_unlocked and key == FREE_LEAGUE_KEY and saved_league_name in (
                 "England Division 4", "Divisão Striker", "Divisão Scorer", "Liga Scorer"
             ):
                 saved_league_name = "Scorer League"
@@ -1870,9 +2049,11 @@ class CareerMode:
             saved_clubs = data.get("clubs", [])
             if saved_clubs:
                 league.clubs = [CareerClub(**club) for club in saved_clubs]
-            if key == FREE_LEAGUE_KEY:
+            if not self.world_unlocked:
                 for club in league.clubs:
                     club.league = league.name
+            for club in league.clubs:
+                ensure_club_uid(club)
             league.round_index = int(data.get("league_round", 0))
             if schedule_version == 1:
                 # Upgrade only if every completed fixture retains its opponent
@@ -1895,12 +2076,36 @@ class CareerMode:
                 if self.player_name in league.scorer_goals:
                     league.scorer_goals[formatted_name] = league.scorer_goals.pop(self.player_name)
                 self.player_name = formatted_name
+            if self.world_unlocked:
+                states = data.get('world_state', {})
+                if not isinstance(states, dict):
+                    raise ValueError('Invalid saved World state')
+                for state_key, state in states.items():
+                    if state_key not in self.leagues or not isinstance(state, dict):
+                        raise ValueError('Invalid World league')
+                    other = self.leagues[state_key]
+                    other.clubs = [CareerClub(**c) for c in state['clubs']]
+                    for club in other.clubs:
+                        ensure_club_uid(club)
+                    other.round_index = int(state['round'])
+                    other.scorer_goals = {str(k): int(v) for k, v in state['scorers'].items()}
+                    other.name = str(state.get('name', other.name))
+                    other.schedule_version = int(state.get('schedule', 2))
+                    if not 0 <= other.round_index <= other.total_rounds or other.schedule_version not in (1, 2):
+                        raise ValueError('Invalid World progress')
+            aliases = data.get('display_aliases', {})
+            if self.world_unlocked and aliases and any(aliases.get(k) for k in ('clubs', 'leagues', 'players')):
+                from name_packs import validate_pack
+                self.display_aliases = validate_pack(aliases, self.leagues, max_names=sum(len(v.clubs)*13+1 for v in self.leagues.values()))
+                self._alias_pattern = None
+                self.alias_revision += 1
+            self._active_world_countries = {self.current_league.country} | ({self.leagues[k].country for k in data.get("world_state", {})} if self.world_unlocked else set())
             self._skip_reserved_cup_breaks()
             self.international_status.update(data.get("international_status", {}))
             # Mantém todos os outros campeonatos na mesma semana da carreira
             # depois de fechar e voltar a abrir o jogo.
             for other_key, other_league in self.leagues.items():
-                if other_key == self.league_key:
+                if other_key == self.league_key or (self.world_unlocked and (other_league.country not in self._active_world_countries or other_key in data.get('world_state', {}))):
                     continue
                 target_round = min(league.round_index, other_league.total_rounds)
                 while other_league.round_index < target_round:

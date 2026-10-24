@@ -17,7 +17,7 @@ import math
 INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
-MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy'))
+MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league'))
 
 
 class FlowLabel(Label):
@@ -127,7 +127,7 @@ class CareerMenu(BoxLayout):
                      c.matches, c.goals, c.stamina, c.morale, c.message,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals,
-                     self.game.reward_ad_status, Metrics.density, Metrics.fontscale)
+                     self.game.help_page, self.game.editor_club_index, self.game.editor_key, self.game.world_country, self.game.world_league_key, c.alias_revision, self.game.reward_ad_status, Metrics.density, Metrics.fontscale)
         if signature != self._signature:
             self._signature = signature
             self._build()
@@ -140,6 +140,7 @@ class CareerMenu(BoxLayout):
         return TouchButton(label, lambda: self.action(action, value), accent)
 
     def _build(self):
+        c = self.game.career
         if self.game.view != 'start':
             self.game.ads.entry_visible(False)
         self.clear_widgets()
@@ -151,7 +152,14 @@ class CareerMenu(BoxLayout):
                          PlayerScreen(self) if self.game.view == 'profile' else EntryScreen(self))
             self.add_widget(self.body)
             return
-        paged = self.game.view in ('standings', 'scorers', 'calendar')
+        if self.game.view == 'hub' and (self.game.width < dp(540) or self.game.height < dp(300)):
+            from world_ui import CompactHub
+            self.padding, self.spacing = dp(8), dp(4)
+            self.scroll = None
+            self.body = CompactHub(self)
+            self.add_widget(self.body)
+            return
+        paged = self.game.view in ('standings', 'scorers', 'calendar', 'world_league')
         self.padding = dp(8) if paged else dp(12) if self.game.view == 'hub' else dp(16)
         self.spacing = dp(6) if paged else dp(8) if self.game.view == 'hub' else dp(12)
         header = BoxLayout(size_hint_y=None, height=dp(60), spacing=dp(8))
@@ -162,11 +170,17 @@ class CareerMenu(BoxLayout):
             logo = Image(source='assets/menu_logo.png', size_hint=(None, 1), width=dp(190))
             brand.bind(width=lambda widget, width: setattr(logo, 'width', min(dp(190), width)))
             brand.add_widget(logo)
+        elif self.game.view in ('world', 'editor', 'world_country'):
+            header.height = dp(52)
+            title = 'WORLD LEAGUES' if self.game.view == 'world' else 'NAMES EDITOR' if self.game.view == 'editor' else self.game.world_country.upper()
+            brand.add_widget(BoundedLabel(text=title, font_size=sp(20), bold=True))
+            detail = f'{len({v.country for v in c.leagues.values()})} regions · {len(c.leagues)} fictional divisions' if self.game.view == 'world' else c.display_league(c.leagues[self.game.editor_key]) if self.game.view == 'editor' else 'Choose a division'
+            brand.add_widget(BoundedLabel(text=detail, font_size=sp(11), color=MUTED))
         elif paged:
             header.height = dp(52)
-            titles = {'standings': 'STANDINGS', 'scorers': 'TOP SCORERS', 'calendar': 'FIXTURES'}
+            titles = {'standings': 'STANDINGS', 'scorers': 'TOP SCORERS', 'calendar': 'FIXTURES', 'world_league': 'WORLD LEAGUE'}
             brand.add_widget(BoundedLabel(text=titles[self.game.view], font_size=sp(20), bold=True))
-            brand.add_widget(BoundedLabel(text=self.game.career.current_league.name, font_size=sp(11), color=MUTED))
+            brand.add_widget(BoundedLabel(text=c.display_league(c.leagues[self.game.world_league_key] if self.game.view == 'world_league' else c.current_league), font_size=sp(11), color=MUTED))
         else:
             header.height = dp(52)
             brand.add_widget(BrandMark())
@@ -176,11 +190,15 @@ class CareerMenu(BoxLayout):
             profile.size_hint_x, profile.width = None, dp(88)
             header.add_widget(profile)
         if self.game.view == 'hub':
+            for title, action in [('HELP', 'help'), ('WORLD' if c.world_unlocked else 'UPGRADE', 'world' if c.world_unlocked else 'upgrade')]:
+                button = MenuTile(title, lambda a=action: self.action(a))
+                button.size_hint_x, button.width = None, dp(76)
+                header.add_widget(button)
             privacy = MenuTile('PRIVACY', lambda: self.action('privacy'))
             privacy.size_hint_x, privacy.width = None, dp(76)
             header.add_widget(privacy)
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('BACK', 'privacy_back' if self.game.view == 'privacy' else 'hub')
+            back = self._button('BACK', 'privacy_back' if self.game.view == 'privacy' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view in ('hub', 'offers'):
@@ -191,6 +209,21 @@ class CareerMenu(BoxLayout):
         if self.game.view == 'hub':
             self.scroll = None
             self.body = MainDashboard(self)
+            self.add_widget(self.body)
+            return
+        if self.game.view == 'world' and c.world_unlocked:
+            from world_ui import WorldBrowser
+            self.scroll = None
+            self.body = WorldBrowser(self)
+            self.add_widget(self.body)
+            return
+        if self.game.view == 'world_league' and c.world_unlocked:
+            edit = MenuTile('EDIT NAMES', lambda: self.action('edit_browsed'))
+            edit.size_hint_x, edit.width = None, dp(104)
+            header.add_widget(edit)
+            league = c.leagues[self.game.world_league_key]
+            self.scroll = None
+            self.body = CompactTable(c.display_league(league), ('POS','CLUB','P','PTS'), [(i+1,c.display_club(club),club.played,club.points) for i,club in enumerate(league.table())])
             self.add_widget(self.body)
             return
         if self.game.view in ('standings', 'scorers', 'calendar'):
@@ -213,13 +246,18 @@ class CareerMenu(BoxLayout):
         return card
 
     def _offers(self):
-        card = self.card('Your first contract')
-        card.label('One division. Your career starts here.', muted=True)
-        grid = GridLayout(cols=2, spacing=dp(6), size_hint_y=None)
+        c = self.game.career
+        card = self.card('Your first contract · ' + c.current_league.country)
+        card.label('Suggested from phone: ' + c.suggested_country + '. Choose a starting division.', muted=True)
+        choices = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        choices.add_widget(self._button(c.suggested_country.upper(), 'start_country', c.suggested_country))
+        choices.add_widget(self._button('ENGLAND DIVISION 4', 'start_country', 'England'))
+        card.add_widget(choices)
+        grid = GridLayout(cols=3 if self.width >= dp(540) else 2, spacing=dp(6), size_hint_y=None)
         grid.bind(minimum_height=grid.setter('height'))
         card.add_widget(grid)
         for club in self.game.career.offers:
-            grid.add_widget(self._button(club, 'accept_offer', club, accent=True))
+            grid.add_widget(self._button(c.display_text(club), 'accept_offer', club, accent=True))
 
     def _training(self):
         g, c = self.game, self.game.career
@@ -242,6 +280,8 @@ class CareerMenu(BoxLayout):
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         actions.add_widget(button)
         card.add_widget(actions)
+        if c.world_unlocked:
+            return
         boost = self._button('WATCH AD: +1 MORALE', 'morale_ad')
         boost.disabled = not c.morale_ad_available
         actions.add_widget(boost)
@@ -259,24 +299,27 @@ class CareerMenu(BoxLayout):
     def _compact_list(self):
         c = self.game.career
         if self.game.view == 'standings':
-            rows = [(i + 1, club.name, club.played, club.won, club.drawn, club.lost,
+            rows = [(i + 1, c.display_club(club), club.played, club.won, club.drawn, club.lost,
                      club.goals_for, club.goals_against, club.goal_difference, club.points)
                     for i, club in enumerate(c.current_league.table())]
-            return CompactTable('STANDINGS · ' + c.current_league.name,
+            return CompactTable('STANDINGS · ' + c.display_league(c.current_league),
                                 ('POS', 'CLUB', 'P', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'PTS'),
-                                rows, focus=c.club_name, summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7))
+                                rows, focus=c.display_text(c.club_name), summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7))
         if self.game.view == 'scorers':
             ranking = dict(c.current_league.scorer_goals)
             ranking.setdefault(c.player_name, 0)
-            rows = [(i + 1, name, goals) for i, (name, goals) in enumerate(sorted(ranking.items(), key=lambda x: (-x[1], x[0])))]
+            rows = [(i + 1, c.display_scorer(name), goals) for i, (name, goals) in enumerate(sorted(ranking.items(), key=lambda x: (-x[1], x[0])))]
             return CompactTable('TOP SCORERS', ('POS', 'PLAYER', 'GOALS'), rows, focus=c.player_name)
-        rows = [(str(e.get('date', ''))[8:10] + '/' + str(e.get('date', ''))[5:7], f"{e.get('home', '')} vs {e.get('away', '')}",
-                 e.get('competition', ''), e.get('status', '')) for e in c.calendar_entries()]
+        rows = [(str(e.get('date', ''))[8:10] + '/' + str(e.get('date', ''))[5:7], c.display_text(f"{e.get('home', '')} vs {e.get('away', '')}", e.get("country")),
+                 c.display_text(e.get('competition', ''), e.get('country')), e.get('status', '')) for e in c.calendar_entries()]
         return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
                             summary=(0, 1, 2, 3))
 
     def _privacy(self):
         card = self.card('Privacy & advertising')
+        if self.game.career.world_unlocked:
+            card.label('World preview is ad-free and works offline. Careers and imported names stay on this device. No payments are enabled in this preview.')
+            return
         card.label('This beta uses Google TEST ads only. They do not generate revenue.')
         card.label('A banner may appear on the opening menu after the splash. Full-screen ads may appear '
                    'between matches, never during a shot. Training offers an optional ad for +1 morale. '
@@ -293,13 +336,53 @@ class CareerMenu(BoxLayout):
         if self.game.ads.privacy_required:
             card.add_widget(MenuTile('AD PRIVACY OPTIONS', lambda: self.game.ads.privacy_options()))
 
+    def _help(self):
+        from world_ui import HELP_PAGES
+        title, text = HELP_PAGES[self.game.help_page]
+        card = self.card(title)
+        card.label(text)
+        controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        controls.add_widget(self._button('PREVIOUS', 'help_page', -1))
+        controls.add_widget(BoundedLabel(text=f'{self.game.help_page+1}/{len(HELP_PAGES)}', halign='center', size_hint_x=.3))
+        controls.add_widget(self._button('NEXT', 'help_page', 1))
+        card.add_widget(controls)
+
+    def _upgrade(self):
+        card = self.card('SCORER WORLD — upgrade information')
+        card.label('World is a separate ad-free application. Opening this page does not charge you or unlock paid content.')
+        card.label('World preview: worldwide fictional domestic leagues, promotions and transfers, local country starting contracts, plus England Division 4.')
+        card.label('The editor changes display names and can import your own club, league and squad names from local JSON. Existing stats and career identities stay intact.')
+        card.label('Your Free career remains here. World preview starts a separate career; automatic migration and store purchases are not enabled.')
+        card.add_widget(self._button('OPEN INSTALLED WORLD PREVIEW', 'open_world_preview', accent=True))
+        card.label('No price or checkout is active. Commercial release needs testing and approval.', muted=True)
+        if self.game.career.message.startswith('Install the separate'):
+            card.label(self.game.career.message)
+
+    def _world_country(self):
+        c = self.game.career
+        card = self.card(self.game.world_country)
+        grid = GridLayout(cols=2, size_hint_y=None, spacing=dp(6))
+        grid.bind(minimum_height=grid.setter('height'))
+        for key, league in c.leagues.items():
+            if league.country == self.game.world_country:
+                grid.add_widget(self._button(c.display_league(league), 'world_league', key))
+        card.add_widget(grid)
+        card.label('Fictional domestic pyramids; regional/amateur competitions are not modelled.', muted=True)
+
+    def _editor(self):
+        if not self.game.career.world_unlocked:
+            self.card('World required').label('The local names editor belongs to World.')
+            return
+        from world_ui import NamesEditor
+        self.body.add_widget(NamesEditor(self))
+
     def _agent(self):
         c = self.game.career
         card = self.card('Your agent')
         card.label(c.message)
         card.label('Transfer window open' if c.transfer_window_open else 'Window closed · Jul/Aug and Jan/Feb', muted=True)
         for club, key in c.agent_offers:
-            card.add_widget(self._button(f'{club}\n{c.leagues[key].name}', 'transfer', (club, key)))
+            card.add_widget(self._button(c.display_text(f'{club}\n{c.leagues[key].name}', c.leagues[key].country), 'transfer', (club, key)))
         card.add_widget(self._button('FIND OFFERS', 'agent_refresh'))
 
     def _world(self):
@@ -448,7 +531,7 @@ class EntryScreen(FloatLayout):
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
         self.brand = Image(source='assets/menu_logo.png', size_hint_y=None, height=dp(52))
         self.panel.add_widget(self.brand)
-        self.info = BoundedLabel(text='One division. Google test ads. See Privacy.',
+        self.info = BoundedLabel(text='World preview. Ad-free. No payments.' if menu.game.career.world_unlocked else 'One division. Google test ads. See Privacy.',
                                  color=MUTED, font_size=sp(12), halign='center')
         if menu.game.career.message.startswith('Unable to continue'):
             self.info.text = menu.game.career.message
@@ -458,6 +541,7 @@ class EntryScreen(FloatLayout):
         load.disabled = not menu.game.career.save_path.is_file()
         self.panel.add_widget(load)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        actions.add_widget(MenuTile('HELP', lambda: menu.action('help')))
         actions.add_widget(MenuTile('PRIVACY', lambda: menu.action('privacy')))
         actions.add_widget(MenuTile('EXIT', menu.game._request_exit))
         self.panel.add_widget(actions)
@@ -467,7 +551,7 @@ class EntryScreen(FloatLayout):
         self._fit()
 
     def _fit(self, *_):
-        banner_fits = self.height >= dp(340) and self.width >= dp(340)
+        banner_fits = not self.menu.game.career.world_unlocked and self.height >= dp(340) and self.width >= dp(340)
         self.menu.game.ads.entry_visible(banner_fits)
         self.banner_space = dp(64) if banner_fits else 0
         available = self.height - self.banner_space
@@ -488,7 +572,7 @@ class MainDashboard(BoxLayout):
         c = menu.game.career
         self.identity = BoxLayout(size_hint_y=None, height=dp(36), spacing=dp(12), padding=[dp(10), 0])
         self.identity.add_widget(BoundedLabel(text=c.player_name, font_size=sp(18), bold=True, color=GREEN))
-        self.identity.add_widget(BoundedLabel(text=c.club_name, font_size=sp(14), halign='center'))
+        self.identity.add_widget(BoundedLabel(text=c.display_text(c.club_name), font_size=sp(14), halign='center'))
         self.identity.add_widget(BoundedLabel(text=f'Energy {c.stamina:.1f}/20 · Morale {c.morale:.1f}/20',
                                              color=MUTED, font_size=sp(11), halign='right'))
         self.add_widget(self.identity)
@@ -498,8 +582,8 @@ class MainDashboard(BoxLayout):
                                           bold=True, size_hint_y=None, height=dp(16)))
         fixture = c.next_match()
         teams = BoxLayout(spacing=dp(8))
-        home = fixture[1].name if fixture else 'Season complete'
-        away = fixture[2].name if fixture else ''
+        home = c.display_club(fixture[1]) if fixture else 'Season complete'
+        away = c.display_club(fixture[2]) if fixture else ''
         teams.add_widget(BoundedLabel(text=home, font_size=sp(18), bold=True, halign='center'))
         teams.add_widget(BoundedLabel(text='VS' if fixture else '', font_size=sp(11), color=MUTED,
                                      halign='center', size_hint_x=0.18))
@@ -527,7 +611,7 @@ class MainDashboard(BoxLayout):
             anchor.add_widget(column)
             numbers.add_widget(anchor)
         self.season.add_widget(numbers)
-        self.season.add_widget(BoundedLabel(text=c.current_league.name + (' · 1 DIVISION' if not c.world_unlocked else ''),
+        self.season.add_widget(BoundedLabel(text=c.display_league(c.current_league) + (' · 1 DIVISION' if not c.world_unlocked else ''),
                                            color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
         self.hero.add_widget(self.season)
         self.add_widget(self.hero)

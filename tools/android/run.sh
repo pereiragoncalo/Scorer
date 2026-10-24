@@ -1,7 +1,9 @@
 #!/bin/bash
 set -euo pipefail
+scorer_source_root="${SCORER_SOURCE_ROOT:-/workspace/Scorer}"
 exec env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock run --rm --user 1000:1000 \
- --mount type=bind,src=/workspace/Scorer,dst=/work/source \
+ --mount "type=bind,src=$scorer_source_root,dst=/work/source" \
+ --mount type=bind,src=/workspace/Scorer/.buildozer/android/platform,dst=/work/shared-platform \
  --mount type=bind,src=/workspace/striker-android-build/cache,dst=/work/cache \
  --mount type=bind,src=/workspace/striker-android-build,dst=/work/toolchain \
  --mount type=bind,src=/etc/ssl/certs/ca-certificates.crt,dst=/run/ca-bundle.crt,readonly \

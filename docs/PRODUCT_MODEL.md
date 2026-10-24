@@ -1,3 +1,18 @@
+# Atualização 0.6.24 — World e Upgrade em teste
+
+A pedido do proprietário, Free ganha HELP e UPGRADE informativo. Novas carreiras
+sugerem contratos pelo locale do telefone, ou England Division4; Free mantém uma
+única divisão por carreira. World é uma aplicação separada/ad-free, com editor
+local de clubes/ligas/jogadores e importação JSON passiva com pré-visualização.
+A prévia TESTE World tem 212 regiões, 758 divisões ficcionais, sem compras. Não
+é uma reprodução de todas as divisões regionais reais. A carreira Free fica
+preservada na sua aplicação; não há migração automática nem cobrança nesta fase.
+UPGRADE explica e pode abrir a prévia instalada com assinatura correspondente.
+Preço, licença/distribuição de produção e publicação paga exigem validação e
+aprovação; a versão World Preview está deliberadamente aberta para testes.
+Ver docs/WORLD_0.6.24.md. As proibições históricas de botão World/Upgrade abaixo
+ficam substituídas por esta decisão; não existe desbloqueio de pagamento em Free.
+
 # Atualização 0.6.22 — publicidade de rede
 
 O proprietário pediu integração para receita sem contratos diretos e confirmou

@@ -939,3 +939,32 @@ ZIP16KB +118 AArch64 ELF alignments pass, AD_ID/AdServices permissions still abs
 APK37,181,442 bytes, SHA256
 5477d0272298ae493294f22cf40bf83c64eaffc338e9618043840b5715754dcd.
 Static log verify-0.6.23.log; no production revenue or paid IDs activated.
+
+## 0.6.24 — Help, locale starts, World test edition and names editor
+
+Full change/test/build/limitation report and hashes: docs/WORLD_0.6.24.md.
+67 core/build/security +44 actual Kivy tests pass (111), syntax/whitespace and
+baseline hash pass. New coverage: locale/one Free division, World table reload,
+World access not save-unlockable, alias import/rollback/UID/scorer preservation,
+same-name cross-country isolation, promotion swap and all cup rounds before
+short-league season end; Help/Upgrade/navigation/editor and prior layout suite.
+
+Initial UI action-count expectations updated from9 to11, preserving geometry/
+48dp targets. Audited/fixed original promotion duplication and local Free season
+switch-to-England hazard. Aliases originally used ambiguous global name matching;
+now direct UID/country context with regression. Compacted initial contracts/editor
+after real desktop screenshots showed avoidable scrolling. No physical phone test
+of the new edition/SAF/companion launch yet. World simplified international model
+and fictional pyramids explicitly documented; no paid release claimed.
+
+Two actual final builds successful, Free com.clemir.striker and World test
+com.clemir.strikerworld.preview. World distribution first failed due to mixed
+packaging pip files; preserved/recreated disposable venv, native caches retained.
+Both signaturesv2 (same prior certificate), ZIP16KB and 118 ELF alignment checks
+pass, target36/min26/version1026624. Compiled edition.pyc flags checked using
+built hostPython3.14: Free false, World true. World DEX LocalNameFiles present,
+Google Ads absent, no Internet/Billing permission. Free AdMob TEST remains, no
+Billing/AD_ID/AdServices. No private saves/keys in either private archive.
+Logs: build-0.6.24-{free,world}-final.log / verify-0.6.24-{free,world}.log.
+Next: install alongside Free, test locale/English contracts, Help/Upgrade, World
+season/transfer, document export/import and alias persistence on Android.

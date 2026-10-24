@@ -437,6 +437,43 @@ class MenuTests(unittest.TestCase):
             self.assertEqual(restored.morale, before + 1)
             self.assertFalse(restored.morale_ad_available)
 
+    def test_help_returns_to_entry_or_hub_and_upgrade_never_charges_or_unlocks(self):
+        with isolated_game(saved=True) as game:
+            before=game.career.save_path.read_bytes()
+            for origin in ('start','hub'):
+                game.view=origin;game.draw();settle()
+                self.assertIn('HELP',{w.text for w in game.walk() if isinstance(w,Label)})
+                game._activate_ui('help');game.draw();settle()
+                for _ in range(3):game._activate_ui('help_page',1)
+                self.assertEqual(game.help_page,3)
+                game._activate_ui('help_back');self.assertEqual(game.view,origin)
+            game._activate_ui('upgrade');game.draw();settle()
+            self.assertFalse(game.career.world_unlocked)
+            self.assertTrue(any('does not charge' in w.text for w in game.walk() if isinstance(w,Label)))
+            self.assertEqual(game.career.save_path.read_bytes(),before)
+
+    def test_world_browser_editor_uses_aliases_without_switching_career(self):
+        from world_ui import NamesEditor
+        with patch('edition.WORLD_PREVIEW',True), patch('main.phone_country',return_value='Portugal'):
+            with isolated_game() as game:
+                game.career.accept_starting_offer(game.career.offers[0])
+                original_key=game.career.league_key
+                game._activate_ui('world');game.draw();settle()
+                browser=game._menu.body
+                browser.search.text='Brazil';settle()
+                self.assertEqual(len(browser.grid.children),1)
+                game._activate_ui('world_country','Brazil')
+                game._activate_ui('world_league','Brazil|4')
+                game._activate_ui('edit_browsed');game.draw();settle()
+                editor=next(w for w in game.walk() if isinstance(w,NamesEditor))
+                original=editor.club.name
+                editor.club_name.text='Local Club Alias';editor.league_name.text='Local League Alias'
+                editor.save_names();settle()
+                self.assertEqual(game.career.league_key,original_key)
+                self.assertEqual(game.career.display_club(editor.club),'Local Club Alias')
+                self.assertEqual(editor.club.name,original)
+                self.assertFalse(game.ads.backend)
+
     def test_opponent_controls_chance_plan_for_home_and_away_matches(self):
         with isolated_game(saved=True) as game:
             game.career.load()
@@ -621,7 +658,7 @@ class MenuTests(unittest.TestCase):
             settle()
             self.assertEqual(game.view, 'start')
             labels = [w.text for w in game.walk() if isinstance(w, TouchButton)]
-            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'PRIVACY', 'EXIT'})
+            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'HELP', 'PRIVACY', 'EXIT'})
             self.assertEqual(game.career.save_path.read_bytes(), before)
             game._activate_ui('load_game')
             settle()
@@ -879,7 +916,7 @@ class MenuTests(unittest.TestCase):
                     menu = self.game._menu
                     self.assertFalse(any(isinstance(w, ScrollView) for w in menu.walk()))
                     buttons = [w for w in menu.walk() if isinstance(w, TouchButton)]
-                    self.assertEqual(len(buttons), 9)
+                    self.assertEqual(len(buttons), 11)
                     for button in buttons:
                         self.assertGreaterEqual(button.width, dp(48) - 1)
                         self.assertGreaterEqual(button.height, dp(48) - 1)

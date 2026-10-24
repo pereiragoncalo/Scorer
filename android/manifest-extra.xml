@@ -3,3 +3,5 @@
 <uses-permission xmlns:tools="http://schemas.android.com/tools" android:name="android.permission.ACCESS_ADSERVICES_AD_ID" tools:node="remove" />
 <uses-permission xmlns:tools="http://schemas.android.com/tools" android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" tools:node="remove" />
 <uses-permission xmlns:tools="http://schemas.android.com/tools" android:name="android.permission.ACCESS_ADSERVICES_TOPICS" tools:node="remove" />
+
+<queries><package android:name="com.clemir.strikerworld.preview" /></queries>
