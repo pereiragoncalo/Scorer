@@ -295,10 +295,10 @@ class MatchNotice(BoxLayout):
         self.button.bind(height=self._fit_panel)
 
     def _fit_panel(self, *_):
-        available = max(dp(96), self.game.height - dp(128))
+        available = max(dp(96), self.game.height - dp(112))
         natural = self.body.minimum_height + self.button.height + dp(38)
         self.height = min(natural, available)
-        self.center = self.game.center
+        self.center = (self.game.center_x, self.game.center_y - dp(44))
 
     def _rect(self, *_):
         self.background.pos, self.background.size = self.pos, self.size
@@ -307,21 +307,23 @@ class MatchNotice(BoxLayout):
         game = self.game
         self.width = min(game.width * 0.76, dp(460))
         self._fit_panel()
-        signature = (game.match_finished, game.match_summary, game.career.morale, game.career.stamina)
+        signature = (game.match_finished, game.match_halftime, game.match_summary, game.career.morale, game.career.stamina)
         if signature == self.signature:
             return
         self.signature = signature
         self.body.clear_widgets()
-        title = game.match_summary if game.match_finished else 'CHANCE'
+        title = game.match_summary if game.match_finished else 'HALF-TIME' if game.match_halftime else 'CHANCE'
         self.body.add_widget(FlowLabel(text=title, font_size=sp(17), bold=True, color=GREEN, halign='center'))
         detail = (f'Morale {game.career.morale:.1f}/20  ·  Energy {game.career.stamina:.1f}/20'
-                  if game.match_finished else 'Line up your shot and make the difference.')
+                  if game.match_finished else 'Ready for the second half?' if game.match_halftime else 'Line up your shot and make the difference.')
         self.body.add_widget(FlowLabel(text=detail, font_size=sp(13), halign='center'))
-        self.button.text = 'CONTINUE' if game.match_finished else 'PLAY CHANCE'
+        self.button.text = 'CONTINUE' if game.match_finished else 'SECOND HALF' if game.match_halftime else 'PLAY CHANCE'
 
     def proceed(self):
         if self.game.match_finished:
             self.game._activate_ui('match_continue')
+        elif self.game.match_halftime:
+            self.game._resume_second_half()
         else:
             self.game._begin_pending_chance()
         self.game.draw()

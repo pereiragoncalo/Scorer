@@ -483,3 +483,43 @@ Tamanho: 29434161 bytes. SHA-256: d1fd7b3614e2e26793bef67da4aa0d47b09ba8d5f7e248
 
 Próximo: validar a versão inglesa no telemóvel, incluindo partida e diálogos.
 Validação física desta versão pendente. Sem AAB/assinatura release nesta etapa.
+
+## 0.6.11 — marcador fixo, flash de golo e intervalo
+
+Marcador único no canto superior esquerdo, equipas em duas linhas, resultado
+por linha e relógio à direita. Mesma geometria na simulação, aviso de oportunidade
+e remate; barra inferior de tempo/data/competição removida. Avisos e contador
+de remate posicionados abaixo do marcador. Flash verde local de um segundo
+a cada golo simulado ou do jogador. Resultado do jogador atualiza no instante
+do golo, com guarda por remate para não duplicar ao continuar.
+
+Primeira parte termina aos 45 + descontos (1–4), com HALF-TIME e SECOND HALF.
+Pausa mantém relógio parado; retoma aos 45:00. Mantidos descontos finais (1–8).
+Timeline inclui ambos os descontos; apresentação desconta os da primeira parte
+na segunda. Corrigido processamento de golos futuros antes de uma oportunidade
+anterior: limitar avanço à oportunidade/limite da parte antes de processar eventos.
+
+Ficheiros: main.py, menu_ui.py, buildozer.spec, ui_tests/test_menus.py, AGENTS,
+README e docs/UI_0.6.11.md. career.py, saves e baseline preservados.
+
+32 testes core/build/segurança + 27 Kivy passaram (59); py_compile e
+git diff --check. Novos testes: pausa/retoma/descontos, oportunidade no limite
+do intervalo, ordem de eventos, flash e contagem única do golo, desenho idêntico
+em três resoluções/densidades e separação do contador de remate.
+Uma execução expôs uma diferença de arredondamento de 0,000008 píxel na
+asserção do contador, deixando densidade alterada para testes seguintes.
+Aplicada tolerância de 0,0001 píxel e cleanup de densidade/janela no teste.
+Suite final /tmp/scorer-0611-ui-final.log; core /tmp/scorer-0611-core.log.
+Capturas Kivy reais de oportunidade, remate e intervalo inspecionadas em
+1280×589/densidade 1,64, scorer-0611-*.png. Não são capturas Android.
+
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+APK beta debug arm64 0.6.11, versionCode 1026611, API 36/mínimo 26.
+Assinatura v2 válida com certificado anterior, ZIP e 118 ELF alinhados a 16 KB.
+Código do marcador/intervalo confirmado no APK; sem saves ou chaves privadas
+incluídos, sem permissões declaradas. Logs build-0.6.11.log/verify-0.6.11.log
+em /workspace/striker-runtime. Tamanho 29434861 bytes.
+SHA-256: d80a2eed88c29460672f35671f054ac9365236611e71aef4176c06ea5392c64b.
+
+Próximo: testar no telefone golo a favor/contra, oportunidade e retoma após
+intervalo. Validação física desta versão pendente; sem AAB/assinatura release.

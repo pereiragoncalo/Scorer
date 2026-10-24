@@ -113,3 +113,10 @@ All generated game text is in English, including menus, feedback, dates and
 confirmations. Existing careers retain progress and custom names. This edition
 stays in English on every phone; automatic language selection requires future
 translations. [Changes and localisation approach](docs/UI_0.6.10.md).
+
+## SCORER 0.6.11 — scoreboard and half-time
+
+Fixed top-left scoreboard with stacked teams, clock on the right and a local
+goal highlight. Shared position during chances; bottom time bar removed.
+Half-time pauses after 45 plus added time; SECOND HALF resumes at 45:00.
+[Changes and validation](docs/UI_0.6.11.md).

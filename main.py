@@ -244,6 +244,11 @@ class StrikerGame(Widget):
         self.training_summary = ""
         self.match_minute = 0.0
         self.match_stoppage = 1
+        self.match_first_stoppage = 1
+        self.match_half = 1
+        self.match_halftime = False
+        self.scoreboard_flash_until = 0.0
+        self._match_shot_goal_counted = False
         self.match_chance_minutes: list[int] = []
         self.match_chance_index = 0
         self.match_player_goals = 0
@@ -744,8 +749,12 @@ class StrikerGame(Widget):
         self._request_club_badge(self.match_away.name)
         self.match_minute = 0.0
         self.match_stoppage = self.career.rng.randint(1, 8)
+        self.match_first_stoppage = self.career.rng.randint(1, 4)
+        self.match_half = 1
+        self.match_halftime = False
+        self.scoreboard_flash_until = 0.0
         chance_total = self.career.chance_count()
-        final_minute = 90 + self.match_stoppage
+        final_minute = 90 + self.match_first_stoppage + self.match_stoppage
         self.match_chance_minutes = sorted(
             self.career.rng.sample(range(3, final_minute), min(chance_total, final_minute - 3))
         )
@@ -803,11 +812,47 @@ class StrikerGame(Widget):
         self.state = self.STATE_AIMING
 
 
-    def _update_career_match(self, dt: float) -> None:
-        if self.match_finished or self.awaiting_chance:
+    @property
+    def match_clock_text(self) -> str:
+        # Timeline includes both periods of added time; the second-half clock
+        # resumes at 45:00 without counting first-half added time twice.
+        minute = self.match_minute - (self.match_first_stoppage if self.match_half == 2 else 0)
+        seconds = max(0, int(minute * 60 + 1e-6))
+        whole, second = divmod(seconds, 60)
+        boundary = 45 if self.match_half == 1 else 90
+        return (f"{boundary}+{whole - boundary:02d}:{second:02d}"
+                if whole >= boundary else f"{whole:02d}:{second:02d}")
+
+    def _flash_scoreboard(self) -> None:
+        self.scoreboard_flash_until = self.elapsed + 1.0
+
+    def _record_player_match_goal(self) -> None:
+        if self._match_shot_goal_counted:
             return
-        final_minute = 90 + self.match_stoppage
-        self.match_minute = min(final_minute, self.match_minute + dt * 3.0)
+        self._match_shot_goal_counted = True
+        self.match_player_goals += 1
+        if self.match_home and self.match_home.name in (self.career.club_name, "Portugal"):
+            self.match_home_score += 1
+        else:
+            self.match_away_score += 1
+        self._flash_scoreboard()
+
+    def _resume_second_half(self) -> None:
+        if not self.match_halftime or self.match_finished:
+            return
+        self.match_halftime = False
+        self.match_half = 2
+        self.draw()
+
+    def _update_career_match(self, dt: float) -> None:
+        if self.match_finished or self.awaiting_chance or self.match_halftime:
+            return
+        final_minute = 90 + self.match_first_stoppage + self.match_stoppage
+        boundary = 45 + self.match_first_stoppage if self.match_half == 1 else final_minute
+        target = min(boundary, self.match_minute + max(0.0, dt) * 3.0)
+        if self.match_chance_index < len(self.match_chance_minutes):
+            target = min(target, float(self.match_chance_minutes[self.match_chance_index]))
+        self.match_minute = target
         while self.match_goal_event_index < len(self.match_goal_events):
             event_minute, side = self.match_goal_events[self.match_goal_event_index]
             if event_minute > self.match_minute:
@@ -816,17 +861,19 @@ class StrikerGame(Widget):
                 self.match_home_score += 1
             else:
                 self.match_away_score += 1
+            self._flash_scoreboard()
             self._play_ai_goal_sound()
             self.match_goal_event_index += 1
         if self.match_chance_index < len(self.match_chance_minutes):
-            chance_minute = self.match_chance_minutes[self.match_chance_index]
-            if self.match_minute >= chance_minute:
-                self.match_minute = float(chance_minute)
+            if self.match_minute >= self.match_chance_minutes[self.match_chance_index]:
                 self.awaiting_chance = True
                 self._play_chance_sound()
                 return
-        if self.match_minute >= final_minute:
-            self._finish_career_match()
+        if self.match_minute >= boundary:
+            if self.match_half == 1:
+                self.match_halftime = True
+            else:
+                self._finish_career_match()
 
 
     def _finish_career_match(self) -> None:
@@ -847,7 +894,7 @@ class StrikerGame(Widget):
 
 
     def _begin_pending_chance(self) -> None:
-        if not self.awaiting_chance or self.match_finished:
+        if not self.awaiting_chance or self.match_finished or self.match_halftime:
             return
         self.awaiting_chance = False
         self.match_chance_index += 1
@@ -1013,13 +1060,7 @@ class StrikerGame(Widget):
 
         if self.shot_context == "match":
             if scored:
-                self.match_player_goals += 1
-                if self.match_home and self.match_home.name in (
-                    self.career.club_name, "Portugal"
-                ):
-                    self.match_home_score += 1
-                else:
-                    self.match_away_score += 1
+                self._record_player_match_goal()
             else:
                 self.match_player_misses += 1
             self.view = "match"
@@ -2286,6 +2327,7 @@ class StrikerGame(Widget):
         self.result_text = "GOAL!"
         self.result_color = (0.25, 1.0, 0.50, 1.0)
         if self.shot_context == "match":
+            self._record_player_match_goal()
             self._play_goal_crowd_sound()
 
 
@@ -2333,6 +2375,7 @@ class StrikerGame(Widget):
         self.state_age = 0.0
         self.result_text = ""
         self.outcome_registered = False
+        self._match_shot_goal_counted = False
         self.auto_aim = True
         self.goalkeeper_dive_progress = 0.0
         self.goalkeeper_dive_amount = 0.0
@@ -2694,7 +2737,7 @@ class StrikerGame(Widget):
 
             if self.view == "match":
                 self._draw_match_overlay()
-        if self.view == "match" and (self.match_finished or self.awaiting_chance):
+        if self.view == "match" and (self.match_finished or self.awaiting_chance or self.match_halftime):
             if self._match_notice is None:
                 self._match_notice = MatchNotice(self)
             self._match_notice.sync()
@@ -3307,39 +3350,36 @@ class StrikerGame(Widget):
         self._ui_button(">", self.right - margin - 80, self.y + 24, 80, 48, "world_next")
 
 
+    def _scoreboard_bounds(self):
+        return (self.x + dp(12), self.top - dp(76),
+                min(dp(360), self.width - dp(24)), dp(64))
+
     def _draw_match_overlay(self) -> None:
         if self.match_home is None or self.match_away is None:
             return
-        final_minute = 90 + self.match_stoppage
-        minute = min(int(self.match_minute), final_minute)
-        shown = f"90+{minute - 90}" if minute > 90 else f"{minute:02d}"
-        bar_width = min(self.width * 0.94, dp(920))
-        bar_x = self.center_x - bar_width / 2
-        Color(0.01, 0.03, 0.04, 0.91)
-        Rectangle(pos=(bar_x, self.top - dp(64)), size=(bar_width, dp(52)))
-        Color(0.30, 0.90, 0.58, 0.75)
-        Line(rectangle=(bar_x, self.top - dp(64), bar_width, dp(52)), width=1.0)
-        team_font = dp(14)
-        badge_size = dp(26)
-        self._draw_club_badge(self.match_home.name, bar_x + bar_width * 0.075, self.top - dp(38), badge_size)
-        self._draw_club_badge(self.match_away.name, bar_x + bar_width * 0.925, self.top - dp(38), badge_size)
-        self._draw_text(self.match_home.name, bar_x + bar_width * 0.28, self.top - dp(38), team_font, (0.94, 0.98, 0.97, 1.0), "center", max_width=bar_width * 0.30)
-        self._draw_text(f"{self.match_home_score}  -  {self.match_away_score}", self.center_x, self.top - dp(38), dp(20), (0.36, 1.0, 0.66, 1.0), "center", max_width=bar_width * 0.16)
-        self._draw_text(self.match_away.name, bar_x + bar_width * 0.72, self.top - dp(38), team_font, (0.94, 0.98, 0.97, 1.0), "center", max_width=bar_width * 0.30)
-        info_width = min(self.width * 0.94, dp(720))
-        info_x = self.center_x - info_width / 2
-        Color(0.01, 0.03, 0.04, 0.86)
-        Rectangle(pos=(info_x, self.y + dp(8)), size=(info_width, dp(28)))
-        self._draw_text(
-            f"{shown}'  |  {self.career.format_date(self.career.current_date)}  |  "
-            f"{self.career.cup_name if self.match_is_cup else ('PORTUGAL' if self.match_is_international else self.career.current_league.name)}",
-            self.center_x,
-            self.y + dp(22),
-            dp(12),
-            (0.90, 0.95, 0.92, 1.0),
-            "center",
-            max_width=info_width - 20,
-        )
+        x, y, width, height = self._scoreboard_bounds()
+        teams_width = width * 0.75
+        remaining = max(0.0, self.scoreboard_flash_until - self.elapsed)
+        pulse = math.sin(math.pi * min(1.0, remaining))
+        Color(0.015 + pulse * 0.08, 0.04 + pulse * 0.32, 0.05 + pulse * 0.16, 0.96)
+        Rectangle(pos=(x, y), size=(width, height))
+        Color(0.30, 0.90, 0.65, 0.65 + pulse * 0.35)
+        Line(rectangle=(x, y, width, height), width=1.0)
+        Line(points=[x + teams_width, y, x + teams_width, y + height], width=1)
+        for club, score, row in ((self.match_home, self.match_home_score, 0.73),
+                                 (self.match_away, self.match_away_score, 0.27)):
+            cy = y + height * row
+            self._draw_club_badge(club.name, x + dp(17), cy, dp(20))
+            self._draw_text(club.name, x + dp(34), cy, dp(13),
+                            (0.94, 0.98, 0.97, 1), max_width=teams_width - dp(67))
+            self._draw_text(str(score), x + teams_width - dp(14), cy, dp(18),
+                            (0.36, 1.0, 0.66, 1), "center", max_width=dp(24))
+        clock_x = x + teams_width + (width - teams_width) / 2
+        self._draw_text(self.match_clock_text, clock_x, y + height * 0.61, dp(15),
+                        (1.0, 0.91, 0.65, 1), "center", max_width=width - teams_width - dp(8))
+        status = "FT" if self.match_finished else "HT" if self.match_halftime else f"{self.match_half}H"
+        self._draw_text(status, clock_x, y + height * 0.27, dp(11),
+                        (0.65, 0.81, 0.80, 1), "center")
 
 
     def _ensure_static_layers(self) -> None:
@@ -4699,23 +4739,8 @@ class StrikerGame(Widget):
     def _draw_hud(self) -> None:
         if self.view != "shot":
             return
-        Color(0.015, 0.035, 0.05, 0.82)
-        Rectangle(pos=(self.x + 18, self.top - 74), size=(self.width - 36, 55))
-
-
         if self.shot_context == "match" and self.match_home and self.match_away:
-            minute = int(self.match_minute)
-            shown = f"90+{minute - 90}" if minute > 90 else f"{minute:02d}"
-            hud_x = self.x + 36
-            hud_width = self.width - 72
-            font = max(12, int(self.height * 0.022))
-            badge_size = min(40.0, self.height * 0.054)
-            self._draw_club_badge(self.match_home.name, hud_x + hud_width * 0.045, self.top - 47, badge_size)
-            self._draw_club_badge(self.match_away.name, hud_x + hud_width * 0.915, self.top - 47, badge_size)
-            self._draw_text(self.match_home.name, hud_x + hud_width * 0.24, self.top - 47, font, (0.91, 0.96, 0.98, 1.0), "center", max_width=hud_width * 0.28)
-            self._draw_text(f"{self.match_home_score} - {self.match_away_score}", hud_x + hud_width * 0.50, self.top - 47, max(18, int(self.height * 0.031)), (0.35, 1.0, 0.66, 1.0), "center", max_width=hud_width * 0.12)
-            self._draw_text(self.match_away.name, hud_x + hud_width * 0.74, self.top - 47, font, (0.91, 0.96, 0.98, 1.0), "center", max_width=hud_width * 0.27)
-            self._draw_text(f"{shown}'", self.right - 40, self.top - 47, font, (1.0, 0.86, 0.38, 1.0), "right", max_width=hud_width * 0.08)
+            self._draw_match_overlay()
             stats = ""
         elif self.shot_context == "training":
             stats = (
@@ -4729,6 +4754,8 @@ class StrikerGame(Widget):
                 f"SAVES  {self.saves:02d}     ACCURACY  {accuracy:4.1f}%"
             )
         if stats:
+            Color(0.015, 0.035, 0.05, 0.82)
+            Rectangle(pos=(self.x + 18, self.top - 74), size=(self.width - 36, 55))
             self._draw_text(
                 stats,
                 self.x + 36,
@@ -4742,8 +4769,8 @@ class StrikerGame(Widget):
         if self.shot_context == "match" and self.state == self.STATE_AIMING:
             timer_width = min(340.0, self.width * 0.28)
             timer_x = self.center_x - timer_width / 2
-            timer_y = self.top - 132
-            timer_height = 42
+            timer_height = dp(30)
+            timer_y = self.top - dp(88) - timer_height
             ratio = clamp(
                 self.shot_time_left / max(0.01, self.shot_time_limit), 0.0, 1.0
             )

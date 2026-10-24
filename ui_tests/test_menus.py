@@ -66,6 +66,121 @@ class MenuTests(unittest.TestCase):
         cls.env.stop()
         cls.temp.cleanup()
 
+    def test_halftime_stops_after_added_time_and_resumes_at_45(self):
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            game.start_career_match()
+            game.match_first_stoppage, game.match_stoppage = 2, 3
+            game.match_chance_minutes, game.match_goal_events = [], []
+            game.match_minute = 44.5
+            game._update_career_match(0.5)
+            self.assertEqual(game.match_clock_text, '45+01:00')
+            game._update_career_match(5)
+            self.assertEqual(game.match_minute, 47)
+            self.assertTrue(game.match_halftime)
+            self.assertEqual(game.match_clock_text, '45+02:00')
+            game._update_career_match(100)
+            self.assertEqual(game.match_minute, 47)
+            game.draw()
+            settle()
+            self.assertEqual(game._match_notice.button.text, 'SECOND HALF')
+            self.assertLessEqual(game._match_notice.top, game._scoreboard_bounds()[1])
+            game._match_notice.proceed()
+            self.assertEqual(game.match_half, 2)
+            self.assertFalse(game.match_halftime)
+            self.assertEqual(game.match_clock_text, '45:00')
+            game._update_career_match(15)
+            self.assertEqual(game.match_clock_text, '90+00:00')
+            with patch.object(game, '_finish_career_match') as finish:
+                game._update_career_match(1)
+                self.assertEqual(game.match_clock_text, '90+03:00')
+                finish.assert_called_once()
+
+    def test_events_cannot_skip_a_chance_or_halftime(self):
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            game.start_career_match()
+            game.match_first_stoppage = 2
+            game.match_chance_minutes = [47, 50]
+            game.match_goal_events = [(46, 'home'), (48, 'away')]
+            game.match_minute = 44
+            with patch.object(game, '_play_ai_goal_sound'), patch.object(game, '_play_chance_sound'):
+                game._update_career_match(100)
+                self.assertEqual(game.match_minute, 47)
+                self.assertTrue(game.awaiting_chance)
+                self.assertEqual((game.match_home_score, game.match_away_score), (1, 0))
+                self.assertGreater(game.scoreboard_flash_until, game.elapsed)
+                game._begin_pending_chance()
+                game.result_text = 'MISS!'
+                game._advance_after_shot()
+                game._update_career_match(100)
+                self.assertTrue(game.match_halftime)
+                self.assertEqual(game.match_goal_event_index, 1)
+                game._resume_second_half()
+                game._update_career_match(100)
+                self.assertEqual(game.match_minute, 50)
+                self.assertEqual((game.match_home_score, game.match_away_score), (1, 1))
+                self.assertTrue(game.awaiting_chance)
+
+    def test_player_goal_updates_and_flashes_immediately_only_once(self):
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            game.start_career_match()
+            game.shot_context, game.view = 'match', 'shot'
+            game._prepare_next_shot()
+            with patch.object(game, '_play_goal_crowd_sound'):
+                game._register_goal()
+                game._register_goal()
+            self.assertEqual(game.match_player_goals, 1)
+            self.assertEqual(game.match_home_score + game.match_away_score, 1)
+            self.assertGreater(game.scoreboard_flash_until, game.elapsed)
+            game._advance_after_shot()
+            self.assertEqual(game.match_player_goals, 1)
+            self.assertEqual(game.match_home_score + game.match_away_score, 1)
+            game.elapsed += 1.1
+            self.assertLess(game.scoreboard_flash_until, game.elapsed)
+
+    def test_scoreboard_geometry_and_text_stay_fixed_through_chances(self):
+        self.addCleanup(setattr, Metrics, 'density', Metrics.density)
+        self.addCleanup(setattr, Window, 'size', Window.size)
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            game.start_career_match()
+            for size, density in (((640, 360), 1), ((1280, 589), 1.64), ((2400, 1080), 3)):
+                Window.size, Metrics.density = size, density
+                game.size = size
+                game.pos = (11, 7)
+                game.match_minute = 17.5
+                bounds = game._scoreboard_bounds()
+                captures = []
+                with patch.object(game, '_draw_text', side_effect=lambda *a, **k: captures.append((a, k))), patch.object(game, '_draw_club_badge'):
+                    with game.canvas:
+                        game._draw_match_overlay()
+                    simulated = list(captures)
+                    captures.clear()
+                    game.view, game.shot_context = 'shot', 'match'
+                    game.state = game.STATE_RESULT
+                    game.result_text = ''
+                    with game.canvas:
+                        game._draw_hud()
+                    self.assertEqual(captures, simulated)
+                captures.clear()
+                game.state = game.STATE_AIMING
+                game.shot_time_limit = game.shot_time_left = 4
+                with patch.object(game, '_draw_text', side_effect=lambda *a, **k: captures.append((a, k))), patch.object(game, '_draw_club_badge'):
+                    with game.canvas:
+                        game._draw_hud()
+                timer = next(args for args, _ in captures if str(args[0]).startswith('TIME TO SHOOT'))
+                self.assertLessEqual(timer[2] + dp(15), bounds[1] - dp(12) + 0.0001)
+                self.assertEqual(bounds, game._scoreboard_bounds())
+                self.assertGreaterEqual(bounds[0], game.x)
+                self.assertLessEqual(bounds[0] + bounds[2], game.right)
+                self.assertEqual(simulated[0][0][1], simulated[2][0][1])
+                self.assertGreater(simulated[0][0][2], simulated[2][0][2])
+                self.assertTrue(any(args[0] == '17:30' for args, _ in simulated))
+            game.pos = (0, 0)
+            Metrics.density = 1
+
     def test_english_menu_labels_and_name_validation(self):
         with isolated_game(saved=True) as game:
             game.view = 'start'
