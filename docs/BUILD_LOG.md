@@ -673,3 +673,35 @@ SHA-256: f99019b28fe69cb43bd657a6af5c647d59cd98b41378d38da2ba308a1dd3841f.
 
 Próximo: comparar partidas contra líderes, equipas intermédias e fracas no
 telefone. Validação física/equilíbrio humano pendentes; sem AAB/assinatura release.
+
+## 0.6.16 — correção de jogos sem oportunidades após treino
+
+Relato: carreira nova com zero chances nos primeiros dois jogos apesar de
+3/3 em cada treino. Causa: o sorteio introduzido em 0.6.15 tinha limite inferior
+zero, mesmo após treino obrigatório, e os golos do treino só ajudavam por
+energia/moral. Corrigido chance_count: treino concluído garante no mínimo
+uma oportunidade, incluindo em saves anteriores. Golos da sessão da semana
+adicionam 0,15 cada à média (máximo 0,45), sem exceder limites do adversário.
+Muito forte mantém exatamente uma oportunidade, sempre difícil. Não altera
+física, golos históricos ou classificação; golos do treino não contam na liga.
+
+Ficheiros: career.py, buildozer.spec, tests/test_career.py, ui_tests/test_menus.py,
+AGENTS, README e docs/UI_0.6.16.md. Save v2 e baseline preservados.
+40 testes core/build/segurança + 33 Kivy passaram (73); py_compile e
+git diff --check. Regressão integrada percorre as primeiras duas semanas
+com 3/3 em cada treino e abre uma chance em cada partida. Core testa 500
+sorteios por força do adversário, treino guardado/recarregado, legado e
+efeito do bónus. Sem falhas novas. Logs /tmp/scorer-0616-core.log e
+/tmp/scorer-0616-ui.log. Sem alteração visual ou novas capturas nesta etapa.
+
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+APK beta debug arm64 0.6.16, versionCode 1026616, API 36/mínimo 26.
+Assinatura v2 válida com certificado anterior; ZIP e 118 ELF alinhados a 16 KB.
+Código do bónus/treino verificado no APK; sem permissões declaradas, saves
+ou chaves privadas incluídos. Logs build-0.6.16.log/verify-0.6.16.log em
+/workspace/striker-runtime. Tamanho 30208941 bytes.
+SHA-256: 9c2e0f6776a1cadefd46ef58ad35d42f599fc1cf456aa31f1531f1f10ad5441b.
+
+Próximo: atualizar sem desinstalar e confirmar oportunidades nas próximas
+partidas após treino. Não é preciso recomeçar a carreira. Validação física
+desta versão pendente; sem AAB/assinatura release nesta etapa.

@@ -150,3 +150,10 @@ Opponent quality and league position now determine chance quantity and clear
 chance probability. Very strong opponents allow at most one chance, always
 hard. Energy/morale still matter and career progress is retained.
 [Rules, 70 tests and limitations](docs/UI_0.6.15.md).
+
+## SCORER 0.6.16 — participation after training
+
+Completing weekly training now guarantees at least one match opportunity.
+Training goals help earn extras within the opponent's existing limits.
+Very strong opponents still allow exactly one hard chance. Existing saves
+continue without starting over. [Fix and validation](docs/UI_0.6.16.md).

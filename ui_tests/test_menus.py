@@ -348,6 +348,30 @@ class MenuTests(unittest.TestCase):
                     self.assertGreater(max(counts), 1)
                     self.assertTrue(clear)
 
+    def test_new_career_first_two_trained_matches_both_have_playable_chances(self):
+        with isolated_game() as game:
+            game.career.accept_starting_offer(game.career.offers[0])
+            for week in range(2):
+                game.view = 'hub'
+                game.start_training()
+                for _ in range(3):
+                    game.result_text = 'GOAL!'
+                    game._advance_after_shot()
+                self.assertEqual(game.career.training_session_goals, 3)
+                game.start_career_match()
+                self.assertGreaterEqual(len(game.match_chance_minutes), 1)
+                game.awaiting_chance = True
+                game.match_minute = game.match_chance_minutes[0]
+                game._begin_pending_chance()
+                self.assertEqual((game.view, game.shot_context), ('shot', 'match'))
+                self.assertGreater(game.shot_time_left, 0)
+                game.result_text = 'MISS!'
+                game._advance_after_shot()
+                game._finish_career_match()
+                self.assertEqual(game.career.week, week + 1)
+            self.assertEqual(game.career.goals, 0)
+            self.assertEqual(game.career.matches, 2)
+
     def test_english_menu_labels_and_name_validation(self):
         with isolated_game(saved=True) as game:
             game.view = 'start'

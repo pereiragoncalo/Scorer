@@ -455,6 +455,39 @@ class CareerTests(unittest.TestCase):
         self.assertEqual(c.opponent_chance_profile(national).max_chances, 1)
         self.assertEqual(c.opponent_chance_profile(national).clear_chance_probability, 0)
 
+    def test_completed_training_guarantees_a_chance_even_against_elite_opponents(self):
+        c = self.signed()
+        c.begin_training()
+        for _ in range(3):
+            self.assertTrue(c.record_training_shot(True))
+        c.complete_training(3)
+        c = career.CareerMode()
+        for rating in (45, 70, 95):
+            opponent = career.CareerClub('Test opponent', 'England', 'Test league', 4, rating)
+            cap = c.opponent_chance_profile(opponent).max_chances
+            c.rng.seed(991)
+            counts = [c.chance_count(opponent) for _ in range(500)]
+            self.assertTrue(all(1 <= count <= cap for count in counts))
+            if rating == 95:
+                self.assertEqual(set(counts), {1})
+                self.assertEqual(c.opponent_chance_profile(opponent).clear_chance_probability, 0)
+        # Older completed saves without training counters also receive the floor.
+        c.training_session_week = -1
+        self.assertGreaterEqual(c.chance_count(), 1)
+
+    def test_training_goals_help_extra_chances_without_bypassing_opponent_caps(self):
+        c = self.signed()
+        c.last_training_week = c.training_session_week = c.week
+        c.stamina = c.morale = 10
+        c.training_session_goals = 0
+        c.rng.seed(991)
+        no_goals = [c.chance_count() for _ in range(500)]
+        c.training_session_goals = 3
+        c.rng.seed(991)
+        three_goals = [c.chance_count() for _ in range(500)]
+        self.assertTrue(all(a <= b <= 3 for a, b in zip(no_goals, three_goals)))
+        self.assertGreater(sum(three_goals), sum(no_goals))
+
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'
         self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),

@@ -1080,8 +1080,14 @@ class CareerMode:
     def chance_count(self, opponent: Optional[CareerClub] = None) -> int:
         factor = clamp((self.stamina + self.morale) / 40.0, 0.05, 1.0)
         profile = self.opponent_chance_profile(opponent)
-        centre = 0.4 + factor * 2.5 - profile.pressure * 1.5
-        return int(clamp(round(self.rng.gauss(centre, 0.70)), 0, profile.max_chances))
+        # A completed mandatory session must lead to at least one playable
+        # highlight. Training goals help earn extra chances, never bypassing
+        # the opponent's cap or its ban on clear chances.
+        trained = self.trained_this_week
+        training_goals = self.training_session_goals if trained and self.training_session_week == self.week else 0
+        training_bonus = clamp(training_goals, 0, 3) * 0.15
+        centre = 0.4 + factor * 2.5 + training_bonus - profile.pressure * 1.5
+        return int(clamp(round(self.rng.gauss(centre, 0.70)), 1 if trained else 0, profile.max_chances))
 
 
     def fixture_goal_means(
