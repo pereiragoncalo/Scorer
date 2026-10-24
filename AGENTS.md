@@ -18,6 +18,7 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 
 ## Safety and technical rules
 - Saves now use Kivy App.user_data_dir on Android, with legacy migration and a desktop/test override. Preserve compatible saves; a failed save must not exit the app or erase previous data.
+- Player profile panel has no decorative edge crossing the input. Keep its rounded name field, readable hint/text, focus outline, vertical text centring and content-sized layout; title, input, helper and actions share inner margins.
 - Uppercase the first letter of each space-separated player-name component on profile save and legacy load; preserve internal spelling, accents, progress and scorer identity. Never overwrite another scorer on a formatting collision.
 - Alex Silva is only the legacy fictional default. New careers must ask for a safe player name before the first contract; existing names change only through the Player action, retaining progress and scorer identity. Preserve saves; ship no official club assets or real name packs.
 - Preserve privacy (no hidden analytics or external upload), fictitious clubs and original content, safe input handling. No secrets or signing keys in source/repo.

@@ -173,3 +173,9 @@ no triples, reversed return venues and equal full-season totals. In-progress
 legacy calendars are retained when changing them would rewrite played fixtures;
 new seasons use the new rule. Cup draws remain independent.
 [Rules, save compatibility, 84 tests and limitations](docs/UI_0.6.18.md).
+
+## SCORER 0.6.19 — player name panel
+
+Removed the stray line, rounded the name field, centred text and tightened
+the panel spacing/alignment. Name handling and career progress are unchanged.
+[Visual fix, 84 tests and limitations](docs/UI_0.6.19.md).

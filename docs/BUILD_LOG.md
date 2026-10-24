@@ -813,3 +813,32 @@ SHA-256: 385892f68d4706661128d35160e3e838daee2f0bc82dfe76ec8ce50355a05697.
 Próximo: verificar calendário do campeonato em época nova/compatível no telefone.
 Época legada incompatível preservada até à seguinte. Validação física desta
 versão pendente; sem AAB/assinatura release nesta etapa.
+
+## 0.6.19 — caixa YOUR PLAYER
+
+A partir da captura do proprietário, removida a linha decorativa do painel
+que atravessava o campo. Campo do nome arredondado, com contorno de foco e
+texto centrado verticalmente. Margens alinhadas, menos espaço vazio e painel
+com altura pelo conteúdo. Ajuste compacto de margens/espaçamento mantém
+controlos de 52 dp. Sem mudar validação, capitalização, saves ou jogabilidade.
+
+Ficheiros: menu_ui.py, buildozer.spec, AGENTS, README e docs/UI_0.6.19.md.
+47 testes core/build/segurança + 37 Kivy passaram (84), py_compile e
+git diff --check. Cobertura funcional/layout existente usada nesta alteração
+visual: perfil novo/editar, validação, gravação e limites em ecrãs de telefone.
+Logs /tmp/scorer-0619-core.log e /tmp/scorer-0619-ui-final.log.
+Captura real Kivy scorer-0619-profile0002.png em 1280×589/densidade 1,64
+inspecionada. Primeiro ensaio visual mostrou cor do contorno a afetar texto;
+adicionado reset de Color e contraste explícito, captura final conferida.
+Não é captura Android. Baseline preservado.
+
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+APK beta debug arm64 0.6.19, versionCode 1026619, API 36/mínimo 26.
+Assinatura v2 válida com certificado anterior; ZIP e 118 ELF alinhados a 16 KB.
+Código do campo confirmado no APK; sem permissões declaradas, saves ou chaves
+privadas incluídos. Logs build-0.6.19.log/verify-0.6.19.log em
+/workspace/striker-runtime. Tamanho 30212625 bytes.
+SHA-256: b9ff9b7e011a0f651da9c9181627a84ea64b07ebf62915a25f7cf43b556a825c.
+
+Próximo: atualizar sem desinstalar e verificar caixa/teclado no telefone.
+Validação física desta versão pendente; sem AAB/assinatura release nesta etapa.

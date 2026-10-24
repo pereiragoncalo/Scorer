@@ -540,20 +540,30 @@ class PlayerScreen(FloatLayout):
     def __init__(self, menu):
         super().__init__()
         self.menu = menu
-        self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
+        self.panel = EdgePanel(orientation='vertical', size_hint=(None, None), padding=dp(14), spacing=dp(8))
+        self.panel.canvas.before.remove(self.panel.edge)
+        self.panel.background.radius = [dp(12)]
         self.panel.add_widget(BoundedLabel(text='YOUR PLAYER', bold=True, font_size=sp(18),
                                           size_hint_y=None, height=dp(28)))
         existing = menu.game._profile_return == 'hub'
         self.name = TextInput(text=menu.game.career.player_name if existing else '',
                               hint_text='Player name', multiline=False, write_tab=False,
                               font_size=sp(17), padding=[dp(12), dp(12)],
-                              size_hint_y=None, height=dp(52), background_color=(0.08, 0.17, 0.20, 1),
-                              foreground_color=INK, cursor_color=GREEN)
+                              size_hint_y=None, height=dp(52), background_normal='', background_active='',
+                              background_color=(0, 0, 0, 0), foreground_color=INK, hint_text_color=MUTED, cursor_color=GREEN)
+        with self.name.canvas.before:
+            Color(0.08, 0.17, 0.20, 1)
+            self._name_background = RoundedRectangle(radius=[dp(8)])
+            self._name_border_color = Color(0.25, 0.42, 0.44, 0.7)
+            self._name_border = Line(rounded_rectangle=(0, 0, 1, 1, dp(8)), width=1)
+            Color(1, 1, 1, 1)
+        self.name.bind(pos=self._field_rect, size=self._field_rect, focus=self._field_rect, line_height=self._field_rect)
+        self._field_rect()
         self.panel.add_widget(self.name)
         message = menu.game.career.message
         self.panel.add_widget(BoundedLabel(text=message if ('name' in message.lower() or 'scorer' in message.lower() or 'save' in message.lower())
                                           else 'Choose your name. Your progress is kept.',
-                                          color=MUTED, font_size=sp(12)))
+                                          color=MUTED, font_size=sp(12), size_hint_y=None, height=max(dp(36), sp(12)*2.5)))
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         actions.add_widget(MenuTile('CANCEL', lambda: menu.action('cancel_profile')))
         actions.add_widget(MenuTile('SAVE' if existing else 'CONTINUE',
@@ -562,14 +572,25 @@ class PlayerScreen(FloatLayout):
         self.add_widget(self.panel)
         self.name.bind(on_text_validate=lambda *_: self.submit())
         self.bind(pos=self._fit, size=self._fit)
+        self.panel.bind(minimum_height=self._fit)
         self._fit()
+
+    def _field_rect(self, *_):
+        self._name_background.pos, self._name_background.size = self.name.pos, self.name.size
+        self._name_border.rounded_rectangle = (self.name.x, self.name.y, self.name.width, self.name.height, dp(8))
+        self._name_border_color.rgba = GREEN if self.name.focus else (0.25, 0.42, 0.44, 0.7)
+        vertical = max(dp(8), (self.name.height - self.name.line_height) / 2)
+        self.name.padding = (dp(12), vertical, dp(12), vertical)
 
     def submit(self):
         self.name.focus = False
         self.menu.action('save_profile', self.name.text)
 
     def _fit(self, *_):
-        self.panel.size = (min(self.width - dp(24), dp(420)), min(self.height - dp(16), dp(250)))
+        compact = self.height < dp(250)
+        self.panel.padding = dp(10 if compact else 14)
+        self.panel.spacing = dp(6 if compact else 8)
+        self.panel.size = (min(self.width - dp(24), dp(420)), min(self.height - dp(16), self.panel.minimum_height))
         self.panel.center = self.center
 
 
