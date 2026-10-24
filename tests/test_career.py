@@ -305,7 +305,8 @@ class CareerTests(unittest.TestCase):
         restored = career.CareerMode()
         self.assertFalse(restored.trained_this_week)
         self.assertTrue(restored.training_used_this_week)
-        self.assertFalse(restored.begin_training())
+        self.assertTrue(restored.begin_training())
+        self.assertEqual(restored.training_shots_taken, 0)
         restored._finish_season()
         self.assertFalse(restored.training_used_this_week)
         self.assertTrue(restored.begin_training())
@@ -336,6 +337,28 @@ class CareerTests(unittest.TestCase):
         restored = career.CareerMode()
         self.assertTrue(restored.training_used_this_week)
         self.assertFalse(restored.begin_training())
+
+    def test_partial_training_resumes_without_resetting_or_duplicate_rewards(self):
+        c = self.signed()
+        self.assertTrue(c.begin_training())
+        self.assertTrue(c.record_training_shot(True))
+        restored = career.CareerMode()
+        self.assertTrue(restored.begin_training())
+        self.assertEqual((restored.training_shots_taken, restored.training_session_goals), (1, 1))
+        before = restored.save_path.read_bytes()
+        with patch('career.os.replace', side_effect=OSError('disk full')):
+            self.assertFalse(restored.record_training_shot(False))
+        self.assertEqual(restored.training_shots_taken, 1)
+        self.assertEqual(restored.save_path.read_bytes(), before)
+        self.assertTrue(restored.record_training_shot(False))
+        self.assertTrue(restored.record_training_shot(True))
+        self.assertFalse(restored.record_training_shot(True))
+        self.assertGreater(restored.complete_training(restored.training_session_goals), 0)
+        stats = (restored.stamina, restored.morale)
+        restored = career.CareerMode()
+        self.assertFalse(restored.begin_training())
+        self.assertEqual(restored.complete_training(3), 0)
+        self.assertEqual((restored.stamina, restored.morale), stats)
 
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'

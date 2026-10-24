@@ -120,3 +120,11 @@ Fixed top-left scoreboard with stacked teams, clock on the right and a local
 goal highlight. Shared position during chances; bottom time bar removed.
 Half-time pauses after 45 plus added time; SECOND HALF resumes at 45:00.
 [Changes and validation](docs/UI_0.6.11.md).
+
+## SCORER 0.6.12 — training before Play
+
+Smaller scoreboard with First half / Second half. Training sits left of Play,
+which stays grey until all three weekly shots are completed. Interrupted
+training can resume; completed sessions cannot be repeated. Match notice
+widgets remain attached during redraws to preserve touches.
+[Changes, 62 tests and limitations](docs/UI_0.6.12.md).

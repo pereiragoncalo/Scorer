@@ -523,3 +523,41 @@ SHA-256: d80a2eed88c29460672f35671f054ac9365236611e71aef4176c06ea5392c64b.
 
 Próximo: testar no telefone golo a favor/contra, oportunidade e retoma após
 intervalo. Validação física desta versão pendente; sem AAB/assinatura release.
+
+## 0.6.12 — marcador compacto e treino obrigatório
+
+Marcador reduzido de 360×64 para 280×46 dp; First half / Second half em vez
+de 1H/2H. Mantido flash, relógio, intervalo e posição nas oportunidades.
+Training movido para a esquerda de Play. Play cinzento/desativado até concluir
+os três remates da semana; validação também em start_career_match. Data junto
+a NEXT MATCH e quatro ações secundárias. Sessão de treino interrompida pode
+ser retomada com contagem/golos persistidos após cada remate, sem novo bónus.
+Campos opcionais v2 training_shots_taken / training_session_goals; reservado
+legado sem contagem inicia com zero remates registados, sem bloquear a carreira.
+
+A falha de oportunidade relatada não foi reproduzida no teste inicial. Mudado
+o redesenho para manter MatchNotice na árvore de widgets, restaurando apenas
+o Canvas, sem remover/repor o painel a cada frame. Teste de toque com cinco
+frames entre pressionar/soltar cobre três oportunidades, incluindo descontos,
+sem saltar nem consumir remate. Causa original ainda não confirmada no telefone.
+
+Ficheiros: career.py, main.py, menu_ui.py, buildozer.spec, tests/test_career.py,
+ui_tests/test_menus.py, AGENTS, README e docs/UI_0.6.12.md. Baseline preservado.
+33 testes core/build/segurança + 29 Kivy passaram (62); py_compile e
+git diff --check. Logs /tmp/scorer-0612-core.log e /tmp/scorer-0612-ui.log.
+Testes novos verificam bloqueio/desbloqueio/rebloqueio semanal, contagem parcial
+ao reabrir, rollback de gravação, bónus único, botões lado a lado e toques.
+Capturas Kivy reais do menu e oportunidade inspecionadas em 1280×589/densidade
+1,64. Não são capturas Android.
+
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+APK beta debug arm64 0.6.12, versionCode 1026612, API 36/mínimo 26.
+Assinatura v2 válida com mesmo certificado, ZIP e 118 ELF alinhados a 16 KB.
+Código atualizado conferido no APK; sem permissões declaradas, saves ou chaves
+privadas incluídos. Logs build-0.6.12.log e verify-0.6.12.log em
+/workspace/striker-runtime. Tamanho 29436361 bytes.
+SHA-256: 43988e5279b11f0812ad3843156d531f269c7fcb8dc530e57d6e5392996086fb.
+
+Próximo: atualizar telefone, confirmar dimensões, completar treino e abrir
+todas as oportunidades. Validação física e confirmação da falha reportada
+pendentes. Sem AAB/assinatura release nesta etapa.

@@ -723,6 +723,11 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     def start_career_match(self) -> None:
         """Cria um jogo completo com relógio e oportunidades interativas."""
+        if not self.career.trained_this_week:
+            self.career.message = 'Complete this week’s training to unlock Play.'
+            self.view = 'hub'
+            self.draw()
+            return
         self.match_is_international = self.career.called_up
         self.match_is_cup = False
         self.match_competition = "international" if self.match_is_international else "league"
@@ -1031,8 +1036,14 @@ class StrikerGame(Widget):
         self.training_stamina_before = self.career.stamina
         self.training_gain = 0.0
         self.training_summary = ""
-        self.training_shots_left = 3
-        self.training_goals = 0
+        self.training_shots_left = 3 - self.career.training_shots_taken
+        self.training_goals = self.career.training_session_goals
+        if self.training_shots_left == 0:
+            self.training_gain = self.career.complete_training(self.training_goals)
+            self.training_completed = self.career.trained_this_week
+            self.view = 'training'
+            self.draw()
+            return
         self.shot_context = "training"
         self.view = "shot"
         self.reset_statistics()
@@ -1041,11 +1052,16 @@ class StrikerGame(Widget):
     def _advance_after_shot(self) -> None:
         scored = self.result_text == "GOAL!"
         if self.shot_context == "training":
-            self.training_goals += int(scored)
-            self.training_shots_left -= 1
+            if not self.career.record_training_shot(scored):
+                self.training_completed = False
+                self.view = 'training'
+                self.shot_context = 'career'
+                return
+            self.training_goals = self.career.training_session_goals
+            self.training_shots_left = 3 - self.career.training_shots_taken
             if self.training_shots_left <= 0:
                 self.training_gain = self.career.complete_training(self.training_goals)
-                self.training_completed = True
+                self.training_completed = self.career.trained_this_week
                 self.training_summary = (
                     f"{self.training_goals}/3 goals  |  "
                     f"energy +{self.training_gain:.2f}"
@@ -2648,8 +2664,9 @@ class StrikerGame(Widget):
     # Desenho
     # ------------------------------------------------------------------
     def draw(self) -> None:
-        # Detach native overlay before clearing scene instructions; retain its layout.
-        if self._match_notice is not None and self._match_notice.parent is self:
+        # Keep touch grabs and the widget tree stable while a notice is visible.
+        show_notice = self.view == "match" and (self.match_finished or self.awaiting_chance or self.match_halftime)
+        if self._match_notice is not None and self._match_notice.parent is self and not show_notice:
             self.remove_widget(self._match_notice)
         if self.view in MENU_VIEWS:
             self.ui_buttons.clear()
@@ -2741,7 +2758,10 @@ class StrikerGame(Widget):
             if self._match_notice is None:
                 self._match_notice = MatchNotice(self)
             self._match_notice.sync()
-            self.add_widget(self._match_notice)
+            if self._match_notice.parent is not self:
+                self.add_widget(self._match_notice)
+            elif self._match_notice.canvas not in self.canvas.children:
+                self.canvas.add(self._match_notice.canvas)
         else:
             self._match_notice = None
 
@@ -3351,14 +3371,14 @@ class StrikerGame(Widget):
 
 
     def _scoreboard_bounds(self):
-        return (self.x + dp(12), self.top - dp(76),
-                min(dp(360), self.width - dp(24)), dp(64))
+        return (self.x + dp(8), self.top - dp(54),
+                min(dp(280), self.width - dp(16)), dp(46))
 
     def _draw_match_overlay(self) -> None:
         if self.match_home is None or self.match_away is None:
             return
         x, y, width, height = self._scoreboard_bounds()
-        teams_width = width * 0.75
+        teams_width = width * 0.68
         remaining = max(0.0, self.scoreboard_flash_until - self.elapsed)
         pulse = math.sin(math.pi * min(1.0, remaining))
         Color(0.015 + pulse * 0.08, 0.04 + pulse * 0.32, 0.05 + pulse * 0.16, 0.96)
@@ -3369,16 +3389,16 @@ class StrikerGame(Widget):
         for club, score, row in ((self.match_home, self.match_home_score, 0.73),
                                  (self.match_away, self.match_away_score, 0.27)):
             cy = y + height * row
-            self._draw_club_badge(club.name, x + dp(17), cy, dp(20))
-            self._draw_text(club.name, x + dp(34), cy, dp(13),
-                            (0.94, 0.98, 0.97, 1), max_width=teams_width - dp(67))
-            self._draw_text(str(score), x + teams_width - dp(14), cy, dp(18),
+            self._draw_club_badge(club.name, x + dp(12), cy, dp(15))
+            self._draw_text(club.name, x + dp(24), cy, dp(11),
+                            (0.94, 0.98, 0.97, 1), max_width=teams_width - dp(50))
+            self._draw_text(str(score), x + teams_width - dp(14), cy, dp(14),
                             (0.36, 1.0, 0.66, 1), "center", max_width=dp(24))
         clock_x = x + teams_width + (width - teams_width) / 2
-        self._draw_text(self.match_clock_text, clock_x, y + height * 0.61, dp(15),
+        self._draw_text(self.match_clock_text, clock_x, y + height * 0.64, dp(13),
                         (1.0, 0.91, 0.65, 1), "center", max_width=width - teams_width - dp(8))
-        status = "FT" if self.match_finished else "HT" if self.match_halftime else f"{self.match_half}H"
-        self._draw_text(status, clock_x, y + height * 0.27, dp(11),
+        status = "Full time" if self.match_finished else "Half time" if self.match_halftime else "First half" if self.match_half == 1 else "Second half"
+        self._draw_text(status, clock_x, y + height * 0.26, dp(9),
                         (0.65, 0.81, 0.80, 1), "center")
 
 

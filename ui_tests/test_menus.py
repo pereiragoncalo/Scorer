@@ -69,6 +69,7 @@ class MenuTests(unittest.TestCase):
     def test_halftime_stops_after_added_time_and_resumes_at_45(self):
         with isolated_game(saved=True) as game:
             game.career.load()
+            game.career.last_training_week = game.career.week
             game.start_career_match()
             game.match_first_stoppage, game.match_stoppage = 2, 3
             game.match_chance_minutes, game.match_goal_events = [], []
@@ -99,6 +100,7 @@ class MenuTests(unittest.TestCase):
     def test_events_cannot_skip_a_chance_or_halftime(self):
         with isolated_game(saved=True) as game:
             game.career.load()
+            game.career.last_training_week = game.career.week
             game.start_career_match()
             game.match_first_stoppage = 2
             game.match_chance_minutes = [47, 50]
@@ -125,6 +127,7 @@ class MenuTests(unittest.TestCase):
     def test_player_goal_updates_and_flashes_immediately_only_once(self):
         with isolated_game(saved=True) as game:
             game.career.load()
+            game.career.last_training_week = game.career.week
             game.start_career_match()
             game.shot_context, game.view = 'match', 'shot'
             game._prepare_next_shot()
@@ -145,6 +148,7 @@ class MenuTests(unittest.TestCase):
         self.addCleanup(setattr, Window, 'size', Window.size)
         with isolated_game(saved=True) as game:
             game.career.load()
+            game.career.last_training_week = game.career.week
             game.start_career_match()
             for size, density in (((640, 360), 1), ((1280, 589), 1.64), ((2400, 1080), 3)):
                 Window.size, Metrics.density = size, density
@@ -180,6 +184,78 @@ class MenuTests(unittest.TestCase):
                 self.assertTrue(any(args[0] == '17:30' for args, _ in simulated))
             game.pos = (0, 0)
             Metrics.density = 1
+
+    def test_play_requires_completed_training_and_partial_session_resumes(self):
+        Window.size = (960, 540)
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            game.view = 'hub'
+            game.draw()
+            settle()
+            play = next(w for w in game.walk() if isinstance(w, MenuTile) and w.text == 'PLAY')
+            self.assertTrue(play.disabled)
+            self.assertAlmostEqual(play._face_color.r, 0.22, places=4)
+            game.start_career_match()
+            self.assertEqual(game.view, 'hub')
+            game.start_training()
+            game.result_text = 'GOAL!'
+            game._advance_after_shot()
+            game.career = CareerMode()
+            game.view = 'hub'
+            game.start_training()
+            self.assertEqual((game.training_shots_left, game.training_goals), (2, 1))
+            for result in ('MISS!', 'GOAL!'):
+                game.result_text = result
+                game._advance_after_shot()
+            game._activate_ui('hub')
+            game.draw()
+            settle()
+            play = next(w for w in game.walk() if isinstance(w, MenuTile) and w.text == 'PLAY')
+            self.assertFalse(play.disabled)
+            game.start_career_match()
+            self.assertEqual(game.view, 'match')
+            game.career.week += 1
+            game.view = 'hub'
+            game.draw()
+            settle()
+            play = next(w for w in game.walk() if isinstance(w, MenuTile) and w.text == 'PLAY')
+            self.assertTrue(play.disabled)
+
+    def test_chance_touch_survives_scene_frames_without_reparenting_or_skipping(self):
+        Window.size = (960, 540)
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            game.career.last_training_week = game.career.week
+            game.start_career_match()
+            Clock.unschedule(game.update)
+            game.match_chance_minutes = [10, 47, 65]
+            game.match_first_stoppage = 2
+            game.match_goal_events = []
+            for index, minute in enumerate(game.match_chance_minutes):
+                game.match_minute = minute
+                game.match_half = 1 if index < 2 else 2
+                game.match_halftime = False
+                game.awaiting_chance = True
+                game.view = 'match'
+                game.draw()
+                settle()
+                notice = game._match_notice
+                touch = UnitTestTouch(*notice.button.center)
+                touch.touch_down()
+                with patch.object(game, 'remove_widget', wraps=game.remove_widget) as remove:
+                    for _ in range(5):
+                        game.update(0.016)
+                        Clock.tick()
+                    remove.assert_not_called()
+                touch.touch_up()
+                settle()
+                self.assertEqual((game.view, game.shot_context), ('shot', 'match'))
+                self.assertEqual(game.match_chance_index, index + 1)
+                self.assertFalse(game.outcome_registered)
+                self.assertGreater(game.shot_time_left, 0)
+                game.result_text = 'MISS!'
+                game._advance_after_shot()
+            self.assertEqual(game.match_player_misses, 3)
 
     def test_english_menu_labels_and_name_validation(self):
         with isolated_game(saved=True) as game:
@@ -335,6 +411,7 @@ class MenuTests(unittest.TestCase):
                     self.assertLessEqual(row.right, table.right)
 
     def test_buttons_have_visible_press_depth(self):
+        self.game.career.last_training_week = self.game.career.week
         self.game.view = 'hub'
         self.game.draw()
         settle()
@@ -348,7 +425,7 @@ class MenuTests(unittest.TestCase):
         button.state = 'normal'
         self.assertEqual(button._face.pos[1], raised)
 
-    def test_play_matches_scorers_column_edges_and_brand_uses_icon_as_s(self):
+    def test_training_sits_left_of_play_and_brand_uses_icon_as_s(self):
         previous = Metrics.density
         try:
             for density, size in ((1, (640, 360)), (1, (960, 540)), (1.64, (1280, 589)), (3, (2400, 1080))):
@@ -363,9 +440,10 @@ class MenuTests(unittest.TestCase):
                     settle()
                     buttons = [w for w in self.game.walk() if isinstance(w, MenuTile)]
                     play = next(w for w in buttons if w.text == 'PLAY')
-                    scorers = next(w for w in buttons if w.text == 'TOP SCORERS')
-                    self.assertAlmostEqual(play.x, scorers.x, delta=1)
-                    self.assertAlmostEqual(play.right, scorers.right, delta=1)
+                    training = next(w for w in buttons if w.text == 'TRAINING')
+                    self.assertLess(training.right, play.x)
+                    self.assertAlmostEqual(training.y, play.y, delta=1)
+                    self.assertAlmostEqual(training.width, play.width, delta=1)
                     self.assertTrue(any(isinstance(w, Label) and w.text == 'CORER' for w in self.game.walk()))
         finally:
             Metrics.density = previous
@@ -565,6 +643,8 @@ class MenuTests(unittest.TestCase):
                 get_app.assert_not_called()
 
     def test_training_transition_removes_menu_and_returns(self):
+        self.game.career.last_training_week = -1
+        self.game.career.training_session_week = -1
         self.game.view = 'training'
         self.game.draw()
         settle()

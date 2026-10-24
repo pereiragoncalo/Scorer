@@ -40,7 +40,7 @@ class TouchButton(Button):
     def __init__(self, text, callback, accent=False, **kwargs):
         self._accent = accent
         super().__init__(text=text, size_hint_y=None, height=dp(52),
-                         font_size=sp(14), bold=True, color=INK,
+                         font_size=sp(14), bold=True, color=INK, disabled_color=(0.60, 0.63, 0.64, 1),
                          background_normal='', background_down='', background_disabled_normal='',
                          background_color=(0, 0, 0, 0),
                          halign='center', valign='middle', **kwargs)
@@ -71,7 +71,9 @@ class TouchButton(Button):
         self._rim.rounded_rectangle = (self.x + dp(1), self._face.pos[1] + dp(1),
                                       max(1, self.width - dp(2)), max(1, self.height - inset - dp(2)), dp(9))
         face = (0.10, 0.48, 0.34, 1) if self._accent else (0.10, 0.24, 0.29, 1)
-        factor = 0.6 if self.disabled else 0.82 if pressed else 1
+        if self.disabled:
+            face = (0.22, 0.24, 0.25, 1)
+        factor = 1 if self.disabled else 0.82 if pressed else 1
         self._face_color.rgba = tuple(v * factor for v in face[:3]) + (1,)
         self._light_color.a = 0.25 if pressed or self.disabled else 0.7
 
@@ -124,7 +126,7 @@ class CareerMenu(BoxLayout):
         signature = (self.game.view, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message,
                      c.current_league.name, tuple(c.agent_offers),
-                     self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week,
+                     self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals,
                      Metrics.density, Metrics.fontscale)
         if signature != self._signature:
             self._signature = signature
@@ -212,18 +214,21 @@ class CareerMenu(BoxLayout):
 
     def _training(self):
         g, c = self.game, self.game.career
-        used = c.training_used_this_week
+        used = c.trained_this_week
+        resumable = c.training_session_week == c.week and not used
         card = self.card('Finishing practice')
         if g.training_completed and c.trained_this_week:
             card.label(f'Training complete · {g.training_goals}/3 goals', heading=True)
             card.label(f'Energy: {g.training_stamina_before:.1f} to {c.stamina:.1f}')
+        elif resumable:
+            card.label(f'Resume training · {c.training_shots_taken}/3 shots completed.')
+            card.label(c.message, muted=True)
         elif not used:
-            card.label('One three-shot session per career week.')
-            card.label('Your weekly session is used when you start.', muted=True)
+            card.label('Complete three shots to unlock this week’s match.')
         else:
             card.label('This week’s training session has been used.', muted=True)
         card.label(f'Current energy: {c.stamina:.1f}/20', muted=True)
-        button = self._button('WEEKLY TRAINING USED' if used else 'START TRAINING', 'training_start', accent=True)
+        button = self._button('WEEKLY TRAINING USED' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
         button.disabled = used
         card.add_widget(button)
         if used:
@@ -441,7 +446,7 @@ class MainDashboard(BoxLayout):
         self.add_widget(self.identity)
         self.hero = BoxLayout(spacing=dp(12))
         self.match = EdgePanel(orientation='vertical', size_hint_x=0.66)
-        self.match.add_widget(BoundedLabel(text='NEXT MATCH', color=GREEN, font_size=sp(10),
+        self.match.add_widget(BoundedLabel(text='NEXT MATCH · ' + c.format_date(c.current_date), color=GREEN, font_size=sp(10),
                                           bold=True, size_hint_y=None, height=dp(16)))
         fixture = c.next_match()
         teams = BoxLayout(spacing=dp(8))
@@ -453,10 +458,10 @@ class MainDashboard(BoxLayout):
         teams.add_widget(BoundedLabel(text=away, font_size=sp(18), bold=True, halign='center'))
         self.match.add_widget(teams)
         footer = self.footer = FloatLayout(size_hint_y=None, height=dp(52))
-        footer.add_widget(BoundedLabel(text=c.format_date(c.current_date), font_size=sp(11), color=MUTED,
-                                      size_hint=(0.43, 1), pos_hint={'x': 0, 'y': 0}))
+        self.training = MenuTile('TRAINING', lambda: menu.action('training'), accent=not c.trained_this_week)
         self.play = MenuTile('PLAY', lambda: menu.action('play'), accent=True)
-        self.play.size_hint_x, self.play.width = None, dp(136)
+        self.play.disabled = not c.trained_this_week
+        footer.add_widget(self.training)
         footer.add_widget(self.play)
         self.match.add_widget(footer)
         self.hero.add_widget(self.match)
@@ -478,8 +483,8 @@ class MainDashboard(BoxLayout):
                                            color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
         self.hero.add_widget(self.season)
         self.add_widget(self.hero)
-        self.actions = GridLayout(cols=5, spacing=dp(6), size_hint_y=None, height=dp(52))
-        for title, action in [('TRAINING', 'training'), ('STANDINGS', 'standings'),
+        self.actions = GridLayout(cols=4, spacing=dp(6), size_hint_y=None, height=dp(52))
+        for title, action in [('STANDINGS', 'standings'),
                               ('TOP SCORERS', 'scorers'), ('FIXTURES', 'calendar'), ('AGENT', 'agent')]:
             button = MenuTile(title, lambda name=action: menu.action(name))
             self.actions.add_widget(button)
@@ -488,7 +493,7 @@ class MainDashboard(BoxLayout):
         self.markers.bind(pos=self._align_play, size=self._align_play)
         self.footer.bind(pos=self._align_play, size=self._align_play)
         self.add_widget(self.actions)
-        self.status = BoundedLabel(text=c.message, color=MUTED, font_size=sp(11),
+        self.status = BoundedLabel(text=c.message if c.trained_this_week else 'Complete weekly training to unlock Play.', color=MUTED, font_size=sp(11),
                                    size_hint_y=None, height=dp(24))
         self.add_widget(self.status)
         self.bind(size=self._arrange)
@@ -501,17 +506,18 @@ class MainDashboard(BoxLayout):
         if tiny:
             if self.hero.parent is self:
                 self.remove_widget(self.hero)
-                self.play.parent.remove_widget(self.play)
-                self.play.size_hint_x = 1
-                self.actions.add_widget(self.play, index=len(self.actions.children))
+                for button in (self.play, self.training):
+                    button.parent.remove_widget(button)
+                    button.size_hint = (1, None)
+                    self.actions.add_widget(button, index=len(self.actions.children))
             self.actions.cols = 3
         else:
             if self.hero.parent is None:
-                self.actions.remove_widget(self.play)
-                self.play.size_hint_x, self.play.width = None, dp(136)
-                self.match.children[0].add_widget(self.play)
+                for button in (self.training, self.play):
+                    self.actions.remove_widget(button)
+                    self.footer.add_widget(button)
                 self.add_widget(self.hero, index=2)
-            self.actions.cols = 2 if portrait else 5
+            self.actions.cols = 2 if portrait else 4
         rows = (len(self.actions.children) + self.actions.cols - 1) // self.actions.cols
         self.actions.height = rows * dp(52) + (rows - 1) * dp(6)
         self.hero.orientation = 'vertical' if portrait else 'horizontal'
@@ -522,14 +528,9 @@ class MainDashboard(BoxLayout):
     def _align_play(self, *_):
         if self.play.parent is not self.footer:
             return
-        if self.actions.cols == 5:
-            self.play.pos_hint = {}
-            self.play.width = self.markers.width
-            self.play.x = self.markers.x
-        else:
-            self.play.pos_hint = {'right': 1, 'y': 0}
-            self.play.width = min(dp(160), self.footer.width * 0.48)
-        self.play.y = self.footer.y
+        for button, side in ((self.training, 'x'), (self.play, 'right')):
+            button.size_hint = (0.49, None)
+            button.pos_hint = {side: 0 if side == 'x' else 1, 'y': 0}
 
 
 class PlayerScreen(FloatLayout):

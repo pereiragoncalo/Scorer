@@ -658,6 +658,8 @@ class CareerMode:
         self.message = 'Choose the first contract of your career.'
         self.last_training_week = -1
         self.training_session_week = -1
+        self.training_shots_taken = 0
+        self.training_session_goals = 0
         self.cup_active = True
         self.cup_round_index = 0
         self.fixture_history: list[dict[str, object]] = []
@@ -1215,14 +1217,29 @@ class CareerMode:
         if not self.club_name:
             self.message = 'Choose a club before training.'
             return False
-        if self.training_used_this_week:
+        if self.trained_this_week:
             self.message = 'This week’s training session has been used. Come back next week.'
             return False
-        previous = self.training_session_week
+        if self.training_session_week == self.week:
+            self.message = 'Resume your weekly training session.'
+            return True
+        previous = (self.training_session_week, self.training_shots_taken, self.training_session_goals)
         self.training_session_week = self.week
+        self.training_shots_taken = self.training_session_goals = 0
         self.message = 'Weekly training started.'
         if self.save() is False:
-            self.training_session_week = previous
+            self.training_session_week, self.training_shots_taken, self.training_session_goals = previous
+            return False
+        return True
+
+    def record_training_shot(self, scored: bool) -> bool:
+        if self.training_session_week != self.week or self.trained_this_week or self.training_shots_taken >= 3:
+            return False
+        previous = (self.training_shots_taken, self.training_session_goals)
+        self.training_shots_taken += 1
+        self.training_session_goals += int(bool(scored))
+        if self.save() is False:
+            self.training_shots_taken, self.training_session_goals = previous
             return False
         return True
 
@@ -1418,6 +1435,8 @@ class CareerMode:
         self.week = 0
         self.last_training_week = -1
         self.training_session_week = -1
+        self.training_shots_taken = 0
+        self.training_session_goals = 0
         self.cup_active = True
         self.cup_round_index = 0
         self.cup_history.clear()
@@ -1485,6 +1504,8 @@ class CareerMode:
             "message": self.message,
             "last_training_week": self.last_training_week,
             "training_session_week": self.training_session_week,
+            "training_shots_taken": self.training_shots_taken,
+            "training_session_goals": self.training_session_goals,
             "cup_active": self.cup_active,
             "cup_round_index": self.cup_round_index,
             "cup_history": self.cup_history,
@@ -1637,6 +1658,10 @@ class CareerMode:
             self.message = 'Career loaded.'
             self.last_training_week = int(data.get("last_training_week", -1))
             self.training_session_week = int(data.get("training_session_week", self.last_training_week))
+            self.training_shots_taken = int(data.get("training_shots_taken", 0))
+            self.training_session_goals = int(data.get("training_session_goals", 0))
+            if not 0 <= self.training_session_goals <= self.training_shots_taken <= 3:
+                raise ValueError("Invalid saved training state")
             migrated_cup_round = sum(
                 1 for cup_week in CUP_WEEKS if cup_week < self.week
             )
