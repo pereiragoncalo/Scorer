@@ -203,3 +203,11 @@ frequency limits and graceful offline fallback.
 Privacy screen and child-directed/non-personalised request settings. No revenue
 yet: owner account/app IDs, approval and phone validation remain pending.
 [Setup and activation](docs/ADMOB_SETUP.md) · [97 tests and build evidence](docs/UI_0.6.22.md).
+
+## SCORER 0.6.23 — post-match ads and morale reward
+
+First completed match can show an available test interstitial; subsequent full-screen
+ads respect 60 seconds. Training offers an optional RewardedAd for +1 morale, once
+per career week, capped20. Only the SDK earned callback awards it; saves/receipts
+prevent duplicate credit. Still official TEST IDs, no production revenue.
+[101 tests, implementation and device checks](docs/UI_0.6.23.md).

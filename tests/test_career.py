@@ -116,6 +116,43 @@ class CareerTests(unittest.TestCase):
         self.assertIsNone(c._cup_fixture_for_week())
         self.assertIn('FINAL:', c.cup_history[-1])
 
+    def test_morale_ad_reward_is_saved_once_and_only_for_current_career_week(self):
+        c = self.signed()
+        ctx = c.morale_ad_context()
+        self.assertEqual(c.claim_morale_ad_reward('reward-1', ctx), 'applied')
+        self.assertEqual(c.morale, 11)
+        self.assertFalse(c.morale_ad_available)
+        self.assertEqual(c.claim_morale_ad_reward('reward-1', ctx), 'duplicate')
+        self.assertEqual(c.claim_morale_ad_reward('reward-2', ctx), 'duplicate')
+        restored = career.CareerMode()
+        self.assertTrue(restored.load())
+        self.assertEqual(restored.morale, 11)
+        self.assertEqual(restored.claim_morale_ad_reward('reward-1', ctx), 'duplicate')
+        restored.week += 1
+        self.assertTrue(restored.morale_ad_available)
+        self.assertEqual(restored.claim_morale_ad_reward('reward-1', ctx), 'stale')
+        restored.morale = 19.7
+        self.assertEqual(restored.claim_morale_ad_reward('reward-2', restored.morale_ad_context()), 'applied')
+        self.assertEqual(restored.morale, 20)
+        restored.week += 1
+        self.assertFalse(restored.morale_ad_available)
+        self.assertEqual(restored.claim_morale_ad_reward('reward-3', restored.morale_ad_context()), 'full')
+        c.world_seed += 1
+        self.assertEqual(c.claim_morale_ad_reward('reward-1', ctx), 'stale')
+
+    def test_morale_ad_save_failure_can_retry_without_duplicate_morale(self):
+        c = self.signed()
+        before = c.save_path.read_bytes()
+        ctx = c.morale_ad_context()
+        with patch.object(c, 'save', return_value=False):
+            self.assertEqual(c.claim_morale_ad_reward('reward-1', ctx), 'save_failed')
+        self.assertEqual(c.morale, 10)
+        self.assertTrue(c.morale_ad_available)
+        self.assertEqual(c.save_path.read_bytes(), before)
+        self.assertEqual(c.claim_morale_ad_reward('reward-1', ctx), 'applied')
+        self.assertEqual(c.morale, 11)
+        self.assertEqual(c.claim_morale_ad_reward('bad|token', ctx), 'invalid')
+
     def test_damaged_save_is_rejected_without_partial_mutation(self):
         c = self.signed()
         original = json.loads(c.save_path.read_text())

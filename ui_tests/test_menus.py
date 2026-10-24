@@ -407,6 +407,36 @@ class MenuTests(unittest.TestCase):
             self.assertEqual(game.view, 'hub')
             ads.continue_after_match.assert_called_once()
 
+    def test_morale_ad_reward_requires_sdk_record_and_is_applied_once(self):
+        from advertising import AdBreaks
+        from unittest.mock import Mock
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            backend = Mock()
+            backend.pending_reward.return_value = ''
+            backend.show_reward.return_value = True
+            game.ads = AdBreaks(backend)
+            game.view = 'training'
+            before = game.career.morale
+            game._activate_ui('morale_ad')
+            self.assertEqual(game.career.morale, before)
+            game._poll_ad_reward()  # Closing before an earned record cannot reward.
+            self.assertEqual(game.career.morale, before)
+            backend.pending_reward.return_value = 'reward-1|' + game.career.morale_ad_context()
+            game._poll_ad_reward()
+            self.assertEqual(game.career.morale, before + 1)
+            game._poll_ad_reward()  # Redelivery after save/ack race is idempotent.
+            self.assertEqual(game.career.morale, before + 1)
+            backend.acknowledge_reward.assert_called_with('reward-1')
+            game.draw()
+            settle()
+            boost = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'WATCH AD: +1 MORALE')
+            self.assertTrue(boost.disabled)
+            restored = CareerMode()
+            self.assertTrue(restored.load())
+            self.assertEqual(restored.morale, before + 1)
+            self.assertFalse(restored.morale_ad_available)
+
     def test_opponent_controls_chance_plan_for_home_and_away_matches(self):
         with isolated_game(saved=True) as game:
             game.career.load()

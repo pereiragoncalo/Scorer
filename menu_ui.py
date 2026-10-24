@@ -127,7 +127,7 @@ class CareerMenu(BoxLayout):
                      c.matches, c.goals, c.stamina, c.morale, c.message,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals,
-                     Metrics.density, Metrics.fontscale)
+                     self.game.reward_ad_status, Metrics.density, Metrics.fontscale)
         if signature != self._signature:
             self._signature = signature
             self._build()
@@ -226,9 +226,9 @@ class CareerMenu(BoxLayout):
         used = c.trained_this_week
         resumable = c.training_session_week == c.week and not used
         card = self.card('Finishing practice')
+        card.spacing = dp(4)
         if g.training_completed and c.trained_this_week:
             card.label(f'Training complete · {g.training_goals}/3 goals', heading=True)
-            card.label(f'Energy: {g.training_stamina_before:.1f} to {c.stamina:.1f}')
         elif resumable:
             card.label(f'Resume training · {c.training_shots_taken}/3 shots completed.')
             card.label(c.message, muted=True)
@@ -236,12 +236,25 @@ class CareerMenu(BoxLayout):
             card.label('Complete three shots to unlock this week’s match.')
         else:
             card.label('This week’s training session has been used.', muted=True)
-        card.label(f'Current energy: {c.stamina:.1f}/20', muted=True)
+        card.label(f'Energy: {c.stamina:.1f}/20  ·  Morale: {c.morale:.1f}/20', muted=True)
         button = self._button('WEEKLY TRAINING USED' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
         button.disabled = used
-        card.add_widget(button)
-        if used:
-            card.label('Training available again next week.', muted=True)
+        actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        actions.add_widget(button)
+        card.add_widget(actions)
+        boost = self._button('WATCH AD: +1 MORALE', 'morale_ad')
+        boost.disabled = not c.morale_ad_available
+        actions.add_widget(boost)
+        note = card.label('Optional ad: +1 morale after completion. Once per week, max 20.', muted=True)
+        note.font_size = sp(12)
+        if c.morale_ad_week == c.week:
+            card.label('This week’s morale ad reward has been claimed.', muted=True)
+        elif c.morale >= 20:
+            card.label('Morale is already at its maximum.', muted=True)
+        elif g.reward_ad_status:
+            card.label(g.reward_ad_status, muted=True)
+        if c.message.startswith(('Reward ad', 'Ad reward', 'Unable to save the morale')):
+            card.label(c.message, muted=True)
 
     def _compact_list(self):
         c = self.game.career
@@ -266,7 +279,7 @@ class CareerMenu(BoxLayout):
         card = self.card('Privacy & advertising')
         card.label('This beta uses Google TEST ads only. They do not generate revenue.')
         card.label('A banner may appear on the opening menu after the splash. Full-screen ads may appear '
-                   'between matches, never during a shot or training. '
+                   'between matches, never during a shot. Training offers an optional ad for +1 morale. '
                    'No connection or no available ad? You can keep playing.')
         card.label('All ad requests are configured for children and users under the age of consent, '
                    'with a general-audience content rating and no personalised advertising.')
@@ -275,6 +288,8 @@ class CareerMenu(BoxLayout):
                    'Your player name and career saves are not sent by SCORER to Google.')
         card.label('Google privacy policy: https://policies.google.com/privacy', muted=True)
         card.label(self.game.ads.status, muted=True)
+        card.label(self.game.ads.break_status, muted=True)
+        card.label(self.game.ads.reward_status, muted=True)
         if self.game.ads.privacy_required:
             card.add_widget(MenuTile('AD PRIVACY OPTIONS', lambda: self.game.ads.privacy_options()))
 

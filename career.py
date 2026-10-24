@@ -712,6 +712,8 @@ class CareerMode:
         self.week = 0
         self.stamina = 10.0
         self.morale = 10.0
+        self.morale_ad_week = -1
+        self.morale_ad_token = ""
         self.club_name = ""
         self.league_key = FREE_LEAGUE_KEY
         self.matches = 0
@@ -1327,6 +1329,33 @@ class CareerMode:
         )
 
 
+    def morale_ad_context(self) -> str:
+        payload = f"scorer-morale-v1:{self.world_seed}:{self.season}:{self.week}"
+        return hashlib.sha256(payload.encode()).hexdigest()
+
+    @property
+    def morale_ad_available(self) -> bool:
+        return bool(self.club_name) and self.morale_ad_week != self.week and self.morale < 20
+
+    def claim_morale_ad_reward(self, token: str, context: str) -> str:
+        if not isinstance(token, str) or not 1 <= len(token) <= 80 or not all(
+            char.isascii() and (char.isalnum() or char == '-') for char in token
+        ):
+            return 'invalid'
+        if context != self.morale_ad_context() or not self.club_name:
+            return 'stale'
+        if token == self.morale_ad_token or self.morale_ad_week == self.week:
+            return 'duplicate'
+        if self.morale >= 20:
+            return 'full'
+        previous = self.morale, self.morale_ad_week, self.morale_ad_token
+        self.morale = min(20.0, self.morale + 1.0)
+        self.morale_ad_week, self.morale_ad_token = self.week, token
+        if not self.save():
+            self.morale, self.morale_ad_week, self.morale_ad_token = previous
+            return 'save_failed'
+        return 'applied'
+
     @property
     def training_used_this_week(self) -> bool:
         return self.trained_this_week or self.training_session_week == self.week
@@ -1551,6 +1580,8 @@ class CareerMode:
             )
             self.league_key = target_key
         self.season += 1
+        self.morale_ad_week = -1
+        self.morale_ad_token = ""
         self.week = 0
         self.last_training_week = -1
         self.training_session_week = -1
@@ -1611,6 +1642,8 @@ class CareerMode:
             "week": self.week,
             "stamina": self.stamina,
             "morale": self.morale,
+            "morale_ad_week": self.morale_ad_week,
+            "morale_ad_token": self.morale_ad_token,
             "club_name": self.club_name,
             "league_key": self.league_key,
             "matches": self.matches,
@@ -1767,6 +1800,8 @@ class CareerMode:
             self.week = int(data.get("week", 0))
             self.stamina = float(data.get("stamina", 10.0))
             self.morale = float(data.get("morale", 10.0))
+            self.morale_ad_week = int(data.get("morale_ad_week", -1))
+            self.morale_ad_token = str(data.get("morale_ad_token", ""))[:80]
             self.club_name = data.get("club_name", "")
             self.league_key = key
             self.matches = int(data.get("matches", 0))

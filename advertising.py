@@ -3,14 +3,14 @@ from time import monotonic
 
 
 class AdBreaks:
-    MIN_MATCHES = 3
-    MIN_SECONDS = 180
+    MIN_MATCHES = 1
+    MIN_SECONDS = 60
 
     def __init__(self, backend=None, now=monotonic):
         self.backend = backend
         self.now = now
         self.since_break = 0
-        self.last_break = now()
+        self.last_break = now() - self.MIN_SECONDS
         self.last_match = None
         self.pending = False
         self.entry_shown = None
@@ -57,6 +57,34 @@ class AdBreaks:
         self.last_break = self.now()
         return True
 
+    def prepare_reward(self):
+        self._call('prepare_reward')
+
+    def show_reward(self, context):
+        if self._call('show_reward', context) is True:
+            self.last_break = self.now()  # Never stack a forced break after an opt-in ad.
+            return True
+        self.prepare_reward()
+        return False
+
+    @property
+    def pending_reward(self):
+        raw = self._call('pending_reward')
+        if isinstance(raw, str) and raw.count('|') == 1 and len(raw) <= 160:
+            return tuple(raw.split('|'))
+        return None
+
+    def acknowledge_reward(self, token):
+        self._call('acknowledge_reward', token)
+
+    @property
+    def break_status(self):
+        return self._call('break_status') or 'Full-screen ads are unavailable.'
+
+    @property
+    def reward_status(self):
+        return self._call('reward_status') or 'Reward ads are available on Android only.'
+
     @property
     def status(self):
         return self._call('status') or 'Test ads are available on Android only.'
@@ -88,6 +116,24 @@ class AndroidTestAds:
     def show(self):
         # Java atomically reserves the ready ad before posting to the UI thread.
         return bool(self.bridge.showAtBreak(self.activity))
+
+    def prepare_reward(self):
+        self.bridge.prepareReward(self.activity)
+
+    def show_reward(self, context):
+        return bool(self.bridge.showReward(self.activity, context))
+
+    def pending_reward(self):
+        return str(self.bridge.peekReward(self.activity))
+
+    def acknowledge_reward(self, token):
+        self.bridge.acknowledgeReward(self.activity, token)
+
+    def break_status(self):
+        return str(self.bridge.getBreakStatus())
+
+    def reward_status(self):
+        return str(self.bridge.getRewardStatus())
 
     def status(self):
         return str(self.bridge.getStatus())

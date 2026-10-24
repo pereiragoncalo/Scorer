@@ -30,19 +30,14 @@ class AdvertisingTests(unittest.TestCase):
         self.ads.match_completed(key)
         return self.ads.continue_after_match()
 
-    def test_only_natural_break_after_three_matches_and_three_minutes(self):
-        self.time = 181
-        self.assertFalse(self.finish('first'))
-        self.assertFalse(self.finish('second'))
-        self.assertEqual(self.backend.shows, 0)
-        self.assertTrue(self.finish('third'))
+    def test_first_match_is_eligible_then_sixty_second_cooldown(self):
+        self.assertTrue(self.finish('first'))
         self.assertEqual(self.backend.shows, 1)
         self.backend.loaded = True
-        self.assertFalse(self.finish('fourth'))
-        self.assertFalse(self.finish('fifth'))
-        self.assertFalse(self.finish('sixth'))
-        self.time += 181
-        self.assertTrue(self.finish('seventh'))
+        self.time = 59
+        self.assertFalse(self.finish('second'))
+        self.time = 60
+        self.assertTrue(self.finish('third'))
         self.assertEqual(self.backend.shows, 2)
 
     def test_offline_or_slow_load_cannot_show_later_or_on_repeated_continue(self):
@@ -62,9 +57,11 @@ class AdvertisingTests(unittest.TestCase):
         self.assertEqual(self.backend.privacy, 1)
         self.time = 300
         for _ in range(4): self.ads.match_completed('same match')
-        self.assertFalse(self.ads.continue_after_match())
-        self.assertEqual(self.ads.since_break, 1)
         self.assertEqual(self.backend.shows, 0)
+        self.assertEqual(self.ads.since_break, 1)
+        self.assertTrue(self.ads.continue_after_match())
+        self.assertFalse(self.ads.continue_after_match())
+        self.assertEqual(self.backend.shows, 1)
         self.assertEqual(self.ads.status, 'Test ad ready')
 
     def test_entry_banner_visibility_is_separate_from_fullscreen_breaks(self):
@@ -75,6 +72,26 @@ class AdvertisingTests(unittest.TestCase):
         self.assertEqual(self.backend.banners, [False, True, False])
         self.assertEqual(self.backend.shows, 0)
         self.assertFalse(self.ads.pending)
+
+    def test_optional_reward_request_never_creates_reward_and_defers_forced_ad(self):
+        from unittest.mock import Mock
+        backend = Mock()
+        backend.show_reward.return_value = True
+        backend.pending_reward.return_value = ''
+        backend.ready.return_value = True
+        ads = AdBreaks(backend, now=lambda: self.time)
+        self.assertTrue(ads.show_reward('context'))
+        self.assertIsNone(ads.pending_reward)
+        ads.match_completed('match')
+        self.assertFalse(ads.continue_after_match())
+        self.time = 60
+        ads.match_completed('next')
+        backend.show.return_value = True
+        self.assertTrue(ads.continue_after_match())
+        backend.pending_reward.return_value = 'reward-1|context'
+        self.assertEqual(ads.pending_reward, ('reward-1', 'context'))
+        ads.acknowledge_reward('reward-1')
+        backend.acknowledge_reward.assert_called_once_with('reward-1')
 
     def test_backend_exceptions_and_desktop_remain_playable(self):
         class Broken:

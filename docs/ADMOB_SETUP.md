@@ -1,11 +1,11 @@
 # Ativar receita publicitária no SCORER
 
-## Estado real — 0.6.22
+## Estado real — 0.6.23
 
 Existe uma integração Android nativa Google Mobile Ads 25.5.0 + UMP 4.0.0,
-ligada ao jogo Python/Kivy: banner no menu após o splash e intersticiais entre partidas. O APK compilou com os SDKs, bridge Java, identificadores
-oficiais de teste e permissões verificadas. A apresentação de um anúncio no
-telemóvel ainda NÃO foi validada. A conta AdMob do proprietário ainda não existe.
+ligada ao jogo Python/Kivy: banner após o splash, intersticiais entre partidas e anúncio opcional no treino para +1 moral. O APK compilou com os SDKs, bridge Java, identificadores
+oficiais de teste e permissões verificadas. O proprietário confirmou o banner da 0.6.22 no telemóvel. A apresentação/recompensa
+dos novos anúncios na 0.6.23 ainda não foi validada no telefone. A conta AdMob do proprietário ainda não existe.
 Esta beta não gera receitas. Não substitui criar/aprovar a conta ou a aplicação.
 
 A pedido do proprietário, publicidade de rede substitui nesta etapa a antiga
@@ -21,10 +21,11 @@ separada de patrocínio; não foram implementados nesta revisão.
    palavras-passe, documentos, dados bancários ou acesso à conta nesta conversa.
 2. Adicionar a app Android SCORER, package `com.clemir.striker`. Declarar honestamente
    se ainda não está numa loja. Criar um bloco **Banner** para o menu inicial e um bloco **Interstitial** para o intervalo
-   entre partidas (não rewarded, não app-open). O SDK não dá direito a anunciar
+   entre partidas e um bloco **Rewarded** (recompensa: 1, tipo Morale) para o treino.
+   Não usar rewarded-interstitial nem app-open. O SDK não dá direito a anunciar
    receitas antes de a Google aprovar conta/app e disponibilizar anúncios.
-3. Enviar apenas os três identificadores públicos: App ID `ca-app-pub-…~…`,
-   Banner ID e Interstitial ID (ambos `ca-app-pub-…/…`). Não são palavras-passe. Os IDs de teste desta beta
+3. Enviar apenas os quatro identificadores públicos: App ID `ca-app-pub-…~…`,
+   Banner ID, Interstitial ID e Rewarded ID (todos `ca-app-pub-…/…`). Não são palavras-passe. Os IDs de teste desta beta
    pertencem à Google e nunca pagam ao proprietário.
 4. Configurar o público real (inclui menores), classificação de anúncios,
    privacidade/mensagens e requisitos de consentimento na consola. A configuração
@@ -52,15 +53,21 @@ Nenhum contrato de patrocínio é necessário para usar a rede, mas a conta é.
   largura/altura seguras (mínimo 340x340 dp), removido ao sair do menu inicial.
   Carregamento assíncrono, sem bloquear o menu nem apresentar fullscreen no arranque.
 - Intersticiais depois de um jogo terminado, ao tocar CONTINUE.
-- Pelo menos três jogos concluídos e 180 segundos desde o arranque/último intervalo.
-- Nada no splash, treino, oportunidades, intervalo do jogo ou ao sair. O único
+- Elegível desde o primeiro jogo concluído; mínimo de 60 segundos entre anúncios
+  de ecrã inteiro. Um anúncio opcional de moral também inicia esse intervalo.
+- Nada no splash, remates de treino, oportunidades, intervalo do jogo ou ao sair.
+  No menu de treino pode optar por um RewardedAd para +1 moral (até20), uma vez
+  por semana da carreira. Só onUserEarnedReward concede a recompensa, nunca
+  fechar/carregar o anúncio. Recibo local privado e gravação atómica evitam duplicados. O único
   anúncio de arranque é o banner após o splash, nunca um fullscreen obrigatório.
 - Um anúncio carregado só pode ser reservado/apresentado uma vez. Se falhar,
   não aparecer mais tarde no meio da jogabilidade. Fechar/falhar regressa ao menu.
 - Sem rede, consentimento permitido ou anúncio disponível: continuar a jogar.
 - Pré-carregamento assíncrono; no máximo nova tentativa após 60 s quando falha.
   Anúncios com mais de 55 minutos expiram. Não há loop de pedidos por frame.
-- Estado/contadores locais por execução, sem enviar nome, carreira ou match key.
+- Frequência local por execução; recibos/recompensa semanal privados e persistentes.
+  Hash do contexto carreira/semana usado só localmente, nunca no pedido ao SDK.
+  Sem envio do nome, save ou match key ao SDK.
 - Google UMP atualiza requisitos antes da inicialização de pedidos; só pede
   anúncios se canRequestAds permitir. Em erro sem permissão, falha fechado.
   Opções de privacidade só aparecem se o SDK indicar que são necessárias.
@@ -92,8 +99,10 @@ antes de submissão à loja; não reutilizar a declaração antiga sem rede.
    carreira deve remover o banner imediatamente.
    O UMP pode bloquear pedidos se a configuração da aplicação/consentimento não
    estiver disponível; a app deve continuar a funcionar, sem fingir que há anúncio.
-3. Concluir pelo menos três partidas, com três minutos de execução; CONTINUE deve
-   apresentar apenas um anúncio com indicação TEST se já houver um pronto.
+3. Concluir a primeira partida; CONTINUE pode apresentar um anúncio TEST se pronto.
+   Outros ecrãs inteiros respeitam 60 segundos, também após um vídeo opcional.
+   No treino, WATCH AD: +1 MORALE: verificar conclusão (+1), fechar cedo (sem ponto),
+   limite semanal, máximo20 e persistência/reabertura.
 4. Fechar/voltar e confirmar regresso ao menu, save e som/toques normais. Repetir
    offline: sem espera obrigatória ou bloqueio da carreira. Rodar e pôr em segundo
    plano durante carregamento e apresentação. Não usar IDs pagos nestes testes.
@@ -110,5 +119,5 @@ este exemplo oficial via GitHub, não um SDK de terceiros. Dependências resolvi
 por Gradle nos repositórios oficiais com verificação TLS.
 
 Código: advertising.py (limites/falhas), android/src/com/clemir/striker/ads/ScorerAds.java
-(SDK/consentimento/ciclo de vida), android/manifest-extra.xml, buildozer.spec,
+(SDK/consentimento/ciclo de vida/recompensa local), android/manifest-extra.xml, buildozer.spec,
 main.py (intervalo após resultado), menu_ui.py (privacidade).

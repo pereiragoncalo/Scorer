@@ -233,6 +233,8 @@ class StrikerGame(Widget):
         self._exit_popup = None
         self._new_game_popup = None
         self.ads = create_ad_breaks(android=(platform == "android"))
+        self.reward_ad_status = ""
+        self._next_reward_poll = 0.0
         self._privacy_return = "start"
         self._career_started = False
         self._profile_return = "offers"
@@ -730,6 +732,7 @@ class StrikerGame(Widget):
     # Ciclo de jogo
     # ------------------------------------------------------------------
     def start_career_match(self) -> None:
+        self.ads.start()
         """Cria um jogo completo com relógio e oportunidades interativas."""
         if not self.career.trained_this_week:
             self.career.message = 'Complete this week’s training to unlock Play.'
@@ -1097,6 +1100,9 @@ class StrikerGame(Widget):
         frame_dt = clamp(dt, 0.0, 0.12)
         self.elapsed += frame_dt
         self.state_age += frame_dt
+        if self._career_started and self.elapsed >= self._next_reward_poll:
+            self._next_reward_poll = self.elapsed + 1.0
+            self._poll_ad_reward()
 
 
         if self.view == "match":
@@ -1149,6 +1155,21 @@ class StrikerGame(Widget):
         # padrão 60/30/60 fps causado por arredondamentos do relógio.
         self.draw()
 
+
+    def _poll_ad_reward(self):
+        if self.view == "training":
+            self.reward_ad_status = self.ads.reward_status
+        pending = self.ads.pending_reward
+        if not pending:
+            return
+        token, context = pending
+        outcome = self.career.claim_morale_ad_reward(token, context)
+        if outcome != 'save_failed':
+            self.ads.acknowledge_reward(token)
+        if outcome == 'applied':
+            self.career.message = 'Ad reward received: morale +1.'
+        elif outcome == 'save_failed':
+            self.career.message = 'Unable to save the morale boost. It will be retried.'
 
     def _randomize_aim_pattern(self) -> None:
         rng = self.career.rng
@@ -2712,9 +2733,14 @@ class StrikerGame(Widget):
         elif action == "play":
             self.start_career_match()
         elif action == "training":
+            self.ads.prepare_reward()
             self.training_completed = False
             self.training_summary = ""
             self.view = "training"
+        elif action == "morale_ad" and self.view == 'training':
+            if self.career.morale_ad_available:
+                if not self.ads.show_reward(self.career.morale_ad_context()):
+                    self.career.message = 'Reward ad not ready. You can keep training and try again later.'
         elif action == "training_start":
             self.start_training()
         elif action == "standings":

@@ -915,3 +915,27 @@ Owner additionally requests ads after splash: added native TEST banner in the
 entry menu only, separate 64dp footer and safe-size suppression. Removed on
 navigation, never delays splash/menu or appears during play. Controller visibility
 transitions and actual Kivy button/footer separation added to the passing suite.
+
+## 0.6.23 — first post-match ad and optional morale RewardedAd
+
+Owner reports 0.6.22 banner displayed, no post-match ad. Old 3-match/180s gate
+can explain this, no device error log available. First final CONTINUE now eligible
+if ready, subsequent fullscreen minimum60s. Prefetch earlier and separate Privacy
+status for break/reward failures. Optional training +1 morale capped20/once-weekly,
+SDK earned callback only, native private receipt, atomic save + idempotent ack.
+Files/evidence: docs/UI_0.6.23.md; four production IDs needed in ADMOB_SETUP.md.
+
+59 core/build/security and 42 real Kivy tests pass (101). Includes save failure,
+replay/reload, stale contexts, no reward on request/early close without SDK record,
+first-match/cooldown and existing full suites. Initial UI caught 8px overflow;
+compacted training spacing/removed duplicated energy line, all UI rerun passed.
+Desktop training capture at density1.64 inspected. Actual 0.6.23 ad load/show/earned
+callback/rotation/early close still need Android phone validation.
+
+Real build build-0.6.23-final.log successful. SDK RewardedAd/receipt and all TEST
+IDs in DEX verified, Python advertising.pyc in payload; no saves/private keys.
+Same debug signaturev2, package com.clemir.striker/version1026623, target36/min26,
+ZIP16KB +118 AArch64 ELF alignments pass, AD_ID/AdServices permissions still absent.
+APK37,181,442 bytes, SHA256
+5477d0272298ae493294f22cf40bf83c64eaffc338e9618043840b5715754dcd.
+Static log verify-0.6.23.log; no production revenue or paid IDs activated.
