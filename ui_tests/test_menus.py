@@ -257,6 +257,59 @@ class MenuTests(unittest.TestCase):
                 game._advance_after_shot()
             self.assertEqual(game.match_player_misses, 3)
 
+    def test_match_has_at_most_one_clear_chance_and_others_are_pressured(self):
+        Window.size = (960, 540)
+        with isolated_game(saved=True) as game:
+            game.size = Window.size
+            game.career.load()
+            game.career.last_training_week = game.career.week
+            seen_easy, seen_no_easy = False, False
+            types = set()
+            with patch.object(game.career, 'chance_count', return_value=3):
+                for seed in range(60):
+                    game.career.rng.seed(9700 + seed)
+                    game.start_career_match()
+                    easy_count = 0
+                    for index in range(3):
+                        game.awaiting_chance = True
+                        game._begin_pending_chance()
+                        types.add(game.shot_type)
+                        if game.current_chance_difficulty == 'easy':
+                            easy_count += 1
+                            self.assertLessEqual(game.shot_origin_y, 11)
+                            self.assertGreaterEqual(game.shot_time_limit, 5)
+                        else:
+                            self.assertFalse(game.one_on_one)
+                            self.assertGreaterEqual(game.shot_origin_y, 16.5)
+                            self.assertGreaterEqual(abs(game.shot_origin_x), 4.5)
+                            sx, sy = game.project(game.shot_origin_x, game.shot_origin_y, 0)
+                            self.assertTrue(game.x <= sx <= game.right)
+                            self.assertTrue(game.y <= sy <= game.top)
+                            self.assertGreaterEqual(len(game.field_players), 4)
+                            self.assertLessEqual(game.shot_time_limit, 3.7)
+                    self.assertLessEqual(easy_count, 1)
+                    seen_easy |= easy_count == 1
+                    seen_no_easy |= easy_count == 0
+            self.assertTrue(seen_easy and seen_no_easy)
+            self.assertEqual(types, {'kick', 'penalty', 'header', 'free_kick'})
+            with patch.object(game.career, 'chance_count', return_value=0):
+                game.start_career_match()
+                self.assertEqual(game.match_easy_chance_index, -1)
+
+    def test_hard_chance_keeper_reacts_faster_and_training_keeps_original_timing(self):
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            game.shot_context = 'match'
+            game.current_chance_difficulty = 'hard'
+            game._prepare_next_shot()
+            game.power = 0.85
+            game.shoot(2.0, 1.0)
+            self.assertLessEqual(game.goalkeeper_reaction, 0.13)
+            self.assertAlmostEqual(game.goalkeeper_dive_speed, 5.8)
+            game.start_training()
+            self.assertEqual(game.shot_context, 'training')
+            self.assertEqual(game.training_shots_left, 3)
+
     def test_english_menu_labels_and_name_validation(self):
         with isolated_game(saved=True) as game:
             game.view = 'start'
@@ -444,7 +497,8 @@ class MenuTests(unittest.TestCase):
                     self.assertLess(training.right, play.x)
                     self.assertAlmostEqual(training.y, play.y, delta=1)
                     self.assertAlmostEqual(training.width, play.width, delta=1)
-                    self.assertTrue(any(isinstance(w, Label) and w.text == 'CORER' for w in self.game.walk()))
+                    self.assertTrue(any(getattr(w, 'source', '') == 'assets/menu_logo.png' for w in self.game.walk()))
+                    self.assertFalse(any(isinstance(w, Label) and w.text == 'by clemir' for w in self.game.walk()))
         finally:
             Metrics.density = previous
 

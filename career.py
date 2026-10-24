@@ -1037,8 +1037,10 @@ class CareerMode:
 
     def chance_count(self) -> int:
         factor = clamp((self.stamina + self.morale) / 40.0, 0.05, 1.0)
-        centre = factor * 5.0
-        return int(clamp(round(self.rng.gauss(centre, 0.90)), 0, 5))
+        # Fewer personal highlights keep a striker season in proportion to
+        # simulated scorers. A clear chance is not guaranteed every match.
+        centre = 0.4 + factor * 2.5
+        return int(clamp(round(self.rng.gauss(centre, 0.70)), 0, 3))
 
 
     def fixture_goal_means(

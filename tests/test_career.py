@@ -360,6 +360,18 @@ class CareerTests(unittest.TestCase):
         self.assertEqual(restored.complete_training(3), 0)
         self.assertEqual((restored.stamina, restored.morale), stats)
 
+    def test_highlight_count_is_bounded_and_varies_with_condition(self):
+        c = self.signed()
+        c.stamina = c.morale = 20
+        c.rng.seed(9921)
+        fit = [c.chance_count() for _ in range(500)]
+        c.stamina = c.morale = 2
+        c.rng.seed(9921)
+        tired = [c.chance_count() for _ in range(500)]
+        self.assertTrue(all(0 <= value <= 3 for value in fit + tired))
+        self.assertGreater(sum(fit), sum(tired))
+        self.assertGreater(len(set(fit)), 1)
+
     def test_baseline_immutable(self):
         p = Path(career.__file__).parent / 'baseline/Striker-P0-05-v006.py'
         self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),

@@ -251,6 +251,8 @@ class StrikerGame(Widget):
         self._match_shot_goal_counted = False
         self.match_chance_minutes: list[int] = []
         self.match_chance_index = 0
+        self.match_easy_chance_index = -1
+        self.current_chance_difficulty = "standard"
         self.match_player_goals = 0
         self.match_player_misses = 0
         self.match_home_score = 0
@@ -764,6 +766,8 @@ class StrikerGame(Widget):
             self.career.rng.sample(range(3, final_minute), min(chance_total, final_minute - 3))
         )
         self.match_chance_index = 0
+        self.match_easy_chance_index = self.career.rng.randrange(len(self.match_chance_minutes)) if self.match_chance_minutes and self.career.rng.random() < 0.60 else -1
+        self.current_chance_difficulty = "standard"
         self.match_player_goals = 0
         self.match_player_misses = 0
         self.match_home_score = 0
@@ -902,6 +906,7 @@ class StrikerGame(Widget):
         if not self.awaiting_chance or self.match_finished or self.match_halftime:
             return
         self.awaiting_chance = False
+        self.current_chance_difficulty = "easy" if self.match_chance_index == self.match_easy_chance_index else "hard"
         self.match_chance_index += 1
         self.shot_context = "match"
         self.view = "shot"
@@ -911,6 +916,9 @@ class StrikerGame(Widget):
         if self.match_is_cup:
             self.shot_time_limit = max(3.0, self.shot_time_limit - 0.20)
             self.current_aim_speed += 0.10
+        if self.current_chance_difficulty == "hard":
+            self.shot_time_limit = max(2.7, self.shot_time_limit * 0.60)
+            self.current_aim_speed *= 1.55
         self.shot_time_left = self.shot_time_limit
         self._prepare_next_shot()
 
@@ -1209,6 +1217,39 @@ class StrikerGame(Widget):
 
 
     def _choose_shot_origin(self) -> None:
+        if self.shot_context == "match" and self.current_chance_difficulty in ("easy", "hard"):
+            rng = self.career.rng
+            easy = self.current_chance_difficulty == "easy"
+            self.one_on_one = easy
+            self.shot_type = "kick"
+            self.last_origin_index = -4 if easy else -5
+            if easy:
+                self.shot_type = rng.choices(("kick", "penalty", "header"), weights=(70, 15, 15), k=1)[0]
+                self.shot_origin_x = rng.uniform(-1.8, 1.8)
+                self.shot_origin_y = rng.uniform(8.0, 11.0)
+                if self.shot_type == "penalty":
+                    self.shot_origin_x, self.shot_origin_y = PENALTY_ORIGIN
+                elif self.shot_type == "header":
+                    self.one_on_one = False
+                    self.shot_origin_y = rng.uniform(4.3, 5.1)
+            else:
+                self.shot_origin_x = rng.choice((-1, 1)) * rng.uniform(4.5, 8.0)
+                self.shot_origin_y = rng.uniform(16.5, 21.0)
+                # The fixed stadium camera can crop the near touchline on
+                # narrower landscape displays. Mirror the same difficult
+                # angle to the visible side rather than hiding the shooter.
+                screen_x, _ = self.project(self.shot_origin_x, self.shot_origin_y, 0)
+                if not self.x + self.width * 0.08 <= screen_x <= self.right - self.width * 0.08:
+                    self.shot_origin_x = -abs(self.shot_origin_x)
+                if rng.random() < 0.20:
+                    self.shot_type = "free_kick"
+            self.ball.reset(self.shot_origin_x, self.shot_origin_y, HEADER_BALL_HEIGHT if self.shot_type == "header" else None)
+            self.player_kick_progress = 0.0
+            self.last_field_collision = None
+            self._generate_field_players()
+            self.goalkeeper_x = self._aligned_goalkeeper_x()
+            self.goalkeeper_vx = 0.0
+            return
         # Os cabeceamentos surgem apenas dentro da pequena área. Nos restantes
         # lances, o rematador pode aparecer em qualquer zona ou ângulo útil.
         if self.shot_context == "match" and random.random() < 0.035:
@@ -1320,6 +1361,14 @@ class StrikerGame(Widget):
             return
 
 
+        if self.shot_context == "match" and self.current_chance_difficulty == "hard":
+            # Keep normal physical defenders, including one marking the central
+            # shooting lane. Corners and gaps remain available to a good shot.
+            lane_y = self.shot_origin_y * 0.48
+            lane_x = self.shot_origin_x * 0.48 + self.career.rng.uniform(-0.65, 0.65)
+            positions = [(lane_x, lane_y)] + random.sample(list(defenders), 3)
+            self.field_players = [FieldPlayer(x, y, "defender", random.uniform(0.0, math.tau)) for x, y in positions]
+            return
         if self.one_on_one:
             # A genuine one-on-one contains only the shooter and goalkeeper.
             # _choose_shot_origin also forces these opportunities to be kicks.
@@ -1537,8 +1586,8 @@ class StrikerGame(Widget):
             self._move_goalkeeper_towards(
                 step_target,
                 dt,
-                max_speed=1.95,
-                acceleration=10.5,
+                max_speed=2.75 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 1.95,
+                acceleration=13.0 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 10.5,
             )
             self.goalkeeper_dive_start_x = self.goalkeeper_x
             return
@@ -1662,8 +1711,12 @@ class StrikerGame(Widget):
         )
         reaction_low = 0.22 - 0.06 * self.shot_distance_factor
         reaction_high = 0.34 - 0.09 * self.shot_distance_factor
+        hard = self.shot_context == "match" and self.current_chance_difficulty == "hard"
+        if hard:
+            self.goalkeeper_read_error = random.gauss(0.0, 0.09)
+            reaction_low, reaction_high = 0.07, 0.13
         self.goalkeeper_reaction = random.uniform(reaction_low, reaction_high)
-        self.goalkeeper_dive_speed = 3.90 + 0.80 * self.shot_distance_factor
+        self.goalkeeper_dive_speed = 5.8 if hard else 3.90 + 0.80 * self.shot_distance_factor
         dive_delta = self.goalkeeper_target_x - self.goalkeeper_x
         self.goalkeeper_should_dive = (
             abs(destination_x - self.goalkeeper_x) > 0.58

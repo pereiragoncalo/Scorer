@@ -128,3 +128,11 @@ which stays grey until all three weekly shots are completed. Interrupted
 training can resume; completed sessions cannot be repeated. Match notice
 widgets remain attached during redraws to preserve touches.
 [Changes, 62 tests and limitations](docs/UI_0.6.12.md).
+
+## SCORER 0.6.13 — tougher finishing and new logo
+
+At most three personal highlights per match, with at most one clear chance;
+all others have harder positions, defensive pressure and sharper goalkeeping.
+New icon-based SCORER logo on the main and entry menus, without by clemir.
+Existing career totals remain intact.
+[Changes, 65 tests and 720 physical shot samples](docs/UI_0.6.13.md).

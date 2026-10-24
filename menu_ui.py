@@ -156,7 +156,10 @@ class CareerMenu(BoxLayout):
         brand = BoxLayout(orientation='vertical')
         if self.game.view == 'hub':
             header.height = dp(52)
-            brand = BrandMark(word='CORER', with_icon=True)
+            brand = AnchorLayout(anchor_x='left', anchor_y='center')
+            logo = Image(source='assets/menu_logo.png', size_hint=(None, 1), width=dp(190))
+            brand.bind(width=lambda widget, width: setattr(logo, 'width', min(dp(190), width)))
+            brand.add_widget(logo)
         elif paged:
             header.height = dp(52)
             titles = {'standings': 'STANDINGS', 'scorers': 'TOP SCORERS', 'calendar': 'FIXTURES'}
@@ -406,7 +409,7 @@ class EntryScreen(FloatLayout):
         super().__init__()
         self.menu = menu
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
-        self.brand = BrandMark(centered=True, size_hint_y=None, height=dp(52))
+        self.brand = Image(source='assets/menu_logo.png', size_hint_y=None, height=dp(52))
         self.panel.add_widget(self.brand)
         self.info = BoundedLabel(text='Your career. One division. Every goal counts.',
                                  color=MUTED, font_size=sp(12), halign='center')

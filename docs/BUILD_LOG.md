@@ -561,3 +561,50 @@ SHA-256: 43988e5279b11f0812ad3843156d531f269c7fcb8dc530e57d6e5392996086fb.
 Próximo: atualizar telefone, confirmar dimensões, completar treino e abrir
 todas as oportunidades. Validação física e confirmação da falha reportada
 pendentes. Sem AAB/assinatura release nesta etapa.
+
+## 0.6.13 — dificuldade de finalização e logótipo
+
+Pedido: reduzir facilidade excessiva, no máximo uma oportunidade fácil por
+jogo e restantes difíceis; logótipo baseado no ícone, sem by clemir no menu.
+Oportunidades pessoais limitadas a 0–3 consoante energia/moral. Uma oportunidade
+fácil é atribuída em 60% das partidas, nunca mais de uma. Restantes remates
+a 16,5–21 m e ângulo de 4,5–8 m, quatro defesas/barreira, menos tempo e GR
+mais rápido. Penáltis/cabeceamentos/livres mantidos. Golos decididos pela física,
+sem falhas impostas ou inflação de marcadores rivais. Totais antigos preservados.
+Novo assets/menu_logo.png gerado com imagegen a partir do ícone original,
+transparente, SCORER marfim/verde. Usado no hub e entrada sem crédito; ícone
+e splash originais mantidos.
+
+Ficheiros: main.py, career.py, menu_ui.py, assets/menu_logo.png, buildozer.spec,
+tests/test_career.py, ui_tests/test_menus.py, tools/balance_shots.py, AGENTS,
+README e docs/UI_0.6.13.md. Baseline preservado.
+34 testes core/build/segurança + 31 Kivy passaram (65); py_compile e
+git diff --check. Cobertura nova de 60 alocações sem dois lances fáceis,
+posições/oposição/tempos, tipos de remate, reação do GR, treino e logótipo.
+Uma asserção de visibilidade expôs inicialmente tamanho de widget não assentado;
+fixado viewport explícito no teste. A execução seguinte confirmou recorte
+real de ângulos extremos em landscape mais estreito. Reduzido o intervalo e
+espelhado o mesmo ângulo para o lado visível quando necessário; suite final
+aprovada em /tmp/scorer-0613-ui-final.log. Core /tmp/scorer-0613-core.log.
+
+Ensaio físico reproduzível tools/balance_shots.py: 240 remates por perfil,
+720 total, potência 0,85 e destinos amostrados com as mesmas seeds. Gerador
+anterior: 109 golos/100 defesas/31 falhas (45,4%); fácil: 177/63/0 (73,8%);
+difícil: 62/104/74 (25,8%). Todos resolvidos até 15 s simulados. Log
+/tmp/scorer-0613-balance-release.log. Ensaio não mede habilidade humana,
+classificação ao longo da época ou desempenho Android. O primeiro comando
+do utilitário encontrou conflito dos argumentos com Kivy; corrigido com
+KIVY_NO_ARGS antes da importação. Usa saves temporários isolados.
+Capturas reais Kivy do menu, entrada e livre difícil inspecionadas em
+1280×589/densidade 1,64; não são capturas Android.
+
+Compilação real: bash tools/android/run.sh python tools/build_android.py -v android debug.
+APK beta debug arm64 0.6.13, versionCode 1026613, API 36/mínimo 26.
+Assinatura v2 válida com certificado anterior; ZIP e 118 ELF alinhados a 16 KB.
+Logo e código de equilíbrio confirmados dentro do APK; ícone e splash
+conferidos por bytes. Sem permissões declaradas, saves ou chaves privadas
+incluídos. Logs build-0.6.13.log e verify-0.6.13.log em /workspace/striker-runtime.
+Tamanho 30206997 bytes. SHA-256: ff747656022880c3d11cd0cf027c09babdf60f93f357eaa87b4824f9adb726c6.
+
+Próximo: jogar várias partidas no telefone e avaliar conversão dos lances
+difíceis. Validação física/equilíbrio humano pendentes. Sem AAB/assinatura release.
