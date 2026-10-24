@@ -1,3 +1,13 @@
+# Atualização 0.6.22 — publicidade de rede
+
+O proprietário pediu integração para receita sem contratos diretos e confirmou
+público geral incluindo menores, sem conta AdMob ainda. AdMob nativo de TESTE
+é agora permitido, separado dos painéis. Sem receitas reais nesta beta; conta,
+IDs próprios, aprovação, política pública e testes Android pendentes. Limites de
+frequência, tratamento infantil/não personalizado e UMP em docs/ADMOB_SETUP.md.
+A restrição anterior a apenas painéis/sem AdMob abaixo é histórica e fica
+substituída por esta decisão. FREE continua com uma divisão e sem pagamentos.
+
 # Striker — direção confirmada pelo proprietário
 
 ## Decisão de produto

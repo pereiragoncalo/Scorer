@@ -75,6 +75,7 @@ from kivy.uix.label import Label as UiLabel
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp
+from advertising import create_ad_breaks
 from menu_ui import CareerMenu, MENU_VIEWS, FlowLabel, TouchButton, MatchNotice
 from kivy.utils import platform
 
@@ -231,6 +232,8 @@ class StrikerGame(Widget):
         self._match_notice = None
         self._exit_popup = None
         self._new_game_popup = None
+        self.ads = create_ad_breaks(android=(platform == "android"))
+        self._privacy_return = "start"
         self._career_started = False
         self._profile_return = "offers"
         self.career = CareerMode(autoload=False)
@@ -885,6 +888,7 @@ class StrikerGame(Widget):
             self.match_competition,
         )
         self.match_finished = True
+        self.ads.match_completed((self.career.season, self.career.week, self.career.last_result, self.match_competition))
         self.awaiting_chance = False
         self.match_summary = f"FINAL  {self.career.last_result}"
 
@@ -2545,6 +2549,7 @@ class StrikerGame(Widget):
             return
         if self.career.load():
             self._career_started = True
+            self.ads.start()
             self.view = "hub"
         else:
             self.career.message = 'Unable to load this career. Your previous save has been preserved.'
@@ -2699,6 +2704,8 @@ class StrikerGame(Widget):
         elif action == "accept_offer":
             self.career.accept_starting_offer(str(value))
             self._career_started = bool(self.career.club_name)
+            if self._career_started:
+                self.ads.start()
             self.view = "hub"
         elif action == "hub":
             self.view = "hub"
@@ -2746,8 +2753,16 @@ class StrikerGame(Widget):
         elif action == "world_next":
             pages = max(0, (len(EUROPE_COUNTRIES) - 1) // 9)
             self.world_page = min(pages, self.world_page + 1)
-        elif action == "match_continue":
+        elif action == "privacy":
+            self._privacy_return = self.view if self.view in ('start', 'hub') else 'start'
+            self.view = 'privacy'
+        elif action == "privacy_back":
+            self.view = self._privacy_return
+        elif action == "ad_privacy_options" and self.view == 'privacy':
+            self.ads.privacy_options()
+        elif action == "match_continue" and self.match_finished and self.view == "match":
             self.view = "hub"
+            self.ads.continue_after_match()
 
 
     # ------------------------------------------------------------------

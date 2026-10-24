@@ -17,7 +17,7 @@ import math
 INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
-MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile'))
+MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy'))
 
 
 class FlowLabel(Label):
@@ -140,6 +140,8 @@ class CareerMenu(BoxLayout):
         return TouchButton(label, lambda: self.action(action, value), accent)
 
     def _build(self):
+        if self.game.view != 'start':
+            self.game.ads.entry_visible(False)
         self.clear_widgets()
         self._shade.a = 1 if self.game.view == 'splash' else 0.62
         if self.game.view in ('splash', 'start', 'profile'):
@@ -173,8 +175,12 @@ class CareerMenu(BoxLayout):
             profile = MenuTile('PLAYER', lambda: self.action('profile'))
             profile.size_hint_x, profile.width = None, dp(88)
             header.add_widget(profile)
+        if self.game.view == 'hub':
+            privacy = MenuTile('PRIVACY', lambda: self.action('privacy'))
+            privacy.size_hint_x, privacy.width = None, dp(76)
+            header.add_widget(privacy)
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('BACK', 'hub')
+            back = self._button('BACK', 'privacy_back' if self.game.view == 'privacy' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view in ('hub', 'offers'):
@@ -255,6 +261,22 @@ class CareerMenu(BoxLayout):
                  e.get('competition', ''), e.get('status', '')) for e in c.calendar_entries()]
         return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
                             summary=(0, 1, 2, 3))
+
+    def _privacy(self):
+        card = self.card('Privacy & advertising')
+        card.label('This beta uses Google TEST ads only. They do not generate revenue.')
+        card.label('A banner may appear on the opening menu after the splash. Full-screen ads may appear '
+                   'between matches, never during a shot or training. '
+                   'No connection or no available ad? You can keep playing.')
+        card.label('All ad requests are configured for children and users under the age of consent, '
+                   'with a general-audience content rating and no personalised advertising.')
+        card.label('Google advertising services may process your IP address, device/app information, '
+                   'diagnostics and ad interactions. Advertising ID permission is not requested. '
+                   'Your player name and career saves are not sent by SCORER to Google.')
+        card.label('Google privacy policy: https://policies.google.com/privacy', muted=True)
+        card.label(self.game.ads.status, muted=True)
+        if self.game.ads.privacy_required:
+            card.add_widget(MenuTile('AD PRIVACY OPTIONS', lambda: self.game.ads.privacy_options()))
 
     def _agent(self):
         c = self.game.career
@@ -411,7 +433,7 @@ class EntryScreen(FloatLayout):
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
         self.brand = Image(source='assets/menu_logo.png', size_hint_y=None, height=dp(52))
         self.panel.add_widget(self.brand)
-        self.info = BoundedLabel(text='Your career. One division. Every goal counts.',
+        self.info = BoundedLabel(text='One division. Google test ads. See Privacy.',
                                  color=MUTED, font_size=sp(12), halign='center')
         if menu.game.career.message.startswith('Unable to continue'):
             self.info.text = menu.game.career.message
@@ -420,15 +442,23 @@ class EntryScreen(FloatLayout):
         load = MenuTile('LOAD GAME', lambda: menu.action('load_game'))
         load.disabled = not menu.game.career.save_path.is_file()
         self.panel.add_widget(load)
-        self.panel.add_widget(MenuTile('EXIT', menu.game._request_exit))
+        actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        actions.add_widget(MenuTile('PRIVACY', lambda: menu.action('privacy')))
+        actions.add_widget(MenuTile('EXIT', menu.game._request_exit))
+        self.panel.add_widget(actions)
         self.panel.canvas.before.remove(self.panel.edge)
         self.add_widget(self.panel)
         self.bind(pos=self._fit, size=self._fit)
         self._fit()
 
     def _fit(self, *_):
-        self.panel.size = (min(self.width - dp(24), dp(340)), min(self.height - dp(16), dp(280)))
-        self.panel.center = self.center
+        banner_fits = self.height >= dp(340) and self.width >= dp(340)
+        self.menu.game.ads.entry_visible(banner_fits)
+        self.banner_space = dp(64) if banner_fits else 0
+        available = self.height - self.banner_space
+        self.panel.size = (min(self.width - dp(24), dp(340)), min(available - dp(16), dp(280)))
+        self.panel.center = (self.center_x, self.y + self.banner_space + available / 2)
+        self.brand.height = dp(28) if self.panel.height < dp(244) else dp(52)
         if self.panel.height < dp(250) and self.info.parent is self.panel:
             self.panel.remove_widget(self.info)
         elif self.panel.height >= dp(250) and self.info.parent is None:

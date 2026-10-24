@@ -885,3 +885,33 @@ Payload checked: no saves or signing keys. verify-0.6.21.log retained outsideGit
 APK 30217021 bytes, SHA256 77e8f0c8ce4e3c842ecb101164cd5ff381c251efbc3f575808d48a992043713b.
 Desktop fixtures screenshot inspected; current APK not tested on a phone.
 Next: phone fixture pages, save/load, cup progression and weekly training.
+
+## 0.6.22 — AdMob native SDK, TEST only
+
+Owner supersedes no-AdMob restriction by requesting immediate network revenue;
+no account exists, general audience includes minors. Real production revenue is
+blocked by account/IDs/readiness, not represented as achieved. Full instructions
+and data/permission implications: docs/ADMOB_SETUP.md. Implementation/evidence:
+docs/UI_0.6.22.md. Added advertising.py, Java ScorerAds bridge, manifest removals,
+Gradle SDK pins, main/menu hooks, controller and actual Kivy integration tests.
+
+56 core/build/security and 41 actual Kivy tests pass (97). Early failures: exact
+menu counts changed by Privacy; new test had not loaded its career. Corrected
+expectations/setup, retained geometry/overlap assertions, reran full suites.
+Syntax, git whitespace and immutable baseline checks pass. Real desktop entry,
+hub and privacy screenshots inspected. No actual Android ad has been displayed.
+
+Actual Android build build-0.6.22-banner.log successful, GMA25.5.0/UMP4.0.0 and Java
+bridge in DEX verified. APK version1026622, target36/min26, same debug signaturev2,
+ZIP16KB + 118 AArch64 ELF alignments pass. Manifest sample App ID and DEX official
+TEST ad unit checked. AD_ID and all three AdServices permissions absent; network,
+wake-lock, foreground-service and AndroidX signature receiver permissions remain.
+No saves/private keys in APK. APK37,175,750 bytes,
+SHA256 28b4abdaf13cebdb3a75df32c895c352366b416d4ae6058f5be705db2ff75cc7.
+Native presentation/UMP/rotation/offline/performance still need phone validation.
+No production IDs, no payments, no Play publishing, no revenue claimed.
+
+Owner additionally requests ads after splash: added native TEST banner in the
+entry menu only, separate 64dp footer and safe-size suppression. Removed on
+navigation, never delays splash/menu or appears during play. Controller visibility
+transitions and actual Kivy button/footer separation added to the passing suite.

@@ -194,3 +194,12 @@ Fixtures shows the complete league calendar without a STATS submenu. New season
 league draws are fixed from the start; cup opponents appear one round at a time
 through the final. League dates remain fixed after cup elimination.
 [Changes, save compatibility and 89 tests](docs/UI_0.6.21.md).
+
+## SCORER 0.6.22 — AdMob test integration
+
+Native Google Mobile Ads + UMP compiled into Android; a test banner after the
+splash on the entry menu and test interstitials at completed-match breaks, with
+frequency limits and graceful offline fallback.
+Privacy screen and child-directed/non-personalised request settings. No revenue
+yet: owner account/app IDs, approval and phone validation remain pending.
+[Setup and activation](docs/ADMOB_SETUP.md) · [97 tests and build evidence](docs/UI_0.6.22.md).

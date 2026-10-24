@@ -345,6 +345,68 @@ class MenuTests(unittest.TestCase):
             game._prepare_next_shot()
             self.assertFalse(game.goalkeeper_holding)
 
+    def test_privacy_is_available_before_load_and_returns_to_its_origin(self):
+        with isolated_game(saved=True) as game:
+            before = game.career.save_path.read_bytes()
+            for origin in ('start', 'hub'):
+                game.view = origin
+                game.draw()
+                settle()
+                self.assertIn('PRIVACY', {w.text for w in game.walk() if isinstance(w, Label)})
+                game._activate_ui('privacy')
+                game.draw()
+                settle()
+                self.assertEqual(game.view, 'privacy')
+                labels = {w.text for w in game.walk() if isinstance(w, Label)}
+                self.assertTrue(any('Google TEST ads only' in text for text in labels))
+                game._activate_ui('privacy_back')
+                self.assertEqual(game.view, origin)
+            self.assertEqual(game.career.save_path.read_bytes(), before)
+
+    def test_entry_banner_reserves_space_and_hides_on_navigation(self):
+        previous = Metrics.density
+        self.addCleanup(setattr, Metrics, 'density', previous)
+        with isolated_game(saved=True) as game:
+            for density, size in ((1, (640, 360)), (1.64, (1280, 589)), (1, (320, 240))):
+                Metrics.density = density
+                Window.size = size
+                game.size = size
+                game.view = 'start'
+                game.draw()
+                settle()
+                entry = game._menu.body
+                shown = size[1] >= dp(340) and size[0] >= dp(340)
+                self.assertEqual(game.ads.entry_shown, shown)
+                self.assertEqual(entry.banner_space, dp(64) if shown else 0)
+                for button in entry.walk():
+                    if isinstance(button, TouchButton):
+                        self.assertGreaterEqual(button.y, entry.y + entry.banner_space)
+                        self.assertGreaterEqual(button.height, dp(48))
+                        self.assertLessEqual(button.top, entry.top + 1)
+                game._activate_ui('privacy')
+                game.draw()
+                settle()
+                self.assertFalse(game.ads.entry_shown)
+
+    def test_ad_break_is_registered_once_and_shown_only_after_final_continue(self):
+        with isolated_game(saved=True) as game:
+            game.career.load()
+            from unittest.mock import Mock
+            ads = Mock()
+            game.ads = ads
+            game.career.last_training_week = game.career.week
+            game.start_career_match()
+            game._activate_ui('match_continue')
+            self.assertEqual(game.view, 'match')
+            ads.continue_after_match.assert_not_called()
+            game._finish_career_match()
+            game._finish_career_match()
+            ads.match_completed.assert_called_once()
+            ads.continue_after_match.assert_not_called()
+            game._activate_ui('match_continue')
+            self.assertEqual(game.view, 'hub')
+            ads.continue_after_match.assert_called_once()
+
     def test_opponent_controls_chance_plan_for_home_and_away_matches(self):
         with isolated_game(saved=True) as game:
             game.career.load()
@@ -529,7 +591,7 @@ class MenuTests(unittest.TestCase):
             settle()
             self.assertEqual(game.view, 'start')
             labels = [w.text for w in game.walk() if isinstance(w, TouchButton)]
-            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'EXIT'})
+            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'PRIVACY', 'EXIT'})
             self.assertEqual(game.career.save_path.read_bytes(), before)
             game._activate_ui('load_game')
             settle()
@@ -787,7 +849,7 @@ class MenuTests(unittest.TestCase):
                     menu = self.game._menu
                     self.assertFalse(any(isinstance(w, ScrollView) for w in menu.walk()))
                     buttons = [w for w in menu.walk() if isinstance(w, TouchButton)]
-                    self.assertEqual(len(buttons), 8)
+                    self.assertEqual(len(buttons), 9)
                     for button in buttons:
                         self.assertGreaterEqual(button.width, dp(48) - 1)
                         self.assertGreaterEqual(button.height, dp(48) - 1)
