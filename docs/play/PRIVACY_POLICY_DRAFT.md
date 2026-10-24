@@ -14,8 +14,8 @@ An optional one-time World purchase unlocks fictional worldwide leagues, the loc
 name editor and ad-free play in the same application. We do not create SCORER accounts.
 
 Player names, career progress, league tables and edited names are stored privately
-on your device. We do not upload these to our servers or advertising services. The
-phone's language/region is read locally to suggest a starting country; the game UI
+on your device in separate Free and World files. Neither career is copied into the other mode. We do not upload these to our servers or advertising services. The
+phone's language/region is read locally only for World starting contracts; Free has no country selector; the game UI
 remains English. No GPS location permission is requested. You can choose local JSON
 files for World names using Android's document picker; those files are only processed
 after validation and confirmation. A chosen cloud document provider has its own policy.

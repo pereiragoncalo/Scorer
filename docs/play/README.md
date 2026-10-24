@@ -7,7 +7,7 @@ Do not describe the rehearsal AAB as ready for public production.
 
 ## Product and current implementation
 
-One app, **com.clemir.striker**. Free has one playable domestic division per career.
+One app, **com.clemir.striker**. New Free careers start in Scorer League with no country selection. Existing Free careers retain their single league.
 A **one-time non-consumable INAPP** product, `scorer_world_upgrade`, enables World,
 the passive local names editor/importer, promotion/transfer access and ad-free play.
 No subscription, external checkout, companion app or second career installation.
@@ -30,9 +30,11 @@ and signs a bounded licence containing package/product/installation/nonce/expiry
 No card data, player name, career save, signing private key or Google service-account
 credential enters the client verification request. Tokens must never appear in logs.
 The Python facade adopts a verified snapshot only at safe menus, never mid-shot.
-A transactional rebuild adds missing World tiers while preserving current club UIDs,
-league order/table, player, training, goals, week, history and save; a private
-`.world-upgrade-backup.json` is written before saving the upgraded career.
+The owner correction in 0.6.26 keeps Free and World in distinct save slots within
+the same application. Free uses striker_career.json; World uses striker_world_career.json.
+World starts its own player/contracts; it never imports Free progress. Switching saves
+the selected career first and blocks on write failure; new-game backups are slot-specific.
+World ownership does not enable paid features inside the Free career.
 An inaccessible World career remains stored for restore, never silently deleted.
 
 ## Reproducible rehearsal
@@ -40,8 +42,8 @@ An inaccessible World career remains stored for restore, never silently deleted.
 From the source checkout, using the managed build environment:
 
 ```sh
-python tools/play/prepare.py --channel rehearsal --output /workspace/Scorer-play-qa-0625-final
-SCORER_SOURCE_ROOT=/workspace/Scorer-play-qa-0625-final bash tools/android/run.sh python tools/build_android.py -v android release
+python tools/play/prepare.py --channel rehearsal --output /workspace/Scorer-play-qa-0626
+SCORER_SOURCE_ROOT=/workspace/Scorer-play-qa-0626 bash tools/android/run.sh python tools/build_android.py -v android release
 ```
 
 Use a fresh empty staging directory for each revision. The source checkout/package
@@ -96,8 +98,7 @@ VersionCode must exceed every uploaded version, including internal/closed tracks
 
 **Beta compatibility:** existing APKs use a debug certificate. A future different
 Play app-signing certificate cannot update those APKs in place even with the same
-package. Do not uninstall a beta without preserving its private career. The one-app
-paid upgrade preserves careers within the same signed installation; a supported
+package. Do not uninstall a beta without preserving its private career. Both career slots remain in the same signed installation; a supported
 cross-certificate beta-to-store save-transfer flow still needs an explicit decision
 and device validation. Do not enrol the debug key as a production key to avoid this.
 
@@ -158,6 +159,9 @@ restricted environment or that Google has approved this application.
 
 ## Recorded evidence
 
-[Machine-readable readiness and artifact hashes](READINESS_0.6.25.json) records
+Historical [0.6.25 AAB readiness and hashes](READINESS_0.6.25.json) record
 79 core/security tests and 46 Kivy tests passed, actual AAB/static checks and remaining
 account/device/service/signing gates. See [full build log](../BUILD_LOG.md).
+
+The 0.6.26 code/Android APK is validated separately in [the revision report](../UI_0.6.26.md).
+Rebuild and validate the AAB from the final chosen source revision before signing/upload.

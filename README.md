@@ -1,3 +1,13 @@
+# SCORER 0.6.26 — Free and World careers
+
+Free starts directly in **Scorer League**, with no country selector. World uses
+its own career/player/save inside the same application; Free progress stays in Free.
+Verified owners can switch modes and choose New Game/Load Game independently.
+Only World offers phone-country contracts and England Division 4.
+
+[Changes and test results](docs/UI_0.6.26.md). Earlier 0.6.25 migration statements
+below are historical and superseded. Real purchases remain disabled.
+
 # SCORER — current preparation 0.6.25
 
 Original Python/Kivy Android game. **One application**, com.clemir.striker:

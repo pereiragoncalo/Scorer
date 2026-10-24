@@ -125,7 +125,7 @@ class CareerMenu(BoxLayout):
     def sync(self):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
-        signature = ((self.game.billing.status, self.game.billing.price, self.game.billing.can_purchase) if self.game.view == 'upgrade' else None, self.game.view, c.player_name, c.club_name, c.season, c.week,
+        signature = ((self.game.billing.status, self.game.billing.price, self.game.billing.can_purchase) if self.game.view == 'upgrade' else None, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals,
@@ -192,7 +192,7 @@ class CareerMenu(BoxLayout):
             profile.size_hint_x, profile.width = None, dp(88)
             header.add_widget(profile)
         if self.game.view == 'hub':
-            for title, action in [('HELP', 'help'), ('WORLD' if c.world_unlocked else 'UPGRADE', 'world' if c.world_unlocked else 'upgrade')]:
+            for title, action in [('HELP', 'help'), ('MODES' if self.game._world_available else 'UPGRADE', 'upgrade')]:
                 button = MenuTile(title, lambda a=action: self.action(a))
                 button.size_hint_x, button.width = None, dp(76)
                 header.add_widget(button)
@@ -200,7 +200,7 @@ class CareerMenu(BoxLayout):
             privacy.size_hint_x, privacy.width = None, dp(76)
             header.add_widget(privacy)
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('BACK', 'privacy_back' if self.game.view == 'privacy' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
+            back = self._button('BACK', 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view in ('hub', 'offers'):
@@ -249,12 +249,13 @@ class CareerMenu(BoxLayout):
 
     def _offers(self):
         c = self.game.career
-        card = self.card('Your first contract · ' + c.current_league.country)
-        card.label('Suggested from phone: ' + c.suggested_country + '. Choose a starting division.', muted=True)
-        choices = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
-        choices.add_widget(self._button(c.suggested_country.upper(), 'start_country', c.suggested_country))
-        choices.add_widget(self._button('ENGLAND DIVISION 4', 'start_country', 'England'))
-        card.add_widget(choices)
+        card = self.card('Your first contract' + (' · ' + c.current_league.country if c.world_unlocked else ' · Scorer League'))
+        if c.world_unlocked:
+            card.label('Suggested from phone: ' + c.suggested_country + '. Choose a starting division.', muted=True)
+            choices = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+            choices.add_widget(self._button(c.suggested_country.upper(), 'start_country', c.suggested_country))
+            choices.add_widget(self._button('ENGLAND DIVISION 4', 'start_country', 'England'))
+            card.add_widget(choices)
         grid = GridLayout(cols=3 if self.width >= dp(540) else 2, spacing=dp(6), size_hint_y=None)
         grid.bind(minimum_height=grid.setter('height'))
         card.add_widget(grid)
@@ -282,7 +283,7 @@ class CareerMenu(BoxLayout):
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         actions.add_widget(button)
         card.add_widget(actions)
-        if c.world_unlocked:
+        if self.game._world_available or c.world_unlocked:
             return
         boost = self._button('WATCH AD: +1 MORALE', 'morale_ad')
         boost.disabled = not c.morale_ad_available
@@ -319,7 +320,7 @@ class CareerMenu(BoxLayout):
 
     def _privacy(self):
         card = self.card('Privacy & advertising')
-        if self.game.career.world_unlocked:
+        if self.game._world_available or self.game.career.world_unlocked:
             card.label('World is ad-free. A verified purchase supports up to seven days of offline access before an online ownership check. Careers and imported names stay on this device; there is no SCORER account.')
             self._privacy_contact(card)
             return
@@ -363,13 +364,23 @@ class CareerMenu(BoxLayout):
 
     def _upgrade(self):
         card = self.card('SCORER WORLD — upgrade information')
+        if self.game._world_available:
+            card.label('World is unlocked. Free and World use separate careers and saved progress.')
+            modes = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+            modes.add_widget(self._button('FREE CAREER', 'select_mode', 'free'))
+            modes.add_widget(self._button('WORLD CAREER', 'select_mode', 'world', accent=True))
+            card.add_widget(modes)
+            if self.game.career.world_unlocked:
+                card.add_widget(self._button('WORLD LEAGUES', 'world'))
+            card.add_widget(self._button('RESTORE PURCHASE', 'restore_world'))
+            return
         card.label('World is a one-time upgrade inside SCORER. It unlocks worldwide fictional leagues and the local name editor, and removes ads. Opening this page does not charge you.')
         card.label('World includes worldwide fictional domestic leagues, promotions and transfers, local starting contracts and England Division 4.')
         card.label('The editor changes display names and imports your own club, league and squad names from local JSON. Existing statistics stay intact.')
-        card.label('Keep playing your existing career in this app. No second installation or subscription is required.')
+        card.label('Free and World have separate careers in this app. Your Free career stays in Free; World starts with its own player and contracts. No second installation or subscription is required.')
         card.label('Purchases use Google Play. Pending, cancelled or unverified payments never unlock World. Restore uses the purchasing Google account.', muted=True)
         buy = self._button('UPGRADE TO WORLD' + (' · ' + self.game.billing.price if self.game.billing.price else ''), 'buy_world', accent=True)
-        buy.disabled = not self.game.billing.can_purchase
+        buy.disabled = self.game._world_available or not self.game.billing.can_purchase
         card.add_widget(buy)
         card.add_widget(self._button('RESTORE PURCHASE', 'restore_world'))
         card.label(self.game.billing.status, muted=True)
@@ -550,12 +561,16 @@ class EntryScreen(FloatLayout):
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
         self.brand = Image(source='assets/menu_logo.png', size_hint_y=None, height=dp(52))
         self.panel.add_widget(self.brand)
-        self.info = BoundedLabel(text=('World unlocked. Ad-free. Local name editor.' if not edition.WORLD_PREVIEW else 'World preview. Ad-free. No payments.') if menu.game.career.world_unlocked else ('One division. Contains ads. See Privacy.' if release_settings.is_production() else 'One division. Google test ads. See Privacy.'),
+        self.info = BoundedLabel(text=('World unlocked. Ad-free. Local name editor.' if not edition.WORLD_PREVIEW else 'World preview. Ad-free. No payments.') if menu.game.career.world_unlocked else ('Free career. One division. Ads removed.' if menu.game._world_available else 'One division. Contains ads. See Privacy.' if release_settings.is_production() else 'One division. Google test ads. See Privacy.'),
                                  color=MUTED, font_size=sp(12), halign='center')
         if menu.game.career.message.startswith('Unable to continue'):
             self.info.text = menu.game.career.message
         self.panel.add_widget(self.info)
-        self.panel.add_widget(MenuTile('NEW GAME', lambda: menu.action('new_game'), accent=True))
+        new_row = BoxLayout(spacing=dp(8))
+        new_row.add_widget(MenuTile('NEW GAME', lambda: menu.action('new_game'), accent=True))
+        if menu.game._world_available:
+            new_row.add_widget(MenuTile('WORLD' if menu.game._career_mode == 'free' else 'FREE', lambda: menu.action('select_mode', 'world' if menu.game._career_mode == 'free' else 'free')))
+        self.panel.add_widget(new_row)
         load = MenuTile('LOAD GAME', lambda: menu.action('load_game'))
         load.disabled = not menu.game.career.save_path.is_file()
         self.panel.add_widget(load)
@@ -570,7 +585,7 @@ class EntryScreen(FloatLayout):
         self._fit()
 
     def _fit(self, *_):
-        banner_fits = not self.menu.game.career.world_unlocked and self.height >= dp(340) and self.width >= dp(340)
+        banner_fits = not self.menu.game._world_available and not self.menu.game.career.world_unlocked and self.height >= dp(340) and self.width >= dp(340)
         self.menu.game.ads.entry_visible(banner_fits)
         self.banner_space = dp(64) if banner_fits else 0
         available = self.height - self.banner_space

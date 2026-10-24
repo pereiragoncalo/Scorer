@@ -18,16 +18,17 @@ Create your player, choose a first contract and build a career as a football str
 Train each career week, prepare your shot and make the most of your match opportunities.
 Follow results, fixtures, league tables, scorers and transfer offers as your career grows.
 
-Free play includes one playable domestic division per career. Starting contracts are
-suggested from your phone's language/region, with an option to begin in England's
-fourth division. The game interface is in English. Clubs and players use fictional names.
+Free play starts in Scorer League, with one playable division and no country selection.
+World starts a separate career, suggesting contracts from your phone language/region
+with England Division 4 as an option. The game interface is in English. Clubs and players use fictional names.
 
 Free play contains advertising. No connection or no available ad? You can keep playing.
 Optional training ads can add one morale point, subject to the career's weekly limit.
 
 The optional one-time World upgrade unlocks worldwide fictional domestic leagues,
 promotions and transfers, a local club/league/player-name editor and JSON name-file
-import/export. It removes ads in the same app while preserving your current career.
+import/export. It removes ads in the same app. Your Free career stays in Free; World has its own
+player, progress and saved career.
 Google Play displays the current price and confirms the purchase. No subscription.
 Purchase verification requires a connection; verified World access supports up to
 seven days offline before an ownership check. Restore purchase uses your Google account.
@@ -50,16 +51,17 @@ Cria o teu jogador, escolhe o primeiro contrato e constrói uma carreira de avan
 Treina em cada semana da carreira, prepara os remates e aproveita as oportunidades.
 Acompanha resultados, calendário, classificação, marcadores e propostas de transferência.
 
-O modo gratuito inclui uma divisão nacional jogável por carreira. Os contratos iniciais
-são sugeridos pelo idioma/região do telemóvel, com opção de começar na quarta divisão
-inglesa. A interface do jogo está em inglês. Os nomes de clubes e jogadores são fictícios.
+O modo gratuito começa diretamente na Scorer League, com uma divisão e sem escolha
+de país. World tem carreira própria e sugere contratos pelo idioma/região do telemóvel,
+com opção de começar na quarta divisão inglesa. A interface do jogo está em inglês. Os nomes de clubes e jogadores são fictícios.
 
 O modo gratuito inclui publicidade. Sem ligação ou anúncio disponível, podes continuar
 a jogar. Anúncios opcionais no treino permitem ganhar um ponto de moral, com limite semanal.
 
 O upgrade World, de compra única opcional, desbloqueia ligas nacionais fictícias pelo
 mundo, promoções e transferências, editor local de nomes e importação/exportação JSON.
-Remove a publicidade na mesma aplicação e preserva a carreira atual. A Google Play
+Remove a publicidade na mesma aplicação. A carreira Free mantém-se no modo Free;
+World tem jogador, progresso e gravação próprios. A Google Play
 apresenta o preço e confirma a compra. Sem subscrição. A verificação exige ligação;
 o acesso World verificado permite até sete dias offline antes de nova confirmação.
 O restauro da compra utiliza a tua conta Google; não recupera uma carreira apagada.

@@ -8,7 +8,7 @@ declare its full behaviour, not only the ad-free ownership state.
 | Data / flow | Actual or planned treatment | Console review |
 | --- | --- | --- |
 | Player name, career, tables, custom names | App-private local JSON; no game upload; names files chosen via Android document picker | Not collected by the developer under the implemented game flow |
-| Locale region | Read locally to suggest contracts, no GPS/IP geolocation | Not transmitted by SCORER |
+| Locale region | Read locally only for World contracts; Free has no country selector, no GPS/IP geolocation | Not transmitted by SCORER |
 | Google advertising SDK | Free can send IP, app/device information, diagnostics and ad interactions to Google; UMP gates requests; no personalised advertising; all requests child/under-age, G | Review current SDK disclosure for approximate location, app activity, identifiers, diagnostics/performance, collection/sharing, purposes, optionality and ephemerality |
 | Google Play billing | Google account/payment processing belongs to Play; app sees SKU, purchase state/token and formatted price, never card details | Review SDK/store treatment of purchase history and financial information; do not state that SCORER sees card data |
 | Purchase verification service | HTTPS sends purchase token, package/SKU, random installation UUID and nonce; Google API verifies token; signed licence returned and held locally | Potential purchase history and app/other IDs, app functionality and fraud prevention; optional for Free; assess ephemeral processing and infrastructure logs accurately |

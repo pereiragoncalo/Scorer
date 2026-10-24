@@ -18,3 +18,5 @@ release.local.json
 *.p12
 *.apks
 striker_career*.json
+
+striker_world_career*.json

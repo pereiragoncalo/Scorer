@@ -1,3 +1,14 @@
+# Current owner correction — 0.6.26
+
+Free has no country choice: new games start in Scorer League. Existing Free careers
+retain their current single league. A World purchase unlocks a separate World career
+inside the same app, not a conversion of the Free career. Free stays Free even when
+World is owned. Slots, players, training, calendars, aliases and backups are separate;
+mode changes save first, and a failed save blocks switching. No Free progress is
+imported into World. Owners can return to their Free slot; starting/loading a career
+is always explicit. World alone suggests the phone's country and England Division4.
+Earlier 0.6.25 Free-to-World transfer text is superseded. Billing remains disabled.
+
 # Current decision — 0.6.25: one application with a World purchase
 
 The owner explicitly replaced the earlier separate-app model. Ship only

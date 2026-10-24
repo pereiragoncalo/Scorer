@@ -32,21 +32,33 @@ class WorldTests(unittest.TestCase):
                              ('en-u-ca-gregory','England'),('xx-ZZ','England'),(None,'England')]:
             self.assertEqual(country_from_locale(tag), country, tag)
 
-    def test_free_country_start_preserves_one_league_and_english_four_option(self):
+    def test_free_ignores_phone_country_and_cannot_select_another_country(self):
         c = CareerMode(autoload=False, starter_country='Portugal')
+        self.assertEqual(c.league_key, FREE_LEAGUE_KEY)
+        self.assertEqual(c.suggested_country, 'England')
+        before = (c.league_key, list(c.offers))
+        self.assertFalse(c.choose_start_country('Portugal'))
+        self.assertFalse(c.choose_start_country('Brazil'))
+        self.assertEqual((c.league_key, c.offers), before)
+        c.accept_starting_offer(c.offers[0])
+        self.assertEqual(sum(c.is_league_playable(key) for key in c.leagues), 1)
+        self.assertEqual(CareerMode().league_key, FREE_LEAGUE_KEY)
+
+    def test_legacy_local_free_career_is_preserved_without_a_country_selector(self):
+        # Recreate a genuine pre-0.6.26 save whose one Free division was Portugal4.
+        c = CareerMode(autoload=False)
+        c.free_start_key = c.league_key = 'Portugal|4'
+        c._new_starting_offers(); c.accept_starting_offer(c.offers[0]); c.goals = 5; c.save()
+        restored = CareerMode(starter_country='Brazil')
+        self.assertEqual((restored.league_key, restored.club_name, restored.goals), ('Portugal|4', c.club_name, 5))
+        self.assertFalse(restored.choose_start_country('Brazil'))
+        self.assertEqual(sum(restored.is_league_playable(key) for key in restored.leagues), 1)
+
+    def test_world_keeps_local_start_and_english_four_option(self):
+        c = CareerMode(PreviewAccess(), autoload=False, starter_country='Portugal', save_slot='world')
         self.assertEqual(c.league_key, 'Portugal|4')
         self.assertTrue(c.choose_start_country('England'))
         self.assertEqual(c.league_key, FREE_LEAGUE_KEY)
-        self.assertTrue(c.choose_start_country('Portugal'))
-        c.accept_starting_offer(c.offers[0])
-        self.assertFalse(c.choose_start_country('Brazil'))
-        self.assertEqual(sum(c.is_league_playable(key) for key in c.leagues), 1)
-        old = c.club_name
-        restored = CareerMode()
-        self.assertEqual(restored.club_name, old)
-        self.assertEqual(restored.league_key, 'Portugal|4')
-        self.assertFalse(restored.world_unlocked)
-        self.assertTrue(all(key == 'Portugal|4' for _,key in restored.generate_agent_offers(True)))
 
     def test_world_covers_every_region_and_keeps_visited_tables_across_reload(self):
         c = self.world()
@@ -87,6 +99,7 @@ class WorldTests(unittest.TestCase):
 
     def test_season_change_preserves_free_country_and_world_club_identity(self):
         free=CareerMode(autoload=False,starter_country='Portugal')
+        free.free_start_key=free.league_key='Portugal|4';free._new_starting_offers()
         free.accept_starting_offer(free.offers[0]);free.club.points=999
         free._finish_season()
         self.assertEqual(free.league_key,'Portugal|4')

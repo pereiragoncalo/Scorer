@@ -52,7 +52,7 @@ def verify(artifact, manifest, channel):
             files = payload.getnames()
             for expected in ('career.pyc','billing.pyc','edition.pyc','release_settings.pyc','world_ui.pyc','name_packs.pyc'):
                 if not any(n.endswith('/'+expected) or n == expected for n in files): raise ValueError('Missing '+expected)
-            if any('/server/' in '/'+n or n.lower().endswith(('.pem','.jks','.keystore','.p12')) or 'striker_career' in n or n.endswith('release.local.json') for n in files):
+            if any('/server/' in '/'+n or n.lower().endswith(('.pem','.jks','.keystore','.p12')) or 'striker_career' in n or 'striker_world_career' in n or n.endswith('release.local.json') for n in files):
                 raise ValueError('Private state or server/signing material packaged')
             edition = next(m for m in payload if m.name.endswith('/edition.pyc') or m.name == 'edition.pyc')
             # Flag is checked separately with the built Python version; do not unmarshal untrusted input here.

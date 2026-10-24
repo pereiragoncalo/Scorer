@@ -722,7 +722,12 @@ class CareerMode:
     LEGACY_SAVE_VERSION = 1
 
 
-    def __init__(self, entitlement_provider: Optional[EntitlementProvider] = None, *, autoload: bool = True, starter_country: str = "England") -> None:
+    def __init__(self, entitlement_provider: Optional[EntitlementProvider] = None, *, autoload: bool = True, starter_country: str = "England", save_slot: str = "legacy") -> None:
+        if save_slot not in ("legacy", "free", "world"):
+            raise ValueError("Unknown career slot")
+        self._save_slot = save_slot
+        if save_slot == "free":
+            entitlement_provider = None  # Owning World never turns the Free slot into World.
         self.entitlements = EntitlementManager(entitlement_provider)
         self._locked_world_career: Optional[dict[str, object]] = None
         self.player_name = "Alex Silva"
@@ -736,7 +741,7 @@ class CareerMode:
         self.club_name = ""
         self.league_key = FREE_LEAGUE_KEY
         self.free_start_key = FREE_LEAGUE_KEY
-        self.suggested_country = starter_country if starter_country in WORLD_COUNTRIES else "England"
+        self.suggested_country = starter_country if self.world_unlocked and starter_country in WORLD_COUNTRIES else "England"
         self.display_aliases = {"version": 1, "clubs": {}, "leagues": {}, "players": {}}
         self._alias_pattern = None
         self.alias_revision = 0
@@ -787,10 +792,12 @@ class CareerMode:
             base = Path(app.user_data_dir)
         else:
             base = Path(__file__).resolve().parent
-        return base / "striker_career.json"
+        return base / ("striker_world_career.json" if self._save_slot == "world" else "striker_career.json")
 
     def _migrate_legacy_save(self) -> None:
         """Copy compatible legacy JSON once; never delete or overwrite a save."""
+        if self._save_slot == "world":
+            return  # World never imports the Free slot.
         target = self.save_path
         legacy = Path(__file__).resolve().parent / "striker_career.json"
         if target == legacy or target.exists() or not legacy.is_file():
@@ -823,33 +830,11 @@ class CareerMode:
         return self.entitlements.restore_world_access()
 
 
-    def upgrade_to_world(self, provider):
-        """Transactional same-app upgrade; caller supplies independently verified access."""
+    def new_world_career(self, provider, starter_country="England"):
+        """Unlock a separate World slot; never copy or reset the Free career."""
         if not EntitlementManager(provider).world_unlocked:
             raise ValueError('Verified World ownership required')
-        if not self.save():
-            raise OSError('Could not preserve the Free career')
-        original = self.save_path.read_bytes()
-        backup = self.save_path.with_suffix('.world-upgrade-backup.json')
-        temporary = None
-        try:
-            with tempfile.NamedTemporaryFile(dir=backup.parent, prefix='.world-upgrade-', delete=False) as out:
-                temporary = Path(out.name)
-                out.write(original)
-                out.flush()
-                os.fsync(out.fileno())
-            os.replace(temporary, backup)
-        finally:
-            if temporary is not None:
-                temporary.unlink(missing_ok=True)
-        candidate = CareerMode(provider, autoload=False, starter_country=self.suggested_country)
-        candidate.load()
-        fields = ('club_name', 'league_key', 'player_name', 'week', 'matches', 'goals', 'season')
-        if any(getattr(candidate, key) != getattr(self, key) for key in fields):
-            raise ValueError('Career upgrade failed preservation checks')
-        if not candidate.save():
-            raise OSError('Could not save the upgraded career')
-        return candidate
+        return CareerMode(provider, autoload=False, starter_country=starter_country, save_slot='world')
 
     @property
     def product_mode(self) -> str:
@@ -1153,6 +1138,8 @@ class CareerMode:
 
     def choose_start_country(self, country: str) -> bool:
         if self.club_name or country not in WORLD_COUNTRIES:
+            return False
+        if not self.world_unlocked and country != 'England':
             return False
         tiers = [league.tier for league in self.leagues.values() if league.country == country]
         tier = 4 if country == 'England' else max(tiers)
@@ -1828,6 +1815,8 @@ class CareerMode:
 
 
     def save(self) -> bool:
+        if self._save_slot == 'world' and not self.world_unlocked:
+            return False
         if not self.club_name:
             return True
         league = self.current_league
@@ -1920,7 +1909,7 @@ class CareerMode:
                 output.write(content)
                 output.flush()
                 os.fsync(output.fileno())
-            os.replace(temporary, source.with_name("striker_career.previous.json"))
+            os.replace(temporary, source.with_suffix(".previous.json"))
             return True
         except OSError:
             self.message = 'Unable to back up your previous career. New game cancelled.'
@@ -1970,6 +1959,8 @@ class CareerMode:
                 self._locked_world_career = None
             if active is None:
                 return
+            if self._save_slot == "world" and active.get("edition") != "WORLD":
+                return False  # No automatic or file-based Free-to-World conversion.
             key_for_access = str(active.get("league_key", FREE_LEAGUE_KEY))
             chosen = str(active.get('free_start_key', FREE_LEAGUE_KEY))
             valid_starts = {f'{c}|{4 if c == "England" else EUROPE_PYRAMID_DEPTH.get(c, 1)}' for c in WORLD_COUNTRIES}

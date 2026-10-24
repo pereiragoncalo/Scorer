@@ -79,36 +79,47 @@ class ReleaseTests(unittest.TestCase):
         bridge.access = 'true'
         self.assertFalse(PlayWorldAccess(bridge).has_world_access())
 
-    def test_same_app_upgrade_retains_career_and_adds_missing_world_tiers(self):
+    def test_world_uses_its_own_slot_and_never_copies_the_free_career(self):
         with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, STRIKER_SAVE_DIR=temp):
-            free = CareerMode(autoload=False, starter_country='Brazil')
-            free.accept_starting_offer(free.offers[0])
-            free.player_name = 'Joao Costa'; free.goals = 7; free.matches = 4; free.week = 4
-            free.training_session_week = 4; free.training_shots_taken = 3; free.last_training_week = 4
-            free.save(); before = free.save_path.read_bytes()
-            old = [(c.uid, c.name, c.points) for c in free.current_league.clubs]
-            bridge = Bridge(); bridge.access = True
-            upgraded = free.upgrade_to_world(PlayWorldAccess(bridge))
-            self.assertTrue(upgraded.world_unlocked)
-            self.assertEqual((upgraded.player_name, upgraded.club_name, upgraded.league_key, upgraded.goals, upgraded.matches, upgraded.week),
-                             (free.player_name, free.club_name, free.league_key, 7, 4, 4))
-            self.assertEqual([(c.uid, c.name, c.points) for c in upgraded.current_league.clubs], old)
-            self.assertEqual(upgraded.training_shots_taken, 3)
-            self.assertIn('Brazil|4', upgraded.leagues)
-            self.assertEqual(free.save_path.with_suffix('.world-upgrade-backup.json').read_bytes(), before)
-            self.assertTrue(CareerMode(PlayWorldAccess(bridge)).world_unlocked)
-
-    def test_failed_upgrade_does_not_mutate_free_career(self):
-        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, STRIKER_SAVE_DIR=temp):
-            free = CareerMode(autoload=False); free.accept_starting_offer(free.offers[0]); free.save()
-            before = free.save_path.read_bytes()
-            with self.assertRaises(ValueError): free.upgrade_to_world(PlayWorldAccess(Bridge()))
-            self.assertEqual(free.save_path.read_bytes(), before)
+            free = CareerMode(autoload=False, save_slot='free')
+            free.accept_starting_offer(free.offers[0]);free.player_name='Free Player';free.goals=7;free.save()
+            before=free.save_path.read_bytes()
             bridge=Bridge();bridge.access=True
-            with patch('career.os.replace', side_effect=OSError('storage unavailable')):
-                with self.assertRaises(OSError): free.upgrade_to_world(PlayWorldAccess(bridge))
-            self.assertFalse(free.world_unlocked)
-            self.assertEqual(free.save_path.read_bytes(), before)
+            world=free.new_world_career(PlayWorldAccess(bridge), 'Brazil')
+            self.assertNotEqual(world.save_path,free.save_path)
+            self.assertEqual((world.club_name,world.goals,world.matches),('',0,0))
+            self.assertFalse(world.save_path.exists())
+            world.set_player_name('World Player');world.accept_starting_offer(world.offers[0]);world.goals=3;world.save()
+            self.assertEqual(free.save_path.read_bytes(),before)
+            loaded=CareerMode(PlayWorldAccess(bridge),save_slot='world')
+            self.assertEqual((loaded.player_name,loaded.goals),('World Player',3))
+            self.assertEqual(CareerMode(save_slot='free').goals,7)
+            self.assertFalse(CareerMode(PlayWorldAccess(bridge), save_slot='free').world_unlocked)
+            world_before=world.save_path.read_bytes()
+            self.assertTrue(world.backup_before_new_game())
+            self.assertTrue(world.save_path.with_suffix('.previous.json').exists())
+            self.assertFalse(free.save_path.with_suffix('.previous.json').exists())
+            denied=CareerMode(autoload=False,save_slot='world')
+            self.assertFalse(denied.save())
+            self.assertEqual(world.save_path.read_bytes(),world_before)
+
+    def test_world_slot_rejects_a_copied_free_save(self):
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, STRIKER_SAVE_DIR=temp):
+            free=CareerMode(autoload=False,save_slot='free');free.accept_starting_offer(free.offers[0]);free.goals=99;free.save()
+            bridge=Bridge();bridge.access=True
+            world=CareerMode(PlayWorldAccess(bridge),autoload=False,save_slot='world')
+            world.save_path.write_bytes(free.save_path.read_bytes())
+            self.assertFalse(world.load())
+            self.assertEqual((world.club_name,world.goals),('',0))
+
+    def test_unverified_or_invalid_slot_cannot_open_or_migrate_world(self):
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, STRIKER_SAVE_DIR=temp):
+            free=CareerMode(autoload=False);free.accept_starting_offer(free.offers[0]);free.save()
+            before=free.save_path.read_bytes()
+            with self.assertRaises(ValueError): free.new_world_career(PlayWorldAccess(Bridge()))
+            with self.assertRaises(ValueError): CareerMode(save_slot='../other')
+            self.assertEqual(free.save_path.read_bytes(),before)
+
 
 
 class LicensingTests(unittest.TestCase):

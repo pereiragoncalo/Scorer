@@ -464,20 +464,66 @@ class MenuTests(unittest.TestCase):
             self.assertFalse(game.career.world_unlocked)
             self.assertEqual(game.career.save_path.read_bytes(), before)
 
-    def test_verified_single_app_upgrade_preserves_loaded_career_and_removes_ads(self):
+    def test_verified_purchase_keeps_free_in_free_and_world_in_its_own_slot(self):
         from billing import PlayWorldAccess
         class VerifiedBridge:
             def hasAccess(self, activity): return True
         with isolated_game(saved=True) as game:
-            game.view = 'start'; game._load_career()
-            before = (game.career.club_name, game.career.player_name, game.career.goals)
-            game.billing = PlayWorldAccess(VerifiedBridge())
-            game.view = 'upgrade'; game._adopt_world_purchase(); game.draw(); settle()
+            game.view='start';game._load_career()
+            game.career.save()  # Snapshot the selected, loaded Free state before switching.
+            free_path=game.career.save_path; before=free_path.read_bytes()
+            game.billing=PlayWorldAccess(VerifiedBridge())
+            game.view='upgrade';game._adopt_world_purchase();game.draw();settle()
+            self.assertFalse(game.career.world_unlocked)
+            self.assertEqual(free_path.read_bytes(),before)
+            game._activate_ui('select_mode','world')
+            self.assertEqual(game.view,'start')
             self.assertTrue(game.career.world_unlocked)
-            self.assertEqual((game.career.club_name, game.career.player_name, game.career.goals), before)
-            self.assertEqual(game.view, 'hub')
+            self.assertNotEqual(game.career.save_path,free_path)
+            self.assertEqual((game.career.club_name,game.career.goals),('',0))
+            self.assertFalse(game.career.save_path.exists())
+            game.career.set_player_name('World Player');game.career.accept_starting_offer(game.career.offers[0])
+            game.career.goals=3;game.career.save();game._career_started=True
+            world_path=game.career.save_path; world_bytes=world_path.read_bytes()
+            game.view='hub';game._activate_ui('select_mode','free');game._load_career()
+            self.assertFalse(game.career.world_unlocked)
+            self.assertEqual(game.career.goals,17)
+            self.assertEqual(game.career.save_path,free_path)
+            self.assertEqual(world_path.read_bytes(),world_bytes)
+            self.assertEqual(free_path.read_bytes(),before)
             self.assertIsNone(game.ads.backend)
-            self.assertTrue(game.career.save_path.with_suffix('.world-upgrade-backup.json').is_file())
+
+    def test_mode_switch_save_failure_keeps_the_free_slot_selected(self):
+        from billing import PlayWorldAccess
+        class VerifiedBridge:
+            def hasAccess(self, activity): return True
+        with isolated_game(saved=True) as game:
+            game.view='start';game._load_career();game.billing=PlayWorldAccess(VerifiedBridge())
+            game._adopt_world_purchase();before=game.career.save_path.read_bytes()
+            with patch.object(game.career,'save',return_value=False):
+                game._activate_ui('select_mode','world')
+            self.assertEqual(game._career_mode,'free')
+            self.assertEqual(game.view,'hub')
+            self.assertEqual(game.career.save_path.read_bytes(),before)
+            self.assertFalse(game.career.save_path.with_name('striker_world_career.json').exists())
+
+    def test_free_has_no_country_controls_and_cannot_route_to_world_without_ownership(self):
+        with patch('main.phone_country',return_value='Portugal'),isolated_game() as game:
+            game.view='offers';game.draw();settle()
+            labels={w.text for w in game.walk() if isinstance(w,Label)}
+            self.assertNotIn('PORTUGAL',labels)
+            self.assertNotIn('ENGLAND DIVISION 4',labels)
+            self.assertEqual(game.career.league_key,'England|4')
+            offers=list(game.career.offers)
+            game._activate_ui('start_country','Portugal')
+            self.assertEqual(game.career.league_key,'England|4')
+            self.assertEqual(game.career.offers,offers)
+            game.view='start';game._activate_ui('select_mode','world')
+            self.assertEqual(game.view,'upgrade')
+            self.assertFalse(game.career.world_unlocked)
+            self.assertFalse(game.career.save_path.with_name('striker_world_career.json').exists())
+            game._activate_ui('upgrade_back')
+            self.assertEqual(game.view,'start')
 
     def test_world_browser_editor_uses_aliases_without_switching_career(self):
         from world_ui import NamesEditor
