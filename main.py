@@ -63,6 +63,7 @@ from kivy.graphics import (
     PopMatrix,
     PushMatrix,
     Rectangle,
+    RoundedRectangle,
     Translate,
     Triangle,
 )
@@ -179,6 +180,8 @@ class StrikerGame(Widget):
         self.goalkeeper_should_dive = False
         self.goalkeeper_high_reach = 0.0
         self.goalkeeper_dive_age = 0.0
+        self.goalkeeper_holding = False
+        self.goalkeeper_catch_age = 0.0
         self.goalkeeper_dive_speed = 2.2
         self.goalkeeper_read_error = 0.0
         self.goalkeeper_vx = 0.0
@@ -1201,9 +1204,10 @@ class StrikerGame(Widget):
 
 
     def _choose_shot_origin(self) -> None:
-        if self.shot_context == "match" and self.current_chance_difficulty in ("easy", "hard"):
+        if self.shot_context == "training" or (self.shot_context == "match" and self.current_chance_difficulty in ("easy", "hard")):
             rng = self.career.rng
-            easy = self.current_chance_difficulty == "easy"
+            practice = self.shot_context == "training"
+            easy = not practice and self.current_chance_difficulty == "easy"
             self.one_on_one = easy
             self.shot_type = "kick"
             self.last_origin_index = -4 if easy else -5
@@ -1217,8 +1221,8 @@ class StrikerGame(Widget):
                     self.one_on_one = False
                     self.shot_origin_y = rng.uniform(4.3, 5.1)
             else:
-                self.shot_origin_x = rng.choice((-1, 1)) * rng.uniform(4.5, 8.0)
-                self.shot_origin_y = rng.uniform(16.5, 21.0)
+                self.shot_origin_x = rng.choice((-1, 1)) * (rng.uniform(3.0, 6.0) if practice else rng.uniform(4.0, 7.5))
+                self.shot_origin_y = rng.uniform(13.0, 17.0) if practice else rng.uniform(15.5, 20.0)
                 # The fixed stadium camera can crop the near touchline on
                 # narrower landscape displays. Mirror the same difficult
                 # angle to the visible side rather than hiding the shooter.
@@ -1482,6 +1486,10 @@ class StrikerGame(Widget):
 
 
     def _update_goalkeeper_shot(self, dt: float) -> None:
+        if self.goalkeeper_holding:
+            self.goalkeeper_catch_age += dt
+            self._attach_held_ball()
+            return
         prediction = self._predict_ball_at_y(GOALKEEPER_Y)
 
 
@@ -1570,8 +1578,8 @@ class StrikerGame(Widget):
             self._move_goalkeeper_towards(
                 step_target,
                 dt,
-                max_speed=3.60 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 1.95,
-                acceleration=16.0 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 10.5,
+                max_speed=3.0 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 1.95,
+                acceleration=14.0 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 10.5,
             )
             self.goalkeeper_dive_start_x = self.goalkeeper_x
             return
@@ -1659,13 +1667,15 @@ class StrikerGame(Widget):
             + 0.20 * self.shot_distance_factor
             + (1.0 - self.power) * (0.05 + 0.08 * self.shot_distance_factor)
         )
-        if self.shot_context == "match" and self.current_chance_difficulty in ("easy", "hard"):
+        if self.shot_context == "training" or (self.shot_context == "match" and self.current_chance_difficulty in ("easy", "hard")):
             # A touch selects intent, not a perfectly repeatable laser shot.
             # Resolve accuracy once at contact; the resulting ball remains physical.
             condition = clamp((self.career.stamina + self.career.morale) / 40.0, 0.25, 1.0)
             pressure = self.current_chance_difficulty == "hard"
-            error_x = 0.95 if pressure else 0.40
-            error_z = 0.65 if pressure else 0.30
+            error_x = 0.78 if pressure else 0.40
+            error_z = 0.53 if pressure else 0.30
+            if self.shot_context == "training":
+                error_x, error_z = 0.60, 0.40
             if self.shot_type == "penalty":
                 error_x, error_z = 0.20, 0.16
             control = (1.20 - condition * 0.35) * (1.0 + abs(self.power - 0.80) * 0.5)
@@ -1684,8 +1694,8 @@ class StrikerGame(Widget):
             shot_speed = 17.0 + self.power * 8.0
             flight_time = clamp(horizontal_distance / shot_speed, 0.28, 0.82)
         else:
-            shot_speed = (18.0 + self.power * 8.0) if self.shot_context == "match" else 24.0 + self.power * 11.0
-            flight_time = clamp(horizontal_distance / shot_speed, 0.20, 1.15 if self.shot_context == "match" else 0.78)
+            shot_speed = 18.0 + self.power * 8.0
+            flight_time = clamp(horizontal_distance / shot_speed, 0.20, 1.15)
 
 
         self.ball.vx = (destination_x - self.ball.x) / flight_time
@@ -1710,10 +1720,10 @@ class StrikerGame(Widget):
         reaction_high = 0.34 - 0.09 * self.shot_distance_factor
         hard = self.shot_context == "match" and self.current_chance_difficulty == "hard"
         if hard:
-            self.goalkeeper_read_error = random.gauss(0.0, 0.09)
-            reaction_low, reaction_high = 0.14, 0.22
+            self.goalkeeper_read_error = random.gauss(0.0, 0.13)
+            reaction_low, reaction_high = 0.18, 0.27
         self.goalkeeper_reaction = random.uniform(reaction_low, reaction_high)
-        self.goalkeeper_dive_speed = 5.8 if hard else 3.90 + 0.80 * self.shot_distance_factor
+        self.goalkeeper_dive_speed = 5.2 if hard else 3.90 + 0.80 * self.shot_distance_factor
         dive_delta = self.goalkeeper_target_x - self.goalkeeper_x
         self.goalkeeper_should_dive = (
             abs(destination_x - self.goalkeeper_x) > 0.58
@@ -1732,6 +1742,9 @@ class StrikerGame(Widget):
 
     def _update_ball(self, dt: float) -> None:
         ball = self.ball
+        if self.goalkeeper_holding:
+            self._attach_held_ball()
+            return
         old_x = ball.x
         old_y = ball.y
         old_z = ball.z
@@ -2035,6 +2048,15 @@ class StrikerGame(Widget):
             return False
 
 
+        if not self.goalkeeper_is_diving and ball.z <= 1.85 and abs(ball.x - self.goalkeeper_x) <= 0.55:
+            self.goalkeeper_holding = True
+            self.goalkeeper_catch_age = 0.0
+            self.goalkeeper_vx = 0.0
+            ball.goalkeeper_touched = True
+            ball.active = False
+            self._attach_held_ball()
+            self._register_non_goal()
+            return True
         ball.y = GOALKEEPER_Y + 0.32
         # A luva amortece e desvia a bola para fora do corpo. Defesas baixas
         # seguem mais rasas; bolas altas não sobem de novo artificialmente.
@@ -2207,8 +2229,24 @@ class StrikerGame(Widget):
                 GOALKEEPER_Y + side_y * lateral,
                 max(0.02, point[1]),
             )
+        if self.goalkeeper_holding:
+            # Pitch the body forward around the ankles, onto the secured ball.
+            t = clamp((self.goalkeeper_catch_age - 0.12) / 0.65, 0.0, 1.0)
+            pitch = (t * t * (3 - 2 * t)) * math.radians(80)
+            for key, (px, py, pz) in world_pose.items():
+                world_pose[key] = (px, py + pz * math.sin(pitch),
+                                   max(0.10, pz * math.cos(pitch)))
+            chest = tuple((a+b)/2 for a,b in zip(world_pose['shoulder_l'], world_pose['shoulder_r']))
+            for key, side in (('hand_l', -1), ('hand_r', 1)):
+                world_pose[key] = (chest[0] + side * 0.14, chest[1] + 0.18, chest[2] - 0.08)
         return world_pose
 
+    def _attach_held_ball(self) -> None:
+        pose = self._goalkeeper_world_pose()
+        left, right = pose['hand_l'], pose['hand_r']
+        self.ball.x, self.ball.y, self.ball.z = tuple((a+b)/2 for a,b in zip(left, right))
+        self.ball.z = max(self.ball.radius, self.ball.z)
+        self.ball.vx = self.ball.vy = self.ball.vz = 0.0
 
     def _collide_net(
         self,
@@ -2434,6 +2472,8 @@ class StrikerGame(Widget):
 
 
     def _prepare_next_shot(self) -> None:
+        self.goalkeeper_holding = False
+        self.goalkeeper_catch_age = 0.0
         self._randomize_aim_pattern()
         self._choose_shot_origin()
         self.ripples.clear()
@@ -3436,11 +3476,18 @@ class StrikerGame(Widget):
         teams_width = width * 0.68
         remaining = max(0.0, self.scoreboard_flash_until - self.elapsed)
         pulse = math.sin(math.pi * min(1.0, remaining))
-        Color(0.015 + pulse * 0.08, 0.04 + pulse * 0.32, 0.05 + pulse * 0.16, 0.96)
-        Rectangle(pos=(x, y), size=(width, height))
-        Color(0.30, 0.90, 0.65, 0.65 + pulse * 0.35)
-        Line(rectangle=(x, y, width, height), width=1.0)
-        Line(points=[x + teams_width, y, x + teams_width, y + height], width=1)
+        Color(0, 0, 0, 0.35)
+        RoundedRectangle(pos=(x + dp(2), y - dp(2)), size=(width, height), radius=[dp(4)])
+        Color(0.025, 0.045, 0.085, 0.98)
+        RoundedRectangle(pos=(x, y), size=(width, height), radius=[dp(4)])
+        Color(0.06 + pulse * 0.05, 0.10 + pulse * 0.24, 0.16 + pulse * 0.08, 1)
+        Rectangle(pos=(x, y + height / 2), size=(teams_width, height / 2))
+        Color(0.10 + pulse * 0.08, 0.18 + pulse * 0.32, 0.22, 1)
+        Rectangle(pos=(x + teams_width - dp(28), y), size=(dp(28), height))
+        Color(0.22, 0.94, 0.70, 1)
+        Rectangle(pos=(x, y), size=(dp(3), height))
+        Color(1, 1, 1, 0.10)
+        Line(points=[x + dp(5), y + height / 2, x + teams_width, y + height / 2], width=0.5)
         for club, score, row in ((self.match_home, self.match_home_score, 0.73),
                                  (self.match_away, self.match_away_score, 0.27)):
             cy = y + height * row
@@ -4194,6 +4241,18 @@ class StrikerGame(Widget):
         self._world_polyline([(-34.0, 0.0, 0.012), (-34.0, 32.0, 0.012)], width=1.1)
         self._world_polyline([(34.0, 0.0, 0.012), (34.0, 32.0, 0.012)], width=1.1)
 
+
+        for side in (-1, 1):
+            corner_x = side * 34.0
+            Color(0.94, 0.96, 0.91, 1)
+            self._world_polyline([(corner_x, 0, 0), (corner_x, 0, 1.5)], width=1.4)
+            Color(1.0, 0.77, 0.12, 1)
+            Triangle(points=[*self.project(corner_x, 0, 1.5),
+                             *self.project(corner_x - side * 0.60, 0, 1.34),
+                             *self.project(corner_x, 0, 1.12)])
+            Color(0.92, 0.96, 0.88, 0.82)
+            self._world_polyline([(corner_x - side * math.cos(i * math.pi / 32),
+                                   math.sin(i * math.pi / 32), 0.015) for i in range(17)], width=1.0)
 
         # Grande área, pequena área e marca de penálti em medidas reais.
         Color(0.92, 0.96, 0.88, 0.82)

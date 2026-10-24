@@ -26,6 +26,43 @@ class CareerTests(unittest.TestCase):
         c.accept_starting_offer(c.offers[0])
         return c
 
+    def test_morale_slower_loss_and_larger_goal_reward(self):
+        c = self.signed()
+        c.morale = 10
+        c._update_attributes(0, 3)
+        self.assertAlmostEqual(c.morale, 9.25)
+        c._update_attributes(1, 2)
+        self.assertAlmostEqual(c.morale, 9.95)
+        c.morale = 19.9
+        c._update_attributes(3, 0)
+        self.assertEqual(c.morale, 20)
+        c.morale = 0.1
+        c._update_attributes(0, 3)
+        self.assertEqual(c.morale, 0)
+
+    def test_fictional_squad_names_stable_and_migrate_without_losing_goals(self):
+        c = self.signed()
+        league = c.current_league
+        names = [league.squad_names(club.name)[0] for club in league.clubs]
+        self.assertEqual(len(names), len(set(names)))
+        club = league.clubs[0]
+        roster = league.squad_names(club.name)
+        self.assertEqual(roster, league.squad_names(club.name))
+        self.assertEqual(len(set(roster)), 12)
+        old = f'Silva ({club.name})'
+        new = f'{roster[0]} ({club.name})'
+        league.scorer_goals = {old: 9, new: 2, c.player_name: 5, 'Custom Rival': 3}
+        c.save()
+        restored = career.CareerMode()
+        self.assertTrue(restored.load())
+        scores = restored.current_league.scorer_goals
+        self.assertEqual(sum(scores.values()), 19)
+        self.assertEqual(scores[new], 11)
+        self.assertNotIn(old, scores)
+        self.assertEqual(scores[c.player_name], 5)
+        restored.current_league.migrate_scorer_names(c.player_name)
+        self.assertEqual(scores[new], 11)
+
     def test_damaged_save_is_rejected_without_partial_mutation(self):
         c = self.signed()
         original = json.loads(c.save_path.read_text())
@@ -533,8 +570,8 @@ class CareerTests(unittest.TestCase):
         self.assertAlmostEqual(sum(totals)/len(totals), 2.61, delta=0.06)
         self.assertTrue(0.10 < sum(n>=5 for n in totals)/len(totals) < 0.15)
         self.assertEqual(career.expected_highlight_goals(0, 0.6), 0)
-        self.assertAlmostEqual(career.expected_highlight_goals(1, 0), 0.18)
-        self.assertAlmostEqual(career.expected_highlight_goals(3, 0.6), 0.738)
+        self.assertAlmostEqual(career.expected_highlight_goals(1, 0), 0.20)
+        self.assertAlmostEqual(career.expected_highlight_goals(3, 0.6), 0.786)
 
     def test_balanced_double_round_robin_for_even_and_odd_leagues(self):
         from collections import Counter

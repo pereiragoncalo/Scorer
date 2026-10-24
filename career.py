@@ -509,7 +509,7 @@ def poisson_goal(rng: random.Random, mean: float) -> int:
 MATCH_HOME_GOALS = 1.43
 MATCH_AWAY_GOALS = 1.18
 CLEAR_CHANCE_CONVERSION = 0.51
-HARD_CHANCE_CONVERSION = 0.18
+HARD_CHANCE_CONVERSION = 0.20
 
 
 def realistic_goal_means(home_rating: float, away_rating: float) -> tuple[float, float]:
@@ -661,14 +661,35 @@ class WorldLeague:
         return home_goals, away_goals
 
 
+    @staticmethod
+    def squad_names(club_name: str) -> tuple[str, ...]:
+        # Local stable RNG: roster generation never changes match randomness.
+        seed = int.from_bytes(hashlib.sha256(club_name.encode('utf-8')).digest()[:8], 'big')
+        rng = random.Random(seed)
+        first = ("Alden", "Bren", "Callen", "Darin", "Ellis", "Finn", "Galen", "Hugo",
+                 "Ilan", "Joren", "Kellan", "Lenn", "Milo", "Nolan", "Orin", "Perrin",
+                 "Quinn", "Ronan", "Soren", "Tobin", "Vian", "Wren", "Yann", "Zev")
+        last = ("Ashwick", "Bexley", "Corven", "Dunmere", "Eastwell", "Fenwick", "Glenford",
+                "Harrowby", "Iverton", "Jarrow", "Kestrel", "Loxley", "Merrick", "Norwyn",
+                "Oakden", "Penrose", "Quenby", "Ravel", "Stannard", "Thorne", "Veylan",
+                "Westmere", "Yardley", "Zelland")
+        return tuple(f"{given} {family}" for given, family in
+                     zip(rng.sample(first, 12), rng.sample(last, 12)))
+
+    def migrate_scorer_names(self, protected_name: str = '') -> None:
+        legacy = ("Silva", "Smith", "Garcia", "Martin", "Costa", "Muller",
+                  "Rossi", "Santos", "Brown", "Novak", "Kaya", "Andersson")
+        for club in self.clubs:
+            for old, new in zip(legacy, self.squad_names(club.name)):
+                source, target = f"{old} ({club.name})", f"{new} ({club.name})"
+                if source in self.scorer_goals and source != protected_name:
+                    goals = self.scorer_goals.pop(source)
+                    self.scorer_goals[target] = self.scorer_goals.get(target, 0) + goals
+
     def _add_scorers(self, club: CareerClub, goals: int, rng: random.Random) -> None:
-        surnames = (
-            "Silva", "Smith", "Garcia", "Martin", "Costa", "Muller",
-            "Rossi", "Santos", "Brown", "Novak", "Kaya", "Andersson",
-        )
-        short = club.name
+        names = self.squad_names(club.name)
         for _ in range(goals):
-            scorer = f"{rng.choices(surnames, weights=(32,18,12,8,7,6,5,4,3,2,2,1), k=1)[0]} ({short})"
+            scorer = f"{rng.choices(names, weights=(32,18,12,8,7,6,5,4,3,2,2,1), k=1)[0]} ({club.name})"
             self.scorer_goals[scorer] = self.scorer_goals.get(scorer, 0) + 1
 
 
@@ -1290,8 +1311,7 @@ class CareerMode:
 
 
     def _update_attributes(self, goals: int, misses: int) -> None:
-        difference = goals - misses
-        self.morale = clamp(self.morale + difference * 0.85, 0.0, 20.0)
+        self.morale = clamp(self.morale + goals * 1.20 - misses * 0.25, 0.0, 20.0)
         self.stamina = clamp(
             self.stamina - 0.65 - misses * 0.08 + goals * 0.22,
             0.0,
@@ -1823,6 +1843,7 @@ class CareerMode:
             league.scorer_goals = {
                 str(name): int(goals) for name, goals in data.get("scorers", {}).items()
             }
+            league.migrate_scorer_names(protected_name=self.player_name)
             # Migrate the active player's spelling and scorer key together.
             # Do not overwrite another scorer if an older save has a collision.
             formatted_name = capitalise_player_initials(self.player_name)

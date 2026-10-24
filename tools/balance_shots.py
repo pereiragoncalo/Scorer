@@ -30,7 +30,8 @@ def experiment(samples=240, max_seconds=15, strategy="uniform"):
         Clock.unschedule(game.update)
         game.shot_context, game.view = 'match', 'shot'
         try:
-            for profile in ('standard', 'easy', 'hard'):
+            for profile in ('standard', 'easy', 'hard', 'training'):
+                game.shot_context = 'training' if profile == 'training' else 'match'
                 outcomes = Counter()
                 for seed in range(samples):
                     random.seed(39000 + seed)

@@ -1,0 +1,78 @@
+{
+  "before_uniform": {
+    "easy": {
+      "GOAL!": 122,
+      "MISS!": 10,
+      "SAVED!": 108
+    },
+    "hard": {
+      "GOAL!": 44,
+      "MISS!": 71,
+      "SAVED!": 125
+    },
+    "standard": {
+      "GOAL!": 99,
+      "MISS!": 20,
+      "SAVED!": 121
+    },
+    "training": {
+      "GOAL!": 131,
+      "MISS!": 5,
+      "SAVED!": 104
+    }
+  },
+  "after_uniform": {
+    "easy": {
+      "GOAL!": 122,
+      "MISS!": 10,
+      "SAVED!": 108
+    },
+    "hard": {
+      "GOAL!": 49,
+      "MISS!": 67,
+      "SAVED!": 124
+    },
+    "standard": {
+      "GOAL!": 99,
+      "MISS!": 20,
+      "SAVED!": 121
+    },
+    "training": {
+      "GOAL!": 75,
+      "MISS!": 52,
+      "SAVED!": 113
+    }
+  },
+  "after_corners": {
+    "easy": {
+      "GOAL!": 116,
+      "MISS!": 124
+    },
+    "hard": {
+      "GOAL!": 97,
+      "MISS!": 120,
+      "SAVED!": 23
+    },
+    "standard": {
+      "GOAL!": 203,
+      "MISS!": 32,
+      "SAVED!": 5
+    },
+    "training": {
+      "GOAL!": 108,
+      "MISS!": 127,
+      "SAVED!": 5
+    }
+  },
+  "playable_uniform": {
+    "conversion": 0.26339285714285715,
+    "draw_rate": 0.19,
+    "five_plus_rate": 0.07,
+    "goals_per_match": 2.46,
+    "matches": 100,
+    "nil_nil_rate": 0.04,
+    "personal_chances": 224,
+    "personal_goals": 59,
+    "strategy": "uniform"
+  }
+}

@@ -842,3 +842,28 @@ SHA-256: b9ff9b7e011a0f651da9c9181627a84ea64b07ebf62915a25f7cf43b556a825c.
 
 Próximo: atualizar sem desinstalar e verificar caixa/teclado no telefone.
 Validação física desta versão pendente; sem AAB/assinatura release nesta etapa.
+
+## 0.6.20 — requested training/balance/presentation revision
+
+Changes/evidence/limits: docs/UI_0.6.20.md; seeded results in
+ docs/data/balance_0.6.20.json. Files: career.py, main.py, buildozer.spec,
+ tools/balance_shots.py, core/Kivy tests, AGENTS, README and these docs.
+
+49 core/build/security + 38 actual Kivy tests pass (87 total), syntax and
+ git diff --check pass. Initial expected-contribution regression correctly failed
+ after moving the reserved hard-shot mean from .18 to .20; updated its explicit
+ expected totals, reran both suites successfully. Headless desktop lacks optional
+ xclip/xsel clipboard executables; Kivy fallback runs, all UI tests pass.
+
+240 seeded uniform attempts/profile before and after: hard 44 -> 49 goals;
+ training 131 -> 75; clear unchanged at 122. Corner strategy final hard 97/240.
+ 100 complete playable matches: 2.46 total goals/match, 59/224 personal shots.
+ Desktop scoreboard/catch screenshots rendered and inspected. Not device tests.
+
+Actual build tools/android/run.sh python tools/build_android.py -v android debug
+ passed. Signature v2 and existing certificate verified, ZIP16KB and 118 ELF
+ alignments pass. Actual package versionCode1026620, target36/min26, no requested
+ permissions. Payload inspected for saves/signing keys. APK30,215,905 bytes,
+ SHA256 d2d938c1f8331a81db65f037b652a65c1632b8a4ad8282932a67bd4a1f008114.
+ Logs build-0.6.20.log and verify-0.6.20.log in /workspace/striker-runtime.
+ Next: actual phone training, hard shots, keeper catch/fall, scoreboard and flags.

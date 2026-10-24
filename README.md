@@ -179,3 +179,11 @@ new seasons use the new rule. Cup draws remain independent.
 Removed the stray line, rounded the name field, centred text and tightened
 the panel spacing/alignment. Name handling and career progress are unchanged.
 [Visual fix, 84 tests and limitations](docs/UI_0.6.19.md).
+
+## SCORER 0.6.20 — practice and match balance
+
+Harder practice with match ball physics; slightly more achievable hard match
+shots, slower morale loss and stronger goal reward. Club-specific fictional
+scorer names preserve saved totals. Standing saves hold the ball during a
+forward fall; corner flags and a broadcast-style scoreboard improve presentation.
+[87 tests, measured balance and Android verification](docs/UI_0.6.20.md).

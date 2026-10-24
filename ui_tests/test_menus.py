@@ -287,8 +287,8 @@ class MenuTests(unittest.TestCase):
                             self.assertGreaterEqual(game.shot_time_limit, 5)
                         else:
                             self.assertFalse(game.one_on_one)
-                            self.assertGreaterEqual(game.shot_origin_y, 16.5)
-                            self.assertGreaterEqual(abs(game.shot_origin_x), 4.5)
+                            self.assertGreaterEqual(game.shot_origin_y, 15.5)
+                            self.assertGreaterEqual(abs(game.shot_origin_x), 4.0)
                             sx, sy = game.project(game.shot_origin_x, game.shot_origin_y, 0)
                             self.assertTrue(game.x <= sx <= game.right)
                             self.assertTrue(game.y <= sy <= game.top)
@@ -303,7 +303,7 @@ class MenuTests(unittest.TestCase):
                 game.start_career_match()
                 self.assertEqual(game.match_easy_chance_index, -1)
 
-    def test_hard_chance_keeper_reacts_faster_and_training_keeps_original_timing(self):
+    def test_hard_chance_keeper_and_weekly_training(self):
         with isolated_game(saved=True) as game:
             game.career.load()
             game.shot_context = 'match'
@@ -311,12 +311,39 @@ class MenuTests(unittest.TestCase):
             game._prepare_next_shot()
             game.power = 0.85
             game.shoot(2.0, 1.0)
-            self.assertGreaterEqual(game.goalkeeper_reaction, 0.14)
-            self.assertLessEqual(game.goalkeeper_reaction, 0.22)
-            self.assertAlmostEqual(game.goalkeeper_dive_speed, 5.8)
+            self.assertGreaterEqual(game.goalkeeper_reaction, 0.18)
+            self.assertLessEqual(game.goalkeeper_reaction, 0.27)
+            self.assertAlmostEqual(game.goalkeeper_dive_speed, 5.2)
             game.start_training()
             self.assertEqual(game.shot_context, 'training')
             self.assertEqual(game.training_shots_left, 3)
+
+    def test_standing_body_save_holds_ball_and_falls_forward_once(self):
+        from main import GOALKEEPER_Y
+        with isolated_game(saved=True) as game:
+            game.shot_context, game.view = 'match', 'shot'
+            game._prepare_next_shot()
+            game.shoot(0, 1)
+            game.goalkeeper_x = 0
+            game.goalkeeper_is_diving = False
+            game.ball.x, game.ball.y, game.ball.z = 0, GOALKEEPER_Y, 1.0
+            game.ball.vy = -20
+            self.assertTrue(game._collide_goalkeeper())
+            self.assertTrue(game.goalkeeper_holding)
+            self.assertEqual(game.result_text, 'SAVED!')
+            self.assertFalse(game.ball.active)
+            initial = game._goalkeeper_world_pose()['head']
+            for _ in range(100):
+                game._update_goalkeeper_shot(0.01)
+                game._update_ball(0.01)
+            final = game._goalkeeper_world_pose()['head']
+            self.assertGreater(final[1], initial[1])
+            self.assertLess(final[2], initial[2])
+            self.assertEqual(game.saves, 1)
+            self.assertEqual(game.ball.speed, 0)
+            self.assertGreater(game.ball.y, GOALKEEPER_Y)
+            game._prepare_next_shot()
+            self.assertFalse(game.goalkeeper_holding)
 
     def test_opponent_controls_chance_plan_for_home_and_away_matches(self):
         with isolated_game(saved=True) as game:
@@ -385,7 +412,7 @@ class MenuTests(unittest.TestCase):
             own = next(row for row in table.rows if row[1] == game.career.player_name)
             self.assertEqual(own[2], 2)
 
-    def test_pressured_touch_aim_has_physical_dispersion_without_changing_training(self):
+    def test_pressured_touch_and_training_have_physical_dispersion(self):
         import math
         import random
         previous = random.getstate()
@@ -413,7 +440,9 @@ class MenuTests(unittest.TestCase):
             game.power = 0.85
             game.shoot(0, 1)
             flight = game.ball.y / -game.ball.vy
-            self.assertLess(abs(game.ball.x+game.ball.vx*flight), 0.3)
+            self.assertLessEqual(math.hypot(game.ball.vx, game.ball.vy), 18 + 0.85*8 + 0.0001)
+            self.assertGreaterEqual(game.shot_origin_y, 13)
+            self.assertLessEqual(game.shot_origin_y, 17)
 
     def test_teammate_goals_reserve_the_players_expected_share_home_and_away(self):
         from career import OpponentChanceProfile, expected_highlight_goals
