@@ -2559,19 +2559,17 @@ class StrikerGame(Widget):
         if not self.career.save_path.exists():
             self._start_new_career()
             return
-        content = BoxLayout(orientation="vertical", spacing=dp(12), padding=dp(12))
-        content.add_widget(FlowLabel(text="You already have a career. Start again? "
-                                    "Your previous career will be backed up locally before it is replaced."))
-        buttons = BoxLayout(size_hint_y=None, height=dp(56), spacing=dp(12))
-        popup = Popup(title='Start a new career?', content=content,
-                      size_hint=(0.9, None), height=min(Window.height - dp(16), dp(300)),
-                      auto_dismiss=False)
-        buttons.add_widget(TouchButton('CANCEL', popup.dismiss))
-        buttons.add_widget(TouchButton('NEW GAME', self._start_new_career, accent=True))
-        content.add_widget(buttons)
-        popup.bind(on_dismiss=lambda *_: setattr(self, "_new_game_popup", None))
-        self._new_game_popup = popup
+        from menu_ui import CareerStartDialog
+        popup=CareerStartDialog(self)
+        popup.bind(on_dismiss=lambda *_:self._menu_popup_closed('_new_game_popup'))
+        self._new_game_popup=popup
+        self.ads.entry_visible(False)
         popup.open()
+
+    def _menu_popup_closed(self,attribute):
+        setattr(self,attribute,None)
+        if self.view=='start' and self._menu is not None:
+            self._menu.body._fit()
 
     def _start_new_career(self):
         if self.view != "start":
@@ -2581,6 +2579,7 @@ class StrikerGame(Widget):
                 self._new_game_popup.dismiss()
             self.draw()
             return
+        self.view = 'profile'
         if self._new_game_popup is not None:
             self._new_game_popup.dismiss()
         self.career = self._make_career(self._career_mode)
@@ -2630,8 +2629,9 @@ class StrikerGame(Widget):
         buttons.add_widget(TouchButton('CONTINUE', popup.dismiss))
         buttons.add_widget(TouchButton('SAVE AND EXIT', self._confirm_exit, accent=True))
         content.add_widget(buttons)
-        popup.bind(on_dismiss=lambda *_: setattr(self, "_exit_popup", None))
+        popup.bind(on_dismiss=lambda *_:self._menu_popup_closed('_exit_popup'))
         self._exit_popup = popup
+        self.ads.entry_visible(False)
         popup.open()
 
     def _confirm_exit(self):

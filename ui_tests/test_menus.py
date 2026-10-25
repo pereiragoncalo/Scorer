@@ -1008,7 +1008,7 @@ class MenuTests(unittest.TestCase):
                     self.assertGreater(menu.body.height, 0)
                     for widget in menu.walk():
                         if isinstance(widget, TouchButton):
-                            self.assertGreaterEqual(widget.height, dp(52) - 1)
+                            self.assertGreaterEqual(widget.height, dp(48 if view == 'start' else 52) - 1)
                             padding = (16, 12) if isinstance(widget, MenuTile) else (24, 20)
                             self.assertLessEqual(widget.texture_size[0], widget.width - dp(padding[0]) + 2)
                             self.assertLessEqual(widget.texture_size[1], widget.height - dp(padding[1]) + 2)

@@ -1,3 +1,12 @@
+# Scorer 0.6.35 — compact confirmation and World branding
+
+New-career confirmation now wraps its content in a compact themed dialog, with
+no large empty block. Entry logo is at the screen's top left. World adds a native
+gold WORLD word beside the existing artwork on entry and both main menu layouts.
+Free keeps the original Scorer logo. Native entry banners are hidden while a
+confirmation is open; backup and Cancel behaviour remain safe.
+[Behaviour, screenshots and build evidence](docs/START_LAYOUT_0.6.35.md).
+
 # Scorer 0.6.34 — cleaner menus
 
 Removed small edition/test-ad taglines, routine main-menu prose, generic player

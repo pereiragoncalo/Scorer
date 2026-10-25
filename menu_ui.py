@@ -10,6 +10,8 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.modalview import ModalView
+from kivy.core.window import Window
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
@@ -180,8 +182,8 @@ class CareerMenu(BoxLayout):
         if self.game.view == 'hub':
             header.height = dp(52)
             brand = AnchorLayout(anchor_x='left', anchor_y='center')
-            logo = Image(source='assets/menu_logo.png', size_hint=(None, 1), width=dp(190))
-            brand.bind(width=lambda widget, width: setattr(logo, 'width', min(dp(190), width)))
+            logo = MenuLogo(size_hint=(None, 1), width=dp(250 if edition.is_world() else 190))
+            brand.bind(width=lambda widget, width: setattr(logo, 'width', min(dp(250 if edition.is_world() else 190), width)))
             brand.add_widget(logo)
         elif self.game.view in ('world', 'editor', 'world_country'):
             header.height = dp(52)
@@ -546,14 +548,64 @@ class MenuTile(TouchButton):
         self.text_size = (max(1, self.width - dp(16)), max(1, self.height - dp(12)))
 
 
+class MenuLogo(FloatLayout):
+    """Left-aligned original artwork with a native World product lockup."""
+    def __init__(self,**kwargs):
+        super().__init__(**kwargs)
+        self.image=Image(source='assets/menu_logo.png',size_hint=(None,None))
+        self.add_widget(self.image)
+        self.world=BoundedLabel(text='WORLD',localize=False,font_name='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',
+                                color=(1,.91,.67,1),font_size=sp(19),size_hint=(None,None)) if edition.is_world() else None
+        if self.world:self.add_widget(self.world)
+        self.bind(pos=self._fit,size=self._fit);self._fit()
+
+    def _fit(self,*_):
+        extra=min(dp(60),self.width*.30) if self.world else 0
+        width=max(1,min(self.width-extra,self.height*2048/768))
+        height=width*768/2048
+        self.image.size=(width,height);self.image.pos=(self.x,self.top-height)
+        if self.world:
+            self.world.size=(max(1,self.width-width-dp(3)),max(1,height*.48))
+            self.world.pos=(self.image.right+dp(3),self.image.y+height*.25)
+
+
+class CareerStartDialog(ModalView):
+    """Content-sized confirmation; no fixed-height empty message area."""
+    def __init__(self,game):
+        super().__init__(size_hint=(None,None),auto_dismiss=False,background='',
+                         background_color=(0,0,0,0),overlay_color=(0,0,0,.68))
+        self.game=game
+        self.panel=EdgePanel(orientation='vertical',padding=dp(16),spacing=dp(10),background_alpha=1)
+        self.panel.background.radius=[dp(12)]
+        self.heading=FlowLabel(text='Start a new career?',font_size=sp(18),bold=True,color=GREEN)
+        self.panel.add_widget(self.heading)
+        self.message=FlowLabel(text='You already have a career. Start again? Your previous career will be backed up locally before it is replaced.',font_size=sp(14))
+        self.panel.add_widget(self.message)
+        self.buttons=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(10))
+        self.buttons.add_widget(MenuTile('CANCEL',self.dismiss))
+        self.buttons.add_widget(MenuTile('NEW GAME',game._start_new_career,accent=True))
+        self.panel.add_widget(self.buttons);self.add_widget(self.panel)
+        self.panel.bind(minimum_height=self._fit)
+        self.bind(on_open=self._opened,on_dismiss=self._closed)
+        self._fit()
+
+    def _fit(self,*_):
+        self.width=min(Window.width-dp(24),dp(520))
+        self.height=min(Window.height-dp(24),max(dp(150),self.panel.minimum_height))
+
+    def _opened(self,*_):Window.bind(size=self._fit);self._fit()
+    def _closed(self,*_):Window.unbind(size=self._fit)
+
+
 class EdgePanel(BoxLayout):
     """Quiet stadium overlay with one accent edge, rather than large solid tiles."""
     def __init__(self, **kwargs):
+        background_alpha=kwargs.pop('background_alpha',.90)
         kwargs.setdefault('padding', dp(10))
         kwargs.setdefault('spacing', dp(4))
         super().__init__(**kwargs)
         with self.canvas.before:
-            Color(0.02, 0.06, 0.09, 0.90)
+            Color(0.02, 0.06, 0.09, background_alpha)
             self.background = RoundedRectangle(pos=self.pos, size=self.size, radius=[dp(6)])
             Color(*GREEN)
             self.edge = Line(points=[self.x, self.top, self.right, self.top], width=1)
@@ -630,21 +682,22 @@ class EntryScreen(FloatLayout):
         super().__init__()
         self.menu = menu
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
-        self.brand = Image(source='assets/menu_logo.png', size_hint_y=None, height=dp(52))
-        self.panel.add_widget(self.brand)
+        self.brand = MenuLogo(size_hint=(None,None))
+        self.add_widget(self.brand)
         message = menu.game.career.message
         self.info = BoundedLabel(text=message if message.startswith(MENU_ERROR_PREFIXES) else '',
                                  color=(1,.65,.45,1),font_size=sp(14),size_hint_y=None,height=dp(40))
         if self.info.text:self.panel.add_widget(self.info)
-        new_row = BoxLayout(spacing=dp(8))
+        new_row = self.new_row = BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
         new_row.add_widget(MenuTile('NEW GAME', lambda: menu.action('new_game'), accent=True))
         if edition.is_world():
             new_row.add_widget(MenuTile('LANGUAGE', lambda: menu.action('language')))
         self.panel.add_widget(new_row)
-        load = MenuTile('LOAD GAME', lambda: menu.action('load_game'))
+        load = self.load_button = MenuTile('LOAD GAME', lambda: menu.action('load_game'))
         load.disabled = not menu.game.career.save_path.is_file()
         self.panel.add_widget(load)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        self.entry_actions=actions
         actions.add_widget(MenuTile('HELP', lambda: menu.action('help')))
         actions.add_widget(MenuTile('PRIVACY', lambda: menu.action('privacy')))
         actions.add_widget(MenuTile('EXIT', menu.game._request_exit))
@@ -655,16 +708,25 @@ class EntryScreen(FloatLayout):
         self._fit()
 
     def _fit(self, *_):
-        banner_fits = not self.menu.game._world_available and not self.menu.game.career.world_unlocked and self.height >= dp(340) and self.width >= dp(340)
+        banner_fits = not self.menu.game._world_available and not self.menu.game.career.world_unlocked and not self.menu.game._new_game_popup and not self.menu.game._exit_popup and self.height >= dp(340) and self.width >= dp(340)
         self.menu.game.ads.entry_visible(banner_fits)
         self.banner_space = dp(64) if banner_fits else 0
         available = self.height - self.banner_space
         has_error = self.info.parent is self.panel
-        self.panel.size = (min(self.width - dp(24), dp(340)), min(available - dp(16), dp(280 if has_error else 244)))
-        self.panel.center = (self.center_x, self.y + self.banner_space + available / 2)
-        compact = self.panel.height < dp(250)
-        self.brand.height = 0 if has_error and compact else dp(28) if self.panel.height < dp(244) else dp(52)
-        self.info.height = dp(32 if compact else 40)
+        compact = available < dp(280)
+        margin=dp(8 if compact else 12)
+        logo_height=0 if has_error and compact else dp(28 if compact else 52)
+        self.brand.size=(min(self.width-margin*2,dp(250 if edition.is_world() else 190)),logo_height)
+        self.brand.opacity=1 if logo_height else 0
+        self.brand.pos=(self.x+margin,self.top-margin-logo_height)
+        header=logo_height+margin if logo_height else 0
+        self.panel.padding=dp(8 if compact else 10)
+        self.new_row.height=self.load_button.height=self.entry_actions.height=dp(48 if compact else 52)
+        for button in (*self.new_row.children,*self.entry_actions.children):button.height=dp(48 if compact else 52)
+        self.info.height=dp(32 if compact else 40)
+        desired=dp(168 if compact else 184)+(self.info.height+dp(4) if has_error else 0)
+        self.panel.size=(min(self.width-dp(24),dp(340)),min(available-header-dp(16),desired))
+        self.panel.center=(self.center_x,self.y+self.banner_space+(available-header)/2)
 
 
 class MainDashboard(BoxLayout):

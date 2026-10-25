@@ -1276,3 +1276,20 @@ Fixed dashboard hero insertion after footer removal. PASS122 core/security +67
 Kivy=189 tests; both real APK builds and actual package/icon/signature/edition/UI,
 SDK/font/language checks plus ZIP16KB and118 ELF alignments perAPK. Two desktop
 renders inspected. No phone/production test claimed; see CLEAN_MENUS_0.6.34.md.
+
+
+## 0.6.35 — compact new-career confirmation and top-left World logo
+
+Replaced oversized fixed-height popup with wrapped content-sized opaque themed
+ModalView. Shared MenuLogo aligns original art left and adds World product text;
+entry logo now belongs to screen top left. Banners hide for confirmations and
+stay hidden through rotation/profile transition. Cancel/backup semantics retained.
+PASS122 core/security +71 Kivy=193 tests; four focused modal/brand/ad regressions.
+Old52dp-only entry assertion updated to compact48dp minimum. Visual translucency
+was found and fixed before final renders/rebuild. See START_LAYOUT_0.6.35.md.
+
+Both final APKs PASS actual package/version/icon/signature/edition, bundled
+CareerStartDialog/MenuLogo/main modal ad guard and opaque-panel keyword checks,
+language/font/SDK payload checks, ZIP16KB and118 ELF LOAD alignments each. The
+merged main checkout with unrelated WIP also passes122 core and71 Kivy tests.
+No physical Android test was performed.
