@@ -2,6 +2,13 @@
 
 Collection date: 2026-10-24. Research only; this batch makes no gameplay changes.
 
+**2026-10-25 follow-up:** [priority status](PRIORITY_STATUS.md),
+[55 European federation records](europe_federations.json), and
+[75 additional retrieval attempts](priority_retrieval.json). Current priority is
+Europe, Brazil, Argentina and Mexico; the coverage matrix records the owner's
+simplified fallback for other countries. Implementation/validation of that
+fallback is described [separately](../DOMESTIC_RULES_DEVELOPMENT.md).
+
 - [Source catalogue](source_catalogue.json): 31 selected source records, each with
   edition, review status, URL and checksum where a full response was retained.
 - [Reviewed provisions](REVIEW_NOTES.md): facts read from primary sources, with

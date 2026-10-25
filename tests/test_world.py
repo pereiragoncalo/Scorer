@@ -65,7 +65,7 @@ class WorldTests(unittest.TestCase):
         self.assertEqual({v.country for v in c.leagues.values()}, set(WORLD_COUNTRIES))
         self.assertEqual(c.leagues['England|4'].name, 'England Division 4')
         self.assertEqual(len([v for v in c.leagues.values() if v.country == 'Brazil']), 4)
-        self.assertEqual(len([v for v in c.leagues.values() if v.country == 'Yemen']), 4)
+        self.assertEqual(len([v for v in c.leagues.values() if v.country == 'Yemen']), 2)
         self.assertEqual(len({club.uid for league in c.leagues.values() for club in league.clubs}), sum(len(v.clubs) for v in c.leagues.values()))
         kind,h,a=c.next_match();c.finish_match(h,a,0,1,forced_score=(0,0),competition=kind)
         c.activate_world_country('Brazil');c.save()

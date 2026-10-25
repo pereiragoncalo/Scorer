@@ -1,86 +1,125 @@
 {
   "schema_version": 1,
-  "date": "2026-10-24",
+  "date": "2026-10-25",
   "regions_in_current_game": 212,
-  "note": "All-country exactness remains unverified, including countries with partial primary-source review. Continental rules do not establish domestic country rules.",
+  "note": "Owner-selected two-division game format outside Europe, Brazil, Argentina and Mexico. This is deliberately a simplified model, not verified real-world regulation. Priority national models are still pending primary-source audit.",
   "countries": [
     {
       "country": "Albania",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "ALB"
     },
     {
       "country": "Andorra",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "AND"
     },
     {
       "country": "Armenia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "ARM"
     },
     {
       "country": "Austria",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "AUT"
     },
     {
       "country": "Azerbaijan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "AZE"
     },
     {
       "country": "Belarus",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "BLR"
     },
     {
       "country": "Belgium",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "BEL"
     },
     {
       "country": "Bosnia and Herzegovina",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "BIH"
     },
     {
       "country": "Bulgaria",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "BUL"
     },
     {
       "country": "Croatia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "CRO"
     },
     {
       "country": "Cyprus",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "CYP"
     },
     {
       "country": "Czechia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "CZE"
     },
     {
       "country": "Denmark",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "DEN"
     },
     {
       "country": "England",
@@ -89,25 +128,37 @@
         "efl-playoffs"
       ],
       "complete_country_model_verified": false,
-      "status": "partial_sources"
+      "status": "partial_sources",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "ENG"
     },
     {
       "country": "Estonia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "EST"
     },
     {
       "country": "Faroe Islands",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "FRO"
     },
     {
       "country": "Finland",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "FIN"
     },
     {
       "country": "France",
@@ -116,13 +167,19 @@
         "france-ligue3-admin"
       ],
       "complete_country_model_verified": false,
-      "status": "partial_sources"
+      "status": "partial_sources",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "FRA"
     },
     {
       "country": "Georgia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "GEO"
     },
     {
       "country": "Germany",
@@ -132,37 +189,55 @@
         "germany-implementation"
       ],
       "complete_country_model_verified": false,
-      "status": "partial_sources"
+      "status": "partial_sources",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "GER"
     },
     {
       "country": "Gibraltar",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "GIB"
     },
     {
       "country": "Greece",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "GRE"
     },
     {
       "country": "Hungary",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "HUN"
     },
     {
       "country": "Iceland",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "ISL"
     },
     {
       "country": "Israel",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "ISR"
     },
     {
       "country": "Italy",
@@ -170,91 +245,136 @@
         "italy-noif-competition"
       ],
       "complete_country_model_verified": false,
-      "status": "partial_sources"
+      "status": "partial_sources",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "ITA"
     },
     {
       "country": "Kazakhstan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "KAZ"
     },
     {
       "country": "Kosovo",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "KOS"
     },
     {
       "country": "Latvia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "LVA"
     },
     {
       "country": "Liechtenstein",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "LIE"
     },
     {
       "country": "Lithuania",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "LTU"
     },
     {
       "country": "Luxembourg",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "LUX"
     },
     {
       "country": "Malta",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "MLT"
     },
     {
       "country": "Moldova",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "MDA"
     },
     {
       "country": "Montenegro",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "MNE"
     },
     {
       "country": "Netherlands",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "NED"
     },
     {
       "country": "North Macedonia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "MKD"
     },
     {
       "country": "Northern Ireland",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "NIR"
     },
     {
       "country": "Norway",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "NOR"
     },
     {
       "country": "Poland",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "POL"
     },
     {
       "country": "Portugal",
@@ -263,55 +383,82 @@
         "portugal-official-2026-27"
       ],
       "complete_country_model_verified": false,
-      "status": "partial_sources"
+      "status": "partial_sources",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "POR"
     },
     {
       "country": "Republic of Ireland",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "IRL"
     },
     {
       "country": "Romania",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "ROU"
     },
     {
       "country": "Russia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "RUS"
     },
     {
       "country": "San Marino",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "SMR"
     },
     {
       "country": "Scotland",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "SCO"
     },
     {
       "country": "Serbia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "SRB"
     },
     {
       "country": "Slovakia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "SVK"
     },
     {
       "country": "Slovenia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "SVN"
     },
     {
       "country": "Spain",
@@ -320,295 +467,559 @@
         "spain-bases"
       ],
       "complete_country_model_verified": false,
-      "status": "partial_sources"
+      "status": "partial_sources",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "ESP"
     },
     {
       "country": "Sweden",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "SWE"
     },
     {
       "country": "Switzerland",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "SUI"
     },
     {
       "country": "Turkey",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "TUR"
     },
     {
       "country": "Ukraine",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "UKR"
     },
     {
       "country": "Wales",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending",
+      "uefa_publisher_record": "WAL"
     },
     {
       "country": "Argentina",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending"
     },
     {
       "country": "Bolivia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Brazil",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending"
     },
     {
       "country": "Chile",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Colombia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Ecuador",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Paraguay",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Peru",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Uruguay",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Venezuela",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Anguilla",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Antigua and Barbuda",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Aruba",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Bahamas",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Barbados",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Belize",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Bermuda",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "British Virgin Islands",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Canada",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Cayman Islands",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Costa Rica",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Cuba",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Curacao",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Dominica",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Dominican Republic",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "El Salvador",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Grenada",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Guatemala",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Guyana",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Haiti",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Honduras",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Jamaica",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Mexico",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": true,
+      "game_model": "national_format_pending"
     },
     {
       "country": "Montserrat",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Nicaragua",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Panama",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Puerto Rico",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Saint Kitts and Nevis",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Saint Lucia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Saint Vincent and the Grenadines",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Suriname",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Trinidad and Tobago",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Turks and Caicos Islands",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "United States",
@@ -616,685 +1027,1369 @@
         "usa-mls"
       ],
       "complete_country_model_verified": false,
-      "status": "partial_sources"
+      "status": "partial_sources",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "US Virgin Islands",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Afghanistan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Australia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Bahrain",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Bangladesh",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Bhutan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Brunei",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Cambodia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "China",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Chinese Taipei",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Guam",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Hong Kong",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "India",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Indonesia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Iran",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Iraq",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Japan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Jordan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Kuwait",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Kyrgyzstan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Laos",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Lebanon",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Macau",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Malaysia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Maldives",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Mongolia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Myanmar",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Nepal",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "North Korea",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Northern Mariana Islands",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Oman",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Pakistan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Palestine",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Philippines",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Qatar",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Saudi Arabia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Singapore",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "South Korea",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Sri Lanka",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Syria",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Tajikistan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Thailand",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Timor-Leste",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Turkmenistan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "United Arab Emirates",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Uzbekistan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Vietnam",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Yemen",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Algeria",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Angola",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Benin",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Botswana",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Burkina Faso",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Burundi",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Cameroon",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Cape Verde",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Central African Republic",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Chad",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Comoros",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Congo",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "DR Congo",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Djibouti",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Egypt",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Equatorial Guinea",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Eritrea",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Eswatini",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Ethiopia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Gabon",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Gambia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Ghana",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Guinea",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Guinea-Bissau",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Ivory Coast",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Kenya",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Lesotho",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Liberia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Libya",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Madagascar",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Malawi",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Mali",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Mauritania",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Mauritius",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Morocco",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Mozambique",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Namibia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Niger",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Nigeria",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Rwanda",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Sao Tome and Principe",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Senegal",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Seychelles",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Sierra Leone",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Somalia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "South Africa",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "South Sudan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Sudan",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Tanzania",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Togo",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Tunisia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Uganda",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Zambia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Zimbabwe",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "American Samoa",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Cook Islands",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Fiji",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "New Caledonia",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "New Zealand",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Papua New Guinea",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Samoa",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Solomon Islands",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Tahiti",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Tonga",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     },
     {
       "country": "Vanuatu",
       "source_ids": [],
       "complete_country_model_verified": false,
-      "status": "not_yet_collected"
+      "status": "not_yet_collected",
+      "research_priority": false,
+      "game_model": "simplified_two_divisions",
+      "divisions": 2,
+      "direct_promotions": 3,
+      "direct_relegations": 3,
+      "playoffs": false
     }
   ]
 }

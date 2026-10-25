@@ -1,5 +1,6 @@
 """Responsive, touch-friendly career menus for the original Kivy game."""
 from career import EUROPE_PYRAMID_DEPTH, WORLD_COUNTRIES
+from domestic_rules import uses_simplified_model, standing_zone
 from kivy.graphics import Color, RoundedRectangle, Rectangle, Line
 from kivy.core.image import Image as CoreImage
 from kivy.metrics import dp, sp, Metrics
@@ -176,7 +177,7 @@ class CareerMenu(BoxLayout):
             header.height = dp(52)
             title = 'WORLD LEAGUES' if self.game.view == 'world' else 'NAMES EDITOR' if self.game.view == 'editor' else self.game.world_country.upper()
             brand.add_widget(BoundedLabel(text=title, font_size=sp(20), bold=True))
-            detail = f'{len({v.country for v in c.leagues.values()})} regions · {len(c.leagues)} fictional divisions' if self.game.view == 'world' else c.display_league(c.leagues[self.game.editor_key]) if self.game.view == 'editor' else 'Choose a division'
+            detail = f'{len({v.country for v in c.leagues.values()})} regions · {len(c.domestic_leagues())} divisions' if self.game.view == 'world' else c.display_league(c.leagues[self.game.editor_key]) if self.game.view == 'editor' else 'Choose a division'
             brand.add_widget(BoundedLabel(text=detail, font_size=sp(11), color=MUTED))
         elif paged:
             header.height = dp(52)
@@ -225,7 +226,7 @@ class CareerMenu(BoxLayout):
             header.add_widget(edit)
             league = c.leagues[self.game.world_league_key]
             self.scroll = None
-            self.body = CompactTable(c.display_league(league), ('POS','CLUB','P','PTS'), [(i+1,c.display_club(club),club.played,club.points) for i,club in enumerate(league.table())])
+            self.body = CompactTable(c.display_league(league) + self._standing_legend(league), ('POS','CLUB','P','PTS'), [(self._standing_position(league,i+1),c.display_club(club),club.played,club.points) for i,club in enumerate(league.table())])
             self.add_widget(self.body)
             return
         if self.game.view in ('standings', 'scorers', 'calendar'):
@@ -299,13 +300,24 @@ class CareerMenu(BoxLayout):
         if c.message.startswith(('Reward ad', 'Ad reward', 'Unable to save the morale')):
             card.label(c.message, muted=True)
 
+    def _standing_position(self, league, position):
+        if self.game.career.world_unlocked and uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH):
+            zone = standing_zone(league.tier, position, len(league.clubs))
+            return f'{position} P' if zone == 'Promotion' else f'{position} R' if zone == 'Relegation' else position
+        return position
+
+    def _standing_legend(self, league):
+        if self.game.career.world_unlocked and uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH) and league.tier in (1, 2):
+            return ' · R: bottom 3 go down' if league.tier == 1 else ' · P: top 3 go up'
+        return ''
+
     def _compact_list(self):
         c = self.game.career
         if self.game.view == 'standings':
-            rows = [(i + 1, c.display_club(club), club.played, club.won, club.drawn, club.lost,
+            rows = [(self._standing_position(c.current_league, i + 1), c.display_club(club), club.played, club.won, club.drawn, club.lost,
                      club.goals_for, club.goals_against, club.goal_difference, club.points)
                     for i, club in enumerate(c.current_league.table())]
-            return CompactTable('STANDINGS · ' + c.display_league(c.current_league),
+            return CompactTable('STANDINGS · ' + c.display_league(c.current_league) + self._standing_legend(c.current_league),
                                 ('POS', 'CLUB', 'P', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'PTS'),
                                 rows, focus=c.display_text(c.club_name), summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7))
         if self.game.view == 'scorers':
@@ -394,11 +406,12 @@ class CareerMenu(BoxLayout):
         card = self.card(self.game.world_country)
         grid = GridLayout(cols=2, size_hint_y=None, spacing=dp(6))
         grid.bind(minimum_height=grid.setter('height'))
-        for key, league in c.leagues.items():
+        for league in c.domestic_leagues(self.game.world_country):
+            key = league.key
             if league.country == self.game.world_country:
                 grid.add_widget(self._button(c.display_league(league), 'world_league', key))
         card.add_widget(grid)
-        card.label('Fictional domestic pyramids; regional/amateur competitions are not modelled.', muted=True)
+        card.label('Simplified format: 2 divisions; 3 promoted and 3 relegated. No playoffs.' if uses_simplified_model(self.game.world_country, EUROPE_PYRAMID_DEPTH) else 'Country regulations under review; regional/amateur competitions are not fully modelled.', muted=True)
 
     def _editor(self):
         if not self.game.career.world_unlocked:

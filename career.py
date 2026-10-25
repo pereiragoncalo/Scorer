@@ -18,6 +18,8 @@ from typing import Optional, Protocol
 import tempfile
 import sys
 
+from domestic_rules import division_depth, uses_simplified_model, exchange_three
+
 GAME_VERSION = 47
 GRAVITY = 9.81
 GOAL_WIDTH = 7.32
@@ -842,7 +844,18 @@ class CareerMode:
 
 
     def is_league_playable(self, league_key: str) -> bool:
-        return self.world_unlocked or league_key == self.free_start_key
+        if not self.world_unlocked:
+            return league_key == self.free_start_key
+        league = self.leagues.get(league_key)
+        return bool(league and (not uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH)
+                                or league.tier <= 2 or league_key == self.league_key))
+
+    def domestic_leagues(self, country=None):
+        """Active divisions only; archived legacy tiers are not new destinations."""
+        return [league for league in self.leagues.values()
+                if (country is None or league.country == country)
+                and (not self.world_unlocked or not uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH)
+                     or league.tier <= 2)]
 
 
     @property
@@ -1084,10 +1097,14 @@ class CareerMode:
         return sorted(entries, key=lambda entry: str(entry.get('date', '')))
 
 
-    def _build_world(self) -> None:
+    def _build_world(self, legacy_depths=None) -> None:
         for country in WORLD_COUNTRIES:
-            depth = EUROPE_PYRAMID_DEPTH.get(country, 4 if self.world_unlocked else 1)
+            depth = (division_depth(country, EUROPE_PYRAMID_DEPTH) if self.world_unlocked
+                     else EUROPE_PYRAMID_DEPTH.get(country, 1))
+            depth = max(depth, (legacy_depths or {}).get(country, 0))
             for tier in range(1, depth + 1):
+                if f'{country}|{tier}' in self.leagues:
+                    continue
                 name = "England Division 4" if self.world_unlocked and country == "England" and tier == 4 else division_name(country, tier)
                 if country == "England" and tier == 4:
                     names = list(LEAGUE_TWO_2026)
@@ -1123,6 +1140,8 @@ class CareerMode:
                 self.leagues[league.key] = league
 
 
+        if legacy_depths is not None:
+            return
         self.international_status = {
             "UEFA Champions League": "League phase - 36 clubs",
             "UEFA Europa League": "League phase - 36 clubs",
@@ -1143,7 +1162,7 @@ class CareerMode:
             return False
         if not self.world_unlocked and country != 'England':
             return False
-        tiers = [league.tier for league in self.leagues.values() if league.country == country]
+        tiers = [league.tier for league in self.domestic_leagues(country)]
         tier = 4 if country == 'England' else max(tiers)
         self.free_start_key = self.league_key = f"{country}|{tier}"
         if not self.world_unlocked:
@@ -1159,7 +1178,7 @@ class CareerMode:
             return
         target = self.current_league.round_index
         for league in self.leagues.values():
-            if league.country != country or league.key == self.league_key:
+            if league.country != country or league.key == self.league_key or (self.world_unlocked and uses_simplified_model(country, EUROPE_PYRAMID_DEPTH) and league.tier > 2):
                 continue
             if country not in self._active_world_countries:
                 league.clubs.sort(key=lambda club: club.uid)
@@ -1605,6 +1624,8 @@ class CareerMode:
         for key, league in self.leagues.items():
             if self.world_unlocked and league.country not in self._active_world_countries:
                 continue
+            if self.world_unlocked and uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH) and league.tier > 2:
+                continue
             if key == self.league_key or league.round_index >= league.total_rounds:
                 continue
             round_rng = random.Random(f'{self.world_seed}:{self.season}:{key}:{league.round_index}') if self.world_unlocked else self.rng
@@ -1675,7 +1696,7 @@ class CareerMode:
         amount = self.rng.randint(1 if guaranteed else 0, max(1, maximum))
         candidates: list[tuple[str, str]] = []
         leagues = [
-            league for league in self.leagues.values()
+            league for league in self.domestic_leagues()
             if (self.world_unlocked or league.country in EUROPE_PYRAMID_DEPTH)
             and best_tier <= league.tier <= min(5, current_tier + 1)
         ]
@@ -1758,8 +1779,9 @@ class CareerMode:
             (index + 1 for index, club in enumerate(table) if club.name == self.club_name),
             len(table),
         )
-        promoted = position <= 3 or (4 <= position <= 7 and self.rng.random() < 0.35)
-        relegated = position > len(table) - 2
+        simplified = self.world_unlocked and uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH)
+        promoted = (league.tier == 2 and position <= 3) if simplified else (position <= 3 or (4 <= position <= 7 and self.rng.random() < 0.35))
+        relegated = (league.tier == 1 and position > len(table) - 3) if simplified else position > len(table) - 2
         old_club = self.club
         target_tier = league.tier - 1 if promoted else league.tier + 1 if relegated else league.tier
         target_key = f"{league.country}|{target_tier}"
@@ -1768,7 +1790,27 @@ class CareerMode:
             promoted = relegated = False
             target_tier = league.tier
             target_key = self.league_key
-        if old_club and target_key in self.leagues and target_key != self.league_key:
+        # Move all three ranked clubs, rather than only the hero against a
+        # rating-selected replacement. Hidden legacy tiers are preserved until
+        # their current season ends, then the hero continues in division two.
+        if self.world_unlocked:
+            for country in sorted(self._active_world_countries):
+                if not uses_simplified_model(country, EUROPE_PYRAMID_DEPTH):
+                    continue
+                upper, lower = self.leagues[country+'|1'], self.leagues[country+'|2']
+                exchange_three(upper, lower)
+        if simplified and old_club:
+            if league.tier > 2:
+                lower = self.leagues[league.country+'|2']
+                displaced = lower.table()[-1]
+                lower.clubs.remove(displaced)
+                league.clubs.remove(old_club)
+                lower.clubs.append(old_club)
+                league.clubs.append(displaced)
+                old_club.tier, old_club.league = 2, lower.name
+                displaced.tier, displaced.league = league.tier, league.name
+            self.league_key = league.country+'|'+str(old_club.tier)
+        elif not simplified and old_club and target_key in self.leagues and target_key != self.league_key:
             target = self.leagues[target_key]
             displaced = min(target.clubs, key=lambda club: club.rating)
             target.clubs.remove(displaced)
@@ -1835,9 +1877,16 @@ class CareerMode:
         if not self.club_name:
             return True
         league = self.current_league
+        archived_depths = {}
+        if self.world_unlocked:
+            for other in self.leagues.values():
+                if other.tier > 2 and uses_simplified_model(other.country, EUROPE_PYRAMID_DEPTH):
+                    archived_depths[other.country] = max(archived_depths.get(other.country, 0), other.tier)
         data = {
             "save_version": self.SAVE_VERSION,
             "edition": self.product_mode,
+            "domestic_model_version": 1,
+            "legacy_domestic_depths": archived_depths,
             "free_start_key": self.free_start_key,
             "display_aliases": self.display_aliases if self.world_unlocked else {},
             "world_state": {k: {'clubs': [asdict(c) for c in v.clubs], 'round': v.round_index,
@@ -1976,11 +2025,44 @@ class CareerMode:
                 return
             if self._save_slot == "world" and active.get("edition") != "WORLD":
                 return False  # No automatic or file-based Free-to-World conversion.
+            if self.world_unlocked and active.get('edition') == 'WORLD':
+                saved_states = active.get('world_state', {})
+                if not isinstance(saved_states, dict):
+                    raise ValueError('Invalid saved World state')
+                model_version = active.get('domestic_model_version')
+                if model_version is None:
+                    # Older worldwide name packs can reference unvisited tiers.
+                    # Keep those objects as an archive, never as new destinations.
+                    legacy_depths = {country: 4 for country in WORLD_COUNTRIES
+                                     if uses_simplified_model(country, EUROPE_PYRAMID_DEPTH)}
+                elif type(model_version) is int and model_version == 1:
+                    legacy_depths = active.get('legacy_domestic_depths', {})
+                    if (not isinstance(legacy_depths, dict) or
+                            any(country not in WORLD_COUNTRIES or
+                                not uses_simplified_model(country, EUROPE_PYRAMID_DEPTH) or
+                                type(depth) is not int or depth not in (3, 4)
+                                for country, depth in legacy_depths.items())):
+                        raise ValueError('Invalid archived domestic divisions')
+                    legacy_depths = dict(legacy_depths)
+                else:
+                    raise ValueError('Unsupported domestic model')
+                for saved_key in [active.get('league_key', '')] + list(saved_states):
+                    country, sep, tier_text = str(saved_key).partition('|')
+                    if (sep and country in WORLD_COUNTRIES and
+                            uses_simplified_model(country, EUROPE_PYRAMID_DEPTH) and tier_text in ('3', '4')):
+                        legacy_depths[country] = max(legacy_depths.get(country, 0), int(tier_text))
+                if legacy_depths:
+                    self._build_world(legacy_depths)
             key_for_access = str(active.get("league_key", FREE_LEAGUE_KEY))
             chosen = str(active.get('free_start_key', FREE_LEAGUE_KEY))
             valid_starts = {f'{c}|{4 if c == "England" else EUROPE_PYRAMID_DEPTH.get(c, 1)}' for c in WORLD_COUNTRIES}
             self.free_start_key = chosen if chosen in valid_starts or (self.world_unlocked and chosen in self.leagues) else FREE_LEAGUE_KEY
-            if (active.get('edition') == 'WORLD' and not self.world_unlocked) or not self.is_league_playable(key_for_access):
+            saved_country, _, saved_tier = key_for_access.partition('|')
+            legacy_active = (self.world_unlocked and active.get('edition') == 'WORLD'
+                             and saved_country in WORLD_COUNTRIES
+                             and uses_simplified_model(saved_country, EUROPE_PYRAMID_DEPTH)
+                             and saved_tier in ('3', '4') and key_for_access in self.leagues)
+            if (active.get('edition') == 'WORLD' and not self.world_unlocked) or (not self.is_league_playable(key_for_access) and not legacy_active):
                 self._locked_world_career = active
                 self.message = (
                     'WORLD career preserved. Restore World access to continue it.'

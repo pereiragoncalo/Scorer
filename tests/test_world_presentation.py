@@ -46,7 +46,7 @@ class WorldPresentationTests(unittest.TestCase):
         world=CareerMode(Access(),autoload=False)
         data=catalogue();self.assertEqual(len(data),9896)
         all_uids={c.uid for league in world.leagues.values() for c in league.clubs}
-        self.assertEqual(set(data),all_uids)
+        self.assertTrue(all_uids <= set(data))  # Legacy-tier aliases remain available for old saves.
         for country in {l.country for l in world.leagues.values()}:
             clubs=[c for league in world.leagues.values() if league.country==country for c in league.clubs]
             before=[(c.uid,c.name,c.points,c.goals_for) for c in clubs]

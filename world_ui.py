@@ -72,7 +72,7 @@ class WorldBrowser(BoxLayout):
         self.counter.text = f'{self.page+1}/{pages}'
         self.grid.clear_widgets()
         for country in selected[self.page*6:self.page*6+6]:
-            depth = sum(v.country == country for v in self.menu.game.career.leagues.values())
+            depth = len(self.menu.game.career.domestic_leagues(country))
             self.grid.add_widget(MenuTile(f'{country}\n{depth} divisions', lambda c=country: self.menu.action('world_country', c)))
 
 

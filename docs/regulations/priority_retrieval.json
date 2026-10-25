@@ -1,0 +1,738 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "note": "Priority follow-up. Response success establishes neither current-season regulation review nor implementation. UEFA publisher discovery is recorded separately.",
+  "attempts": [
+    {
+      "id": "brazil-cbf-home",
+      "requested_url": "https://www.cbf.com.br/",
+      "checked_utc": "2026-10-24T22:02:06.084283+00:00",
+      "error": "HTTP Error 503: Service Unavailable",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "brazil-cbf-robots",
+      "requested_url": "https://www.cbf.com.br/robots.txt",
+      "checked_utc": "2026-10-24T22:02:06.085089+00:00",
+      "error": "HTTP Error 503: Service Unavailable",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "brazil-cbf-regulations",
+      "requested_url": "https://www.cbf.com.br/a-cbf/informes/index/regulamentos",
+      "checked_utc": "2026-10-24T22:02:06.085494+00:00",
+      "error": "HTTP Error 503: Service Unavailable",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "brazil-cbf-seriea",
+      "requested_url": "https://www.cbf.com.br/futebol-brasileiro/competicoes/campeonato-brasileiro-serie-a/2026",
+      "checked_utc": "2026-10-24T22:02:06.085948+00:00",
+      "error": "HTTP Error 503: Service Unavailable",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "argentina-afa-robots",
+      "requested_url": "https://www.afa.com.ar/robots.txt",
+      "checked_utc": "2026-10-24T22:02:06.086316+00:00",
+      "status": 200,
+      "url": "https://www.afa.com.ar/robots.txt",
+      "content_type": "text/plain",
+      "bytes": 32,
+      "sha256": "6cfef1df93bdfdf0c17b735d2bfe6344136e0936c9014eb12efd7bacb80a72bf",
+      "title": "",
+      "document_links": [],
+      "review_status": "located_not_read",
+      "batch": "priority-retrieval-20261024.json"
+    },
+    {
+      "id": "argentina-afa-sitemap",
+      "requested_url": "https://www.afa.com.ar/sitemap.xml",
+      "checked_utc": "2026-10-24T22:02:06.086723+00:00",
+      "status": 200,
+      "url": "https://www.afa.com.ar/es/",
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 158467,
+      "sha256": "4ea1017fdace00b0aa24396cad32128ead8a0e3281b15f4c255abf4a82377f56",
+      "title": "Bienvenido | Sitio Oficial de la Asociación del Fútbol Argentino",
+      "document_links": [
+        "https://www.afa.com.ar/es/posts/categories/copa-del-mundo-2026",
+        "https://gemini.google.com/app?android-min-version=301356232&ios-min-version=322.0&is_sa=1&campaign_id=ar_afa2026_webpage&utm_source=partnership&utm_medium=paid&utm_campaign=ar_afa2026_webpage&pt=9008&mt=8&ct=ar_afa2026_webpage",
+        "https://assets1.afa.com.ar/2026/grafica-mundial-2026/publicacion-AFA-feria-del-libro.pdf",
+        "https://www.afa.com.ar/es/posts/con-la-presencia-de-claudio-tapia-y-la-asistencia-de-mas-de-cuarenta-clubes-se-realizo-el-plenario-2026-de-cultura-afa",
+        "https://www.afa.com.ar/es/posts/messi-recibio-el-premio-princesa-de-asturias-de-los-deportes-2026",
+        "https://www.afa.com.ar/es/posts/clubes-afiliados-2025",
+        "https://assets1.afa.com.ar/1ER-WORKSHOP--PPT-.pdf?_t=1738253029",
+        "https://assets1.afa.com.ar/2026/Lau/black.svg",
+        "https://assets1.afa.com.ar/2026/Lau/Ant-International-scaled-uai-2064x1376---copia.webp"
+      ],
+      "review_status": "located_not_read",
+      "batch": "priority-retrieval-20261024.json"
+    },
+    {
+      "id": "argentina-afa-general",
+      "requested_url": "https://www.afa.com.ar/es/pages/reglamento-general",
+      "checked_utc": "2026-10-24T22:02:06.087520+00:00",
+      "error": "HTTP Error 404: Not Found",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "argentina-afa-official",
+      "requested_url": "https://www.afa.com.ar/es/pages/boletines-oficiales",
+      "checked_utc": "2026-10-24T22:02:06.359709+00:00",
+      "error": "HTTP Error 404: Not Found",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "mexico-fmf",
+      "requested_url": "https://fmf.mx/",
+      "checked_utc": "2026-10-24T22:02:06.542169+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "mexico-fmf-rules",
+      "requested_url": "https://fmf.mx/reglamentos",
+      "checked_utc": "2026-10-24T22:02:06.545991+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "mexico-ligamx",
+      "requested_url": "https://ligamx.net/",
+      "checked_utc": "2026-10-24T22:02:06.554060+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "mexico-ligamx-rules",
+      "requested_url": "https://ligamx.net/cancha/reglamentos",
+      "checked_utc": "2026-10-24T22:02:06.558612+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-uefa-associations",
+      "requested_url": "https://www.uefa.com/nationalassociations/associations/",
+      "checked_utc": "2026-10-24T22:02:06.563833+00:00",
+      "error": "HTTP Error 404: Not Found",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval-20261024.json",
+      "document_links": []
+    },
+    {
+      "id": "brazil-cbf-bare",
+      "requested_url": "https://cbf.com.br/",
+      "checked_utc": "2026-10-25T11:51:02.827296+00:00",
+      "error": "HTTP Error 503: Service Unavailable",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval2-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "brazil-cbf-competitions-new",
+      "requested_url": "https://www.cbf.com.br/futebol-brasileiro",
+      "checked_utc": "2026-10-25T11:51:02.828150+00:00",
+      "error": "HTTP Error 503: Service Unavailable",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval2-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "argentina-afa-legacy",
+      "requested_url": "https://www.afa.org.ar/",
+      "checked_utc": "2026-10-25T11:51:02.828743+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval2-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "argentina-lpf",
+      "requested_url": "https://www.lpf.com.ar/",
+      "checked_utc": "2026-10-25T11:51:02.829442+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval2-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "argentina-lpf-rules",
+      "requested_url": "https://www.lpf.com.ar/reglamentos/",
+      "checked_utc": "2026-10-25T11:51:02.829904+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval2-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "mexico-fmf-legacy",
+      "requested_url": "https://www.fmf.com.mx/",
+      "checked_utc": "2026-10-25T11:51:02.830665+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval2-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "priority-search-brazil",
+      "requested_url": "https://www.google.com/search?q=site%3Acbf.com.br+regulamento+especifico+2026+serie+a",
+      "checked_utc": "2026-10-25T11:51:02.846201+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval2-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "priority-search-argentina",
+      "requested_url": "https://www.bing.com/search?q=site%3Aafa.com.ar+reglamento+primera+division+2026",
+      "checked_utc": "2026-10-25T11:51:02.848740+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "priority-retrieval2-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-uefa-associations-new",
+      "requested_url": "https://www.uefa.com/nationalassociations/",
+      "checked_utc": "2026-10-25T11:51:02.851407+00:00",
+      "status": 200,
+      "url": "https://www.uefa.com/nationalassociations/",
+      "content_type": "text/html",
+      "bytes": 201523,
+      "sha256": "f59e4dc699db4880aa56247498ac0c4dfe5ef7e6cf370fa12068dddea4325bdf",
+      "title": "National associations | UEFA.com",
+      "document_links": [],
+      "review_status": "located_not_read",
+      "batch": "priority-retrieval2-20261025.json"
+    },
+    {
+      "id": "europe-alb-publisher",
+      "requested_url": "https://fshf.org/",
+      "checked_utc": "2026-10-25T11:58:00.689757+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-and-publisher",
+      "requested_url": "https://www.faf.ad/pnfg/",
+      "checked_utc": "2026-10-25T11:58:00.690437+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-arm-publisher",
+      "requested_url": "https://www.ffa.am/",
+      "checked_utc": "2026-10-25T11:58:00.690958+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-aut-publisher",
+      "requested_url": "https://www.oefb.at/",
+      "checked_utc": "2026-10-25T11:58:00.691506+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-aze-publisher",
+      "requested_url": "https://www.affa.az/",
+      "checked_utc": "2026-10-25T11:58:00.692132+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-blr-publisher",
+      "requested_url": "https://abff.by/",
+      "checked_utc": "2026-10-25T11:58:00.692468+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-bel-publisher",
+      "requested_url": "https://www.rbfa.be/en",
+      "checked_utc": "2026-10-25T11:58:00.711752+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-bih-publisher",
+      "requested_url": "https://www.nfsbih.ba/",
+      "checked_utc": "2026-10-25T11:58:00.713818+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-bul-publisher",
+      "requested_url": "https://bfunion.bg/",
+      "checked_utc": "2026-10-25T11:58:00.716314+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-cro-publisher",
+      "requested_url": "https://hns-cff.hr/",
+      "checked_utc": "2026-10-25T11:58:00.718812+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-cyp-publisher",
+      "requested_url": "https://www.cfa.com.cy/",
+      "checked_utc": "2026-10-25T11:58:00.722148+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-cze-publisher",
+      "requested_url": "https://www.fotbal.cz",
+      "checked_utc": "2026-10-25T11:58:00.724349+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-den-publisher",
+      "requested_url": "https://dbu.dk/",
+      "checked_utc": "2026-10-25T11:58:00.728085+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-eng-publisher",
+      "requested_url": "https://www.thefa.com/",
+      "checked_utc": "2026-10-25T11:58:00.730883+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-est-publisher",
+      "requested_url": "https://jalgpall.ee/",
+      "checked_utc": "2026-10-25T11:58:00.733409+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-fro-publisher",
+      "requested_url": "https://www.fsf.fo/",
+      "checked_utc": "2026-10-25T11:58:00.736907+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-fin-publisher",
+      "requested_url": "https://www.palloliitto.fi/",
+      "checked_utc": "2026-10-25T11:58:00.740252+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-fra-publisher",
+      "requested_url": "https://www.fff.fr/",
+      "checked_utc": "2026-10-25T11:58:00.744036+00:00",
+      "status": 200,
+      "url": "https://www.fff.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 190973,
+      "sha256": "d2aa877a44cf282cf74689ff38d2f499e279ab06b337f4507470c8a4850835ba",
+      "title": "Fédération Française de Football (FFF) | Site Officiel",
+      "document_links": [
+        "https://www.fff.fr/11-les-reglements/index.html"
+      ],
+      "review_status": "located_not_read",
+      "batch": "europe-publisher-retrieval-20261025.json"
+    },
+    {
+      "id": "europe-geo-publisher",
+      "requested_url": "https://www.gff.ge/",
+      "checked_utc": "2026-10-25T11:58:00.747127+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-ger-publisher",
+      "requested_url": "https://www.dfb.de/en/en-start/",
+      "checked_utc": "2026-10-25T11:58:00.750052+00:00",
+      "status": 200,
+      "url": "https://www.dfb.de/en/home",
+      "content_type": "text/html",
+      "bytes": 286053,
+      "sha256": "5da6ad93cfbbcecb20804b939cbc95383a95d2d9b64f051a539b0f2965059262",
+      "title": "DFB Homepage",
+      "document_links": [
+        "https://www.dfb.de/news/gwinn-named-germanys-womens-footballer-of-the-year-2026",
+        "https://www.dfb.de/news-2/fan-information-germany-vs-paraguay-fifa-world-cup-2026tm-boston-stadium"
+      ],
+      "review_status": "located_not_read",
+      "batch": "europe-publisher-retrieval-20261025.json"
+    },
+    {
+      "id": "europe-gib-publisher",
+      "requested_url": "https://www.gibraltarfa.com/",
+      "checked_utc": "2026-10-25T11:58:00.752976+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-gre-publisher",
+      "requested_url": "https://www.epo.gr/",
+      "checked_utc": "2026-10-25T11:58:00.755712+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-hun-publisher",
+      "requested_url": "https://en.mlsz.hu/",
+      "checked_utc": "2026-10-25T11:58:00.758272+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-isl-publisher",
+      "requested_url": "https://www.ksi.is/",
+      "checked_utc": "2026-10-25T11:58:00.762514+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-isr-publisher",
+      "requested_url": "https://www.football.org.il/",
+      "checked_utc": "2026-10-25T11:58:00.767096+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-ita-publisher",
+      "requested_url": "https://www.figc.it/en/home/",
+      "checked_utc": "2026-10-25T11:58:00.769404+00:00",
+      "status": 200,
+      "url": "https://www.figc.it/it",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 709440,
+      "sha256": "f2fae3527abaefe3ae542b7255460afd2ee71e76f1a0807785859928d5fcaadd",
+      "title": "FIGC",
+      "document_links": [
+        "https://www.figc.it/it/giovani/news/vito-tisci-premiato-alla-camera-dei-deputati-con-il-riconoscimento-eccellenze-2026-jew276rc"
+      ],
+      "review_status": "located_not_read",
+      "batch": "europe-publisher-retrieval-20261025.json"
+    },
+    {
+      "id": "europe-kaz-publisher",
+      "requested_url": "https://kff.kz/",
+      "checked_utc": "2026-10-25T11:58:00.771375+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-kos-publisher",
+      "requested_url": "https://www.ffk-kosova.com/",
+      "checked_utc": "2026-10-25T11:58:00.773957+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-lva-publisher",
+      "requested_url": "https://lff.lv/",
+      "checked_utc": "2026-10-25T11:58:00.776850+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-lie-publisher",
+      "requested_url": "https://www.lfv.li/",
+      "checked_utc": "2026-10-25T11:58:00.780885+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-ltu-publisher",
+      "requested_url": "https://lff.lt/",
+      "checked_utc": "2026-10-25T11:58:00.783471+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-lux-publisher",
+      "requested_url": "https://www.flf.lu/",
+      "checked_utc": "2026-10-25T11:58:00.788003+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-mlt-publisher",
+      "requested_url": "https://mfa.com.mt/",
+      "checked_utc": "2026-10-25T11:58:00.790289+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-mda-publisher",
+      "requested_url": "https://fmf.md/",
+      "checked_utc": "2026-10-25T11:58:00.792405+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-mne-publisher",
+      "requested_url": "https://fscg.me/",
+      "checked_utc": "2026-10-25T11:58:00.794773+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-ned-publisher",
+      "requested_url": "https://www.knvb.com/",
+      "checked_utc": "2026-10-25T11:58:00.797267+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-mkd-publisher",
+      "requested_url": "https://ffm.mk/en",
+      "checked_utc": "2026-10-25T11:58:00.799261+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-nir-publisher",
+      "requested_url": "https://www.irishfa.com/",
+      "checked_utc": "2026-10-25T11:58:00.801192+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-nor-publisher",
+      "requested_url": "https://www.fotball.no/",
+      "checked_utc": "2026-10-25T11:58:00.803174+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-pol-publisher",
+      "requested_url": "https://www.pzpn.pl/",
+      "checked_utc": "2026-10-25T11:58:00.805065+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-por-publisher",
+      "requested_url": "https://www.fpf.pt/pt/",
+      "checked_utc": "2026-10-25T11:58:00.807043+00:00",
+      "error": "HTTP Error 403: Forbidden",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-irl-publisher",
+      "requested_url": "https://www.fai.ie/",
+      "checked_utc": "2026-10-25T11:58:00.809110+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-rou-publisher",
+      "requested_url": "https://www.frf.ro/",
+      "checked_utc": "2026-10-25T11:58:00.811208+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-smr-publisher",
+      "requested_url": "https://www.fsgc.sm/",
+      "checked_utc": "2026-10-25T11:58:00.815110+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-sco-publisher",
+      "requested_url": "https://www.scottishfa.co.uk",
+      "checked_utc": "2026-10-25T11:58:00.829041+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-srb-publisher",
+      "requested_url": "https://fss.rs/",
+      "checked_utc": "2026-10-25T11:58:00.832721+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-svk-publisher",
+      "requested_url": "https://www.futbalsfz.sk/",
+      "checked_utc": "2026-10-25T11:58:00.835224+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-svn-publisher",
+      "requested_url": "https://www.nzs.si/",
+      "checked_utc": "2026-10-25T11:58:00.837210+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-esp-publisher",
+      "requested_url": "https://www.rfef.es/",
+      "checked_utc": "2026-10-25T11:58:00.839386+00:00",
+      "status": 200,
+      "url": "https://rfef.es/es",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 222012,
+      "sha256": "9c9835f19d52bee5b9ce3c8ad91eb5fc9b90b297d348d558e1ba5e79e50f183c",
+      "title": "Portada | www.rfef.es",
+      "document_links": [
+        "https://rfef.es/es/federacion/normativas-y-circulares/normativa-deportiva-estatal",
+        "https://rfef.es/es/federacion/asamblea-liquidacion-de-presupuestos-2026",
+        "https://rfef.es/es/federacion/normativas-y-circulares/circulares"
+      ],
+      "review_status": "located_not_read",
+      "batch": "europe-publisher-retrieval-20261025.json"
+    },
+    {
+      "id": "europe-sui-publisher",
+      "requested_url": "https://www.football.ch/sfv.aspx",
+      "checked_utc": "2026-10-25T11:58:00.842204+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-tur-publisher",
+      "requested_url": "https://www.tff.org/",
+      "checked_utc": "2026-10-25T11:58:00.847098+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-ukr-publisher",
+      "requested_url": "https://uaf.ua/",
+      "checked_utc": "2026-10-25T11:58:00.850442+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    },
+    {
+      "id": "europe-wal-publisher",
+      "requested_url": "https://www.faw.cymru/en/",
+      "checked_utc": "2026-10-25T11:58:00.854078+00:00",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+      "review_status": "unavailable",
+      "batch": "europe-publisher-retrieval-20261025.json",
+      "document_links": []
+    }
+  ]
+}

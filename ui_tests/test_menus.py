@@ -525,6 +525,26 @@ class MenuTests(unittest.TestCase):
             game._activate_ui('upgrade_back')
             self.assertEqual(game.view,'start')
 
+    def test_simplified_world_country_shows_two_divisions_and_three_promotion_places(self):
+        with patch('edition.WORLD_PREVIEW', True), isolated_game() as game:
+            self.assertTrue(game.career.choose_start_country('Yemen'))
+            game._activate_ui('world_country', 'Yemen')
+            game.draw(); settle()
+            texts = {w.text for w in game.walk() if isinstance(w, TouchButton)}
+            self.assertIn('Yemen Division 1', texts)
+            self.assertIn('Yemen Division 2', texts)
+            self.assertNotIn('Yemen Division 3', texts)
+            self.assertNotIn('Yemen Division 4', texts)
+            game._activate_ui('world_league', 'Yemen|2')
+            game.draw(); settle()
+            table = next(w for w in game.walk() if isinstance(w, CompactTable))
+            self.assertEqual([r[0] for r in table.rows[:4]], ['1 P', '2 P', '3 P', 4])
+            self.assertIn('top 3 go up', table.title.text)
+            game._activate_ui('world_league', 'Yemen|1')
+            game.draw(); settle()
+            table = next(w for w in game.walk() if isinstance(w, CompactTable))
+            self.assertEqual([r[0] for r in table.rows[-3:]], ['10 R', '11 R', '12 R'])
+
     def test_world_browser_editor_uses_aliases_without_switching_career(self):
         from world_ui import NamesEditor
         with patch('edition.WORLD_PREVIEW',True), patch('main.phone_country',return_value='Portugal'):

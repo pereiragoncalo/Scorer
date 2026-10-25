@@ -1,3 +1,13 @@
+# Development — 25 October 2026
+
+The owner-selected fallback now has two active divisions with three promotions
+and three relegations outside Europe/Brazil/Argentina/Mexico. Existing saves and
+archived aliases are preserved; Android country detection prefers the primary
+system locale. **154 tests passed on this scoped source change**; no new APK.
+Interface text remains English; locale detection alone does not translate it.
+[Behaviour, migration and evidence](docs/DOMESTIC_RULES_DEVELOPMENT.md).
+[Priority national-regulation collection and access gaps](docs/regulations/PRIORITY_STATUS.md).
+
 # SCORER 0.6.27 — World presentation and play balance
 
 World aim accelerates by division. Morale >10 guarantees at least2 match chances;

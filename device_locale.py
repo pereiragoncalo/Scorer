@@ -61,12 +61,38 @@ def country_from_locale(tag):
     return REGIONS.get(region, LANGUAGES.get(language, 'England'))
 
 
-def phone_country(android=False):
+def phone_locale_tag(android=False):
+    """Read the system's primary locale, independently of this app's language.
+
+    Locale.getDefault() may reflect an app/runtime override. Prefer Android's
+    system configuration and support both LocaleList and pre-API-24 devices.
+    """
     try:
         if android:
             from jnius import autoclass
-            return country_from_locale(autoclass('java.util.Locale').getDefault().toLanguageTag())
+            try:
+                configuration = autoclass('android.content.res.Resources').getSystem().getConfiguration()
+                try:
+                    locales = configuration.getLocales()
+                    if locales.size() > 0:
+                        return str(locales.get(0).toLanguageTag())
+                except Exception:
+                    pass
+                if configuration.locale is not None:
+                    return str(configuration.locale.toLanguageTag())
+            except Exception:
+                pass
+            return str(autoclass('java.util.Locale').getDefault().toLanguageTag())
         import locale
-        return country_from_locale(locale.getlocale()[0])
+        return locale.getlocale()[0] or ''
     except Exception:
-        return 'England'
+        return ''
+
+
+def phone_country(android=False):
+    return country_from_locale(phone_locale_tag(android))
+
+
+def language_from_locale(tag):
+    """Translation selection hook; it does not translate game text by itself."""
+    return 'pt' if str(tag or '').replace('_', '-').split('-')[0].lower() == 'pt' else 'en'

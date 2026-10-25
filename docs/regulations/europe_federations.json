@@ -1,0 +1,885 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-10-25",
+  "note": "Official association sites linked by UEFA. This verifies publisher discovery, not competition regulations or country-model implementation.",
+  "associations": [
+    {
+      "country": "Albania",
+      "code": "ALB",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/ALB/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "db5473eee95a450b7a62610bfbedd5183254c65f54235a06691e9080d518f307",
+      "federation_websites": [
+        {
+          "url": "https://fshf.org/",
+          "label": "Albanian Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Albania"
+    },
+    {
+      "country": "Andorra",
+      "code": "AND",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/AND/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "c904f20a0d6b47cba703f3540c14ec18b3b5c96bd6cf6b2a64ce708cd6cbba56",
+      "federation_websites": [
+        {
+          "url": "https://www.faf.ad/pnfg/",
+          "label": "Andorran Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Andorra"
+    },
+    {
+      "country": "Armenia",
+      "code": "ARM",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/ARM/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "5a2ab00334e9e208f0237bc6243ea89f96438fdeebbe66f6ec8a47859fb87571",
+      "federation_websites": [
+        {
+          "url": "https://www.ffa.am/",
+          "label": "Football Federation of Armenia website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Armenia"
+    },
+    {
+      "country": "Austria",
+      "code": "AUT",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/AUT/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "14ddfbdd4890e623f65e55a72f3cb4d80970e04d9e71c5d82624edca3b11408c",
+      "federation_websites": [
+        {
+          "url": "https://www.oefb.at/",
+          "label": "Austrian Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Austria"
+    },
+    {
+      "country": "Azerbaijan",
+      "code": "AZE",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/AZE/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "45dde4a167fca035cdcfdd686c72a1afd74d43930bc02b5fbb9bc7b78a57b966",
+      "federation_websites": [
+        {
+          "url": "https://www.affa.az/",
+          "label": "Association of Football Federations of Azerbaijan website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Azerbaijan"
+    },
+    {
+      "country": "Belarus",
+      "code": "BLR",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/BLR/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "4e11ed062a0089dddbf220d88a7e4dd5e42f7ee3190e92458b39bd7500b50a92",
+      "federation_websites": [
+        {
+          "url": "https://abff.by/",
+          "label": "Football Federation of Belarus website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Belarus"
+    },
+    {
+      "country": "Belgium",
+      "code": "BEL",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/BEL/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "91498d46cf9c49f047203d8c68a1c4be56da501b93fd51ea7f5013f80673938c",
+      "federation_websites": [
+        {
+          "url": "https://www.rbfa.be/en",
+          "label": "Royal Belgian Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Belgium"
+    },
+    {
+      "country": "Bosnia and Herzegovina",
+      "code": "BIH",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/BIH/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "d66e5bc19147f00ba21a617f34e75c4a4344b81b48d0693d20ad6ac5c3d9fc22",
+      "federation_websites": [
+        {
+          "url": "https://www.nfsbih.ba/",
+          "label": "Bosnia and Herzegovina Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Bosnia and Herzegovina"
+    },
+    {
+      "country": "Bulgaria",
+      "code": "BUL",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/BUL/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "88168cf5a89ef589d3bd5b6d90aa1cb7f96d4cb0092767c97f5cad928f86b541",
+      "federation_websites": [
+        {
+          "url": "https://bfunion.bg/",
+          "label": "Bulgarian Football Union website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Bulgaria"
+    },
+    {
+      "country": "Croatia",
+      "code": "CRO",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/CRO/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "32d91eff78ac6607cd97d2b3e813dc167e57bd66a5b668a6f780474c58cf9cf2",
+      "federation_websites": [
+        {
+          "url": "https://hns-cff.hr/",
+          "label": "Croatian Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Croatia"
+    },
+    {
+      "country": "Cyprus",
+      "code": "CYP",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/CYP/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "2c1e45622798616a7c8dae64ad25af9497c0260914eae98915d678633b35c57f",
+      "federation_websites": [
+        {
+          "url": "https://www.cfa.com.cy/",
+          "label": "Cyprus Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Cyprus"
+    },
+    {
+      "country": "Czechia",
+      "code": "CZE",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/CZE/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "dcf28efbae212311ae7f24e67841af47ca746334caa202671d409ea9a63c8599",
+      "federation_websites": [
+        {
+          "url": "https://www.fotbal.cz",
+          "label": "Football Association of the Czech Republic website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Czechia"
+    },
+    {
+      "country": "Denmark",
+      "code": "DEN",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/DEN/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "74b537b8e4d84baa8a577d4bf0921ffa0a8048c6d9a9893f737f9d8747db40b9",
+      "federation_websites": [
+        {
+          "url": "https://dbu.dk/",
+          "label": "Danish Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Denmark"
+    },
+    {
+      "country": "England",
+      "code": "ENG",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/ENG/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "e2525f35c0cd000ad8b3074c7f8c92fed7cd53c0d58d2835d257fc9ff8422eb6",
+      "federation_websites": [
+        {
+          "url": "https://www.thefa.com/",
+          "label": "The Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "England"
+    },
+    {
+      "country": "Estonia",
+      "code": "EST",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/EST/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "17e89080d01d12b5da86868330191d8cc06d9e10fb1cbff186e0939699ae1f6a",
+      "federation_websites": [
+        {
+          "url": "https://jalgpall.ee/",
+          "label": "Estonian Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Estonia"
+    },
+    {
+      "country": "Faroe Islands",
+      "code": "FRO",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/FRO/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "710de53357520ca7aaac643ea8d152acfe11844d76c7095e5b46c6b1ebc1da27",
+      "federation_websites": [
+        {
+          "url": "https://www.fsf.fo/",
+          "label": "Faroe Islands Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Faroe Islands"
+    },
+    {
+      "country": "Finland",
+      "code": "FIN",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/FIN/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "db2147aadb1719c054ffa195caab39080ad643d55cb480d50e83499b6fa5d728",
+      "federation_websites": [
+        {
+          "url": "https://www.palloliitto.fi/",
+          "label": "Football Association of Finland website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Finland"
+    },
+    {
+      "country": "France",
+      "code": "FRA",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/FRA/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "8530f9e54d67d82bddc3c3d75595dbe493ad5cbc511ace40315fe5ce6608fffd",
+      "federation_websites": [
+        {
+          "url": "https://www.fff.fr/",
+          "label": "French Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "France"
+    },
+    {
+      "country": "Georgia",
+      "code": "GEO",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/GEO/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "31206b7c44d2f94dd6f7b862307a635d1e62151bb43591ef35b91963ffb2fcf8",
+      "federation_websites": [
+        {
+          "url": "https://www.gff.ge/",
+          "label": "Georgian Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Georgia"
+    },
+    {
+      "country": "Germany",
+      "code": "GER",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/GER/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "f9b626437052875949fea6297e47d075cb0be3450f804af366c27d712dd09695",
+      "federation_websites": [
+        {
+          "url": "https://www.dfb.de/en/en-start/",
+          "label": "German Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Germany"
+    },
+    {
+      "country": "Gibraltar",
+      "code": "GIB",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/GIB/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "13e77cb28218a4bae3f5eb4da637babdaba55ec6fdbb0ffe38490753fbcba8f0",
+      "federation_websites": [
+        {
+          "url": "https://www.gibraltarfa.com/",
+          "label": "Gibraltar Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Gibraltar"
+    },
+    {
+      "country": "Greece",
+      "code": "GRE",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/GRE/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "54e5d14bf5e571d0e7676fea1ead09dbaa12a4f3ebc5af436e41206972e6215d",
+      "federation_websites": [
+        {
+          "url": "https://www.epo.gr/",
+          "label": "Hellenic Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Greece"
+    },
+    {
+      "country": "Hungary",
+      "code": "HUN",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/HUN/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "f567ab33b73ef7696748e0ab9a743ab789f57ba82c4fd8c6de9ee4eb4477c9a8",
+      "federation_websites": [
+        {
+          "url": "https://en.mlsz.hu/",
+          "label": "Hungarian Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Hungary"
+    },
+    {
+      "country": "Iceland",
+      "code": "ISL",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/ISL/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "7a374d425e75fdb40c57f1787aeff51a0b2a1d44be474f71b9b6dfe6c6d43c22",
+      "federation_websites": [
+        {
+          "url": "https://www.ksi.is/",
+          "label": "Football Association of Iceland website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Iceland"
+    },
+    {
+      "country": "Israel",
+      "code": "ISR",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/ISR/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "64bc57d10dd449195fb8fb8446f348d7f6dc25265d38136d5267a5ec35d05394",
+      "federation_websites": [
+        {
+          "url": "https://www.football.org.il/",
+          "label": "Israel Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Israel"
+    },
+    {
+      "country": "Italy",
+      "code": "ITA",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/ITA/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "660ea5f31b7294407cba2330ad4849d6612699052763310c5085b21c72134de8",
+      "federation_websites": [
+        {
+          "url": "https://www.figc.it/en/home/",
+          "label": "Italian Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Italy"
+    },
+    {
+      "country": "Kazakhstan",
+      "code": "KAZ",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/KAZ/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "34f7e5705c58db09ce96b91ad85054fa5ac1409abe5d33de2d9b707b2c5c89a6",
+      "federation_websites": [
+        {
+          "url": "https://kff.kz/",
+          "label": "Football Federation of Kazakhstan website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Kazakhstan"
+    },
+    {
+      "country": "Kosovo",
+      "code": "KOS",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/KOS/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "7d570e0ef1f2f9b1f3ac6afccbf42ef5489898aea14dac6814edda1379fcc7f8",
+      "federation_websites": [
+        {
+          "url": "https://www.ffk-kosova.com/",
+          "label": "Football Federation of Kosovo website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Kosovo"
+    },
+    {
+      "country": "Latvia",
+      "code": "LVA",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/LVA/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "abd84f52b86aa359adb9afece4cba68121e269c266db3fc744bfb9f3c5d0cdec",
+      "federation_websites": [
+        {
+          "url": "https://lff.lv/",
+          "label": "Latvian Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Latvia"
+    },
+    {
+      "country": "Liechtenstein",
+      "code": "LIE",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/LIE/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "a79ac8ef80c6823db5a103b300f81b395928a4d0be84307c34ef2e440dd2a507",
+      "federation_websites": [
+        {
+          "url": "https://www.lfv.li/",
+          "label": "Liechtenstein Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Liechtenstein"
+    },
+    {
+      "country": "Lithuania",
+      "code": "LTU",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/LTU/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "5d800b064426af509b9aebe533a177e5ee28f7873b34542b15686f4400b352b1",
+      "federation_websites": [
+        {
+          "url": "https://lff.lt/",
+          "label": "Lithuanian Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Lithuania"
+    },
+    {
+      "country": "Luxembourg",
+      "code": "LUX",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/LUX/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "4d131164814dcd3ad04c8bbc8fdf58bcd162dd46c6f704793b55a0da2423ddb3",
+      "federation_websites": [
+        {
+          "url": "https://www.flf.lu/",
+          "label": "Luxembourg Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Luxembourg"
+    },
+    {
+      "country": "Malta",
+      "code": "MLT",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/MLT/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "5b6157bf5e759b112acf227795b8246d5b83d348a7bf640d68110a49ece4ea2d",
+      "federation_websites": [
+        {
+          "url": "https://mfa.com.mt/",
+          "label": "Malta Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Malta"
+    },
+    {
+      "country": "Moldova",
+      "code": "MDA",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/MDA/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "a8d8df780a91d90a8559f1626e193debc6be50fa8c62cc00c4fbc5834cc4c5b0",
+      "federation_websites": [
+        {
+          "url": "https://fmf.md/",
+          "label": "Football Association of Moldova website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Moldova"
+    },
+    {
+      "country": "Montenegro",
+      "code": "MNE",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/MNE/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "ab25cdeb3cad763b5b9a580926008362ad6bc7fc40ce84983a58644cddb7a9c6",
+      "federation_websites": [
+        {
+          "url": "https://fscg.me/",
+          "label": "Football Association of Montenegro website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Montenegro"
+    },
+    {
+      "country": "Netherlands",
+      "code": "NED",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/NED/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "f55f9361fad251c8f9fa4f0a5595aa58e9bfe3cf9b820773852dc08c7691cea4",
+      "federation_websites": [
+        {
+          "url": "https://www.knvb.com/",
+          "label": "Royal Netherlands Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Netherlands"
+    },
+    {
+      "country": "North Macedonia",
+      "code": "MKD",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/MKD/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "d0ac1e9583fd330d885b482578a816c9b55188d09b2b8b3fe8978f14b912bf69",
+      "federation_websites": [
+        {
+          "url": "https://ffm.mk/en",
+          "label": "The Football Federation of North Macedonia website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "North Macedonia"
+    },
+    {
+      "country": "Northern Ireland",
+      "code": "NIR",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/NIR/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "f179773d3a3af646c30a5f7f0e64f52704f370671ba14bf0f687584f4eb64bdb",
+      "federation_websites": [
+        {
+          "url": "http://www.irishfa.com/",
+          "label": "Irish Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Northern Ireland"
+    },
+    {
+      "country": "Norway",
+      "code": "NOR",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/NOR/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "55e1acb689219c61e531b9e99da456155d1d712628c97ffe92ce5c2841c6f880",
+      "federation_websites": [
+        {
+          "url": "https://www.fotball.no/",
+          "label": "Norwegian Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Norway"
+    },
+    {
+      "country": "Poland",
+      "code": "POL",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/POL/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "77cf1373a3d6e366895ad735493f713e8c8918f46319c63c0811963459b06907",
+      "federation_websites": [
+        {
+          "url": "https://www.pzpn.pl/",
+          "label": "Polish Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Poland"
+    },
+    {
+      "country": "Portugal",
+      "code": "POR",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/POR/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "2e99e614b424f9230608367c3e4f072906915067f74544d8171d37c80ddcb31c",
+      "federation_websites": [
+        {
+          "url": "https://www.fpf.pt/pt/",
+          "label": "Portuguese Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Portugal"
+    },
+    {
+      "country": "Republic of Ireland",
+      "code": "IRL",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/IRL/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "0067e24bf18ea92b270f0b3ae6e8e5dec666861bce004066f69650e8c4e24f62",
+      "federation_websites": [
+        {
+          "url": "https://www.fai.ie/",
+          "label": "Football Association of Ireland website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Republic of Ireland"
+    },
+    {
+      "country": "Romania",
+      "code": "ROU",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/ROU/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "6e5bce270074e73be691d3f75946213a37f5bf7c53500466cfd7e13e6f47ceb0",
+      "federation_websites": [
+        {
+          "url": "https://www.frf.ro/",
+          "label": "Romanian Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Romania"
+    },
+    {
+      "country": "Russia",
+      "code": "RUS",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/RUS/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "051df1cc6251c3fea7373812d46dfebcb5159a93d0459cbe64b933e99beddc79",
+      "federation_websites": [],
+      "status": "federation_link_not_found",
+      "game_country": "Russia"
+    },
+    {
+      "country": "San Marino",
+      "code": "SMR",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/SMR/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "e4648ee38befe58ef42a3fb2d76b6666fdc91af41eee0731737b855ddaff3f3c",
+      "federation_websites": [
+        {
+          "url": "https://www.fsgc.sm/",
+          "label": "San Marino Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "San Marino"
+    },
+    {
+      "country": "Scotland",
+      "code": "SCO",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/SCO/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "afacd28f0e82b877d5bc44f5fc9ef1801657675277775a9ff5135a2c675708e6",
+      "federation_websites": [
+        {
+          "url": "https://www.scottishfa.co.uk",
+          "label": "Scottish Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Scotland"
+    },
+    {
+      "country": "Serbia",
+      "code": "SRB",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/SRB/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "cae2d5a40776989840a9acedf690690d11476b06e10738ef1a67ed70d62605aa",
+      "federation_websites": [
+        {
+          "url": "https://fss.rs/",
+          "label": "Football Association of Serbia website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Serbia"
+    },
+    {
+      "country": "Slovakia",
+      "code": "SVK",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/SVK/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "e6e10d8eccf5ee339c3a8ba73a332d13911ecba355fb66ab5b9a92ce8367c8f4",
+      "federation_websites": [
+        {
+          "url": "https://www.futbalsfz.sk/",
+          "label": "Slovak Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Slovakia"
+    },
+    {
+      "country": "Slovenia",
+      "code": "SVN",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/SVN/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "5075716ef7e4dc58b2a04a6599b43ecd7bc09f88420cfea17682e7c4a8867a62",
+      "federation_websites": [
+        {
+          "url": "https://www.nzs.si/",
+          "label": "Football Association of Slovenia website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Slovenia"
+    },
+    {
+      "country": "Spain",
+      "code": "ESP",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/ESP/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "2e8dcfbf17e0df90146b7393d4baf6e0af6bc5e530b5359867118d70f74ff046",
+      "federation_websites": [
+        {
+          "url": "https://www.rfef.es/",
+          "label": "Royal Spanish Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Spain"
+    },
+    {
+      "country": "Sweden",
+      "code": "SWE",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/SWE/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "23c320bc654122ccf3121453017f6de23fb9feb1fc517de1a17be0ac5c73c105",
+      "federation_websites": [],
+      "status": "federation_link_not_found",
+      "game_country": "Sweden"
+    },
+    {
+      "country": "Switzerland",
+      "code": "SUI",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/SUI/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "98efc5020370afb1da7e903b61b5e51d29fccd84c737a2bef917633f6b930d46",
+      "federation_websites": [
+        {
+          "url": "https://www.football.ch/sfv.aspx",
+          "label": "Swiss Football Association website"
+        },
+        {
+          "url": "https://www.football.ch/fr/asf.aspx",
+          "label": "Swiss Football Association website"
+        },
+        {
+          "url": "https://www.football.ch/it/asf.aspx",
+          "label": "Swiss Football Association website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Switzerland"
+    },
+    {
+      "country": "Türki̇ye",
+      "code": "TUR",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/TUR/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "bb07c036950db24ed6d5c76704832d3ebb7c45f473029e4bbf128dff7e102566",
+      "federation_websites": [
+        {
+          "url": "https://www.tff.org/",
+          "label": "Turkish Football Federation website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Turkey"
+    },
+    {
+      "country": "Ukraine",
+      "code": "UKR",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/UKR/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "74e72dc8523efab06516cb6a5a60a900829f015aba1a8c7a63827036f823edca",
+      "federation_websites": [
+        {
+          "url": "https://uaf.ua/",
+          "label": "Ukrainian Association of Football website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Ukraine"
+    },
+    {
+      "country": "Wales",
+      "code": "WAL",
+      "uefa_source_url": "https://www.uefa.com/nationalassociations/WAL/",
+      "checked_date": "2026-10-25",
+      "competition_rules_verified": false,
+      "sha256": "8eeafcce6e38a19948dc8f97740c39250f45b1aa59cc1388dd4649b6a0b3d693",
+      "federation_websites": [
+        {
+          "url": "https://www.faw.cymru/en/",
+          "label": "Football Association of Wales website"
+        }
+      ],
+      "status": "federation_identified_rules_pending",
+      "game_country": "Wales"
+    }
+  ]
+}

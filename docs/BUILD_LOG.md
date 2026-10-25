@@ -1132,3 +1132,35 @@ in the checkout remains separate and uncommitted.
 Next: retrieve blocked primary documents after network configuration applies;
 verify full current-season rules, eligibility, tiebreakers and amendments by country
 before implementing or labelling any model an exact reproduction.
+
+## 2026-10-25 — scoped fallback model and priority research
+
+Owner scope: Europe/Brazil/Argentina/Mexico require national-source research;
+other World countries use two active divisions with three direct promotions and
+relegations. Implemented ranked six-club exchanges, active-only browsing/offers,
+standings P/R zones and versioned legacy-tier/name-pack preservation. New World
+has 450 active divisions/6200 clubs. Free's single league stays intact.
+Android locale selection now prefers system configuration over a possible
+app/runtime English default. No complete Portuguese interface is claimed.
+
+PASS on the exact staged source snapshot: 102 core/security and 52 actual Kivy
+tests (154 total), plus syntax/static whitespace checks. Eight new domestic tests
+cover exact exchanges, identity/count conservation, legacy season-boundary
+migration, alias archives and damaged metadata; six new locale tests cover
+Portuguese system/English runtime, API23, empty lists and missing bridge fallbacks.
+One new Kivy test verifies two league choices and exactly three P/R zones.
+Logs: /tmp/scorer-priority-reviewed-core.log and
+/tmp/scorer-priority-reviewed-ui.log. Validation snapshot:
+/tmp/scorer-priority-review-20261025. It excludes separate pre-existing unfinished
+World tournament/one-way-mode changes in the working tree. An earlier full working
+tree UI run had one old mode-switch test expecting a return to Free; that conflicts
+with the owner's later one-way decision and belongs to that separate integration.
+No new APK/AAB, Play upload, payment activation or physical Android locale test.
+
+Research: 55 UEFA association pages retained; 53 linked publisher sites identified;
+75 follow-up requests recorded. CBF returned503, Mexican/legacy Argentinian and
+most European publisher destinations returned proxy403. See
+docs/regulations/PRIORITY_STATUS.md. Do not call those priority regulations
+extracted/implemented. The saved environment network draft needs user review/save
+and Publish; this session has no Publish tool. Source checksum/reference checks
+passed; no full third-party documents are bundled.
