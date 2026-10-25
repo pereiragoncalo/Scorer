@@ -11,6 +11,8 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 
 ## Commercial model
 
+- Owner presentation decision / 0.6.34: no small edition/test-ad taglines on entry, routine prose footer on the main dashboard, generic profile instructions or redundant optional-ad footnote. Keep controls, named fields/statistics, Help/privacy disclosures, native ad labels/consent and actual errors. Privacy must not display SDK diagnostic status strings. Do not hide name/load/save errors when cleaning normal copy. Shared cleanup applies to both apps. Preserve no-World-button Free menus and World nationality/country creation.
+
 - Owner hub decision / 0.6.33 supersedes earlier hub-promotion button plans: Free has no World/Scorer World button in either the normal main header or CompactHub. Free hub retains ten actions (Training, Play, Standings, Top Scorers, Fixtures, Agent, Player, Help, Privacy, Exit), all visible without scrolling. Entry remains without the World button. Keep offline stadium World promotion and World app navigation intact; do not add a replacement World menu CTA.
 
 - Owner entry decision / 0.6.32: remove SCORER WORLD from Free's post-splash entry screen. Its only actions are New Game, Load Game, Help, Privacy, Exit. New Game occupies the full row. Preserve World Language control, Free hub World information and offline stadium promotion; this request concerns the entry screen only.

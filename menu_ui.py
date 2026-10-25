@@ -23,6 +23,8 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language'))
+MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
+
 
 
 class FlowLabel(LocalizedText, Label):
@@ -296,8 +298,6 @@ class CareerMenu(BoxLayout):
         boost = self._button('WATCH AD: +1 MORALE', 'morale_ad')
         boost.disabled = not c.morale_ad_available
         actions.add_widget(boost)
-        note = card.label('Optional ad: +1 morale after completion. Once per week, max 20.', muted=True)
-        note.font_size = sp(12)
         if c.morale_ad_week == c.week:
             card.label('This week’s morale ad reward has been claimed.', muted=True)
         elif c.morale >= 20:
@@ -354,9 +354,6 @@ class CareerMenu(BoxLayout):
                    'diagnostics and ad interactions. Advertising ID permission is not requested. '
                    'Your player name and career saves are not sent by SCORER to Google.')
         card.label('Google privacy policy: https://policies.google.com/privacy', muted=True)
-        card.label(self.game.ads.status, muted=True)
-        card.label(self.game.ads.break_status, muted=True)
-        card.label(self.game.ads.reward_status, muted=True)
         if self.game.ads.privacy_required:
             card.add_widget(MenuTile('AD PRIVACY OPTIONS', lambda: self.game.ads.privacy_options()))
 
@@ -635,11 +632,10 @@ class EntryScreen(FloatLayout):
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None))
         self.brand = Image(source='assets/menu_logo.png', size_hint_y=None, height=dp(52))
         self.panel.add_widget(self.brand)
-        self.info = BoundedLabel(text='SCORER World. Ad-free. Local name editor.' if edition.is_world() else 'SCORER Free. One division. Google test ads.' if not release_settings.is_production() else 'SCORER Free. One division. Contains ads.',
-                                 color=MUTED, font_size=sp(12), halign='center')
-        if menu.game.career.message.startswith('Unable to continue'):
-            self.info.text = menu.game.career.message
-        self.panel.add_widget(self.info)
+        message = menu.game.career.message
+        self.info = BoundedLabel(text=message if message.startswith(MENU_ERROR_PREFIXES) else '',
+                                 color=(1,.65,.45,1),font_size=sp(14),size_hint_y=None,height=dp(40))
+        if self.info.text:self.panel.add_widget(self.info)
         new_row = BoxLayout(spacing=dp(8))
         new_row.add_widget(MenuTile('NEW GAME', lambda: menu.action('new_game'), accent=True))
         if edition.is_world():
@@ -663,13 +659,12 @@ class EntryScreen(FloatLayout):
         self.menu.game.ads.entry_visible(banner_fits)
         self.banner_space = dp(64) if banner_fits else 0
         available = self.height - self.banner_space
-        self.panel.size = (min(self.width - dp(24), dp(340)), min(available - dp(16), dp(280)))
+        has_error = self.info.parent is self.panel
+        self.panel.size = (min(self.width - dp(24), dp(340)), min(available - dp(16), dp(280 if has_error else 244)))
         self.panel.center = (self.center_x, self.y + self.banner_space + available / 2)
-        self.brand.height = dp(28) if self.panel.height < dp(244) else dp(52)
-        if self.panel.height < dp(250) and self.info.parent is self.panel:
-            self.panel.remove_widget(self.info)
-        elif self.panel.height >= dp(250) and self.info.parent is None:
-            self.panel.add_widget(self.info, index=3)
+        compact = self.panel.height < dp(250)
+        self.brand.height = 0 if has_error and compact else dp(28) if self.panel.height < dp(244) else dp(52)
+        self.info.height = dp(32 if compact else 40)
 
 
 class MainDashboard(BoxLayout):
@@ -719,7 +714,7 @@ class MainDashboard(BoxLayout):
             anchor.add_widget(column)
             numbers.add_widget(anchor)
         self.season.add_widget(numbers)
-        self.season.add_widget(BoundedLabel(localize=False,text=menu.game.i18n.league(c,c.current_league) + (' · 1 DIVISION' if not c.world_unlocked else ''),
+        self.season.add_widget(BoundedLabel(localize=False,text=menu.game.i18n.league(c,c.current_league),
                                            color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
         self.hero.add_widget(self.season)
         self.add_widget(self.hero)
@@ -733,9 +728,9 @@ class MainDashboard(BoxLayout):
         self.markers.bind(pos=self._align_play, size=self._align_play)
         self.footer.bind(pos=self._align_play, size=self._align_play)
         self.add_widget(self.actions)
-        self.status = BoundedLabel(text=c.display_text(c.message) if c.trained_this_week else 'Complete weekly training to unlock Play.', color=MUTED, font_size=sp(11),
-                                   size_hint_y=None, height=dp(24))
-        self.add_widget(self.status)
+        self.status = BoundedLabel(text=c.display_text(c.message) if c.message.startswith(MENU_ERROR_PREFIXES) else '',
+                                   color=(1,.65,.45,1),font_size=sp(14),size_hint_y=None,height=dp(36))
+        if self.status.text:self.add_widget(self.status)
         self.bind(size=self._arrange)
         self._arrange()
 
@@ -756,7 +751,7 @@ class MainDashboard(BoxLayout):
                 for button in (self.training, self.play):
                     self.actions.remove_widget(button)
                     self.footer.add_widget(button)
-                self.add_widget(self.hero, index=2)
+                self.add_widget(self.hero, index=self.children.index(self.identity))
             self.actions.cols = 2 if portrait else 4
         rows = (len(self.actions.children) + self.actions.cols - 1) // self.actions.cols
         self.actions.height = rows * dp(52) + (rows - 1) * dp(6)
@@ -812,12 +807,11 @@ class PlayerScreen(FloatLayout):
                 self.country_buttons[field]=button;choices.add_widget(button)
             self.panel.add_widget(choices);self._country_labels()
         message = menu.game.career.message
-        self.helper = BoundedLabel(text=message if any(word in message.lower() for word in ('name','scorer','save','nationality','country','world'))
-                                          else 'Choose your name, nationality and starting country.' if self.world_creation else 'Choose your name. Your progress is kept.',
-                                          color=MUTED, font_size=sp(12), size_hint_y=None, height=max(dp(36), sp(12)*2.5))
-        self.panel.add_widget(self.helper)
-        if self.world_creation and any(word in message.lower() for word in ('name','scorer','save','nationality','country','world')):
-            self.title_label.text=message;self.title_label.font_size=sp(11)
+        error = message if message.startswith(MENU_ERROR_PREFIXES) else ''
+        self.helper = BoundedLabel(text=error,color=(1,.65,.45,1),font_size=sp(14),size_hint_y=None,height=dp(40))
+        if error and not self.world_creation:self.panel.add_widget(self.helper)
+        if self.world_creation and error:
+            self.title_label.text=error;self.title_label.font_size=sp(11)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         actions.add_widget(MenuTile('CANCEL', lambda: menu.action('cancel_profile')))
         self.actions=actions

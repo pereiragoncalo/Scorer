@@ -1,3 +1,12 @@
+# Scorer 0.6.34 — cleaner menus
+
+Removed small edition/test-ad taglines, routine main-menu prose, generic player
+form helpers and the redundant training-ad footnote. Privacy keeps its disclosures
+and consent action, with SDK diagnostic lines removed. Field/statistic labels,
+gameplay instructions in Help and actual name/load/save errors remain visible.
+Both Free and World APKs compiled;189 tests passed (122 core/security +67 Kivy).
+[Build evidence and device checklist](docs/CLEAN_MENUS_0.6.34.md).
+
 # Scorer Free 0.6.33 — no World menu button
 
 Removed the World action from both normal and compact Free main menus.

@@ -1265,3 +1265,14 @@ and no WORLD button at six density/size combinations. See FREE_HUB_0.6.33.md.
 World0.6.31 remains unchanged; no career/schema/gameplay/SDK changes.
 
 PASS122 core/security +65 Kivy=187 tests; real Free APK build, signature/icon/edition/SDK/bundled UI, ZIP16KB and118 ELF alignment checks. Desktop render inspected; no phone test claimed.
+
+
+## 0.6.34 — cleaner menu copy
+
+Removed small entry edition/test-ad tagline, normal hub prose footer, generic
+profile helper, redundant training-ad footnote and privacy SDK diagnostics.
+Kept actual errors, core labels/statistics, Help, privacy/consent and ad actions.
+Fixed dashboard hero insertion after footer removal. PASS122 core/security +67
+Kivy=189 tests; both real APK builds and actual package/icon/signature/edition/UI,
+SDK/font/language checks plus ZIP16KB and118 ELF alignments perAPK. Two desktop
+renders inspected. No phone/production test claimed; see CLEAN_MENUS_0.6.34.md.
