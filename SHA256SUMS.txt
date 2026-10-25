@@ -1,0 +1,2 @@
+17f5ea07c54774daf48bbc8d3f705efaacd7ee24af25f1f2cdac15c259afd0c0  SCORER-Free-0.6.28.apk
+45f629c719bfe0ce7fa5c69bdef35fb56a59cb1c555f9b0bfb57aab6f146f81a  SCORER-World-0.6.28.apk
