@@ -1255,3 +1255,13 @@ button-set assertion updated. PASS122 core/security +65 Kivy=187 tests; actual F
 APK build, bundled EntryScreen bytecode, package/icon/signature/SDK, ZIP16KB and118
 ELF checks. Actual desktop render inspected. See ENTRY_MENU_0.6.32.md and artifact
 hashes. No physical phone or Play test. Latest World APK remains0.6.31.
+
+
+## 0.6.33 — Free main menu removes World action
+
+Removed from regular header and compact hub, preserving all ten Free actions and
+offline stadium promotion. Existing responsive UI test updated for ten actions
+and no WORLD button at six density/size combinations. See FREE_HUB_0.6.33.md.
+World0.6.31 remains unchanged; no career/schema/gameplay/SDK changes.
+
+PASS122 core/security +65 Kivy=187 tests; real Free APK build, signature/icon/edition/SDK/bundled UI, ZIP16KB and118 ELF alignment checks. Desktop render inspected; no phone test claimed.

@@ -1,0 +1,22 @@
+[
+  {
+    "product": "free",
+    "package": "com.clemir.striker",
+    "version": "0.6.33",
+    "bytes": 37520514,
+    "sha256": "d819f10ce3f1b24ad06d323a99074120e6d8c4172685ccaa4453166c3d8f3648",
+    "signature": "Android debug, same certificate as 0.6.27",
+    "zip_16kb": true,
+    "elf_16kb": 118,
+    "actual_bundled_edition": "free",
+    "google_play_billing_sdk": false,
+    "admob_sdk": true,
+    "device_tested": false,
+    "launcher_label": "Scorer",
+    "launcher_icon_sha256": "28d71104f347e90a1234f837fa7f916d897f4dbaaf6cd39bd6ecde0eccc13fba",
+    "ui_languages": [
+      "en"
+    ],
+    "message_count": 0
+  }
+]

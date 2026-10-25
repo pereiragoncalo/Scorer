@@ -11,6 +11,8 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 
 ## Commercial model
 
+- Owner hub decision / 0.6.33 supersedes earlier hub-promotion button plans: Free has no World/Scorer World button in either the normal main header or CompactHub. Free hub retains ten actions (Training, Play, Standings, Top Scorers, Fixtures, Agent, Player, Help, Privacy, Exit), all visible without scrolling. Entry remains without the World button. Keep offline stadium World promotion and World app navigation intact; do not add a replacement World menu CTA.
+
 - Owner entry decision / 0.6.32: remove SCORER WORLD from Free's post-splash entry screen. Its only actions are New Game, Load Game, Help, Privacy, Exit. New Game occupies the full row. Preserve World Language control, Free hub World information and offline stadium promotion; this request concerns the entry screen only.
 
 - Owner World creation decision / 0.6.31: new World Player form collects name, nationality and starting country, defaulting independently to the phone suggestion. Use canonical WORLD_COUNTRIES IDs behind localized country labels; search/paginate without long scrolling. Country selects first offers in its lowest active division (England4), never nationality. Keep the draft on validation/redraw/rotation, discard unconfirmed picker changes, validate before mutating and reject this creation operation for Free or established careers. Choices persist with the first accepted contract using existing nationality/league_key fields, without a schema change. Existing profiles edit the name only; Free has no new nationality/country controls. No need to assert real national-team simulation is complete to store a nationality.

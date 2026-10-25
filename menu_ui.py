@@ -201,7 +201,9 @@ class CareerMenu(BoxLayout):
             profile.size_hint_x, profile.width = None, dp(88)
             header.add_widget(profile)
         if self.game.view == 'hub':
-            for title, action in [('HELP', 'help'), ('WORLD', 'upgrade')]:
+            header_actions = [('HELP', 'help')]
+            if edition.is_world():header_actions.append(('WORLD', 'upgrade'))
+            for title, action in header_actions:
                 button = MenuTile(title, lambda a=action: self.action(a))
                 button.size_hint_x, button.width = None, dp(76)
                 header.add_widget(button)

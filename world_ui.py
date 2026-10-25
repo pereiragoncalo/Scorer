@@ -32,8 +32,9 @@ class CompactHub(BoxLayout):
         actions = GridLayout(cols=4, spacing=dp(4))
         entries = [('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
                    ('TOP SCORERS', 'scorers'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
-                   ('PLAYER', 'profile'), ('PRIVACY', 'privacy'), ('HELP', 'help'),
-                   ('WORLD LEAGUES' if menu.game.career.world_unlocked else 'SCORER WORLD', 'upgrade'), ('EXIT', 'exit')]
+                   ('PLAYER', 'profile'), ('PRIVACY', 'privacy'), ('HELP', 'help')]
+        if c.world_unlocked:entries.append(('WORLD LEAGUES', 'upgrade'))
+        entries.append(('EXIT', 'exit'))
         for title, action in entries:
             button = MenuTile(title, lambda a=action: menu.action(a), accent=action == 'play')
             button.font_size = sp(12)

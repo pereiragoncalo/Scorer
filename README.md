@@ -1,3 +1,10 @@
+# Scorer Free 0.6.33 — no World menu button
+
+Removed the World action from both normal and compact Free main menus.
+The post-splash screen also remains without that action. Free keeps its ten
+play/navigation actions and offline World promotion boards around the pitch.
+World0.6.31 remains unchanged. [Evidence](docs/FREE_HUB_0.6.33.md).
+
 # Scorer Free 0.6.32 — simpler post-splash entry
 
 The Free entry menu now shows New Game, Load Game, Help, Privacy and Exit.
