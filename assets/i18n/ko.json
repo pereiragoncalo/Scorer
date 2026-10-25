@@ -207,5 +207,14 @@
   "QUARTER-FINAL": "8강",
   "SEMI-FINAL": "준결승",
   "Eliminated": "탈락",
-  "{country} National Cup": "{country} 국내 컵"
+  "{country} National Cup": "{country} 국내 컵",
+  "Nationality: {country}": "국적: {country}",
+  "NATIONALITY": "국적",
+  "STARTING COUNTRY": "시작 국가",
+  "Search countries": "국가 검색",
+  "No countries found.": "검색된 국가가 없습니다.",
+  "Choose your name, nationality and starting country.": "이름, 국적, 커리어를 시작할 국가를 선택하세요.",
+  "Choose a valid nationality and starting country.": "유효한 국적과 시작 국가를 선택하세요.",
+  "Player creation is only available for a new World career.": "선수 생성은 새 World 커리어에서만 가능합니다.",
+  "Starting country: {country}": "시작 국가: {country}"
 }

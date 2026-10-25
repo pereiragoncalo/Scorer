@@ -14,7 +14,7 @@ def prepare_edition(product, target, source=ROOT):
         raise ValueError('Choose free or world')
     source = Path(source)
     config = json.loads((source/'release/play.example.json').read_text())
-    config['version_code'] = 1026630
+    config['version_code'] = 1026631
     config['billing']['enabled'] = False
     target = prepare(config, Path(target), 'rehearsal', source)
     identity = target/'edition.py'
@@ -26,7 +26,7 @@ def prepare_edition(product, target, source=ROOT):
     app['title'] = 'Scorer World' if product == 'world' else 'Scorer'
     app['icon.filename'] = 'assets/icon_world.png' if product == 'world' else 'assets/icon.png'
     app['package.domain'], app['package.name'] = 'com.clemir', 'scorerworld' if product == 'world' else 'striker'
-    app['version'], app['android.numeric_version'] = '0.6.30', '1026630'
+    app['version'], app['android.numeric_version'] = '0.6.31', '1026631'
     # Both products share a Python/Kivy native distribution, not an Android identity.
     app['p4a.extra_args'] = '--dist_name=striker'
     app['scorer.shared_native_dist'] = 'striker'

@@ -207,5 +207,14 @@
   "QUARTER-FINAL": "QUARTER-FINAL",
   "SEMI-FINAL": "SEMI-FINAL",
   "Eliminated": "Eliminated",
-  "{country} National Cup": "{country} National Cup"
+  "{country} National Cup": "{country} National Cup",
+  "Nationality: {country}": "Nationality: {country}",
+  "NATIONALITY": "NATIONALITY",
+  "STARTING COUNTRY": "STARTING COUNTRY",
+  "Search countries": "Search countries",
+  "No countries found.": "No countries found.",
+  "Choose your name, nationality and starting country.": "Choose your name, nationality and starting country.",
+  "Choose a valid nationality and starting country.": "Choose a valid nationality and starting country.",
+  "Player creation is only available for a new World career.": "Player creation is only available for a new World career.",
+  "Starting country: {country}": "Starting country: {country}"
 }

@@ -1226,3 +1226,23 @@ launchable activity and application. Actual launcher resource bytes exactly
 match their corresponding different source icons. Same debug certificate,
 separate packages, ZIP16KB/118 ELF alignments perAPK, correct bundled editions,
 language resources and SDK exclusion checks PASS. No physical launcher test.
+
+
+## 0.6.31 — World name, nationality and starting country
+
+New World player form has independent nationality and starting country selectors,
+localized offline search/paging, draft preservation and small-screen layout.
+Existing canonical nationality/league fields persist after the first contract;
+no schema or Free creation change. All nine languages cover the new UI.
+
+PASS122 core/security +65 Kivy=187 tests, plus final catalogue checks after label
+punctuation refinement. Initial missing form game reference and a pre-contract
+save test assumption were corrected. See PLAYER_CREATION_0.6.31.md for actual
+APK evidence and device checks still required.
+
+Both real APKs PASS actual version/package/launcher art/signature checks,
+Python3.14 bundled edition evaluation, actual configure_new_player/PlayerCountryPicker
+bytecode presence, language/font/SDK checks, ZIP16KB and118 ELF alignments each.
+World carries218 messages per language; Free has no extra language assets.
+The merged main checkout with preserved unrelated WIP also passes122 core and65
+Kivy tests (187). No physical device run was performed.

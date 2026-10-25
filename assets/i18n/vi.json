@@ -207,5 +207,14 @@
   "QUARTER-FINAL": "TỨ KẾT",
   "SEMI-FINAL": "BÁN KẾT",
   "Eliminated": "Đã bị loại",
-  "{country} National Cup": "Cúp quốc gia {country}"
+  "{country} National Cup": "Cúp quốc gia {country}",
+  "Nationality: {country}": "Quốc tịch: {country}",
+  "NATIONALITY": "QUỐC TỊCH",
+  "STARTING COUNTRY": "QUỐC GIA KHỞI ĐẦU",
+  "Search countries": "Tìm quốc gia",
+  "No countries found.": "Không tìm thấy quốc gia.",
+  "Choose your name, nationality and starting country.": "Chọn tên, quốc tịch và quốc gia bắt đầu sự nghiệp.",
+  "Choose a valid nationality and starting country.": "Chọn quốc tịch và quốc gia khởi đầu hợp lệ.",
+  "Player creation is only available for a new World career.": "Chỉ có thể tạo cầu thủ cho sự nghiệp World mới.",
+  "Starting country: {country}": "Quốc gia khởi đầu: {country}"
 }

@@ -207,5 +207,14 @@
   "QUARTER-FINAL": "QUARTOS DE FINAL",
   "SEMI-FINAL": "MEIAS-FINAIS",
   "Eliminated": "Eliminado",
-  "{country} National Cup": "Taça nacional de {country}"
+  "{country} National Cup": "Taça nacional de {country}",
+  "Nationality: {country}": "Nacionalidade: {country}",
+  "NATIONALITY": "NACIONALIDADE",
+  "STARTING COUNTRY": "PAÍS DE INÍCIO",
+  "Search countries": "Pesquisar países",
+  "No countries found.": "Não foram encontrados países.",
+  "Choose your name, nationality and starting country.": "Escolhe o nome, a nacionalidade e o país onde queres começar.",
+  "Choose a valid nationality and starting country.": "Escolhe uma nacionalidade e um país de início válidos.",
+  "Player creation is only available for a new World career.": "A criação de jogador só está disponível numa nova carreira World.",
+  "Starting country: {country}": "País de início: {country}"
 }

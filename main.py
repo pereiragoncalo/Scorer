@@ -251,6 +251,8 @@ class StrikerGame(Widget):
         self._promotion_textures = {}
         self._privacy_return = "start"
         self._career_started = False
+        self._player_draft = None
+        self._country_popup = None
         self._profile_return = "offers"
         self.career = self._make_career(self._career_mode)
         self.i18n = Localizer(edition.is_world(), phone_locale_tag(platform == 'android') if edition.is_world() else '', self.career.save_path.parent)
@@ -2591,6 +2593,7 @@ class StrikerGame(Widget):
         self.match_finished = False
         self.awaiting_chance = False
         self._profile_return = "offers"
+        self._player_draft = None
         self.view = "profile"
         self.draw()
 
@@ -2749,10 +2752,16 @@ class StrikerGame(Widget):
             self.view = "profile"
         elif action == "save_profile" and self.view == "profile":
             try:
-                if self.career.set_player_name(value):
+                if edition.is_world() and self._profile_return == 'offers':
+                    draft = value if isinstance(value, dict) else dict(self._player_draft or {
+                        'nationality': self.career.nationality, 'country': self.career.current_league.country}, name=value)
+                    if self.career.configure_new_player(draft.get('name'), draft.get('nationality'), draft.get('country')):
+                        self._player_draft = None
+                        self.view = 'offers'
+                elif self.career.set_player_name(value):
                     self.view = self._profile_return
             except ValueError as error:
-                self.career.message = str(error) if "scorer" in str(error) else 'Enter a name with at least 2 characters.'
+                self.career.message = str(error) if any(word in str(error) for word in ("scorer", "country", "nationality", "World")) else 'Enter a name with at least 2 characters.'
         elif action == "cancel_profile" and self.view == "profile":
             self.view = "hub" if self._profile_return == "hub" else "start"
         elif action == "exit":
@@ -5275,6 +5284,7 @@ class StrikerApp(App):
             # A system-language change must not discard partially typed names.
             editable=[(w.text,w.cursor,w.focus) for w in self.root.walk()
                       if isinstance(w,TextInput) and not w.readonly]
+            if self.root._country_popup is not None:self.root._country_popup.dismiss()
             self.root.i18n.refresh_system(phone_locale_tag(platform == 'android'))
             self.root._text_texture_cache.clear()
             self.root.draw()

@@ -919,6 +919,28 @@ class CareerMode:
         self.message = f"Player: {name}."
         return True
 
+    def configure_new_player(self, requested_name, nationality, country):
+        """Commit World creation choices together; never edit an established career."""
+        if not self.world_unlocked or self.club_name or self.matches or self.week:
+            raise ValueError('Player creation is only available for a new World career.')
+        if not isinstance(nationality, str) or nationality not in WORLD_COUNTRIES or not isinstance(country, str) or country not in WORLD_COUNTRIES:
+            raise ValueError('Choose a valid nationality and starting country.')
+        name = sanitize_local_display_name(capitalise_player_initials(
+            sanitize_local_display_name(requested_name, limit=32)), limit=32)
+        keys = ('player_name', 'nationality', 'league_key', 'free_start_key', 'offers')
+        previous = {key: getattr(self, key) for key in keys}
+        active = set(self._active_world_countries)
+        rng = self.rng.getstate()
+        self.player_name, self.nationality = name, nationality
+        self.choose_start_country(country)
+        if not self.save():
+            for key, value in previous.items():setattr(self, key, value)
+            self._active_world_countries = active
+            self.rng.setstate(rng)
+            return False
+        self.message = 'Choose the first contract of your career.'
+        return True
+
     def rename_current_club(self, requested_name: object) -> str:
         """Rename only the user's current club locally; never fetch external assets."""
         new_name = sanitize_local_display_name(requested_name)

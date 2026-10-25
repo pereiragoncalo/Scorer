@@ -1,0 +1,50 @@
+[
+  {
+    "product": "free",
+    "package": "com.clemir.striker",
+    "version": "0.6.31",
+    "bytes": 37520518,
+    "sha256": "0ab5cedc73314707264cfd09b2ce62a1f4e26cf9f06b049368feef3540b0a274",
+    "signature": "Android debug, same certificate as 0.6.27",
+    "zip_16kb": true,
+    "elf_16kb": 118,
+    "actual_bundled_edition": "free",
+    "google_play_billing_sdk": false,
+    "admob_sdk": true,
+    "device_tested": false,
+    "launcher_label": "Scorer",
+    "launcher_icon_sha256": "28d71104f347e90a1234f837fa7f916d897f4dbaaf6cd39bd6ecde0eccc13fba",
+    "ui_languages": [
+      "en"
+    ],
+    "message_count": 0
+  },
+  {
+    "product": "world",
+    "package": "com.clemir.scorerworld",
+    "version": "0.6.31",
+    "bytes": 73015199,
+    "sha256": "3c9870e3674feaac5a341f9f5c313b0e68eff75e5ba1a7d00c768276244bd1b4",
+    "signature": "Android debug, same certificate as 0.6.27",
+    "zip_16kb": true,
+    "elf_16kb": 118,
+    "actual_bundled_edition": "world",
+    "google_play_billing_sdk": false,
+    "admob_sdk": false,
+    "device_tested": false,
+    "launcher_label": "Scorer World",
+    "launcher_icon_sha256": "17859e3a16ec2e80450cf0490d5c092032a95fb2c82e3d1bb48e78e9ecf67e6e",
+    "ui_languages": [
+      "en",
+      "pt",
+      "es",
+      "de",
+      "it",
+      "ko",
+      "ja",
+      "zh",
+      "vi"
+    ],
+    "message_count": 218
+  }
+]

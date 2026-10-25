@@ -207,5 +207,14 @@
   "QUARTER-FINAL": "準々決勝",
   "SEMI-FINAL": "準決勝",
   "Eliminated": "敗退",
-  "{country} National Cup": "{country}国内カップ"
+  "{country} National Cup": "{country}国内カップ",
+  "Nationality: {country}": "国籍：{country}",
+  "NATIONALITY": "国籍",
+  "STARTING COUNTRY": "開始する国",
+  "Search countries": "国を検索",
+  "No countries found.": "国が見つかりません。",
+  "Choose your name, nationality and starting country.": "名前、国籍、キャリアを始める国を選んでください。",
+  "Choose a valid nationality and starting country.": "有効な国籍と開始する国を選んでください。",
+  "Player creation is only available for a new World career.": "選手の作成は新しいWorldキャリアでのみ利用できます。",
+  "Starting country: {country}": "開始する国：{country}"
 }

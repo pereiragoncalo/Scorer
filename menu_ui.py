@@ -17,7 +17,7 @@ import math
 import edition
 import release_settings
 from localization import current, using, LANGUAGES
-from ui_localization import LocalizedText, localized_call, LocalizedInput as TextInput
+from ui_localization import LocalizedText, localized_call, LocalizedInput as TextInput, LocalizedPopup
 
 INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
@@ -261,11 +261,7 @@ class CareerMenu(BoxLayout):
         c = self.game.career
         card = self.card('Your first contract' + (' · ' + c.current_league.country if c.world_unlocked else ' · Scorer League'))
         if c.world_unlocked:
-            card.label('Suggested from phone: ' + c.suggested_country + '. Choose a starting division.', muted=True)
-            choices = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
-            choices.add_widget(self._button(self.game.i18n.country(c.suggested_country).upper(), 'start_country', c.suggested_country))
-            choices.add_widget(self._button(self.game.i18n.tr('ENGLAND DIVISION 4'), 'start_country', 'England'))
-            card.add_widget(choices)
+            card.label(self.game.i18n.tr('Nationality: {country}',country=self.game.i18n.country(c.nationality)),muted=True)
         grid = GridLayout(cols=3 if self.width >= dp(540) else 2, spacing=dp(6), size_hint_y=None)
         grid.bind(minimum_height=grid.setter('height'))
         card.add_widget(grid)
@@ -781,13 +777,19 @@ class PlayerScreen(FloatLayout):
     def __init__(self, menu):
         super().__init__()
         self.menu = menu
+        self.game = menu.game
         self.panel = EdgePanel(orientation='vertical', size_hint=(None, None), padding=dp(14), spacing=dp(8))
         self.panel.canvas.before.remove(self.panel.edge)
         self.panel.background.radius = [dp(12)]
-        self.panel.add_widget(BoundedLabel(text='YOUR PLAYER', bold=True, font_size=sp(18),
-                                          size_hint_y=None, height=dp(28)))
+        self.title_label=BoundedLabel(text='YOUR PLAYER', bold=True, font_size=sp(18),size_hint_y=None,height=dp(28))
+        self.panel.add_widget(self.title_label)
         existing = menu.game._profile_return == 'hub'
-        self.name = TextInput(text=menu.game.career.player_name if existing else '',
+        self.world_creation = edition.is_world() and not existing
+        if self.world_creation and self.game._player_draft is None:
+            self.game._player_draft = {'name':'','nationality':self.game.career.nationality,
+                                       'country':self.game.career.current_league.country}
+        self.draft = self.game._player_draft if self.world_creation else None
+        self.name = TextInput(text=menu.game.career.player_name if existing else self.draft['name'] if self.draft else '',
                               hint_text='Player name', multiline=False, write_tab=False,
                               font_size=sp(17), padding=[dp(12), dp(12)],
                               size_hint_y=None, height=dp(52), background_normal='', background_active='',
@@ -801,12 +803,24 @@ class PlayerScreen(FloatLayout):
         self.name.bind(pos=self._field_rect, size=self._field_rect, focus=self._field_rect, line_height=self._field_rect)
         self._field_rect()
         self.panel.add_widget(self.name)
+        if self.world_creation:
+            self.name.bind(text=lambda _,text:self.draft.update(name=text))
+            choices = self.choices = BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
+            self.country_buttons={}
+            for field in ('nationality','country'):
+                button=MenuTile('',lambda key=field:self.choose_country(key),localize=False)
+                self.country_buttons[field]=button;choices.add_widget(button)
+            self.panel.add_widget(choices);self._country_labels()
         message = menu.game.career.message
-        self.panel.add_widget(BoundedLabel(text=message if ('name' in message.lower() or 'scorer' in message.lower() or 'save' in message.lower())
-                                          else 'Choose your name. Your progress is kept.',
-                                          color=MUTED, font_size=sp(12), size_hint_y=None, height=max(dp(36), sp(12)*2.5)))
+        self.helper = BoundedLabel(text=message if any(word in message.lower() for word in ('name','scorer','save','nationality','country','world'))
+                                          else 'Choose your name, nationality and starting country.' if self.world_creation else 'Choose your name. Your progress is kept.',
+                                          color=MUTED, font_size=sp(12), size_hint_y=None, height=max(dp(36), sp(12)*2.5))
+        self.panel.add_widget(self.helper)
+        if self.world_creation and any(word in message.lower() for word in ('name','scorer','save','nationality','country','world')):
+            self.title_label.text=message;self.title_label.font_size=sp(11)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         actions.add_widget(MenuTile('CANCEL', lambda: menu.action('cancel_profile')))
+        self.actions=actions
         actions.add_widget(MenuTile('SAVE' if existing else 'CONTINUE',
                                     lambda: self.submit(), accent=True))
         self.panel.add_widget(actions)
@@ -825,14 +839,80 @@ class PlayerScreen(FloatLayout):
 
     def submit(self):
         self.name.focus = False
-        self.menu.action('save_profile', self.name.text)
+        self.menu.action('save_profile', dict(self.draft, name=self.name.text) if self.world_creation else self.name.text)
+
+    @localized_call
+    def _country_labels(self):
+        for field,button in self.country_buttons.items():
+            button.text=self.game.i18n.tr('Nationality: {country}' if field=='nationality' else 'Starting country: {country}',
+                                         country=self.game.i18n.country(self.draft[field]))
+
+    @localized_call
+    def choose_country(self,field):
+        if not self.world_creation:return
+        self.name.focus=False
+        popup=PlayerCountryPicker(self,field)
+        self.game._country_popup=popup
+        popup.bind(on_dismiss=lambda *_:setattr(self.game,'_country_popup',None))
+        popup.open()
 
     def _fit(self, *_):
-        compact = self.height < dp(250)
-        self.panel.padding = dp(10 if compact else 14)
-        self.panel.spacing = dp(6 if compact else 8)
+        compact = self.height < dp(310) if self.world_creation else self.height < dp(250)
+        if self.world_creation:
+            self.title_label.height=dp(24 if compact else 28)
+            self.name.height=self.choices.height=self.actions.height=dp(48 if compact else 52)
+            self.helper.height=0 if compact else dp(36)
+            self.helper.opacity=0 if compact else 1
+        self.panel.padding = dp(8 if compact and self.world_creation else 10 if compact else 14)
+        self.panel.spacing = dp(4 if compact and self.world_creation else 6 if compact else 8)
         self.panel.size = (min(self.width - dp(24), dp(420)), min(self.height - dp(16), self.panel.minimum_height))
         self.panel.center = self.center
+
+
+
+class PlayerCountryPicker(LocalizedPopup):
+    """Offline country search with bounded pages and canonical callback values."""
+    def __init__(self,screen,field):
+        self.screen=screen;self.game=screen.game;self.field=field;self.page=0
+        body=BoxLayout(orientation='vertical',spacing=dp(4),padding=dp(4))
+        self.search=TextInput(hint_text='Search countries',multiline=False,write_tab=False,
+                              size_hint_y=None,height=dp(48),font_size=sp(14))
+        body.add_widget(self.search)
+        self.grid=GridLayout(cols=2,spacing=dp(4));body.add_widget(self.grid)
+        nav=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(4))
+        self.previous=MenuTile('PREVIOUS',lambda:self.move(-1));nav.add_widget(self.previous)
+        self.counter=BoundedLabel(halign='center',size_hint_x=.4);nav.add_widget(self.counter)
+        self.next=MenuTile('NEXT',lambda:self.move(1));nav.add_widget(self.next)
+        nav.add_widget(MenuTile('CANCEL',lambda:self.dismiss()));body.add_widget(nav)
+        super().__init__(title='NATIONALITY' if field=='nationality' else 'STARTING COUNTRY',
+                         content=body,size_hint=(.96,.96),auto_dismiss=False)
+        self.search.bind(text=self.filter);self.bind(size=self._render)
+        self._render()
+
+    def filter(self,*_):
+        if len(self.search.text)>64:self.search.text=self.search.text[:64]
+        self.page=0;self._render()
+
+    def move(self,step):
+        self.page+=step;self._render()
+
+    @localized_call
+    def _render(self,*_):
+        query=self.search.text.strip().casefold()
+        rows=sorted((self.game.i18n.country(c),c) for c in WORLD_COUNTRIES
+                    if not query or query in c.casefold() or query in self.game.i18n.country(c).casefold())
+        count=2 if self.height<dp(330) else 6
+        pages=max(1,math.ceil(len(rows)/count));self.page=max(0,min(self.page,pages-1))
+        self.counter.text=f'{self.page+1}/{pages}';self.previous.disabled=self.page==0;self.next.disabled=self.page==pages-1
+        self.grid.clear_widgets()
+        for label,country in rows[self.page*count:(self.page+1)*count]:
+            self.grid.add_widget(MenuTile(label,lambda key=country:self.select(key),localize=False,
+                                          accent=self.screen.draft[self.field]==country))
+        if not rows:self.grid.add_widget(BoundedLabel(text='No countries found.'))
+
+    def select(self,country):
+        if country not in WORLD_COUNTRIES:return
+        self.screen.draft[self.field]=country;self.screen._country_labels();self.dismiss()
 
 
 class CompactTable(EdgePanel):

@@ -1,3 +1,12 @@
+# SCORER 0.6.31 — World player creation
+
+New World careers ask for name, nationality and starting country together.
+Nationality and country are independent, suggested from the phone and selectable
+through offline localized search/paging. England starts in Division4. Continue
+shows contracts from the chosen country; accepting a contract saves the choices
+with the career. Free and established World profiles keep name-only editing.
+[Behaviour, evidence and Android checklist](docs/PLAYER_CREATION_0.6.31.md).
+
 # SCORER 0.6.30 — distinct Android launcher entries
 
 Install both APKs for two independent applications: **Scorer** (Free, original
