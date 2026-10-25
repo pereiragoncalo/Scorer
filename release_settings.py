@@ -11,3 +11,6 @@ def is_store():
 
 def is_production():
     return CHANNEL == 'production'
+
+# Enable only after the separate World store listing is publicly available.
+WORLD_LISTING_READY = False

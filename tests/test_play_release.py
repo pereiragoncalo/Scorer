@@ -62,16 +62,16 @@ class ReleaseTests(unittest.TestCase):
             with self.assertRaises(ValueError): prepare(self.config(), target, 'rehearsal', source)
             with self.assertRaises(ValueError): prepare(self.config(), source/'nested', 'rehearsal', source)
 
-    def test_world_qa_uses_same_app_separate_slots_and_never_enables_billing(self):
+    def test_world_qa_is_separate_without_ads_or_billing(self):
         from tools.prepare_world_qa import prepare_qa
         before=(ROOT/'edition.py').read_bytes()
         with tempfile.TemporaryDirectory() as temp:
             target=prepare_qa(Path(temp)/'owner-qa')
-            self.assertIn('WORLD_PREVIEW = True',(target/'edition.py').read_text())
-            self.assertIn('package.name = striker',(target/'buildozer.spec').read_text())
-            self.assertIn('package.domain = com.clemir',(target/'buildozer.spec').read_text())
-            self.assertIn('ENABLED = false',(target/'android/src/com/clemir/striker/billing/BillingConfig.java').read_text())
-            self.assertIn('qa-world',(target/'release_settings.py').read_text())
+            self.assertIn('WORLD_BUILD = True',(target/'edition.py').read_text())
+            self.assertIn('WORLD_PREVIEW = False',(target/'edition.py').read_text())
+            self.assertIn('package.name = scorerworld',(target/'buildozer.spec').read_text())
+            self.assertFalse((target/'android/src').exists())
+            self.assertFalse((target/'billing.py').exists())
             self.assertTrue((target/'assets/data/world_clubs.json').is_file())
             self.assertFalse((target/'server').exists())
         self.assertEqual((ROOT/'edition.py').read_bytes(),before)

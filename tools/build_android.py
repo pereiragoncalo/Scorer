@@ -39,5 +39,20 @@ class WorkspaceBuildozer(Buildozer):
                                       '/workspace/striker-build-cache')).resolve())
 
 
+def configure_shared_native_distribution():
+    # Buildozer normally assumes the Python distribution has the app's package
+    # name. Our two APK identities share compatible compiled Python/Kivy libs.
+    # Keep its path lookup in agreement with p4a's explicit --dist_name argument.
+    from buildozer.targets.android import TargetAndroid
+    original = TargetAndroid.get_dist_dir
+    def get_dist_dir(target, dist_name):
+        shared = target.buildozer.config.getdefault('app', 'scorer.shared_native_dist', '')
+        if shared and shared != 'striker':
+            raise ValueError('Unexpected shared native distribution')
+        return original(target, shared or dist_name)
+    TargetAndroid.get_dist_dir = get_dist_dir
+
+
 if __name__ == '__main__':
+    configure_shared_native_distribution()
     WorkspaceBuildozer().run_command(sys.argv[1:])

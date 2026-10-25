@@ -1,3 +1,21 @@
+# SCORER 0.6.28 — separate Free and World Android applications
+
+Latest owner decision: two independent APKs. Free retains `com.clemir.striker`
+and its one-division career; World uses `com.clemir.scorerworld`, its own career,
+worldwide league model and local names editor. World has no AdMob or Google Play
+Billing SDK. Free promotes World on offline stadium boards outside the field.
+No in-app upgrade, account linking or automatic career conversion.
+
+**161 tests passed** (108 core/security +53 Kivy). Both arm64 QA APKs were genuinely
+compiled, signed with the existing debug certificate and statically verified.
+Physical Android installation/gameplay checks remain required. World country
+formats and international simulation remain in development; no store/payment
+activation or production-ready claim.
+
+[Release behaviour, build commands, evidence and test checklist](docs/TWO_APPS_0.6.28.md).
+Earlier single-app purchase/mode-switch instructions below are historical and
+superseded. Use `tools/prepare_editions.py`; legacy single-app release CLI is retired.
+
 # Development — 25 October 2026
 
 The owner-selected fallback now has two active divisions with three promotions

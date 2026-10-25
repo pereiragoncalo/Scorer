@@ -1,0 +1,30 @@
+[
+  {
+    "product": "free",
+    "package": "com.clemir.striker",
+    "version": "0.6.28",
+    "bytes": 37498802,
+    "sha256": "17f5ea07c54774daf48bbc8d3f705efaacd7ee24af25f1f2cdac15c259afd0c0",
+    "signature": "Android debug, same certificate as 0.6.27",
+    "zip_16kb": true,
+    "elf_16kb": 118,
+    "actual_bundled_edition": "free",
+    "google_play_billing_sdk": false,
+    "admob_sdk": true,
+    "device_tested": false
+  },
+  {
+    "product": "world",
+    "package": "com.clemir.scorerworld",
+    "version": "0.6.28",
+    "bytes": 30544147,
+    "sha256": "45f629c719bfe0ce7fa5c69bdef35fb56a59cb1c555f9b0bfb57aab6f146f81a",
+    "signature": "Android debug, same certificate as 0.6.27",
+    "zip_16kb": true,
+    "elf_16kb": 118,
+    "actual_bundled_edition": "world",
+    "google_play_billing_sdk": false,
+    "admob_sdk": false,
+    "device_tested": false
+  }
+]

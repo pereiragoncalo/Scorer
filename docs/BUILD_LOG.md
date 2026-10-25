@@ -1164,3 +1164,21 @@ docs/regulations/PRIORITY_STATUS.md. Do not call those priority regulations
 extracted/implemented. The saved environment network draft needs user review/save
 and Publish; this session has no Publish tool. Source checksum/reference checks
 passed; no full third-party documents are bundled.
+
+## 0.6.28 — separate Free/World APKs and stadium promotion
+
+Owner decision supersedes single-app purchases: Free com.clemir.striker, World
+com.clemir.scorerworld, separate private careers. No runtime in-app billing/mode
+switch, no AdMob SDK or Internet permission in World. Free has11 local World
+promotion board surfaces outside pitch boundaries, four cached message textures,
+25second rotation, no touch/collision/tracking behaviour. World info explains
+separate installation/career and disables the store link until an actual listing.
+
+PASS:108 core/security +53 actual Kivy=161 tests on the scoped source snapshot;
+syntax checks; both real arm64 debug APK builds; actual manifest/package/SDK
+checks; Python3.14 evaluation of actual bundled edition flags; same existing debug
+certificate; ZIP16KB and all118 ELF LOAD alignments >=16KB in both. Logs and full
+behaviour/device test checklist: docs/TWO_APPS_0.6.28.md. Screenshot is desktop Kivy,
+not Android. Initial World cache-directory mismatch and mirrored board text were
+found and corrected before final artifacts. No physical device, paid purchase or
+store release claimed. Separate unfinished tournament work remains preserved.

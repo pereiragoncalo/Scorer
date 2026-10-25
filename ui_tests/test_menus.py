@@ -452,60 +452,59 @@ class MenuTests(unittest.TestCase):
             self.assertTrue(any('does not charge' in w.text for w in game.walk() if isinstance(w,Label)))
             self.assertEqual(game.career.save_path.read_bytes(),before)
 
-    def test_single_app_upgrade_has_disabled_buy_and_restore_without_preview_launch(self):
+    def test_stadium_promotion_is_free_only_cached_and_has_no_touch_actions(self):
+        with isolated_game() as game:
+            before=list(game.ui_buttons)
+            with game.canvas:
+                game._draw_world_promotion_boards()
+            self.assertEqual(len(game._promotion_textures),4)
+            textures=dict(game._promotion_textures)
+            game.elapsed=25
+            with game.canvas:
+                game._draw_world_promotion_boards()
+            self.assertEqual(game._promotion_textures,textures)
+            self.assertEqual(game.ui_buttons,before)
+        with patch('edition.WORLD_BUILD',True),isolated_game() as game:
+            with game.canvas:
+                game._draw_world_promotion_boards()
+            self.assertEqual(game._promotion_textures,{})
+
+    def test_world_promotion_has_no_purchase_restore_or_dead_store_link(self):
         with isolated_game(saved=True) as game:
             before = game.career.save_path.read_bytes()
             game.view = 'hub'; game._activate_ui('upgrade'); game.draw(); settle()
             buttons = {w.text: w for w in game.walk() if isinstance(w, TouchButton)}
-            self.assertIn('RESTORE PURCHASE', buttons)
-            self.assertTrue(buttons['UPGRADE TO WORLD'].disabled)
-            self.assertFalse(any('PREVIEW' in text or 'INSTALLED' in text for text in buttons))
+            self.assertIn('WORLD STORE PAGE COMING SOON', buttons)
+            self.assertTrue(buttons['WORLD STORE PAGE COMING SOON'].disabled)
+            self.assertNotIn('RESTORE PURCHASE', buttons)
+            self.assertFalse(any('BUY' in t or 'UPGRADE' in t for t in buttons))
             game._activate_ui('buy_world'); game._activate_ui('restore_world')
             self.assertFalse(game.career.world_unlocked)
             self.assertEqual(game.career.save_path.read_bytes(), before)
 
-    def test_verified_purchase_keeps_free_in_free_and_world_in_its_own_slot(self):
-        from billing import PlayWorldAccess
-        class VerifiedBridge:
-            def hasAccess(self, activity): return True
+    def test_free_cannot_become_world_or_load_its_career_via_legacy_callbacks(self):
         with isolated_game(saved=True) as game:
-            game.view='start';game._load_career()
-            game.career.save()  # Snapshot the selected, loaded Free state before switching.
-            free_path=game.career.save_path; before=free_path.read_bytes()
-            game.billing=PlayWorldAccess(VerifiedBridge())
-            game.view='upgrade';game._adopt_world_purchase();game.draw();settle()
-            self.assertFalse(game.career.world_unlocked)
-            self.assertEqual(free_path.read_bytes(),before)
+            game._load_career(); before=game.career.save_path.read_bytes()
+            path=game.career.save_path
             game._activate_ui('select_mode','world')
-            self.assertEqual(game.view,'start')
-            self.assertTrue(game.career.world_unlocked)
-            self.assertNotEqual(game.career.save_path,free_path)
-            self.assertEqual((game.career.club_name,game.career.goals),('',0))
-            self.assertFalse(game.career.save_path.exists())
-            game.career.set_player_name('World Player');game.career.accept_starting_offer(game.career.offers[0])
-            game.career.goals=3;game.career.save();game._career_started=True
-            world_path=game.career.save_path; world_bytes=world_path.read_bytes()
-            game.view='hub';game._activate_ui('select_mode','free');game._load_career()
             self.assertFalse(game.career.world_unlocked)
-            self.assertEqual(game.career.goals,17)
-            self.assertEqual(game.career.save_path,free_path)
-            self.assertEqual(world_path.read_bytes(),world_bytes)
-            self.assertEqual(free_path.read_bytes(),before)
-            self.assertIsNone(game.ads.backend)
-
-    def test_mode_switch_save_failure_keeps_the_free_slot_selected(self):
-        from billing import PlayWorldAccess
-        class VerifiedBridge:
-            def hasAccess(self, activity): return True
-        with isolated_game(saved=True) as game:
-            game.view='start';game._load_career();game.billing=PlayWorldAccess(VerifiedBridge())
-            game._adopt_world_purchase();before=game.career.save_path.read_bytes()
-            with patch.object(game.career,'save',return_value=False):
-                game._activate_ui('select_mode','world')
             self.assertEqual(game._career_mode,'free')
-            self.assertEqual(game.view,'hub')
-            self.assertEqual(game.career.save_path.read_bytes(),before)
-            self.assertFalse(game.career.save_path.with_name('striker_world_career.json').exists())
+            self.assertEqual(game.career.save_path,path)
+            self.assertEqual(path.read_bytes(),before)
+            self.assertFalse(path.with_name('striker_world_career.json').exists())
+            self.assertFalse(hasattr(game,'billing'))
+
+    def test_world_identity_stays_world_without_ads_or_free_conversion(self):
+        with patch('edition.WORLD_BUILD',True), isolated_game(saved=True) as game:
+            self.assertTrue(game.career.world_unlocked)
+            self.assertEqual(game._career_mode,'world')
+            self.assertEqual(game.career.save_path.name,'striker_world_career.json')
+            self.assertEqual(game.career.club_name,'')
+            self.assertIsNone(game.ads.backend)
+            game._activate_ui('select_mode','free')
+            self.assertEqual(game._career_mode,'world')
+            self.assertTrue(game.career.world_unlocked)
+            self.assertFalse(hasattr(game,'billing'))
 
     def test_free_has_no_country_controls_and_cannot_route_to_world_without_ownership(self):
         with patch('main.phone_country',return_value='Portugal'),isolated_game() as game:
@@ -797,7 +796,7 @@ class MenuTests(unittest.TestCase):
             settle()
             self.assertEqual(game.view, 'start')
             labels = [w.text for w in game.walk() if isinstance(w, TouchButton)]
-            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'HELP', 'PRIVACY', 'EXIT'})
+            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'HELP', 'PRIVACY', 'EXIT', 'SCORER WORLD'})
             self.assertEqual(game.career.save_path.read_bytes(), before)
             game._activate_ui('load_game')
             settle()

@@ -151,4 +151,5 @@ def main():
     print(prepare(data, args.output, args.channel))
 
 
-if __name__ == '__main__': main()
+if __name__ == '__main__':
+    raise SystemExit('Single-app release CLI is retired. Use tools/prepare_editions.py for separate Free/World QA builds.')
