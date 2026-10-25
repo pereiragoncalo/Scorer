@@ -1,3 +1,12 @@
+# Scorer Free 0.6.32 — simpler post-splash entry
+
+The Free entry menu now shows New Game, Load Game, Help, Privacy and Exit.
+The Scorer World action was removed from this screen; New Game fills its row.
+187 tests passed (122 core/security +65 actual Kivy UI), real Free arm64 debug APK
+compiled and statically verified. Existing package, icon, signature and career
+compatibility remain. World remains at0.6.31; no new World APK was needed.
+[Build evidence](docs/ENTRY_MENU_0.6.32.md).
+
 # SCORER 0.6.31 — World player creation
 
 New World careers ask for name, nationality and starting country together.

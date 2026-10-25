@@ -640,9 +640,7 @@ class EntryScreen(FloatLayout):
         self.panel.add_widget(self.info)
         new_row = BoxLayout(spacing=dp(8))
         new_row.add_widget(MenuTile('NEW GAME', lambda: menu.action('new_game'), accent=True))
-        if not edition.is_world():
-            new_row.add_widget(MenuTile('SCORER WORLD', lambda: menu.action('upgrade')))
-        else:
+        if edition.is_world():
             new_row.add_widget(MenuTile('LANGUAGE', lambda: menu.action('language')))
         self.panel.add_widget(new_row)
         load = MenuTile('LOAD GAME', lambda: menu.action('load_game'))

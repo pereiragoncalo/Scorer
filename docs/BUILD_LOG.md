@@ -1246,3 +1246,12 @@ bytecode presence, language/font/SDK checks, ZIP16KB and118 ELF alignments each.
 World carries218 messages per language; Free has no extra language assets.
 The merged main checkout with preserved unrelated WIP also passes122 core and65
 Kivy tests (187). No physical device run was performed.
+
+
+## 0.6.32 — Free entry removes Scorer World
+
+Removed only the post-splash World action; New Game fills the row. Existing entry
+button-set assertion updated. PASS122 core/security +65 Kivy=187 tests; actual Free
+APK build, bundled EntryScreen bytecode, package/icon/signature/SDK, ZIP16KB and118
+ELF checks. Actual desktop render inspected. See ENTRY_MENU_0.6.32.md and artifact
+hashes. No physical phone or Play test. Latest World APK remains0.6.31.

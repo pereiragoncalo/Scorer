@@ -796,7 +796,7 @@ class MenuTests(unittest.TestCase):
             settle()
             self.assertEqual(game.view, 'start')
             labels = [w.text for w in game.walk() if isinstance(w, TouchButton)]
-            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'HELP', 'PRIVACY', 'EXIT', 'SCORER WORLD'})
+            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'HELP', 'PRIVACY', 'EXIT'})
             self.assertEqual(game.career.save_path.read_bytes(), before)
             game._activate_ui('load_game')
             settle()
