@@ -25,6 +25,11 @@ class EditionTests(unittest.TestCase):
                 root=prepare_edition(product,Path(temp)/product)
                 spec=configparser.ConfigParser(interpolation=None);spec.read(root/'buildozer.spec')
                 products[product]=spec['app']['package.domain']+'.'+spec['app']['package.name']
+                self.assertEqual(spec['app']['title'],'Scorer World' if product=='world' else 'Scorer')
+                expected_icon='assets/icon_world.png' if product=='world' else 'assets/icon.png'
+                self.assertEqual(spec['app']['icon.filename'],expected_icon)
+                self.assertEqual((root/expected_icon).read_bytes(),Path(expected_icon).read_bytes())
+                if product=='free':self.assertFalse((root/'assets/icon_world.png').exists())
                 self.assertFalse((root/'billing.py').exists())
                 self.assertFalse((root/'android/src/com/clemir/striker/billing').exists())
                 self.assertFalse((root/'server').exists())

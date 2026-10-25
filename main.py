@@ -5262,7 +5262,7 @@ class StrikerGame(Widget):
 
 
 class StrikerApp(App):
-    title = "SCORER World" if edition.is_world() else "SCORER Free"
+    title = "Scorer World" if edition.is_world() else "Scorer"
 
 
     def on_pause(self):

@@ -1208,3 +1208,21 @@ language test or production upload claimed.
 
 Integration check: the main checkout with its preserved unrelated World WIP also
 passed the same118 core/security and61 Kivy tests after the three-way merge.
+
+
+## 0.6.30 — distinct launcher icons and labels
+
+Owner request: two installed applications named Scorer and Scorer World.
+Free label changed from SCORER Free to Scorer, retaining original S icon. World
+uses Scorer World and a generated blue globe/WORLD companion icon. Separate
+packages, signatures, private saves, language behaviour and SDKs are unchanged.
+The existing staging test now verifies exact launcher labels and icon paths/bytes
+and World-art exclusion from Free. No gameplay changes. See LAUNCHER_0.6.30.md
+for actual build verification and physical phone checks still required.
+
+PASS:118 core/security +61 Kivy=179 tests; both actual0.6.30/code1026630
+APK builds. aapt2 confirms launcher labels Scorer and Scorer World on the
+launchable activity and application. Actual launcher resource bytes exactly
+match their corresponding different source icons. Same debug certificate,
+separate packages, ZIP16KB/118 ELF alignments perAPK, correct bundled editions,
+language resources and SDK exclusion checks PASS. No physical launcher test.

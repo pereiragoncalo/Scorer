@@ -1,3 +1,11 @@
+# SCORER 0.6.30 — distinct Android launcher entries
+
+Install both APKs for two independent applications: **Scorer** (Free, original
+emerald S icon) and **Scorer World** (blue globe/WORLD icon). Installing one APK
+installs only its own application. Both update their matching0.6.29 package and
+keep their existing private careers; no uninstall or career transfer is needed.
+[Launcher identity, actual APK validation and device checks](docs/LAUNCHER_0.6.30.md).
+
 # SCORER 0.6.29 — Free English, World nine languages
 
 Free remains English-only. World follows the phone language or a manual choice:
