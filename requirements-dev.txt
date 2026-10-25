@@ -24,3 +24,6 @@ setuptools==75.8.2
 sh==2.4.0
 urllib3==2.8.0
 virtualenv==21.14.13
+
+Babel==2.17.0
+fonttools==4.61.1

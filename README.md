@@ -1,3 +1,16 @@
+# SCORER 0.6.29 — Free English, World nine languages
+
+Free remains English-only. World follows the phone language or a manual choice:
+English, Portuguese (Portugal), Spanish, German, Italian, Korean, Japanese,
+Simplified Chinese and Vietnamese. Unsupported phone languages fall back to English.
+Use Language on World's entry screen or Help page. Names/editor/save identifiers
+stay unchanged; the UI language does not select or change the player's country.
+
+**179 tests passed** (118 core/security +61 actual Kivy interface tests).
+[Language behaviour, build evidence and Android test checklist](docs/LANGUAGES_0.6.29.md).
+Two independent Android applications/careers remain the current product model.
+Historical single-app purchase instructions below are superseded.
+
 # SCORER 0.6.28 — separate Free and World Android applications
 
 Latest owner decision: two independent APKs. Free retains `com.clemir.striker`

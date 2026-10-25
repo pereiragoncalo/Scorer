@@ -95,4 +95,5 @@ def phone_country(android=False):
 
 def language_from_locale(tag):
     """Translation selection hook; it does not translate game text by itself."""
-    return 'pt' if str(tag or '').replace('_', '-').split('-')[0].lower() == 'pt' else 'en'
+    language=str(tag or '').replace('_', '-').split('-')[0].lower()
+    return language if language in ('en','pt','es','de','it','ko','ja','zh','vi') else 'en'

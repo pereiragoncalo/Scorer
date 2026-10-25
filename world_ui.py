@@ -2,7 +2,8 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
-from kivy.uix.textinput import TextInput
+from ui_localization import LocalizedInput as TextInput, localized_call
+from localization import current
 from kivy.metrics import dp, sp
 from menu_ui import MenuTile, BoundedLabel, Card, CompactTable
 
@@ -11,6 +12,14 @@ HELP_PAGES = (
     ('TRAIN, THEN PLAY', 'Complete the three-shot weekly training to unlock Play. A session can be resumed and cannot be repeated that week. Energy and morale influence your opportunities. Progress saves automatically.'),
     ('TAKE YOUR CHANCE', 'Tap inside the goal to aim and shoot, or use the shoot control with the moving aim. Watch power and the time-to-shoot countdown. Opponent strength changes chance quantity and difficulty. Continue at half-time and full-time.'),
     ('ADS, WORLD & NAMES', 'Free uses ads when available, without blocking offline play. Optional training ads can earn +1 morale once per career week. The separate SCORER World application has ad-free play, worldwide leagues and a local names editor. Its information page explains availability; there is no in-app purchase.'),
+)
+
+
+WORLD_HELP_PAGES = (
+ ('YOUR CAREER','Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 4 as another option.'),
+ ('TRAIN, THEN PLAY','Complete the three-shot weekly training to unlock Play. You can resume an unfinished session, but only one session is available each career week. Energy and morale affect your chances. Progress saves automatically.'),
+ ('TAKE YOUR CHANCE','Tap the goal to aim and shoot. Watch the moving aim, power and shot timer. Opponent strength changes the number and difficulty of chances. Continue at half-time and full-time.'),
+ ('WORLD & NAMES','World has no ads. Use the names editor to rename clubs, leagues and players or import a JSON names file. Changes stay on this device and do not alter statistics.'),
 )
 
 
@@ -37,6 +46,7 @@ class WorldBrowser(BoxLayout):
     def __init__(self, menu):
         super().__init__(orientation='vertical', spacing=dp(6))
         self.menu = menu
+        self.game = menu.game
         c = menu.game.career
         self.search = TextInput(text='', hint_text='Search country / football region', multiline=False,
                                 size_hint_y=None, height=dp(48), font_size=sp(14),
@@ -65,15 +75,16 @@ class WorldBrowser(BoxLayout):
         self.page += direction
         self.render()
 
+    @localized_call
     def render(self):
-        selected = [c for c in self.countries if self.search.text.casefold() in c.casefold()]
+        selected = [c for c in self.countries if (self.search.text.casefold() in c.casefold() or self.search.text.casefold() in self.menu.game.i18n.country(c).casefold())]
         pages = max(1, (len(selected)+5)//6)
         self.page = max(0, min(pages-1, self.page))
         self.counter.text = f'{self.page+1}/{pages}'
         self.grid.clear_widgets()
         for country in selected[self.page*6:self.page*6+6]:
             depth = len(self.menu.game.career.domestic_leagues(country))
-            self.grid.add_widget(MenuTile(f'{country}\n{depth} divisions', lambda c=country: self.menu.action('world_country', c)))
+            self.grid.add_widget(MenuTile(self.menu.game.i18n.country(country)+'\n'+self.menu.game.i18n.tr('{count} divisions',count=depth), lambda c=country: self.menu.action('world_country', c),localize=False))
 
 
 class NamesEditor(Card):

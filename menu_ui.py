@@ -16,14 +16,16 @@ from kivy.uix.textinput import TextInput
 import math
 import edition
 import release_settings
+from localization import current, using, LANGUAGES
+from ui_localization import LocalizedText, localized_call, LocalizedInput as TextInput
 
 INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
-MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league'))
+MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language'))
 
 
-class FlowLabel(Label):
+class FlowLabel(LocalizedText, Label):
     def __init__(self, **kwargs):
         kwargs.setdefault('color', INK)
         kwargs.setdefault('font_size', sp(15))
@@ -39,7 +41,7 @@ class FlowLabel(Label):
         self.height = max(dp(24), self.texture_size[1] + dp(4))
 
 
-class TouchButton(Button):
+class TouchButton(LocalizedText, Button):
     def __init__(self, text, callback, accent=False, **kwargs):
         self._accent = accent
         super().__init__(text=text, size_hint_y=None, height=dp(52),
@@ -98,8 +100,8 @@ class Card(BoxLayout):
     def _rect(self, *_):
         self._background.pos, self._background.size = self.pos, self.size
 
-    def label(self, text, heading=False, muted=False):
-        label = FlowLabel(text=str(text), font_size=sp(18 if heading else 15),
+    def label(self, text, heading=False, muted=False, localize=True):
+        label = FlowLabel(text=text, localize=localize, font_size=sp(18 if heading else 15),
                           bold=heading, color=GREEN if heading else MUTED if muted else INK)
         self.add_widget(label)
         return label
@@ -126,7 +128,7 @@ class CareerMenu(BoxLayout):
     def sync(self):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
-        signature = (self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
+        signature = (self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals,
@@ -140,14 +142,20 @@ class CareerMenu(BoxLayout):
         self.game.draw()
 
     def _button(self, label, action, value=None, accent=False):
-        return TouchButton(label, lambda: self.action(action, value), accent)
+        return TouchButton(label, lambda: self.action(action, value), accent, localize=action not in ('accept_offer','transfer','start_country','world_league'))
 
+    @localized_call
     def _build(self):
         c = self.game.career
         if self.game.view != 'start':
             self.game.ads.entry_visible(False)
         self.clear_widgets()
         self._shade.a = 1 if self.game.view == 'splash' else 0.62
+        if self.game.view == 'language' and not edition.is_world():
+            self.game.view='start'
+        if self.game.view == 'language':
+            self.padding=dp(8);self.spacing=dp(6);self.scroll=None
+            self.body=LanguageScreen(self);self.add_widget(self.body);return
         if self.game.view in ('splash', 'start', 'profile'):
             self.padding = self.spacing = 0
             self.scroll = None
@@ -175,15 +183,15 @@ class CareerMenu(BoxLayout):
             brand.add_widget(logo)
         elif self.game.view in ('world', 'editor', 'world_country'):
             header.height = dp(52)
-            title = 'WORLD LEAGUES' if self.game.view == 'world' else 'NAMES EDITOR' if self.game.view == 'editor' else self.game.world_country.upper()
-            brand.add_widget(BoundedLabel(text=title, font_size=sp(20), bold=True))
-            detail = f'{len({v.country for v in c.leagues.values()})} regions · {len(c.domestic_leagues())} divisions' if self.game.view == 'world' else c.display_league(c.leagues[self.game.editor_key]) if self.game.view == 'editor' else 'Choose a division'
+            title = 'WORLD LEAGUES' if self.game.view == 'world' else 'NAMES EDITOR' if self.game.view == 'editor' else self.game.i18n.country(self.game.world_country).upper()
+            brand.add_widget(BoundedLabel(text=self.game.i18n.tr(title) if self.game.view!='world_country' else title, localize=self.game.view!='world_country', font_size=sp(20), bold=True))
+            detail = f'{len({v.country for v in c.leagues.values()})} regions · {len(c.domestic_leagues())} divisions' if self.game.view == 'world' else self.game.i18n.league(c,c.leagues[self.game.editor_key]) if self.game.view == 'editor' else 'Choose a division'
             brand.add_widget(BoundedLabel(text=detail, font_size=sp(11), color=MUTED))
         elif paged:
             header.height = dp(52)
             titles = {'standings': 'STANDINGS', 'scorers': 'TOP SCORERS', 'calendar': 'FIXTURES', 'world_league': 'WORLD LEAGUE'}
             brand.add_widget(BoundedLabel(text=titles[self.game.view], font_size=sp(20), bold=True))
-            brand.add_widget(BoundedLabel(text=c.display_league(c.leagues[self.game.world_league_key] if self.game.view == 'world_league' else c.current_league), font_size=sp(11), color=MUTED))
+            brand.add_widget(BoundedLabel(localize=False,text=self.game.i18n.league(c,c.leagues[self.game.world_league_key] if self.game.view == 'world_league' else c.current_league), font_size=sp(11), color=MUTED))
         else:
             header.height = dp(52)
             brand.add_widget(BrandMark())
@@ -226,7 +234,7 @@ class CareerMenu(BoxLayout):
             header.add_widget(edit)
             league = c.leagues[self.game.world_league_key]
             self.scroll = None
-            self.body = CompactTable(c.display_league(league) + self._standing_legend(league), ('POS','CLUB','P','PTS'), [(self._standing_position(league,i+1),c.display_club(club),club.played,club.points) for i,club in enumerate(league.table())])
+            self.body = CompactTable(self.game.i18n.league(c,league) + self._standing_legend(league), ('POS','CLUB','P','PTS'), [(self._standing_position(league,i+1),c.display_club(club),club.played,club.points) for i,club in enumerate(league.table())],title_localize=False)
             self.add_widget(self.body)
             return
         if self.game.view in ('standings', 'scorers', 'calendar'):
@@ -244,7 +252,8 @@ class CareerMenu(BoxLayout):
     def card(self, title=None):
         card = Card()
         if title:
-            card.label(title, heading=True)
+            country=title in WORLD_COUNTRIES
+            card.label(self.game.i18n.country(title) if country else title, heading=True, localize=not country)
         self.body.add_widget(card)
         return card
 
@@ -254,8 +263,8 @@ class CareerMenu(BoxLayout):
         if c.world_unlocked:
             card.label('Suggested from phone: ' + c.suggested_country + '. Choose a starting division.', muted=True)
             choices = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
-            choices.add_widget(self._button(c.suggested_country.upper(), 'start_country', c.suggested_country))
-            choices.add_widget(self._button('ENGLAND DIVISION 4', 'start_country', 'England'))
+            choices.add_widget(self._button(self.game.i18n.country(c.suggested_country).upper(), 'start_country', c.suggested_country))
+            choices.add_widget(self._button(self.game.i18n.tr('ENGLAND DIVISION 4'), 'start_country', 'England'))
             card.add_widget(choices)
         grid = GridLayout(cols=3 if self.width >= dp(540) else 2, spacing=dp(6), size_hint_y=None)
         grid.bind(minimum_height=grid.setter('height'))
@@ -308,7 +317,7 @@ class CareerMenu(BoxLayout):
 
     def _standing_legend(self, league):
         if self.game.career.world_unlocked and uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH) and league.tier in (1, 2):
-            return ' · R: bottom 3 go down' if league.tier == 1 else ' · P: top 3 go up'
+            return self.game.i18n.tr(' · R: bottom 3 go down' if league.tier == 1 else ' · P: top 3 go up')
         return ''
 
     def _compact_list(self):
@@ -317,21 +326,21 @@ class CareerMenu(BoxLayout):
             rows = [(self._standing_position(c.current_league, i + 1), c.display_club(club), club.played, club.won, club.drawn, club.lost,
                      club.goals_for, club.goals_against, club.goal_difference, club.points)
                     for i, club in enumerate(c.current_league.table())]
-            return CompactTable('STANDINGS · ' + c.display_league(c.current_league) + self._standing_legend(c.current_league),
+            return CompactTable(self.game.i18n.tr('STANDINGS') + ' · ' + self.game.i18n.league(c,c.current_league) + self._standing_legend(c.current_league),
                                 ('POS', 'CLUB', 'P', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'PTS'),
-                                rows, focus=c.display_text(c.club_name), summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7))
+                                rows, focus=c.display_text(c.club_name), summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7),title_localize=False)
         if self.game.view == 'scorers':
             ranking = dict(c.current_league.scorer_goals)
             ranking.setdefault(c.player_name, 0)
             rows = [(i + 1, c.display_scorer(name), goals) for i, (name, goals) in enumerate(sorted(ranking.items(), key=lambda x: (-x[1], x[0])))]
             return CompactTable('TOP SCORERS', ('POS', 'PLAYER', 'GOALS'), rows, focus=c.player_name)
         rows = [(str(e.get('date', ''))[8:10] + '/' + str(e.get('date', ''))[5:7], c.display_text(f"{e.get('home', '')} vs {e.get('away', '')}", e.get("country")),
-                 c.display_text(e.get('competition', ''), e.get('country')), e.get('status', '')) for e in c.calendar_entries()]
+                 self.game.i18n.competition(c,e.get('competition', ''),e.get('country')), self.game.i18n.tr(e.get('status', ''))) for e in c.calendar_entries()]
         return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
                             summary=(0, 1, 2, 3))
 
     def _privacy(self):
-        card = self.card('Privacy & advertising')
+        card = self.card('PRIVACY' if edition.is_world() else 'Privacy & advertising')
         if self.game._world_available or self.game.career.world_unlocked:
             card.label('SCORER World is a separate ad-free application and can be played offline. Careers and imported names stay on this device; there is no SCORER account or in-app purchase verification service.')
             self._privacy_contact(card)
@@ -356,7 +365,11 @@ class CareerMenu(BoxLayout):
     def _privacy_contact(self, card):
         card.label('Careers and name edits are stored privately on this device. Uninstalling or clearing app data removes them; a new game keeps a private backup. There is no SCORER account or career upload.', muted=True)
         card.label('Free and World are separate applications with independent private saves. This app has no in-app purchase or purchase-verification service. World store purchases, when offered, are handled by the store.', muted=True)
-        card.label('City data: GeoNames via github.com/datasets/world-cities (CC BY 4.0); adapted names. Licence: creativecommons.org/licenses/by/4.0/. Club/city references: OpenFootball (CC0); country metadata: Annexare (MIT). Licences included.', muted=True)
+        if edition.is_world():
+            card.label('Names and colours use reference data. Data and font licences are included.', muted=True)
+            card.label('GeoNames / CC BY 4.0 · OpenFootball / CC0 · Annexare / MIT · Barlow, Noto CJK / OFL 1.1 · CLDR / Unicode',muted=True,localize=False)
+        else:
+            card.label('City data: GeoNames via github.com/datasets/world-cities (CC BY 4.0); adapted names. Licence: creativecommons.org/licenses/by/4.0/. Club/city references: OpenFootball (CC0); country metadata: Annexare (MIT). Licences included.', muted=True)
         if release_settings.DEVELOPER_NAME:
             card.label('Developer: ' + release_settings.DEVELOPER_NAME, muted=True)
         if release_settings.SUPPORT_EMAIL:
@@ -365,10 +378,12 @@ class CareerMenu(BoxLayout):
             card.add_widget(self._button('FULL PRIVACY POLICY', 'open_privacy_policy'))
 
     def _help(self):
-        from world_ui import HELP_PAGES
-        title, text = HELP_PAGES[self.game.help_page]
+        from world_ui import HELP_PAGES, WORLD_HELP_PAGES
+        pages=WORLD_HELP_PAGES if edition.is_world() else HELP_PAGES
+        title, text = pages[self.game.help_page]
         card = self.card(title)
         card.label(text)
+        if edition.is_world():card.add_widget(self._button('LANGUAGE', 'language'))
         controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         controls.add_widget(self._button('PREVIOUS', 'help_page', -1))
         controls.add_widget(BoundedLabel(text=f'{self.game.help_page+1}/{len(HELP_PAGES)}', halign='center', size_hint_x=.3))
@@ -388,6 +403,19 @@ class CareerMenu(BoxLayout):
         card.add_widget(button)
         card.label('World is in development. Country-specific competition formats are still being verified. No in-app purchase is offered.', muted=True)
 
+    def _language(self):
+        card=self.card('LANGUAGE')
+        card.label('Language follows your phone unless you choose another language.', muted=True)
+        grid=GridLayout(cols=3,size_hint_y=None,spacing=dp(6))
+        grid.bind(minimum_height=grid.setter('height'))
+        for code,name in LANGUAGES.items():
+            button=TouchButton(name,lambda value=code:self.action('choose_language',value),
+                               accent=self.game.i18n.choice==code,localize=False)
+            grid.add_widget(button)
+        card.add_widget(grid)
+        card.add_widget(self._button('AUTOMATIC','choose_language','auto',accent=self.game.i18n.choice=='auto'))
+        card.add_widget(self._button('BACK','language_back'))
+
     def _world_country(self):
         c = self.game.career
         card = self.card(self.game.world_country)
@@ -396,7 +424,7 @@ class CareerMenu(BoxLayout):
         for league in c.domestic_leagues(self.game.world_country):
             key = league.key
             if league.country == self.game.world_country:
-                grid.add_widget(self._button(c.display_league(league), 'world_league', key))
+                grid.add_widget(self._button(self.game.i18n.league(c,league), 'world_league', key))
         card.add_widget(grid)
         card.label('Simplified format: 2 divisions; 3 promoted and 3 relegated. No playoffs.' if uses_simplified_model(self.game.world_country, EUROPE_PYRAMID_DEPTH) else 'Country regulations under review; regional/amateur competitions are not fully modelled.', muted=True)
 
@@ -431,6 +459,7 @@ class CareerMenu(BoxLayout):
 
 class MatchNotice(BoxLayout):
     """Scroll long match messages while keeping the action reachable on phones."""
+    @localized_call
     def __init__(self, game, **kwargs):
         super().__init__(orientation='vertical', padding=dp(14), spacing=dp(10),
                          size_hint=(None, None), **kwargs)
@@ -462,6 +491,7 @@ class MatchNotice(BoxLayout):
     def _rect(self, *_):
         self.background.pos, self.background.size = self.pos, self.size
 
+    @localized_call
     def sync(self):
         game = self.game
         self.width = min(game.width * 0.76, dp(460))
@@ -488,7 +518,7 @@ class MatchNotice(BoxLayout):
         self.game.draw()
 
 
-class BoundedLabel(Label):
+class BoundedLabel(LocalizedText, Label):
     """A concise dashboard field, constrained to its allocated area."""
     def __init__(self, **kwargs):
         kwargs.setdefault('color', INK)
@@ -508,8 +538,8 @@ class BoundedLabel(Label):
 
 class MenuTile(TouchButton):
     """Fixed touch area: labels cannot expand the main menu beyond the screen."""
-    def __init__(self, text, callback, accent=False):
-        super().__init__(text, callback, accent=accent)
+    def __init__(self, text, callback, accent=False, **kwargs):
+        super().__init__(text, callback, accent=accent, **kwargs)
         self.font_size = sp(13)
         self.shorten = True
         self.shorten_from = 'right'
@@ -537,6 +567,51 @@ class EdgePanel(BoxLayout):
     def _rect(self, *_):
         self.background.pos, self.background.size = self.pos, self.size
         self.edge.points = [self.x, self.top, self.right, self.top]
+
+
+class LanguageScreen(BoxLayout):
+    """Nine native language names; small screens page rather than scroll."""
+    def __init__(self,menu):
+        super().__init__(orientation='vertical',spacing=dp(4))
+        self.menu=menu;self.game=menu.game;self.page=getattr(self.game,'_language_page',0)
+        error=self.game._language_error
+        self.title=BoundedLabel(text=error or 'LANGUAGE',bold=True,font_size=sp(12 if error else 18),size_hint_y=None,height=dp(34 if error else 28))
+        self.add_widget(self.title)
+        self.info=BoundedLabel(text='Language follows your phone unless you choose another language.',color=MUTED,size_hint_y=None,height=dp(38),font_size=sp(12))
+        self.add_widget(self.info)
+        self.grid=GridLayout(cols=3,spacing=dp(6))
+        self.add_widget(self.grid)
+        self.paging=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6))
+        self.paging.add_widget(MenuTile('PREVIOUS',lambda:self.move(-1)))
+        self.counter=BoundedLabel(halign='center',size_hint_x=.3)
+        self.paging.add_widget(self.counter)
+        self.paging.add_widget(MenuTile('NEXT',lambda:self.move(1)))
+        self.add_widget(self.paging)
+        actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6))
+        actions.add_widget(MenuTile('AUTOMATIC',lambda:menu.action('choose_language','auto'),accent=self.game.i18n.choice=='auto'))
+        actions.add_widget(MenuTile('BACK',lambda:menu.action('language_back')))
+        self.add_widget(actions)
+        self.bind(size=self._render)
+        self._render()
+
+    def move(self,step):
+        self.page+=step;self._render()
+
+    @localized_call
+    def _render(self,*_):
+        from localization import CJK_FONTS, ROOT
+        small=self.height<dp(290)
+        if small and self.info.parent is self:self.remove_widget(self.info)
+        elif not small and self.info.parent is None:self.add_widget(self.info,index=len(self.children)-1)
+        if not small and self.paging.parent is self:self.remove_widget(self.paging)
+        elif small and self.paging.parent is None:self.add_widget(self.paging,index=1)
+        count=3 if small else 9
+        self.page=max(0,min((9-1)//count,self.page));self.game._language_page=self.page;self.counter.text=f'{self.page+1}/{(9-1)//count+1}'
+        self.grid.clear_widgets()
+        for code,name in list(LANGUAGES.items())[self.page*count:(self.page+1)*count]:
+            font=str(ROOT/'assets/fonts'/CJK_FONTS[code]) if code in CJK_FONTS else str(ROOT/'assets/fonts/Barlow-Regular.ttf')
+            self.grid.add_widget(MenuTile(name,lambda value=code:self.menu.action('choose_language',value),
+                                         accent=self.game.i18n.choice==code,localize=False,font_name=font))
 
 
 class SplashScreen(FloatLayout):
@@ -571,6 +646,8 @@ class EntryScreen(FloatLayout):
         new_row.add_widget(MenuTile('NEW GAME', lambda: menu.action('new_game'), accent=True))
         if not edition.is_world():
             new_row.add_widget(MenuTile('SCORER WORLD', lambda: menu.action('upgrade')))
+        else:
+            new_row.add_widget(MenuTile('LANGUAGE', lambda: menu.action('language')))
         self.panel.add_widget(new_row)
         load = MenuTile('LOAD GAME', lambda: menu.action('load_game'))
         load.disabled = not menu.game.career.save_path.is_file()
@@ -606,23 +683,23 @@ class MainDashboard(BoxLayout):
         self.menu = menu
         c = menu.game.career
         self.identity = BoxLayout(size_hint_y=None, height=dp(36), spacing=dp(12), padding=[dp(10), 0])
-        self.identity.add_widget(BoundedLabel(text=c.player_name, font_size=sp(18), bold=True, color=GREEN))
-        self.identity.add_widget(BoundedLabel(text=c.display_text(c.club_name), font_size=sp(14), halign='center'))
+        self.identity.add_widget(BoundedLabel(text=c.player_name, localize=False, font_size=sp(18), bold=True, color=GREEN))
+        self.identity.add_widget(BoundedLabel(text=c.display_text(c.club_name), localize=False, font_size=sp(14), halign='center'))
         self.identity.add_widget(BoundedLabel(text=f'Energy {c.stamina:.1f}/20 · Morale {c.morale:.1f}/20',
                                              color=MUTED, font_size=sp(11), halign='right'))
         self.add_widget(self.identity)
         self.hero = BoxLayout(spacing=dp(12))
         self.match = EdgePanel(orientation='vertical', size_hint_x=0.66)
-        self.match.add_widget(BoundedLabel(text='NEXT MATCH · ' + c.format_date(c.current_date), color=GREEN, font_size=sp(10),
+        self.match.add_widget(BoundedLabel(text='NEXT MATCH · ' + menu.game.i18n.date(c.current_date), color=GREEN, font_size=sp(10),
                                           bold=True, size_hint_y=None, height=dp(16)))
         fixture = c.next_match()
         teams = BoxLayout(spacing=dp(8))
         home = c.display_club(fixture[1]) if fixture else 'Season complete'
         away = c.display_club(fixture[2]) if fixture else ''
-        teams.add_widget(BoundedLabel(text=home, font_size=sp(18), bold=True, halign='center'))
+        teams.add_widget(BoundedLabel(text=home if fixture else menu.game.i18n.tr(home), localize=False, font_size=sp(18), bold=True, halign='center'))
         teams.add_widget(BoundedLabel(text='VS' if fixture else '', font_size=sp(11), color=MUTED,
                                      halign='center', size_hint_x=0.18))
-        teams.add_widget(BoundedLabel(text=away, font_size=sp(18), bold=True, halign='center'))
+        teams.add_widget(BoundedLabel(text=away, localize=False, font_size=sp(18), bold=True, halign='center'))
         self.match.add_widget(teams)
         footer = self.footer = FloatLayout(size_hint_y=None, height=dp(52))
         self.training = MenuTile('TRAINING', lambda: menu.action('training'), accent=not c.trained_this_week)
@@ -646,7 +723,7 @@ class MainDashboard(BoxLayout):
             anchor.add_widget(column)
             numbers.add_widget(anchor)
         self.season.add_widget(numbers)
-        self.season.add_widget(BoundedLabel(text=c.display_league(c.current_league) + (' · 1 DIVISION' if not c.world_unlocked else ''),
+        self.season.add_widget(BoundedLabel(localize=False,text=menu.game.i18n.league(c,c.current_league) + (' · 1 DIVISION' if not c.world_unlocked else ''),
                                            color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
         self.hero.add_widget(self.season)
         self.add_widget(self.hero)
@@ -760,14 +837,15 @@ class PlayerScreen(FloatLayout):
 
 class CompactTable(EdgePanel):
     """All rows remain accessible through pages; no horizontal or vertical scroll."""
-    def __init__(self, title, headings, rows, focus=None, summary=None, detail=None):
+    def __init__(self, title, headings, rows, focus=None, summary=None, detail=None, title_localize=True):
+        self._localizer=current()
         super().__init__(orientation='vertical', padding=dp(6), spacing=dp(3))
         self.headings, self.rows, self.focus = tuple(headings), list(rows), focus
         self.summary, self.detail = summary, detail
         self.show_detail = False
         self.page = 0
         self.page_size = 1
-        self.title = BoundedLabel(text=title, bold=True, color=GREEN, font_size=sp(12),
+        self.title = BoundedLabel(text=title, localize=title_localize, bold=True, color=GREEN, font_size=sp(12),
                                   size_hint_y=None, height=dp(20))
         self.add_widget(self.title)
         self.head = BoxLayout(size_hint_y=None, height=dp(22), spacing=dp(3))
@@ -812,13 +890,14 @@ class CompactTable(EdgePanel):
         count = len(indices)
         for index in indices:
             weight = 0.48 if index == 1 else 0.52 / max(1, count - 1)
-            label = BoundedLabel(text=str(values[index]), font_size=sp(12),
+            label = BoundedLabel(text=str(values[index]), localize=heading, font_size=sp(12),
                                   bold=heading or highlighted, max_lines=1,
                                   color=GREEN if heading or highlighted else INK,
                                   size_hint_x=weight,
                                   halign='left' if index == 1 else 'center')
             row.add_widget(label)
 
+    @localized_call
     def _render(self, *_):
         if not hasattr(self, 'controls'):
             return
@@ -854,9 +933,9 @@ class BrandMark(BoxLayout):
     def __init__(self, centered=False, word='SCORER', with_icon=False, **kwargs):
         super().__init__(orientation='vertical', spacing=0, **kwargs)
         alignment = 'center' if centered else 'left'
-        self.wordmark = BoundedLabel(text=word, font_name='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',
+        self.wordmark = BoundedLabel(text=word, localize=False, font_name='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',
                                      font_size=sp(32), halign=alignment, size_hint_y=0.70)
-        self.credit = BoundedLabel(text='by clemir', font_name='assets/fonts/Barlow-Regular.ttf',
+        self.credit = BoundedLabel(text='by clemir', localize=False, font_name='assets/fonts/Barlow-Regular.ttf',
                                    font_size=sp(11), halign=alignment, color=MUTED, size_hint_y=0.30)
         if with_icon:
             # Give the S and remaining letters the same line, independent of

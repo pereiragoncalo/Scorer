@@ -4,9 +4,9 @@ package.name = striker
 package.domain = com.clemir
 source.dir = .
 source.exclude_dirs = server,baseline,tests,ui_tests,docs,tools,android,release,.git,.buildozer,bin
-source.exclude_patterns = striker_*.json,*.keystore,*.jks,*.log,*.pem,*.p12,release.local.json
-source.include_exts = py,png,jpg,jpeg,kv,json,atlas,ttf,license
-version = 0.6.28
+source.exclude_patterns = striker_*.json,scorer_language.json,*.keystore,*.jks,*.log,*.pem,*.p12,release.local.json
+source.include_exts = py,png,jpg,jpeg,kv,json,atlas,ttf,otf,license
+version = 0.6.29
 requirements = python3,kivy==2.3.1,chardet==5.2.0
 orientation = landscape
 fullscreen = 1
@@ -21,7 +21,7 @@ android.extra_manifest_xml = android/manifest-extra.xml
 android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-3940256099942544~3347511713
 android.allow_backup = False
 android.extra_manifest_application_arguments = android/application-args.xml
-android.numeric_version = 1026628
+android.numeric_version = 1026629
 android.api = 36
 android.minapi = 26
 android.archs = arm64-v8a

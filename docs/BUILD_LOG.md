@@ -1182,3 +1182,29 @@ behaviour/device test checklist: docs/TWO_APPS_0.6.28.md. Screenshot is desktop 
 not Android. Initial World cache-directory mismatch and mirrored board text were
 found and corrected before final artifacts. No physical device, paid purchase or
 store release claimed. Separate unfinished tournament work remains preserved.
+
+
+## 0.6.29 — Free English / World nine languages
+
+Owner language request implemented without changing careers or simulation.
+Free remains fixed English and stages no extra fonts/catalogues. World adds
+nine complete offline209-message catalogues,212 localized country/region labels,
+phone/manual selection and private atomic preferences. Canonical names, JSON,
+custom aliases and editable input remain opaque. Official pinned regional Noto
+CJK fonts/OFL and Babel/Unicode data licences are retained in World only.
+
+PASS:118 core/security +61 Kivy=179 tests. An initial UI run exposed an incorrect
+standings game reference; fixed before the complete passing suites. Deferred
+layout locale loss was found and fixed/tested for paginated tables. Actual desktop
+Japanese Help, Korean hub and Chinese picker renders were visually inspected.
+Separate unfinished World tournament code is preserved outside the release
+snapshot. See docs/LANGUAGES_0.6.29.md for build evidence and device limitations.
+
+Both real APK builds PASS, version0.6.29/code1026629. Actual manifest/SDK checks,
+Python3.14 bundled edition evaluation, catalogue/font byte verification, existing
+debug certificate, ZIP16KB and118 ELF alignments per APK PASS. Free37,515,186bytes;
+World71,431,971bytes. SHA256 in LANGUAGES_0.6.29_artifacts.json. No physical device
+language test or production upload claimed.
+
+Integration check: the main checkout with its preserved unrelated World WIP also
+passed the same118 core/security and61 Kivy tests after the three-way merge.

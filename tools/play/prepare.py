@@ -101,7 +101,7 @@ def prepare(config, target, channel, source=ROOT):
     def ignored(directory, names):
         return [n for n in names if n == '__pycache__' or n.startswith('.') or
                 (Path(n).suffix.lower() in ('.jks', '.keystore', '.pem', '.p12', '.log') or
-                (Path(n).suffix.lower() == '.json' and not (Path(directory) == source/'assets/data' and n == 'world_clubs.json')))]
+                (Path(n).suffix.lower() == '.json' and not ((Path(directory) == source/'assets/data' and n == 'world_clubs.json') or (Path(directory) == source/'assets/i18n' and n in {'en.json','pt.json','es.json','de.json','it.json','ko.json','ja.json','zh.json','vi.json','countries.json'}))))]
     for directory in ('assets', 'android', 'tools'):
         shutil.copytree(source/directory, target/directory, ignore=ignored)
     (target/'edition.py').write_text((target/'edition.py').read_text().replace('WORLD_PREVIEW = True', 'WORLD_PREVIEW = False'))

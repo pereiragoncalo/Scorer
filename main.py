@@ -76,7 +76,9 @@ from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp
 import edition
-from device_locale import phone_country
+from device_locale import phone_country, phone_locale_tag
+from localization import Localizer, using
+from ui_localization import localized_call, LocalizedPopup as Popup, LocalizedInput as TextInput
 from advertising import create_ad_breaks
 from menu_ui import CareerMenu, MENU_VIEWS, FlowLabel, TouchButton, MatchNotice
 from kivy.utils import platform
@@ -251,6 +253,9 @@ class StrikerGame(Widget):
         self._career_started = False
         self._profile_return = "offers"
         self.career = self._make_career(self._career_mode)
+        self.i18n = Localizer(edition.is_world(), phone_locale_tag(platform == 'android') if edition.is_world() else '', self.career.save_path.parent)
+        self._language_return = 'start'
+        self._language_error = ''
         if self._world_available:
             self.ads.entry_visible(False)
             self.ads = create_ad_breaks(android=False)
@@ -697,7 +702,7 @@ class StrikerGame(Widget):
             trim,
             "center",
             max_width=shield_width - 4,
-        )
+        localize=False)
 
 
     def _match_outfield_kits(self):
@@ -2545,6 +2550,7 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     # Controlos
     # ------------------------------------------------------------------
+    @localized_call
     def _request_new_game(self):
         if self.view != "start" or self._new_game_popup is not None:
             return
@@ -2601,6 +2607,7 @@ class StrikerGame(Widget):
             self.career.message = 'Unable to load this career. Your previous save has been preserved.'
         self.draw()
 
+    @localized_call
     def _request_exit(self):
         if self._exit_popup is not None or self.view not in ("hub", "offers", "start"):
             return
@@ -2727,6 +2734,7 @@ class StrikerGame(Widget):
         return True
 
 
+    @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
         if action == "splash_continue" and self.view == "splash":
             self.view = "start"
@@ -2810,6 +2818,17 @@ class StrikerGame(Widget):
             self.world_page = min(pages, self.world_page + 1)
         elif action == 'start_country' and self.career.world_unlocked and not self.career.club_name and self.view == 'offers':
             self.career.choose_start_country(str(value))
+        elif action == 'language' and edition.is_world() and self.view in ('start','hub','help'):
+            self._language_return=self.view
+            self.view='language'
+        elif action == 'language_back' and self.view=='language':
+            self.view=self._language_return
+        elif action == 'choose_language' and edition.is_world() and self.view=='language':
+            if self.i18n.choose(value):
+                self._language_error=''
+                self._text_texture_cache.clear()
+            else:
+                self._language_error='Unable to save language. Please try again.'
         elif action == 'help':
             self.help_origin = self.view if self.view in ('start', 'hub') else 'hub'
             self.help_page = 0
@@ -2877,6 +2896,7 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     # Desenho
     # ------------------------------------------------------------------
+    @localized_call
     def draw(self) -> None:
         # Keep touch grabs and the widget tree stable while a notice is visible.
         show_notice = self.view == "match" and (self.match_finished or self.awaiting_chance or self.match_halftime)
@@ -3121,6 +3141,7 @@ class StrikerGame(Widget):
         if mode != edition.product_mode():
             self.view = 'world' if edition.is_world() else 'upgrade'
 
+    @localized_call
     def _show_names_format(self):
         league = self.career.leagues[self.editor_key]
         club = league.clubs[self.editor_club_index % len(league.clubs)]
@@ -3142,6 +3163,7 @@ class StrikerGame(Widget):
         self._names_format_popup = popup
         popup.open()
 
+    @localized_call
     def _preview_names_json(self, raw):
         try:
             pack = self.career.preview_names(raw)
@@ -3470,7 +3492,7 @@ class StrikerGame(Widget):
             color = (0.42, 1.0, 0.69, 1.0) if is_player else (0.90, 0.95, 0.94, 1.0)
             font = max(9, int(self.height * 0.0175))
             self._draw_text(f"{position:02d}", panel_x + panel_width * 0.040, center_y, font, color, "center")
-            self._draw_text(self.career.display_club(club), panel_x + panel_width * 0.075, center_y, font, color, max_width=panel_width * 0.455)
+            self._draw_text(self.career.display_club(club), panel_x + panel_width * 0.075, center_y, font, color, max_width=panel_width * 0.455, localize=False)
             values = (club.played, club.won, club.drawn, club.lost, club.goals_for, club.goals_against, f"{club.goal_difference:+d}", club.points)
             for fraction, value in zip(number_columns, values):
                 self._draw_text(str(value), panel_x + panel_width * fraction, center_y, font, color, "center", max_width=panel_width * 0.05)
@@ -3512,7 +3534,7 @@ class StrikerGame(Widget):
             color = (0.42, 1.0, 0.69, 1.0) if is_player else (0.90, 0.95, 0.94, 1.0)
             font = max(9, int(self.height * 0.018))
             self._draw_text(f"{index + 1:02d}", panel_x + panel_width * 0.08, center_y, font, color, "center")
-            self._draw_text(name, panel_x + panel_width * 0.16, center_y, font, color, max_width=panel_width * 0.66)
+            self._draw_text(name, panel_x + panel_width * 0.16, center_y, font, color, max_width=panel_width * 0.66, localize=False)
             self._draw_text(f"{goals:02d}", panel_x + panel_width * 0.92, center_y, font, color, "center")
         self._ui_button('BACK', self.x + max(30.0, self.width * 0.055), self.y + 24, 150, 48, "hub")
 
@@ -3570,7 +3592,7 @@ class StrikerGame(Widget):
             font = max(9, int(self.height * 0.017))
             self._draw_text(shown_date, panel_x + panel_width * columns[0], center_y, font, color, "center", max_width=panel_width * 0.14)
             self._draw_text(str(entry.get("competition", "")), panel_x + panel_width * columns[1], center_y, font, color, "center", max_width=panel_width * 0.20)
-            self._draw_text(match_text, panel_x + panel_width * columns[2], center_y, font, color, "center", max_width=panel_width * 0.42)
+            self._draw_text(match_text, panel_x + panel_width * columns[2], center_y, font, color, "center", max_width=panel_width * 0.42, localize=False)
             self._draw_text(str(entry.get("status", "")), panel_x + panel_width * columns[3], center_y, font, color, "center", max_width=panel_width * 0.13)
         self._ui_button('BACK', self.x + margin, self.y + 24, 150, 48, "hub")
 
@@ -3623,7 +3645,7 @@ class StrikerGame(Widget):
         self._draw_text('INTERNATIONAL COMPETITIONS', x_left + 18, panel_top - 24, max(13, int(self.height * 0.023)), (1.0, 0.86, 0.38, 1.0), max_width=panel_width - 36)
         for index, (name, status) in enumerate(self.career.international_status.items()):
             row_y = panel_top - 76 - index * self.height * 0.062
-            self._draw_text(name, x_left + 18, row_y, max(9, int(self.height * 0.017)), (0.62, 0.78, 0.74, 1.0), max_width=panel_width * 0.46)
+            self._draw_text(name, x_left + 18, row_y, max(9, int(self.height * 0.017)), (0.62, 0.78, 0.74, 1.0), max_width=panel_width * 0.46, localize=False)
             self._draw_text(status, x_left + panel_width - 18, row_y, max(9, int(self.height * 0.017)), (0.88, 0.94, 0.93, 1.0), "right", max_width=panel_width * 0.47)
         cup_row_y = panel_top - 76 - len(self.career.international_status) * self.height * 0.062
         cup_winner = self.career.national_cup_winners.get(self.career.current_league.country)
@@ -3642,7 +3664,7 @@ class StrikerGame(Widget):
         for index, country in enumerate(EUROPE_COUNTRIES[start:start + 9]):
             depth = EUROPE_PYRAMID_DEPTH[country]
             row_y = panel_top - 76 - index * self.height * 0.050
-            self._draw_text(country, x_right + 18, row_y, max(9, int(self.height * 0.017)), (0.88, 0.94, 0.93, 1.0), max_width=panel_width * 0.65)
+            self._draw_text(country, x_right + 18, row_y, max(9, int(self.height * 0.017)), (0.88, 0.94, 0.93, 1.0), max_width=panel_width * 0.65, localize=False)
             self._draw_text(f"{depth} divisions", x_right + panel_width - 18, row_y, max(9, int(self.height * 0.017)), (0.62, 0.78, 0.74, 1.0), "right", max_width=panel_width * 0.28)
         self._ui_button('BACK', self.x + margin, self.y + 24, 150, 48, "hub")
         self._ui_button("<", self.right - margin - 180, self.y + 24, 80, 48, "world_prev")
@@ -3682,7 +3704,7 @@ class StrikerGame(Widget):
             cy = y + height * row
             self._draw_club_badge(club.name, x + dp(12), cy, dp(15), display_name=self.career.display_club(club), club=club)
             self._draw_text(self.career.display_club(club), x + dp(24), cy, dp(11),
-                            (0.94, 0.98, 0.97, 1), max_width=teams_width - dp(50))
+                            (0.94, 0.98, 0.97, 1), max_width=teams_width - dp(50), localize=False)
             self._draw_text(str(score), x + teams_width - dp(14), cy, dp(14),
                             (0.36, 1.0, 0.66, 1), "center", max_width=dp(24))
         clock_x = x + teams_width + (width - teams_width) / 2
@@ -5162,6 +5184,7 @@ class StrikerGame(Widget):
                 f"TYPE: {action}   |   SPACE: SHOOT   |   "
                 "ARROWS/WASD: AIM   |   C: AUTO   |   R: RESET"
             )
+            if edition.is_world():hint='Tap the goal to aim and shoot.'
             self._draw_text(
                 hint,
                 self.center_x,
@@ -5201,13 +5224,16 @@ class StrikerGame(Widget):
         color: tuple[float, float, float, float],
         anchor: str = "left",
         max_width: Optional[float] = None,
+        localize: bool = True,
     ) -> None:
+        text = self.i18n.tr(text) if localize else str(text)
+        font_name = self.i18n.font(text)
         chosen_size = max(8, int(font_size))
         while True:
-            cache_key = (text, chosen_size, tuple(color))
+            cache_key = (text, chosen_size, tuple(color), font_name)
             texture = self._text_texture_cache.get(cache_key)
             if texture is None:
-                label = CoreLabel(text=text, font_size=chosen_size, color=color)
+                label = CoreLabel(text=text, font_size=chosen_size, color=color, font_name=font_name)
                 label.refresh()
                 texture = label.texture
                 if len(self._text_texture_cache) >= 160:
@@ -5218,7 +5244,7 @@ class StrikerGame(Widget):
             chosen_size -= 1
         if max_width is not None and texture.width > max_width:
             # Even the minimum font can overflow with edited or long club names.
-            label = CoreLabel(text=text, font_size=chosen_size, color=color,
+            label = CoreLabel(text=text, font_size=chosen_size, color=color, font_name=font_name,
                               text_size=(max(1, max_width), None), shorten=True,
                               shorten_from="right", max_lines=1)
             label.refresh()
@@ -5245,7 +5271,17 @@ class StrikerApp(App):
         return True
 
     def on_resume(self):
-        pass
+        if self.root and edition.is_world():
+            # A system-language change must not discard partially typed names.
+            editable=[(w.text,w.cursor,w.focus) for w in self.root.walk()
+                      if isinstance(w,TextInput) and not w.readonly]
+            self.root.i18n.refresh_system(phone_locale_tag(platform == 'android'))
+            self.root._text_texture_cache.clear()
+            self.root.draw()
+            fields=[w for w in self.root.walk() if isinstance(w,TextInput) and not w.readonly]
+            if len(fields)==len(editable):
+                for field,(text,cursor,focus) in zip(fields,editable):
+                    field.text=text;field.cursor=cursor;field.focus=focus
 
     def on_stop(self):
         if self.root is not None and self.root._career_started:

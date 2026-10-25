@@ -1,3 +1,11 @@
+## Latest owner decisions — 25 October 2026
+
+Two separate APKs: Free com.clemir.striker, World com.clemir.scorerworld.
+Free has one English-only division, test AdMob and offline World promotion.
+World has its own career/editor, nine UI languages, no advertising SDK or in-app
+billing. Paid-app listing, release signing and public Play publication remain
+pending. Historical single-app billing plans below are superseded.
+
 # Roteiro executável — 24/10 a 06/11/2026
 
 | Dia | Data | Trabalho Codex | Aceitação verificável |

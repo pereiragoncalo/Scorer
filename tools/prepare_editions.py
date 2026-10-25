@@ -14,7 +14,7 @@ def prepare_edition(product, target, source=ROOT):
         raise ValueError('Choose free or world')
     source = Path(source)
     config = json.loads((source/'release/play.example.json').read_text())
-    config['version_code'] = 1026628
+    config['version_code'] = 1026629
     config['billing']['enabled'] = False
     target = prepare(config, Path(target), 'rehearsal', source)
     identity = target/'edition.py'
@@ -25,7 +25,7 @@ def prepare_edition(product, target, source=ROOT):
     app = spec['app']
     app['title'] = 'SCORER World' if product == 'world' else 'SCORER Free'
     app['package.domain'], app['package.name'] = 'com.clemir', 'scorerworld' if product == 'world' else 'striker'
-    app['version'], app['android.numeric_version'] = '0.6.28', '1026628'
+    app['version'], app['android.numeric_version'] = '0.6.29', '1026629'
     # Both products share a Python/Kivy native distribution, not an Android identity.
     app['p4a.extra_args'] = '--dist_name=striker'
     app['scorer.shared_native_dist'] = 'striker'
@@ -41,6 +41,10 @@ def prepare_edition(product, target, source=ROOT):
         shutil.rmtree(target/'android/src', ignore_errors=True)
     else:
         app['android.add_src'] = 'android/src'
+        # Free always renders English and carries no extra-language assets.
+        shutil.rmtree(target/'assets/i18n',ignore_errors=True)
+        for font in (target/'assets/fonts').glob('*Noto*'):font.unlink()
+
     with (target/'buildozer.spec').open('w') as f:spec.write(f)
     # Do not ship historical in-app mode state or obsolete QA launch scripts.
     (target/'career_mode_state.py').unlink(missing_ok=True)
