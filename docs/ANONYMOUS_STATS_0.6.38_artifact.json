@@ -1,0 +1,20 @@
+[
+  {
+    "product": "free",
+    "package": "com.clemir.striker",
+    "version": "0.6.38",
+    "version_code": 1026638,
+    "bytes": 37537926,
+    "sha256": "6c4cef238869ca609158afb3fd6f5d219e4e0216278d891957a54a72dde0c671",
+    "signature": "Android debug; original upgrade certificate",
+    "zip_16kb": true,
+    "elf_16kb": 118,
+    "optional_statistics_default": false,
+    "statistics_endpoint": "",
+    "remote_statistics_active": false,
+    "smtp_in_apk": false,
+    "device_tested": false,
+    "core_tests": 143,
+    "kivy_tests": 79
+  }
+]

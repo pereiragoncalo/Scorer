@@ -22,3 +22,7 @@ striker_career*.json
 striker_world_career*.json
 
 scorer_language.json
+
+scorer_usage.json
+.scorer-usage-*
+usage*.sqlite*

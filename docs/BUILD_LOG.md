@@ -1318,3 +1318,13 @@ signature/SDK/font/language/ZIP16KB/118 ELF checks PASS. See STANDINGS_0.6.37.md
 
 Integration check: the merged checkout with preserved unrelated World WIP also
 passes125 core/security and75 Kivy tests (200). No physical phone run claimed.
+
+
+## Free0.6.38 — optional aggregate statistics and own collector
+
+143 core/security +79 Kivy=222 PASS. Default-off opt-in, fixed counters only,
+atomic local state/withdrawal, offline expiry, no career upload or identifiers.
+Own localhost collector ingestion and email preview tested; deployment/SMTP not
+active. Actual Free arm64 APK built, certificate/package/API36/payload/16KB checks
+passed. Endpoint empty, therefore no developer uploads in this beta. World no-op
+staging verified by tests; no new World APK. See ANONYMOUS_STATS_0.6.38.md.

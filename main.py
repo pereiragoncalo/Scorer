@@ -77,6 +77,7 @@ from kivy.uix.textinput import TextInput
 from kivy.metrics import dp
 import edition
 from device_locale import phone_country, phone_locale_tag
+from anonymous_stats import create_statistics
 from localization import Localizer, using
 from ui_localization import localized_call, LocalizedPopup as Popup, LocalizedInput as TextInput
 from advertising import create_ad_breaks
@@ -256,6 +257,8 @@ class StrikerGame(Widget):
         self._profile_return = "offers"
         self.career = self._make_career(self._career_mode)
         self.i18n = Localizer(edition.is_world(), phone_locale_tag(platform == 'android') if edition.is_world() else '', self.career.save_path.parent)
+        self.usage = create_statistics(edition.is_world(),self.career.save_path.parent)
+        self.usage_notice = ''
         self._language_return = 'start'
         self._language_error = ''
         if self._world_available:
@@ -915,6 +918,8 @@ class StrikerGame(Widget):
             self.match_competition,
         )
         self.match_finished = True
+        self.usage.record('matches_completed')
+        if self.match_player_goals:self.usage.record('goals_scored',self.match_player_goals)
         self.ads.match_completed((self.career.season, self.career.week, self.career.last_result, self.match_competition))
         self.awaiting_chance = False
         import re
@@ -1091,6 +1096,7 @@ class StrikerGame(Widget):
             if self.training_shots_left <= 0:
                 self.training_gain = self.career.complete_training(self.training_goals)
                 self.training_completed = self.career.trained_this_week
+                if self.training_completed:self.usage.record('trainings_completed')
                 self.training_summary = (
                     f"{self.training_goals}/3 goals  |  "
                     f"energy +{self.training_gain:.2f}"
@@ -2600,12 +2606,14 @@ class StrikerGame(Widget):
         if self.view != "start":
             return
         if self.career.load():
+            self.usage.record('careers_loaded')
             self._career_started = True
             self.ads.start()
             self.view = "hub"
         elif self.career._locked_world_career is not None:
             self.view = 'upgrade'
         else:
+            self.usage.record('load_failures')
             self.career.message = 'Unable to load this career. Your previous save has been preserved.'
         self.draw()
 
@@ -2636,10 +2644,12 @@ class StrikerGame(Widget):
 
     def _confirm_exit(self):
         if self.career.save() is False:
+            self.usage.record('save_failures')
             if self._exit_popup is not None:
                 self._exit_popup.dismiss()
             self.draw()
             return
+        self.usage.flush_async()
         app = App.get_running_app()
         if app is not None:
             app.stop()
@@ -2740,6 +2750,8 @@ class StrikerGame(Widget):
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
         if action == "splash_continue" and self.view == "splash":
+            self.usage.begin_session()
+            self.usage.flush_async()
             self.view = "start"
         elif action == "select_mode" and self.view in ("start", "hub", "upgrade"):
             self._select_career_mode(str(value))
@@ -2767,7 +2779,9 @@ class StrikerGame(Widget):
         elif action == "exit":
             self._request_exit()
         elif action == "accept_offer":
+            had_club=bool(self.career.club_name)
             self.career.accept_starting_offer(str(value))
+            if not had_club and self.career.club_name:self.usage.record('new_careers')
             self._career_started = bool(self.career.club_name)
             if self._career_started:
                 self.ads.start()
@@ -2890,6 +2904,11 @@ class StrikerGame(Widget):
                 self._names_picker = NameFiles(self._preview_names_json, self._names_message)
             text = json.dumps(self.career.names_template(self.editor_key), ensure_ascii=False, indent=2) if action == 'names_export' else None
             self._names_picker.pick(text)
+        elif action in ('enable_usage_stats','disable_usage_stats') and self.view=='privacy' and not edition.is_world():
+            if self.usage.set_enabled(action=='enable_usage_stats'):
+                self.usage_notice=''
+                if self.usage.enabled:self.usage.flush_async()
+            else:self.usage_notice=self.usage.last_error or 'Unable to save statistics settings. Please try again.'
         elif action == "privacy":
             self._privacy_return = self.view if self.view in ('start', 'hub') else 'start'
             self.view = 'privacy'
@@ -5275,8 +5294,9 @@ class StrikerApp(App):
 
 
     def on_pause(self):
-        if self.root is not None and self.root._career_started:
-            self.root.career.save()
+        if self.root is not None:
+            if self.root._career_started and self.root.career.save() is False:self.root.usage.record('save_failures')
+            self.root.usage.flush_async()
         return True
 
     def on_resume(self):
@@ -5294,8 +5314,9 @@ class StrikerApp(App):
                     field.text=text;field.cursor=cursor;field.focus=focus
 
     def on_stop(self):
-        if self.root is not None and self.root._career_started:
-            self.root.career.save()
+        if self.root is not None:
+            if self.root._career_started and self.root.career.save() is False:self.root.usage.record('save_failures')
+            self.root.usage.flush_async()
 
     def build(self):
         force_android_landscape()

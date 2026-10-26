@@ -1,33 +1,30 @@
-# Data inventory for Play Console — draft, not final declarations
+# Play data inventory — current separate apps, draft declarations
 
-Review the actual production SDK versions, service deployment and Google definitions
-before submitting the form. Having no AD_ID permission does **not** mean no data is
-collected. This one application contains ads in Free and optional World purchases;
-declare its full behaviour, not only the ad-free ownership state.
+Free com.clemir.striker and World com.clemir.scorerworld must be assessed separately.
+Do not reuse historical single-app purchase/token/installation-ID disclosures.
+No current APK ships Google Play Billing or the legacy purchase-verification client.
 
-| Data / flow | Actual or planned treatment | Console review |
+| Flow | Current treatment | Declaration review |
 | --- | --- | --- |
-| Player name, career, tables, custom names | App-private local JSON; no game upload; names files chosen via Android document picker | Not collected by the developer under the implemented game flow |
-| Locale region | Read locally only for World contracts; Free has no country selector, no GPS/IP geolocation | Not transmitted by SCORER |
-| Google advertising SDK | Free can send IP, app/device information, diagnostics and ad interactions to Google; UMP gates requests; no personalised advertising; all requests child/under-age, G | Review current SDK disclosure for approximate location, app activity, identifiers, diagnostics/performance, collection/sharing, purposes, optionality and ephemerality |
-| Google Play billing | Google account/payment processing belongs to Play; app sees SKU, purchase state/token and formatted price, never card details | Review SDK/store treatment of purchase history and financial information; do not state that SCORER sees card data |
-| Purchase verification service | HTTPS sends purchase token, package/SKU, random installation UUID and nonce; Google API verifies token; signed licence returned and held locally | Potential purchase history and app/other IDs, app functionality and fraud prevention; optional for Free; assess ephemeral processing and infrastructure logs accurately |
-| Networking | Advertising/verification servers receive IP as part of connections | Document actual server logging/retention/processors and applicable data categories |
-| Name-file editor | SAF read/write of a chosen JSON, bounded validation and explicit apply; no broad storage permission | Users control exports to a document provider; explain that provider's handling is separate |
-| Private backups | Local previous-game, upgrade and editor backups; Android cloud backup disabled | Uninstall/clear app storage removes local data; exports outside app remain until user deletes them |
+| Player/club names, careers, fixtures, aliases | Private local files; no game upload | No developer collection through this flow |
+| World locale | Local phone-language/country suggestions and manual UI language; no GPS | Not uploaded |
+| Google ads in Free | Child/under-age, G/non-personalised requests; IP/app-device/diagnostic/ad data can go to Google; AD_ID/AdServices permissions absent | Review actual SDK disclosures; no AD_ID does not mean no collection |
+| Optional Free usage counters | Default off; no identifiers/free text/session timestamps; only8 allowlisted numeric counts; unconfigured beta is local-only | If HTTPS destination is activated, review optional app-interaction/diagnostic collection, analytics purpose, encryption, consent, ephemerality and actual infrastructure. Calling it anonymous does not remove declaration duties |
+| Collector network | IP is transiently visible in transport; prepared service stores only UTC receipt-day/event/count totals | Verify reverse-proxy/CDN/error logs and host processors too; do not claim global zero-IP processing |
+| Owner email digest | Server-only optional daily aggregate summary; no player's email or SMTP credential in app | Identify real email processor/retention before publication; no mail has been sent merely by preparing code |
+| World | No ads SDK, counter transport/config or Internet permission | Separate app assessment; local editor/storage remain |
+| Backups/editor | Private backups and user-chosen SAF exports; cloud backup disabled | Explain uninstall/delete and document-provider handling |
 
-There is no SCORER account creation, chat, social login, contact collection, camera,
-microphone, precise location or hidden gameplay analytics. Google Play ownership is
-not a SCORER account. Determine whether the Play account-deletion requirement applies
-to any later account feature; do not invent a deletion website for a nonexistent account.
+The counters are sessions, new/loaded careers, completed training/matches, player
+goals and selected load/save failures. They are not unique users, exact installs,
+retention measurements, stack-trace/crash reporting or billing/revenue statistics.
+Current beta has no collector URL and sends no developer-usage telemetry. Future
+configured builds require explicit per-player opt-in and a recipient-scope reset.
+Counter/file/schema validation rejects unknown fields and identifier labels.
 
-Transport to the purchase verifier is HTTPS only, redirects refused. Client licence
-verification uses RSA SHA256 and installation/nonce/expiry bounds. Backend source and
-private keys/ADC credentials are excluded from the bundle. Purchase bodies and token
-URLs must not be logged. Offline entitlement lasts at most seven days before renewal.
-
-Outstanding declarations: public responsible party/support address, hosted non-PDF
-privacy policy, actual service infrastructure/processors/retention, SDK Data Safety
-mapping, audience/Families self-certified SDK eligibility, IARC, price/product setup,
-app-ads.txt/store linkage where required. Do not submit placeholders or “no data
-collected” for an advertising/billing-enabled production app.
+Prepared local counters expire after7days on next use; prepared backend keeps only
+90days of aggregate daily totals. Approximate receipt-day counts may include late
+offline batches/ambiguous-ack duplicates. No raw reports or individual lookup key.
+Actual hosting/SMTP service is not deployed by this repository. Keep the public
+privacy policy, audience/Families status and Play Console answers aligned with the
+real build/SDKs/services; this file is not a submitted or approved declaration.

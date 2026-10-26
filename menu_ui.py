@@ -134,7 +134,7 @@ class CareerMenu(BoxLayout):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
         signature = (self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
-                     c.matches, c.goals, c.stamina, c.morale, c.message,
+                     c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals,
                      self.game.help_page, self.game.editor_club_index, self.game.editor_key, self.game.world_country, self.game.world_league_key, c.alias_revision, self.game.reward_ad_status, Metrics.density, Metrics.fontscale)
@@ -359,6 +359,20 @@ class CareerMenu(BoxLayout):
         card.label('Google privacy policy: https://policies.google.com/privacy', muted=True)
         if self.game.ads.privacy_required:
             card.add_widget(MenuTile('AD PRIVACY OPTIONS', lambda: self.game.ads.privacy_options()))
+        usage=self.game.usage
+        stats=self.card('Optional usage statistics')
+        stats.label('Off by default. Optional counters help improve Scorer: app sessions, new/loaded careers, completed training and matches, goals, and selected load/save failures.')
+        stats.label('No names, career files, location, account or device identifiers are included. Counts are aggregated, not individual event logs. This does not measure unique players.')
+        if usage.remote_available:
+            from urllib.parse import urlsplit
+            stats.label('Recipient: '+str(urlsplit(usage.endpoint).hostname))
+            stats.label('The server sees an IP address while receiving a request; our collector does not store IP addresses or raw reports. Only daily aggregate totals are stored; individual contributions are not stored separately.')
+        else:stats.label('Upload is not configured. Optional counters stay on this device; nothing is sent.')
+        stats.label('You can stop collection and erase unsent counters here. If you are underage, ask a parent or guardian before enabling. Advertising consent is separate.')
+        stats.label('Status: '+('On' if usage.enabled else 'Off'))
+        if self.game.usage_notice:stats.label(self.game.usage_notice)
+        stats.add_widget(MenuTile('DISABLE AND ERASE STATS' if usage.enabled else 'ALLOW USAGE STATS',lambda:self.action('disable_usage_stats' if usage.enabled else 'enable_usage_stats')))
+
 
     def _privacy_contact(self, card):
         card.label('Careers and name edits are stored privately on this device. Uninstalling or clearing app data removes them; a new game keeps a private backup. There is no SCORER account or career upload.', muted=True)

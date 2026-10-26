@@ -1,3 +1,12 @@
+# Scorer Free0.6.38 — optional usage counters
+
+Privacy now offers explicit default-off aggregate counters. The current APK has
+no receiving URL: counts stay local; no developer statistics are uploaded.
+Own collector and server-only daily email digest are prepared, not deployed.
+222 tests passed; actual Free APK built and statically verified. No phone/SMTP
+or live HTTPS-host test is claimed. World remains0.6.37.
+[Release evidence](docs/ANONYMOUS_STATS_0.6.38.md) · [Server setup](server/USAGE_SETUP.md).
+
 # Scorer World 0.6.37 — promotion/relegation/playoff places
 
 World standings and browsed league tables now show P/PO/R places with green,
