@@ -1,0 +1,20 @@
+[
+  {
+    "product": "free",
+    "package": "com.clemir.striker",
+    "version": "0.6.39",
+    "version_code": 1026639,
+    "bytes": 37538234,
+    "sha256": "e8afdf2f47d63082f9e9ece093c4f4950dfa2f375250b352a6c16da96c9e7f3f",
+    "signature": "Android debug; original upgrade certificate",
+    "zip_16kb": true,
+    "elf_16kb": 118,
+    "optional_statistics_default": false,
+    "statistics_endpoint": "",
+    "remote_statistics_active": false,
+    "smtp_in_apk": false,
+    "device_tested": false,
+    "core_tests": 148,
+    "kivy_tests": 80
+  }
+]

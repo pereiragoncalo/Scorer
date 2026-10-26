@@ -361,7 +361,7 @@ class CareerMenu(BoxLayout):
             card.add_widget(MenuTile('AD PRIVACY OPTIONS', lambda: self.game.ads.privacy_options()))
         usage=self.game.usage
         stats=self.card('Optional usage statistics')
-        stats.label('Off by default. Optional counters help improve Scorer: app sessions, new/loaded careers, completed training and matches, goals, and selected load/save failures.')
+        stats.label('Off by default. Optional counters help improve Scorer: session starts and normal closes, new/loaded careers, completed training and matches, goals, and selected load/save failures.')
         stats.label('No names, career files, location, account or device identifiers are included. Counts are aggregated, not individual event logs. This does not measure unique players.')
         if usage.remote_available:
             from urllib.parse import urlsplit

@@ -9,7 +9,7 @@ import smtplib
 import sqlite3
 import ssl
 
-LABELS={'sessions':'Sessões','new_careers':'Carreiras iniciadas','careers_loaded':'Carreiras carregadas',
+LABELS={'sessions':'Sessões iniciadas','sessions_ended':'Sessões terminadas normalmente','new_careers':'Carreiras iniciadas','careers_loaded':'Carreiras carregadas',
         'trainings_completed':'Treinos concluídos','matches_completed':'Jogos concluídos',
         'goals_scored':'Golos dos jogadores','load_failures':'Falhas ao carregar','save_failures':'Falhas ao gravar'}
 
@@ -22,17 +22,14 @@ def address(value):
     if '\r' in value or '\n' in value or parseaddr(value)[1]!=value or '@' not in value:raise ValueError('Invalid server email configuration')
     return value
 
-def deliver(database,day):
-    # This command is never called by the game; all credentials stay server-side.
+def send_message(subject,text):
+    # Called only by the explicit server operator --send command.
     sender=address(os.environ.get('SCORER_STATS_MAIL_FROM',''))
     recipient=address(os.environ.get('SCORER_STATS_MAIL_TO',''))
     host=os.environ.get('SCORER_STATS_SMTP_HOST','')
     if not host or any(c.isspace() for c in host):raise ValueError('Server SMTP host required')
-    with sqlite3.connect(database) as db:
-        db.execute('CREATE TABLE IF NOT EXISTS digests(day TEXT PRIMARY KEY)')
-        if db.execute('SELECT 1 FROM digests WHERE day=?',(day,)).fetchone():return False
-    message=EmailMessage();message['From']=sender;message['To']=recipient;message['Subject']='SCORER Free — '+day
-    message.set_content(summary(database,day))
+    message=EmailMessage();message['From']=sender;message['To']=recipient;message['Subject']=subject
+    message.set_content(text)
     context=ssl.create_default_context()
     port=int(os.environ.get('SCORER_STATS_SMTP_PORT','587'))
     with smtplib.SMTP(host,port,timeout=10) as smtp:
@@ -40,6 +37,12 @@ def deliver(database,day):
         user=os.environ.get('SCORER_STATS_SMTP_USER','')
         if user:smtp.login(user,os.environ.get('SCORER_STATS_SMTP_PASSWORD',''))
         smtp.send_message(message)
+
+def deliver(database,day):
+    with sqlite3.connect(database) as db:
+        db.execute('CREATE TABLE IF NOT EXISTS digests(day TEXT PRIMARY KEY)')
+        if db.execute('SELECT 1 FROM digests WHERE day=?',(day,)).fetchone():return False
+    send_message('SCORER Free — '+day,summary(database,day))
     with sqlite3.connect(database) as db:db.execute('INSERT OR IGNORE INTO digests(day) VALUES(?)',(day,))
     return True
 

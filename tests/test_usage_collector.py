@@ -34,7 +34,7 @@ class CollectorTests(unittest.TestCase):
     def test_email_preview_uses_aggregate_totals_only_and_no_message_is_sent(self):
         self.post({'schema':1,'app':'scorer_free','counts':{'sessions':3}})
         with sqlite3.connect(self.db) as db:day=db.execute('SELECT day FROM totals').fetchone()[0]
-        text=summary(self.db,day);self.assertIn('Sessões: 3',text);self.assertIn('não representam jogadores únicos',text)
+        text=summary(self.db,day);self.assertIn('Sessões iniciadas: 3',text);self.assertIn('não representam jogadores únicos',text)
         self.assertNotIn('127.0.0.1',text)
         for value in ('x@example.com\nBcc: bad@example.com','not-an-address'):
             with self.assertRaises(ValueError):address(value)

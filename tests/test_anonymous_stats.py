@@ -70,3 +70,19 @@ class AnonymousStatsTests(unittest.TestCase):
         self.assertFalse((f/'server').exists());self.assertNotIn('SMTP',(f/'anonymous_stats.py').read_text())
         with self.assertRaises(ValueError):prepare_edition('world',self.root/'bad',analytics_endpoint='https://stats.example/v1/usage')
         with self.assertRaises(ValueError):prepare_edition('free',self.root/'bad2',analytics_endpoint='http://stats.example/v1/usage')
+
+    def test_session_end_once_only_after_start_never_on_default_off(self):
+        s=UsageStatistics(self.root);self.assertFalse(s.end_session());s.begin_session();self.assertFalse(s.end_session())
+        s.set_enabled(True);self.assertTrue(s.end_session());self.assertFalse(s.end_session())
+        self.assertEqual(s.counts,{'sessions':1,'sessions_ended':1})
+        s.set_enabled(False);self.assertFalse(s.end_session());self.assertEqual(s.counts,{})
+
+    def test_end_flush_during_start_upload_is_not_silently_dropped(self):
+        started=threading.Event();release=threading.Event();sent=[]
+        def sender(_,payload):
+            sent.append(payload);started.set();release.wait(2);return True
+        s=UsageStatistics(self.root,'https://stats.example/v1/usage',sender);s.set_enabled(True);s.begin_session();s.flush_async();self.assertTrue(started.wait(2))
+        s.end_session();s.flush_async();release.set()
+        deadline=time.monotonic()+3
+        while len(sent)<2 and time.monotonic()<deadline:threading.Event().wait(.01)
+        self.wait(s);self.assertEqual(len(sent),2);self.assertEqual(sent[1]['counts'],{'sessions_ended':1});self.assertEqual(s.counts,{})

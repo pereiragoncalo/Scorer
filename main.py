@@ -5315,6 +5315,7 @@ class StrikerApp(App):
 
     def on_stop(self):
         if self.root is not None:
+            self.root.usage.end_session()
             if self.root._career_started and self.root.career.save() is False:self.root.usage.record('save_failures')
             self.root.usage.flush_async()
 

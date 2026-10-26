@@ -62,3 +62,10 @@ permission. Public store payment processing, if World is later sold separately,
 is handled by the chosen app store; no card details enter SCORER. Public listing,
 actual processors/retention/contact details and Play/Families declarations remain
 to be completed against the real deployed configuration.
+
+Session-notice update0.6.39: an additional sessions_ended counter records normal
+application stops once per process, only after an opted-in start. Backgrounding
+alone does not end a session; force-stop/crash may omit it. Server-only owner
+email notices may summarize newly received starts and ends, batched per polling
+interval, without IDs or matching individuals. Receipt time is not exact event
+time. Notices/SMTP are not deployed or active in the current empty-endpoint beta.

@@ -6,7 +6,7 @@ source.dir = .
 source.exclude_dirs = server,baseline,tests,ui_tests,docs,tools,android,release,.git,.buildozer,bin
 source.exclude_patterns = scorer_usage.json,.scorer-usage-*,striker_*.json,scorer_language.json,*.keystore,*.jks,*.log,*.pem,*.p12,release.local.json
 source.include_exts = py,png,jpg,jpeg,kv,json,atlas,ttf,otf,license
-version = 0.6.38
+version = 0.6.39
 requirements = python3,kivy==2.3.1,chardet==5.2.0
 orientation = landscape
 fullscreen = 1
@@ -21,7 +21,7 @@ android.extra_manifest_xml = android/manifest-extra.xml
 android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-3940256099942544~3347511713
 android.allow_backup = False
 android.extra_manifest_application_arguments = android/application-args.xml
-android.numeric_version = 1026638
+android.numeric_version = 1026639
 android.api = 36
 android.minapi = 26
 android.archs = arm64-v8a

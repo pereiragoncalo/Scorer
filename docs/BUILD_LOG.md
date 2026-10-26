@@ -1328,3 +1328,13 @@ Own localhost collector ingestion and email preview tested; deployment/SMTP not
 active. Actual Free arm64 APK built, certificate/package/API36/payload/16KB checks
 passed. Endpoint empty, therefore no developer uploads in this beta. World no-op
 staging verified by tests; no new World APK. See ANONYMOUS_STATS_0.6.38.md.
+
+
+## Free0.6.39 — owner start/end session email preference
+
+Nine fixed counters including normal-stop completion; no pause-based fake end,
+no force-stop guarantee, explicit in-flight follow-up, no identifiers. Server-only
+new-total session notice preview/checkpoint/SMTP command, no daily schedule needed.
+148 core/security+80 Kivy=228 PASS; actual Free APK/package/signature/API36/content/
+ZIP16KB/118ELF checks passed. No live hosting/SMTP or device testing, endpoint
+empty and collection default-off. See SESSION_NOTICES_0.6.39.md.

@@ -1,3 +1,33 @@
+# Session notices — owner preference0.6.39
+
+The preferred delivery is now session start/normal end notices, replacing the
+suggested daily email job below. Use the same server-only recipient and SMTP
+settings; no mailbox/password goes in the APK. The old daily digest remains an
+optional tool, not a concurrently scheduled job.
+
+After real collector/SMTP deployment, first preview without sending:
+
+    python server/session_notices.py --db /absolute/private/usage.sqlite
+
+Use --baseline once if existing historical totals must not generate notices.
+Operator activation: schedule one invocation with --send every minute. It emails
+only newly received starts/normal ends and checkpoints successful sends. Polling
+is not instant push. Multiple events/offline batches within an interval are
+combined in one notice with separate start/end totals. There are no identifiers,
+individual session records, durations or matching starts to a player. Other
+usage counters alone do not trigger email. Never run concurrent notifier jobs.
+Untrusted public ingestion can forge counts/emails; keep the polling bound and
+add operational mail quotas. Ambiguous SMTP outcomes can duplicate a notice.
+
+The app begins at splash dismissal (or explicit opt-in during that run). Only
+normal app on_stop records a session end, once per process. Background/resume
+is not a new session. Android force-stop/crash/OS killing may omit the end; no
+completion is invented. Uploads may arrive after a later launch, and process
+shutdown can interrupt the daemon worker. No delivery guarantee is claimed.
+
+No receiving URL, deployed service, SMTP job or real email delivery is active.
+Default-off privacy choice remains mandatory. Free0.6.39 endpoint is empty.
+
 # Optional Free usage collector and email summaries
 
 Status: prepared and locally tested, NOT deployed. The Free0.6.38 APK has an
@@ -73,7 +103,7 @@ copies. No live SMTP delivery or scheduled job was tested/activated here.
 
 ## Interpretation/privacy limits
 
-Eight optional fixed counters: sessions, new_careers, careers_loaded,
+Nine optional fixed counters: sessions, sessions_ended, new_careers, careers_loaded,
 trainings_completed, matches_completed, goals_scored, load_failures, save_failures.
 No unique users, installations, retention cohorts or conversion attribution can
 be inferred. Offline reports may arrive later, grouped by receipt date; ambiguous

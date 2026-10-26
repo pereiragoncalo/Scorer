@@ -1,3 +1,11 @@
+# Scorer Free0.6.39 — start/end session notices
+
+Owner email workflow now supports new session-start/normal-close counters instead
+of a daily schedule. Default-off choice, no names/IDs/pairing, server-only SMTP;
+notices may combine arrivals and force-stop may omit the end. Current APK endpoint
+is empty: no developer uploads or email delivery is active.
+[Details and validation](docs/SESSION_NOTICES_0.6.39.md).
+
 # Scorer Free0.6.38 — optional usage counters
 
 Privacy now offers explicit default-off aggregate counters. The current APK has

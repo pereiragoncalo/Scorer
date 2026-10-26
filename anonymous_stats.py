@@ -9,7 +9,7 @@ import threading
 from urllib.parse import urlsplit
 from urllib.request import Request, build_opener, HTTPRedirectHandler, HTTPSHandler
 
-EVENTS=frozenset(('sessions','new_careers','careers_loaded','trainings_completed',
+EVENTS=frozenset(('sessions','sessions_ended','new_careers','careers_loaded','trainings_completed',
                  'matches_completed','goals_scored','load_failures','save_failures'))
 MAX_COUNT=10000
 MAX_FILE=16384
@@ -37,6 +37,7 @@ class NoStatistics:
     remote_available=False
     last_error=''
     def begin_session(self):pass
+    def end_session(self):pass
     def record(self,*_,**__):return False
     def set_enabled(self,*_):return False
     def flush_async(self):return False
@@ -68,7 +69,7 @@ class UsageStatistics(NoStatistics):
         self.remote_available=bool(self.endpoint)
         self._scope=self.endpoint or 'local-v1'
         self._lock=threading.RLock();self._sender=sender;self._sending=False;self._generation=0
-        self._session_seen=False;self._session_counted=False
+        self._session_seen=False;self._session_counted=False;self._session_ended=False;self._flush_requested=False
         self.enabled=False;self.counts={};self.day=self._today();self.last_error=''
         try:
             if self.path.stat().st_size>MAX_FILE:return
@@ -125,6 +126,14 @@ class UsageStatistics(NoStatistics):
         if self.enabled and not self._session_counted:
             if self.record('sessions'):self._session_counted=True
 
+    def end_session(self):
+        # Android can kill a process without on_stop: never invent a completion.
+        with self._lock:
+            if not self._session_counted or self._session_ended:return False
+            if self.record('sessions_ended'):
+                self._session_ended=True;return True
+            return False
+
     def record(self,event,amount=1):
         if not isinstance(event,str) or event not in EVENTS or type(amount) is not int or not 0<amount<=MAX_COUNT:return False
         with self._lock:
@@ -138,7 +147,9 @@ class UsageStatistics(NoStatistics):
 
     def flush_async(self):
         with self._lock:
-            if not self.enabled or not self.remote_available or not self.counts or self._sending:return False
+            if not self.enabled or not self.remote_available or not self.counts:return False
+            if self._sending:
+                self._flush_requested=True;return False
             age=(date.fromisoformat(self._today())-date.fromisoformat(self.day)).days
             if age<0 or age>7:
                 self.counts={};self.day=self._today();self._save();return False
@@ -156,7 +167,11 @@ class UsageStatistics(NoStatistics):
                         if not self._save():self.counts=previous
             except Exception:pass
             finally:
-                with self._lock:self._sending=False
+                with self._lock:
+                    self._sending=False
+                    again=self._flush_requested;self._flush_requested=False
+                # At most the explicitly requested follow-up, not an offline retry loop.
+                if again:self.flush_async()
         try:threading.Thread(target=upload,name='scorer-usage',daemon=True).start();return True
         except RuntimeError:
             with self._lock:self._sending=False

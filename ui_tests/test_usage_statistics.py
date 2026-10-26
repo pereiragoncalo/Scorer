@@ -44,3 +44,11 @@ class UsageStatisticsUITests(unittest.TestCase):
             g.usage.set_enabled(False)
             with patch.object(g.career,'save',return_value=False):StrikerApp.on_stop(type('App',(),{'root':g})())
             self.assertEqual(g.usage.counts,{})
+
+    def test_background_does_not_end_session_normal_stop_counts_once(self):
+        with isolated_game() as g:
+            g.usage.set_enabled(True);g._activate_ui('splash_continue')
+            app=type('App',(),{'root':g})()
+            StrikerApp.on_pause(app);self.assertNotIn('sessions_ended',g.usage.counts)
+            StrikerApp.on_stop(app);StrikerApp.on_stop(app)
+            self.assertEqual(g.usage.counts['sessions'],1);self.assertEqual(g.usage.counts['sessions_ended'],1)
