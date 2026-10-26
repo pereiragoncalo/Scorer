@@ -1338,3 +1338,22 @@ new-total session notice preview/checkpoint/SMTP command, no daily schedule need
 148 core/security+80 Kivy=228 PASS; actual Free APK/package/signature/API36/content/
 ZIP16KB/118ELF checks passed. No live hosting/SMTP or device testing, endpoint
 empty and collection default-off. See SESSION_NOTICES_0.6.39.md.
+
+## Apps Script connection preparation — 2026-10-26
+
+Owner selected Google Workspace and requested connection. Runtime/tool discovery
+found no authenticated Google identity or Apps Script deployment capability, so
+no Google project, trigger, deployment or mail was created. Added Code.gs and
+minimal manifest plus exact owner setup/client follow-up requirements. Script
+validates strict9-counter Free schema, discards non-session counters, aggregates
+start/end pending counts without player records, defaults off, fixes recipient
+server-side, uses minute polling/60-notice daily cap and bounds pending retention.
+Node functional/security tests with mocked Google services PASS: off/PII/wrong
+app/bool/negative/overflow, no request-triggered email, aggregate send/clear,
+minute guard, SMTP-provider failure/quota/cap and private response/header guards.
+No real mail or Google authorization/redirect validation claimed. Existing
+APK0.6.39 remains empty-endpoint and does NOT support the Apps Script URL or
+response redirect yet; actual URL/account activation is the next dependency.
+No game/save/app code was changed; unrelated World WIP preserved.
+See server/apps_script/README.md. Next: owner account deployment URL, bounded
+Apps Script transport/client tests and actual device beta, then live validation.
