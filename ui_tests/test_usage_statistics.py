@@ -52,3 +52,17 @@ class UsageStatisticsUITests(unittest.TestCase):
             StrikerApp.on_pause(app);self.assertNotIn('sessions_ended',g.usage.counts)
             StrikerApp.on_stop(app);StrikerApp.on_stop(app)
             self.assertEqual(g.usage.counts['sessions'],1);self.assertEqual(g.usage.counts['sessions_ended'],1)
+
+    def test_confirmed_exit_records_and_flushes_end_before_app_stop(self):
+        with isolated_game(saved=True) as g:
+            g.usage.set_enabled(True);g._activate_ui('splash_continue')
+            calls=[]
+            app=type('App',(),{'stop':lambda _:calls.append(('stop',dict(g.usage.counts)))})()
+            with patch('main.App.get_running_app',return_value=app),patch.object(g.usage,'flush_async',side_effect=lambda:calls.append(('flush',dict(g.usage.counts)))):
+                with patch.object(g.career,'save',return_value=False):g._confirm_exit()
+                self.assertEqual(calls,[]);self.assertNotIn('sessions_ended',g.usage.counts)
+                g._confirm_exit()
+                self.assertEqual([c[0] for c in calls],['flush','stop'])
+                self.assertTrue(all(c[1]['sessions_ended']==1 for c in calls))
+                StrikerApp.on_stop(type('App',(),{'root':g})())
+                self.assertEqual(g.usage.counts['sessions_ended'],1)

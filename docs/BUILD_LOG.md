@@ -1357,3 +1357,18 @@ response redirect yet; actual URL/account activation is the next dependency.
 No game/save/app code was changed; unrelated World WIP preserved.
 See server/apps_script/README.md. Next: owner account deployment URL, bounded
 Apps Script transport/client tests and actual device beta, then live validation.
+
+
+## Explicit Exit notice ordering — source-only follow-up
+
+Owner requested another notice when Exit is used. Confirmed SAVE AND EXIT now
+records sessions_ended before the explicit nonblocking flush and app.stop, after
+successful career save. Failed save, cancel and background do not signal Exit.
+The existing on_stop guard prevents counting the same ending twice. Default-off
+consent and World no-op remain unchanged. A new real Kivy case checks failed-save
+suppression, end-event presence at flush/stop and duplicate-stop protection.
+148 core/security+81 Kivy=229 tests passed. Apps Script mocked security/functional
+checks also passed. No app version bump/new APK/real email is claimed for this
+source-only change; current APK0.6.39 and empty endpoint remain unchanged. The
+receiving service is still not deployed/configured. Next: actual owner-hosted URL,
+client transport validation and configured APK/device test before enabling mail.

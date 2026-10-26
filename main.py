@@ -2649,6 +2649,8 @@ class StrikerGame(Widget):
                 self._exit_popup.dismiss()
             self.draw()
             return
+        # Record before stop so the explicit Exit flush includes the end event.
+        self.usage.end_session()
         self.usage.flush_async()
         app = App.get_running_app()
         if app is not None:
