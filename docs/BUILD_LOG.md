@@ -1293,3 +1293,13 @@ CareerStartDialog/MenuLogo/main modal ad guard and opaque-panel keyword checks,
 language/font/SDK payload checks, ZIP16KB and118 ELF LOAD alignments each. The
 merged main checkout with unrelated WIP also passes122 core and71 Kivy tests.
 No physical Android test was performed.
+
+
+## 0.6.36 — World lettering matches Scorer artwork
+
+Replaced the mismatched native Barlow WORLD caption with unified transparent
+SCORER WORLD artwork, shared by entry/regular/compact menus. Free art is unchanged
+and World-only PNG is stripped from Free staging.193 tests PASS (122 core+71
+Kivy); World APK genuinely built, actual signature/manifest/edition/UI/PNG/SDK/
+language/font contents, ZIP16KB and118 ELF checks PASS. Desktop render inspected;
+phone test still required. See WORLD_WORDMARK_0.6.36.md.

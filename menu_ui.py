@@ -549,24 +549,23 @@ class MenuTile(TouchButton):
 
 
 class MenuLogo(FloatLayout):
-    """Left-aligned original artwork with a native World product lockup."""
+    """One cohesive wordmark image; Free retains its original artwork."""
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
-        self.image=Image(source='assets/menu_logo.png',size_hint=(None,None))
+        world=edition.is_world()
+        self.image=Image(source='assets/menu_logo_world.png' if world else 'assets/menu_logo.png',size_hint=(None,None))
+        if world:
+            # Display only the ink area of the generated transparent canvas.
+            # Source pixels are unchanged; TextureRegion trims UI padding.
+            self.image.texture=self.image.texture.get_region(16,186,2180,350)
+        self._aspect=2180/350 if world else 2048/768
         self.add_widget(self.image)
-        self.world=BoundedLabel(text='WORLD',localize=False,font_name='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',
-                                color=(1,.91,.67,1),font_size=sp(19),size_hint=(None,None)) if edition.is_world() else None
-        if self.world:self.add_widget(self.world)
         self.bind(pos=self._fit,size=self._fit);self._fit()
 
     def _fit(self,*_):
-        extra=min(dp(60),self.width*.30) if self.world else 0
-        width=max(1,min(self.width-extra,self.height*2048/768))
-        height=width*768/2048
+        width=max(1,min(self.width,self.height*self._aspect))
+        height=width/self._aspect
         self.image.size=(width,height);self.image.pos=(self.x,self.top-height)
-        if self.world:
-            self.world.size=(max(1,self.width-width-dp(3)),max(1,height*.48))
-            self.world.pos=(self.image.right+dp(3),self.image.y+height*.25)
 
 
 class CareerStartDialog(ModalView):

@@ -29,7 +29,10 @@ class EditionTests(unittest.TestCase):
                 expected_icon='assets/icon_world.png' if product=='world' else 'assets/icon.png'
                 self.assertEqual(spec['app']['icon.filename'],expected_icon)
                 self.assertEqual((root/expected_icon).read_bytes(),Path(expected_icon).read_bytes())
-                if product=='free':self.assertFalse((root/'assets/icon_world.png').exists())
+                if product=='free':
+                    self.assertFalse((root/'assets/icon_world.png').exists())
+                    self.assertFalse((root/'assets/menu_logo_world.png').exists())
+                else:self.assertEqual((root/'assets/menu_logo_world.png').read_bytes(),Path('assets/menu_logo_world.png').read_bytes())
                 self.assertFalse((root/'billing.py').exists())
                 self.assertFalse((root/'android/src/com/clemir/striker/billing').exists())
                 self.assertFalse((root/'server').exists())

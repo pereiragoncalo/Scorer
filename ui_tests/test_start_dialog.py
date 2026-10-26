@@ -36,7 +36,7 @@ class StartDialogTests(unittest.TestCase):
             with patch.object(g.ads,'entry_visible',wraps=g.ads.entry_visible) as calls:g._start_new_career();settle()
             self.assertEqual(g.view,'profile');self.assertFalse(g.ads.entry_shown)
             self.assertFalse(any(c.args and c.args[0] is True for c in calls.call_args_list))
-    def test_entry_logo_is_top_left_and_world_has_a_native_world_lockup(self):
+    def test_entry_logo_is_top_left_and_world_uses_unified_wordmark(self):
         old=Window.size;density=Metrics.density
         try:
             Metrics.density=1.6
@@ -49,8 +49,9 @@ class StartDialogTests(unittest.TestCase):
                         self.assertLessEqual(e.brand.x-g.x,dp(12)+1)
                         self.assertLessEqual(g.top-e.brand.top,dp(12)+1)
                         self.assertLessEqual(e.panel.top,e.brand.y+1)
-                        self.assertEqual(e.brand.world is not None,world)
-                        if world:self.assertEqual(e.brand.world.text,'WORLD')
+                        self.assertEqual(e.brand.image.source,'assets/menu_logo_world.png' if world else 'assets/menu_logo.png')
+                        self.assertEqual(len(e.brand.children),1)
+                        if world:self.assertEqual(tuple(e.brand.image.texture.size),(2180,350))
         finally:Window.size=old;Metrics.density=density
     def test_translated_confirmation_keeps_wrapped_message_and_buttons_inside(self):
         old=Window.size

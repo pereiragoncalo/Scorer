@@ -1,3 +1,12 @@
+# Scorer World 0.6.36 — matching World wordmark
+
+SCORER WORLD is now a unified image with matching extended italic gold lettering,
+rather than the original artwork followed by a different font. The shared entry,
+normal hub and compact hub renderer uses this art. Free's original logo remains
+unchanged; latest Free APK remains0.6.35.193 tests passed (122 core/security +71
+Kivy), real World debug APK compiled and verified.
+[Visual/build evidence](docs/WORLD_WORDMARK_0.6.36.md).
+
 # Scorer 0.6.35 — compact confirmation and World branding
 
 New-career confirmation now wraps its content in a compact themed dialog, with
