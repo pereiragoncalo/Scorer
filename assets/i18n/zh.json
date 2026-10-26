@@ -216,5 +216,16 @@
   "Choose your name, nationality and starting country.": "请选择姓名、国籍和生涯起始国家。",
   "Choose a valid nationality and starting country.": "请选择有效的国籍和生涯起始国家。",
   "Player creation is only available for a new World career.": "仅可在新建World生涯时创建球员。",
-  "Starting country: {country}": "生涯起始国家：{country}"
+  "Starting country: {country}": "生涯起始国家：{country}",
+  "Rules: P {up} / PO {playoff} / R {down}": "规则：P {up} / PO {playoff} / R {down}",
+  "P: Promotion {places}": "P：升级 {places}",
+  "PO: Playoff (simulated) {places}": "PO：附加赛（模拟）{places}",
+  "R: Relegation {places}": "R：降级 {places}",
+  "P: No promotion": "P：无升级名额",
+  "PO: No playoffs": "PO：无附加赛",
+  "R: No relegation": "R：无降级名额",
+  "Playoff outcomes are simulated; knockout matches are not yet played.": "附加赛结果由模拟产生，尚不进行淘汰赛。",
+  "Country-specific regulations are still being implemented.": "各国专属赛制仍在开发中。",
+  "Archived tier: moves to Division 2 next season.": "已归档级别：下赛季转入第2级联赛。",
+  "Current game format": "当前游戏赛制"
 }

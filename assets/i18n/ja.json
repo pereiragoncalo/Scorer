@@ -216,5 +216,16 @@
   "Choose your name, nationality and starting country.": "名前、国籍、キャリアを始める国を選んでください。",
   "Choose a valid nationality and starting country.": "有効な国籍と開始する国を選んでください。",
   "Player creation is only available for a new World career.": "選手の作成は新しいWorldキャリアでのみ利用できます。",
-  "Starting country: {country}": "開始する国：{country}"
+  "Starting country: {country}": "開始する国：{country}",
+  "Rules: P {up} / PO {playoff} / R {down}": "ルール: P {up} / PO {playoff} / R {down}",
+  "P: Promotion {places}": "P: 昇格 {places}",
+  "PO: Playoff (simulated) {places}": "PO: プレーオフ（シミュレーション）{places}",
+  "R: Relegation {places}": "R: 降格 {places}",
+  "P: No promotion": "P: 昇格なし",
+  "PO: No playoffs": "PO: プレーオフなし",
+  "R: No relegation": "R: 降格なし",
+  "Playoff outcomes are simulated; knockout matches are not yet played.": "プレーオフの結果はシミュレーションされ、勝ち抜き戦はまだ行われません。",
+  "Country-specific regulations are still being implemented.": "各国固有の規則は現在実装中です。",
+  "Archived tier: moves to Division 2 next season.": "保存されたディビジョン：来季はディビジョン2に移動します。",
+  "Current game format": "現在のゲーム形式"
 }

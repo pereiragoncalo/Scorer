@@ -1303,3 +1303,18 @@ and World-only PNG is stripped from Free staging.193 tests PASS (122 core+71
 Kivy); World APK genuinely built, actual signature/manifest/edition/UI/PNG/SDK/
 language/font contents, ZIP16KB and118 ELF checks PASS. Desktop render inspected;
 phone test still required. See WORLD_WORDMARK_0.6.36.md.
+
+
+## 0.6.37 — World standings P/PO/R eligibility zones
+
+Read-only current-game zones across all active World standings/browser tables,
+green/amber/red plus codes/ranges and full localized rule key. Highest/lowest-tier
+limits and owner two-tier/no-playoff fallback retained. Priority-country model
+and its35% hero playoff outcome remain provisional/simulated, with explicit UI
+notice; no season engine, NPC movement or knockout fixtures implemented here.
+125 core/security +75 Kivy=200 tests PASS. Narrow touch targets corrected; neutral
+hero highlight avoids promotion-colour ambiguity. World actual APK build/content/
+signature/SDK/font/language/ZIP16KB/118 ELF checks PASS. See STANDINGS_0.6.37.md.
+
+Integration check: the merged checkout with preserved unrelated World WIP also
+passes125 core/security and75 Kivy tests (200). No physical phone run claimed.

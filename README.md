@@ -1,3 +1,13 @@
+# Scorer World 0.6.37 — promotion/relegation/playoff places
+
+World standings and browsed league tables now show P/PO/R places with green,
+amber and red zones. Tap Rules for complete localized meanings and explicit
+no-promotion/no-relegation/no-playoffs boundaries. Markers follow the current
+game format, not certified national regulations. Priority-country playoff
+outcomes remain simulated; no knockout playoff fixtures were added.
+200 tests passed (125 core/security +75 Kivy); actual World APK built/verified.
+[Behaviour, model limitations and evidence](docs/STANDINGS_0.6.37.md).
+
 # Scorer World 0.6.36 — matching World wordmark
 
 SCORER WORLD is now a unified image with matching extended italic gold lettering,

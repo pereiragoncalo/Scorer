@@ -216,5 +216,16 @@
   "Choose your name, nationality and starting country.": "Elige tu nombre, nacionalidad y país de inicio.",
   "Choose a valid nationality and starting country.": "Elige una nacionalidad y un país de inicio válidos.",
   "Player creation is only available for a new World career.": "La creación de jugador solo está disponible en una nueva carrera World.",
-  "Starting country: {country}": "País de inicio: {country}"
+  "Starting country: {country}": "País de inicio: {country}",
+  "Rules: P {up} / PO {playoff} / R {down}": "Reglas: P {up} / PO {playoff} / R {down}",
+  "P: Promotion {places}": "P: Ascenso {places}",
+  "PO: Playoff (simulated) {places}": "PO: Playoff (simulado) {places}",
+  "R: Relegation {places}": "R: Descenso {places}",
+  "P: No promotion": "P: Sin ascenso",
+  "PO: No playoffs": "PO: Sin playoff",
+  "R: No relegation": "R: Sin descenso",
+  "Playoff outcomes are simulated; knockout matches are not yet played.": "Los resultados del playoff se simulan; aún no se disputan eliminatorias.",
+  "Country-specific regulations are still being implemented.": "Aún se están implementando los reglamentos específicos de cada país.",
+  "Archived tier: moves to Division 2 next season.": "División archivada: pasa a la División 2 la próxima temporada.",
+  "Current game format": "Formato actual del juego"
 }

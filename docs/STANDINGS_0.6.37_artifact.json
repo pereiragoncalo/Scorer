@@ -1,0 +1,31 @@
+[
+  {
+    "product": "world",
+    "package": "com.clemir.scorerworld",
+    "version": "0.6.37",
+    "bytes": 73773647,
+    "sha256": "1e421c7b8f1f079abce0533fcd6bccd3faef0ea5b6106c5e62a1a9958df924ab",
+    "signature": "Android debug, same certificate as 0.6.27",
+    "zip_16kb": true,
+    "elf_16kb": 118,
+    "actual_bundled_edition": "world",
+    "google_play_billing_sdk": false,
+    "admob_sdk": false,
+    "device_tested": false,
+    "menu_wordmark_sha256": "8faf2466b210e6d84ece82321f158c45b6c12084b08e4e3e47d46686ab0b1989",
+    "launcher_label": "Scorer World",
+    "launcher_icon_sha256": "17859e3a16ec2e80450cf0490d5c092032a95fb2c82e3d1bb48e78e9ecf67e6e",
+    "ui_languages": [
+      "en",
+      "pt",
+      "es",
+      "de",
+      "it",
+      "ko",
+      "ja",
+      "zh",
+      "vi"
+    ],
+    "message_count": 229
+  }
+]

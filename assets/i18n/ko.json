@@ -216,5 +216,16 @@
   "Choose your name, nationality and starting country.": "이름, 국적, 커리어를 시작할 국가를 선택하세요.",
   "Choose a valid nationality and starting country.": "유효한 국적과 시작 국가를 선택하세요.",
   "Player creation is only available for a new World career.": "선수 생성은 새 World 커리어에서만 가능합니다.",
-  "Starting country: {country}": "시작 국가: {country}"
+  "Starting country: {country}": "시작 국가: {country}",
+  "Rules: P {up} / PO {playoff} / R {down}": "규칙: P {up} / PO {playoff} / R {down}",
+  "P: Promotion {places}": "P: 승격 {places}",
+  "PO: Playoff (simulated) {places}": "PO: 플레이오프 (시뮬레이션) {places}",
+  "R: Relegation {places}": "R: 강등 {places}",
+  "P: No promotion": "P: 승격 없음",
+  "PO: No playoffs": "PO: 플레이오프 없음",
+  "R: No relegation": "R: 강등 없음",
+  "Playoff outcomes are simulated; knockout matches are not yet played.": "플레이오프 결과는 시뮬레이션되며, 토너먼트 경기는 아직 진행되지 않습니다.",
+  "Country-specific regulations are still being implemented.": "국가별 규정은 아직 구현 중입니다.",
+  "Archived tier: moves to Division 2 next season.": "보관된 디비전: 다음 시즌 디비전 2로 이동합니다.",
+  "Current game format": "현재 게임 방식"
 }

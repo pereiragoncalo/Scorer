@@ -5,6 +5,9 @@ Historical third/fourth-tier objects may be retained for save compatibility, but
 are excluded from new starts, browsing, transfers and simulation.
 """
 
+from dataclasses import dataclass
+
+
 PRIORITY_AMERICAS = frozenset({'Brazil', 'Argentina', 'Mexico'})
 
 
@@ -50,3 +53,35 @@ def exchange_three(upper, lower):
         for club in league.clubs:
             club.tier, club.league = league.tier, league.name
     return up_ids, down_ids
+
+
+
+@dataclass(frozen=True)
+class TableZones:
+    """Eligibility places in the current game model, not verified national rules."""
+    promotion: tuple = ()
+    playoff: tuple = ()
+    relegation: tuple = ()
+    archived: bool = False
+    provisional: bool = False
+
+    def at(self,position):
+        if position in self.promotion:return 'promotion'
+        if position in self.playoff:return 'playoff'
+        if position in self.relegation:return 'relegation'
+        return ''
+
+
+def table_zones(tier,team_count,active_tiers,*,simplified):
+    """Match existing 3-up / simulated4–7 /2-down career eligibility.
+
+    The owner's two-tier fallback instead uses3-up/3-down and no playoffs.
+    A league cannot promote/relegate beyond the available active pyramid.
+    """
+    if tier not in active_tiers:return TableZones(archived=simplified and tier>2)
+    if team_count<6:return TableZones()
+    up=3 if tier-1 in active_tiers else 0
+    down=(3 if simplified else 2) if tier+1 in active_tiers else 0
+    playoff=tuple(range(4,min(7,team_count-down)+1)) if up and not simplified else ()
+    return TableZones(tuple(range(1,up+1)),playoff,
+                      tuple(range(team_count-down+1,team_count+1)) if down else (),provisional=not simplified)

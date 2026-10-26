@@ -216,5 +216,16 @@
   "Choose your name, nationality and starting country.": "Chọn tên, quốc tịch và quốc gia bắt đầu sự nghiệp.",
   "Choose a valid nationality and starting country.": "Chọn quốc tịch và quốc gia khởi đầu hợp lệ.",
   "Player creation is only available for a new World career.": "Chỉ có thể tạo cầu thủ cho sự nghiệp World mới.",
-  "Starting country: {country}": "Quốc gia khởi đầu: {country}"
+  "Starting country: {country}": "Quốc gia khởi đầu: {country}",
+  "Rules: P {up} / PO {playoff} / R {down}": "Luật: P {up} / PO {playoff} / R {down}",
+  "P: Promotion {places}": "P: Thăng hạng {places}",
+  "PO: Playoff (simulated) {places}": "PO: Playoff (mô phỏng) {places}",
+  "R: Relegation {places}": "R: Xuống hạng {places}",
+  "P: No promotion": "P: Không thăng hạng",
+  "PO: No playoffs": "PO: Không có playoff",
+  "R: No relegation": "R: Không xuống hạng",
+  "Playoff outcomes are simulated; knockout matches are not yet played.": "Kết quả playoff được mô phỏng; chưa diễn ra các trận đấu loại trực tiếp.",
+  "Country-specific regulations are still being implemented.": "Các quy định riêng của từng quốc gia vẫn đang được triển khai.",
+  "Archived tier: moves to Division 2 next season.": "Hạng đấu đã lưu trữ: chuyển sang Hạng 2 vào mùa sau.",
+  "Current game format": "Thể thức hiện tại trong trò chơi"
 }

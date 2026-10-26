@@ -1,6 +1,6 @@
 """Responsive, touch-friendly career menus for the original Kivy game."""
 from career import EUROPE_PYRAMID_DEPTH, WORLD_COUNTRIES
-from domestic_rules import uses_simplified_model, standing_zone
+from domestic_rules import uses_simplified_model, table_zones
 from kivy.graphics import Color, RoundedRectangle, Rectangle, Line
 from kivy.core.image import Image as CoreImage
 from kivy.metrics import dp, sp, Metrics
@@ -24,6 +24,7 @@ from ui_localization import LocalizedText, localized_call, LocalizedInput as Tex
 INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
+ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
 MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
@@ -240,7 +241,7 @@ class CareerMenu(BoxLayout):
             header.add_widget(edit)
             league = c.leagues[self.game.world_league_key]
             self.scroll = None
-            self.body = CompactTable(self.game.i18n.league(c,league) + self._standing_legend(league), ('POS','CLUB','P','PTS'), [(self._standing_position(league,i+1),c.display_club(club),club.played,club.points) for i,club in enumerate(league.table())],title_localize=False)
+            self.body = CompactTable(self.game.i18n.league(c,league), ('POS','CLUB','P','PTS'), [(self._standing_position(league,i+1),c.display_club(club),club.played,club.points) for i,club in enumerate(league.table())],title_localize=False,zones=self._table_zones(league))
             self.add_widget(self.body)
             return
         if self.game.view in ('standings', 'scorers', 'calendar'):
@@ -309,16 +310,16 @@ class CareerMenu(BoxLayout):
         if c.message.startswith(('Reward ad', 'Ad reward', 'Unable to save the morale')):
             card.label(c.message, muted=True)
 
-    def _standing_position(self, league, position):
-        if self.game.career.world_unlocked and uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH):
-            zone = standing_zone(league.tier, position, len(league.clubs))
-            return f'{position} P' if zone == 'Promotion' else f'{position} R' if zone == 'Relegation' else position
-        return position
+    def _table_zones(self,league):
+        c=self.game.career
+        if not c.world_unlocked:return None
+        return table_zones(league.tier,len(league.clubs),{l.tier for l in c.domestic_leagues(league.country)},
+                           simplified=uses_simplified_model(league.country,EUROPE_PYRAMID_DEPTH))
 
-    def _standing_legend(self, league):
-        if self.game.career.world_unlocked and uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH) and league.tier in (1, 2):
-            return self.game.i18n.tr(' · R: bottom 3 go down' if league.tier == 1 else ' · P: top 3 go up')
-        return ''
+    def _standing_position(self,league,position):
+        zones=self._table_zones(league)
+        marker={'promotion':'P','playoff':'PO','relegation':'R'}.get(zones.at(position) if zones else '')
+        return f'{position} {marker}' if marker else position
 
     def _compact_list(self):
         c = self.game.career
@@ -326,9 +327,9 @@ class CareerMenu(BoxLayout):
             rows = [(self._standing_position(c.current_league, i + 1), c.display_club(club), club.played, club.won, club.drawn, club.lost,
                      club.goals_for, club.goals_against, club.goal_difference, club.points)
                     for i, club in enumerate(c.current_league.table())]
-            return CompactTable(self.game.i18n.tr('STANDINGS') + ' · ' + self.game.i18n.league(c,c.current_league) + self._standing_legend(c.current_league),
+            return CompactTable(self.game.i18n.tr('STANDINGS') + ' · ' + self.game.i18n.league(c,c.current_league),
                                 ('POS', 'CLUB', 'P', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'PTS'),
-                                rows, focus=c.display_text(c.club_name), summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7),title_localize=False)
+                                rows, focus=c.display_text(c.club_name), summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7),title_localize=False,zones=self._table_zones(c.current_league))
         if self.game.view == 'scorers':
             ranking = dict(c.current_league.scorer_goals)
             ranking.setdefault(c.player_name, 0)
@@ -970,24 +971,74 @@ class PlayerCountryPicker(LocalizedPopup):
         self.screen.draft[self.field]=country;self.screen._country_labels();self.dismiss()
 
 
+class StandingsRulesDialog(ModalView):
+    """Full key for the current game rules; action stays reachable on short screens."""
+    def __init__(self,zones,localizer):
+        super().__init__(size_hint=(None,None),auto_dismiss=False,background='',
+                         background_color=(0,0,0,0),overlay_color=(0,0,0,.68))
+        self.panel=EdgePanel(orientation='vertical',padding=dp(14),spacing=dp(6),background_alpha=1)
+        self.heading=FlowLabel(text='Current game format',bold=True,color=GREEN,font_size=sp(17))
+        self.panel.add_widget(self.heading)
+        self.scroller=ScrollView(do_scroll_x=False,size_hint_y=None)
+        self.body=BoxLayout(orientation='vertical',size_hint_y=None,spacing=dp(6))
+        self.body.bind(minimum_height=self.body.setter('height'))
+        self.scroller.add_widget(self.body);self.panel.add_widget(self.scroller)
+        if zones.archived:
+            self.body.add_widget(FlowLabel(text='Archived tier: moves to Division 2 next season.',font_size=sp(14)))
+        else:
+            for field,source,empty in (
+                ('promotion','P: Promotion {places}','P: No promotion'),
+                ('playoff','PO: Playoff (simulated) {places}','PO: No playoffs'),
+                ('relegation','R: Relegation {places}','R: No relegation')):
+                places=getattr(zones,field)
+                text=localizer.tr(source,places=f'{places[0]}-{places[-1]}') if places else localizer.tr(empty)
+                self.body.add_widget(FlowLabel(text=text,font_size=sp(14),color=ZONE_COLOURS[field] if places else MUTED))
+            if zones.playoff:
+                self.body.add_widget(FlowLabel(text='Playoff outcomes are simulated; knockout matches are not yet played.',font_size=sp(13)))
+            if zones.provisional:
+                self.body.add_widget(FlowLabel(text='Country-specific regulations are still being implemented.',font_size=sp(13),color=MUTED))
+        self.back=MenuTile('BACK',self.dismiss);self.panel.add_widget(self.back)
+        self.add_widget(self.panel);self.body.bind(minimum_height=self._fit);self.heading.bind(height=self._fit)
+        self.bind(on_open=self._opened,on_dismiss=self._closed);self._fit()
+
+    def _fit(self,*_):
+        self.width=min(Window.width-dp(24),dp(520))
+        compact=Window.height<dp(280)
+        self.panel.padding=dp(8 if compact else 14);self.panel.spacing=dp(4 if compact else 6)
+        self.back.height=dp(48 if compact else 52)
+        overhead=sum(self.panel.padding[1::2])+self.panel.spacing*2+self.heading.height+self.back.height
+        self.scroller.height=max(dp(24),min(self.body.minimum_height,Window.height-dp(24)-overhead))
+        self.height=min(Window.height-dp(16),max(dp(150),overhead+self.scroller.height))
+    def _opened(self,*_):Window.bind(size=self._fit);self._fit()
+    def _closed(self,*_):Window.unbind(size=self._fit)
+
+
 class CompactTable(EdgePanel):
     """All rows remain accessible through pages; no horizontal or vertical scroll."""
-    def __init__(self, title, headings, rows, focus=None, summary=None, detail=None, title_localize=True):
+    def __init__(self, title, headings, rows, focus=None, summary=None, detail=None, title_localize=True, zones=None):
         self._localizer=current()
         super().__init__(orientation='vertical', padding=dp(6), spacing=dp(3))
         self.headings, self.rows, self.focus = tuple(headings), list(rows), focus
         self.summary, self.detail = summary, detail
+        self.zones=zones;self.rules_popup=None
         self.show_detail = False
         self.page = 0
         self.page_size = 1
         self.title = BoundedLabel(text=title, localize=title_localize, bold=True, color=GREEN, font_size=sp(12),
                                   size_hint_y=None, height=dp(20))
-        self.add_widget(self.title)
+        if zones is None:self.add_widget(self.title)
+        if zones is not None:
+            marker=lambda places:f'{places[0]}-{places[-1]}' if places else '-'
+            summary=self._localizer.tr('Rules: P {up} / PO {playoff} / R {down}',
+                       up=marker(zones.promotion),playoff=marker(zones.playoff)+('*' if zones.playoff else ''),down=marker(zones.relegation))
+            self.zone_legend=MenuTile(summary,self.show_rules)
+            self.zone_legend.font_size=sp(12);self.zone_legend.height=dp(48);self.zone_legend.shorten=False
+            self.add_widget(self.zone_legend)
         self.head = BoxLayout(size_hint_y=None, height=dp(22), spacing=dp(3))
         self.add_widget(self.head)
         self.lines = BoxLayout(orientation='vertical')
         self.add_widget(self.lines)
-        self.controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(6))
+        self.controls = GridLayout(cols=5,size_hint_y=None, height=dp(52), spacing=dp(6))
         self.previous = MenuTile('PREVIOUS', lambda: self.move(-1))
         self.next = MenuTile('NEXT', lambda: self.move(1))
         self.controls.add_widget(self.previous)
@@ -1001,6 +1052,14 @@ class CompactTable(EdgePanel):
         self.add_widget(self.controls)
         self.bind(size=self._render)
         self._render()
+
+    @localized_call
+    def show_rules(self):
+        if self.zones is None or self.rules_popup is not None:return
+        popup=StandingsRulesDialog(self.zones,self._localizer)
+        self.rules_popup=popup
+        popup.bind(on_dismiss=lambda *_:setattr(self,'rules_popup',None))
+        popup.open()
 
     def move(self, amount):
         self.page = max(0, min(self.pages - 1, self.page + amount))
@@ -1021,13 +1080,13 @@ class CompactTable(EdgePanel):
         self.show_detail = not self.show_detail
         self._render()
 
-    def _cells(self, row, values, indices, heading=False, highlighted=False):
+    def _cells(self, row, values, indices, heading=False, highlighted=False, zone=''):
         count = len(indices)
         for index in indices:
             weight = 0.48 if index == 1 else 0.52 / max(1, count - 1)
             label = BoundedLabel(text=str(values[index]), localize=heading, font_size=sp(12),
                                   bold=heading or highlighted, max_lines=1,
-                                  color=GREEN if heading or highlighted else INK,
+                                  color=ZONE_COLOURS[zone] if zone and index==0 else GREEN if heading or (highlighted and self.zones is None) else INK,
                                   size_hint_x=weight,
                                   halign='left' if index == 1 else 'center')
             row.add_widget(label)
@@ -1038,6 +1097,24 @@ class CompactTable(EdgePanel):
             return
         line_height = max(dp(24), sp(12) * 1.35)
         available = max(line_height, self.height - dp(115))
+        if self.zones is not None:
+            self.zone_legend.font_size=sp(10.5 if self.width<dp(280) else 12)
+            short=self.height<dp(220)
+            narrow=self.width<dp(280) and len(self.controls.children)>3
+            self.padding=dp(4 if short else 6);self.spacing=dp(2 if short else 3)
+            self.title.height=0;self.title.opacity=0
+            self.head.height=dp(18 if short else 22)
+            self.controls.cols=3 if narrow else len(self.controls.children)
+            self.controls.cols_minimum={i:dp(48) for i in range(self.controls.cols)}
+            self.controls.height=dp(110 if narrow else 48 if short else 52)
+            for control in self.controls.children:
+                if isinstance(control,MenuTile):
+                    control.height=dp(52 if narrow or not short else 48)
+                    control.font_size=sp(11 if narrow else 13);control.shorten=not narrow
+            line_height=max(dp(20 if short else 24),sp(12)*1.35)
+            overhead=sum(self.padding[1::2])+self.spacing*(len(self.children)-1)+self.title.height+self.head.height+self.controls.height+self.zone_legend.height
+            available=max(line_height,self.height-overhead)
+        else:self.controls.cols=len(self.controls.children)
         self.page_size = max(1, int(available // line_height))
         self.page = max(0, min(self.page, self.pages - 1))
         indices = (self.detail if self.show_detail else self.summary) if self.summary else tuple(range(len(self.headings)))
@@ -1051,12 +1128,17 @@ class CompactTable(EdgePanel):
         for offset, values in enumerate(self.visible_rows):
             row = BoxLayout(size_hint_y=None, height=line_height, spacing=dp(3))
             highlighted = self.focus is not None and str(values[1]) == self.focus
+            zone=self.zones.at(start+offset+1) if self.zones else ''
+            row.standing_zone=zone
             with row.canvas.before:
-                Color(0.10, 0.35, 0.28, 0.75 if highlighted else 0.18 if offset % 2 == 0 else 0.02)
+                if zone:
+                    colour=ZONE_COLOURS[zone];Color(*colour[:3],.28 if highlighted else .14)
+                elif highlighted and self.zones is not None:Color(.12,.20,.28,.92)
+                else:Color(0.10, 0.35, 0.28, 0.75 if highlighted else 0.18 if offset % 2 == 0 else 0.02)
                 background = Rectangle(pos=row.pos, size=row.size)
             row.bind(pos=lambda w, v, bg=background: setattr(bg, 'pos', v),
                      size=lambda w, v, bg=background: setattr(bg, 'size', v))
-            self._cells(row, values, indices, highlighted=highlighted)
+            self._cells(row, values, indices, highlighted=highlighted,zone=zone)
             self.lines.add_widget(row)
         self.counter.text = f'{self.page + 1}/{self.pages}'
         self.previous.disabled = self.page == 0
