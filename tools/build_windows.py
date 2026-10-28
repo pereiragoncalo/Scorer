@@ -128,6 +128,21 @@ def stage(edition: str, output: Path):
                                   "No advertising is shown in the Windows edition.")
     menu.write_text(menu_text, encoding="utf-8")
 
+    # Persistent Windows saves must never live in PyInstaller's onefile temp folder.
+    career = output / "career.py"
+    career_text = career.read_text(encoding="utf-8")
+    old_save = '        else:\n            base = Path(__file__).resolve().parent\n'
+    new_save = (
+        '        else:\n'
+        '            # Persistent separate Windows careers, unaffected by replacing the EXE.\n'
+        '            folder = "ScorerWorld" if self._save_slot == "world" else "ScorerFree"\n'
+        '            root = os.environ.get("LOCALAPPDATA")\n'
+        '            base = (Path(root) if root else Path.home() / ".local" / "share") / "Clemir" / folder\n'
+    )
+    if career_text.count(old_save) != 1:
+        raise RuntimeError("Cannot safely set the persistent Windows save directory")
+    career.write_text(career_text.replace(old_save, new_save), encoding="utf-8")
+
     # World must not contain the Free usage collector or its endpoint.
     if edition == "world":
         (output / "analytics_config.py").unlink()
