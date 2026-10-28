@@ -1388,3 +1388,8 @@ the test to start a career first, preserving existing no-empty-save behaviour.
 Windows native workflow is the next build gate; no EXE or Windows functionality
 is claimed at this point. No Android APK rebuild/version/store/payment changes.
 See docs/WINDOWS_FREE.md. Unrelated World/career WIP remains preserved.
+
+Windows run40665092529 stopped before build: Kivy[base] constrains Pillow<11,
+conflicting with the explicit11.3.0 image-tool pin. Use core Kivy2.3.1 (its normal
+Windows SDL2/ANGLE/GLEW dependencies remain included) and separately pinned Pillow
+for icon conversion; no unused base extra. Repeat native build before claims.
