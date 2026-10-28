@@ -1406,3 +1406,11 @@ when default OpenGL is unsupported. Cancelled this run to use ANGLE consistently
 in the build-hook subprocesses as well as frozen smoke. Windows launcher defaults
 to bundled ANGLE too (explicit user backend override retained). Re-run native
 build/smoke; no successful executable is claimed from the cancelled run.
+
+Windows run40666480471 successfully built and launched the frozen AMD64 EXE;
+6 native checks and career/training/save/reload flow PASS, and PE/archive checks
+passed on the downloaded41,547,717byte file. However the immediate post-mutation
+capture was black. Do not use that capture as visual evidence. Schedule capture
+after another frame and add an actual nonblank rendered-image gate, plus native
+window-close confirmation/cancel check. Linux source smoke of this delayed flow
+PASS. A new Windows frozen run is required for the final delivered artifact.

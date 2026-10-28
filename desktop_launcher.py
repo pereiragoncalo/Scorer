@@ -58,6 +58,16 @@ def main():
     app = WindowsApp()
     result = {'ok':False,'platform':sys.platform,'frozen':bool(getattr(sys,'frozen',False))}
     if smoke:
+        def finish(_):
+            try:
+                report.parent.mkdir(parents=True,exist_ok=True)
+                Window.screenshot(name=str(report.with_suffix('.png')))
+            except Exception as error:
+                result.update(ok=False,error=type(error).__name__+': '+str(error))
+            finally:
+                report.write_text(json.dumps(result,indent=2),encoding='utf8')
+                app.stop()
+
         def exercise(_):
             try:
                 g=app.root
@@ -84,14 +94,15 @@ def main():
                 assert g.career.save_path.parent == directory
                 g.view='hub';g.draw()
                 result.update(ok=True,career_reload=True,training=True,free=True,ads_sdk=False)
-                report.parent.mkdir(parents=True,exist_ok=True)
-                Window.screenshot(name=str(report.with_suffix('.png')))
+                app._close_callback()
+                assert g._exit_popup is not None
+                g._exit_popup.dismiss()
+                result['close_confirmation']=True
             except Exception as error:
-                result['error']=type(error).__name__+': '+str(error)
+                result.update(ok=False,error=type(error).__name__+': '+str(error))
             finally:
-                report.parent.mkdir(parents=True,exist_ok=True)
-                report.write_text(json.dumps(result,indent=2),encoding='utf8')
-                app.stop()
+                # Let Kivy render the changed widget tree before reading pixels.
+                Clock.schedule_once(finish,.5)
         Clock.schedule_once(exercise,1.5)
     app.run()
     return 0 if not smoke or result['ok'] else 1
