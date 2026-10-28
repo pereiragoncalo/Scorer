@@ -1,3 +1,14 @@
+# Scorer Free Windows0.6.39-win.3 — larger goal and depth fix
+
+[Download Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/windows-beta-0.6.39-3/Scorer-Free.exe).
+Windows goal +12%width/+10%height with matching physics/net/aim, refined white
+frame/translucent net and proportional far ball. Resting net balls now remain
+behind the keeper. Local English boards include YOUR COMPANY HERE and World
+promotion. Existing matchday dashboard/careers retained.253 core/Kivy tests,
+6native Windows checks and frozen hub/goal renders PASS in run40740304128.
+Unsigned QA build; human shot feel/full-match testing remains pending.
+[Evidence/calibration](docs/WINDOWS_GOAL.md).
+
 # Scorer Free Windows0.6.39-win.2 — matchday dashboard
 
 [Download Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/windows-beta-0.6.39-2/Scorer-Free.exe).

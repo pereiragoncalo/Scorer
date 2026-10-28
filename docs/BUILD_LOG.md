@@ -1466,3 +1466,13 @@ Paired80hard shots/profile:18/80original vs26/80Windows,0unresolved at15s; not a
 human goal rate. Source staged hub/engine/save smoke and static goal/depth render
 pass. Native Windows build/visual verification pending before delivery. See
 WINDOWS_GOAL.md and WINDOWS_GOAL_CALIBRATION.json. Unrelated WIP preserved.
+
+Native Windows run40740304128/sourcef9b6f05 PASS: frozen8.1984x2.684goal/depth,
+12fixture hub, real engine match/save-reload/exit-cancel and hub+static-goal render
+checks. Goal capture visually inspected. PE/archive confirms profile module,
+no active-state term in frozen depth helper, fixed Free/no keys/career/backend.
+41,565,437byte EXE SHA256 0dd70a7f7f2e5c1def7aad62351e492ea34007cf6aeebc2fd028728937107eac.
+253source cases +6native Windows checks. Direct unsigned QA candidate0.6.39-win.3;
+manual human shot/audio/full-game and code signing remain pending. Career schema/
+folder unchanged, Android no new artifact; public sponsor/server/store inactive.
+See WINDOWS_GOAL_artifact.json and actual static Windows capture.

@@ -64,3 +64,24 @@ core/UI cases; release docs. Original immutable baseline, careers and Android
 package/version preserved. Unrelated World/career WIP retained outside release.
 Next: replace only the Windows EXE after Save and Exit; Load existing career,
 try corners/high shots and check resting net balls stay behind the keeper.
+
+## Verified Windows artifact
+
+Run40740304128/sourcef9b6f05 PASS:6native staging checks, frozen hub/new career/
+training/engine match/save-reload/window close-cancel,12visible fixtures, goal
+profile8.1984x2.684, inactive ball behind keeper and nonblank hub/goal FBO renders.
+[Actual Windows static goal capture](captures/windows-goal.png) visually inspected;
+it is an automated render fixture, not a human-played match. The ball aligned
+behind the keeper is intentionally occluded by his opaque torso.
+
+EXE41,565,437bytes, AMD64 PE32+, SHA256
+`0dd70a7f7f2e5c1def7aad62351e492ea34007cf6aeebc2fd028728937107eac`.
+Embedded shot_geometry/profile and depth function verified; active is absent
+from the actual frozen depth decision. Fixed Free/empty stats URL/no backend/
+keys/saves/World art archive checks PASS. WINDOWS_GOAL_artifact.json retains
+exact evidence.253source tests plus6native Windows checks; no physical-user
+full-match/audio or signed/store-ready claim. No real sponsor service activated.
+
+[Download Windows0.6.39-win.3](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/windows-beta-0.6.39-3/Scorer-Free.exe).
+Use Save and Exit first, replace only the EXE and Load Game; preserve private
+%LOCALAPPDATA%/Clemir/Scorer/Free. No career reset or installer required.
