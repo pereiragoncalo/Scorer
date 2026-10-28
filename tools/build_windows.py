@@ -6,6 +6,7 @@ Never modifies the source tree or either Android product.
 from __future__ import annotations
 
 import argparse
+import configparser
 from pathlib import Path
 import re
 import shutil
@@ -59,6 +60,17 @@ def stage(edition: str, output: Path):
     for name in SOURCES:
         copy(source / name, output / name)
     copy(source / "desktop/entry.py", output / "desktop_entry.py")
+    copy(source / "desktop/updates.py", output / "desktop_updates.py")
+    spec = configparser.ConfigParser(interpolation=None)
+    if not spec.read(source / "buildozer.spec"):
+        raise ValueError("Missing app version")
+    version = spec["app"]["version"]
+    if not re.fullmatch(r"[0-9]{1,4}\\.[0-9]{1,4}\\.[0-9]{1,4}", version):
+        raise ValueError("Invalid release version in buildozer.spec")
+    (output / "desktop_build_info.py").write_text(
+        f"BUILD_EDITION = {edition!r}\\nBUILD_VERSION = {version!r}\\n",
+        encoding="utf-8",
+    )
     copy(source / "desktop/name_files.py", output / "desktop_name_files.py")
     for name in COMMON_ART + (("icon_world.png", "menu_logo_world.png") if edition == "world" else ()):
         copy(source / "assets" / name, output / "assets" / name)
@@ -83,7 +95,38 @@ def stage(edition: str, output: Path):
     text, count = re.subn(r"from android_names import NameFiles\b", "from desktop_name_files import NameFiles", text)
     if count != 1:
         raise RuntimeError("Could not find the World JSON picker import.")
+    # No advertising surfaces in the Windows community edition.
+    text, count = re.subn(
+        r"(?m)^            self\\._draw_world_promotion_boards\\(\\)$",
+        "            pass  # Windows beta: no promotional boards",
+        text,
+    )
+    if count != 1:
+        raise RuntimeError("Could not deactivate the Windows promotional boards")
     game.write_text(text, encoding="utf-8")
+
+    # Remove advertising controls, spacing and claims from Windows menus.
+    menu = output / "menu_ui.py"
+    menu_text = menu.read_text(encoding="utf-8")
+    menu_text, count = re.subn(
+        r"(?m)^        banner_fits = .*$",
+        "        banner_fits = False  # Windows beta has no advertising",
+        menu_text,
+    )
+    if count != 1:
+        raise RuntimeError("Could not remove the Windows banner space")
+    menu_text = menu_text.replace("'Privacy & advertising'", "'Privacy'")
+    start = menu_text.index("        boost = self._button('WATCH AD: +1 MORALE'")
+    end = menu_text.index("\\n    def _table_zones(", start)
+    menu_text = menu_text[:start] + "        # No reward advertising in the Windows edition.\\n" + menu_text[end:]
+    start = menu_text.index("        card.label('This version uses Google advertising.'")
+    end = menu_text.index("        usage=self.game.usage", start)
+    menu_text = (menu_text[:start] +
+        "        card.label('This Windows edition is free of advertising and rewarded videos.')\\n"
+        "        self._privacy_contact(card)\\n" + menu_text[end:])
+    menu_text = menu_text.replace("Advertising consent is separate.",
+                                  "No advertising is shown in the Windows edition.")
+    menu.write_text(menu_text, encoding="utf-8")
 
     # World must not contain the Free usage collector or its endpoint.
     if edition == "world":
@@ -102,7 +145,9 @@ def stage(edition: str, output: Path):
 
     (output / "BUILD_INFO.txt").write_text(
         f"Scorer {edition.title()} for Windows, built from original Kivy source.\n"
-        "Offline beta; not digitally signed; no AdMob or Google Play services.\n"
+        "Windows community beta: no ads, promotional boards or rewarded videos.\\n"
+        "Mandatory release check on launch, with 72-hour verified offline grace.\\n"
+        "Not digitally signed; no AdMob or Google Play services.\\n"
         "Free and World are independent editions with separate save slots.\n",
         encoding="utf-8",
     )
