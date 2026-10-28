@@ -9,7 +9,7 @@ The desktop build is deliberately isolated from Android: it does not change `mai
 - **ScorerFree.exe**: independent English Free career, no advertising, no ad-reward buttons, no advertising space and no promotional stadium boards. No advertising SDK or receiving endpoint.
 - **ScorerWorld.exe**: separate World career and nine-language UI, with local desktop JSON import/export. Does not use the Free collector.
 
-Both are standalone, Windows 10/11 64-bit beta candidates; no Python installation should be required for the player. Game assets and fonts are bundled. Saves use the Kivy app data directory, not the temporary executable extraction folder.
+Both are standalone, Windows 10/11 64-bit beta candidates; no Python installation should be required for the player. Game assets and fonts are bundled. Career files are stored persistently under `%LOCALAPPDATA%\\Clemir\\ScorerFree` or `%LOCALAPPDATA%\\Clemir\\ScorerWorld`, never in the EXE extraction folder.
 
 ## Mandatory version checking
 
@@ -18,7 +18,7 @@ A version check runs **before Kivy** at every launch, using the public GitHub `d
 - **Outdated**: a blocking update dialog opens the official Scorer GitHub releases page. No gameplay is permitted until the updated EXE is installed.
 - **Current**: gameplay continues. The check only stores the last verified version, official release URL and timestamp in LOCALAPPDATA; no name, career, statistics or device identifier is sent.
 - **Offline / GitHub unavailable**: a previously verified current version has a **72-hour** offline grace period; after that, the player must go online to verify. A previously detected mandatory update blocks even while offline. First launch must be online.
-- **Free and World**: independent release entries and update caches. No data conversion and no change to existing career saves.
+- **Free and World**: independent release entries, update caches and persistent save directories. A new EXE leaves existing careers in place.
 
 The game does **not** silently download or execute an EXE; players choose the release on the verified GitHub page. HTTPS is required and release links are restricted to this repository. The connection to GitHub can expose the user's IP address to GitHub as with any web request.
 
@@ -45,7 +45,7 @@ Use fresh empty staging directories on each build. Builds **must** be produced o
 1. Test Free and World on Windows 10/11 64-bit, ideally a clean PC without Python.
 2. Confirm splash, menus, practice, match shooting, half-time, score, completed game, saving and reloading.
 3. Confirm independent saves and World language choice.
-4. In World, export names JSON, import it, preview and cancel/apply safely.
+4. In World, export names JSON, import it, preview and cancel/apply safely; verify Windows editions save in different LOCALAPPDATA directories and replacing an EXE preserves an existing career.
 5. Confirm closing the window does not damage careers; confirm there are no Android-only exceptions.
 6. Confirm that update checks (current/outdated/offline/invalid manifest) work, and that **there are no advertising placements** or reward ad controls.
 7. Run a malware scan and review third-party font/data licences. Distribute test builds as **beta only**.
