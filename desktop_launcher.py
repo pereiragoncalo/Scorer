@@ -36,9 +36,10 @@ def main():
     import edition
     if edition.WORLD_BUILD or edition.WORLD_PREVIEW:
         raise SystemExit('This launcher requires the fixed Free edition')
+    # main applies the initial window dimensions before Window is created.
+    from main import StrikerApp
     from kivy.clock import Clock
     from kivy.core.window import Window
-    from main import StrikerApp
 
     class WindowsApp(StrikerApp):
         def build(self):
