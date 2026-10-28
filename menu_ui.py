@@ -296,7 +296,7 @@ class CareerMenu(BoxLayout):
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         actions.add_widget(button)
         card.add_widget(actions)
-        if self.game._world_available or c.world_unlocked:
+        if self.game._world_available or c.world_unlocked or getattr(release_settings, 'DESKTOP_WINDOWS', False):
             return
         boost = self._button('WATCH AD: +1 MORALE', 'morale_ad')
         boost.disabled = not c.morale_ad_available
@@ -346,19 +346,23 @@ class CareerMenu(BoxLayout):
             card.label('SCORER World is a separate ad-free application and can be played offline. Careers and imported names stay on this device; there is no SCORER account or in-app purchase verification service.')
             self._privacy_contact(card)
             return
-        card.label('This version uses Google advertising.' if release_settings.is_production() else 'This test version uses Google TEST ads only. They do not generate revenue.')
-        self._privacy_contact(card)
-        card.label('A banner may appear on the opening menu after the splash. Full-screen ads may appear '
-                   'between matches, never during a shot. Training offers an optional ad for +1 morale. '
-                   'No connection or no available ad? You can keep playing.')
-        card.label('All ad requests are configured for children and users under the age of consent, '
-                   'with a general-audience content rating and no personalised advertising.')
-        card.label('Google advertising services may process your IP address, device/app information, '
-                   'diagnostics and ad interactions. Advertising ID permission is not requested. '
-                   'Your player name and career saves are not sent by SCORER to Google.')
-        card.label('Google privacy policy: https://policies.google.com/privacy', muted=True)
-        if self.game.ads.privacy_required:
-            card.add_widget(MenuTile('AD PRIVACY OPTIONS', lambda: self.game.ads.privacy_options()))
+        if getattr(release_settings, 'DESKTOP_WINDOWS', False):
+            card.label('Scorer Free for Windows works offline. It includes local stadium promotion panels, with no Google advertising SDK or ad-reward videos.')
+            self._privacy_contact(card)
+        else:
+            card.label('This version uses Google advertising.' if release_settings.is_production() else 'This test version uses Google TEST ads only. They do not generate revenue.')
+            self._privacy_contact(card)
+            card.label('A banner may appear on the opening menu after the splash. Full-screen ads may appear '
+                       'between matches, never during a shot. Training offers an optional ad for +1 morale. '
+                       'No connection or no available ad? You can keep playing.')
+            card.label('All ad requests are configured for children and users under the age of consent, '
+                       'with a general-audience content rating and no personalised advertising.')
+            card.label('Google advertising services may process your IP address, device/app information, '
+                       'diagnostics and ad interactions. Advertising ID permission is not requested. '
+                       'Your player name and career saves are not sent by SCORER to Google.')
+            card.label('Google privacy policy: https://policies.google.com/privacy', muted=True)
+            if self.game.ads.privacy_required:
+                card.add_widget(MenuTile('AD PRIVACY OPTIONS', lambda: self.game.ads.privacy_options()))
         usage=self.game.usage
         stats=self.card('Optional usage statistics')
         stats.label('Off by default. Optional counters help improve Scorer: session starts and normal closes, new/loaded careers, completed training and matches, goals, and selected load/save failures.')

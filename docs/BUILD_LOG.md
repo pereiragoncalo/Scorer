@@ -1372,3 +1372,19 @@ checks also passed. No app version bump/new APK/real email is claimed for this
 source-only change; current APK0.6.39 and empty endpoint remain unchanged. The
 receiving service is still not deployed/configured. Next: actual owner-hosted URL,
 client transport validation and configured APK/device test before enabling mail.
+
+## Windows Free first desktop candidate — 2026-10-28
+
+Original Kivy Free only, one division/English/fictitious clubs. Added launcher
+with persistent per-user saves independent of executable/temp resource path and
+save/cancel title-bar close handling. Native PyInstaller single-file staging/
+requirements/spec and Windows2022 build/frozen smoke workflow. Desktop Privacy
+and training omit Android ad claims/reward videos; Android behaviour retained.
+154 core/security+83 real Kivy=237 tests PASS; Apps Script mocked checks PASS.
+Real Linux source Kivy smoke PASS: splash/new career/offer/training/save/reload,
+fixed Free/no SDK/default-off local stats; not a Windows binary test. Initial new
+save test incorrectly expected a no-club menu state to create a save; corrected
+the test to start a career first, preserving existing no-empty-save behaviour.
+Windows native workflow is the next build gate; no EXE or Windows functionality
+is claimed at this point. No Android APK rebuild/version/store/payment changes.
+See docs/WINDOWS_FREE.md. Unrelated World/career WIP remains preserved.

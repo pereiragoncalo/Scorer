@@ -1,3 +1,11 @@
+# Scorer Free — Windows preparation
+
+Native Windows Free packaging now uses the same Python/Kivy game, one division,
+English UI, persistent per-user careers, mouse/keyboard and portable single EXE.
+No Android AdMob SDK or unavailable ad-reward button on Windows. The new native
+Windows CI builds and smoke-tests the frozen executable; its result is required
+before claiming a working desktop binary. [Build and test guide](docs/WINDOWS_FREE.md).
+
 # Scorer Free0.6.39 — start/end session notices
 
 Owner email workflow now supports new session-start/normal-close counters instead
