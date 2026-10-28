@@ -29,6 +29,8 @@ jobs:
       - name: Check source syntax
         run: |
           python -m compileall -q main.py career.py menu_ui.py tools/build_windows.py desktop
+      - name: Verify mandatory update policy
+        run: python -m unittest discover -s tests -p test_windows_updates.py -v
       - name: Stage and compile Windows EXE
         shell: pwsh
         run: |
