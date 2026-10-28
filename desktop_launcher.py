@@ -15,6 +15,8 @@ def configure(resources=None):
     os.environ['STRIKER_SAVE_DIR'] = str(directory)
     os.environ.setdefault('KIVY_HOME', str(directory/'kivy'))
     os.environ['KIVY_NO_ARGS'] = '1'
+    if sys.platform == 'win32':
+        os.environ.setdefault('KIVY_GL_BACKEND','angle_sdl2')
     os.chdir(root)
     return directory
 

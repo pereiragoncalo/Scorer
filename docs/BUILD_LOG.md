@@ -1399,3 +1399,10 @@ Windows expands RUNNER~1 short paths to the same runneradmin directory. Resolve
 expected paths too; keep the correct canonical persistent path in production.
 Enable UTF8 consistently for Windows tooling and rebuild on Windows-test changes.
 No application save or gameplay change was needed for this test correction.
+
+Windows run40665514334 passed all6 native staging/save tests but remained in
+PyInstaller analysis. Kivy's GL initialisation can show a blocking Windows modal
+when default OpenGL is unsupported. Cancelled this run to use ANGLE consistently
+in the build-hook subprocesses as well as frozen smoke. Windows launcher defaults
+to bundled ANGLE too (explicit user backend override retained). Re-run native
+build/smoke; no successful executable is claimed from the cancelled run.
