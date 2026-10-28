@@ -743,6 +743,20 @@ class StrikerGame(Widget):
         return player_kit, opponent_kit
 
 
+    @property
+    def goalkeeper_scale(self):
+        # Pose and save volumes share the same Windows-only scale.
+        return GOALKEEPER_SCALE * (0.86 if self.desktop_windows else 1.0)
+
+    def _shot_flight_time(self, distance, hard):
+        speed = (17.0 if hard else 18.0) + self.power * 8.0
+        low, high = (0.28, 0.82) if hard else (0.20, 1.15)
+        duration = clamp(distance / speed, low, high)
+        return duration / 1.22 if self.desktop_windows else duration
+
+    def _show_stadium_crowd(self):
+        return not (self.desktop_windows and self.shot_context == 'training')
+
     def _goalkeeper_kit(self):
         player_kit, opponent_kit = self._match_outfield_kits()
         candidates = (
@@ -1754,13 +1768,7 @@ class StrikerGame(Widget):
         horizontal_distance = math.hypot(
             destination_x - self.ball.x, self.ball.y
         )
-        if self.shot_type == "header":
-            shot_speed = 17.0 + self.power * 8.0
-            flight_time = clamp(horizontal_distance / shot_speed, 0.28, 0.82)
-        else:
-            shot_speed = 18.0 + self.power * 8.0
-            flight_time = clamp(horizontal_distance / shot_speed, 0.20, 1.15)
-
+        flight_time = self._shot_flight_time(horizontal_distance, self.shot_type == "header")
 
         self.ball.vx = (destination_x - self.ball.x) / flight_time
         self.ball.vy = -self.ball.y / flight_time
@@ -2089,13 +2097,13 @@ class StrikerGame(Widget):
 
         pose = self._goalkeeper_pose()
         segments = (
-            (pose["hand_l"], pose["shoulder_l"], 0.24 * GOALKEEPER_SCALE),
-            (pose["hand_r"], pose["shoulder_r"], 0.24 * GOALKEEPER_SCALE),
-            (pose["shoulder_l"], pose["hip_l"], 0.27 * GOALKEEPER_SCALE),
-            (pose["shoulder_r"], pose["hip_r"], 0.27 * GOALKEEPER_SCALE),
-            (pose["shoulder_l"], pose["shoulder_r"], 0.25 * GOALKEEPER_SCALE),
-            (pose["hip_l"], pose["foot_l"], 0.19 * GOALKEEPER_SCALE),
-            (pose["hip_r"], pose["foot_r"], 0.19 * GOALKEEPER_SCALE),
+            (pose["hand_l"], pose["shoulder_l"], 0.24 * self.goalkeeper_scale),
+            (pose["hand_r"], pose["shoulder_r"], 0.24 * self.goalkeeper_scale),
+            (pose["shoulder_l"], pose["hip_l"], 0.27 * self.goalkeeper_scale),
+            (pose["shoulder_r"], pose["hip_r"], 0.27 * self.goalkeeper_scale),
+            (pose["shoulder_l"], pose["shoulder_r"], 0.25 * self.goalkeeper_scale),
+            (pose["hip_l"], pose["foot_l"], 0.19 * self.goalkeeper_scale),
+            (pose["hip_r"], pose["foot_r"], 0.19 * self.goalkeeper_scale),
         )
         saved = any(
             self._distance_to_segment_2d(
@@ -2107,7 +2115,7 @@ class StrikerGame(Widget):
         head = pose["head"]
         saved = saved or math.hypot(
             ball.x - head[0], ball.z - head[1]
-        ) <= ball.radius + 0.25 * GOALKEEPER_SCALE
+        ) <= ball.radius + 0.25 * self.goalkeeper_scale
         if not saved:
             return False
 
@@ -2183,15 +2191,15 @@ class StrikerGame(Widget):
         angle = self.goalkeeper_dive_sign * math.radians(82.0) * dive
         cosine, sine = math.cos(angle), math.sin(angle)
         center_x = self.goalkeeper_x
-        center_z = GOALKEEPER_SCALE * (
+        center_z = self.goalkeeper_scale * (
             0.89 - ready_crouch - 0.29 * dive - 0.10 * landing * dive
         )
-        center_z += GOALKEEPER_SCALE * flight * (0.34 + 0.34 * high)
+        center_z += self.goalkeeper_scale * flight * (0.34 + 0.34 * high)
 
 
         def transform(local_x: float, local_z: float) -> tuple[float, float]:
-            local_x *= GOALKEEPER_SCALE
-            local_z *= GOALKEEPER_SCALE
+            local_x *= self.goalkeeper_scale
+            local_z *= self.goalkeeper_scale
             return (
                 center_x + local_x * cosine + local_z * sine,
                 center_z - local_x * sine + local_z * cosine,
@@ -2220,10 +2228,10 @@ class StrikerGame(Widget):
         # durante o voo, evitando a antiga rotação rígida de todo o corpo.
         if dive > 0.0 or high > 0.0:
             launch = clamp(max(dive, high * smooth) * 1.28, 0.0, 1.0)
-            reach_x = center_x + self.goalkeeper_dive_sign * GOALKEEPER_SCALE * (
+            reach_x = center_x + self.goalkeeper_dive_sign * self.goalkeeper_scale * (
                 0.76 + 0.82 * dive
             )
-            reach_z = center_z + GOALKEEPER_SCALE * (
+            reach_z = center_z + self.goalkeeper_scale * (
                 0.24 + 0.88 * high + 0.12 * flight
             )
             lead = "hand_r" if self.goalkeeper_dive_sign > 0.0 else "hand_l"
@@ -2237,7 +2245,7 @@ class StrikerGame(Widget):
                 pose[key] = (
                     old_x + (reach_x - old_x) * blend,
                     old_z + (
-                        reach_z + vertical_offset * GOALKEEPER_SCALE - old_z
+                        reach_z + vertical_offset * self.goalkeeper_scale - old_z
                     ) * blend,
                 )
 
@@ -2247,12 +2255,12 @@ class StrikerGame(Widget):
             push_x, push_z = pose[push_key]
             trail_x, trail_z = pose[trail_key]
             pose[push_key] = (
-                push_x - self.goalkeeper_dive_sign * 0.10 * GOALKEEPER_SCALE * smooth,
-                max(0.02, push_z - 0.12 * GOALKEEPER_SCALE * smooth),
+                push_x - self.goalkeeper_dive_sign * 0.10 * self.goalkeeper_scale * smooth,
+                max(0.02, push_z - 0.12 * self.goalkeeper_scale * smooth),
             )
             pose[trail_key] = (
-                trail_x - self.goalkeeper_dive_sign * 0.18 * GOALKEEPER_SCALE * smooth,
-                trail_z + 0.10 * GOALKEEPER_SCALE * flight,
+                trail_x - self.goalkeeper_dive_sign * 0.18 * self.goalkeeper_scale * smooth,
+                trail_z + 0.10 * self.goalkeeper_scale * flight,
             )
         return pose
 
@@ -3838,7 +3846,7 @@ class StrikerGame(Widget):
         self._draw_stand_meshes()
 
 
-        if draw_crowd:
+        if draw_crowd and self._show_stadium_crowd():
             self._draw_crowd_meshes(celebrating=self.result_text == "GOAL!")
 
 
@@ -5076,6 +5084,7 @@ class StrikerGame(Widget):
 
 
     def _draw_goalkeeper(self) -> None:
+        visual_scale = 0.86 if self.desktop_windows else 1.0
         flat_pose = self._goalkeeper_pose()
         world_pose = self._goalkeeper_world_pose(flat_pose)
         goalkeeper_shirt, goalkeeper_shorts = self._goalkeeper_kit()
@@ -5093,32 +5102,32 @@ class StrikerGame(Widget):
         shadow_l = min(ground_pose, key=lambda point: point[0])
         shadow_r = max(ground_pose, key=lambda point: point[0])
         Color(0.015, 0.035, 0.025, 0.42)
-        Line(points=[*shadow_l, *shadow_r], width=6.0)
+        Line(points=[*shadow_l, *shadow_r], width=6.0 * visual_scale)
 
 
         # Tronco acompanha a rotação do corpo.
         Color(*goalkeeper_shirt)
         Triangle(points=[*pose["hip_l"], *pose["hip_r"], *pose["shoulder_l"]])
         Triangle(points=[*pose["hip_r"], *pose["shoulder_l"], *pose["shoulder_r"]])
-        Line(points=[*pose["shoulder_l"], *pose["hand_l"]], width=4.7)
-        Line(points=[*pose["shoulder_r"], *pose["hand_r"]], width=4.7)
+        Line(points=[*pose["shoulder_l"], *pose["hand_l"]], width=4.7 * visual_scale)
+        Line(points=[*pose["shoulder_r"], *pose["hand_r"]], width=4.7 * visual_scale)
 
 
         Color(*goalkeeper_shorts)
-        Line(points=[*pose["foot_l"], *pose["hip_l"]], width=5.0)
-        Line(points=[*pose["foot_r"], *pose["hip_r"]], width=5.0)
+        Line(points=[*pose["foot_l"], *pose["hip_l"]], width=5.0 * visual_scale)
+        Line(points=[*pose["foot_r"], *pose["hip_r"]], width=5.0 * visual_scale)
 
 
         # Luvas avançam primeiro e são também parte da zona de defesa.
         Color(0.94, 0.96, 0.88, 1.0)
         for hand in (pose["hand_l"], pose["hand_r"]):
-            Ellipse(pos=(hand[0] - 3.5, hand[1] - 3.5), size=(7.0, 7.0))
+            Ellipse(pos=(hand[0] - 3.5 * visual_scale, hand[1] - 3.5 * visual_scale), size=(7.0 * visual_scale, 7.0 * visual_scale))
 
 
         head = pose["head"]
         head_radius = max(
-            4.8,
-            self.pixels_per_meter(*world_pose["head"]) * 0.12,
+            4.8 * visual_scale,
+            self.pixels_per_meter(*world_pose["head"]) * 0.12 * visual_scale,
         )
         Color(0.93, 0.68, 0.48, 1.0)
         Ellipse(

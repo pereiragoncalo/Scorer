@@ -52,3 +52,24 @@ class WindowsGoalTests(unittest.TestCase):
                 b=g.ball;b.x=x;b.y=.01;b.z=z;b.vx=0;b.vy=-10;b.vz=0;b.post_cooldown=0
                 g.outcome_registered=False;self.assertTrue(g._collide_goal_frame())
                 self.assertEqual(g.result_text,'OFF THE POST!')
+
+    def test_windows_keeper_pose_collision_scale_and_faster_flight_are_isolated(self):
+        poses=[]
+        for desktop in (False,True):
+            with patch('release_settings.DESKTOP_WINDOWS',desktop,create=True),isolated_game() as g:
+                g.power=.85;g.state=g.STATE_AIMING
+                poses.append(g._goalkeeper_pose())
+                self.assertAlmostEqual(g.goalkeeper_scale,.8*(.86 if desktop else 1))
+                for hard in (False,True):
+                    for distance in (1,15,40):
+                        from career import clamp
+                        expected=clamp(distance/((17 if hard else 18)+.85*8),.28 if hard else .2,.82 if hard else 1.15)
+                        self.assertAlmostEqual(g._shot_flight_time(distance,hard),expected/(1.22 if desktop else 1))
+                for context in ('training','match'):
+                    g.shot_context=context
+                    with patch.object(g,'_draw_stand_meshes') as stands,patch.object(g,'_draw_crowd_meshes') as crowd:
+                        g._draw_stadium_stands()
+                        stands.assert_called_once()
+                        self.assertEqual(crowd.called,not(desktop and context=='training'))
+        for key in poses[0]:
+            self.assertAlmostEqual(poses[1][key][1],poses[0][key][1]*.86)

@@ -64,6 +64,17 @@ def main():
             report.write_text(json.dumps(result,indent=2),encoding='utf8')
             Clock.schedule_once(lambda _:app.stop(),0)
 
+        def capture_training(_):
+            try:
+                g=app.root
+                assert not g._show_stadium_crowd()
+                g.export_to_png(str(report.parent/'training.png'))
+                result.update(empty_training_stands=True,goalkeeper_scale=g.goalkeeper_scale,
+                              shot_speed_multiplier=1.22)
+            except Exception as error:
+                result.update(ok=False,error=type(error).__name__+': '+str(error))
+            finally:report_and_stop()
+
         def capture_goal(_):
             try:
                 g=app.root
@@ -73,7 +84,11 @@ def main():
                               goal_width=g.goal_width,goal_height=g.goal_height)
             except Exception as error:
                 result.update(ok=False,error=type(error).__name__+': '+str(error))
-            finally:report_and_stop()
+            finally:
+                if result.get('ok'):
+                    g.shot_context='training';g.draw()
+                    Clock.schedule_once(capture_training,.35)
+                else:report_and_stop()
 
         def finish(*_):
             Window.unbind(on_flip=finish)
