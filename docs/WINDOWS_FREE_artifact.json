@@ -1,0 +1,29 @@
+{
+  "product": "Scorer Free Windows",
+  "candidate": "0.6.39-win.1",
+  "file": "Scorer-Free.exe",
+  "bytes": 41548924,
+  "sha256": "eac0b07abf836ee876e6af73ff0ea1a269e42fe0b272a7cd03afd9bf72744e56",
+  "pe_architecture": "AMD64 PE32+",
+  "build_host": "native GitHub Windows2022 runner",
+  "source_commit": "0c33da6002ed29fd187a802dd6189e99549421e6",
+  "workflow_run": 40667690804,
+  "windows_staging_tests": 6,
+  "linux_core_security_tests": 154,
+  "linux_kivy_ui_tests": 83,
+  "frozen_windows_smoke": {
+    "ok": true,
+    "platform": "win32",
+    "frozen": true,
+    "career_reload": true,
+    "training": true,
+    "free": true,
+    "ads_sdk": false,
+    "close_confirmation": true
+  },
+  "google_ad_sdk": false,
+  "billing": false,
+  "statistics_endpoint": "",
+  "code_signed": false,
+  "human_windows_tested": false
+}

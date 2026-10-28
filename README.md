@@ -1,10 +1,13 @@
-# Scorer Free — Windows preparation
+# Scorer Free for Windows — first QA executable
 
-Native Windows Free packaging now uses the same Python/Kivy game, one division,
-English UI, persistent per-user careers, mouse/keyboard and portable single EXE.
-No Android AdMob SDK or unavailable ad-reward button on Windows. The new native
-Windows CI builds and smoke-tests the frozen executable; its result is required
-before claiming a working desktop binary. [Build and test guide](docs/WINDOWS_FREE.md).
+[Download Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/windows-beta-0.6.39-1/Scorer-Free.exe)
+for Windows10/11 x64. Original Python/Kivy, English/one division, single portable
+EXE, persistent per-user careers and mouse/keyboard. No Android AdMob SDK/reward
+videos; local stadium promotion remains. Optional stats default off/local only.
+237 core/Kivy tests plus6 Windows staging checks passed; actual frozen Windows
+startup/new career/training/save/reload/exit confirmation and rendered screenshot
+passed in native run40667690804. Unsigned QA build; manual full-match/audio/resize
+on a user's Windows PC remains pending. [Evidence/guide](docs/WINDOWS_FREE.md).
 
 # Scorer Free0.6.39 — start/end session notices
 
