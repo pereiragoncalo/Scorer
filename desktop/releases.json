@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "windows": {
+    "free": {
+      "version": "0.6.39",
+      "url": "https://github.com/pereiragoncalo/Scorer/releases"
+    },
+    "world": {
+      "version": "0.6.39",
+      "url": "https://github.com/pereiragoncalo/Scorer/releases"
+    }
+  }
+}
