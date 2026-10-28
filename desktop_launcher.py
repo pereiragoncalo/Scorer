@@ -59,15 +59,25 @@ def main():
     app = WindowsApp()
     result = {'ok':False,'platform':sys.platform,'frozen':bool(getattr(sys,'frozen',False))}
     if smoke:
-        def finish(_):
+        def finish(*_):
+            Window.unbind(on_flip=finish)
             try:
                 report.parent.mkdir(parents=True,exist_ok=True)
-                Window.screenshot(name=str(report.with_suffix('.png')))
+                # GLES/ANGLE guarantees RGBA readback, not SDL's RGB helper.
+                from kivy.graphics.opengl import glReadPixels,GL_RGBA,GL_UNSIGNED_BYTE
+                from PIL import Image
+                width,height=map(int,Window.size)
+                pixels=glReadPixels(0,0,width,height,GL_RGBA,GL_UNSIGNED_BYTE)
+                Image.frombytes('RGBA',(width,height),pixels).transpose(Image.Transpose.FLIP_TOP_BOTTOM).save(report.with_suffix('.png'))
             except Exception as error:
                 result.update(ok=False,error=type(error).__name__+': '+str(error))
             finally:
                 report.write_text(json.dumps(result,indent=2),encoding='utf8')
-                app.stop()
+                Clock.schedule_once(lambda _:app.stop(),0)
+
+        def arm_capture(_):
+            Window.bind(on_flip=finish)
+            Window.canvas.ask_update()
 
         def exercise(_):
             try:
@@ -103,7 +113,7 @@ def main():
                 result.update(ok=False,error=type(error).__name__+': '+str(error))
             finally:
                 # Let Kivy render the changed widget tree before reading pixels.
-                Clock.schedule_once(finish,.5)
+                Clock.schedule_once(arm_capture,.5)
         Clock.schedule_once(exercise,1.5)
     app.run()
     return 0 if not smoke or result['ok'] else 1

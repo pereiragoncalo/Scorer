@@ -1414,3 +1414,11 @@ capture was black. Do not use that capture as visual evidence. Schedule capture
 after another frame and add an actual nonblank rendered-image gate, plus native
 window-close confirmation/cancel check. Linux source smoke of this delayed flow
 PASS. A new Windows frozen run is required for the final delivered artifact.
+
+Windows run40667096800 again passed frozen functional flow, including window-close
+confirmation, but the stricter image check rejected its black screenshot. SDL's
+Kivy screenshot helper reads GL_RGB after buffer swaps; that is not portable to
+ANGLE/GLES. Smoke capture now reads guaranteed RGBA before on_flip swaps/discards
+the backbuffer, then stops on the next Clock tick. This affects automation only;
+keep the visual gate and require a new native run rather than claiming a render
+from a black image. Initial window config now precedes Window creation too.
