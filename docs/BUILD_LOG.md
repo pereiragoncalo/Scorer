@@ -1431,3 +1431,15 @@ checks PASS;41,548,924bytes SHA256 eac0b07abf836ee876e6af73ff0ea1a269e42fe0b272a
 RGBA capture smoke. No full manual Windows match/audio/resize/human validation,
 code signature, Microsoft Store/public release or Android rebuild claimed.
 Single-file QA distribution branch/windows guide/artifact preserve evidence.
+
+
+## Windows0.6.39-win.2 — matchday/league leaders dashboard
+
+Exact current league pairings/highlight left, saved scorer leaders right, compact
+hero/season footer, original Training/Play gate and all navigation retained.
+No main scroll or RNG/save/schedule changes; scoped Windows signature refresh and
+small-window fallback, Android original dashboard retained.158core/security+
+87Kivy=245 PASS. Source staged Windows-profile smoke includes engine match finish,
+NPC scorers, save/reload,12visible games and close/cancel; actual root FBO render
+avoids stale ANGLE framebuffer/modal capture. Native Windows build is the next
+gate; no final EXE claimed yet. See WINDOWS_MATCHDAY.md for cases/limits.

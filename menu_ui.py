@@ -137,10 +137,14 @@ class CareerMenu(BoxLayout):
                      c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals,
-                     self.game.help_page, self.game.editor_club_index, self.game.editor_key, self.game.world_country, self.game.world_league_key, c.alias_revision, self.game.reward_ad_status, Metrics.density, Metrics.fontscale)
+                     self.game.help_page, self.game.editor_club_index, self.game.editor_key, self.game.world_country, self.game.world_league_key, c.alias_revision, self.game.reward_ad_status, Metrics.density, Metrics.fontscale, self._desktop_dashboard_available(),
+                     (c.current_league.round_index, tuple(c.current_league.scorer_goals.items())) if self._desktop_dashboard_available() else None)
         if signature != self._signature:
             self._signature = signature
             self._build()
+
+    def _desktop_dashboard_available(self):
+        return bool(getattr(release_settings, 'DESKTOP_WINDOWS', False)) and self.game.width >= dp(780) and self.game.height >= dp(520)
 
     def action(self, name, value=None):
         self.game._activate_ui(name, value)
@@ -226,7 +230,11 @@ class CareerMenu(BoxLayout):
         self.add_widget(header)
         if self.game.view == 'hub':
             self.scroll = None
-            self.body = MainDashboard(self)
+            if self._desktop_dashboard_available():
+                from desktop_dashboard import WindowsDashboard
+                self.body = WindowsDashboard(self)
+            else:
+                self.body = MainDashboard(self)
             self.add_widget(self.body)
             return
         if self.game.view == 'world' and c.world_unlocked:

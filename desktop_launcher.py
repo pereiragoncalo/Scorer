@@ -63,12 +63,13 @@ def main():
             Window.unbind(on_flip=finish)
             try:
                 report.parent.mkdir(parents=True,exist_ok=True)
-                # GLES/ANGLE guarantees RGBA readback, not SDL's RGB helper.
-                from kivy.graphics.opengl import glReadPixels,GL_RGBA,GL_UNSIGNED_BYTE
-                from PIL import Image
-                width,height=map(int,Window.size)
-                pixels=glReadPixels(0,0,width,height,GL_RGBA,GL_UNSIGNED_BYTE)
-                Image.frombytes('RGBA',(width,height),pixels).transpose(Image.Transpose.FLIP_TOP_BOTTOM).save(report.with_suffix('.png'))
+                dashboard=app.root._menu.body
+                assert len(dashboard.fixtures.visible_rows)==len(dashboard.data.fixtures)
+                result['visible_matchday_fixtures']=len(dashboard.fixtures.visible_rows)
+                result['visible_top_scorers']=len(dashboard.scorers.visible_rows)
+                # Render the actual root canvas into an RGBA FBO. This avoids
+                # reading a discarded/stale ANGLE window backbuffer.
+                app.root.export_to_png(str(report.with_suffix('.png')))
             except Exception as error:
                 result.update(ok=False,error=type(error).__name__+': '+str(error))
             finally:
@@ -94,20 +95,35 @@ def main():
                 for _ in range(3):
                     g.result_text='GOAL!';g._advance_after_shot()
                 assert g.career.trained_this_week
+                # Exercise a completed match using the existing deterministic-safe
+                # career path; NPC goals/scorers come from the game's simulation.
+                g.view='hub';g.start_career_match()
+                assert g.view=='match'
+                g._record_player_match_goal();g._finish_career_match()
+                assert g.career.matches==1 and g.career.goals==1
                 assert g.career.save()
                 from career import CareerMode
                 restored=CareerMode(autoload=True)
                 assert restored.player_name == g.career.player_name
                 assert restored.club_name == g.career.club_name
-                assert restored.trained_this_week
+                assert restored.trained_this_week == g.career.trained_this_week
+                assert restored.matches == g.career.matches
                 assert g.usage.endpoint == '' and not g.usage.enabled
                 assert g.ads.backend is None
                 assert g.career.save_path.parent == directory
                 g.view='hub';g.draw()
-                result.update(ok=True,career_reload=True,training=True,free=True,ads_sdk=False)
+                from desktop_dashboard import WindowsDashboard
+                assert isinstance(g._menu.body,WindowsDashboard)
+                assert len(g._menu.body.data.fixtures)==len(g.career.current_league.clubs)//2
+                assert any(row.focus for row in g._menu.body.data.fixtures)
+                assert any(row.goals>0 for row in g._menu.body.data.scorers)
+                result['matchday_dashboard']=True
+                result.update(ok=True,career_reload=True,training=True,free=True,ads_sdk=False,match_completed=True)
                 app._close_callback()
                 assert g._exit_popup is not None
-                g._exit_popup.dismiss()
+                popup=g._exit_popup
+                popup.dismiss(animation=False)
+                assert popup not in Window.children and g._exit_popup is None
                 result['close_confirmation']=True
             except Exception as error:
                 result.update(ok=False,error=type(error).__name__+': '+str(error))

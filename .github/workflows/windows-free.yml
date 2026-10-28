@@ -7,6 +7,9 @@ on:
       - '.github/workflows/windows-free.yml'
       - 'tools/windows/**'
       - 'desktop_launcher.py'
+      - 'desktop_dashboard.py'
+      - 'dashboard_data.py'
+      - 'ui_tests/test_windows_dashboard.py'
       - 'tests/test_windows.py'
 env:
   PYTHONUTF8: '1'
