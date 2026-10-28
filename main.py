@@ -140,6 +140,10 @@ class StrikerGame(Widget):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        import release_settings
+        from shot_geometry import GoalGeometry
+        self.desktop_windows=bool(getattr(release_settings,'DESKTOP_WINDOWS',False))
+        self.goal_geometry=GoalGeometry.for_profile(self.desktop_windows)
 
 
         self.ball = Ball()
@@ -169,9 +173,9 @@ class StrikerGame(Widget):
         self.aim_horizontal_offset = 0.0
         self.aim_vertical_offset = 0.8
         self.aim_center_x = 0.0
-        self.aim_center_z = GOAL_HEIGHT * 0.50
+        self.aim_center_z = self.goal_height * 0.50
         self.aim_amplitude_x = self.goal_half_width + 0.48
-        self.aim_amplitude_z = (GOAL_HEIGHT + 0.40) * 0.50
+        self.aim_amplitude_z = (self.goal_height + 0.40) * 0.50
         self.aim_speed_pulse = 0.0
 
 
@@ -325,53 +329,56 @@ class StrikerGame(Widget):
     # Geometria e projeção 2.5D
     # ------------------------------------------------------------------
     @property
+    def goal_width(self):return self.goal_geometry.width
+
+    @property
+    def goal_height(self):return self.goal_geometry.height
+
+    @property
     def goal_half_width(self) -> float:
-        return GOAL_WIDTH / 2.0
+        return self.goal_width / 2.0
 
 
-    @staticmethod
-    def _veil_profile(amount: float) -> tuple[float, float]:
+    def _veil_profile(self, amount: float) -> tuple[float, float]:
         """Perfil do teto curto e da queda do véu, medido pela malha."""
-        distance = clamp(amount, 0.0, 1.0) * VEIL_PATH_LENGTH
+        distance = clamp(amount, 0.0, 1.0) * self.goal_geometry.veil_path_length
         if distance <= VEIL_TOP_DEPTH:
-            return -distance, GOAL_HEIGHT
+            return -distance, self.goal_height
 
 
-        if distance <= VEIL_TOP_DEPTH + VEIL_SLOPE_LENGTH:
-            slope_amount = (distance - VEIL_TOP_DEPTH) / VEIL_SLOPE_LENGTH
+        if distance <= VEIL_TOP_DEPTH + self.goal_geometry.veil_slope_length:
+            slope_amount = (distance - VEIL_TOP_DEPTH) / self.goal_geometry.veil_slope_length
             return (
                 -VEIL_TOP_DEPTH
                 - (VEIL_TOUCH_DEPTH - VEIL_TOP_DEPTH) * slope_amount,
-                GOAL_HEIGHT * (1.0 - slope_amount)
+                self.goal_height * (1.0 - slope_amount)
                 - VEIL_SAG * math.sin(math.pi * slope_amount),
             )
 
 
         # A malha não termina esticada no primeiro contacto com o relvado:
         # sobra uma faixa pousada no chão, como tecido com folga.
-        ground_amount = distance - VEIL_TOP_DEPTH - VEIL_SLOPE_LENGTH
+        ground_amount = distance - VEIL_TOP_DEPTH - self.goal_geometry.veil_slope_length
         return -VEIL_TOUCH_DEPTH - ground_amount, 0.0
 
 
-    @staticmethod
-    def _veil_height_at_y(y: float) -> float:
+    def _veil_height_at_y(self, y: float) -> float:
         """Altura superior da rede num corte lateral da baliza."""
         depth = clamp(-y, 0.0, GOAL_DEPTH)
         if depth <= VEIL_TOP_DEPTH:
-            return GOAL_HEIGHT
+            return self.goal_height
         if depth >= VEIL_TOUCH_DEPTH:
             return 0.0
         slope_amount = (depth - VEIL_TOP_DEPTH) / (
             VEIL_TOUCH_DEPTH - VEIL_TOP_DEPTH
         )
         return (
-            GOAL_HEIGHT * (1.0 - slope_amount)
+            self.goal_height * (1.0 - slope_amount)
             - VEIL_SAG * math.sin(math.pi * slope_amount)
         )
 
 
-    @classmethod
-    def _veil_amount_at_y(cls, y: float) -> float:
+    def _veil_amount_at_y(self, y: float) -> float:
         """Converte profundidade física na coordenada contínua da malha."""
         depth = clamp(-y, 0.0, GOAL_DEPTH)
         if depth <= VEIL_TOP_DEPTH:
@@ -379,7 +386,7 @@ class StrikerGame(Widget):
         elif depth >= VEIL_TOUCH_DEPTH:
             distance = (
                 VEIL_TOP_DEPTH
-                + VEIL_SLOPE_LENGTH
+                + self.goal_geometry.veil_slope_length
                 + depth
                 - VEIL_TOUCH_DEPTH
             )
@@ -387,14 +394,13 @@ class StrikerGame(Widget):
             slope_amount = (depth - VEIL_TOP_DEPTH) / (
                 VEIL_TOUCH_DEPTH - VEIL_TOP_DEPTH
             )
-            distance = VEIL_TOP_DEPTH + slope_amount * VEIL_SLOPE_LENGTH
-        return clamp(distance / VEIL_PATH_LENGTH, 0.0, 1.0)
+            distance = VEIL_TOP_DEPTH + slope_amount * self.goal_geometry.veil_slope_length
+        return clamp(distance / self.goal_geometry.veil_path_length, 0.0, 1.0)
 
 
-    @classmethod
-    def _veil_depth_at_height(cls, z: float) -> float:
+    def _veil_depth_at_height(self, z: float) -> float:
         """Profundidade onde uma fiada horizontal encontra o véu curvo."""
-        if z >= GOAL_HEIGHT:
+        if z >= self.goal_height:
             return VEIL_TOP_DEPTH
         if z <= 0.0:
             return VEIL_TOUCH_DEPTH
@@ -404,7 +410,7 @@ class StrikerGame(Widget):
         high = VEIL_TOUCH_DEPTH
         for _ in range(26):
             middle = (low + high) * 0.5
-            if cls._veil_height_at_y(-middle) > z:
+            if self._veil_height_at_y(-middle) > z:
                 low = middle
             else:
                 high = middle
@@ -1592,7 +1598,7 @@ class StrikerGame(Widget):
         time_to_keeper, intercept_x, intercept_z = prediction
         threatens_goal = (
             abs(intercept_x) <= self.goal_half_width + 0.20
-            and -0.10 <= intercept_z <= GOAL_HEIGHT + 0.20
+            and -0.10 <= intercept_z <= self.goal_height + 0.20
         )
         horizontal_gap = intercept_x - self.goalkeeper_x
 
@@ -1694,7 +1700,7 @@ class StrikerGame(Widget):
         if x is not None and z is not None:
             self.auto_aim = False
             self.aim_x = clamp(x, -self.goal_half_width + 0.16, self.goal_half_width - 0.16)
-            self.aim_z = clamp(z, 0.18, GOAL_HEIGHT - 0.10)
+            self.aim_z = clamp(z, 0.18, self.goal_height - 0.10)
 
 
         self.attempts += 1
@@ -1846,7 +1852,7 @@ class StrikerGame(Widget):
             # golo, sem usar a posição posterior da bola para falsear o lance.
             if (
                 abs(goal_line_x) < self.goal_half_width
-                and 0.0 < goal_line_z < GOAL_HEIGHT
+                and 0.0 < goal_line_z < self.goal_height
             ):
                 self._register_goal()
             else:
@@ -2015,9 +2021,9 @@ class StrikerGame(Widget):
 
         hw = self.goal_half_width
         segments = (
-            ((-hw, 0.0, 0.0), (-hw, 0.0, GOAL_HEIGHT)),
-            ((hw, 0.0, 0.0), (hw, 0.0, GOAL_HEIGHT)),
-            ((-hw, 0.0, GOAL_HEIGHT), (hw, 0.0, GOAL_HEIGHT)),
+            ((-hw, 0.0, 0.0), (-hw, 0.0, self.goal_height)),
+            ((hw, 0.0, 0.0), (hw, 0.0, self.goal_height)),
+            ((-hw, 0.0, self.goal_height), (hw, 0.0, self.goal_height)),
         )
         for start, end in segments:
             if self._collide_segment(start, end, POST_RADIUS):
@@ -2119,7 +2125,7 @@ class StrikerGame(Widget):
         # A luva amortece e desvia a bola para fora do corpo. Defesas baixas
         # seguem mais rasas; bolas altas não sobem de novo artificialmente.
         side = 1.0 if ball.x >= pose["center"][0] else -1.0
-        contact_height = clamp(ball.z / GOAL_HEIGHT, 0.0, 1.0)
+        contact_height = clamp(ball.z / self.goal_height, 0.0, 1.0)
         ball.vy = abs(ball.vy) * (0.40 - 0.08 * contact_height)
         ball.vx = ball.vx * 0.34 + side * (2.0 + 1.4 * contact_height)
         if contact_height < 0.30:
@@ -2347,7 +2353,7 @@ class StrikerGame(Widget):
                         1.0,
                     )
                     derivative = (
-                        GOAL_HEIGHT
+                        self.goal_height
                         + VEIL_SAG
                         * math.pi
                         * math.cos(math.pi * slope_amount)
@@ -2382,17 +2388,17 @@ class StrikerGame(Widget):
         if (
             -VEIL_TOP_DEPTH <= ball.y <= 0.0
             and within_width
-            and ball.z >= GOAL_HEIGHT - ball.radius
+            and ball.z >= self.goal_height - ball.radius
             and ball.vz > 0.0
         ):
-            ball.z = GOAL_HEIGHT - ball.radius
+            ball.z = self.goal_height - ball.radius
             ball.vz = -abs(ball.vz) * 0.20
             ball.vx *= 0.64
             ball.vy *= 0.64
             path_v = self._veil_amount_at_y(ball.y)
             self._add_ripple(
                 "back",
-                (ball.x + hw) / GOAL_WIDTH,
+                (ball.x + hw) / self.goal_width,
                 path_v,
                 impact_speed,
             )
@@ -2408,7 +2414,7 @@ class StrikerGame(Widget):
             )
             profile_z = self._veil_height_at_y(ball.y)
             derivative = (
-                GOAL_HEIGHT
+                self.goal_height
                 + VEIL_SAG * math.pi * math.cos(math.pi * slope_amount)
             ) / slope_run
             normal_size = math.sqrt(derivative * derivative + 1.0)
@@ -2427,7 +2433,7 @@ class StrikerGame(Widget):
                 ball.vz *= 0.58
                 self._add_ripple(
                     "back",
-                    (ball.x + hw) / GOAL_WIDTH,
+                    (ball.x + hw) / self.goal_width,
                     self._veil_amount_at_y(ball.y),
                     impact_speed,
                 )
@@ -2449,7 +2455,7 @@ class StrikerGame(Widget):
             self._add_ripple(
                 "left",
                 self._veil_amount_at_y(ball.y),
-                ball.z / GOAL_HEIGHT,
+                ball.z / self.goal_height,
                 impact_speed,
             )
         elif within_side and ball.x >= hw - ball.radius and ball.vx > 0.0:
@@ -2460,7 +2466,7 @@ class StrikerGame(Widget):
             self._add_ripple(
                 "right",
                 self._veil_amount_at_y(ball.y),
-                ball.z / GOAL_HEIGHT,
+                ball.z / self.goal_height,
                 impact_speed,
             )
 
@@ -2700,7 +2706,7 @@ class StrikerGame(Widget):
         if movement:
             self.auto_aim = False
             self.aim_x = clamp(self.aim_x, -self.goal_half_width + 0.16, self.goal_half_width - 0.16)
-            self.aim_z = clamp(self.aim_z, 0.18, GOAL_HEIGHT - 0.10)
+            self.aim_z = clamp(self.aim_z, 0.18, self.goal_height - 0.10)
             return True
         return False
 
@@ -2740,7 +2746,7 @@ class StrikerGame(Widget):
         world_x, world_z = self.unproject_goal(touch.x, touch.y)
         inside_goal = (
             -self.goal_half_width <= world_x <= self.goal_half_width
-            and 0.0 <= world_z <= GOAL_HEIGHT
+            and 0.0 <= world_z <= self.goal_height
         )
         if inside_goal:
             self.shoot(world_x, world_z)
@@ -2996,7 +3002,7 @@ class StrikerGame(Widget):
 
             if self.view == "shot":
                 # Dentro da baliza, a bola fica visualmente atrás do ferro e do GR.
-                if self.ball.active and self.ball.y < 0.0:
+                if self._ball_behind_keeper() and self.ball.y < 0.0:
                     self._draw_ball()
 
 
@@ -3005,8 +3011,10 @@ class StrikerGame(Widget):
                 self._draw_goal_frame()
                 # O GR está 85 cm à frente da linha de golo e, por isso, é
                 # desenhado depois dos postes em vez de parecer escondido atrás.
+                if self._ball_behind_keeper() and self.ball.y >= 0.0:
+                    self._draw_ball()
                 self._draw_goalkeeper()
-                if not (self.ball.active and self.ball.y < 0.0):
+                if not self._ball_behind_keeper():
                     self._draw_ball()
 
 
@@ -4467,7 +4475,7 @@ class StrikerGame(Widget):
             Color(0.015, 0.10, 0.13, 1)
             Triangle(points=[*points[0], *points[1], *points[2]])
             Triangle(points=[*points[0], *points[2], *points[3]])
-            message = campaign_message(self.elapsed, index)
+            message = campaign_message(self.elapsed, index, desktop=self.desktop_windows)
             texture = self._promotion_textures.get(message)
             if texture is None:
                 label = CoreLabel(text=message, font_size=42,
@@ -4602,7 +4610,7 @@ class StrikerGame(Widget):
         if surface == "back":
             base_y, base_z = self._veil_profile(v)
             back = self._net_displacement("back", u, v)
-            physical_v = base_z / GOAL_HEIGHT
+            physical_v = base_z / self.goal_height
             left = self._net_displacement("left", v, physical_v) * math.pow(
                 1.0 - u, 3.0
             )
@@ -4610,7 +4618,7 @@ class StrikerGame(Widget):
                 u, 3.0
             )
             return self.project(
-                -hw + GOAL_WIDTH * u - left + right,
+                -hw + self.goal_width * u - left + right,
                 base_y - back * 0.92,
                 base_z + back * 0.28,
             )
@@ -4618,7 +4626,7 @@ class StrikerGame(Widget):
 
         if surface == "left":
             base_y, top_z = self._veil_profile(u)
-            physical_v = (top_z / GOAL_HEIGHT) * v
+            physical_v = (top_z / self.goal_height) * v
             side = self._net_displacement("left", u, physical_v)
             edge_blend = u + (1.0 - u) * math.pow(v, 3.0)
             back = self._net_displacement("back", 0.0, u) * edge_blend
@@ -4631,7 +4639,7 @@ class StrikerGame(Widget):
 
         if surface == "right":
             base_y, top_z = self._veil_profile(u)
-            physical_v = (top_z / GOAL_HEIGHT) * v
+            physical_v = (top_z / self.goal_height) * v
             side = self._net_displacement("right", u, physical_v)
             edge_blend = u + (1.0 - u) * math.pow(v, 3.0)
             back = self._net_displacement("back", 1.0, u) * edge_blend
@@ -4650,14 +4658,14 @@ class StrikerGame(Widget):
         # só depois cai na diagonal até ao relvado, sem fundo vertical.
         # Fio claro e fino. A opacidade anterior acumulava-se nas dezenas de
         # linhas e fazia a rede parecer uma superfície azul preenchida.
-        Color(0.96, 0.97, 0.93, 0.84)
+        Color(*((0.87, 0.94, 0.98, 0.52) if self.desktop_windows else (0.96, 0.97, 0.93, 0.84)))
         # Células de cerca de 24 cm: mais visíveis no telemóvel e mais leves
         # de animar do que a antiga malha excessivamente fina.
-        self._draw_net_surface("back", 30, 15)
+        self._draw_net_surface("back", math.ceil(self.goal_width/.26) if self.desktop_windows else 30, 15)
 
 
         # As laterais repetem o perfil completo, em vez de serem triângulos.
-        Color(0.94, 0.95, 0.91, 0.86)
+        Color(*((0.78, 0.88, 0.92, 0.48) if self.desktop_windows else (0.94, 0.95, 0.91, 0.86)))
         self._draw_side_net("left")
         self._draw_side_net("right")
 
@@ -4669,14 +4677,14 @@ class StrikerGame(Widget):
             for iv in range(v_steps + 1):
                 v = iv / v_steps
                 points.extend(self._net_point(surface, u, v))
-            Line(points=points, width=0.82)
+            Line(points=points, width=0.60 if self.desktop_windows else 0.82)
         for iv in range(v_steps + 1):
             v = iv / v_steps
             points = []
             for iu in range(u_steps + 1):
                 u = iu / u_steps
                 points.extend(self._net_point(surface, u, v))
-            Line(points=points, width=0.82)
+            Line(points=points, width=0.60 if self.desktop_windows else 0.82)
 
 
     def _draw_side_net(self, surface: str) -> None:
@@ -4698,14 +4706,14 @@ class StrikerGame(Widget):
             for height_index in range(vertical_steps + 1):
                 z = top_z * height_index / vertical_steps
                 points.extend(self._net_point(surface, u, z / top_z))
-            Line(points=points, width=0.82)
+            Line(points=points, width=0.60 if self.desktop_windows else 0.82)
 
 
         # Fios horizontais: cada um termina quando encontra a queda do véu.
         # Ao contrário da parametrização anterior, não acompanham a diagonal.
-        height_steps = math.ceil(GOAL_HEIGHT / mesh_size)
+        height_steps = math.ceil(self.goal_height / mesh_size)
         for height_index in range(height_steps + 1):
-            z = GOAL_HEIGHT * height_index / height_steps
+            z = self.goal_height * height_index / height_steps
             if z < 1e-8:
                 # A última fiada acompanha também a folga pousada no relvado.
                 max_depth = GOAL_DEPTH
@@ -4720,17 +4728,20 @@ class StrikerGame(Widget):
                 u = self._veil_amount_at_y(y)
                 v = z / top_z if top_z > 1e-8 else 0.0
                 points.extend(self._net_point(surface, u, clamp(v, 0.0, 1.0)))
-            Line(points=points, width=0.82)
+            Line(points=points, width=0.60 if self.desktop_windows else 0.82)
 
 
     def _draw_goal_frame(self) -> None:
+        if self.desktop_windows:
+            self._draw_desktop_goal_frame()
+            return
         hw = self.goal_half_width
         left_bottom = self.project(-hw, 0.0, 0.0)
-        left_top = self.project(-hw, 0.0, GOAL_HEIGHT)
+        left_top = self.project(-hw, 0.0, self.goal_height)
         right_bottom = self.project(hw, 0.0, 0.0)
-        right_top = self.project(hw, 0.0, GOAL_HEIGHT)
-        left_support = self.project(-hw, -VEIL_TOP_DEPTH, GOAL_HEIGHT)
-        right_support = self.project(hw, -VEIL_TOP_DEPTH, GOAL_HEIGHT)
+        right_top = self.project(hw, 0.0, self.goal_height)
+        left_support = self.project(-hw, -VEIL_TOP_DEPTH, self.goal_height)
+        right_support = self.project(hw, -VEIL_TOP_DEPTH, self.goal_height)
 
 
         Color(0.04, 0.08, 0.09, 0.38)
@@ -4757,6 +4768,35 @@ class StrikerGame(Widget):
         Color(0.88, 0.93, 0.95, 1.0)
         Line(points=[*left_top, *left_support], width=2.8)
         Line(points=[*right_top, *right_support], width=2.8)
+
+
+    def _draw_desktop_goal_frame(self):
+        """Projected round white tubes with subtle depth, joints and turf shade."""
+        hw,height=self.goal_half_width,self.goal_height
+        lb,lt=self.project(-hw,0,0),self.project(-hw,0,height)
+        rb,rt=self.project(hw,0,0),self.project(hw,0,height)
+        ls,rs=self.project(-hw,-VEIL_TOP_DEPTH,height),self.project(hw,-VEIL_TOP_DEPTH,height)
+        tube=max(1.25,POST_RADIUS*self.pixels_per_meter(0,0,height*.5))
+        # Ground contact/shadows stay on the turf; no opaque net surface.
+        Color(0.01,0.035,0.025,0.35)
+        for x in (-hw,hw):
+            self._world_polyline([(x,0,.018),(x+.32,-.75,.018)],width=tube*1.5)
+        Color(0.40,0.50,0.54,0.9)
+        Line(points=[*lt,*ls],width=tube*.65,cap='round')
+        Line(points=[*rt,*rs],width=tube*.65,cap='round')
+        Color(0.73,0.80,0.82,1)
+        Line(points=[*ls,*lt,*rt,*rs],width=tube*.4,cap='round',joint='round')
+        path=[*lb,*lt,*rt,*rb]
+        Color(0.08,0.13,0.15,0.9)
+        Line(points=path,width=tube+1,cap='round',joint='round')
+        Color(0.70,0.79,0.83,1)
+        Line(points=path,width=tube,cap='round',joint='round')
+        Color(0.98,0.99,0.97,1)
+        Line(points=[lb[0]-.45,lb[1],lt[0]-.45,lt[1]-.3,rt[0]-.45,rt[1]-.3,rb[0]-.45,rb[1]],
+             width=max(.7,tube*.58),cap='round',joint='round')
+        for point in (lt,rt):
+            Color(0.96,0.98,0.97,1)
+            Ellipse(pos=(point[0]-tube*.7,point[1]-tube*.7),size=(tube*1.4,tube*1.4))
 
 
     def _draw_field_players(self) -> None:
@@ -5104,12 +5144,17 @@ class StrikerGame(Widget):
         )
 
 
+    def _ball_behind_keeper(self):
+        # Resting/scored balls keep their depth. A secured glove catch stays
+        # in front of the keeper; activity is not a painter-order criterion.
+        return not self.goalkeeper_holding and self.ball.y < GOALKEEPER_Y-self.ball.radius
+
     def _draw_ball(self) -> None:
         ball = self.ball
         bx, by = self.project(ball.x, ball.y, ball.z)
         ground_x, ground_y = self.project(ball.x, ball.y, 0.01)
         scale = self.pixels_per_meter(ball.x, ball.y, ball.z)
-        radius = max(6.0, ball.radius * scale)
+        radius = max(3.5 if self.desktop_windows else 6.0, ball.radius * scale)
 
 
         Color(0.01, 0.025, 0.018, 0.40)

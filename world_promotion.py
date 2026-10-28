@@ -2,11 +2,13 @@
 WORLD_PACKAGE = 'com.clemir.scorerworld'
 WORLD_LISTING_URL = 'https://play.google.com/store/apps/details?id=' + WORLD_PACKAGE
 ROTATION_SECONDS = 25
+WINDOWS_MESSAGES = ('YOUR COMPANY HERE', 'SPONSOR THIS STADIUM', 'SCORER WORLD', 'WORLD LEAGUES')
 MESSAGES = ('SCORER WORLD', 'WORLD LEAGUES', 'LOCAL NAME EDITOR', 'PLAY AD-FREE')
 
 
-def campaign_message(elapsed, offset=0):
-    return MESSAGES[(max(0, int(elapsed)) // ROTATION_SECONDS + offset) % len(MESSAGES)]
+def campaign_message(elapsed, offset=0, desktop=False):
+    messages=WINDOWS_MESSAGES if desktop else MESSAGES
+    return messages[(max(0, int(elapsed)) // ROTATION_SECONDS + offset) % len(messages)]
 
 
 def board_segments():

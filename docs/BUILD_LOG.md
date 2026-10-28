@@ -1453,3 +1453,16 @@ Source158core/security+87Kivy=245 PASS, plus6 native Windows staging checks.
 Windows0.6.39-win.2 direct EXE preserves save folder and schema. No Android rebuild,
 manual full-match/audio claim, code signing, production ads/payments or server
 activation. WINDOWS_MATCHDAY.md and artifact/capture retain evidence.
+
+
+## Windows0.6.39-win.3 — larger goal/depth fix/local sponsor copy
+
+Single per-game Windows geometry +12%width/+10%height, consistent frame/net/physics/
+aim and unchanged Android dimensions. Depth bug removed active-state branch;
+resting net balls stay behind frame/keeper, between-plane and held-ball cases
+handled. Rounded shaded goal tubes, cleaner translucent net, proportional far
+ball and4bounded local English sponsor/World messages.161core+92Kivy=253PASS.
+Paired80hard shots/profile:18/80original vs26/80Windows,0unresolved at15s; not a
+human goal rate. Source staged hub/engine/save smoke and static goal/depth render
+pass. Native Windows build/visual verification pending before delivery. See
+WINDOWS_GOAL.md and WINDOWS_GOAL_CALIBRATION.json. Unrelated WIP preserved.

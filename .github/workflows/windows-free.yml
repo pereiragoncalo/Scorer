@@ -9,6 +9,9 @@ on:
       - 'desktop_launcher.py'
       - 'desktop_dashboard.py'
       - 'dashboard_data.py'
+      - 'shot_geometry.py'
+      - 'world_promotion.py'
+      - 'ui_tests/test_goal_geometry.py'
       - 'ui_tests/test_windows_dashboard.py'
       - 'tests/test_windows.py'
 env:

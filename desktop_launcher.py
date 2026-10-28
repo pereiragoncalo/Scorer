@@ -59,6 +59,22 @@ def main():
     app = WindowsApp()
     result = {'ok':False,'platform':sys.platform,'frozen':bool(getattr(sys,'frozen',False))}
     if smoke:
+        def report_and_stop():
+            report.parent.mkdir(parents=True,exist_ok=True)
+            report.write_text(json.dumps(result,indent=2),encoding='utf8')
+            Clock.schedule_once(lambda _:app.stop(),0)
+
+        def capture_goal(_):
+            try:
+                g=app.root
+                assert g.desktop_windows and g._ball_behind_keeper() and not g.ball.active
+                g.export_to_png(str(report.parent/'goal.png'))
+                result.update(goal_scene_rendered=True,settled_ball_behind_keeper=True,
+                              goal_width=g.goal_width,goal_height=g.goal_height)
+            except Exception as error:
+                result.update(ok=False,error=type(error).__name__+': '+str(error))
+            finally:report_and_stop()
+
         def finish(*_):
             Window.unbind(on_flip=finish)
             try:
@@ -67,14 +83,18 @@ def main():
                 assert len(dashboard.fixtures.visible_rows)==len(dashboard.data.fixtures)
                 result['visible_matchday_fixtures']=len(dashboard.fixtures.visible_rows)
                 result['visible_top_scorers']=len(dashboard.scorers.visible_rows)
-                # Render the actual root canvas into an RGBA FBO. This avoids
-                # reading a discarded/stale ANGLE window backbuffer.
                 app.root.export_to_png(str(report.with_suffix('.png')))
+                # Separate static render fixture, not another recorded goal/match.
+                g=app.root;g.view='shot';g.state=g.STATE_RESULT;g.shot_context='match'
+                g.shot_origin_x=0;g.shot_origin_y=15;g.goalkeeper_x=0
+                g.goalkeeper_holding=False;g.goalkeeper_is_diving=False
+                g.goalkeeper_dive_progress=0;g.goalkeeper_dive_amount=0
+                g.ball.x=1.5;g.ball.y=-.85;g.ball.z=.75;g.ball.active=False
+                g.result_text='';g.outcome_registered=True;g.draw()
+                Clock.schedule_once(capture_goal,.35)
             except Exception as error:
                 result.update(ok=False,error=type(error).__name__+': '+str(error))
-            finally:
-                report.write_text(json.dumps(result,indent=2),encoding='utf8')
-                Clock.schedule_once(lambda _:app.stop(),0)
+                report_and_stop()
 
         def arm_capture(_):
             Window.bind(on_flip=finish)

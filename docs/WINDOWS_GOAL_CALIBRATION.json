@@ -1,0 +1,25 @@
+{
+  "original": {
+    "samples": 80,
+    "width": 7.32,
+    "height": 2.44,
+    "outcomes": {
+      "MISS!": 25,
+      "GOAL!": 18,
+      "SAVED!": 37
+    },
+    "conversion": 0.225
+  },
+  "windows": {
+    "samples": 80,
+    "width": 8.198400000000001,
+    "height": 2.684,
+    "outcomes": {
+      "MISS!": 20,
+      "GOAL!": 26,
+      "SAVED!": 34
+    },
+    "conversion": 0.325
+  },
+  "method": "80 paired seeds per profile, hard chances, normalized goal targets, real physical collision/keeper simulation, up to15s; no forced goals or unresolved shots. Not human/device conversion."
+}
