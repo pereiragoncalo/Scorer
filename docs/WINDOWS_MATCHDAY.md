@@ -66,3 +66,21 @@ desktop_launcher.py and tools/windows/verify_smoke.py automation; workflow paths
 tests/test_dashboard_data.py, ui_tests/test_windows_dashboard.py; release docs.
 Next: install the new EXE, Load your existing career and check actual matchday,
 own-fixture highlight, scorer order/hero rank, Training/Play gate and resizing.
+
+## Verified Windows artifact
+
+Native run40729867510, sourcef842a66 PASS:6 Windows staging checks, real frozen
+Windows startup/career/training/engine match completion/save-reload/close-cancel,
+new dashboard identity,12visible league fixtures,9visible leaders and nonblank
+render. [Actual Windows root-canvas capture](captures/windows-matchday-hub.png)
+was visually inspected. No human complete-match or audio result is claimed.
+
+EXE:41,561,488bytes, AMD64 PE32+, SHA256
+`bfcb4170c299c71f607e484cde5de36ac799f505e4263dd28bab4ebf1b32189a`.
+Embedded archive verified desktop_dashboard/dashboard_data, fixed Free, empty
+statistics endpoint, required art and no server/Android/World art/keys/saves.
+See WINDOWS_MATCHDAY_artifact.json. Unsigned QA candidate, no installer/ZIP.
+
+[Download Windows0.6.39-win.2](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/windows-beta-0.6.39-2/Scorer-Free.exe).
+Close the previous game with Save and Exit before replacing the EXE. Keep the
+existing %LOCALAPPDATA%/Clemir/Scorer/Free directory and use Load Game to continue.

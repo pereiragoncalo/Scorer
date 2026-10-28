@@ -1,3 +1,14 @@
+# Scorer Free Windows0.6.39-win.2 — matchday dashboard
+
+[Download Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/windows-beta-0.6.39-2/Scorer-Free.exe).
+All12 upcoming league games on the left, own fixture highlighted; saved league
+leaders on the right, permanent hero rank/goals and compact season totals.
+Training/Play and original navigation retained; no main-menu scroll. Small windows
+use compact fallback; Android UI and saved careers unchanged.245 core/Kivy tests
+and6 native Windows checks PASS; actual frozen build/render/career/training/
+engine match/save-reload/exit-cancel passed in run40729867510. Unsigned QA build;
+manual play/audio/resize still pending. [Evidence](docs/WINDOWS_MATCHDAY.md).
+
 # Scorer Free for Windows — first QA executable
 
 [Download Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/windows-beta-0.6.39-1/Scorer-Free.exe)

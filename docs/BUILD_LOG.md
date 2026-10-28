@@ -1443,3 +1443,13 @@ small-window fallback, Android original dashboard retained.158core/security+
 NPC scorers, save/reload,12visible games and close/cancel; actual root FBO render
 avoids stale ANGLE framebuffer/modal capture. Native Windows build is the next
 gate; no final EXE claimed yet. See WINDOWS_MATCHDAY.md for cases/limits.
+
+Windows native run40729867510/sourcef842a66 PASS. Frozen EXE displays12current
+league pairings/highlight and9leading scorers in1280x720; root-canvas capture
+visually inspected. Automated engine match/career/training/save/reload/window
+close-cancel pass. PE/archive fixed-Free/no backend/keys/save/World art checks
+PASS;41,561,488bytes SHA256 bfcb4170c299c71f607e484cde5de36ac799f505e4263dd28bab4ebf1b32189a.
+Source158core/security+87Kivy=245 PASS, plus6 native Windows staging checks.
+Windows0.6.39-win.2 direct EXE preserves save folder and schema. No Android rebuild,
+manual full-match/audio claim, code signing, production ads/payments or server
+activation. WINDOWS_MATCHDAY.md and artifact/capture retain evidence.
