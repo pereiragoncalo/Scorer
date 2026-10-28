@@ -1393,3 +1393,9 @@ Windows run40665092529 stopped before build: Kivy[base] constrains Pillow<11,
 conflicting with the explicit11.3.0 image-tool pin. Use core Kivy2.3.1 (its normal
 Windows SDL2/ANGLE/GLEW dependencies remain included) and separately pinned Pillow
 for icon conversion; no unused base extra. Repeat native build before claims.
+
+Windows run40665288718 resolved dependencies but caught two test path assertions:
+Windows expands RUNNER~1 short paths to the same runneradmin directory. Resolve
+expected paths too; keep the correct canonical persistent path in production.
+Enable UTF8 consistently for Windows tooling and rebuild on Windows-test changes.
+No application save or gameplay change was needed for this test correction.

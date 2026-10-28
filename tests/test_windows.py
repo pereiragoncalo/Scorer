@@ -25,7 +25,7 @@ class WindowsFreeTests(unittest.TestCase):
             with tempfile.TemporaryDirectory() as folder,patch.dict(os.environ,{},clear=True):
                 os.environ['LOCALAPPDATA']=str(Path(folder)/'profile')
                 directory=configure(ROOT)
-                self.assertEqual(directory,Path(folder)/'profile/Clemir/Scorer/Free')
+                self.assertEqual(directory,(Path(folder)/'profile/Clemir/Scorer/Free').resolve())
                 self.assertEqual(Path(os.environ['STRIKER_SAVE_DIR']),directory)
                 self.assertTrue(directory.is_dir());self.assertNotEqual(directory,ROOT)
                 from career import CareerMode
@@ -37,9 +37,9 @@ class WindowsFreeTests(unittest.TestCase):
         before=Path.cwd()
         try:
             with tempfile.TemporaryDirectory() as folder,patch.dict(os.environ,{'STRIKER_SAVE_DIR':folder}):
-                self.assertEqual(configure(ROOT),Path(folder))
+                self.assertEqual(configure(ROOT),Path(folder).resolve())
                 p=Path(folder)/'striker_career.json';p.write_text('existing progress')
-                self.assertEqual(configure(ROOT),Path(folder));self.assertEqual(p.read_text(),'existing progress')
+                self.assertEqual(configure(ROOT),Path(folder).resolve());self.assertEqual(p.read_text(),'existing progress')
         finally:os.chdir(before)
     def test_missing_assets_fail_before_changing_directory_or_creating_save(self):
         before=Path.cwd()

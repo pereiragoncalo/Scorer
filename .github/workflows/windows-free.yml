@@ -7,6 +7,9 @@ on:
       - '.github/workflows/windows-free.yml'
       - 'tools/windows/**'
       - 'desktop_launcher.py'
+      - 'tests/test_windows.py'
+env:
+  PYTHONUTF8: '1'
 permissions:
   contents: read
 jobs:
