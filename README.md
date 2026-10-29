@@ -1,3 +1,7 @@
+## Windows Free 0.6.39-win.4
+
+[Download EXE](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/windows-beta-0.6.39-4/Scorer-Free.exe) — smaller keeper, faster shots, empty training stands; Android unchanged. [Validation](docs/WINDOWS_POWER.md).
+
 # Scorer Free Windows0.6.39-win.3 — larger goal and depth fix
 
 [Download Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/windows-beta-0.6.39-3/Scorer-Free.exe).
