@@ -21,3 +21,13 @@ class OnlineUITests(unittest.TestCase):
                 self.assertFalse(g.usage.enabled)
                 g._activate_ui('leaderboard_leave');self.assertFalse(g.leaderboard.enabled)
                 self.assertTrue(g.leaderboard.pending_withdrawal)
+
+    def test_main_menu_exposes_leaderboard_without_enabling_any_collection(self):
+        from kivy.uix.button import Button
+        from kivy.core.window import Window
+        for world in (False,True):
+            with patch('edition.WORLD_BUILD',world),isolated_game(saved=True) as g:
+                g.view='hub';g.draw();settle()
+                labels={w.text for w in g.walk() if isinstance(w,Button)}
+                self.assertIn('LEADERBOARD',labels)
+                self.assertFalse(g.leaderboard.enabled);self.assertFalse(g.usage.enabled)

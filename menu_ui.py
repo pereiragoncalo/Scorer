@@ -370,8 +370,7 @@ class CareerMenu(BoxLayout):
         if self.game._world_available or self.game.career.world_unlocked:
             card.label('SCORER World is a separate ad-free application and can be played offline. Careers and imported names stay on this device; there is no SCORER account or in-app purchase verification service.')
             self._privacy_contact(card)
-            return
-        if getattr(release_settings, 'DESKTOP_WINDOWS', False):
+        elif getattr(release_settings, 'DESKTOP_WINDOWS', False):
             card.label('Scorer Free for Windows works offline. It includes local stadium promotion panels, with no Google advertising SDK or ad-reward videos.')
             self._privacy_contact(card)
         else:
@@ -395,7 +394,7 @@ class CareerMenu(BoxLayout):
         if usage.remote_available:
             from urllib.parse import urlsplit
             stats.label('Recipient: '+str(urlsplit(usage.endpoint).hostname))
-            stats.label('The server sees an IP address while receiving a request; our collector does not store IP addresses or raw reports. Only daily aggregate totals are stored; individual contributions are not stored separately.')
+            stats.label('The server sees an IP address while receiving a request; our collector does not store IP addresses or raw reports. HTTPS delivery uses Cloudflare, which processes connection information. Only daily aggregate totals are stored; individual contributions are not stored separately.')
         else:stats.label('Upload is not configured. Optional counters stay on this device; nothing is sent.')
         stats.label('You can stop collection and erase unsent counters here. If you are underage, ask a parent or guardian before enabling. Advertising consent is separate.')
         stats.label('Status: '+('On' if usage.enabled else 'Off'))
@@ -823,9 +822,9 @@ class MainDashboard(BoxLayout):
                                            color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
         self.hero.add_widget(self.season)
         self.add_widget(self.hero)
-        self.actions = GridLayout(cols=4, spacing=dp(6), size_hint_y=None, height=dp(52))
+        self.actions = GridLayout(cols=5, spacing=dp(6), size_hint_y=None, height=dp(52))
         for title, action in [('STANDINGS', 'standings'),
-                              ('TOP SCORERS', 'scorers'), ('FIXTURES', 'calendar'), ('AGENT', 'agent')]:
+                              ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent')]:
             button = MenuTile(title, lambda name=action: menu.action(name))
             self.actions.add_widget(button)
             if action == 'scorers':
@@ -857,7 +856,7 @@ class MainDashboard(BoxLayout):
                     self.actions.remove_widget(button)
                     self.footer.add_widget(button)
                 self.add_widget(self.hero, index=self.children.index(self.identity))
-            self.actions.cols = 2 if portrait else 4
+            self.actions.cols = 2 if portrait else 5
         rows = (len(self.actions.children) + self.actions.cols - 1) // self.actions.cols
         self.actions.height = rows * dp(52) + (rows - 1) * dp(6)
         self.hero.orientation = 'vertical' if portrait else 'horizontal'

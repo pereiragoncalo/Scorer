@@ -13,7 +13,7 @@ class WindowsFreeTests(unittest.TestCase):
             ns={};exec((target/'edition.py').read_text(),ns)
             self.assertFalse(ns['WORLD_BUILD']);self.assertFalse(ns['WORLD_PREVIEW'])
             self.assertIn('DESKTOP_WINDOWS = True',(target/'release_settings.py').read_text())
-            self.assertEqual((target/'analytics_config.py').read_text(),"ENDPOINT = ''\n")
+            self.assertEqual((target/'analytics_config.py').read_text(),"ENDPOINT = 'https://stats.clemir.com/v1/usage'\n")
             for item in ('server','android','tools','buildozer.spec','billing.py','assets/i18n','assets/icon_world.png','assets/menu_logo_world.png','striker_career.json','scorer_usage.json'):
                 self.assertFalse((target/item).exists(),item)
             self.assertFalse(list((target/'assets/fonts').glob('*Noto*')))

@@ -1,4 +1,4 @@
-"""Optional Free usage counters. No accounts, names, device IDs or event logs."""
+"""Optional aggregate game usage counters. No accounts, names, device IDs or event logs."""
 from datetime import datetime, timezone, date
 import json
 import os
@@ -49,10 +49,8 @@ class _NoRedirect(HTTPRedirectHandler):
 
 def send_counts(endpoint,payload):
     if not valid_endpoint(endpoint) or not valid_payload(payload):return False
-    try:
-        import certifi
-        context=ssl.create_default_context(cafile=certifi.where())
-    except ImportError:context=ssl.create_default_context()
+    from network_tls import verified_context
+    context=verified_context()
     body=json.dumps(payload,separators=(',',':')).encode('ascii')
     request=Request(endpoint,body,{'Content-Type':'application/json','User-Agent':'Scorer-Usage/1'},method='POST')
     try:
@@ -179,7 +177,6 @@ class UsageStatistics(NoStatistics):
 
 
 def create_statistics(world,directory,endpoint=None):
-    if world:return NoStatistics()
     if endpoint is None:
         from analytics_config import ENDPOINT
         endpoint=ENDPOINT

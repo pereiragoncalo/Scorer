@@ -15,9 +15,11 @@ class AnonymousStatsTests(unittest.TestCase):
     def test_default_off_no_file_and_no_events_before_explicit_choice(self):
         s=UsageStatistics(self.root);s.begin_session();self.assertFalse(s.record('matches_completed'));self.assertFalse(s.flush_async());self.assertFalse(s.path.exists())
         self.assertTrue(s.set_enabled(True));self.assertEqual(s.counts,{'sessions':1});s.begin_session();self.assertEqual(s.counts,{'sessions':1})
-    def test_world_has_no_preference_io_or_sender(self):
-        with patch.object(Path,'stat',side_effect=AssertionError('World IO')),patch.object(Path,'read_text',side_effect=AssertionError('World IO')):
-            s=create_statistics(True,self.root);s.begin_session();self.assertFalse(s.record('sessions'));self.assertFalse(s.set_enabled(True));self.assertFalse(s.flush_async())
+    def test_world_stats_are_off_until_explicit_choice(self):
+        s=create_statistics(True,self.root,endpoint='https://stats.clemir.com/v1/usage')
+        s.begin_session();self.assertFalse(s.enabled);self.assertFalse(s.flush_async())
+        self.assertFalse(s.path.exists());self.assertTrue(s.set_enabled(True))
+        self.assertEqual(s.counts,{'sessions':1})
     def test_allowlist_rejects_names_parameters_bool_and_invalid_counts(self):
         s=UsageStatistics(self.root);s.set_enabled(True)
         for event,amount in [('Alex Silva',1),('player_name',1),([],1),('sessions',True),('sessions',0),('sessions',-1),('sessions',10001),('sessions','1')]:self.assertFalse(s.record(event,amount))
@@ -64,12 +66,13 @@ class AnonymousStatsTests(unittest.TestCase):
             self.assertFalse(valid_endpoint(url));self.assertFalse(send_counts(url,{'schema':1,'app':'scorer_free','counts':{'sessions':1}}))
         good={'schema':1,'app':'scorer_free','counts':{'sessions':1}};self.assertTrue(valid_payload(good))
         for bad in [dict(good,player_name='private'),dict(good,app='scorerworld'),dict(good,schema=True),dict(good,counts={'sessions':True}),dict(good,counts={'email':1})]:self.assertFalse(valid_payload(bad))
-    def test_world_staging_removes_transport_and_config_free_requires_explicit_endpoint(self):
-        w=prepare_edition('world',self.root/'world');f=prepare_edition('free',self.root/'free')
-        self.assertFalse((w/'analytics_config.py').exists());self.assertNotIn('urllib',(w/'anonymous_stats.py').read_text());self.assertEqual((f/'analytics_config.py').read_text(),"ENDPOINT = ''\n")
-        self.assertFalse((f/'server').exists());self.assertNotIn('SMTP',(f/'anonymous_stats.py').read_text())
-        with self.assertRaises(ValueError):prepare_edition('world',self.root/'bad',analytics_endpoint='https://stats.example/v1/usage')
-        with self.assertRaises(ValueError):prepare_edition('free',self.root/'bad2',analytics_endpoint='http://stats.example/v1/usage')
+    def test_all_editions_stage_same_private_usage_destination_without_secrets(self):
+        for product in ('world','free'):
+            root=prepare_edition(product,self.root/product)
+            self.assertIn('https://stats.clemir.com/v1/usage',(root/'analytics_config.py').read_text())
+            self.assertIn('urllib',(root/'anonymous_stats.py').read_text())
+            self.assertFalse((root/'server').exists())
+        with self.assertRaises(ValueError):prepare_edition('free',self.root/'bad',analytics_endpoint='http://stats.example/v1/usage')
 
     def test_session_end_once_only_after_start_never_on_default_off(self):
         s=UsageStatistics(self.root);self.assertFalse(s.end_session());s.begin_session();self.assertFalse(s.end_session())

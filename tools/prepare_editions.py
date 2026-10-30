@@ -9,15 +9,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.play.prepare import ROOT, prepare
 
 
-def prepare_edition(product, target, source=ROOT, analytics_endpoint=''):
+def prepare_edition(product, target, source=ROOT, analytics_endpoint=None):
     if product not in ('free', 'world'):
         raise ValueError('Choose free or world')
     from anonymous_stats import valid_endpoint
-    if analytics_endpoint and (product!='free' or not valid_endpoint(analytics_endpoint)):
-        raise ValueError('Analytics needs a Free-only HTTPS /v1/usage endpoint')
+    if analytics_endpoint is None:
+        ns={};exec((Path(source)/'analytics_config.py').read_text(),ns)
+        analytics_endpoint=ns['ENDPOINT']
+    if analytics_endpoint and not valid_endpoint(analytics_endpoint):
+        raise ValueError('Analytics needs an HTTPS /v1/usage endpoint')
     source = Path(source)
     config = json.loads((source/'release/play.example.json').read_text())
-    config['version_code'] = 1026640
+    config['version_code'] = 1026641
     config['billing']['enabled'] = False
     target = prepare(config, Path(target), 'rehearsal', source)
     identity = target/'edition.py'
@@ -29,7 +32,7 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=''):
     app['title'] = 'Scorer World' if product == 'world' else 'Scorer'
     app['icon.filename'] = 'assets/icon_world.png' if product == 'world' else 'assets/icon.png'
     app['package.domain'], app['package.name'] = 'com.clemir', 'scorerworld' if product == 'world' else 'striker'
-    app['version'], app['android.numeric_version'] = '0.6.40', '1026640'
+    app['version'], app['android.numeric_version'] = '0.6.41', '1026641'
     # Both products share a Python/Kivy native distribution, not an Android identity.
     app['p4a.extra_args'] = '--dist_name=striker'
     app['scorer.shared_native_dist'] = 'striker'
@@ -37,17 +40,14 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=''):
     (target/'billing.py').unlink(missing_ok=True)
     shutil.rmtree(target/'android/src/com/clemir/striker/billing', ignore_errors=True)
     app['android.gradle_dependencies'] = ','.join(x for x in app.get('android.gradle_dependencies','').split(',') if 'billingclient' not in x)
+    (target/'analytics_config.py').write_text('ENDPOINT = '+repr(analytics_endpoint)+'\n')
     if product == 'world':
-        # World contains only an inert adapter, never the collector transport.
-        (target/'analytics_config.py').unlink(missing_ok=True)
-        (target/'anonymous_stats.py').write_text("class NoStatistics:\n    enabled=False\n    endpoint=''\n    remote_available=False\n    last_error=''\n    def begin_session(self):pass\n    def end_session(self):pass\n    def record(self,*a,**kw):return False\n    def set_enabled(self,*a):return False\n    def flush_async(self):return False\ndef create_statistics(*a,**kw):return NoStatistics()\n")
         app['android.add_src'] = 'android/worldsrc'
         app['android.permissions'] = 'INTERNET,ACCESS_NETWORK_STATE'
         for option in ('android.meta_data','android.gradle_dependencies','android.extra_manifest_xml'):
             app.pop(option, None)
         shutil.rmtree(target/'android/src', ignore_errors=True)
     else:
-        (target/'analytics_config.py').write_text('ENDPOINT = '+repr(analytics_endpoint)+'\n')
         app['android.add_src'] = 'android/src'
         (target/'assets/icon_world.png').unlink(missing_ok=True)
         (target/'assets/menu_logo_world.png').unlink(missing_ok=True)
@@ -66,5 +66,5 @@ if __name__ == '__main__':
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--edition',choices=('free','world'),required=True)
     p.add_argument('--output',type=Path,required=True)
-    p.add_argument('--analytics-endpoint',default='',help='Free only: explicit public HTTPS /v1/usage URL; omitted keeps uploads off')
+    p.add_argument('--analytics-endpoint',default=None,help='Public HTTPS /v1/usage URL; omitted uses configured owner endpoint, empty disables uploads')
     args=p.parse_args();print(prepare_edition(args.edition,args.output,analytics_endpoint=args.analytics_endpoint))

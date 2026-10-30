@@ -31,7 +31,7 @@ class CompactHub(BoxLayout):
         self.add_widget(MenuLogo(size_hint_y=None,height=dp(32)))
         actions = GridLayout(cols=4, spacing=dp(4))
         entries = [('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
-                   ('TOP SCORERS', 'scorers'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
+                   ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
                    ('PLAYER', 'profile'), ('PRIVACY', 'privacy'), ('HELP', 'help')]
         if c.world_unlocked:entries.append(('WORLD LEAGUES', 'upgrade'))
         entries.append(('EXIT', 'exit'))

@@ -143,7 +143,12 @@ def main():
                 assert restored.club_name == g.career.club_name
                 assert restored.trained_this_week == g.career.trained_this_week
                 assert restored.matches == g.career.matches
-                assert g.usage.endpoint == '' and not g.usage.enabled
+                assert g.usage.endpoint == 'https://stats.clemir.com/v1/usage' and not g.usage.enabled
+                assert g.leaderboard.origin == 'https://stats.clemir.com' and not g.leaderboard.enabled
+                g.view='hub';g.draw()
+                from kivy.uix.button import Button
+                assert any(isinstance(w,Button) and w.text=='LEADERBOARD' for w in g.walk())
+                result.update(leaderboard_button=True,statistics_opt_in=True)
                 assert g.ads.backend is None
                 assert g.career.save_path.parent == directory
                 g.view='hub';g.draw()

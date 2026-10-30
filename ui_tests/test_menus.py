@@ -27,7 +27,7 @@ def settle():
 
 @contextmanager
 def isolated_game(saved=False, corrupt=False):
-    with tempfile.TemporaryDirectory() as root, patch.dict(os.environ, STRIKER_SAVE_DIR=root):
+    with tempfile.TemporaryDirectory() as root, patch.dict(os.environ, STRIKER_SAVE_DIR=root), patch('analytics_config.ENDPOINT',''), patch('online_config.ORIGIN',''):
         c = CareerMode()
         if saved:
             c.accept_starting_offer(c.offers[0])
@@ -1054,7 +1054,7 @@ class MenuTests(unittest.TestCase):
                     menu = self.game._menu
                     self.assertFalse(any(isinstance(w, ScrollView) for w in menu.walk()))
                     buttons = [w for w in menu.walk() if isinstance(w, TouchButton)]
-                    self.assertEqual(len(buttons), 10)
+                    self.assertEqual(len(buttons), 11)
                     self.assertFalse(any('WORLD' in button.text for button in buttons))
                     for button in buttons:
                         self.assertGreaterEqual(button.width, dp(48) - 1)

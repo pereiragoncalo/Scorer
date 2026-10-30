@@ -26,15 +26,15 @@ class UsageStatisticsUITests(unittest.TestCase):
             for key in ('sessions','new_careers','trainings_completed','matches_completed','goals_scored'):self.assertEqual(counts[key],1,key)
             data=g.usage.path.read_text();self.assertNotIn('Private Example',data);self.assertNotIn(g.career.club_name,data)
             self.assertEqual(set(json.loads(data)['counts']),set(counts))
-    def test_default_off_and_world_never_collect_or_expose_toggle(self):
+    def test_default_off_in_both_editions_with_independent_explicit_choice(self):
         with isolated_game(saved=True) as g:
             g._activate_ui('splash_continue');g._activate_ui('load_game');StrikerApp.on_pause(type('App',(),{'root':g})())
             self.assertFalse(g.usage.path.exists())
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
             g.view='privacy';g.draw();settle();g._activate_ui('enable_usage_stats')
-            self.assertFalse(g.usage.enabled)
-            self.assertNotIn('ALLOW USAGE STATS',{w.text for w in g.walk() if isinstance(w,Label)})
-            self.assertFalse((g.career.save_path.parent/'scorer_usage.json').exists())
+            self.assertTrue(g.usage.enabled)
+            self.assertIn('ALLOW USAGE STATS',{w.text for w in g.walk() if isinstance(w,Label)})
+            self.assertTrue((g.career.save_path.parent/'scorer_usage.json').exists())
     def test_known_save_load_failures_use_fixed_numeric_events_only(self):
         with isolated_game(corrupt=True) as g:
             g.usage.set_enabled(True);g._activate_ui('splash_continue');g._activate_ui('load_game');self.assertEqual(g.usage.counts['load_failures'],1)

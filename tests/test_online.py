@@ -61,3 +61,13 @@ class OnlineTests(unittest.TestCase):
             with patch.object(b,'request',side_effect=OSError):
                 b.sync(c,False,done.set,withdraw=True);self.assertTrue(done.wait(3))
                 self.assertTrue(b.pending_withdrawal)
+
+    def test_android_fallback_has_public_roots_and_requires_valid_https(self):
+        import ssl,sys
+        from network_tls import verified_context
+        with patch.dict(sys.modules,{'certifi':None}):
+            context=verified_context()
+        self.assertEqual(context.verify_mode,ssl.CERT_REQUIRED)
+        self.assertTrue(context.check_hostname);self.assertGreater(len(context.get_ca_certs()),100)
+        for certificate in context.get_ca_certs():
+            self.assertNotIn('mitm',str(certificate.get('subject')).lower())

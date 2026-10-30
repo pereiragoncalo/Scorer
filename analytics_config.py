@@ -1,2 +1,2 @@
-"""Public destination only; no API key, identity or production service enabled."""
-ENDPOINT = ''
+"""Owner-hosted usage receiver; explicit player opt-in is still required."""
+ENDPOINT = 'https://stats.clemir.com/v1/usage'

@@ -44,13 +44,11 @@ class Leaderboard:
 
     def request(self,path,payload=None):
         if not valid_origin(self.origin):raise ValueError('Service not configured')
-        try:
-            import certifi
-            context=ssl.create_default_context(cafile=certifi.where())
-        except ImportError:context=ssl.create_default_context()
+        from network_tls import verified_context
+        context=verified_context()
         opener=build_opener(NoRedirect(),HTTPSHandler(context=context))
         data=None if payload is None else json.dumps(payload).encode()
-        req=Request(self.origin+path,data=data,headers={'Content-Type':'application/json'})
+        req=Request(self.origin+path,data=data,headers={'Content-Type':'application/json','User-Agent':'Scorer/0.6.41','Accept':'application/json'})
         with opener.open(req,timeout=5) as response:
             body=response.read(65537)
             if len(body)>65536:raise ValueError('Response too large')

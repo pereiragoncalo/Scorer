@@ -5,7 +5,7 @@ package.domain = com.clemir
 source.dir = .
 source.exclude_dirs = server,baseline,tests,ui_tests,docs,tools,android,release,.git,.buildozer,bin
 source.exclude_patterns = scorer_usage.json,.scorer-usage-*,striker_*.json,scorer_language.json,*.keystore,*.jks,*.log,*.pem,*.p12,release.local.json
-source.include_exts = py,png,jpg,jpeg,kv,json,atlas,ttf,otf,license
+source.include_exts = py,png,jpg,jpeg,kv,json,atlas,ttf,otf,license,crt
 version = 0.6.39
 requirements = python3,kivy==2.3.1,chardet==5.2.0
 orientation = landscape
