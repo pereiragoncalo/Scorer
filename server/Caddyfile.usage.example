@@ -1,7 +1,15 @@
 # Optional direct HTTPS instead of existing Cloudflare Tunnel. No access logs.
-{ log { output discard } }
+{
+    log {
+        output discard
+    }
+}
 stats.example.com {
     @service path /health /admin /v1/usage /v1/totals /v1/leaderboard /v1/leaderboard/withdraw
-    handle @service { reverse_proxy 127.0.0.1:8787 }
-    handle { respond 404 }
+    handle @service {
+        reverse_proxy 127.0.0.1:8787
+    }
+    handle {
+        respond 404
+    }
 }

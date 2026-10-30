@@ -1507,3 +1507,27 @@ Unsigned Windows x64 EXE: 41566939bytes. SHA256 `e515818e052573f7f0c76f271a32460
 Static training capture reuses the test result state (SHOT4/3), not a playable fourth training attempt. No claim of full human match validation.
 
 Core/security161 and Kivy93 PASS. Initial core attempt used Kivy venv missing fontTools/cryptography; repeated with existing system dependencies, all pass. Focused test typo STATE_AIM corrected to STATE_AIMING. Pre-existing WIP patch preserved byte-for-byte. No Android build or production services activated.
+
+## Scorer0.6.40
+
+
+## Verified artifacts
+
+166core/security +96Kivy tests PASS. Added30real engine crossed-shot cases inside
+one regression.5actual local HTTP/client tests,2Kivy online UI cases included.
+Windows native run41115421830/sourcef688333 PASS:6staging checks, real frozen
+career/training/automated engine match/save-reload/close, fullscreen true,
+1024x768hub/goal/empty-training FBO renders. Human full-match still owner test.
+Android Free/World0.6.40 code1026640 both actually compiled; signatures preserve
+prior debug certificate, ZIP16KB and118ELF LOAD16KB checks PASS. World verifier
+initially assumed a single bool constant; fixed to verify named WORLD_BUILD and
+WORLD_PREVIEW assignments instead. No APK binary change required for verifier fix.
+Existing source regression expecting random target dispersion now asserts fixed
+marker target, bounded compensated speed and original training distances. Initial
+run failed obsolete expectation; final complete suite passes. No failures hidden.
+
+Static training screenshot reuses final smoke state SHOT4/3; it is a render fixture,
+not a playable fourth shot. Existing careers/WIP retained; no release signing/Play
+store activation, remote destination or human Android device testing claimed.
+
+See ONLINE_0.6.40.md and artifact JSON for exact evidence. Own-host laptop service remains uninstalled pending access/owner terminal commands; existing Cloudflare Tunnel avoids static-IP/router configuration.

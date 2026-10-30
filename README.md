@@ -1,3 +1,11 @@
+## Scorer0.6.40 — corrected aiming, empty training stands, Windows fullscreen
+
+[Scorer-Free-0.6.40.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.40/Scorer-Free-0.6.40.apk)
+[Scorer-World-0.6.40.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.40/Scorer-World-0.6.40.apk)
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.40/Scorer-Free.exe)
+
+[Tests and online-service status](docs/ONLINE_0.6.40.md). Leaderboard/usage hosting prepared; no public destination configured or remote collection active.
+
 ## Windows Free 0.6.39-win.4
 
 [Download EXE](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/windows-beta-0.6.39-4/Scorer-Free.exe) — smaller keeper, faster shots, empty training stands; Android unchanged. [Validation](docs/WINDOWS_POWER.md).

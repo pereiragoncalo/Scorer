@@ -43,3 +43,28 @@ HTTP tests cover submit/read/delete and protected totals. No Android physical
 device/full human match or live external server test claimed. Next: owner laptop
 install/public HTTPS checks, configure destination, fresh privacy disclosures,
 rebuild/test actual upload before calling leaderboard live.
+
+## Verified artifacts
+
+166core/security +96Kivy tests PASS. Added30real engine crossed-shot cases inside
+one regression.5actual local HTTP/client tests,2Kivy online UI cases included.
+Windows native run41115421830/sourcef688333 PASS:6staging checks, real frozen
+career/training/automated engine match/save-reload/close, fullscreen true,
+1024x768hub/goal/empty-training FBO renders. Human full-match still owner test.
+Android Free/World0.6.40 code1026640 both actually compiled; signatures preserve
+prior debug certificate, ZIP16KB and118ELF LOAD16KB checks PASS. World verifier
+initially assumed a single bool constant; fixed to verify named WORLD_BUILD and
+WORLD_PREVIEW assignments instead. No APK binary change required for verifier fix.
+Existing source regression expecting random target dispersion now asserts fixed
+marker target, bounded compensated speed and original training distances. Initial
+run failed obsolete expectation; final complete suite passes. No failures hidden.
+
+Static training screenshot reuses final smoke state SHOT4/3; it is a render fixture,
+not a playable fourth shot. Existing careers/WIP retained; no release signing/Play
+store activation, remote destination or human Android device testing claimed.
+
+[Scorer-Free-0.6.40.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.40/Scorer-Free-0.6.40.apk)
+
+[Scorer-World-0.6.40.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.40/Scorer-World-0.6.40.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.40/Scorer-Free.exe)

@@ -9,7 +9,10 @@ with zipfile.ZipFile(sys.argv[1]) as apk:
     with tarfile.open(fileobj=io.BytesIO(apk.read('assets/private.tar'))) as archive:
         member = next(m for m in archive if m.name.endswith('/edition.pyc') or m.name == 'edition.pyc')
         code = marshal.loads(archive.extractfile(member).read()[16:])
-flags = [value for value in code.co_consts if type(value) is bool]
+# Read named assignments: World has True and False constants, not a single flag.
+namespace={}
+exec(code,namespace)
 expected = sys.argv[2] == 'world'
-assert flags == [expected], flags
-print('Compiled edition verified:', 'World preview' if expected else 'Free')
+assert namespace['WORLD_BUILD'] is expected
+assert namespace['WORLD_PREVIEW'] is False
+print('Compiled edition verified:', 'World' if expected else 'Free')
