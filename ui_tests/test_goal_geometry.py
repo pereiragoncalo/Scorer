@@ -70,6 +70,26 @@ class WindowsGoalTests(unittest.TestCase):
                     with patch.object(g,'_draw_stand_meshes') as stands,patch.object(g,'_draw_crowd_meshes') as crowd:
                         g._draw_stadium_stands()
                         stands.assert_called_once()
-                        self.assertEqual(crowd.called,not(desktop and context=='training'))
+                        self.assertEqual(crowd.called,context!='training')
         for key in poses[0]:
             self.assertAlmostEqual(poses[1][key][1],poses[0][key][1]*.86)
+
+    def test_crossed_shots_reach_marker_from_both_sides_in_every_profile(self):
+        from contextlib import ExitStack
+        for desktop in (False,True):
+            with patch('release_settings.DESKTOP_WINDOWS',desktop,create=True),isolated_game() as g:
+                g.draw=lambda:None;g.shot_context='match'
+                for origin in (-12,-6,0,6,12):
+                    for target in (-2.5,0,2.5):
+                        g.shot_origin_x=origin;g.shot_origin_y=18;g.shot_type='normal'
+                        g.state=g.STATE_AIMING;g.power=.85
+                        with ExitStack() as stack:
+                            for method in ('_collide_field_players','_collide_goal_frame','_collide_goalkeeper','_collide_net','_play_goal_crowd_sound'):
+                                stack.enter_context(patch.object(g,method,return_value=False))
+                            g.shoot(target,1.4)
+                            for _ in range(400):
+                                g._update_ball(PHYSICS_STEP)
+                                if g.ball.crossed_goal:break
+                        self.assertIsNotNone(g.last_goal_line_point)
+                        self.assertAlmostEqual(g.last_goal_line_point[0],target,places=5)
+                        self.assertAlmostEqual(g.last_goal_line_point[1],1.4,places=5)

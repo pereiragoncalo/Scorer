@@ -69,7 +69,7 @@ def main():
                 g=app.root
                 assert not g._show_stadium_crowd()
                 g.export_to_png(str(report.parent/'training.png'))
-                result.update(empty_training_stands=True,goalkeeper_scale=g.goalkeeper_scale,
+                result.update(empty_training_stands=True,fullscreen=bool(Window.fullscreen),goalkeeper_scale=g.goalkeeper_scale,
                               shot_speed_multiplier=1.22)
             except Exception as error:
                 result.update(ok=False,error=type(error).__name__+': '+str(error))

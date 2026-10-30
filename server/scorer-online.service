@@ -1,0 +1,18 @@
+[Unit]
+Description=Scorer leaderboard and anonymous usage
+After=network.target
+[Service]
+Type=simple
+User=scorer
+WorkingDirectory=/opt/scorer
+EnvironmentFile=/etc/scorer/online.env
+ExecStart=/usr/bin/python3 /opt/scorer/server/usage_collector.py --bind 127.0.0.1 --port 8787 --db /var/lib/scorer/online.sqlite
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/scorer
+[Install]
+WantedBy=multi-user.target

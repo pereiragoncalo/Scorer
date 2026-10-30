@@ -40,7 +40,7 @@ class EditionTests(unittest.TestCase):
                 self.assertIn('WORLD_PREVIEW = False',(root/'edition.py').read_text())
                 if product=='world':
                     self.assertFalse((root/'android/src').exists())
-                    self.assertFalse(spec['app'].get('android.permissions',''))
+                    self.assertEqual(spec['app'].get('android.permissions'),'INTERNET,ACCESS_NETWORK_STATE')
                     self.assertNotIn('android.meta_data',spec['app'])
                     self.assertNotIn('android.gradle_dependencies',spec['app'])
                     self.assertIn('WORLD_BUILD = True',(root/'edition.py').read_text())

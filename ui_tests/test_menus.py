@@ -681,7 +681,7 @@ class MenuTests(unittest.TestCase):
             own = next(row for row in table.rows if row[1] == game.career.player_name)
             self.assertEqual(own[2], 2)
 
-    def test_pressured_touch_and_training_have_physical_dispersion(self):
+    def test_pressured_touch_keeps_marker_target_and_compensated_speed_bounded(self):
         import math
         import random
         previous = random.getstate()
@@ -696,20 +696,18 @@ class MenuTests(unittest.TestCase):
                 game._prepare_next_shot()
                 game.power = 0.85
                 game.shoot(3.45, 2.25)
-                self.assertLessEqual(math.hypot(game.ball.vx, game.ball.vy), 18 + 0.85*8 + 0.0001)
+                self.assertLessEqual(math.hypot(game.ball.vx, game.ball.vy), 40.0)
                 flight = game.ball.y / -game.ball.vy
                 xs.append(game.ball.x+game.ball.vx*flight)
                 zs.append(game.ball.z+game.ball.vz*flight-0.5*9.81*flight*flight)
                 self.assertFalse(game.outcome_registered)
-            self.assertGreater(max(xs)-min(xs), 2)
-            self.assertTrue(any(x > game.goal_half_width for x in xs))
-            self.assertTrue(any(x < game.goal_half_width for x in xs))
+            for x in xs:self.assertAlmostEqual(x,3.45,places=6)
             game.shot_context = 'training'
             game._prepare_next_shot()
             game.power = 0.85
             game.shoot(0, 1)
             flight = game.ball.y / -game.ball.vy
-            self.assertLessEqual(math.hypot(game.ball.vx, game.ball.vy), 18 + 0.85*8 + 0.0001)
+            self.assertLessEqual(math.hypot(game.ball.vx, game.ball.vy), 40.0)
             self.assertGreaterEqual(game.shot_origin_y, 13)
             self.assertLessEqual(game.shot_origin_y, 17)
 

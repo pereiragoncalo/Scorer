@@ -46,6 +46,10 @@ Config.set("graphics", "resizable", "1")
 
 
 
+import release_settings
+if getattr(release_settings,"DESKTOP_WINDOWS",False):
+    Config.set("graphics","fullscreen","auto")
+
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
@@ -262,6 +266,9 @@ class StrikerGame(Widget):
         self.career = self._make_career(self._career_mode)
         self.i18n = Localizer(edition.is_world(), phone_locale_tag(platform == 'android') if edition.is_world() else '', self.career.save_path.parent)
         self.usage = create_statistics(edition.is_world(),self.career.save_path.parent)
+        from online_leaderboard import Leaderboard
+        from online_config import ORIGIN
+        self.leaderboard = Leaderboard(self.career.save_path.parent,ORIGIN)
         self.usage_notice = ''
         self._language_return = 'start'
         self._language_error = ''
@@ -755,7 +762,7 @@ class StrikerGame(Widget):
         return duration / 1.22 if self.desktop_windows else duration
 
     def _show_stadium_crowd(self):
-        return not (self.desktop_windows and self.shot_context == 'training')
+        return self.shot_context != 'training'
 
     def _goalkeeper_kit(self):
         player_kit, opponent_kit = self._match_outfield_kits()
@@ -938,6 +945,8 @@ class StrikerGame(Widget):
             self.match_competition,
         )
         self.match_finished = True
+        if self.leaderboard.enabled:
+            self.leaderboard.sync(self.career,edition.is_world())
         self.usage.record('matches_completed')
         if self.match_player_goals:self.usage.record('goals_scored',self.match_player_goals)
         self.ads.match_completed((self.career.season, self.career.week, self.career.last_result, self.match_competition))
@@ -1740,29 +1749,8 @@ class StrikerGame(Widget):
         self.shot_distance_factor = clamp(
             (self.shot_origin_y - 6.0) / 12.0, 0.0, 1.0
         )
-        spread = (
-            0.018
-            + 0.20 * self.shot_distance_factor
-            + (1.0 - self.power) * (0.05 + 0.08 * self.shot_distance_factor)
-        )
-        if self.shot_context == "training" or (self.shot_context == "match" and self.current_chance_difficulty in ("easy", "hard")):
-            # A touch selects intent, not a perfectly repeatable laser shot.
-            # Resolve accuracy once at contact; the resulting ball remains physical.
-            condition = clamp((self.career.stamina + self.career.morale) / 40.0, 0.25, 1.0)
-            pressure = self.current_chance_difficulty == "hard"
-            error_x = 0.78 if pressure else 0.40
-            error_z = 0.53 if pressure else 0.30
-            if self.shot_context == "training":
-                error_x, error_z = 0.60, 0.40
-            if self.shot_type == "penalty":
-                error_x, error_z = 0.20, 0.16
-            control = (1.20 - condition * 0.35) * (1.0 + abs(self.power - 0.80) * 0.5)
-            destination_x = self.aim_x + random.gauss(0.0, error_x * control)
-            destination_z = self.aim_z + random.gauss(0.0, error_z * control)
-        else:
-            destination_x = self.aim_x + random.uniform(-spread, spread)
-            destination_z = self.aim_z + random.uniform(-spread, spread)
-
+        # The visible marker is the contact target; no hidden random offset.
+        destination_x, destination_z = self.aim_x, self.aim_z
 
         # O tempo de voo adapta-se à distância e à potência do remate.
         horizontal_distance = math.hypot(
@@ -1770,14 +1758,10 @@ class StrikerGame(Widget):
         )
         flight_time = self._shot_flight_time(horizontal_distance, self.shot_type == "header")
 
-        self.ball.vx = (destination_x - self.ball.x) / flight_time
-        self.ball.vy = -self.ball.y / flight_time
-        self.ball.vz = (
-            destination_z
-            - self.ball.z
-            + 0.5 * GRAVITY * flight_time * flight_time
-        ) / flight_time
-
+        from shot_trajectory import launch_velocity
+        self.ball.vx,self.ball.vy,self.ball.vz = launch_velocity(
+            (self.ball.x,self.ball.y,self.ball.z),
+            (destination_x,destination_z),flight_time)
 
         # Perto, o GR reage tarde e adivinha pior; de longe lê melhor a bola.
         goalkeeper_error = 0.88 - 0.76 * self.shot_distance_factor
@@ -2765,6 +2749,20 @@ class StrikerGame(Widget):
 
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
+        if action in ('leaderboard','leaderboard_refresh','leaderboard_join','leaderboard_leave'):
+            from online_leaderboard import valid_origin
+            board=self.leaderboard
+            self.view='leaderboard'
+            if action=='leaderboard_join' and valid_origin(board.origin):
+                board.enabled=True;board.save()
+            if action=='leaderboard_leave':
+                board.enabled=False;board.pending_withdrawal=True;board.save()
+            if valid_origin(board.origin):
+                board.sync(self.career,edition.is_world(),
+                    lambda:Clock.schedule_once(lambda _:self.draw(),0),
+                    withdraw=board.pending_withdrawal)
+            else:board.status='Online service is not configured yet.'
+            self.draw();return
         if action == "splash_continue" and self.view == "splash":
             self.usage.begin_session()
             self.usage.flush_async()
@@ -5177,7 +5175,7 @@ class StrikerGame(Widget):
     def _draw_aim_marker(self) -> None:
         if self.view != "shot" or self.state != self.STATE_AIMING:
             return
-        center = self.project(self.aim_x, -0.04, self.aim_z)
+        center = self.project(self.aim_x, 0.0, self.aim_z)
         Color(1.0, 1.0, 1.0, 0.88)
         Line(circle=(center[0], center[1], 11.0), width=1.4)
         Line(points=[center[0] - 16, center[1], center[0] + 16, center[1]], width=1.0)

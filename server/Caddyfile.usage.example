@@ -1,15 +1,7 @@
-# Replace the hostname only on the owner-controlled HTTPS host.
-# No request/access logs, and operational logs are discarded to avoid raw IP logs.
-{
-    log {
-        output discard
-    }
-}
+# Optional direct HTTPS instead of existing Cloudflare Tunnel. No access logs.
+{ log { output discard } }
 stats.example.com {
-    handle /v1/usage {
-        reverse_proxy 127.0.0.1:8080
-    }
-    handle {
-        respond 404
-    }
+    @service path /health /admin /v1/usage /v1/totals /v1/leaderboard /v1/leaderboard/withdraw
+    handle @service { reverse_proxy 127.0.0.1:8787 }
+    handle { respond 404 }
 }

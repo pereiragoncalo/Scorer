@@ -8,7 +8,7 @@ from PIL import Image
 def verify(folder):
     folder=Path(folder)
     data=json.loads((folder/'smoke.json').read_text(encoding='utf8'))
-    for key in ('ok','frozen','career_reload','training','free','close_confirmation','match_completed','matchday_dashboard','goal_scene_rendered','settled_ball_behind_keeper','empty_training_stands'):
+    for key in ('ok','frozen','career_reload','training','free','close_confirmation','match_completed','matchday_dashboard','goal_scene_rendered','settled_ball_behind_keeper','empty_training_stands','fullscreen'):
         if data.get(key) is not True:raise ValueError('Missing Windows smoke check: '+key)
     if data.get('platform')!='win32':raise ValueError('This evidence is not from Windows')
     captures=list(folder.glob('smoke*.png'))

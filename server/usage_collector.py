@@ -12,6 +12,7 @@ import threading
 import time
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from anonymous_stats import valid_payload
+from server.leaderboard import initialize,submit,leaders,withdraw
 
 class Collector(ThreadingHTTPServer):
     daemon_threads=True
@@ -19,7 +20,9 @@ class Collector(ThreadingHTTPServer):
         self.database=str(database);self.admin_token=admin_token
         self._rate_lock=threading.Lock();self._second=0;self._requests=0;self._slots=threading.BoundedSemaphore(16)
         Path(self.database).parent.mkdir(parents=True,exist_ok=True)
-        with self.db() as db:db.execute('CREATE TABLE IF NOT EXISTS totals(day TEXT NOT NULL,event TEXT NOT NULL,count INTEGER NOT NULL,PRIMARY KEY(day,event))')
+        with self.db() as db:
+            db.execute('CREATE TABLE IF NOT EXISTS totals(day TEXT NOT NULL,event TEXT NOT NULL,count INTEGER NOT NULL,PRIMARY KEY(day,event))')
+            initialize(db)
         super().__init__(address,Handler)
     def get_request(self):
         connection,address=super().get_request();connection.settimeout(5);return connection,address
@@ -48,7 +51,7 @@ class Handler(BaseHTTPRequestHandler):
         try:self.wfile.write(body)
         except OSError:pass
     def do_POST(self):
-        if self.path!='/v1/usage':self.reply(404,{'error':'not_found'});return
+        if self.path not in ('/v1/usage','/v1/leaderboard','/v1/leaderboard/withdraw'):self.reply(404,{'error':'not_found'});return
         if not self.server.allow():self.reply(429,{'error':'busy'});return
         try:length=int(self.headers.get('Content-Length','0'))
         except ValueError:self.reply(400,{'error':'invalid'});return
@@ -56,6 +59,13 @@ class Handler(BaseHTTPRequestHandler):
         self.connection.settimeout(5)
         try:
             data=json.loads(self.rfile.read(length))
+            if self.path!='/v1/usage':
+                with self.server.db() as db:
+                    if self.path.endswith('/withdraw'):
+                        if not isinstance(data,dict) or set(data)!={'token'}:raise ValueError('invalid')
+                        withdraw(db,data['token'])
+                    else:submit(db,data)
+                self.reply(204,{});return
             if not valid_payload(data):self.reply(400,{'error':'invalid'});return
             today=datetime.now(timezone.utc).date()
             with self.server.db() as db:
@@ -66,7 +76,20 @@ class Handler(BaseHTTPRequestHandler):
         except (ValueError,UnicodeError,TimeoutError,OSError):self.reply(400,{'error':'invalid'})
         except Exception:self.reply(503,{'error':'unavailable'})
     def do_GET(self):
+        if self.path=='/admin':
+            body=(Path(__file__).parent/'dashboard.html').read_bytes()
+            self.send_response(200);self.send_header('Content-Type','text/html; charset=utf-8')
+            self.send_header('Cache-Control','no-store');self.send_header('X-Frame-Options','DENY')
+            self.send_header('Content-Security-Policy',"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'")
+            self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body);return
         if self.path=='/health':self.reply(200,{'ok':True});return
+        if self.path=='/v1/leaderboard':
+            if not self.server.allow():self.reply(429,{'error':'busy'});return
+            try:
+                with self.server.db() as db:data=leaders(db)
+                self.reply(200,data)
+            except Exception:self.reply(503,{'error':'unavailable'})
+            return
         expected='Bearer '+self.server.admin_token
         supplied=self.headers.get('Authorization','')
         if self.path!='/v1/totals' or not self.server.admin_token or not hmac.compare_digest(supplied,expected):self.reply(404,{'error':'not_found'});return

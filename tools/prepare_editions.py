@@ -17,7 +17,7 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=''):
         raise ValueError('Analytics needs a Free-only HTTPS /v1/usage endpoint')
     source = Path(source)
     config = json.loads((source/'release/play.example.json').read_text())
-    config['version_code'] = 1026639
+    config['version_code'] = 1026640
     config['billing']['enabled'] = False
     target = prepare(config, Path(target), 'rehearsal', source)
     identity = target/'edition.py'
@@ -29,7 +29,7 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=''):
     app['title'] = 'Scorer World' if product == 'world' else 'Scorer'
     app['icon.filename'] = 'assets/icon_world.png' if product == 'world' else 'assets/icon.png'
     app['package.domain'], app['package.name'] = 'com.clemir', 'scorerworld' if product == 'world' else 'striker'
-    app['version'], app['android.numeric_version'] = '0.6.39', '1026639'
+    app['version'], app['android.numeric_version'] = '0.6.40', '1026640'
     # Both products share a Python/Kivy native distribution, not an Android identity.
     app['p4a.extra_args'] = '--dist_name=striker'
     app['scorer.shared_native_dist'] = 'striker'
@@ -42,7 +42,7 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=''):
         (target/'analytics_config.py').unlink(missing_ok=True)
         (target/'anonymous_stats.py').write_text("class NoStatistics:\n    enabled=False\n    endpoint=''\n    remote_available=False\n    last_error=''\n    def begin_session(self):pass\n    def end_session(self):pass\n    def record(self,*a,**kw):return False\n    def set_enabled(self,*a):return False\n    def flush_async(self):return False\ndef create_statistics(*a,**kw):return NoStatistics()\n")
         app['android.add_src'] = 'android/worldsrc'
-        app['android.permissions'] = ''
+        app['android.permissions'] = 'INTERNET,ACCESS_NETWORK_STATE'
         for option in ('android.meta_data','android.gradle_dependencies','android.extra_manifest_xml'):
             app.pop(option, None)
         shutil.rmtree(target/'android/src', ignore_errors=True)

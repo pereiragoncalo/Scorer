@@ -25,7 +25,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language'))
+MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -133,7 +133,7 @@ class CareerMenu(BoxLayout):
     def sync(self):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
-        signature = (self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
+        signature = (self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals,
@@ -219,6 +219,8 @@ class CareerMenu(BoxLayout):
             privacy = MenuTile('PRIVACY', lambda: self.action('privacy'))
             privacy.size_hint_x, privacy.width = None, dp(76)
             header.add_widget(privacy)
+        if self.game.view == 'scorers':
+            header.add_widget(self._button('GLOBAL', 'leaderboard'))
         if self.game.view not in ('hub', 'offers'):
             back = self._button('BACK', 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
@@ -347,6 +349,21 @@ class CareerMenu(BoxLayout):
                  self.game.i18n.competition(c,e.get('competition', ''),e.get('country')), self.game.i18n.tr(e.get('status', ''))) for e in c.calendar_entries()]
         return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
                             summary=(0, 1, 2, 3))
+
+    def _leaderboard(self):
+        board=self.game.leaderboard
+        card=self.card('GLOBAL LEADERBOARD')
+        card.label('Optional public ranking. Your random alias, edition, season, matches and goals are shared. Your career name is never sent. Scores are self-reported; this is not a verified competition.')
+        card.label('Public alias: '+board.alias)
+        card.label(board.status or 'Refresh to load worldwide scores.')
+        card.add_widget(self._button('WITHDRAW & REMOVE MY SCORES' if board.enabled else 'JOIN WITH THIS ALIAS',
+                                     'leaderboard_leave' if board.enabled else 'leaderboard_join'))
+        card.add_widget(self._button('REFRESH', 'leaderboard_refresh'))
+        if board.pending_withdrawal:card.label('Removal pending. Reconnect and refresh to complete it.')
+        world=edition.is_world()
+        rows=[(i+1,e['alias'],e['season'],e['matches'],e['goals']) for i,e in enumerate(
+            [e for e in board.entries if e['edition']==('world' if world else 'free')])]
+        if rows:self.body.add_widget(CompactTable('SELF-REPORTED SCORES',('POS','ALIAS','SEASON','MATCHES','GOALS'),rows))
 
     def _privacy(self):
         card = self.card('PRIVACY' if edition.is_world() else 'Privacy & advertising')

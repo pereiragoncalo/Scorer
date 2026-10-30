@@ -1,7 +1,7 @@
 FROM python:3.12-slim
 WORKDIR /app
 COPY anonymous_stats.py /app/anonymous_stats.py
-COPY server/usage_collector.py server/usage_digest.py server/session_notices.py /app/server/
+COPY server/usage_collector.py server/usage_digest.py server/session_notices.py server/leaderboard.py server/dashboard.html /app/server/
 RUN mkdir /data && chown 10001:10001 /data
 USER 10001:10001
 EXPOSE 8080
