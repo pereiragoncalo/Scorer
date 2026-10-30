@@ -28,11 +28,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        timeout-minutes: 5
         with:
           python-version: '3.12'
           architecture: x64
-          cache: pip
-          cache-dependency-path: tools/windows/requirements.txt
       - name: Install Windows build dependencies
         run: python -m pip install -r tools/windows/requirements.txt
       - name: Verify staging and persistent-save rules
