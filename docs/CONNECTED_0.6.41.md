@@ -44,3 +44,38 @@ public configs/staging version0.6.41/1026641; Windows frozen checks; verified TL
 module and public CAasset; tests. Save schema/path/game simulation unchanged.
 Next: upgrade in place, Load Game, tap Leaderboard/Refresh, optionally Join; enable
 usage independently under Privacy and check owner totals after Save and Exit.
+
+Validation:167core/security +97real Kivy cases PASS. Main button and independent
+World usage choice covered; initial Windows layout test caught the fifth footer
+button wrapping to a second row, then fixed _arrange to five columns and repeated
+entire UI suite successfully. Explicit fixture patches ensure automated tests
+never send fabricated traffic to the owner host. Endpoint/CA bytecode inspected
+inside both actual Android packages with their matching Python3.14 interpreter.
+Original Android upgrade certificate, ZIP16KB/118ELF16KB and edition checks PASS.
+No human phone validation claimed. Session ends remain queued if the OS terminates
+the app before asynchronous delivery; next launch can flush pending totals.
+
+Operator: no laptop reinstall, tunnel update or server token sharing is necessary
+for this compatible client release. To see usage beyond the technical test, each
+player must enable Privacy -> ALLOW USAGE STATS. Public ranking viewing is separate;
+join after at least one completed match to publish the random alias/score. No
+advertising consent is inferred from either choice. Updating existing apps keeps
+private careers; close/save Windows EXE before replacing, then Load Game.
+
+Native Windows run41123889956/source74c07af PASS:6staging checks plus frozen
+new career/training/automated engine match/save-reload/close/fullscreen, main
+Leaderboard button, both configured destinations, default-off consent and rendered
+1024x768hub/goal/training. Actual hub screenshot inspected, all12fixtures and
+10leading scorers fit; footer is one row. Archive verifies original Free identity,
+no Google SDK/billing/server/private keys/saves, public CA content matches after
+normalizing Git Windows CRLF newlines; HTTPS verification still mandatory.
+First native run41122999548 stalled in Python/cache setup and was cancelled after
+replacement progressed; cache-free setup with5minute timeout passed. No game
+change was required for that retry. This is unsigned Windows QA and debug-signed
+Android QA, not a store release or human-device validation.
+
+[Scorer-Free-0.6.41.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.41/Scorer-Free-0.6.41.apk)
+
+[Scorer-World-0.6.41.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.41/Scorer-World-0.6.41.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.41/Scorer-Free.exe)

@@ -1,3 +1,13 @@
+## Scorer0.6.41 — main-menu Leaderboard and owner usage service
+
+[Scorer-Free-0.6.41.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.41/Scorer-Free-0.6.41.apk)
+
+[Scorer-World-0.6.41.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.41/Scorer-World-0.6.41.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.41/Scorer-Free.exe)
+
+[Validation and privacy choices](docs/CONNECTED_0.6.41.md). Optional rankings and default-off usage connect to stats.clemir.com; private owner dashboard remains /admin.
+
 ## Scorer0.6.40 — corrected aiming, empty training stands, Windows fullscreen
 
 [Scorer-Free-0.6.40.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.40/Scorer-Free-0.6.40.apk)

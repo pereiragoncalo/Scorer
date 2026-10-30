@@ -1531,3 +1531,19 @@ not a playable fourth shot. Existing careers/WIP retained; no release signing/Pl
 store activation, remote destination or human Android device testing claimed.
 
 See ONLINE_0.6.40.md and artifact JSON for exact evidence. Own-host laptop service remains uninstalled pending access/owner terminal commands; existing Cloudflare Tunnel avoids static-IP/router configuration.
+
+## Scorer0.6.41 — owner-hosted integration
+
+167core/security and97Kivy checks PASS; actual public submit/read/withdraw and
+private totals denial PASS; one technical session counter accepted by owner server.
+Three builds configured with public HTTPS origin, no administrator credentials.
+Shared default-off usage factory now covers World per owner request; existing
+legacy app discriminator keeps aggregate protocol compatible with installed server.
+Android real bytecode/CAasset checks, old upgrade signature and16KB ZIP/118ELF
+PASS. Initial4-column _arrange caused fifth footer action to wrap and test failed;
+fixed5columns, reran whole UI suite PASS. Root unrelated WIP preserved with targeted
+merge of test helper's existing world parameter and new network isolation patches.
+Native Windows evidence/download recorded after build; physical phone/human match
+not claimed. See CONNECTED_0.6.41.md.
+
+Native Windows41123889956 PASS; actual archive/CA/endpoints and main button validated. Source74c07af, see CONNECTED_0.6.41_artifacts.json. Prior setup/cache-stalled41122999548 cancelled; no gameplay change. Normalized Windows text CRLF for public CAcontent comparison. Both APKs verified, no human phone test claimed.

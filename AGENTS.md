@@ -11,6 +11,9 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 
 ## Commercial model
 
+- Owner0.6.41: LEADERBOARD is visible directly on every normal/compact main menu, five footer columns in landscape, including Windows. Both products use owner HTTPS stats.clemir.com for optional public rankings and default-off usage after explicit independent Privacy consent. World usage is now enabled by explicit choice; preserve ad-free World. Legacy payload discriminator scorer_free is a compatible shared aggregate family constant, not an edition breakdown; never claim unique players. Server admin credentials remain private to laptop. Bundle public Mozilla TLS roots for Android without certifi, verify host/certificate, never session CA or verification bypass. All ordinary tests isolate endpoints; actual public test entry withdrawn and one technical session counter documented. Owner's scorer-bastion tunnel and separate clemir-social Windows tunnel are already installed; no DNS/tunnel change needed for app updates.
+
+
 - Owner0.6.40: Windows starts fullscreen auto only. All editions show empty training stands; match crowd retained. Visible aim is authoritative for unimpeded launch: no hidden random target spread; solve launch against fixed-step gravity/drag, keep collisions/keeper/posts/score physical. Optional GLOBAL ranking in Top Scorers for both editions is a self-reported pseudonym board, not verified anti-cheat. Separate opt-in and withdrawal from usage consent, empty destination until own laptop HTTPS is installed/tested; never claim live leaderboard from localhost tests. World now permits network solely for optional ranking, usage stays no-op. Laptop collector/private token dashboard on loopback8787 behind existing tunnel; no router/static-IP requirement. No server/admin credentials in app, no public store/paid activation.
 
 
