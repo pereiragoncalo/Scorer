@@ -1547,3 +1547,7 @@ Native Windows evidence/download recorded after build; physical phone/human matc
 not claimed. See CONNECTED_0.6.41.md.
 
 Native Windows41123889956 PASS; actual archive/CA/endpoints and main button validated. Source74c07af, see CONNECTED_0.6.41_artifacts.json. Prior setup/cache-stalled41122999548 cancelled; no gameplay change. Normalized Windows text CRLF for public CAcontent comparison. Both APKs verified, no human phone test claimed.
+
+## Scorer0.6.42
+
+174core/security+98Kivy PASS, focused4rerun after sparse-row anchor correction. Final native41132392263/source4339c88 PASS with records render; old artifact discarded. Both final APKs rebuilt and signature/16KB/bytecode PASS. Additive local server/legacy migration HTTP tests PASS. Public v2 last probe404, laptop upgrade still required. New consent2 needed for player names/team; usage unchanged. Unrelated World/career WIP retained. See SEASON_RECORDS_0.6.42.md and artifact JSON.

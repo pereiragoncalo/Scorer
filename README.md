@@ -1,3 +1,13 @@
+## Scorer0.6.42 — completed-season records and division boards
+
+[Scorer-Free-0.6.42.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.42/Scorer-Free-0.6.42.apk)
+
+[Scorer-World-0.6.42.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.42/Scorer-World-0.6.42.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.42/Scorer-Free.exe)
+
+[Layout, recording rules, tests and required laptop server upgrade](docs/SEASON_RECORDS_0.6.42.md). New public player-name consent required.
+
 ## Scorer0.6.41 — main-menu Leaderboard and owner usage service
 
 [Scorer-Free-0.6.41.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.41/Scorer-Free-0.6.41.apk)

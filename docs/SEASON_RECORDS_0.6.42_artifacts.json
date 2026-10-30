@@ -1,0 +1,80 @@
+{
+  "android": [
+    {
+      "product": "free",
+      "version": "0.6.42",
+      "version_code": 1026642,
+      "bytes": 37702102,
+      "sha256": "7eff02791e3c0d58275bd4dc306b678f52b788930c3961fe6d626237d9937c36",
+      "certificate": "84c17cdf31e2ee7c6e9c082bde539df6822bf48267a0603de9814d6e2846ef49",
+      "zip16k": true,
+      "elf16k": 118,
+      "completed_season_records": true,
+      "country_division_boards": true,
+      "name_team_publication_consent": 2,
+      "device_tested": false
+    },
+    {
+      "product": "world",
+      "version": "0.6.42",
+      "version_code": 1026642,
+      "bytes": 73947259,
+      "sha256": "a38ef0e9ae15fde63308eb4a1a593f7220ef8aa0a450e6c685baab8837ab8bd4",
+      "certificate": "84c17cdf31e2ee7c6e9c082bde539df6822bf48267a0603de9814d6e2846ef49",
+      "zip16k": true,
+      "elf16k": 118,
+      "completed_season_records": true,
+      "country_division_boards": true,
+      "name_team_publication_consent": 2,
+      "device_tested": false
+    }
+  ],
+  "windows": {
+    "product": "Scorer Free Windows",
+    "candidate": "0.6.42-win.1",
+    "file": "Scorer-Free.exe",
+    "bytes": 41713509,
+    "sha256": "3fa068e8c16b23a00b54065efeed3cccded24589a50a04796defabf7448f2568",
+    "pe_architecture": "AMD64 PE32+",
+    "build_host": "native GitHub Windows2022 runner",
+    "source_commit": "4339c8800377b08b52b85aad4adffbbfab9bb291",
+    "workflow_run": 41132392263,
+    "windows_staging_tests": 6,
+    "linux_core_security_tests": 174,
+    "linux_kivy_ui_tests": 98,
+    "frozen_windows_smoke": {
+      "ok": true,
+      "platform": "win32",
+      "frozen": true,
+      "leaderboard_button": true,
+      "statistics_opt_in": true,
+      "matchday_dashboard": true,
+      "career_reload": true,
+      "training": true,
+      "free": true,
+      "ads_sdk": false,
+      "match_completed": true,
+      "close_confirmation": true,
+      "visible_matchday_fixtures": 12,
+      "visible_top_scorers": 10,
+      "goal_scene_rendered": true,
+      "settled_ball_behind_keeper": true,
+      "goal_width": 8.198400000000001,
+      "goal_height": 2.684,
+      "empty_training_stands": true,
+      "fullscreen": true,
+      "goalkeeper_scale": 0.6880000000000001,
+      "shot_speed_multiplier": 1.22,
+      "season_records_screen": true
+    },
+    "google_ad_sdk": false,
+    "billing": false,
+    "statistics_endpoint": "https://stats.clemir.com/v1/usage",
+    "code_signed": false,
+    "human_windows_tested": false
+  },
+  "server_public_v2_last_check": {
+    "http": 404,
+    "ready": false
+  }
+}

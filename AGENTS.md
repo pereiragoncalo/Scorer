@@ -11,6 +11,9 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 
 ## Commercial model
 
+- Owner0.6.42: leaderboard uses chosen player name/team and BEST COMPLETED club-season goals, not random aliases or live goals. Snapshot before promotion/reset; save best per country/division in career, old saves default empty, no invented historic final totals. Country+division scopes World; Free one canonical Scorer/1. New named publication requires consent_version2 and explicit confirmation, independent of usage. Preserve v1/usage and add v2 records SQLite schema idempotently; no old aliases converted to final seasons. Server laptop upgrade is required; cloud executor has no SSH access and public v2 last checked404. Never claim v2 live from local tests. Use bounded separate records screen/table/actions, page rows, spacer BELOW fixed rows so sparse data stays at top. Test phone bounds and actual native render before shipping.
+
+
 - Owner0.6.41: LEADERBOARD is visible directly on every normal/compact main menu, five footer columns in landscape, including Windows. Both products use owner HTTPS stats.clemir.com for optional public rankings and default-off usage after explicit independent Privacy consent. World usage is now enabled by explicit choice; preserve ad-free World. Legacy payload discriminator scorer_free is a compatible shared aggregate family constant, not an edition breakdown; never claim unique players. Server admin credentials remain private to laptop. Bundle public Mozilla TLS roots for Android without certifi, verify host/certificate, never session CA or verification bypass. All ordinary tests isolate endpoints; actual public test entry withdrawn and one technical session counter documented. Owner's scorer-bastion tunnel and separate clemir-social Windows tunnel are already installed; no DNS/tunnel change needed for app updates.
 
 

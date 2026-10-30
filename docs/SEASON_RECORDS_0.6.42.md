@@ -59,3 +59,31 @@ credentials. Source tests are synthetic and never post records to live server.
 Release tests/artifacts recorded after validation. Next: owner update server,
 upgrade app in place, Load Game, choose Share if desired, complete season; confirm
 name/team/personal-best and correct division. Human Android device test pending.
+
+Validation:174core/security +98Kivy PASS; focused4UI tests repeated after final
+row-anchor fix.272unique tests, plus6native staging checks. Initial save-migration
+test wrongly looked for top-level record field; corrected to existing career
+envelope, full suite PASS. Actual native screenshot revealed sparse rows at
+bottom; flexible spacer below rows fixed top alignment, new bound assertion
+passes phone sizes. Native final run41132392263/source4339c88 built/runs actual
+EXE and renders records.png using synthetic3row fixture without network posting,
+asserts table/actions do not overlap and chosen name survives display. Screenshot
+visually inspected. Earlier native artifact discarded before delivery.
+
+Both final Android packages truly rebuilt after row fix; old upgrade signature,
+ZIP16KB and118ELF LOAD16KB PASS. Compiled bytecode inspected with matching3.14:
+Widget spacer, pre-reset snapshot/keep_best and consent_version2 present. Initial
+checker assumed integer2 was always in co_consts; updated for Python3.14
+LOAD_SMALL_INT opcode, no application change needed. Actual native archive
+validates fixed Free/no server/keys/saves/SDK/billing, public HTTPS endpoints and
+CA content. Human Android device/full-match test not claimed.
+
+Latest cloud-executor public v2 probe was404; server upgrade is pending owner
+execution on bastion. No claim of deployed public v2 or remote completed records
+yet. Existing usage/v1 preserved; apply installer from new checkout, not old0.6.41.
+
+[Scorer-Free-0.6.42.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.42/Scorer-Free-0.6.42.apk)
+
+[Scorer-World-0.6.42.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.42/Scorer-World-0.6.42.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.42/Scorer-Free.exe)
