@@ -5,6 +5,7 @@ from kivy.graphics import Color, RoundedRectangle, Rectangle, Line
 from kivy.core.image import Image as CoreImage
 from kivy.metrics import dp, sp, Metrics
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
@@ -1254,3 +1255,4 @@ class SeasonRecordTable(CompactTable):
         self.title.height=0;self.title.opacity=0
         self.padding=dp(4);self.spacing=dp(2);self.controls.height=dp(48);self.head.height=dp(20)
         super()._render(*_)
+        self.lines.add_widget(Widget())  # Flexible space belongs below the records.

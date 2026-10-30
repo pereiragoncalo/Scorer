@@ -54,6 +54,9 @@ class OnlineUITests(unittest.TestCase):
                     for row in screen.table.lines.children:
                         self.assertGreaterEqual(row.y,screen.table.controls.top-1)
                         self.assertLessEqual(row.top,screen.table.head.y+1)
+                    from kivy.uix.boxlayout import BoxLayout
+                    records=[w for w in screen.table.lines.children if isinstance(w,BoxLayout)]
+                    if records:self.assertLessEqual(abs(max(w.top for w in records)-screen.table.head.y),dp(5))
                     if len(screen.table.rows)>screen.table.page_size:
                         screen.table.move(1);settle();self.assertEqual(screen.table.page,1)
         finally:Metrics.density=old
