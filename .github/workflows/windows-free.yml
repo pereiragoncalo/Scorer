@@ -6,6 +6,12 @@ on:
     paths:
       - '.github/workflows/windows-free.yml'
       - 'tools/windows/**'
+      - 'main.py'
+      - 'career.py'
+      - 'menu_ui.py'
+      - 'season_records.py'
+      - 'online_leaderboard.py'
+      - 'ui_tests/test_online.py'
       - 'desktop_launcher.py'
       - 'desktop_dashboard.py'
       - 'dashboard_data.py'
