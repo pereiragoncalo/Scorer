@@ -49,3 +49,8 @@ Migration: stop scorer-online, copy online.sqlite plus service/repo and private
 environment config securely to new Linux host, restore ownership/mode, start it,
 change the stable hostname route. Keep old host stopped to prevent split writes.
 Back up SQLite via sqlite3.Connection.backup or stop service before file copy.
+
+A reviewed checkout also includes `sudo bash server/install_online.sh` for
+installation/update: dedicated user, private environment token, SQLite backup
+before updates, systemd restart and loopback health check. It never prints token.
+Installer syntax checked here; not executed on the owner laptop.
