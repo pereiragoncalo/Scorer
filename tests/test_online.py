@@ -54,9 +54,9 @@ class OnlineTests(unittest.TestCase):
         c=SimpleNamespace(season=2026,matches=3,goals=4)
         with tempfile.TemporaryDirectory() as t:
             b=Leaderboard(t,'https://stats.example.com');done=threading.Event()
-            with patch.object(b,'request',return_value={'entries':[]}) as req:
+            with patch.object(b,'request',return_value={'schema':2,'entries':[]}) as req:
                 b.sync(c,False,done.set);self.assertTrue(done.wait(3))
-                self.assertEqual(req.call_args_list[0].args,('/v1/leaderboard',))
+                self.assertEqual(req.call_args_list[0].args,('/v2/records?edition=free&country=Scorer&division=1',))
             b.pending_withdrawal=True;b.save();done.clear()
             with patch.object(b,'request',side_effect=OSError):
                 b.sync(c,False,done.set,withdraw=True);self.assertTrue(done.wait(3))

@@ -732,6 +732,7 @@ class CareerMode:
             entitlement_provider = None  # Owning World never turns the Free slot into World.
         self.entitlements = EntitlementManager(entitlement_provider)
         self._locked_world_career: Optional[dict[str, object]] = None
+        self.completed_records = []
         self.player_name = "Alex Silva"
         self.nationality = "Portugal"
         self.season = 2026
@@ -1795,6 +1796,8 @@ class CareerMode:
 
 
     def _finish_season(self) -> None:
+        from season_records import completed_snapshot,keep_best
+        self.completed_records=keep_best(self.completed_records,completed_snapshot(self))
         league = self.current_league
         table = league.table()
         position = next(
@@ -1915,6 +1918,7 @@ class CareerMode:
                                  'scorers': v.scorer_goals, 'name': v.name, 'schedule': v.schedule_version}
                             for k, v in self.leagues.items()
                             if self.world_unlocked and v.country in self._active_world_countries and k != self.league_key},
+            "completed_records": self.completed_records,
             "player_name": self.player_name,
             "nationality": self.nationality,
             "season": self.season,
@@ -2111,6 +2115,9 @@ class CareerMode:
                 return
             self.world_seed = int(data.get("world_seed", self.world_seed))
             self.rng = random.Random(self.world_seed + int(data.get("week", 0)))
+            from season_records import valid_record
+            raw_records=data.get("completed_records",[])
+            self.completed_records=[dict(r) for r in raw_records if valid_record(r)][-256:] if isinstance(raw_records,list) else []
             self.player_name = data.get("player_name", self.player_name)
             self.nationality = data.get("nationality", self.nationality)
             self.season = int(data.get("season", 2026))

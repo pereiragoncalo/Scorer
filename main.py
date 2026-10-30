@@ -243,6 +243,7 @@ class StrikerGame(Widget):
 
         self._menu = None
         self._match_notice = None
+        self._records_popup = None
         self._exit_popup = None
         self._new_game_popup = None
         self.ads = create_ad_breaks(android=(platform == "android" and not edition.is_world()))
@@ -2747,14 +2748,30 @@ class StrikerGame(Widget):
         return True
 
 
+    def _request_record_sharing(self):
+        if self._records_popup is not None:return
+        content=BoxLayout(orientation='vertical',spacing=dp(8),padding=dp(8))
+        content.add_widget(FlowLabel(text='Your chosen player name, '+self.career.player_name+', finishing team and best completed-season score will be public. Usage statistics are separate.'))
+        buttons=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(8))
+        popup=Popup(title='Share season records?',content=content,size_hint=(.9,None),
+                    height=min(Window.height-dp(16),dp(260)),auto_dismiss=False)
+        buttons.add_widget(TouchButton('CANCEL',popup.dismiss))
+        buttons.add_widget(TouchButton('SHARE',lambda:self._activate_ui('leaderboard_confirm_join'),accent=True))
+        content.add_widget(buttons)
+        popup.bind(on_dismiss=lambda *_:setattr(self,'_records_popup',None))
+        self._records_popup=popup;popup.open()
+
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
-        if action in ('leaderboard','leaderboard_refresh','leaderboard_join','leaderboard_leave'):
+        if action in ('leaderboard','leaderboard_refresh','leaderboard_join','leaderboard_confirm_join','leaderboard_leave'):
             from online_leaderboard import valid_origin
             board=self.leaderboard
             self.view='leaderboard'
             if action=='leaderboard_join' and valid_origin(board.origin):
-                board.enabled=True;board.save()
+                self._request_record_sharing();return
+            if action=='leaderboard_confirm_join' and valid_origin(board.origin):
+                if self._records_popup is None:return
+                self._records_popup.dismiss();board.enabled=True;board.save()
             if action=='leaderboard_leave':
                 board.enabled=False;board.pending_withdrawal=True;board.save()
             if valid_origin(board.origin):

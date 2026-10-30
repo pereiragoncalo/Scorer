@@ -54,3 +54,12 @@ A reviewed checkout also includes `sudo bash server/install_online.sh` for
 installation/update: dedicated user, private environment token, SQLite backup
 before updates, systemd restart and loopback health check. It never prints token.
 Installer syntax checked here; not executed on the owner laptop.
+
+##0.6.42 completed-season records upgrade
+
+Run the NEW checkout installer as root on bastion. It makes a consistent SQLite
+backup and adds season_records table automatically; existing admin token, usage
+totals and old v1 remain. New URLs are /v2/records?edition=world&country=Portugal&division=4
+and POST /v2/records, /v2/records/withdraw. Existing tunnel covers them without
+route changes. Old aliases/live scores are not migrated to completed seasons.
+No public v2 deployment has been performed by this cloud executor.

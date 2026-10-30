@@ -13,6 +13,8 @@ import time
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from anonymous_stats import valid_payload
 from server.leaderboard import initialize,submit,leaders,withdraw
+from server import season_records as records
+from urllib.parse import urlsplit,parse_qs
 
 class Collector(ThreadingHTTPServer):
     daemon_threads=True
@@ -23,6 +25,7 @@ class Collector(ThreadingHTTPServer):
         with self.db() as db:
             db.execute('CREATE TABLE IF NOT EXISTS totals(day TEXT NOT NULL,event TEXT NOT NULL,count INTEGER NOT NULL,PRIMARY KEY(day,event))')
             initialize(db)
+            records.initialize(db)
         super().__init__(address,Handler)
     def get_request(self):
         connection,address=super().get_request();connection.settimeout(5);return connection,address
@@ -51,7 +54,7 @@ class Handler(BaseHTTPRequestHandler):
         try:self.wfile.write(body)
         except OSError:pass
     def do_POST(self):
-        if self.path not in ('/v1/usage','/v1/leaderboard','/v1/leaderboard/withdraw'):self.reply(404,{'error':'not_found'});return
+        if self.path not in ('/v1/usage','/v1/leaderboard','/v1/leaderboard/withdraw','/v2/records','/v2/records/withdraw'):self.reply(404,{'error':'not_found'});return
         if not self.server.allow():self.reply(429,{'error':'busy'});return
         try:length=int(self.headers.get('Content-Length','0'))
         except ValueError:self.reply(400,{'error':'invalid'});return
@@ -63,7 +66,8 @@ class Handler(BaseHTTPRequestHandler):
                 with self.server.db() as db:
                     if self.path.endswith('/withdraw'):
                         if not isinstance(data,dict) or set(data)!={'token'}:raise ValueError('invalid')
-                        withdraw(db,data['token'])
+                        records.withdraw(db,data['token'])
+                    elif self.path=='/v2/records':records.submit(db,data)
                     else:submit(db,data)
                 self.reply(204,{});return
             if not valid_payload(data):self.reply(400,{'error':'invalid'});return
@@ -82,6 +86,16 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header('Cache-Control','no-store');self.send_header('X-Frame-Options','DENY')
             self.send_header('Content-Security-Policy',"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'")
             self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body);return
+        if self.path.startswith('/v2/records?'):
+            if not self.server.allow():self.reply(429,{'error':'busy'});return
+            try:
+                q=parse_qs(urlsplit(self.path).query,strict_parsing=True)
+                if set(q)!={'edition','country','division'} or any(len(v)!=1 for v in q.values()):raise ValueError('invalid filter')
+                with self.server.db() as db:data=records.leaders(db,q['edition'][0],q['country'][0],int(q['division'][0]))
+                self.reply(200,data)
+            except (ValueError,KeyError):self.reply(400,{'error':'invalid'})
+            except Exception:self.reply(503,{'error':'unavailable'})
+            return
         if self.path=='/health':self.reply(200,{'ok':True});return
         if self.path=='/v1/leaderboard':
             if not self.server.allow():self.reply(429,{'error':'busy'});return

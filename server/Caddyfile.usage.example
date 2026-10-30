@@ -5,7 +5,7 @@
     }
 }
 stats.example.com {
-    @service path /health /admin /v1/usage /v1/totals /v1/leaderboard /v1/leaderboard/withdraw
+    @service path /health /admin /v1/usage /v1/totals /v1/leaderboard /v1/leaderboard/withdraw /v2/records /v2/records/withdraw
     handle @service {
         reverse_proxy 127.0.0.1:8787
     }

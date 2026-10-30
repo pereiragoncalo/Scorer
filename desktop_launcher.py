@@ -64,6 +64,21 @@ def main():
             report.write_text(json.dumps(result,indent=2),encoding='utf8')
             Clock.schedule_once(lambda _:app.stop(),0)
 
+        def capture_records(_):
+            try:
+                g=app.root
+                from menu_ui import SeasonRecordsScreen
+                screen=g._menu.body
+                assert isinstance(screen,SeasonRecordsScreen)
+                assert screen.table.top<=screen.actions.y+1
+                assert len(screen.table.rows)==3
+                assert screen.table.rows[0][1]==g.career.player_name
+                g.export_to_png(str(report.parent/'records.png'))
+                result['season_records_screen']=True
+            except Exception as error:
+                result.update(ok=False,error=type(error).__name__+': '+str(error))
+            finally:report_and_stop()
+
         def capture_training(_):
             try:
                 g=app.root
@@ -73,7 +88,14 @@ def main():
                               shot_speed_multiplier=1.22)
             except Exception as error:
                 result.update(ok=False,error=type(error).__name__+': '+str(error))
-            finally:report_and_stop()
+            finally:
+                if result.get('ok'):
+                    g.leaderboard.entries=[dict(edition='free',country='Scorer',division=1,season=2026,
+                        player=name,team=team,matches=46,goals=goals) for name,team,goals in
+                        ((g.career.player_name,g.career.club_name,36),('João Silva','Northgate City',30),('Alex Costa','Pinehurst Athletic',25))]
+                    g.leaderboard.status='Completed-season records updated.'
+                    g.view='leaderboard';g.draw();Clock.schedule_once(capture_records,.35)
+                else:report_and_stop()
 
         def capture_goal(_):
             try:

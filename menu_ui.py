@@ -179,7 +179,7 @@ class CareerMenu(BoxLayout):
             self.body = CompactHub(self)
             self.add_widget(self.body)
             return
-        paged = self.game.view in ('standings', 'scorers', 'calendar', 'world_league')
+        paged = self.game.view in ('standings', 'scorers', 'calendar', 'world_league','leaderboard')
         self.padding = dp(8) if paged else dp(12) if self.game.view == 'hub' else dp(16)
         self.spacing = dp(6) if paged else dp(8) if self.game.view == 'hub' else dp(12)
         header = BoxLayout(size_hint_y=None, height=dp(60), spacing=dp(8))
@@ -196,6 +196,9 @@ class CareerMenu(BoxLayout):
             brand.add_widget(BoundedLabel(text=self.game.i18n.tr(title) if self.game.view!='world_country' else title, localize=self.game.view!='world_country', font_size=sp(20), bold=True))
             detail = f'{len({v.country for v in c.leagues.values()})} regions · {len(c.domestic_leagues())} divisions' if self.game.view == 'world' else self.game.i18n.league(c,c.leagues[self.game.editor_key]) if self.game.view == 'editor' else 'Choose a division'
             brand.add_widget(BoundedLabel(text=detail, font_size=sp(11), color=MUTED))
+        elif self.game.view=='leaderboard':
+            header.height=dp(48)
+            brand.add_widget(MenuLogo())
         elif paged:
             header.height = dp(52)
             titles = {'standings': 'STANDINGS', 'scorers': 'TOP SCORERS', 'calendar': 'FIXTURES', 'world_league': 'WORLD LEAGUE'}
@@ -259,6 +262,8 @@ class CareerMenu(BoxLayout):
             self.body = self._compact_list()
             self.add_widget(self.body)
             return
+        if self.game.view=='leaderboard':
+            self.scroll=None;self.body=SeasonRecordsScreen(self);self.add_widget(self.body);return
         self.scroll = ScrollView(do_scroll_x=False, bar_width=dp(4), scroll_type=['bars', 'content'])
         self.body = GridLayout(cols=1, spacing=dp(16), padding=[0, 0, dp(4), dp(12)], size_hint_y=None)
         self.body.bind(minimum_height=self.body.setter('height'))
@@ -350,21 +355,6 @@ class CareerMenu(BoxLayout):
         return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
                             summary=(0, 1, 2, 3))
 
-    def _leaderboard(self):
-        board=self.game.leaderboard
-        card=self.card('GLOBAL LEADERBOARD')
-        card.label('Optional public ranking. Your random alias, edition, season, matches and goals are shared. Your career name is never sent. Scores are self-reported; this is not a verified competition.')
-        card.label('Public alias: '+board.alias)
-        card.label(board.status or 'Refresh to load worldwide scores.')
-        card.add_widget(self._button('WITHDRAW & REMOVE MY SCORES' if board.enabled else 'JOIN WITH THIS ALIAS',
-                                     'leaderboard_leave' if board.enabled else 'leaderboard_join'))
-        card.add_widget(self._button('REFRESH', 'leaderboard_refresh'))
-        if board.pending_withdrawal:card.label('Removal pending. Reconnect and refresh to complete it.')
-        world=edition.is_world()
-        rows=[(i+1,e['alias'],e['season'],e['matches'],e['goals']) for i,e in enumerate(
-            [e for e in board.entries if e['edition']==('world' if world else 'free')])]
-        if rows:self.body.add_widget(CompactTable('SELF-REPORTED SCORES',('POS','ALIAS','SEASON','MATCHES','GOALS'),rows))
-
     def _privacy(self):
         card = self.card('PRIVACY' if edition.is_world() else 'Privacy & advertising')
         if self.game._world_available or self.game.career.world_unlocked:
@@ -403,6 +393,7 @@ class CareerMenu(BoxLayout):
 
 
     def _privacy_contact(self, card):
+        card.label('Optional season records publish your chosen player name, team and finished-season score only after separate permission. You can remove published records from Leaderboard.',muted=True)
         card.label('Careers and name edits are stored privately on this device. Uninstalling or clearing app data removes them; a new game keeps a private backup. There is no SCORER account or career upload.', muted=True)
         card.label('Free and World are separate applications with independent private saves. This app has no in-app purchase or purchase-verification service. World store purchases, when offered, are handled by the store.', muted=True)
         if edition.is_world():
@@ -1217,3 +1208,49 @@ class BrandMark(BoxLayout):
         else:
             self.add_widget(self.wordmark)
             self.add_widget(self.credit)
+
+
+class SeasonRecordsScreen(BoxLayout):
+    """Table and actions have separate constrained layout regions; no nested scroll."""
+    def __init__(self,menu):
+        super().__init__(orientation='vertical',spacing=dp(6))
+        g=menu.game;b=g.leaderboard;c=g.career
+        from season_records import scope
+        kind,country,division=scope(c,edition.is_world())
+        heading=(g.i18n.country(country)+' · '+g.i18n.tr('Division {tier}',tier=division)) if kind=='world' else 'SCORER LEAGUE'
+        self.scope_label=BoundedLabel(text=heading+' · SEASON RECORDS',localize=False,bold=True,color=GREEN,
+                                      font_size=sp(17),size_hint_y=None,height=dp(28))
+        self.add_widget(self.scope_label)
+        self.notice=BoundedLabel(text='Share your player name, team and best completed season. Usage statistics are separate.',
+                                 font_size=sp(12),size_hint_y=None,height=dp(36),max_lines=2)
+        self.add_widget(self.notice)
+        status=b.status or 'Records appear after completing a season. In-progress goals are not published.'
+        if b.pending_withdrawal:status='Removal pending. Refresh when connected.'
+        self.status=BoundedLabel(text=status,font_size=sp(12),color=MUTED,size_hint_y=None,height=dp(24),max_lines=1)
+        self.add_widget(self.status)
+        self.actions=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(8))
+        self.actions.add_widget(menu._button('STOP SHARING & REMOVE' if b.enabled else 'SHARE SEASON RECORDS',
+                                           'leaderboard_leave' if b.enabled else 'leaderboard_join'))
+        self.actions.add_widget(menu._button('REFRESH','leaderboard_refresh'))
+        self.add_widget(self.actions)
+        rows=[(i+1,e['player'],e['team'],str(e['season'])+'/'+str(e['season']+1)[-2:],e['goals'])
+              for i,e in enumerate(b.entries) if (e.get('edition'),e.get('country'),e.get('division'))==(kind,country,division)]
+        self.table=SeasonRecordTable('BEST COMPLETED SEASONS',('POS','PLAYER','TEAM','SEASON','GOALS'),rows,
+                                 focus=c.player_name,summary=(0,1,4),detail=(0,2,3,4))
+        self.add_widget(self.table)
+        self.bind(size=self._fit);self._fit()
+
+    def _fit(self,*_):
+        short=self.height<dp(320);tiny=self.height<dp(200)
+        self.spacing=dp(2 if tiny else 4 if short else 6)
+        self.notice.height=0 if short else dp(36);self.notice.opacity=0 if short else 1
+        self.scope_label.height=0 if tiny else dp(24 if short else 28);self.scope_label.opacity=0 if tiny else 1
+        self.status.height=0 if tiny else dp(20 if short else 24);self.status.opacity=0 if tiny else 1
+
+
+class SeasonRecordTable(CompactTable):
+    def _render(self,*_):
+        if not hasattr(self,'controls'):return
+        self.title.height=0;self.title.opacity=0
+        self.padding=dp(4);self.spacing=dp(2);self.controls.height=dp(48);self.head.height=dp(20)
+        super()._render(*_)

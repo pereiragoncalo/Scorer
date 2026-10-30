@@ -15,8 +15,8 @@ with sqlite3.connect('/var/lib/scorer/online.sqlite') as src,sqlite3.connect('/v
 PY
     chmod 600 /var/lib/scorer/online.backup.sqlite
 fi
-install -m 644 "$scorer_install_source/anonymous_stats.py" /opt/scorer/
-for scorer_file in usage_collector.py leaderboard.py dashboard.html; do install -m 644 "$scorer_install_source/server/$scorer_file" /opt/scorer/server/; done
+install -m 644 "$scorer_install_source/anonymous_stats.py" "$scorer_install_source/season_records.py" /opt/scorer/
+for scorer_file in usage_collector.py leaderboard.py season_records.py dashboard.html; do install -m 644 "$scorer_install_source/server/$scorer_file" /opt/scorer/server/; done
 if [ ! -f /etc/scorer/online.env ]; then
     python3 - <<'PY'
 import os,secrets
