@@ -1,10 +1,12 @@
-import io,marshal,sys,tarfile,tempfile,zipfile
+import io,marshal,sys,tarfile,tempfile,zipfile,types
 with zipfile.ZipFile(sys.argv[1]) as z:
     with tarfile.open(fileobj=io.BytesIO(z.read('assets/private.tar'))) as tar:
         def code(name):
             member=next(m for m in tar if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
             return marshal.loads(tar.extractfile(member).read()[16:])
-        stats={};exec(code('anonymous_stats'),stats);safety={};exec(code('online_safety'),safety)
+        safety_module=types.ModuleType('online_safety');sys.modules['online_safety']=safety_module
+        safety=safety_module.__dict__;exec(code('online_safety'),safety)
+        stats={};exec(code('anonymous_stats'),stats)
         assert stats['APP_STATS_MANDATORY'] is True
         with tempfile.TemporaryDirectory() as t:
             u=stats['create_statistics'](False,t,endpoint='');assert u.enabled and u.mandatory and not u.delivery_ready
@@ -14,7 +16,15 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             f.acknowledge();assert stats['create_statistics'](False,t,endpoint='').delivery_ready
         game=next(c for c in code('main').co_consts if hasattr(c,'co_name') and c.co_name=='StrikerGame')
         action=next(c for c in game.co_consts if hasattr(c,'co_name') and c.co_name=='_activate_ui')
-        assert 'notice_continue' in action.co_consts and 'adult_disable' in action.co_consts and 'career_import' in action.co_consts
+        def flatten(items):
+            for item in items:
+                if isinstance(item,str):yield item
+                elif isinstance(item,tuple):yield from flatten(item)
+        constants=set(flatten(action.co_consts))
+        assert {'notice_continue','adult_disable','career_import'}<=constants
+        app=next(c for c in code('main').co_consts if hasattr(c,'co_name') and c.co_name=='StrikerApp')
+        flush=next(c for c in app.co_consts if hasattr(c,'co_name') and c.co_name=='_flush_usage')
+        assert 'pending_withdrawal' in flush.co_names and 'sync' in flush.co_names
         transfer=code('career_transfer');assert 'validated_import' in transfer.co_names
     dex=b''.join(z.read(n) for n in z.namelist() if n.endswith('.dex'))
     assert b'chooseCareerImport' in dex and b'chooseCareerExport' in dex and b'readCareer' in dex

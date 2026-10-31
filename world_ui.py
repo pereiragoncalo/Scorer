@@ -11,7 +11,7 @@ HELP_PAGES = (
     ('YOUR CAREER', 'Choose New Game or Load Game. Pick a player name and a first contract. Free starts in Scorer League with no country selection. SCORER World is a separate application and career, with local-country contracts and England Division 4 as an option.'),
     ('TRAIN, THEN PLAY', 'Complete the three-shot weekly training to unlock Play. A session can be resumed and cannot be repeated that week. Energy and morale influence your opportunities. Progress saves automatically.'),
     ('TAKE YOUR CHANCE', 'Tap inside the goal to aim and shoot, or use the shoot control with the moving aim. Watch power and the time-to-shoot countdown. Opponent strength changes chance quantity and difficulty. Continue at half-time and full-time.'),
-    ('ADS, WORLD & NAMES', 'Free uses ads when available, without blocking offline play. Optional training ads can earn +1 morale once per career week. The separate SCORER World application has ad-free play, worldwide leagues and a local names editor. Its information page explains availability; there is no in-app purchase.'),
+    ('PRIVACY & WORLD', 'Scorer and Scorer World are free and ad-free, with separate careers and no in-app purchases. Usage counts are automatic, as explained in Privacy. Public season records require adult-managed access, accepted community rules and separate sharing permission. Career export and import are in Privacy.'),
 )
 
 

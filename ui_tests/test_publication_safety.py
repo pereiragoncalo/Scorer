@@ -63,3 +63,10 @@ class PublicationUITests(unittest.TestCase):
                 StrikerApp._flush_usage(type('App',(),{'root':g})())
                 sync.assert_called_once_with(g.career,False,withdraw=True)
                 self.assertFalse(g.family.social);self.assertFalse(g.leaderboard.enabled)
+
+    def test_free_help_describes_current_free_adfree_and_public_safety_features(self):
+        with isolated_game() as g:
+            g.view='help';g.help_page=3;g.draw();settle()
+            text=' '.join(w.text for w in g.walk() if isinstance(w,Label))
+            self.assertIn('free and ad-free',text);self.assertIn('adult-managed',text)
+            self.assertNotIn('training ads',text);self.assertNotIn('earn +1 morale',text)
