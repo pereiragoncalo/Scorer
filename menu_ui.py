@@ -344,21 +344,21 @@ class CareerMenu(BoxLayout):
 
     def _privacy(self):
         card = self.card('PRIVACY')
-        card.label('This version has no advertising, advertising SDK or ad-reward videos. You can play offline. Online season records and usage statistics are separate optional features.')
+        card.label('This version has no advertising, advertising SDK or ad-reward videos. You can play offline. Public season records are optional. Aggregate usage counts are automatic.')
         self._privacy_contact(card)
         usage=self.game.usage
-        stats=self.card('Optional usage statistics')
-        stats.label('Off by default. Optional counters help improve Scorer: session starts and normal closes, new/loaded careers, completed training and matches, goals, and selected load/save failures.')
+        stats=self.card('Automatic usage statistics')
+        stats.label('Automatic aggregate counters help improve Scorer: session starts and normal closes, new/loaded careers, completed training and matches, goals, and selected load/save failures.')
         stats.label('No names, career files, location, account or device identifiers are included. Counts are aggregated, not individual event logs. This does not measure unique players.')
         if usage.remote_available:
             from urllib.parse import urlsplit
             stats.label('Recipient: '+str(urlsplit(usage.endpoint).hostname))
             stats.label('The server sees an IP address while receiving a request; our collector does not store IP addresses or raw reports. HTTPS delivery uses Cloudflare, which processes connection information. Only daily aggregate totals are stored; individual contributions are not stored separately.')
-        else:stats.label('Upload is not configured. Optional counters stay on this device; nothing is sent.')
-        stats.label('You can stop collection and erase unsent counters here. If you are underage, ask a parent or guardian before enabling. Advertising consent is separate.')
-        stats.label('Status: '+('On' if usage.enabled else 'Off'))
+        else:stats.label('Upload is not configured. Counters stay on this device; nothing is sent.')
+        stats.label('These aggregate usage counts are part of this version. Public player names and season records still require separate permission.')
+        stats.label('Status: Automatic')
         if self.game.usage_notice:stats.label(self.game.usage_notice)
-        stats.add_widget(MenuTile('DISABLE AND ERASE STATS' if usage.enabled else 'ALLOW USAGE STATS',lambda:self.action('disable_usage_stats' if usage.enabled else 'enable_usage_stats')))
+
 
 
     def _privacy_contact(self, card):
@@ -668,6 +668,9 @@ class SplashScreen(FloatLayout):
         super().__init__()
         self.menu = menu
         self.add_widget(Image(source='assets/splash.png', fit_mode='contain'))
+        self.add_widget(BoundedLabel(text='Usage counts are sent automatically. Details in Privacy.',
+                                    font_size=sp(10),halign='center',size_hint=(1,None),height=dp(24),
+                                    pos_hint={'x':0,'top':1}))
         self.add_widget(BoundedLabel(text='TAP TO START', font_size=sp(13), bold=True,
                                     halign='center', size_hint=(1, None), height=dp(32),
                                     pos_hint={'x': 0, 'y': 0}))

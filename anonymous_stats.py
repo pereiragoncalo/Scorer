@@ -13,6 +13,7 @@ EVENTS=frozenset(('sessions','sessions_ended','new_careers','careers_loaded','tr
                  'matches_completed','goals_scored','load_failures','save_failures'))
 MAX_COUNT=10000
 MAX_FILE=16384
+APP_STATS_MANDATORY=True
 
 
 def valid_endpoint(value):
@@ -62,14 +63,19 @@ def send_counts(endpoint,payload):
 
 
 class UsageStatistics(NoStatistics):
-    def __init__(self,directory,endpoint='',sender=send_counts):
+    def __init__(self,directory,endpoint='',sender=send_counts,mandatory=False):
+        self.mandatory=bool(mandatory)
         self.path=Path(directory)/'scorer_usage.json'
         self.endpoint=endpoint if valid_endpoint(endpoint) else ''
         self.remote_available=bool(self.endpoint)
         self._scope=self.endpoint or 'local-v1'
         self._lock=threading.RLock();self._sender=sender;self._sending=False;self._generation=0
         self._foreground_active=False;self._session_seen=False;self._session_counted=False;self._session_ended=False;self._flush_requested=False
-        self.enabled=False;self.counts={};self.day=self._today();self.last_error=''
+        self.enabled=self.mandatory;self.counts={};self.day=self._today();self.last_error=''
+        self._load_state()
+        if self.mandatory:self.enabled=True
+
+    def _load_state(self):
         try:
             if self.path.stat().st_size>MAX_FILE:return
             data=json.loads(self.path.read_text(encoding='utf8'))
@@ -79,7 +85,7 @@ class UsageStatistics(NoStatistics):
             if any(type(n) is not int or not 0<n<=MAX_COUNT for n in data['counts'].values()):return
             day=date.fromisoformat(data['day'])
             age=(date.fromisoformat(self._today())-day).days
-            self.enabled=data['enabled']
+            self.enabled=data['enabled'] or self.mandatory
             if self.enabled and 0<=age<=7:self.counts=data['counts'];self.day=data['day']
         except (OSError,ValueError,TypeError):pass
 
@@ -102,6 +108,8 @@ class UsageStatistics(NoStatistics):
                 except OSError:pass
 
     def set_enabled(self,enabled):
+        if self.mandatory and enabled is False:
+            self.last_error='Usage counts are automatic in this version.';return False
         if type(enabled) is not bool:return False
         with self._lock:
             old=(self.enabled,self.counts,self.day)
@@ -189,4 +197,4 @@ def create_statistics(world,directory,endpoint=None):
     if endpoint is None:
         from analytics_config import ENDPOINT
         endpoint=ENDPOINT
-    return UsageStatistics(directory,endpoint)
+    return UsageStatistics(directory,endpoint,mandatory=APP_STATS_MANDATORY)

@@ -27,7 +27,7 @@ def settle():
 
 @contextmanager
 def isolated_game(saved=False, corrupt=False):
-    with tempfile.TemporaryDirectory() as root, patch.dict(os.environ, STRIKER_SAVE_DIR=root), patch('analytics_config.ENDPOINT',''), patch('online_config.ORIGIN',''):
+    with tempfile.TemporaryDirectory() as root, patch.dict(os.environ, STRIKER_SAVE_DIR=root), patch('analytics_config.ENDPOINT',''), patch('online_config.ORIGIN',''), patch('anonymous_stats.APP_STATS_MANDATORY',False):
         c = CareerMode()
         if saved:
             c.accept_starting_offer(c.offers[0])

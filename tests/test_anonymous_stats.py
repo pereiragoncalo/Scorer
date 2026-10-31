@@ -15,11 +15,11 @@ class AnonymousStatsTests(unittest.TestCase):
     def test_default_off_no_file_and_no_events_before_explicit_choice(self):
         s=UsageStatistics(self.root);s.begin_session();self.assertFalse(s.record('matches_completed'));self.assertFalse(s.flush_async());self.assertFalse(s.path.exists())
         self.assertTrue(s.set_enabled(True));self.assertEqual(s.counts,{'sessions':1});s.begin_session();self.assertEqual(s.counts,{'sessions':1})
-    def test_world_stats_are_off_until_explicit_choice(self):
-        s=create_statistics(True,self.root,endpoint='https://stats.clemir.com/v1/usage')
-        s.begin_session();self.assertFalse(s.enabled);self.assertFalse(s.flush_async())
-        self.assertFalse(s.path.exists());self.assertTrue(s.set_enabled(True))
-        self.assertEqual(s.counts,{'sessions':1})
+    def test_app_factory_is_automatic_and_cannot_disable(self):
+        s=create_statistics(True,self.root,endpoint='')
+        self.assertTrue(s.enabled);self.assertTrue(s.mandatory)
+        s.begin_session();self.assertEqual(s.counts,{'sessions':1})
+        self.assertFalse(s.set_enabled(False));self.assertTrue(s.enabled)
     def test_allowlist_rejects_names_parameters_bool_and_invalid_counts(self):
         s=UsageStatistics(self.root);s.set_enabled(True)
         for event,amount in [('Alex Silva',1),('player_name',1),([],1),('sessions',True),('sessions',0),('sessions',-1),('sessions',10001),('sessions','1')]:self.assertFalse(s.record(event,amount))
@@ -120,3 +120,11 @@ class AnonymousStatsTests(unittest.TestCase):
             with service.db() as db:count=db.execute("SELECT SUM(count) FROM totals WHERE event='sessions'").fetchone()[0]
             self.assertEqual(count,2)
         finally:service.shutdown();service.server_close();worker.join()
+
+
+    def test_automatic_mode_ignores_old_off_preference_and_survives_restart(self):
+        old=UsageStatistics(self.root);old.set_enabled(False)
+        current=UsageStatistics(self.root,mandatory=True)
+        self.assertTrue(current.enabled);current.begin_session();self.assertEqual(current.counts['sessions'],1)
+        self.assertFalse(current.set_enabled(False));restored=UsageStatistics(self.root,mandatory=True)
+        restored.begin_session();self.assertEqual(restored.counts['sessions'],2)

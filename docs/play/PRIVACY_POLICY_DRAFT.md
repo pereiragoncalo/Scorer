@@ -16,9 +16,9 @@ Private backups remain on-device; Android cloud backup is disabled. SAF exports
 use the document provider the player selects. Uninstall/clear data removes local
 files; removing local data does not itself withdraw existing public records.
 
-## Optional usage statistics
+## Automatic aggregate usage statistics
 
-Disabled until enabled in Privacy, independently of leaderboard sharing. All three
+Enabled automatically, disclosed on the splash and in Privacy, independently of optional leaderboard sharing. There is no in-game usage disable switch. All three
 editions may send nine allowlisted numeric counts over HTTPS to
 https://stats.clemir.com/v1/usage: app openings (launch and return after backgrounding)/normal app ends, new/loaded careers,
 completed training/matches, goals and selected save/load failures. No name, career
@@ -28,8 +28,7 @@ players. Forced termination may omit a session end; offline batches can arrive
 late, and ambiguous acknowledgements can duplicate totals.
 
 Own collector stores only combined counts by UTC receipt-day/event, retained90days.
-Local unsent counts expire after7days on next use. Disable and Erase stops new
-collection and removes unsent data; an in-flight request may finish. Already
+Local unsent counts expire after7days on next use. Uninstalling stops app operation and removes local unsent counters; an in-flight request may finish. Already
 combined totals cannot be identified as an individual's contribution for deletion.
 
 ## Optional public season records
@@ -62,5 +61,4 @@ The intended audience includes minors. The present nickname safety reminder is
 NOT verified parental authorization. Before Play publication the owner must settle
 age groups, Families/social-feature requirements and appropriate adult controls;
 no compliance claim is made by this draft. Published user-chosen names also need
-appropriate moderation/reporting arrangements. Players/guardians can disable
-optional sharing and counters independently. Do not require optional sharing to play.
+appropriate moderation/reporting arrangements. Players/guardians can disable optional public record sharing. Usage counters are automatic in this QA version; their legal basis and treatment for minors require owner review before production. Public record sharing is not required to play.

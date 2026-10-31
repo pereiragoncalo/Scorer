@@ -2935,11 +2935,6 @@ class StrikerGame(Widget):
                 self._names_picker = NameFiles(self._preview_names_json, self._names_message)
             text = json.dumps(self.career.names_template(self.editor_key), ensure_ascii=False, indent=2) if action == 'names_export' else None
             self._names_picker.pick(text)
-        elif action in ('enable_usage_stats','disable_usage_stats') and self.view=='privacy':
-            if self.usage.set_enabled(action=='enable_usage_stats'):
-                self.usage_notice=''
-                if self.usage.enabled:self.usage.flush_async()
-            else:self.usage_notice=self.usage.last_error or 'Unable to save statistics settings. Please try again.'
         elif action == "privacy":
             self._privacy_return = self.view if self.view in ('start', 'hub') else 'start'
             self.view = 'privacy'

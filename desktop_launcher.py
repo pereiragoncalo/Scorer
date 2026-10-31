@@ -44,6 +44,7 @@ def main():
     class WindowsApp(StrikerApp):
         def build(self):
             game = super().build()
+            if smoke:game.usage._sender=lambda *_:False  # Never send QA events to owner.
             def request_close(*_):
                 game._request_exit()
                 return True  # Preserve the save/error/cancel exit confirmation.
@@ -147,6 +148,10 @@ def main():
             try:
                 g=app.root
                 assert g.view == 'splash'
+                from kivy.uix.label import Label
+                assert any(isinstance(w,Label) and 'sent automatically' in w.text for w in g.walk())
+                g.export_to_png(str(report.parent/'splash.png'))
+                result['automatic_disclosure']=True
                 g._activate_ui('splash_continue')
                 assert g.view == 'start'
                 g._activate_ui('new_game')
@@ -171,12 +176,12 @@ def main():
                 assert restored.club_name == g.career.club_name
                 assert restored.trained_this_week == g.career.trained_this_week
                 assert restored.matches == g.career.matches
-                assert g.usage.endpoint == 'https://stats.clemir.com/v1/usage' and not g.usage.enabled
+                assert g.usage.endpoint == 'https://stats.clemir.com/v1/usage' and g.usage.enabled and g.usage.mandatory
                 assert g.leaderboard.origin == 'https://stats.clemir.com' and not g.leaderboard.enabled
                 g.view='hub';g.draw()
                 from kivy.uix.button import Button
                 assert any(isinstance(w,Button) and w.text=='LEADERBOARD' for w in g.walk())
-                result.update(leaderboard_button=True,statistics_opt_in=True)
+                result.update(leaderboard_button=True,statistics_automatic=True)
                 assert g.ads.backend is None
                 from anonymous_stats import UsageStatistics
                 probe=UsageStatistics(directory/'opening-probe','https://stats.example/v1/usage',lambda *_:False)

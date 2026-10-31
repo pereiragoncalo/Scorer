@@ -10,7 +10,8 @@ class WindowsFreeUITests(unittest.TestCase):
             texts={w.text for w in g.walk() if isinstance(w,Label)}
             self.assertTrue(any('no advertising' in t for t in texts))
             self.assertFalse(any('Google TEST ads' in t for t in texts))
-            self.assertIn('ALLOW USAGE STATS',texts)
+            self.assertIn('Automatic usage statistics',texts)
+            self.assertNotIn('DISABLE AND ERASE STATS',texts)
             g.view='training';g.draw();settle()
             self.assertNotIn('WATCH AD: +1 MORALE',{w.text for w in g.walk() if isinstance(w,Label)})
             self.assertFalse(g.career.world_unlocked)

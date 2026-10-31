@@ -5,15 +5,19 @@ from main import StrikerApp
 from test_menus import isolated_game,settle
 
 class UsageStatisticsUITests(unittest.TestCase):
-    def test_privacy_choice_is_explicit_and_separate_from_career(self):
+    def test_automatic_stats_are_disclosed_and_have_no_disable_control(self):
+        from anonymous_stats import create_statistics
         with isolated_game(saved=True) as g:
-            before=g.career.save_path.read_bytes();self.assertFalse(g.usage.enabled)
+            with patch('anonymous_stats.APP_STATS_MANDATORY',True):
+                g.usage=create_statistics(False,g.career.save_path.parent,endpoint='')
+            before=g.career.save_path.read_bytes();self.assertTrue(g.usage.enabled)
             g._activate_ui('splash_continue');g._activate_ui('privacy');g.draw();settle()
             labels={w.text for w in g.walk() if isinstance(w,Label)}
-            self.assertIn('ALLOW USAGE STATS',labels);self.assertTrue(any('nothing is sent' in t for t in labels))
-            g._activate_ui('enable_usage_stats');g.draw();settle();self.assertTrue(g.usage.enabled)
-            self.assertEqual(g.usage.counts,{'sessions':1});self.assertEqual(g.career.save_path.read_bytes(),before)
-            g._activate_ui('disable_usage_stats');self.assertFalse(g.usage.enabled);self.assertEqual(g.usage.counts,{})
+            self.assertIn('Automatic usage statistics',labels)
+            self.assertNotIn('ALLOW USAGE STATS',labels);self.assertNotIn('DISABLE AND ERASE STATS',labels)
+            self.assertEqual(g.usage.counts,{'sessions':1})
+            g._activate_ui('disable_usage_stats');self.assertTrue(g.usage.enabled)
+            self.assertFalse(g.usage.set_enabled(False));self.assertTrue(g.usage.enabled)
             self.assertEqual(g.career.save_path.read_bytes(),before)
     def test_real_game_hooks_count_once_without_names_or_ids(self):
         with isolated_game() as g:
@@ -26,15 +30,15 @@ class UsageStatisticsUITests(unittest.TestCase):
             for key in ('sessions','new_careers','trainings_completed','matches_completed','goals_scored'):self.assertEqual(counts[key],1,key)
             data=g.usage.path.read_text();self.assertNotIn('Private Example',data);self.assertNotIn(g.career.club_name,data)
             self.assertEqual(set(json.loads(data)['counts']),set(counts))
-    def test_default_off_in_both_editions_with_independent_explicit_choice(self):
-        with isolated_game(saved=True) as g:
-            g._activate_ui('splash_continue');g._activate_ui('load_game');StrikerApp.on_pause(type('App',(),{'root':g})())
-            self.assertFalse(g.usage.path.exists())
+    def test_world_is_automatic_but_public_name_sharing_stays_optional(self):
+        from anonymous_stats import create_statistics
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-            g.view='privacy';g.draw();settle();g._activate_ui('enable_usage_stats')
-            self.assertTrue(g.usage.enabled)
-            self.assertIn('ALLOW USAGE STATS',{w.text for w in g.walk() if isinstance(w,Label)})
-            self.assertTrue((g.career.save_path.parent/'scorer_usage.json').exists())
+            with patch('anonymous_stats.APP_STATS_MANDATORY',True):
+                g.usage=create_statistics(True,g.career.save_path.parent,endpoint='')
+            g._activate_ui('splash_continue');self.assertEqual(g.usage.counts['sessions'],1)
+            self.assertTrue(g.usage.enabled);self.assertFalse(g.leaderboard.enabled)
+            g.view='privacy';g.draw();settle()
+            self.assertNotIn('DISABLE AND ERASE STATS',{w.text for w in g.walk() if isinstance(w,Label)})
     def test_known_save_load_failures_use_fixed_numeric_events_only(self):
         with isolated_game(corrupt=True) as g:
             g.usage.set_enabled(True);g._activate_ui('splash_continue');g._activate_ui('load_game');self.assertEqual(g.usage.counts['load_failures'],1)
