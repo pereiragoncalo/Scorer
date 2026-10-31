@@ -23,6 +23,7 @@ class PublicationUITests(unittest.TestCase):
                 finally:StrikerApp.on_stop(app)
     def test_guardian_setup_unlock_and_disable_stops_publication_without_disabling_usage(self):
         with isolated_game(saved=True) as g:
+            with patch('anonymous_stats.APP_STATS_MANDATORY',True):g.usage=create_statistics(False,g.career.save_path.parent,endpoint='')
             with patch.object(g.leaderboard,'sync') as sync:
                 g._activate_ui('leaderboard');self.assertEqual(g.view,'family');sync.assert_not_called()
                 g._safety_draft=dict(birth='2018-01-01',pin='123456',confirm='123456');g._activate_ui('adult_setup');self.assertFalse(g.family.social)
@@ -33,6 +34,7 @@ class PublicationUITests(unittest.TestCase):
                 g._activate_ui('family_controls');g._safety_draft={'pin':'123456'};g._activate_ui('adult_disable')
                 self.assertFalse(g.family.social);self.assertFalse(g.leaderboard.enabled);self.assertTrue(g.leaderboard.pending_withdrawal)
                 self.assertTrue(sync.call_args.kwargs.get('withdraw'))
+                self.assertTrue(g.usage.enabled);self.assertTrue(g.usage.mandatory);self.assertFalse(g.usage.set_enabled(False))
     def test_phone_safety_forms_wrap_and_actions_fit_scroll_content(self):
         old=Window.size
         try:

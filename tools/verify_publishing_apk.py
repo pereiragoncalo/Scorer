@@ -26,6 +26,9 @@ with zipfile.ZipFile(sys.argv[1]) as z:
         flush=next(c for c in app.co_consts if hasattr(c,'co_name') and c.co_name=='_flush_usage')
         assert 'pending_withdrawal' in flush.co_names and 'sync' in flush.co_names
         transfer=code('career_transfer');assert 'validated_import' in transfer.co_names
+        help_strings=list(flatten(code('world_ui').co_consts))
+        assert any('free and ad-free' in text for text in help_strings)
+        assert not any('Free uses ads when available' in text for text in help_strings)
     dex=b''.join(z.read(n) for n in z.namelist() if n.endswith('.dex'))
     assert b'chooseCareerImport' in dex and b'chooseCareerExport' in dex and b'readCareer' in dex
 print('Actual APK: mandatory usage gated by notice, no disable, adult controls, career transfer and SAF bridge verified; no network sent')

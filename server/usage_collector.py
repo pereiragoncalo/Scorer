@@ -20,7 +20,7 @@ from urllib.parse import urlsplit,parse_qs
 class Collector(ThreadingHTTPServer):
     daemon_threads=True
     def __init__(self,address,database,admin_token='',public_config=None):
-        self.database=str(database);self.admin_token=admin_token;self.public_config=public_config or '/etc/scorer/public.json';self._last_prune=0
+        self.database=str(database);self.admin_token=admin_token;self.public_config=public_config or '/opt/scorer/public.json';self._last_prune=0
         self._rate_lock=threading.Lock();self._second=0;self._requests=0;self._slots=threading.BoundedSemaphore(16)
         Path(self.database).parent.mkdir(parents=True,exist_ok=True)
         with self.db() as db:
