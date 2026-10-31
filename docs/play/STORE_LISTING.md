@@ -1,4 +1,4 @@
-# Separate app listing drafts — ad-free0.6.43
+# Separate app listing drafts — ad-free0.6.45
 
 Not published, no Google Play approval claimed. Replace screenshots only with real
 captures from the exact app. Declare the actual audience/content rating and data

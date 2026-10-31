@@ -1563,3 +1563,7 @@ Native Windows41123889956 PASS; actual archive/CA/endpoints and main button vali
 ## Scorer0.6.45 automatic usage
 
 Owner confirmed second session received then required no off switch. Actual app factory mandatory, old Off ignored, controls/actions removed; splash and Privacy disclose automatic aggregate counters. Public records remain optional. 180core+99Kivy PASS; native Windows41248241931/source52db76ad frozen automatic disclosure/session smoke PASS plus6staging checks. Both actual APKs bytecode/signature/16KB/ad-free verified. Fake QA transport installed before startup; no manual historical-total or laptop changes. See AUTOMATIC_0.6.45.md and artifact JSON for limitations.
+
+## Google Play audit —2026-10-31
+
+Reviewed current0.6.45 source/artifacts against12official pages fetched200; recorded source URLs/text hashes and objective checks under docs/play/evidence. Three production-config/manifest regression checks PASS. Public read-only health/v2 return200, unauthenticated totals404; no synthetic events, public names or owner credentials used. Missing identity/support/privacy confirmed, production staging CLI gap, UGC/moderation/adult controls, automatic collection legal/disclosure basis, World notice translations, final store assets/AAB signing/device/Console gates documented. Replaced obsolete Play README that still instructed single-app AdMob/Billing; corrected version headers. Full audit PUBLISHING_AUDIT_2026-10-31.md. No app behavior, server, payment, upload or rollout changes.

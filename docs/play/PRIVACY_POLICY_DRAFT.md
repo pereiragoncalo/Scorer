@@ -5,7 +5,7 @@ Contact: [OWNER-APPROVED PUBLIC SUPPORT EMAIL]. Public policy URL: [HTTPS URL].
 Owner must fill these before publication; do not infer a private mailbox's public use.
 
 Scorer and Scorer World are separate applications with independent private careers.
-This0.6.43 release has no advertising SDK, adverts, rewarded videos, commercial
+This0.6.45 release has no advertising SDK, adverts, rewarded videos, commercial
 stadium panels or in-app billing. World purchases, if offered by an app store, are
 handled by that store; no live payment activation is performed by this code.
 

@@ -1,3 +1,5 @@
+[Google Play: current publication audit (31/10/2026)](docs/play/PUBLISHING_AUDIT_2026-10-31.md). QA builds below are not production-ready Play releases.
+
 ## Scorer0.6.45 — automatic usage counts
 
 [Scorer-Free-0.6.45.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.45/Scorer-Free-0.6.45.apk)

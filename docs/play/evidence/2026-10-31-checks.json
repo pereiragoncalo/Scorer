@@ -1,0 +1,111 @@
+{
+  "date_utc": "2026-10-31",
+  "audited_release_commit": "b97fcf453c2ed9e376517bffd54a778bc176dbb0",
+  "production_config_errors": [
+    "Public developer identity is required",
+    "Public support email is required",
+    "Public HTTPS privacy policy URL is required"
+  ],
+  "public_read_only_probes": [
+    {
+      "path": "/health",
+      "status": 200,
+      "sample": "{\"ok\":true}",
+      "curl_exit": 0
+    },
+    {
+      "path": "/v2/records?edition=free&country=Scorer&division=1",
+      "status": 200,
+      "sample": "{\"schema\":2,\"verified\":false,\"entries\":[]}",
+      "curl_exit": 0
+    },
+    {
+      "path": "/v1/totals",
+      "status": 404,
+      "sample": "{\"error\":\"not_found\"}",
+      "curl_exit": 0
+    },
+    {
+      "path": "/privacy",
+      "status": 404,
+      "sample": "{\"error\":\"not_found\"}",
+      "curl_exit": 0
+    }
+  ],
+  "images": {
+    "assets/icon.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "bytes": 1422647
+    },
+    "assets/icon_world.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "bytes": 1603966
+    },
+    "assets/splash.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1981805
+    }
+  },
+  "new_disclosure_translations": {
+    "de": {
+      "Usage counts are sent automatically. Details in Privacy.": null,
+      "Automatic usage statistics": null,
+      "Status: Automatic": null
+    },
+    "en": {
+      "Usage counts are sent automatically. Details in Privacy.": null,
+      "Automatic usage statistics": null,
+      "Status: Automatic": null
+    },
+    "es": {
+      "Usage counts are sent automatically. Details in Privacy.": null,
+      "Automatic usage statistics": null,
+      "Status: Automatic": null
+    },
+    "it": {
+      "Usage counts are sent automatically. Details in Privacy.": null,
+      "Automatic usage statistics": null,
+      "Status: Automatic": null
+    },
+    "ja": {
+      "Usage counts are sent automatically. Details in Privacy.": null,
+      "Automatic usage statistics": null,
+      "Status: Automatic": null
+    },
+    "ko": {
+      "Usage counts are sent automatically. Details in Privacy.": null,
+      "Automatic usage statistics": null,
+      "Status: Automatic": null
+    },
+    "pt": {
+      "Usage counts are sent automatically. Details in Privacy.": null,
+      "Automatic usage statistics": null,
+      "Status: Automatic": null
+    },
+    "vi": {
+      "Usage counts are sent automatically. Details in Privacy.": null,
+      "Automatic usage statistics": null,
+      "Status: Automatic": null
+    },
+    "zh": {
+      "Usage counts are sent automatically. Details in Privacy.": null,
+      "Automatic usage statistics": null,
+      "Status: Automatic": null
+    }
+  },
+  "console_access": false,
+  "private_google_email_access": false,
+  "device_validation": false
+}
