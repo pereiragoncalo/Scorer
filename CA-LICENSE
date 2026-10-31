@@ -1,0 +1,6 @@
+Mozilla CA trust store from certifi 2026.10.23, unchanged cacert.pem content.
+Source: https://github.com/certifi/python-certifi
+The CA certificate bundle is distributed under Mozilla Public License 2.0.
+License text: https://www.mozilla.org/MPL/2.0/
+SPDX-License-Identifier: MPL-2.0
+No session-specific or private certificates are included.
