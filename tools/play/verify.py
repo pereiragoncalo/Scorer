@@ -1,4 +1,4 @@
-"""Inspect the actual AAB/APK for single-app Play release invariants.
+"""Inspect the actual AAB/APK for independent ad-free Play release invariants.
 
 Manifest XML must come from bundletool dump manifest (AAB) or apkanalyzer (APK).
 This does not replace upload signing, Play pre-launch reports or device tests.

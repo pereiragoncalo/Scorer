@@ -71,7 +71,7 @@ class UsageStatistics(NoStatistics):
         self._scope=self.endpoint or 'local-v1'
         self._lock=threading.RLock();self._sender=sender;self._sending=False;self._generation=0
         self._foreground_active=False;self._session_seen=False;self._session_counted=False;self._session_ended=False;self._flush_requested=False
-        self.enabled=self.mandatory;self.counts={};self.day=self._today();self.last_error=''
+        self.delivery_ready=True;self.enabled=self.mandatory;self.counts={};self.day=self._today();self.last_error=''
         self._load_state()
         if self.mandatory:self.enabled=True
 
@@ -162,7 +162,7 @@ class UsageStatistics(NoStatistics):
 
     def flush_async(self):
         with self._lock:
-            if not self.enabled or not self.remote_available or not self.counts:return False
+            if not self.enabled or not self.remote_available or not self.delivery_ready or not self.counts:return False
             if self._sending:
                 self._flush_requested=True;return False
             age=(date.fromisoformat(self._today())-date.fromisoformat(self.day)).days
@@ -197,4 +197,8 @@ def create_statistics(world,directory,endpoint=None):
     if endpoint is None:
         from analytics_config import ENDPOINT
         endpoint=ENDPOINT
-    return UsageStatistics(directory,endpoint,mandatory=APP_STATS_MANDATORY)
+    usage=UsageStatistics(directory,endpoint,mandatory=APP_STATS_MANDATORY)
+    if APP_STATS_MANDATORY:
+        from online_safety import FamilyControls
+        usage.delivery_ready=FamilyControls(directory).notice_seen
+    return usage

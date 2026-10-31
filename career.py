@@ -2021,11 +2021,11 @@ class CareerMode:
             return bool(self.club_name)
         return False
 
-    def _load_saved_state(self) -> bool:
+    def _load_saved_state(self, document=None) -> bool:
         try:
-            if not self.save_path.exists():
+            if document is None and not self.save_path.exists():
                 return
-            data = json.loads(self.save_path.read_text(encoding="utf-8"))
+            data = json.loads(self.save_path.read_text(encoding="utf-8") if document is None else document)
             if not isinstance(data, dict):
                 return
             raw = data

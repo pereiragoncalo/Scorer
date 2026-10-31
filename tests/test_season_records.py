@@ -53,8 +53,8 @@ class SeasonRecordTests(unittest.TestCase):
                 c.request(method,path,None if data is None else json.dumps(data),{'Content-Type':'application/json'})
                 r=c.getresponse();body=r.read();status=r.status;c.close();return status,body
             try:
-                self.assertEqual(request('POST','/v2/records',dict(token='a'*64,record=self.row()))[0],204)
-                self.assertEqual(len(json.loads(request('GET','/v2/records?edition=world&country=Portugal&division=4')[1])['entries']),1)
+                self.assertEqual(request('POST','/v2/records',dict(token='a'*64,record=self.row()))[0],426)
+                self.assertEqual(json.loads(request('GET','/v2/records?edition=world&country=Portugal&division=4')[1])['entries'],[])
                 self.assertEqual(json.loads(request('GET','/v2/records?edition=world&country=Portugal&division=3')[1])['entries'],[])
                 self.assertEqual(request('GET','/v2/records?edition=world&country=Portugal&division=x')[0],400)
                 self.assertEqual(request('GET','/v1/leaderboard')[0],200)
@@ -64,14 +64,14 @@ class SeasonRecordTests(unittest.TestCase):
         from online_leaderboard import Leaderboard
         from types import SimpleNamespace
         with tempfile.TemporaryDirectory() as t:
-            b=Leaderboard(t,'https://stats.example.com');b.enabled=True
+            b=Leaderboard(t,'https://stats.example.com');b.enabled=True;b.terms_version=1
             c=SimpleNamespace(completed_records=[],goals=50,matches=20)
             done=threading.Event()
-            with patch.object(b,'request',return_value={'schema':2,'entries':[]}) as request:
+            with patch.object(b,'request',return_value={'schema':3,'entries':[]}) as request:
                 b.sync(c,False,done.set);self.assertTrue(done.wait(3));self.assertEqual(request.call_count,1)
             c.completed_records=[self.row(edition='free',country='Scorer',division=1)];done.clear()
-            with patch.object(b,'request',return_value={'schema':2,'entries':[]}) as request:
-                b.sync(c,False,done.set);self.assertTrue(done.wait(3));self.assertEqual(request.call_args_list[0].args[0],'/v2/records')
+            with patch.object(b,'request',return_value={'schema':3,'entries':[]}) as request:
+                b.sync(c,False,done.set);self.assertTrue(done.wait(3));self.assertEqual(request.call_args_list[0].args[0],'/v3/records')
                 done.clear();b.sync(c,False,done.set);self.assertTrue(done.wait(3));self.assertEqual(request.call_count,3)
 
     def test_world_season_record_keeps_old_division_when_promoted(self):

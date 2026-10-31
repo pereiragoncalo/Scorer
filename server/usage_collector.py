@@ -14,19 +14,28 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from anonymous_stats import valid_payload
 from server.leaderboard import initialize,submit,leaders,withdraw
 from server import season_records as records
+from server import moderation
 from urllib.parse import urlsplit,parse_qs
 
 class Collector(ThreadingHTTPServer):
     daemon_threads=True
-    def __init__(self,address,database,admin_token=''):
-        self.database=str(database);self.admin_token=admin_token
+    def __init__(self,address,database,admin_token='',public_config=None):
+        self.database=str(database);self.admin_token=admin_token;self.public_config=public_config or '/etc/scorer/public.json';self._last_prune=0
         self._rate_lock=threading.Lock();self._second=0;self._requests=0;self._slots=threading.BoundedSemaphore(16)
         Path(self.database).parent.mkdir(parents=True,exist_ok=True)
         with self.db() as db:
             db.execute('CREATE TABLE IF NOT EXISTS totals(day TEXT NOT NULL,event TEXT NOT NULL,count INTEGER NOT NULL,PRIMARY KEY(day,event))')
             initialize(db)
             records.initialize(db)
+            moderation.initialize(db)
+            moderation.prune(db)
         super().__init__(address,Handler)
+    def service_actions(self):
+        if time.monotonic()-self._last_prune>3600:
+            try:
+                with self.db() as db:moderation.prune(db)
+                self._last_prune=time.monotonic()
+            except sqlite3.Error:pass
     def get_request(self):
         connection,address=super().get_request();connection.settimeout(5);return connection,address
     def process_request(self,request,address):
@@ -53,8 +62,23 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(status);self.send_header('Content-Type','application/json');self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(body)));self.end_headers()
         try:self.wfile.write(body)
         except OSError:pass
+    def authorized(self):
+        return bool(self.server.admin_token) and hmac.compare_digest(self.headers.get('Authorization',''),'Bearer '+self.server.admin_token)
     def do_POST(self):
-        if self.path not in ('/v1/usage','/v1/leaderboard','/v1/leaderboard/withdraw','/v2/records','/v2/records/withdraw'):self.reply(404,{'error':'not_found'});return
+        if self.path=='/v1/moderation':
+            if not self.authorized():self.reply(404,{'error':'not_found'});return
+            try:
+                length=int(self.headers.get('Content-Length','0'))
+                if not 0<length<=4096 or self.headers.get('Transfer-Encoding') or self.headers.get_content_type()!='application/json':raise ValueError()
+                data=json.loads(self.rfile.read(length))
+                with self.server.db() as db:moderation.moderate(db,data)
+                self.reply(204,{})
+            except (ValueError,TypeError):self.reply(400,{'error':'invalid'})
+            except Exception:self.reply(503,{'error':'unavailable'})
+            return
+        if self.path in ('/v1/leaderboard','/v2/records'):
+            self.reply(426,{'error':'app_update_required'});return
+        if self.path not in ('/v1/usage','/v1/leaderboard','/v1/leaderboard/withdraw','/v2/records','/v2/records/withdraw','/v3/records','/v3/records/withdraw','/v3/reports'):self.reply(404,{'error':'not_found'});return
         if not self.server.allow():self.reply(429,{'error':'busy'});return
         try:length=int(self.headers.get('Content-Length','0'))
         except ValueError:self.reply(400,{'error':'invalid'});return
@@ -66,8 +90,9 @@ class Handler(BaseHTTPRequestHandler):
                 with self.server.db() as db:
                     if self.path.endswith('/withdraw'):
                         if not isinstance(data,dict) or set(data)!={'token'}:raise ValueError('invalid')
-                        records.withdraw(db,data['token'])
-                    elif self.path=='/v2/records':records.submit(db,data)
+                        moderation.withdraw(db,data['token'])
+                    elif self.path=='/v3/records':moderation.submit(db,data)
+                    elif self.path=='/v3/reports':moderation.report(db,data)
                     else:submit(db,data)
                 self.reply(204,{});return
             if not valid_payload(data):self.reply(400,{'error':'invalid'});return
@@ -77,21 +102,35 @@ class Handler(BaseHTTPRequestHandler):
                     db.execute('INSERT INTO totals(day,event,count) VALUES(?,?,?) ON CONFLICT(day,event) DO UPDATE SET count=count+excluded.count',(today.isoformat(),event,count))
                 db.execute('DELETE FROM totals WHERE day < ?',((today-timedelta(days=90)).isoformat(),))
             self.reply(204,{})
+        except PermissionError:self.reply(403,{'error':'suspended'})
         except (ValueError,UnicodeError,TimeoutError,OSError):self.reply(400,{'error':'invalid'})
         except Exception:self.reply(503,{'error':'unavailable'})
     def do_GET(self):
+        if self.path in ('/privacy','/terms','/delete'):
+            from server.public_pages import page
+            status,body=page(self.path,self.server.public_config)
+            self.send_response(status);self.send_header('Content-Type','text/html; charset=utf-8');self.send_header('Cache-Control','no-store')
+            self.send_header('X-Content-Type-Options','nosniff');self.send_header('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'")
+            self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body);return
+        if self.path=='/v1/moderation':
+            if not self.authorized():self.reply(404,{'error':'not_found'});return
+            try:
+                with self.server.db() as db:data=moderation.queue(db)
+                self.reply(200,data)
+            except Exception:self.reply(503,{'error':'unavailable'})
+            return
         if self.path=='/admin':
             body=(Path(__file__).parent/'dashboard.html').read_bytes()
             self.send_response(200);self.send_header('Content-Type','text/html; charset=utf-8')
             self.send_header('Cache-Control','no-store');self.send_header('X-Frame-Options','DENY')
             self.send_header('Content-Security-Policy',"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'")
             self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body);return
-        if self.path.startswith('/v2/records?'):
+        if self.path.startswith(('/v2/records?','/v3/records?')):
             if not self.server.allow():self.reply(429,{'error':'busy'});return
             try:
                 q=parse_qs(urlsplit(self.path).query,strict_parsing=True)
                 if set(q)!={'edition','country','division'} or any(len(v)!=1 for v in q.values()):raise ValueError('invalid filter')
-                with self.server.db() as db:data=records.leaders(db,q['edition'][0],q['country'][0],int(q['division'][0]))
+                with self.server.db() as db:data=moderation.leaders(db,q['edition'][0],q['country'][0],int(q['division'][0]),3 if self.path.startswith('/v3/') else 2)
                 self.reply(200,data)
             except (ValueError,KeyError):self.reply(400,{'error':'invalid'})
             except Exception:self.reply(503,{'error':'unavailable'})
@@ -108,7 +147,9 @@ class Handler(BaseHTTPRequestHandler):
         supplied=self.headers.get('Authorization','')
         if self.path!='/v1/totals' or not self.server.admin_token or not hmac.compare_digest(supplied,expected):self.reply(404,{'error':'not_found'});return
         try:
-            with self.server.db() as db:rows=db.execute('SELECT day,event,count FROM totals ORDER BY day,event').fetchall()
+            with self.server.db() as db:
+                moderation.prune(db)
+                rows=db.execute('SELECT day,event,count FROM totals ORDER BY day,event').fetchall()
             self.reply(200,{'schema':1,'totals':[{'day':d,'event':e,'count':n} for d,e,n in rows]})
         except Exception:self.reply(503,{'error':'unavailable'})
 

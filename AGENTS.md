@@ -11,6 +11,10 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 
 ## Commercial model
 
+- Owner0.6.46: account is active/verified; public responsible name Gonçalo Pereira and support/privacy goncalo@clemir.com are authorized. Audience includes minors. Both Scorer and Scorer World are FREE, no advertising/billing. Prepare /privacy on own server; no cloud SSH or live deployment is implied. No need to re-request account verification or activate pricing.
+- Publication0.6.46: automatic counts remain mandatory/no switch, but no transmission before detailed notice acknowledgement (not consent). Adult-managed social access defaults locked; date check is self-declared/local/discarded, salted PIN+lockout and guardian disable/withdraw. Explicit terms+Share, v3 records pending human approval, public report/block IDs, private moderator controls. Local edition-bound career transfer excludes credentials and preserves backup. Existing unrelated World WIP must not be included in tested snapshot. Production staging requires actual legal/children/provider/operator review, public policy live and owner upload key/certificate; false assertions are not acceptable. Rehearsal artifacts are not production approval. See docs/play/RELEASE_0.6.46.md and SERVER_0.6.46.md.
+
+
 - Owner0.6.45 explicitly supersedes earlier optional/default-off usage rules for ALL three editions: actual factory always uses mandatory=True; old Off preference does not disable collection; remove usage enable/disable controls/actions. Disclose automatic aggregate collection on splash and Privacy. Keep the same nine counters/retention, no identifiers or raw histories. Public named season-record sharing stays independently optional with removal. QA fixtures must disable production transport before App.on_start; actual-factory tests use local/fake sender. No server upgrade. This QA request is not legal/Play approval; review User Data/Families and legal basis before production.
 
 

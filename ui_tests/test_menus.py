@@ -363,7 +363,7 @@ class MenuTests(unittest.TestCase):
                 settle()
                 self.assertEqual(game.view, 'privacy')
                 labels = {w.text for w in game.walk() if isinstance(w, Label)}
-                self.assertTrue(any('no advertising' in text for text in labels))
+                self.assertTrue(any('no advertising' in text.lower() for text in labels))
                 game._activate_ui('privacy_back')
                 self.assertEqual(game.view, origin)
             self.assertEqual(game.career.save_path.read_bytes(), before)

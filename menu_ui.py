@@ -26,7 +26,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard'))
+MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -226,7 +226,7 @@ class CareerMenu(BoxLayout):
         if self.game.view == 'scorers':
             header.add_widget(self._button('GLOBAL', 'leaderboard'))
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('BACK', 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
+            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view in ('hub', 'offers'):
@@ -342,40 +342,73 @@ class CareerMenu(BoxLayout):
         return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
                             summary=(0, 1, 2, 3))
 
+    def _data_notice(self):
+        from online_safety import NOTICE_TEXT
+        card=self.card('Automatic usage statistics');card.label(NOTICE_TEXT)
+        if self.game._safety_notice:card.label(self.game._safety_notice)
+        card.add_widget(self._button('PRIVACY','privacy'))
+        card.add_widget(self._button('CONTINUE','notice_continue',accent=True))
+        card.add_widget(TouchButton('EXIT',self.game._request_exit))
+
+    def _draft_field(self,card,key,hint,password=False):
+        from ui_localization import LocalizedInput
+        field=LocalizedInput(text=self.game._safety_draft.get(key,''),hint_text=hint,password=password,multiline=False,size_hint_y=None,height=dp(52))
+        field.bind(text=lambda _,text:self.game._safety_draft.__setitem__(key,text));card.add_widget(field)
+        return field
+
+    def _family(self):
+        card=self.card('ADULT CONTROLS')
+        card.label('An adult manages access to public names. The game remains playable with public features locked.')
+        card.label('Use a nickname, never personal contact or school information.')
+        if self.game._safety_notice:card.label(self.game._safety_notice)
+        if not self.game.family.configured:
+            card.label('An adult enters their own birth date and sets a private PIN. The date is checked locally, then discarded. This is not identity verification.')
+            self._draft_field(card,'birth','Adult birth date (YYYY-MM-DD)')
+            self._draft_field(card,'pin','New adult PIN (6–12 digits)',True)
+            self._draft_field(card,'confirm','Repeat adult PIN',True)
+            card.add_widget(self._button('SET ADULT PIN','adult_setup'))
+        else:
+            card.label('Public features enabled.' if self.game.family.social else 'Public features locked.')
+            self._draft_field(card,'pin','Adult PIN',True)
+            card.add_widget(self._button('UNLOCK PUBLIC FEATURES','adult_unlock'))
+            card.add_widget(self._button('LOCK & REMOVE RECORDS','adult_disable'))
+        card.label('Keep your PIN private. If it is lost, local controls cannot be recovered here. Public record removal is always available from Privacy.')
+
+    def _record_safety(self):
+        card=self.card('REPORT OR BLOCK')
+        card.label('Enter the leaderboard position to report or block. Reports go privately to the moderator; blocking hides this publisher on this device.')
+        if self.game._safety_notice:card.label(self.game._safety_notice)
+        card.label(self.game.leaderboard.status or 'Choose a valid leaderboard position.')
+        self._draft_field(card,'position','Leaderboard position')
+        for title,reason in [('REPORT PERSONAL INFORMATION','personal_info'),('REPORT ABUSE','abuse'),('REPORT SPAM','spam'),('REPORT OTHER CONTENT','other')]:
+            card.add_widget(self._button(title,'record_report',reason))
+        card.add_widget(self._button('BLOCK PUBLISHER','record_block'))
+        card.add_widget(self._button('CLEAR BLOCKED NAMES','record_unblock_all'))
+
     def _privacy(self):
         card = self.card('PRIVACY')
-        card.label('This version has no advertising, advertising SDK or ad-reward videos. You can play offline. Public season records are optional. Aggregate usage counts are automatic.')
+        card.label('Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.')
         self._privacy_contact(card)
-        usage=self.game.usage
-        stats=self.card('Automatic usage statistics')
-        stats.label('Automatic aggregate counters help improve Scorer: session starts and normal closes, new/loaded careers, completed training and matches, goals, and selected load/save failures.')
-        stats.label('No names, career files, location, account or device identifiers are included. Counts are aggregated, not individual event logs. This does not measure unique players.')
-        if usage.remote_available:
-            from urllib.parse import urlsplit
-            stats.label('Recipient: '+str(urlsplit(usage.endpoint).hostname))
-            stats.label('The server sees an IP address while receiving a request; our collector does not store IP addresses or raw reports. HTTPS delivery uses Cloudflare, which processes connection information. Only daily aggregate totals are stored; individual contributions are not stored separately.')
-        else:stats.label('Upload is not configured. Counters stay on this device; nothing is sent.')
-        stats.label('These aggregate usage counts are part of this version. Public player names and season records still require separate permission.')
-        stats.label('Status: Automatic')
+        controls=self.card('ADULT CONTROLS');controls.add_widget(self._button('ADULT CONTROLS','family_controls'))
+        controls.add_widget(self._button('STOP SHARING & REMOVE','leaderboard_leave'))
+        from online_safety import TERMS_TEXT
+        terms=self.card('COMMUNITY RULES');terms.label(TERMS_TEXT)
+        transfer=self.card('CAREER TRANSFER')
+        transfer.label('Export before uninstalling or changing to the Play version. The file includes your name and game progress; keep it private. Only the same edition can import it. No PINs or online credentials are exported.')
+        transfer.add_widget(self._button('EXPORT CAREER','career_export'));transfer.add_widget(self._button('IMPORT CAREER','career_import'))
+        if self.game._safety_notice:transfer.label(self.game._safety_notice)
+        from online_safety import NOTICE_TEXT
+        stats=self.card('Automatic usage statistics');stats.label(NOTICE_TEXT);stats.label('Status: Automatic')
         if self.game.usage_notice:stats.label(self.game.usage_notice)
 
-
-
     def _privacy_contact(self, card):
-        card.label('Optional season records publish your chosen player name, team and finished-season score only after separate permission. You can remove published records from Leaderboard.',muted=True)
-        card.label('Careers and name edits are stored privately on this device. Uninstalling or clearing app data removes them; a new game keeps a private backup. There is no SCORER account or career upload.', muted=True)
-        card.label('Free and World are separate applications with independent private saves. This app has no in-app purchase or purchase-verification service. World store purchases, when offered, are handled by the store.', muted=True)
-        if edition.is_world():
-            card.label('Names and colours use reference data. Data and font licences are included.', muted=True)
-            card.label('GeoNames / CC BY 4.0 · OpenFootball / CC0 · Annexare / MIT · Barlow, Noto CJK / OFL 1.1 · CLDR / Unicode',muted=True,localize=False)
-        else:
-            card.label('City data: GeoNames via github.com/datasets/world-cities (CC BY 4.0); adapted names. Licence: creativecommons.org/licenses/by/4.0/. Club/city references: OpenFootball (CC0); country metadata: Annexare (MIT). Licences included.', muted=True)
-        if release_settings.DEVELOPER_NAME:
-            card.label('Developer: ' + release_settings.DEVELOPER_NAME, muted=True)
-        if release_settings.SUPPORT_EMAIL:
-            card.label('Support: ' + release_settings.SUPPORT_EMAIL, muted=True)
-        if release_settings.PRIVACY_URL:
-            card.add_widget(self._button('FULL PRIVACY POLICY', 'open_privacy_policy'))
+        card.label('Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.')
+        card.label('Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.')
+        card.label('Local files and exports contain game progress. Keep exported files private. Data and font licences are included.')
+        card.label('GeoNames / CC BY 4.0 · OpenFootball / CC0 · Annexare / MIT · Barlow, Noto CJK / OFL 1.1 · CLDR / Unicode',muted=True,localize=False)
+        if release_settings.DEVELOPER_NAME:card.label(release_settings.DEVELOPER_NAME,localize=False)
+        if release_settings.SUPPORT_EMAIL:card.label(release_settings.SUPPORT_EMAIL,localize=False)
+        if release_settings.PRIVACY_URL:card.add_widget(self._button('FULL PRIVACY POLICY','open_privacy_policy'))
 
     def _help(self):
         from world_ui import HELP_PAGES, WORLD_HELP_PAGES
@@ -1200,10 +1233,9 @@ class SeasonRecordsScreen(BoxLayout):
         if b.pending_withdrawal:status='Removal pending. Refresh when connected.'
         self.status=BoundedLabel(text=status,font_size=sp(12),color=MUTED,size_hint_y=None,height=dp(24),max_lines=1)
         self.add_widget(self.status)
-        self.actions=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(8))
-        self.actions.add_widget(menu._button('STOP SHARING & REMOVE' if b.enabled else 'SHARE SEASON RECORDS',
-                                           'leaderboard_leave' if b.enabled else 'leaderboard_join'))
-        self.actions.add_widget(menu._button('REFRESH','leaderboard_refresh'))
+        self.actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
+        for title,action in [('STOP SHARING & REMOVE' if b.enabled else 'SHARE SEASON RECORDS','leaderboard_leave' if b.enabled else 'leaderboard_join'),('REFRESH','leaderboard_refresh'),('REPORT OR BLOCK','record_safety')]:
+            self.actions.add_widget(MenuTile(title,lambda a=action:menu.action(a)))
         self.add_widget(self.actions)
         rows=[(i+1,e['player'],e['team'],str(e['season'])+'/'+str(e['season']+1)[-2:],e['goals'])
               for i,e in enumerate(b.entries) if (e.get('edition'),e.get('country'),e.get('division'))==(kind,country,division)]

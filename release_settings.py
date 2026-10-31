@@ -1,8 +1,8 @@
 """Public build metadata, replaced only in isolated Play staging sources."""
 CHANNEL = 'beta'
-DEVELOPER_NAME = ''
-SUPPORT_EMAIL = ''
-PRIVACY_URL = ''
+DEVELOPER_NAME = 'Gonçalo Pereira'
+SUPPORT_EMAIL = 'goncalo@clemir.com'
+PRIVACY_URL = 'https://stats.clemir.com/privacy'
 
 
 def is_store():

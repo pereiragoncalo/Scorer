@@ -1,31 +1,30 @@
-# Data Safety inventory — ad-free0.6.45, draft for owner review
+# Data Safety — Scorer/Scorer World0.6.46
 
-Assess com.clemir.striker and com.clemir.scorerworld separately. Windows is not a
-Play listing. Do not copy legacy single-app purchase or advertising declarations.
+Owner-approved public identity: **Gonçalo Pereira**, **goncalo@clemir.com**.
+Both Android apps are **free**, ad-free, no in-app purchase. Account verification
+is confirmed by owner. Console forms have not been submitted in this session.
+Windows is not a Play listing. Assess the two Android packages separately.
 
-| Flow | Actual current treatment | Declaration considerations |
+| Flow | Actual implementation | Form considerations |
 | --- | --- | --- |
-| Offline careers, language, editor/SAF, fixtures | Private device files; no whole-career upload | Explain local storage, uninstall and exports |
-| Automatic usage, all three editions | Enabled automatically with upfront splash/Privacy disclosure;9fixed numeric counts, HTTPS stats.clemir.com/v1/usage | App interactions/selected error counters, analytics purpose, mandatory collection; no unique-users claim |
-| Usage collector | Combined UTC-day counters90days; no raw requests/player/device/session IDs stored by own collector | Hosting/CDN necessarily process transport/IP; Cloudflare must be disclosed; inspect actual provider logs |
-| Optional completed-season leaderboard | Separate explicit consent_version2; chosen name, finishing team, completed season, matches, goals, country/division; random private ownership token sent only for own records/deletion | Public profile/name/gameplay/identifier handling requires accurate disclosure; chosen name can be personal data; NOT an anonymous-only app |
-| Ranking retention/removal | Best record until withdrawal; removal button erases own v1/v2 public records; offline request remains pending | Describe removal and operational support; v2 public read verified200 on2026-10-31; real publish/delete acceptance still pending |
-| Advertising/billing | No ad SDK/UMP/native bridges, ads, rewarded buttons or stadium promotions; no billing SDK/in-app purchase | Contains ads: No, for VERIFIED ad-free artifact; do not claim AdMob collection in this release |
+| Careers/exports/editor/language | Private local files; explicit user-selected SAF documents; no cloud career upload | Local-only data is not an automatic server collection. User-chosen document provider can be cloud-backed; disclose user-directed export. Export contains names/progress, excludes credentials |
+| Automatic usage |9numeric app activity/failure counters. No switch. Send begins after detailed first-run notice acknowledgement, not a consent claim | Required App interactions / analytics; assess Diagnostics for selected failure counts. Never declare optional or no data collected |
+| Collector and provider |90day combined receipt-day totals,7day local expiry; hourly active cleanup/daily maintenance. Collector has no raw requests/IP/UA logs; Cloudflare processes network/IP | Inspect actual provider logging/geolocation, retention and transfer terms. Do not automatically infer location collection from an IP, or omit actual inference. Not all retained data is ephemeral |
+| Optional completed records |Explicit adult-managed public access + terms v1 + Share; chosen name/team, season, matches, goals, country/division/edition; persistent ownership token only for writes/deletion | Names include nicknames in Google definition. Assess Name, other UGC/activity and identifier type for random persistent token; it is not anonymous merely because random. Device/session IDs are absent from usage payload, not a claim that ranking has no identifier |
+| Public IDs and local blocking |Opaque public publisher/record IDs; blocked publishers stored locally, filtered from display | Declare identifier handling accurately; public IDs cannot authorize writes/deletion |
+| Reports/moderation |Reporter token hashed on server; target publisher ID and fixed reason only. Reports30days, names pending until approved, suspended publisher ID retained until lifted | Other user-generated content/identifier handling, safety/moderation purpose. No free-text report or raw diagnostics. Human operator still required |
+| Family controls |Birth date checked locally then discarded; PIN salted hash/local settings; fail lockout | Not uploaded. Self-declared adult action is not verified parental authorization/identity. Confirm children/social treatment before release |
+| Removal/backups |Own records/reports removed on withdrawal; offline pending retry on next refresh. Managed backup copies only totals; expires7days. Local export user-controlled | Explain deletion/support. No email/password account; still assess whether persistent public identity falls within Play account-deletion definition. /delete public support instructions prepared |
+| Advertising/billing |Absent SDKs, ads and purchases |Contains ads=No; no in-app purchases. Both apps free per owner |
 
-Both apps use Internet for optional public ranking and automatic aggregate usage; removing advertising does
-NOT make the app "collects no data". Separate consent does not excuse declaration.
-Use the actual current Play form definitions for collected/shared, ephemeral
-processing, optional data and service-provider transfers. Public posting is
-user-directed, but its collection/storage/disclosure still needs truthful answers.
-There is no SCORER email/password account or automatic save-cloud upload. Check
-whether Play treats the optional persistent public identity as account creation;
-do not dismiss deletion requirements solely because no password is used.
+HTTPS is verified. Collected/shared/ephemeral classifications must follow current
+Play definitions, including service-provider and user-directed sharing exceptions;
+do not automatically label all transfers sharing or all aggregates ephemeral.
+The same data type cannot be declared optional when some automatic flow requires
+it. Usage payload's historical `app:scorer_free` is a common family constant, not
+an edition/platform/unique-player breakdown.
 
-No automatic SMTP/email summaries active. Public privacy-policy URL, owner identity
-and support contact remain absent from release/play.example.json; production
-validation blocks them. This document is not submitted Data Safety or approval.
-
-0.6.45 owner requires no usage opt-out. Previous optional statements are superseded.
-Mandatory analytics needs legal/Google User Data/Families review before production;
-do not equate absence of names/device IDs with exemption from consent/legal rules.
-Public name sharing remains optional and independently removable.
+Public policy URL prepared: https://stats.clemir.com/privacy. It is not claimed
+live until the owner installs server0.6.46 and completes actual provider/legal
+configuration. See [legal review](LEGAL_BASIS_REVIEW.md), [deployment](SERVER_0.6.46.md)
+and [release status](RELEASE_0.6.46.md). No SMTP service is activated.

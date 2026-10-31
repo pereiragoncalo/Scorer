@@ -30,12 +30,12 @@ class OnlineTests(unittest.TestCase):
                 h={'Content-Type':'application/json'};h.update(headers or {})
                 c.request(method,path,None if data is None else json.dumps(data),h);r=c.getresponse();body=r.read();status=r.status;c.close();return status,body
             try:
-                self.assertEqual(req('POST','/v1/leaderboard',self.payload())[0],204)
-                self.assertIn(b'Striker-1',req('GET','/v1/leaderboard')[1])
+                self.assertEqual(req('POST','/v1/leaderboard',self.payload())[0],426)
+                self.assertEqual(json.loads(req('GET','/v1/leaderboard')[1])['entries'],[])
                 self.assertEqual(req('GET','/v1/totals')[0],404)
                 self.assertEqual(req('GET','/v1/totals',headers={'Authorization':'Bearer private-admin'})[0],200)
                 self.assertIn(b'type="password"',req('GET','/admin')[1])
-                self.assertEqual(req('POST','/v1/leaderboard',{'alias':'x'})[0],400)
+                self.assertEqual(req('POST','/v1/leaderboard',{'alias':'x'})[0],426)
                 self.assertEqual(req('POST','/v1/leaderboard/withdraw',{'token':'a'*64})[0],204)
                 self.assertEqual(json.loads(req('GET','/v1/leaderboard')[1])['entries'],[])
             finally:server.shutdown();server.server_close();thread.join()
@@ -54,9 +54,9 @@ class OnlineTests(unittest.TestCase):
         c=SimpleNamespace(season=2026,matches=3,goals=4)
         with tempfile.TemporaryDirectory() as t:
             b=Leaderboard(t,'https://stats.example.com');done=threading.Event()
-            with patch.object(b,'request',return_value={'schema':2,'entries':[]}) as req:
+            with patch.object(b,'request',return_value={'schema':3,'entries':[]}) as req:
                 b.sync(c,False,done.set);self.assertTrue(done.wait(3))
-                self.assertEqual(req.call_args_list[0].args,('/v2/records?edition=free&country=Scorer&division=1',))
+                self.assertEqual(req.call_args_list[0].args,('/v3/records?edition=free&country=Scorer&division=1',))
             b.pending_withdrawal=True;b.save();done.clear()
             with patch.object(b,'request',side_effect=OSError):
                 b.sync(c,False,done.set,withdraw=True);self.assertTrue(done.wait(3))

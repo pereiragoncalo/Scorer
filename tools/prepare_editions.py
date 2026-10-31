@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.play.prepare import ROOT, prepare
 
 
-def prepare_edition(product, target, source=ROOT, analytics_endpoint=None):
+def prepare_edition(product, target, source=ROOT, analytics_endpoint=None, channel='rehearsal', config=None, publication=None):
     if product not in ('free', 'world'):
         raise ValueError('Choose free or world')
     from anonymous_stats import valid_endpoint
@@ -19,10 +19,14 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=None):
     if analytics_endpoint and not valid_endpoint(analytics_endpoint):
         raise ValueError('Analytics needs an HTTPS /v1/usage endpoint')
     source = Path(source)
-    config = json.loads((source/'release/play.example.json').read_text())
-    config['version_code'] = 1026645
-    config['billing']['enabled'] = False
-    target = prepare(config, Path(target), 'rehearsal', source)
+    config = dict(config) if config is not None else json.loads((source/'release/play.example.json').read_text())
+    if channel=='rehearsal':config['version_code']=1026646
+    if channel=='production':
+        from tools.play.publication import validate_publication
+        errors=validate_publication(publication)
+        if errors:raise ValueError('\n'.join(errors))
+    if channel=='rehearsal':config['billing']['enabled'] = False
+    target = prepare(config, Path(target), channel, source)
     identity = target/'edition.py'
     text = identity.read_text().replace('WORLD_PREVIEW = True', 'WORLD_PREVIEW = False')
     text = text.replace('WORLD_BUILD = False', 'WORLD_BUILD = '+str(product == 'world'), 1)
@@ -32,7 +36,8 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=None):
     app['title'] = 'Scorer World' if product == 'world' else 'Scorer'
     app['icon.filename'] = 'assets/icon_world.png' if product == 'world' else 'assets/icon.png'
     app['package.domain'], app['package.name'] = 'com.clemir', 'scorerworld' if product == 'world' else 'striker'
-    app['version'], app['android.numeric_version'] = '0.6.45', '1026645'
+    app['version'], app['android.numeric_version'] = '0.6.46', str(config['version_code'])
+    (target/'release_settings.py').write_text((target/'release_settings.py').read_text()+"\nWORLD_LISTING_READY = False\n")
     # Both products share a Python/Kivy native distribution, not an Android identity.
     app['p4a.extra_args'] = '--dist_name=striker'
     app['scorer.shared_native_dist'] = 'striker'
@@ -56,7 +61,7 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=None):
     with (target/'buildozer.spec').open('w') as f:spec.write(f)
     # Do not ship historical in-app mode state or obsolete QA launch scripts.
     (target/'career_mode_state.py').unlink(missing_ok=True)
-    (target/'.scorer-edition').write_text(product+'\nQA build. No production store or payment activation.\n')
+    (target/'.scorer-edition').write_text(product+'\nBuild preparation only. No store upload or payment activation.\n')
     return target
 
 
@@ -64,5 +69,8 @@ if __name__ == '__main__':
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--edition',choices=('free','world'),required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--channel',choices=('rehearsal','production'),default='rehearsal')
+    p.add_argument('--config',type=Path)
+    p.add_argument('--publication-config',type=Path)
     p.add_argument('--analytics-endpoint',default=None,help='Public HTTPS /v1/usage URL; omitted uses configured owner endpoint, empty disables uploads')
-    args=p.parse_args();print(prepare_edition(args.edition,args.output,analytics_endpoint=args.analytics_endpoint))
+    args=p.parse_args();print(prepare_edition(args.edition,args.output,analytics_endpoint=args.analytics_endpoint,channel=args.channel,config=json.loads(args.config.read_text()) if args.config else None,publication=json.loads(args.publication_config.read_text()) if args.publication_config else None))

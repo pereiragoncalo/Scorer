@@ -1,5 +1,7 @@
 # Auditoria de publicação Google Play — 31/10/2026
 
+**Histórico da0.6.45.** O dono confirmou depois conta ativa/verificada, nome/contacto e ambas as apps gratuitas. Ver [trabalho0.6.46](RELEASE_0.6.46.md) para as correções implementadas e gates externos atuais.
+
 **Estado: ainda não pronto para submissão de produção.** A versão 0.6.45 tem
 APKs de teste funcionais e verificados, mas faltam requisitos técnicos, de dados,
 conteúdo e conta. Este relatório cobre **Scorer** (`com.clemir.striker`) e

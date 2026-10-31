@@ -30,6 +30,7 @@ class ReleaseTests(unittest.TestCase):
     def test_adfree_production_requires_identity_policy_but_no_ads_or_billing(self):
         config = self.config()
         self.assertFalse(validate(config, 'rehearsal'))
+        config.update(developer_name='',support_email='',privacy_url='')
         errors = '\n'.join(validate(config, 'production'))
         for required in ('developer', 'support', 'privacy'):
             self.assertIn(required, errors)

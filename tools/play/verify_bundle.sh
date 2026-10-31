@@ -43,6 +43,18 @@ scorer_apk="$scorer_report/inspection-universal-debug-signed.apk"
 "$scorer_sdk/build-tools/36.0.0/apksigner" verify --verbose --print-certs "$scorer_apk" > "$scorer_report/apk-signature.txt"
 "$scorer_sdk/build-tools/36.0.0/zipalign" -c -P 16 4 "$scorer_apk"
 /work/shared-platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/python tools/verify_apk_edition.py "$scorer_apk" "$scorer_edition"
+/work/shared-platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/python tools/verify_release_payload.py "$scorer_bundle" "$scorer_edition" "$scorer_channel"
 jarsigner -verify "$scorer_bundle" > "$scorer_report/aab-signature.txt"
+if [ "$scorer_channel" = production ]; then
+    : "${SCORER_UPLOAD_CERT_SHA256:?Provide the upload certificate SHA256 verified against Play Console}"
+    keytool -printcert -jarfile "$scorer_bundle" > "$scorer_report/upload-certificate.txt"
+    python - "$scorer_report/upload-certificate.txt" <<'PYCODE'
+import os,re,sys
+text=open(sys.argv[1]).read();found=re.search(r'SHA256:\s*([0-9A-Fa-f:]+)',text)
+expected=os.environ['SCORER_UPLOAD_CERT_SHA256'].replace(':','').lower()
+assert len(expected)==64 and found and found.group(1).replace(':','').lower()==expected, 'Wrong upload certificate'
+assert expected!='84c17cdf31e2ee7c6e9c082bde539df6822bf48267a0603de9814d6e2846ef49', 'DEBUG certificate cannot sign a production bundle'
+PYCODE
+fi
 sha256sum "$scorer_bundle" "$scorer_apk" > "$scorer_report/SHA256SUMS"
 echo 'Static audit passed. Check AAB signing status separately; device/Play pre-launch tests remain mandatory; this profile has no in-app billing.'

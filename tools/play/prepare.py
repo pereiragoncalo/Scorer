@@ -1,4 +1,4 @@
-"""Generate an isolated single-app Play build. No upload, purchase activation or signing.
+"""Generate common isolated Play staging; identities are selected by prepare_editions. No upload, purchase activation or signing.
 
 Rehearsal and production have no advertising or in-app billing. Production
 requires explicit public configuration. Never overwrite the source checkout.

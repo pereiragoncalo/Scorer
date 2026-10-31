@@ -1,12 +1,12 @@
 # Publicação Google Play — Scorer e Scorer World
 
-**Estado atual: 0.6.45 é QA, ainda não é release de produção.**
+**Estado atual: 0.6.46 prepara a publicação; os gates externos continuam pendentes.**
 Ver [auditoria de 31/10/2026](PUBLISHING_AUDIT_2026-10-31.md) para a lista atual
 priorizada, evidências, fontes oficiais e dependências da conta.
 
 São duas aplicações independentes: Free `com.clemir.striker`, World
 `com.clemir.scorerworld`. Sem anúncios ou compras dentro da aplicação.
-World pode vir a ser uma app paga na loja; preço/distribuição dependem do dono.
+Ambas as apps serão gratuitas, por decisão do dono.
 Ambas usam contadores agregados automáticos e ranking público opcional.
 Não reutilizar as declarações do antigo modelo de app única com AdMob/Billing.
 
@@ -18,23 +18,34 @@ Não reutilizar as declarações do antigo modelo de app única com AdMob/Billin
 - [Textos de loja](STORE_LISTING.md), ainda sem pacote final de imagens Android.
 - [Artefactos QA 0.6.45](../AUTOMATIC_0.6.45_artifacts.json).
 
-## Ferramentas existentes e limites
+## Preparação atual0.6.46
 
-`tools/prepare_editions.py` prepara cópias isoladas **QA/rehearsal** para Free e
-World. Não é ainda um caminho completo de staging de produção; falta integrar
-configuração pública validada e canal production por edição. O CLI antigo
-`tools/play/prepare.py` foi retirado: não seguir comandos históricos que o invocam.
-A função de validação ainda é usada pelos testes e staging.
+[Trabalho concluído e dependências externas](RELEASE_0.6.46.md),
+[atualização do laptop](SERVER_0.6.46.md) e
+[base jurídica para revisão](LEGAL_BASIS_REVIEW.md).
+Conta ativa/verificada confirmada pelo dono. Responsável Gonçalo Pereira,
+goncalo@clemir.com. Ambas as apps gratuitas e destinadas também a menores.
 
-`tools/play/sign_aab.sh` assina um AAB existente com upload key protegida; não cria
-chave nem publica. `tools/play/verify_bundle.sh` verifica AAB e APK derivado para
-`free|world`; a opção production não prova chave, aceitação Play, consentimento,
-flags compiladas ou testes reais. Verificar essas condições separadamente.
+O caminho por edição suporta agora `--channel production --config release.local.json
+--publication-config publication.local.json`. Os flags de revisão só podem ser
+preenchidos com factos revistos pelo operador. O CLI antigo continua retirado.
 
-Antes de usar estas ferramentas numa submissão: resolver os bloqueios da
-auditoria, gerar AAB final de cada pacote, confirmar Play App Signing/versões,
-instalar através da Play e testar. Nunca colocar chaves, passwords, tokens admin
-ou credenciais do servidor na app, configuração pública ou Git.
+```sh
+python tools/prepare_editions.py --edition free --channel rehearsal --output /workspace/scorer-free-aab
+python tools/prepare_editions.py --edition world --channel rehearsal --output /workspace/scorer-world-aab
+```
+
+Compilar release AAB sequencialmente com tools/android/run.sh e tools/build_android.py.
+Para produção, completar os ficheiros públicos de exemplo em release/, confirmar
+versionCode por pacote, política live e revisões pendentes. Assinar o AAB final
+com tools/play/sign_aab.sh e a upload key protegida do dono. Verificar com
+tools/play/verify_bundle.sh, passando free|world. O canal production exige
+SCORER_UPLOAD_CERT_SHA256 confirmado na Console e rejeita o certificado debug.
+Não colocar chaves/passwords/tokens na app, Git ou configuração pública.
+
+Os APKs de inspeção derivados de AAB continuam assinados com a chave debug para
+QA: não são a assinatura de produção nem um teste Play real. Os scripts não
+fazem uploads/rollout e não substituem revisão legal, aparelhos ou Play Console.
 
 ## Documentação histórica
 

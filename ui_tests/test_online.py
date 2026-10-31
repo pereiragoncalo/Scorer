@@ -5,6 +5,7 @@ from test_menus import isolated_game,settle
 class OnlineUITests(unittest.TestCase):
     def test_global_screen_reachable_from_scorers_and_offline_join_is_inert(self):
         with isolated_game(saved=True) as g:
+            g.family.social=True
             g.view='scorers';g.draw();settle()
             with patch.object(g.leaderboard,'sync') as sync:
                 g._activate_ui('leaderboard');settle()
@@ -15,6 +16,8 @@ class OnlineUITests(unittest.TestCase):
             self.assertIsNotNone(g._menu.body)
     def test_explicit_join_and_withdraw_have_independent_consent(self):
         with isolated_game(saved=True) as g:
+            import time
+            g.family.social=True;g._adult_unlocked_until=time.monotonic()+60
             g.leaderboard.origin='https://stats.example.com'
             with patch.object(g.leaderboard,'sync'):
                 g._activate_ui('leaderboard_join');self.assertFalse(g.leaderboard.enabled)
@@ -50,6 +53,9 @@ class OnlineUITests(unittest.TestCase):
                     self.assertIsInstance(screen,SeasonRecordsScreen)
                     self.assertFalse(any(isinstance(w,ScrollView) for w in g._menu.walk()))
                     self.assertLessEqual(screen.table.top,screen.actions.y+1)
+                    for button in screen.actions.children:
+                        self.assertGreaterEqual(button.y,screen.actions.y-1)
+                        self.assertLessEqual(button.top,screen.actions.top+1)
                     self.assertGreaterEqual(screen.table.controls.height,dp(48)-1)
                     for row in screen.table.lines.children:
                         self.assertGreaterEqual(row.y,screen.table.controls.top-1)

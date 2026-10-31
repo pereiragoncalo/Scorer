@@ -270,6 +270,11 @@ class StrikerGame(Widget):
         from online_leaderboard import Leaderboard
         from online_config import ORIGIN
         self.leaderboard = Leaderboard(self.career.save_path.parent,ORIGIN)
+        from online_safety import FamilyControls
+        self.family=FamilyControls(self.career.save_path.parent)
+        self._safety_draft={};self._safety_notice='';self._safety_return='privacy';self._adult_unlocked_until=0
+        self._career_documents=None;self._career_import_pending=None
+        if not self.family.social:self.leaderboard.enabled=False
         self.usage_notice = ''
         self._language_return = 'start'
         self._language_error = ''
@@ -946,7 +951,7 @@ class StrikerGame(Widget):
             self.match_competition,
         )
         self.match_finished = True
-        if self.leaderboard.enabled:
+        if self.leaderboard.enabled and self.family.social:
             self.leaderboard.sync(self.career,edition.is_world())
         self.usage.record('matches_completed')
         if self.match_player_goals:self.usage.record('goals_scored',self.match_player_goals)
@@ -2656,7 +2661,8 @@ class StrikerGame(Widget):
             app.stop()
 
     def _on_key_down(self, _window, key, _scancode, codepoint, _modifiers):
-        if self.view == "splash":
+        if self.view in ('splash','data_notice'):
+            if self.view=='data_notice' and key==27:self._request_exit()
             return True
         if key == 27:  # ESC
             if self.view not in ("hub", "offers", "start") and self.career.club_name:
@@ -2749,29 +2755,111 @@ class StrikerGame(Widget):
 
 
     def _request_record_sharing(self):
+        from online_safety import TERMS_TEXT
+        from kivy.uix.scrollview import ScrollView
         if self._records_popup is not None:return
         content=BoxLayout(orientation='vertical',spacing=dp(8),padding=dp(8))
-        content.add_widget(FlowLabel(text='Your chosen player name, '+self.career.player_name+', finishing team and best completed-season score will be public. Usage statistics are separate. Use a nickname; never share your real full name, contact details or school.'))
+        scroll=ScrollView(do_scroll_x=False);text=FlowLabel(text=TERMS_TEXT);scroll.add_widget(text);content.add_widget(scroll)
         buttons=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(8))
-        popup=Popup(title='Share season records?',content=content,size_hint=(.9,None),
-                    height=min(Window.height-dp(16),dp(260)),auto_dismiss=False)
+        popup=Popup(title='Community rules and public sharing',content=content,size_hint=(.95,.9),auto_dismiss=False)
         buttons.add_widget(TouchButton('CANCEL',popup.dismiss))
-        buttons.add_widget(TouchButton('SHARE',lambda:self._activate_ui('leaderboard_confirm_join'),accent=True))
-        content.add_widget(buttons)
-        popup.bind(on_dismiss=lambda *_:setattr(self,'_records_popup',None))
+        buttons.add_widget(TouchButton('ACCEPT & SHARE',lambda:self._activate_ui('leaderboard_confirm_join'),accent=True))
+        content.add_widget(buttons);popup.bind(on_dismiss=lambda *_:setattr(self,'_records_popup',None))
         self._records_popup=popup;popup.open()
+
+    def _career_document_message(self,text):
+        self._safety_notice=text;self.draw()
+
+    def _preview_career_import(self,text):
+        from career_transfer import validated_import
+        try:candidate=validated_import(self.career,text)
+        except ValueError:self._career_document_message('Invalid or incompatible career document.');return
+        self._career_import_pending=text
+        from kivy.uix.scrollview import ScrollView
+        content=BoxLayout(orientation='vertical',spacing=dp(8),padding=dp(8))
+        scroll=ScrollView(do_scroll_x=False);message=FlowLabel(text=self.i18n.tr('Replace this career? A local backup is kept. Credentials and public sharing are not imported.'))
+        scroll.add_widget(message);content.add_widget(scroll)
+        content.add_widget(FlowLabel(text=candidate.player_name+' · '+candidate.club_name,localize=False))
+        popup=Popup(title='Import career?',content=content,size_hint=(.95,.9),auto_dismiss=False)
+        buttons=BoxLayout(size_hint_y=None,height=dp(48));content.add_widget(buttons)
+        def close(*_):self._career_import_pending=None
+        def confirm():
+            from career_transfer import import_career
+            try:
+                import_career(self.career,self._career_import_pending);self._career_started=True
+                popup.dismiss();self._safety_notice='Career imported. Use Load Game to continue.'
+            except (ValueError,OSError):self._safety_notice='Could not import career. Your current career is unchanged.'
+            self.draw()
+        buttons.add_widget(TouchButton('CANCEL',popup.dismiss));buttons.add_widget(TouchButton('IMPORT CAREER',confirm,accent=True))
+        popup.bind(on_dismiss=close);popup.open()
 
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
+        import time
+        if action=='notice_exit' and self.view=='data_notice':self._request_exit();return
+        if action=='notice_continue' and self.view=='data_notice':
+            try:
+                self.family.acknowledge();self.usage.delivery_ready=True
+                self.usage.begin_session();self.usage.flush_async();self.view='start'
+            except OSError:self._safety_notice='Unable to save settings. Please try again.'
+            self.draw();return
+        if action=='family_controls' and self.view in ('privacy','leaderboard'):
+            self._safety_return=self.view;self.view='family';self._safety_notice='';self.draw();return
+        if action=='safety_back' and self.view in ('family','record_safety'):
+            self._safety_draft={};self.view=self._safety_return;self.draw();return
+        if action in ('adult_setup','adult_unlock','adult_disable') and self.view=='family':
+            f=self._safety_draft;ok=False
+            try:
+                if action=='adult_setup':ok=self.family.configure(f.get('birth',''),f.get('pin',''),f.get('confirm',''))
+                elif action=='adult_unlock':ok=self.family.set_social(True,f.get('pin',''))
+                else:ok=self.family.set_social(False,f.get('pin',''))
+                if ok:
+                    self._safety_draft={};self._adult_unlocked_until=time.monotonic()+60 if self.family.social else 0
+                    if not self.family.social:
+                        self.leaderboard.enabled=False;self.leaderboard.pending_withdrawal=True;self.leaderboard.save()
+                        self.leaderboard.entries=[];self.leaderboard.sync(self.career,edition.is_world(),withdraw=True)
+                    self._safety_notice='Public features enabled.' if self.family.social else 'Public features locked. Record removal is queued.'
+                else:self._safety_notice='Check the adult details or PIN. After three failed PINs wait five minutes.'
+            except OSError:self._safety_notice='Unable to save settings. Please try again.'
+            self.draw();return
+        if action=='record_safety' and self.view=='leaderboard' and self.family.social:
+            self._safety_return='leaderboard';self._safety_notice='';self.view='record_safety';self.draw();return
+        if action in ('record_report','record_block','record_unblock_all') and self.view=='record_safety' and self.family.social:
+            if action=='record_unblock_all':
+                self.leaderboard.blocked.clear();self.leaderboard.save();self._safety_notice='Blocked names cleared. Refresh the leaderboard.'
+            else:
+                try:
+                    number=int(self._safety_draft.get('position',''));entry=self.leaderboard.entries[number-1]
+                    if not 1<=number<=len(self.leaderboard.entries):raise ValueError()
+                    publisher=entry['publisher']
+                    if action=='record_block':
+                        self.leaderboard.block(publisher);self._safety_notice='Publisher blocked on this device.'
+                    else:
+                        self.leaderboard.report(publisher,str(value),lambda:Clock.schedule_once(lambda _:self.draw(),0));self._safety_notice='Sending report. Check the status below.'
+                except (ValueError,IndexError,KeyError):self._safety_notice='Choose a valid leaderboard position.'
+            self.draw();return
+        if action in ('career_export','career_import') and self.view=='privacy':
+            from career_documents import CareerDocuments
+            if self._career_documents is None:self._career_documents=CareerDocuments(self._preview_career_import,self._career_document_message)
+            try:
+                from career_transfer import export_career
+                text=export_career(self.career) if action=='career_export' else None
+                self._career_documents.pick(text)
+            except (ValueError,OSError):self._safety_notice='No saved career to export.'
+            self.draw();return
         if action in ('leaderboard','leaderboard_refresh','leaderboard_join','leaderboard_confirm_join','leaderboard_leave'):
             from online_leaderboard import valid_origin
             board=self.leaderboard
+            if action!='leaderboard_leave' and not self.family.social:
+                self._safety_return='privacy';self.view='family';self._safety_notice='An adult must enable public features first.';self.draw();return
             self.view='leaderboard'
+            if action in ('leaderboard_join','leaderboard_confirm_join') and time.monotonic()>self._adult_unlocked_until:
+                self._safety_return='leaderboard';self.view='family';self._safety_notice='Enter the adult PIN before sharing.';self.draw();return
             if action=='leaderboard_join' and valid_origin(board.origin):
                 self._request_record_sharing();return
             if action=='leaderboard_confirm_join' and valid_origin(board.origin):
                 if self._records_popup is None:return
-                self._records_popup.dismiss();board.enabled=True;board.save()
+                self.family.accept_terms();self._records_popup.dismiss();board.enabled=True;board.terms_version=1;board.sent={};board.save()
             if action=='leaderboard_leave':
                 board.enabled=False;board.pending_withdrawal=True;board.save()
             if valid_origin(board.origin):
@@ -2779,11 +2867,12 @@ class StrikerGame(Widget):
                     lambda:Clock.schedule_once(lambda _:self.draw(),0),
                     withdraw=board.pending_withdrawal)
             else:board.status='Online service is not configured yet.'
+            if not self.family.social:self.view='privacy'
             self.draw();return
         if action == "splash_continue" and self.view == "splash":
             self.usage.begin_session()
             self.usage.flush_async()
-            self.view = "start"
+            self.view = 'data_notice' if self.usage.mandatory and not self.family.notice_seen else 'start'
         elif action == "select_mode" and self.view in ("start", "hub", "upgrade"):
             self._select_career_mode(str(value))
         elif action == "new_game" and self.view == "start":
@@ -2936,7 +3025,7 @@ class StrikerGame(Widget):
             text = json.dumps(self.career.names_template(self.editor_key), ensure_ascii=False, indent=2) if action == 'names_export' else None
             self._names_picker.pick(text)
         elif action == "privacy":
-            self._privacy_return = self.view if self.view in ('start', 'hub') else 'start'
+            self._privacy_return = self.view if self.view in ('start','hub','data_notice') else 'start'
             self.view = 'privacy'
         elif action == "privacy_back":
             self.view = self._privacy_return
@@ -5334,7 +5423,11 @@ class StrikerApp(App):
 
 
     def _flush_usage(self):
-        if self.root is not None:self.root.usage.flush_async()
+        if self.root is not None:
+            self.root.usage.flush_async()
+            board=self.root.leaderboard
+            if board.pending_withdrawal and not board.busy:
+                board.sync(self.root.career,edition.is_world(),withdraw=True)
 
     def on_start(self):
         if self.root is not None:

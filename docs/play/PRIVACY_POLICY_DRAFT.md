@@ -1,64 +1,60 @@
-# SCORER privacy policy — draft, not yet publicly hosted
+# Scorer and Scorer World — privacy policy for final operator review
 
-Effective date: [DATE]. Developer/legal controller: [OWNER IDENTITY].
-Contact: [OWNER-APPROVED PUBLIC SUPPORT EMAIL]. Public policy URL: [HTTPS URL].
-Owner must fill these before publication; do not infer a private mailbox's public use.
+Responsible developer: **Gonçalo Pereira**. Privacy/support contact:
+**goncalo@clemir.com**. Intended URL: **https://stats.clemir.com/privacy**.
+Effective date, legal basis, actual provider practices and transfer safeguards
+must be finalized before the public policy is activated. This document is a
+review copy, not evidence of a live page or Google approval.
 
-Scorer and Scorer World are separate applications with independent private careers.
-This0.6.45 release has no advertising SDK, adverts, rewarded videos, commercial
-stadium panels or in-app billing. World purchases, if offered by an app store, are
-handled by that store; no live payment activation is performed by this code.
+Both apps are free, separate and ad-free, with no in-app purchases. Careers remain
+on-device. World uses phone language locally. There is no location permission,
+email/password login, whole-career upload, advertising ID or hidden diagnostic
+upload. Android backup is disabled. Exports are user-selected documents, may use
+a provider chosen by the user, and contain player names/game progress. Keep them
+private. Free and World only import their own edition; adult settings, usage and
+online ownership tokens are not exported. Uninstall removes local files, not
+exported documents or existing public records.
 
-The game works offline. Player names, careers, fixture history and editor files
-normally stay on-device. World uses phone locale locally to suggest a language
-and start country. There is no location permission or whole-career cloud upload.
-Private backups remain on-device; Android cloud backup is disabled. SAF exports
-use the document provider the player selects. Uninstall/clear data removes local
-files; removing local data does not itself withdraw existing public records.
+After the first-run notice is acknowledged, automatic counters may be transmitted
+to stats.clemir.com over HTTPS: openings, normal closes, new/loaded careers,
+completed training/matches, goals and selected save/load failures. No name,
+career file, location, advertising/device/install/session identifier, exact event
+timestamp or free text is in these usage reports. No in-game usage off switch.
+Continue acknowledges a notice and is not analytics or name-publication consent.
+Offline reports expire after7days; combined daily totals stay90days. They are
+counts of events, not unique players or paired session histories. Force-stop can
+omit an end; delay and uncertain acknowledgements can duplicate counts.
 
-## Automatic aggregate usage statistics
+Public season records are separate and optional. Adult-managed access is required
+before viewing/publishing public names. A local self-declared adult setup and PIN
+control access, without transmitting DOB/PIN. This is not verified identity or
+legal parental consent. Terms acceptance and explicit Share precede publication of
+chosen name, finishing team, completed season, matches/goals and country/division.
+Use a nickname, never contact/school details. New/changed submissions await review.
+Scores are self-reported. Public publisher IDs support device blocking/reports;
+they do not permit deletion. Private random ownership token authorizes writes
+and removal; only its hash is stored by collector.
 
-Enabled automatically, disclosed on the splash and in Privacy, independently of optional leaderboard sharing. There is no in-game usage disable switch. All three
-editions may send nine allowlisted numeric counts over HTTPS to
-https://stats.clemir.com/v1/usage: app openings (launch and return after backgrounding)/normal app ends, new/loaded careers,
-completed training/matches, goals and selected save/load failures. No name, career
-file, free text, location, contacts, device/advertising/install/session identifier,
-exact event timestamp or stack trace is included. Counts do not measure unique
-players. Forced termination may omit a session end; offline batches can arrive
-late, and ambiguous acknowledgements can duplicate totals.
+Report/block controls are inside the game. Reports contain targeted public ID,
+reporter token and a fixed reason, retained up to30days. Moderators may reject
+records or suspend publishers; a suspended public ID remains until lifted. Public
+records stay until withdrawal/moderation. Stop sharing & remove erases own records
+and relevant reports. Offline removal waits for connectivity; keep the app until
+it completes. If you lost app data, contact goncalo@clemir.com for assessment of a
+removal request without sending secret tokens. See /delete once deployed.
 
-Own collector stores only combined counts by UTC receipt-day/event, retained90days.
-Local unsent counts expire after7days on next use. Uninstalling stops app operation and removes local unsent counters; an in-flight request may finish. Already
-combined totals cannot be identified as an individual's contribution for deletion.
+Cloudflare Tunnel/CDN handles the HTTPS connection/IP. Our collector suppresses
+request/IP/user-agent logging. Actual provider retention, processor terms,
+geography and transfer safeguards must be stated from the owner's configuration.
+Managed server backups contain aggregate counters only and expire after7days;
+public names/reports/tokens are not copied by this backup process. Local exported
+files remain where the user saves them. Requests for access, correction, removal,
+objection or other applicable rights go to the privacy contact. Combined totals
+cannot be separated back into individual contributions. No automatic email job.
 
-## Optional public season records
-
-Viewing ranking does not publish a record. Separate Share confirmation authorizes
-publishing the chosen player name, finishing team, completed season, matches,
-goals, country and division to https://stats.clemir.com. Use a nickname; never enter
-real full names, contact or school information. Scores are reported by games, not
-verified anti-cheat results. World boards are separated by country/division; Free
-has one board. Best completed records are stored until withdrawal. In-progress
-goals are not published in the new version. Previous alias-only live records are
-not relabelled as completed seasons.
-
-A randomly generated secret in app-private storage authorizes submissions/removal;
-the server stores its hash and never returns it publicly. Stop Sharing & Remove
-requests deletion of the user's public records and stops new uploads. Offline
-removal remains pending until it can reach the server. Keep the app/data until
-removal completes; losing the credential can prevent automatic ownership proof.
-Contact [PUBLIC SUPPORT] for deletion/help, with no passwords or secret tokens.
-
-## Transport, children and processors
-
-HTTPS validates host/certificates. Cloudflare Tunnel/CDN processes connection
-information including IP addresses; the laptop collector does not store IPs,
-user agents or raw request logs. The owner must confirm current provider logging,
-controller/processors, security, lawful basis and retention before publishing.
-No automated email service is active. No administrator credentials are in the app.
-
-The intended audience includes minors. The present nickname safety reminder is
-NOT verified parental authorization. Before Play publication the owner must settle
-age groups, Families/social-feature requirements and appropriate adult controls;
-no compliance claim is made by this draft. Published user-chosen names also need
-appropriate moderation/reporting arrangements. Players/guardians can disable optional public record sharing. Usage counters are automatic in this QA version; their legal basis and treatment for minors require owner review before production. Public record sharing is not required to play.
+The audience includes children and adolescents. The operator must finalize the
+applicable legal basis, children's safeguards and rights handling, including
+objections to mandatory analytics, before production. See LEGAL_BASIS_REVIEW.md;
+do not infer compliance from the absence of advertising or the Continue button.
+The server public_pages.py implements the corresponding public HTML, escaped and
+without login/PDF, after required factual configuration is supplied.

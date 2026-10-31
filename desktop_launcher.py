@@ -153,7 +153,16 @@ def main():
                 g.export_to_png(str(report.parent/'splash.png'))
                 result['automatic_disclosure']=True
                 g._activate_ui('splash_continue')
-                assert g.view == 'start'
+                assert g.view == 'data_notice'
+                assert not g.usage.delivery_ready
+                g._activate_ui('notice_continue')
+                assert g.view == 'start' and g.usage.delivery_ready
+                result['notice_before_delivery']=True
+                g.view='privacy';g._activate_ui('family_controls')
+                g._safety_draft=dict(birth='1980-01-01',pin='123456',confirm='123456')
+                g._activate_ui('adult_setup');assert g.family.social
+                g._activate_ui('safety_back');g.view='start'
+                result['adult_controls']=True
                 g._activate_ui('new_game')
                 g._activate_ui('save_profile','Windows Test')
                 assert g.view == 'offers' and g.career.offers
@@ -170,6 +179,10 @@ def main():
                 g._record_player_match_goal();g._finish_career_match()
                 assert g.career.matches==1 and g.career.goals==1
                 assert g.career.save()
+                from career_transfer import export_career,validated_import
+                transferred=validated_import(g.career,export_career(g.career))
+                assert transferred.player_name==g.career.player_name and transferred.goals==g.career.goals
+                result['career_transfer']=True
                 from career import CareerMode
                 restored=CareerMode(autoload=True)
                 assert restored.player_name == g.career.player_name

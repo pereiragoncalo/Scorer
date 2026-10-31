@@ -30,22 +30,36 @@ public final class LocalNameFiles {
             activity.startActivityForResult(intent, 7242);
         });
     }
-    public static String read(Activity activity, Uri uri) throws Exception {
+    public static void chooseCareerImport(Activity activity) { chooseCareer(activity, false); }
+    public static void chooseCareerExport(Activity activity) { chooseCareer(activity, true); }
+    private static void chooseCareer(Activity activity, boolean exporting) {
+        activity.runOnUiThread(() -> {
+            Intent intent = new Intent(exporting ? Intent.ACTION_CREATE_DOCUMENT : Intent.ACTION_OPEN_DOCUMENT);
+            intent.setType("application/json"); intent.addCategory(Intent.CATEGORY_OPENABLE);
+            if (exporting) intent.putExtra(Intent.EXTRA_TITLE, "scorer-career.json");
+            activity.startActivityForResult(intent, exporting ? 7244 : 7243);
+        });
+    }
+    public static String readCareer(Activity activity, Uri uri) throws Exception { return readBounded(activity, uri, 8388608); }
+    public static void writeCareer(Activity activity, Uri uri, String text) throws Exception { writeBounded(activity, uri, text, 8388608); }
+    public static String read(Activity activity, Uri uri) throws Exception { return readBounded(activity, uri, LIMIT); }
+    private static String readBounded(Activity activity, Uri uri, int limit) throws Exception {
         try (InputStream stream = activity.getContentResolver().openInputStream(uri);
              ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
             byte[] buffer = new byte[4096];
             int count;
             while ((count = stream.read(buffer)) != -1) {
-                if (bytes.size() + count > LIMIT) throw new IllegalArgumentException("Name pack exceeds 256 KiB");
+                if (bytes.size() + count > limit) throw new IllegalArgumentException("Document exceeds size limit");
                 bytes.write(buffer, 0, count);
             }
             return StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
                 .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes.toByteArray())).toString();
         }
     }
-    public static void write(Activity activity, Uri uri, String text) throws Exception {
+    public static void write(Activity activity, Uri uri, String text) throws Exception { writeBounded(activity, uri, text, LIMIT); }
+    private static void writeBounded(Activity activity, Uri uri, String text, int limit) throws Exception {
         byte[] bytes = text.getBytes(StandardCharsets.UTF_8);
-        if (bytes.length > LIMIT) throw new IllegalArgumentException("Name pack exceeds 256 KiB");
+        if (bytes.length > limit) throw new IllegalArgumentException("Document exceeds size limit");
         try (OutputStream stream = activity.getContentResolver().openOutputStream(uri, "wt")) {
             stream.write(bytes);
         }

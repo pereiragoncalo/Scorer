@@ -1,0 +1,7 @@
+[Unit]
+Description=Daily Scorer retention and aggregate backup
+[Timer]
+OnCalendar=daily
+Persistent=true
+[Install]
+WantedBy=timers.target
