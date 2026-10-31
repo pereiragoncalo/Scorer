@@ -66,3 +66,18 @@ class UsageStatisticsUITests(unittest.TestCase):
                 self.assertTrue(all(c[1]['sessions_ended']==1 for c in calls))
                 StrikerApp.on_stop(type('App',(),{'root':g})())
                 self.assertEqual(g.usage.counts['sessions_ended'],1)
+
+    def test_open_before_splash_then_background_reopen_counts_two(self):
+        with isolated_game() as g:
+            g.usage.set_enabled(True);app=type('App',(),{'root':g})()
+            StrikerApp.on_start(app)
+            try:
+                self.assertEqual(g.view,'splash');self.assertEqual(g.usage.counts['sessions'],1)
+                g._activate_ui('splash_continue');self.assertEqual(g.usage.counts['sessions'],1)
+                StrikerApp.on_pause(app);StrikerApp.on_resume(app)
+                self.assertEqual(g.usage.counts['sessions'],2)
+                StrikerApp.on_resume(app);self.assertEqual(g.usage.counts['sessions'],2)
+                with patch.object(g.usage,'flush_async') as send:
+                    StrikerApp._flush_usage(app);send.assert_called_once()
+            finally:StrikerApp.on_stop(app)
+            self.assertTrue(app._usage_flush_event.is_triggered==0)

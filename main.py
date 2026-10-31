@@ -5338,13 +5338,26 @@ class StrikerApp(App):
     title = "Scorer World" if edition.is_world() else "Scorer"
 
 
+    def _flush_usage(self):
+        if self.root is not None:self.root.usage.flush_async()
+
+    def on_start(self):
+        if self.root is not None:
+            self.root.usage.begin_session()
+            self.root.usage.flush_async()
+        self._usage_flush_event=Clock.schedule_interval(lambda _:StrikerApp._flush_usage(self),10)
+
     def on_pause(self):
         if self.root is not None:
+            self.root.usage.pause_session()
             if self.root._career_started and self.root.career.save() is False:self.root.usage.record('save_failures')
             self.root.usage.flush_async()
         return True
 
     def on_resume(self):
+        if self.root is not None:
+            self.root.usage.begin_session()
+            self.root.usage.flush_async()
         if self.root and edition.is_world():
             # A system-language change must not discard partially typed names.
             editable=[(w.text,w.cursor,w.focus) for w in self.root.walk()
@@ -5359,6 +5372,8 @@ class StrikerApp(App):
                     field.text=text;field.cursor=cursor;field.focus=focus
 
     def on_stop(self):
+        event=getattr(self,'_usage_flush_event',None)
+        if event is not None:event.cancel()
         if self.root is not None:
             self.root.usage.end_session()
             if self.root._career_started and self.root.career.save() is False:self.root.usage.record('save_failures')

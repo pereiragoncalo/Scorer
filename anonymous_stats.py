@@ -38,6 +38,7 @@ class NoStatistics:
     last_error=''
     def begin_session(self):pass
     def end_session(self):pass
+    def pause_session(self):pass
     def record(self,*_,**__):return False
     def set_enabled(self,*_):return False
     def flush_async(self):return False
@@ -67,7 +68,7 @@ class UsageStatistics(NoStatistics):
         self.remote_available=bool(self.endpoint)
         self._scope=self.endpoint or 'local-v1'
         self._lock=threading.RLock();self._sender=sender;self._sending=False;self._generation=0
-        self._session_seen=False;self._session_counted=False;self._session_ended=False;self._flush_requested=False
+        self._foreground_active=False;self._session_seen=False;self._session_counted=False;self._session_ended=False;self._flush_requested=False
         self.enabled=False;self.counts={};self.day=self._today();self.last_error=''
         try:
             if self.path.stat().st_size>MAX_FILE:return
@@ -120,9 +121,17 @@ class UsageStatistics(NoStatistics):
         return True
 
     def begin_session(self):
-        self._session_seen=True
-        if self.enabled and not self._session_counted:
-            if self.record('sessions'):self._session_counted=True
+        with self._lock:
+            self._session_seen=True
+            if not self._foreground_active:
+                self._foreground_active=True
+                self._session_counted=False;self._session_ended=False
+            if self.enabled and not self._session_counted:
+                if self.record('sessions'):self._session_counted=True
+
+    def pause_session(self):
+        # A following resume is another opening; duplicate resume/splash isn't.
+        with self._lock:self._foreground_active=False
 
     def end_session(self):
         # Android can kill a process without on_stop: never invent a completion.

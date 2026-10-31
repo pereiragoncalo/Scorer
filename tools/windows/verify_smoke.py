@@ -10,6 +10,7 @@ def verify(folder):
     data=json.loads((folder/'smoke.json').read_text(encoding='utf8'))
     for key in ('ok','frozen','career_reload','training','free','close_confirmation','match_completed','matchday_dashboard','goal_scene_rendered','settled_ball_behind_keeper','empty_training_stands','fullscreen','leaderboard_button','statistics_opt_in','season_records_screen','adfree_release'):
         if data.get(key) is not True:raise ValueError('Missing Windows smoke check: '+key)
+    if data.get('foreground_openings_test')!=2:raise ValueError('Two openings must count twice')
     if data.get('platform')!='win32':raise ValueError('This evidence is not from Windows')
     captures=list(folder.glob('smoke*.png'))
     if not captures:raise ValueError('No Windows screenshot')

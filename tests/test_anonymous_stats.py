@@ -89,3 +89,34 @@ class AnonymousStatsTests(unittest.TestCase):
         deadline=time.monotonic()+3
         while len(sent)<2 and time.monotonic()<deadline:threading.Event().wait(.01)
         self.wait(s);self.assertEqual(len(sent),2);self.assertEqual(sent[1]['counts'],{'sessions_ended':1});self.assertEqual(s.counts,{})
+
+    def test_two_foreground_entries_count_two_without_splash_or_resume_duplicates(self):
+        s=UsageStatistics(self.root);s.set_enabled(True)
+        s.begin_session();s.begin_session();self.assertEqual(s.counts['sessions'],1)
+        s.pause_session();s.begin_session();s.begin_session()
+        self.assertEqual(s.counts['sessions'],2)
+        self.assertEqual(json.loads(s.path.read_text())['counts']['sessions'],2)
+
+    def test_two_cold_launches_preserve_pending_openings_and_send_two(self):
+        sent=[];endpoint='https://stats.example/v1/usage'
+        first=UsageStatistics(self.root,endpoint,lambda *_:False);first.set_enabled(True);first.begin_session();first.flush_async();self.wait(first)
+        second=UsageStatistics(self.root,endpoint,lambda _,data:sent.append(data) or True)
+        second.begin_session();second.flush_async();self.wait(second)
+        self.assertEqual(sent[0]['counts']['sessions'],2);self.assertEqual(second.counts,{})
+
+    def test_actual_collector_receives_two_foreground_openings(self):
+        import http.client
+        from server.usage_collector import Collector
+        service=Collector(('127.0.0.1',0),self.root/'usage.sqlite')
+        worker=threading.Thread(target=service.serve_forever,daemon=True);worker.start()
+        def sender(_,payload):
+            connection=http.client.HTTPConnection(*service.server_address,timeout=3)
+            connection.request('POST','/v1/usage',json.dumps(payload),{'Content-Type':'application/json'})
+            response=connection.getresponse();ok=response.status==204;response.read();connection.close();return ok
+        try:
+            s=UsageStatistics(self.root,'https://stats.example/v1/usage',sender);s.set_enabled(True)
+            s.begin_session();s.flush_async();self.wait(s)
+            s.pause_session();s.begin_session();s.flush_async();self.wait(s)
+            with service.db() as db:count=db.execute("SELECT SUM(count) FROM totals WHERE event='sessions'").fetchone()[0]
+            self.assertEqual(count,2)
+        finally:service.shutdown();service.server_close();worker.join()

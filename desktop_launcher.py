@@ -47,13 +47,17 @@ def main():
             def request_close(*_):
                 game._request_exit()
                 return True  # Preserve the save/error/cancel exit confirmation.
+            self._minimize_callback=lambda *_:self.on_pause()
+            self._restore_callback=lambda *_:self.on_resume()
+            Window.bind(on_minimize=self._minimize_callback,on_restore=self._restore_callback)
             Window.bind(on_request_close=request_close)
             self._close_callback = request_close
             return game
 
         def on_stop(self):
             if hasattr(self, '_close_callback'):
-                Window.unbind(on_request_close=self._close_callback)
+                Window.unbind(on_request_close=self._close_callback,
+                              on_minimize=self._minimize_callback,on_restore=self._restore_callback)
             super().on_stop()
 
     app = WindowsApp()
@@ -174,6 +178,15 @@ def main():
                 assert any(isinstance(w,Button) and w.text=='LEADERBOARD' for w in g.walk())
                 result.update(leaderboard_button=True,statistics_opt_in=True)
                 assert g.ads.backend is None
+                from anonymous_stats import UsageStatistics
+                probe=UsageStatistics(directory/'opening-probe','https://stats.example/v1/usage',lambda *_:False)
+                probe.set_enabled(True);probe.begin_session()
+                original_usage=g.usage;g.usage=probe
+                try:
+                    app._minimize_callback();app._restore_callback();app._restore_callback()
+                    assert probe.counts['sessions']==2
+                    result['foreground_openings_test']=2
+                finally:g.usage=original_usage
                 assert g.career.save_path.parent == directory
                 g.view='hub';g.draw()
                 from desktop_dashboard import WindowsDashboard

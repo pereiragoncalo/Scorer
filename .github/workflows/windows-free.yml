@@ -6,6 +6,8 @@ on:
     paths:
       - '.github/workflows/windows-free.yml'
       - 'tools/windows/**'
+      - 'anonymous_stats.py'
+      - 'ui_tests/test_usage_statistics.py'
       - 'main.py'
       - 'career.py'
       - 'menu_ui.py'
