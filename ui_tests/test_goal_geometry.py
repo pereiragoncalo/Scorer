@@ -43,7 +43,7 @@ class WindowsGoalTests(unittest.TestCase):
             g.view='shot';g.ball.active=False;g.ball.y=-.8;g.ball.z=.5
             for size in ((1280,720),(800,600)):
                 Window.size=size;g.size=size;g.draw();settle()
-                self.assertIn('YOUR COMPANY HERE',g._promotion_textures);self.assertLessEqual(len(g._promotion_textures),4)
+                self.assertEqual(g._promotion_textures,{})
                 l=g.project(-g.goal_half_width,0,0);r=g.project(g.goal_half_width,0,0)
                 self.assertGreater(abs(r[0]-l[0]),1);self.assertTrue(g._ball_behind_keeper())
     def test_real_post_and_crossbar_collisions_match_enlarged_geometry(self):

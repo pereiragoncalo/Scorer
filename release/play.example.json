@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version_code": 1026627,
+  "version_code": 1026643,
   "developer_name": "",
   "support_email": "",
   "privacy_url": "",
@@ -12,7 +12,7 @@
   },
   "billing": {
     "enabled": false,
-    "product_id": "scorer_world_upgrade",
+    "product_id": "",
     "verify_url": "",
     "license_public_key": ""
   }

@@ -1,6 +1,6 @@
 """Generate an isolated single-app Play build. No upload, purchase activation or signing.
 
-Rehearsal is a release-mode AAB with TEST ads and billing disabled. Production
+Rehearsal and production have no advertising or in-app billing. Production
 requires explicit public configuration. Never overwrite the source checkout.
 """
 import argparse
@@ -46,8 +46,8 @@ def validate(data, channel):
         errors.append('Invalid Billing configuration')
     if errors:
         return errors
-    if type(billing['enabled']) is not bool or billing['product_id'] != 'scorer_world_upgrade':
-        errors.append('Billing must use the fixed non-consumable World product')
+    if type(billing['enabled']) is not bool:
+        errors.append('Invalid billing enabled flag')
     if channel == 'production':
         if not isinstance(data['developer_name'], str) or not 2 <= len(data['developer_name'].strip()) <= 100:
             errors.append('Public developer identity is required')
@@ -55,32 +55,10 @@ def validate(data, channel):
             errors.append('Public support email is required')
         if not https_url(data['privacy_url']):
             errors.append('Public HTTPS privacy policy URL is required')
-        for key, value in ads.items():
-            sep = '~' if key == 'app_id' else '/'
-            if (not isinstance(value, str) or not re.fullmatch(r'ca-app-pub-\d{16}' + re.escape(sep) + r'\d{10}', value)
-                    or value.startswith('ca-app-pub-3940256099942544')):
-                errors.append('Owner production AdMob ID required: ' + key)
-        if len({v.split('~')[0].split('/')[0] for v in ads.values() if isinstance(v, str)}) != 1:
-            errors.append('All AdMob IDs must belong to the same publisher')
-        if len(set(ads.values())) != 4:
-            errors.append('Each AdMob placement must have a distinct ID')
-        if not billing['enabled']:
-            errors.append('World purchase must be configured and approved before this production profile')
+    if any(ads.values()):
+        errors.append('Advertising is disabled; AdMob IDs must be empty')
     if billing['enabled']:
-        if not https_url(billing['verify_url']):
-            errors.append('HTTPS purchase-verification endpoint required')
-        try:
-            # Public X509 SubjectPublicKeyInfo DER, not private signing material.
-            key = base64.b64decode(billing['license_public_key'], validate=True)
-            from cryptography.hazmat.primitives.serialization import load_der_public_key
-            from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
-            public = load_der_public_key(key)
-            if not isinstance(public, RSAPublicKey) or public.key_size < 2048:
-                raise ValueError()
-        except Exception:
-            errors.append('Valid RSA public key (DER/base64, >=2048 bits) required')
-    if channel == 'rehearsal' and billing['enabled']:
-        errors.append('Rehearsal never enables payments; use Play licence testers only after explicit approval')
+        errors.append('In-app billing is disabled for the separate Free and World apps')
     return errors
 
 
@@ -116,20 +94,12 @@ def prepare(config, target, channel, source=ROOT):
     app['android.numeric_version'] = str(config['version_code'])
     app['android.allow_backup'] = 'False'
     app['android.release_artifact'] = 'aab'
-    app['android.meta_data'] = 'com.google.android.gms.ads.APPLICATION_ID=' + (config['admob']['app_id'] if channel == 'production' else TEST_APP)
-    with (target/'buildozer.spec').open('w') as out: spec.write(out)
-    ids = config['admob'] if channel == 'production' else TEST_IDS
-    java = ('package com.clemir.striker.ads;\npublic final class AdsConfig {\n'
-            f' public static final boolean TEST_MODE = {str(channel != "production").lower()};\n')
-    for field, key in [('INTERSTITIAL', 'interstitial_id'), ('BANNER', 'banner_id'), ('REWARDED', 'rewarded_id')]:
-        java += f' public static final String {field} = {json.dumps(ids[key])};\n'
-    (target/'android/src/com/clemir/striker/ads/AdsConfig.java').write_text(java+'}\n')
-    billing = config['billing']
-    java = ('package com.clemir.striker.billing;\npublic final class BillingConfig {\n'
-            f' public static final boolean ENABLED = {str(billing["enabled"]).lower()};\n')
-    for field, key in [('PRODUCT', 'product_id'), ('VERIFY_URL', 'verify_url'), ('LICENSE_PUBLIC_KEY', 'license_public_key')]:
-        java += f' public static final String {field} = {json.dumps(billing[key])};\n'
-    (target/'android/src/com/clemir/striker/billing/BillingConfig.java').write_text(java+'}\n')
+    app['android.add_src']='android/worldsrc'
+    for option in ('android.meta_data','android.gradle_dependencies','android.extra_manifest_xml'):
+        app.pop(option,None)
+    shutil.rmtree(target/'android/src',ignore_errors=True)
+    (target/'billing.py').unlink(missing_ok=True)
+    with (target/'buildozer.spec').open('w') as out:spec.write(out)
     (target/'.scorer-play-staging').write_text(channel+'\n')
     # Existing managed container provides shared platform; builds must be sequential.
     platform = target/'.buildozer/android/platform'; platform.parent.mkdir(parents=True, exist_ok=True)

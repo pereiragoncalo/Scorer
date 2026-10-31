@@ -17,7 +17,7 @@ class CleanMenuTests(unittest.TestCase):
             g._activate_ui('profile');g.draw();settle()
             self.assertNotIn('Choose your name. Your progress is kept.',self.texts(g))
             g.view='training';g.draw();settle()
-            self.assertIn('WATCH AD: +1 MORALE',self.texts(g))
+            self.assertNotIn('WATCH AD: +1 MORALE',self.texts(g))
             self.assertNotIn('Optional ad: +1 morale after completion. Once per week, max 20.',self.texts(g))
     def test_load_name_and_save_errors_remain_visible(self):
         with isolated_game(corrupt=True) as g:

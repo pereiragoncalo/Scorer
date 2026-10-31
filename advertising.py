@@ -97,59 +97,6 @@ class AdBreaks:
         self._call('privacy_options')
 
 
-class AndroidAds:
-    """Native ad bridge; IDs are set by the isolated build configuration."""
-    def __init__(self):
-        from jnius import autoclass
-        self.activity = autoclass('org.kivy.android.PythonActivity').mActivity
-        self.bridge = autoclass('com.clemir.striker.ads.ScorerAds')
-
-    def entry_visible(self, visible):
-        self.bridge.setEntryBannerVisible(self.activity, visible)
-
-    def prepare(self):
-        self.bridge.prepare(self.activity)
-
-    def ready(self):
-        return bool(self.bridge.isReady())
-
-    def show(self):
-        # Java atomically reserves the ready ad before posting to the UI thread.
-        return bool(self.bridge.showAtBreak(self.activity))
-
-    def prepare_reward(self):
-        self.bridge.prepareReward(self.activity)
-
-    def show_reward(self, context):
-        return bool(self.bridge.showReward(self.activity, context))
-
-    def pending_reward(self):
-        return str(self.bridge.peekReward(self.activity))
-
-    def acknowledge_reward(self, token):
-        self.bridge.acknowledgeReward(self.activity, token)
-
-    def break_status(self):
-        return str(self.bridge.getBreakStatus())
-
-    def reward_status(self):
-        return str(self.bridge.getRewardStatus())
-
-    def status(self):
-        return str(self.bridge.getStatus())
-
-    def privacy_required(self):
-        return bool(self.bridge.isPrivacyOptionsRequired())
-
-    def privacy_options(self):
-        self.bridge.showPrivacyOptions(self.activity)
-
-
 def create_ad_breaks(android=False):
-    backend = None
-    if android:
-        try:
-            backend = AndroidAds()
-        except Exception:
-            pass
-    return AdBreaks(backend)
+    # Owner removed all advertising. Never initialize a bridge, even on Android.
+    return AdBreaks(backend=None)

@@ -358,7 +358,7 @@ class MenuTests(unittest.TestCase):
                 settle()
                 self.assertEqual(game.view, 'privacy')
                 labels = {w.text for w in game.walk() if isinstance(w, Label)}
-                self.assertTrue(any('Google TEST ads only' in text for text in labels))
+                self.assertTrue(any('no advertising' in text for text in labels))
                 game._activate_ui('privacy_back')
                 self.assertEqual(game.view, origin)
             self.assertEqual(game.career.save_path.read_bytes(), before)
@@ -375,7 +375,7 @@ class MenuTests(unittest.TestCase):
                 game.draw()
                 settle()
                 entry = game._menu.body
-                shown = size[1] >= dp(340) and size[0] >= dp(340)
+                shown = False
                 self.assertEqual(game.ads.entry_shown, shown)
                 self.assertEqual(entry.banner_space, dp(64) if shown else 0)
                 for button in entry.walk():
@@ -430,8 +430,7 @@ class MenuTests(unittest.TestCase):
             backend.acknowledge_reward.assert_called_with('reward-1')
             game.draw()
             settle()
-            boost = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'WATCH AD: +1 MORALE')
-            self.assertTrue(boost.disabled)
+            self.assertNotIn('WATCH AD: +1 MORALE',{w.text for w in game.walk() if isinstance(w,TouchButton)})
             restored = CareerMode()
             self.assertTrue(restored.load())
             self.assertEqual(restored.morale, before + 1)
@@ -457,7 +456,7 @@ class MenuTests(unittest.TestCase):
             before=list(game.ui_buttons)
             with game.canvas:
                 game._draw_world_promotion_boards()
-            self.assertEqual(len(game._promotion_textures),4)
+            self.assertEqual(game._promotion_textures,{})
             textures=dict(game._promotion_textures)
             game.elapsed=25
             with game.canvas:

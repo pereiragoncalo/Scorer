@@ -1,71 +1,66 @@
-# SCORER privacy policy — draft, not a hosted policy
+# SCORER privacy policy — draft, not yet publicly hosted
 
-Effective date: [DATE]. Responsible developer: [PUBLIC/LEGAL IDENTITY].
-Privacy/support: [PUBLIC EMAIL]. Policy URL: [PUBLIC HTTPS URL].
-Replace placeholders and review the actual hosting/processors before publication.
+Effective date: [DATE]. Developer/legal controller: [OWNER IDENTITY].
+Contact: [OWNER-APPROVED PUBLIC SUPPORT EMAIL]. Public policy URL: [HTTPS URL].
+Owner must fill these before publication; do not infer a private mailbox's public use.
 
-Scorer Free and Scorer World are separate Android applications with separate
-private careers. Free has one division and advertising. World has worldwide
-career/editor features and no advertising SDK. There is no SCORER account or
-in-app billing/purchase-verification service in the current two-app builds.
+Scorer and Scorer World are separate applications with independent private careers.
+This0.6.43 release has no advertising SDK, adverts, rewarded videos, commercial
+stadium panels or in-app billing. World purchases, if offered by an app store, are
+handled by that store; no live payment activation is performed by this code.
 
-Names, careers, custom names and backups stay in app-private device storage.
-The local World names editor uses Android's document picker. Free is English-only;
-World reads the primary phone locale locally for language/country suggestions and
-supports manual language choice. Locale, names and career files are not uploaded.
-No GPS, contact, microphone or camera permission is requested. Android backup is
-disabled; uninstalling/clearing app data removes the private files.
+The game works offline. Player names, careers, fixture history and editor files
+normally stay on-device. World uses phone locale locally to suggest a language
+and start country. There is no location permission or whole-career cloud upload.
+Private backups remain on-device; Android cloud backup is disabled. SAF exports
+use the document provider the player selects. Uninstall/clear data removes local
+files; removing local data does not itself withdraw existing public records.
 
-## Optional Free usage counters
+## Optional usage statistics
 
-Off by default, separate from advertising consent. Players may enable/withdraw in
-Privacy. Underage players should consult a parent/guardian. Counters include app
-starts after the splash, careers started/loaded, training and matches completed,
-player goals and selected load/save failures. No free text, event log, player or
-club names, career/fixture files, email address, device/account/advertising/install
-identifier, locale, location, exact session timestamp or stack trace is included.
-The feature does not measure unique players, retention or identified installs.
+Disabled until enabled in Privacy, independently of leaderboard sharing. All three
+editions may send nine allowlisted numeric counts over HTTPS to
+https://stats.clemir.com/v1/usage: session starts/normal ends, new/loaded careers,
+completed training/matches, goals and selected save/load failures. No name, career
+file, free text, location, contacts, device/advertising/install/session identifier,
+exact event timestamp or stack trace is included. Counts do not measure unique
+players. Forced termination may omit a session end; offline batches can arrive
+late, and ambiguous acknowledgements can duplicate totals.
 
-In the unconfigured beta, counters are local only and nothing is sent by this
-feature. A configured release sends only aggregate numeric counts over HTTPS to
-[ACTUAL COLLECTOR DOMAIN]. A changed destination requires a new local opt-in.
-Local unsent counters expire after seven days when the app next runs. Withdrawal
-stops new collection and clears unsent counts. An already in-flight transmission
-may complete; already combined totals have no individual record to retrieve/delete.
+Own collector stores only combined counts by UTC receipt-day/event, retained90days.
+Local unsent counts expire after7days on next use. Disable and Erase stops new
+collection and removes unsent data; an in-flight request may finish. Already
+combined totals cannot be identified as an individual's contribution for deletion.
 
-The receiving server necessarily sees an IP during the connection. The prepared
-collector stores no IP, user agent, raw report or per-player identifier; hosting,
-reverse-proxy/CDN and error logs must also be configured consistently. It immediately
-combines counts into daily totals by UTC receipt date, keeping aggregate totals
-for90days. Offline batches may arrive later, and uncertain network acknowledgements
-can cause duplicate counts; totals are approximate. No unique-user claim is made.
+## Optional public season records
 
-The owner may receive daily aggregate summaries by email through [ACTUAL SMTP
-PROVIDER]. Emails contain totals, not players' addresses or individual records;
-the owner's mailbox/provider controls retention of those summaries. Email and
-collector credentials live only on the server, never in the Android app. No email
-is sent by the player's email account. No hosting/email service is activated by
-merely preparing this source or beta APK.
+Viewing ranking does not publish a record. Separate Share confirmation authorizes
+publishing the chosen player name, finishing team, completed season, matches,
+goals, country and division to https://stats.clemir.com. Use a nickname; never enter
+real full names, contact or school information. Scores are reported by games, not
+verified anti-cheat results. World boards are separated by country/division; Free
+has one board. Best completed records are stored until withdrawal. In-progress
+goals are not published in the new version. Previous alias-only live records are
+not relabelled as completed seasons.
 
-## Advertising in Free
+A randomly generated secret in app-private storage authorizes submissions/removal;
+the server stores its hash and never returns it publicly. Stop Sharing & Remove
+requests deletion of the user's public records and stops new uploads. Offline
+removal remains pending until it can reach the server. Keep the app/data until
+removal completes; losing the credential can prevent automatic ownership proof.
+Contact [PUBLIC SUPPORT] for deletion/help, with no passwords or secret tokens.
 
-Banner on entry after the splash, interstitials between matches and optional
-rewarded training ads depend on availability/consent and never interrupt a shot.
-Requests remain child/under-age, general-audience and non-personalised; AD_ID and
-AdServices permissions are absent. Google can process IP, approximate location
-inferred from IP, app/device information, diagnostics and ad interactions. See
-https://policies.google.com/privacy and in-game advertising privacy options.
-The current beta uses Google test IDs and does not earn ad revenue.
+## Transport, children and processors
 
-World has no usage-counter collection/transport, advertising SDK or Internet
-permission. Public store payment processing, if World is later sold separately,
-is handled by the chosen app store; no card details enter SCORER. Public listing,
-actual processors/retention/contact details and Play/Families declarations remain
-to be completed against the real deployed configuration.
+HTTPS validates host/certificates. Cloudflare Tunnel/CDN processes connection
+information including IP addresses; the laptop collector does not store IPs,
+user agents or raw request logs. The owner must confirm current provider logging,
+controller/processors, security, lawful basis and retention before publishing.
+No automated email service is active. No administrator credentials are in the app.
 
-Session-notice update0.6.39: an additional sessions_ended counter records normal
-application stops once per process, only after an opted-in start. Backgrounding
-alone does not end a session; force-stop/crash may omit it. Server-only owner
-email notices may summarize newly received starts and ends, batched per polling
-interval, without IDs or matching individuals. Receipt time is not exact event
-time. Notices/SMTP are not deployed or active in the current empty-endpoint beta.
+The intended audience includes minors. The present nickname safety reminder is
+NOT verified parental authorization. Before Play publication the owner must settle
+age groups, Families/social-feature requirements and appropriate adult controls;
+no compliance claim is made by this draft. Published user-chosen names also need
+appropriate moderation/reporting arrangements. Players/guardians can disable
+optional sharing and counters independently. Do not require optional sharing to play.

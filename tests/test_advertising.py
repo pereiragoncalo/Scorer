@@ -107,3 +107,13 @@ class AdvertisingTests(unittest.TestCase):
             self.assertIsInstance(ads.status, str)
             self.assertTrue(ads.status.strip())
         self.assertIsNone(create_ad_breaks().backend)
+
+
+class AdFreeFactoryTests(unittest.TestCase):
+    def test_android_request_never_initializes_a_native_ad_bridge(self):
+        import advertising
+        self.assertFalse(hasattr(advertising,'AndroidAds'))
+        for android in (False,True):
+            ads=create_ad_breaks(android=android)
+            self.assertIsNone(ads.backend);ads.start();ads.prepare_reward()
+            self.assertFalse(ads.show_reward('test'));self.assertIsNone(ads.pending_reward)

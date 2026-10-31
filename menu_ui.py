@@ -312,20 +312,6 @@ class CareerMenu(BoxLayout):
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         actions.add_widget(button)
         card.add_widget(actions)
-        if self.game._world_available or c.world_unlocked or getattr(release_settings, 'DESKTOP_WINDOWS', False):
-            return
-        boost = self._button('WATCH AD: +1 MORALE', 'morale_ad')
-        boost.disabled = not c.morale_ad_available
-        actions.add_widget(boost)
-        if c.morale_ad_week == c.week:
-            card.label('This week’s morale ad reward has been claimed.', muted=True)
-        elif c.morale >= 20:
-            card.label('Morale is already at its maximum.', muted=True)
-        elif g.reward_ad_status:
-            card.label(g.reward_ad_status, muted=True)
-        if c.message.startswith(('Reward ad', 'Ad reward', 'Unable to save the morale')):
-            card.label(c.message, muted=True)
-
     def _table_zones(self,league):
         c=self.game.career
         if not c.world_unlocked:return None
@@ -357,27 +343,9 @@ class CareerMenu(BoxLayout):
                             summary=(0, 1, 2, 3))
 
     def _privacy(self):
-        card = self.card('PRIVACY' if edition.is_world() else 'Privacy & advertising')
-        if self.game._world_available or self.game.career.world_unlocked:
-            card.label('SCORER World is a separate ad-free application and can be played offline. Careers and imported names stay on this device; there is no SCORER account or in-app purchase verification service.')
-            self._privacy_contact(card)
-        elif getattr(release_settings, 'DESKTOP_WINDOWS', False):
-            card.label('Scorer Free for Windows works offline. It includes local stadium promotion panels, with no Google advertising SDK or ad-reward videos.')
-            self._privacy_contact(card)
-        else:
-            card.label('This version uses Google advertising.' if release_settings.is_production() else 'This test version uses Google TEST ads only. They do not generate revenue.')
-            self._privacy_contact(card)
-            card.label('A banner may appear on the opening menu after the splash. Full-screen ads may appear '
-                       'between matches, never during a shot. Training offers an optional ad for +1 morale. '
-                       'No connection or no available ad? You can keep playing.')
-            card.label('All ad requests are configured for children and users under the age of consent, '
-                       'with a general-audience content rating and no personalised advertising.')
-            card.label('Google advertising services may process your IP address, device/app information, '
-                       'diagnostics and ad interactions. Advertising ID permission is not requested. '
-                       'Your player name and career saves are not sent by SCORER to Google.')
-            card.label('Google privacy policy: https://policies.google.com/privacy', muted=True)
-            if self.game.ads.privacy_required:
-                card.add_widget(MenuTile('AD PRIVACY OPTIONS', lambda: self.game.ads.privacy_options()))
+        card = self.card('PRIVACY')
+        card.label('This version has no advertising, advertising SDK or ad-reward videos. You can play offline. Online season records and usage statistics are separate optional features.')
+        self._privacy_contact(card)
         usage=self.game.usage
         stats=self.card('Optional usage statistics')
         stats.label('Off by default. Optional counters help improve Scorer: session starts and normal closes, new/loaded careers, completed training and matches, goals, and selected load/save failures.')
@@ -742,7 +710,7 @@ class EntryScreen(FloatLayout):
         self._fit()
 
     def _fit(self, *_):
-        banner_fits = not self.menu.game._world_available and not self.menu.game.career.world_unlocked and not self.menu.game._new_game_popup and not self.menu.game._exit_popup and self.height >= dp(340) and self.width >= dp(340)
+        banner_fits = False  # No advertising and no empty banner reservation.
         self.menu.game.ads.entry_visible(banner_fits)
         self.banner_space = dp(64) if banner_fits else 0
         available = self.height - self.banner_space

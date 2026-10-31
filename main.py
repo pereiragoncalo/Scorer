@@ -246,7 +246,7 @@ class StrikerGame(Widget):
         self._records_popup = None
         self._exit_popup = None
         self._new_game_popup = None
-        self.ads = create_ad_breaks(android=(platform == "android" and not edition.is_world()))
+        self.ads = create_ad_breaks(android=False)
         self.reward_ad_status = ""
         self._next_reward_poll = 0.0
         self.help_page = 0
@@ -2751,7 +2751,7 @@ class StrikerGame(Widget):
     def _request_record_sharing(self):
         if self._records_popup is not None:return
         content=BoxLayout(orientation='vertical',spacing=dp(8),padding=dp(8))
-        content.add_widget(FlowLabel(text='Your chosen player name, '+self.career.player_name+', finishing team and best completed-season score will be public. Usage statistics are separate.'))
+        content.add_widget(FlowLabel(text='Your chosen player name, '+self.career.player_name+', finishing team and best completed-season score will be public. Usage statistics are separate. Use a nickname; never share your real full name, contact details or school.'))
         buttons=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(8))
         popup=Popup(title='Share season records?',content=content,size_hint=(.9,None),
                     height=min(Window.height-dp(16),dp(260)),auto_dismiss=False)
@@ -4489,35 +4489,9 @@ class StrikerGame(Widget):
 
 
     def _draw_world_promotion_boards(self):
-        if edition.is_world():
-            return
-        from world_promotion import campaign_message, board_segments
-        for index, (a, b) in enumerate(board_segments()):
-            points = [self.project(a[0], a[1], 0.10), self.project(b[0], b[1], 0.10),
-                      self.project(b[0], b[1], 0.92), self.project(a[0], a[1], 0.92)]
-            Color(0.015, 0.10, 0.13, 1)
-            Triangle(points=[*points[0], *points[1], *points[2]])
-            Triangle(points=[*points[0], *points[2], *points[3]])
-            message = campaign_message(self.elapsed, index, desktop=self.desktop_windows)
-            texture = self._promotion_textures.get(message)
-            if texture is None:
-                label = CoreLabel(text=message, font_size=42,
-                                  font_name='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',
-                                  color=(0.35, 0.95, 0.72, 1))
-                label.refresh()
-                texture = self._promotion_textures[message] = label.texture
-            # Inset lettering stays inside the board, projected into perspective.
-            dx, dy = b[0] - a[0], b[1] - a[1]
-            corners = [self.project(a[0]+dx*.06, a[1]+dy*.06, .24),
-                       self.project(a[0]+dx*.94, a[1]+dy*.94, .24),
-                       self.project(a[0]+dx*.94, a[1]+dy*.94, .78),
-                       self.project(a[0]+dx*.06, a[1]+dy*.06, .78)]
-            vertices = []
-            uvs = [(1-u, v) for u, v in zip(texture.tex_coords[::2], texture.tex_coords[1::2])]
-            for point, uv in zip(corners, uvs):
-                vertices.extend((*point,*uv))
-            Color(1, 1, 1, 1)
-            Mesh(texture=texture, vertices=vertices, indices=[0,1,2,2,3,0], mode='triangles')
+        # No ads or commercial stadium panels in this release.
+        return
+
 
     def _draw_pitch(self) -> None:
         far_y, near_y = -3.0, 32.0

@@ -27,14 +27,26 @@ class Bridge:
 class ReleaseTests(unittest.TestCase):
     def config(self): return json.loads((ROOT/'release/play.example.json').read_text())
 
-    def test_production_rejects_missing_identity_ads_and_billing(self):
+    def test_adfree_production_requires_identity_policy_but_no_ads_or_billing(self):
         config = self.config()
         self.assertFalse(validate(config, 'rehearsal'))
         errors = '\n'.join(validate(config, 'production'))
-        for required in ('developer', 'support', 'privacy', 'AdMob', 'World purchase'):
+        for required in ('developer', 'support', 'privacy'):
             self.assertIn(required, errors)
+        config.update(developer_name='clemir',support_email='support@example.com',privacy_url='https://example.com/privacy')
+        self.assertFalse(validate(config,'production'))
         config['billing']['enabled'] = True
         self.assertTrue(validate(config, 'rehearsal'))
+
+    def test_production_rejects_accidental_ad_ids_and_billing_permission(self):
+        from tools.play.verify import inspect_manifest
+        config=self.config();config.update(developer_name='clemir',support_email='support@example.com',privacy_url='https://example.com/privacy')
+        config['admob']['app_id']='ca-app-pub-1234567890123456~1234567890'
+        self.assertTrue(validate(config,'production'))
+        base='<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.clemir.scorerworld" android:versionCode="1026643"><uses-sdk android:minSdkVersion="26" android:targetSdkVersion="36"/><uses-permission android:name="android.permission.INTERNET"/><application android:allowBackup="false" android:usesCleartextTraffic="false"/></manifest>'
+        inspect_manifest(base,'com.clemir.scorerworld')
+        with self.assertRaises(ValueError):inspect_manifest(base)
+        with self.assertRaises(ValueError):inspect_manifest(base.replace('</manifest>','<uses-permission android:name="com.android.vending.BILLING"/></manifest>'),'com.clemir.scorerworld')
 
     def test_staging_cannot_overwrite_source_or_leak_server_keys_or_saves(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -58,7 +70,7 @@ class ReleaseTests(unittest.TestCase):
             self.assertTrue((target/'assets/data/world_clubs.json').is_file())
             self.assertFalse((target/'assets/data/private.json').exists())
             self.assertIn('package.name = striker', (target/'buildozer.spec').read_text())
-            self.assertIn('ENABLED = false', (target/'android/src/com/clemir/striker/billing/BillingConfig.java').read_text())
+            self.assertFalse((target/'android/src').exists())
             with self.assertRaises(ValueError): prepare(self.config(), target, 'rehearsal', source)
             with self.assertRaises(ValueError): prepare(self.config(), source/'nested', 'rehearsal', source)
 
@@ -78,7 +90,7 @@ class ReleaseTests(unittest.TestCase):
 
     def test_manifest_gate_rejects_debug_backup_cleartext_and_legacy_companion(self):
         from tools.play.verify import inspect_manifest
-        base = '<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.clemir.striker" android:versionCode="1026625"><uses-sdk android:minSdkVersion="26" android:targetSdkVersion="36"/><uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="com.android.vending.BILLING"/><application android:allowBackup="false" android:usesCleartextTraffic="false"/></manifest>'
+        base = '<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.clemir.striker" android:versionCode="1026625"><uses-sdk android:minSdkVersion="26" android:targetSdkVersion="36"/><uses-permission android:name="android.permission.INTERNET"/><application android:allowBackup="false" android:usesCleartextTraffic="false"/></manifest>'
         inspect_manifest(base)
         for invalid in (base.replace('allowBackup="false"','allowBackup="true"'),
                         base.replace('usesCleartextTraffic="false"','usesCleartextTraffic="true"'),

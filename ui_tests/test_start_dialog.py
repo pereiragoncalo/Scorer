@@ -12,7 +12,7 @@ class StartDialogTests(unittest.TestCase):
             Metrics.density=1
             with isolated_game(saved=True) as g:
                 Window.size=(1280,640);g.size=Window.size;g.view='start';g.draw();settle()
-                self.assertTrue(g.ads.entry_shown);before=g.career.save_path.read_bytes()
+                self.assertFalse(g.ads.entry_shown);before=g.career.save_path.read_bytes()
                 g._activate_ui('new_game');settle();dialog=g._new_game_popup
                 self.assertIsInstance(dialog,CareerStartDialog);self.assertFalse(g.ads.entry_shown)
                 for size in [(1280,640),(640,360),(360,640)]:
@@ -24,7 +24,7 @@ class StartDialogTests(unittest.TestCase):
                         self.assertGreaterEqual(b.height,dp(48)-1);self.assertGreaterEqual(b.y,dialog.y);self.assertLessEqual(b.top,dialog.top+1)
                 self.assertEqual(g.career.save_path.read_bytes(),before)
                 dialog.dismiss();settle();self.assertIsNone(g._new_game_popup)
-                self.assertTrue(g.ads.entry_shown)
+                self.assertFalse(g.ads.entry_shown)
         finally:Window.size=old;Metrics.density=density
     def test_confirm_never_restores_entry_banner_and_failed_backup_preserves_career(self):
         with isolated_game(saved=True) as g:

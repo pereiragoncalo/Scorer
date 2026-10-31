@@ -45,7 +45,8 @@ class EditionTests(unittest.TestCase):
                     self.assertNotIn('android.gradle_dependencies',spec['app'])
                     self.assertIn('WORLD_BUILD = True',(root/'edition.py').read_text())
                 else:
-                    self.assertIn('play-services-ads',spec['app']['android.gradle_dependencies'])
+                    self.assertNotIn('android.gradle_dependencies',spec['app'])
+                    self.assertFalse((root/'android/src').exists())
                     self.assertIn('WORLD_BUILD = False',(root/'edition.py').read_text())
             self.assertEqual(products,{'free':'com.clemir.striker','world':'com.clemir.scorerworld'})
         self.assertEqual(Path('edition.py').read_bytes(),before)

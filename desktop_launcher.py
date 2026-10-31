@@ -101,6 +101,8 @@ def main():
             try:
                 g=app.root
                 assert g.desktop_windows and g._ball_behind_keeper() and not g.ball.active
+                assert g._promotion_textures=={} and g.ads.backend is None
+                result['adfree_release']=True
                 g.export_to_png(str(report.parent/'goal.png'))
                 result.update(goal_scene_rendered=True,settled_ball_behind_keeper=True,
                               goal_width=g.goal_width,goal_height=g.goal_height)
