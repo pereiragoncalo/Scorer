@@ -44,12 +44,14 @@ def report(db,payload):
     if not any(public_id(o)==publisher for o, in owners):raise ValueError('unknown publisher')
     if db.execute('SELECT COUNT(*) FROM reports WHERE reporter=?',(reporter,)).fetchone()[0]>=20:raise ValueError('report limit')
     db.execute('INSERT OR IGNORE INTO reports VALUES(?,?,?,?)',(reporter,publisher,payload['reason'],now()))
-def queue(db):
+def queue(db,offset=0):
+    if type(offset) is not int or not 0<=offset<=1000000000:raise ValueError('invalid page')
     entries=[]
-    for row in db.execute('SELECT s.id,s.edition,s.country,s.division,s.season,s.player,s.team,s.matches,s.goals,m.state,m.terms FROM season_records s JOIN moderation m ON (s.id=m.owner AND s.edition=m.edition AND s.country=m.country AND s.division=m.division) ORDER BY m.updated DESC LIMIT 200'):
+    for row in db.execute('SELECT s.id,s.edition,s.country,s.division,s.season,s.player,s.team,s.matches,s.goals,m.state,m.terms FROM season_records s JOIN moderation m ON (s.id=m.owner AND s.edition=m.edition AND s.country=m.country AND s.division=m.division) ORDER BY m.updated DESC LIMIT 100 OFFSET ?',(offset,)):
         owner,edition,country,division,season,player,team,matches,goals,state,terms=row
         entries.append(dict(publisher=public_id(owner),edition=edition,country=country,division=division,season=season,player=player,team=team,matches=matches,goals=goals,state=state,terms=terms))
-    return {'entries':entries,'reports':[dict(publisher=p,reason=r,count=c) for p,r,c in db.execute('SELECT publisher,reason,COUNT(*) FROM reports GROUP BY publisher,reason')],'banned':[p for p, in db.execute('SELECT publisher FROM banned_publishers')]}
+    total=db.execute('SELECT COUNT(*) FROM season_records').fetchone()[0]
+    return {'offset':offset,'total':total,'next':offset+100 if offset+100<total else None,'entries':entries,'reports':[dict(publisher=p,reason=r,count=c) for p,r,c in db.execute('SELECT publisher,reason,COUNT(*) FROM reports GROUP BY publisher,reason')],'banned':[p for p, in db.execute('SELECT publisher FROM banned_publishers')]}
 def moderate(db,payload):
     if not isinstance(payload,dict) or set(payload)!={'publisher','action'} or not re.fullmatch('[0-9a-f]{32}',str(payload['publisher'])) or payload['action'] not in ('approve','reject','ban','unban','erase'):raise ValueError('invalid action')
     publisher=payload['publisher'];action=payload['action']

@@ -112,11 +112,15 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(status);self.send_header('Content-Type','text/html; charset=utf-8');self.send_header('Cache-Control','no-store')
             self.send_header('X-Content-Type-Options','nosniff');self.send_header('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'")
             self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body);return
-        if self.path=='/v1/moderation':
+        if self.path=='/v1/moderation' or self.path.startswith('/v1/moderation?'):
             if not self.authorized():self.reply(404,{'error':'not_found'});return
             try:
-                with self.server.db() as db:data=moderation.queue(db)
+                query=parse_qs(urlsplit(self.path).query,strict_parsing=True)
+                if set(query)-{'offset'} or any(len(v)!=1 for v in query.values()):raise ValueError('invalid page')
+                offset=int(query.get('offset',['0'])[0])
+                with self.server.db() as db:data=moderation.queue(db,offset)
                 self.reply(200,data)
+            except ValueError:self.reply(400,{'error':'invalid'})
             except Exception:self.reply(503,{'error':'unavailable'})
             return
         if self.path=='/admin':

@@ -118,6 +118,26 @@ class ModerationTests(unittest.TestCase):
         status,body=self.req('GET','/privacy');self.assertEqual(status,200);self.assertIn(b'&lt;Test Owner&gt;',body);self.assertNotIn(b'<Test Owner>',body)
         self.assertEqual(self.req('GET','/terms')[0],200);self.assertEqual(self.req('GET','/delete')[0],200)
 
+class ModerationPagingTests(unittest.TestCase):
+    def test_all_pending_entries_remain_reachable_and_legacy_names_need_reconsent(self):
+        from server import season_records as records
+        with tempfile.TemporaryDirectory() as t:
+            service=Collector(('127.0.0.1',0),Path(t)/'data.sqlite')
+            try:
+                with service.db() as db:
+                    row=dict(edition='free',country='Scorer',division=1,season=2026,player='Legacy Name',team='Team',matches=46,goals=20)
+                    for number in range(205):records.submit(db,dict(token=('%064x'%number),record=row))
+                    moderation.initialize(db)
+                    self.assertEqual(moderation.queue(db,0)['total'],205)
+                    self.assertEqual(len(moderation.queue(db,200)['entries']),5)
+                    self.assertEqual(moderation.leaders(db,'free','Scorer',1)['entries'],[])
+                    changed=dict(row,player='Reconfirmed Nickname')
+                    moderation.submit(db,dict(token='0'*64,record=changed,terms_version=1))
+                    publisher=moderation.public_id(records.identity('0'*64))
+                    moderation.moderate(db,dict(publisher=publisher,action='approve'))
+                    self.assertEqual(moderation.leaders(db,'free','Scorer',1)['entries'][0]['player'],'Reconfirmed Nickname')
+            finally:service.server_close()
+
 class StagingTests(unittest.TestCase):
     def test_both_production_identities_require_explicit_review_and_keep_public_metadata(self):
         from tools.prepare_editions import prepare_edition
