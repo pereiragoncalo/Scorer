@@ -34,3 +34,19 @@ probe sender that never reaches owner server, then restores default-off real
 usage before game stops. Other saves/gameplay/ads-free/ranking remain unchanged.
 Next: upgrade, keep existing consent, open twice, then reload private totals;
 confirm count increases by2 relative to its previous value.
+
+Verified179core/security+99Kivy PASS (278unique tests). Native run41241589273/
+sourceb4137e3 passed6staging checks and frozen functional/render smoke, with real
+Windows minimize/restore callback path giving foreground_openings_test=2. Probe
+is isolated, uses failed fake transport, never posts to owner. Both actual Android
+packages inspected with matching Python3.14: on_start/on_resume begin_session and
+on_pause pause_session present. Original debug upgrade signature, target36/min26,
+ZIP16KB/118ELF16KB and no advertising SDK in DEX verified. No actual phone-human
+opening test claimed; owner should verify on own device. No server/credentials/
+DNS or manual-counter changes made; same existing endpoint/protocol.
+
+[Scorer-Free-0.6.44.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.44/Scorer-Free-0.6.44.apk)
+
+[Scorer-World-0.6.44.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.44/Scorer-World-0.6.44.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.44/Scorer-Free.exe)

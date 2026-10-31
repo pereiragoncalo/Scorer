@@ -20,7 +20,7 @@ files; removing local data does not itself withdraw existing public records.
 
 Disabled until enabled in Privacy, independently of leaderboard sharing. All three
 editions may send nine allowlisted numeric counts over HTTPS to
-https://stats.clemir.com/v1/usage: session starts/normal ends, new/loaded careers,
+https://stats.clemir.com/v1/usage: app openings (launch and return after backgrounding)/normal app ends, new/loaded careers,
 completed training/matches, goals and selected save/load failures. No name, career
 file, free text, location, contacts, device/advertising/install/session identifier,
 exact event timestamp or stack trace is included. Counts do not measure unique

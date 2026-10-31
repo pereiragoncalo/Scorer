@@ -1,3 +1,13 @@
+## Scorer0.6.44 — every app opening counts
+
+[Scorer-Free-0.6.44.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.44/Scorer-Free-0.6.44.apk)
+
+[Scorer-World-0.6.44.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.44/Scorer-World-0.6.44.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.44/Scorer-Free.exe)
+
+[Session-count correction and verification](docs/SESSIONS_0.6.44.md). With usage consent, startup and return after backgrounding each count once; no server upgrade needed.
+
 ## Scorer0.6.43 — no advertising
 
 [Scorer-Free-0.6.43.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.43/Scorer-Free-0.6.43.apk)

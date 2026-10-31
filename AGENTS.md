@@ -11,6 +11,9 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 
 ## Commercial model
 
+- Owner0.6.44: sessions counts EVERY foreground opening, not once per process/splash. Begin at App.on_start before splash, idempotent during same foreground, pause marks boundary, resume opens next interval. Windows minimize/restore binds same callbacks. Keep default-off consent and aggregate-only schema; ends still normal termination, not duration/current-active-user count. Persist before flush and retry pending every10s while active, cancel timer on stop. Two openings verified as2 through real local collector and native callback smoke; no manual fake correction of old totals and no mathematical exactly-once promise for ambiguous network acknowledgement. Same server protocol, no laptop upgrade. Preserve ads-free, careers and ranking.
+
+
 - Owner0.6.43: no advertising until a future explicit owner decision. All3editions have no ad SDK/UMP, AdMob metadata/Java bridge, banner spacing, reward controls or stadium sponsor/World promotion panels. Never initialize AndroidAds (wrapper removed), including direct source runs. Both Android packages use ad-free worldsrc/LocalNameFiles only; no billing SDK or permission. Production gates reject ad IDs/enabled billing and require public identity/contact/privacy URL, not obsolete monetization. Listing/Data Safety/privacy drafts must reflect optional live usage and named season records, no false anonymous-only/no-Internet claims. Official Play review documented; owner waived private email. Mixed-minor public-name safety/adult controls, moderation, public policy/contact, signed AAB/pre-launch and personal-account closed-test eligibility remain release work; never claim Play compliance/approval from this QA release.
 
 
