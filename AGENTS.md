@@ -11,6 +11,9 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 
 ## Commercial model
 
+- Owner0.6.45 explicitly supersedes earlier optional/default-off usage rules for ALL three editions: actual factory always uses mandatory=True; old Off preference does not disable collection; remove usage enable/disable controls/actions. Disclose automatic aggregate collection on splash and Privacy. Keep the same nine counters/retention, no identifiers or raw histories. Public named season-record sharing stays independently optional with removal. QA fixtures must disable production transport before App.on_start; actual-factory tests use local/fake sender. No server upgrade. This QA request is not legal/Play approval; review User Data/Families and legal basis before production.
+
+
 - Owner0.6.44: sessions counts EVERY foreground opening, not once per process/splash. Begin at App.on_start before splash, idempotent during same foreground, pause marks boundary, resume opens next interval. Windows minimize/restore binds same callbacks. Keep default-off consent and aggregate-only schema; ends still normal termination, not duration/current-active-user count. Persist before flush and retry pending every10s while active, cancel timer on stop. Two openings verified as2 through real local collector and native callback smoke; no manual fake correction of old totals and no mathematical exactly-once promise for ambiguous network acknowledgement. Same server protocol, no laptop upgrade. Preserve ads-free, careers and ranking.
 
 

@@ -1,3 +1,13 @@
+## Scorer0.6.45 — automatic usage counts
+
+[Scorer-Free-0.6.45.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.45/Scorer-Free-0.6.45.apk)
+
+[Scorer-World-0.6.45.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.45/Scorer-World-0.6.45.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.45/Scorer-Free.exe)
+
+Usage counts are automatic, disclosed on the splash and Privacy screens. Public season-record sharing stays optional. No server upgrade required. [Verification and publication limits](docs/AUTOMATIC_0.6.45.md).
+
 ## Scorer0.6.44 — every app opening counts
 
 [Scorer-Free-0.6.44.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.44/Scorer-Free-0.6.44.apk)

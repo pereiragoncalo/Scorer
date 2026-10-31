@@ -1559,3 +1559,7 @@ Native Windows41123889956 PASS; actual archive/CA/endpoints and main button vali
 ## Scorer0.6.44 foreground session counting
 
 179core/security+99Kivy PASS, local HTTP collector SUM sessions=2 for two openings. Old splash-only/per-process flag missed warm reopen; lifecycle start/pause/resume now increments each opening exactly once locally, persists before send and retries pending every10s. Native41241589273/sourceb4137e3 PASS with minimize/restore callbacks count2 and default-off actual game consent restored. Both actual APKs signed/16KB/bytecode/ad-free verified. No manual owner counter/server/credential change; old missed counts not invented. Protocol unchanged, remote ACK ambiguity/offline delay remains documented. See SESSIONS_0.6.44.md/artifactJSON; real phone owner test pending.
+
+## Scorer0.6.45 automatic usage
+
+Owner confirmed second session received then required no off switch. Actual app factory mandatory, old Off ignored, controls/actions removed; splash and Privacy disclose automatic aggregate counters. Public records remain optional. 180core+99Kivy PASS; native Windows41248241931/source52db76ad frozen automatic disclosure/session smoke PASS plus6staging checks. Both actual APKs bytecode/signature/16KB/ad-free verified. Fake QA transport installed before startup; no manual historical-total or laptop changes. See AUTOMATIC_0.6.45.md and artifact JSON for limitations.

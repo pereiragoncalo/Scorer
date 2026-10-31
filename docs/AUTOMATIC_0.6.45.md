@@ -36,3 +36,9 @@ fixtures explicitly use optional/local mode to avoid sending test events; real
 Windows frozen smoke asserts actual factory mandatory+enabled, overrides sender
 before App.on_start so NO artificial QA counters reach owner. Existing separate
 opening probe remains synthetic/no-network. Artifacts checked after builds.
+
+Verification:180core/security+99Kivy tests PASS (279 unique). Native Windows run41248241931/source52db76ad passed6staging checks and frozen smoke, including automatic factory, visible splash notice and two foreground openings. Both actual APK factories tested from packaged bytecode: automatic enabled, disable rejected, controls absent; synthetic transport disabled. Both APK signatures match the existing debug key, ZIP16KB/118ELF16KB verified; DEX contains no ads/UMP/billing SDK. Windows unsigned; Android debug QA; actual phone testing remains pending.
+
+[Scorer-Free-0.6.45.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.45/Scorer-Free-0.6.45.apk)
+[Scorer-World-0.6.45.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.45/Scorer-World-0.6.45.apk)
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.45/Scorer-Free.exe)
