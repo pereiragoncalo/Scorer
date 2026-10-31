@@ -11,6 +11,9 @@ By 2026-11-06 produce a tested signed APK for direct distribution and a tested A
 
 ## Commercial model
 
+- Owner0.6.43: no advertising until a future explicit owner decision. All3editions have no ad SDK/UMP, AdMob metadata/Java bridge, banner spacing, reward controls or stadium sponsor/World promotion panels. Never initialize AndroidAds (wrapper removed), including direct source runs. Both Android packages use ad-free worldsrc/LocalNameFiles only; no billing SDK or permission. Production gates reject ad IDs/enabled billing and require public identity/contact/privacy URL, not obsolete monetization. Listing/Data Safety/privacy drafts must reflect optional live usage and named season records, no false anonymous-only/no-Internet claims. Official Play review documented; owner waived private email. Mixed-minor public-name safety/adult controls, moderation, public policy/contact, signed AAB/pre-launch and personal-account closed-test eligibility remain release work; never claim Play compliance/approval from this QA release.
+
+
 - Owner0.6.42: leaderboard uses chosen player name/team and BEST COMPLETED club-season goals, not random aliases or live goals. Snapshot before promotion/reset; save best per country/division in career, old saves default empty, no invented historic final totals. Country+division scopes World; Free one canonical Scorer/1. New named publication requires consent_version2 and explicit confirmation, independent of usage. Preserve v1/usage and add v2 records SQLite schema idempotently; no old aliases converted to final seasons. Server laptop upgrade is required; cloud executor has no SSH access and public v2 last checked404. Never claim v2 live from local tests. Use bounded separate records screen/table/actions, page rows, spacer BELOW fixed rows so sparse data stays at top. Test phone bounds and actual native render before shipping.
 
 

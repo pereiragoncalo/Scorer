@@ -1,3 +1,13 @@
+## Scorer0.6.43 — no advertising
+
+[Scorer-Free-0.6.43.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.43/Scorer-Free-0.6.43.apk)
+
+[Scorer-World-0.6.43.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.43/Scorer-World-0.6.43.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.43/Scorer-Free.exe)
+
+No adverts, ad SDK, reward videos or commercial stadium panels in any edition. Careers retained. [Google Play engineering review and remaining requirements](docs/play/POLICY_REVIEW_0.6.43.md).
+
 ## Scorer0.6.42 — completed-season records and division boards
 
 [Scorer-Free-0.6.42.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.42/Scorer-Free-0.6.42.apk)

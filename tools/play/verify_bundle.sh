@@ -1,13 +1,15 @@
 #!/bin/bash
 # Static audit of a trusted local AAB; derived APK uses the known DEBUG key only.
 set -euo pipefail
-if [ "$#" -ne 3 ]; then
-    echo 'Usage: verify_bundle.sh INPUT.aab rehearsal|production NEW_REPORT_DIRECTORY' >&2
+if [ "$#" -lt 3 ] || [ "$#" -gt 4 ]; then
+    echo 'Usage: verify_bundle.sh INPUT.aab rehearsal|production NEW_REPORT_DIRECTORY [free|world]' >&2
     exit 2
 fi
 scorer_bundle="$1"
 scorer_channel="$2"
 scorer_report="$3"
+scorer_edition="${4:-free}"
+case "$scorer_edition" in free) scorer_package=com.clemir.striker ;; world) scorer_package=com.clemir.scorerworld ;; *) exit 2 ;; esac
 case "$scorer_channel" in rehearsal|production) ;; *) exit 2 ;; esac
 if [ ! -f "$scorer_bundle" ] || [ -e "$scorer_report" ]; then
     echo 'Bundle must exist; report directory must be a fresh path.' >&2
@@ -20,7 +22,7 @@ scorer_test_key="${SCORER_TEST_KEYSTORE:-/work/cache/android-user/debug.keystore
 java -jar "$scorer_bundletool" validate --bundle="$scorer_bundle" > "$scorer_report/bundletool-validation.txt"
 java -jar "$scorer_bundletool" dump manifest --bundle="$scorer_bundle" --module=base > "$scorer_report/manifest.xml"
 java -jar "$scorer_bundletool" dump config --bundle="$scorer_bundle" > "$scorer_report/bundle-config.json"
-python tools/play/verify.py "$scorer_bundle" --manifest "$scorer_report/manifest.xml" --channel "$scorer_channel" > "$scorer_report/static-report.json"
+python tools/play/verify.py "$scorer_bundle" --manifest "$scorer_report/manifest.xml" --channel "$scorer_channel" --package "$scorer_package" > "$scorer_report/static-report.json"
 python - "$scorer_report/bundle-config.json" <<'PY'
 import json,sys
 with open(sys.argv[1]) as f: config=json.load(f)
@@ -40,7 +42,7 @@ PY
 scorer_apk="$scorer_report/inspection-universal-debug-signed.apk"
 "$scorer_sdk/build-tools/36.0.0/apksigner" verify --verbose --print-certs "$scorer_apk" > "$scorer_report/apk-signature.txt"
 "$scorer_sdk/build-tools/36.0.0/zipalign" -c -P 16 4 "$scorer_apk"
-/work/shared-platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/python tools/verify_apk_edition.py "$scorer_apk" free
+/work/shared-platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/python tools/verify_apk_edition.py "$scorer_apk" "$scorer_edition"
 jarsigner -verify "$scorer_bundle" > "$scorer_report/aab-signature.txt"
 sha256sum "$scorer_bundle" "$scorer_apk" > "$scorer_report/SHA256SUMS"
-echo 'Static audit passed. Check AAB signing status separately; device/Play purchase tests remain mandatory.'
+echo 'Static audit passed. Check AAB signing status separately; device/Play pre-launch tests remain mandatory; this profile has no in-app billing.'

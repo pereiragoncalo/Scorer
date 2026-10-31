@@ -77,3 +77,29 @@ Actual fetched page extracts retained only in runtime /tmp policy text files;
 no private email, account/password or Play Console data accessed. This is an
 engineering review of known code/public policies, not Google approval or a claim
 that outstanding publication requirements were implemented.
+
+## Completed QA artifacts
+
+176core/security +98Kivy UI PASS (274unique checks), plus6native Windows staging
+checks and frozen smoke. Old tests expecting banner/Google test-ad copy/reward
+buttons were updated to the explicit no-ad requirement; unchanged career backup,
+training, saves, scoreboard, optional stats and season records still pass.
+
+Both Android APKs actually compiled and DEX-scanned: no GMA/UMP/Billing/custom ad
+bridge classes. Both retain original debug upgrade certificate, target36/min26,
+only Internet/network-state permissions and ZIP16KB/118ELF16KB alignment PASS.
+Native Windows run41192102865/sourceb1ac79f PASS: actual adfree_release flag,
+empty stadium promotion texture cache, no backend, gameplay/save/records renders.
+Native archive verifies no AndroidAds wrapper and no sponsor draw code. These
+remain debug Android and unsigned Windows QA builds, not production-signed AABs
+or real phone tests. Public v2 last probe remained404; laptop migration is still
+separate from this ad removal. No server/DNS/mail/Play Console changes made here.
+
+Production AAB audit wrapper now accepts explicit free/world identity and no
+longer demands purchase tests; syntax checked, not run on a new production AAB.
+
+[Scorer-Free-0.6.43.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.43/Scorer-Free-0.6.43.apk)
+
+[Scorer-World-0.6.43.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.43/Scorer-World-0.6.43.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.43/Scorer-Free.exe)
