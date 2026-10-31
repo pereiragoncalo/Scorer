@@ -54,7 +54,11 @@ class MenuTests(unittest.TestCase):
         cls.temp = tempfile.TemporaryDirectory()
         cls.env = patch.dict(os.environ, STRIKER_SAVE_DIR=cls.temp.name)
         cls.env.start()
+        cls.local_usage=patch('analytics_config.ENDPOINT','');cls.local_usage.start()
+        cls.local_policy=patch('anonymous_stats.APP_STATS_MANDATORY',False);cls.local_policy.start()
+        cls.local_ranking=patch('online_config.ORIGIN','');cls.local_ranking.start()
         cls.game = StrikerGame()
+        assert not cls.game.usage.remote_available
         Window.add_widget(cls.game)
         cls.game.career.accept_starting_offer(cls.game.career.offers[0])
 
@@ -63,6 +67,7 @@ class MenuTests(unittest.TestCase):
         Clock.unschedule(cls.game.update)
         Window.remove_widget(cls.game)
         Window.unbind(on_key_down=cls.game._on_key_down)
+        cls.local_ranking.stop();cls.local_policy.stop();cls.local_usage.stop()
         cls.env.stop()
         cls.temp.cleanup()
 
