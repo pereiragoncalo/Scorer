@@ -1,3 +1,7 @@
+## Difficulty update — 0.6.48
+
+Owner requests >1 goal per match to be difficult. Progressive competitive keeper/marking now implemented; physical high/low save gaps fixed, morale opportunities and training preserved. See [paired measurements](docs/DIFFICULTY_0.6.48.md). World QA update only; production Play gates remain as documented.
+
 ## Current decision — 1 November 2026
 
 Launch only Scorer World on Google Play: free, ad-free, no IAP, names editor included. Free remains legacy QA. Public policies and listing are English; game UI retains nine languages. The owner confirms Cloudflare Tunnel/proxy only and legal exceptions for usage collection. Version 0.6.47 implements privacy-request suspension. Earlier contradictory plans below are historical. See [current launch steps](docs/play/WORLD_LAUNCH_0.6.47.md).

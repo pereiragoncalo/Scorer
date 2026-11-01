@@ -316,9 +316,10 @@ class MenuTests(unittest.TestCase):
             game._prepare_next_shot()
             game.power = 0.85
             game.shoot(2.0, 1.0)
-            self.assertGreaterEqual(game.goalkeeper_reaction, 0.18)
-            self.assertLessEqual(game.goalkeeper_reaction, 0.27)
-            self.assertAlmostEqual(game.goalkeeper_dive_speed, 5.2)
+            profile=game._defensive_profile()
+            self.assertGreaterEqual(game.goalkeeper_reaction,profile.reaction_low)
+            self.assertLessEqual(game.goalkeeper_reaction,profile.reaction_high)
+            self.assertAlmostEqual(game.goalkeeper_dive_speed,profile.dive_speed)
             game.start_training()
             self.assertEqual(game.shot_context, 'training')
             self.assertEqual(game.training_shots_left, 3)

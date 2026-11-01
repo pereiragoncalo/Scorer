@@ -1,3 +1,11 @@
+## Scorer World 0.6.48 — stronger defending
+
+[Download World 0.6.48 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.48/Scorer-World-0.6.48.apk)
+
+More demanding goalkeepers and marking, improving with the opponent’s division. High/low saves close repeated corner exploits while physical aiming and morale opportunities remain. Existing World careers and imported names are preserved. Save and Exit before upgrading the matching QA APK, then Load Game.
+
+[Balance measurements and limits](docs/DIFFICULTY_0.6.48.md). This is a debug QA APK, not a production-signed Play upload.
+
 ## Scorer World 0.6.47 — current Google Play launch scope
 
 [Download Scorer World 0.6.47 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.47/Scorer-World-0.6.47.apk) · [Laptop update commands](docs/play/SERVER_0.6.47.md)

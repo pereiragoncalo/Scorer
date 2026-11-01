@@ -193,6 +193,8 @@ class StrikerGame(Widget):
         self.goalkeeper_is_diving = False
         self.goalkeeper_should_dive = False
         self.goalkeeper_high_reach = 0.0
+        self.goalkeeper_low_reach = 0.0
+        self.goalkeeper_save_height = None
         self.goalkeeper_dive_age = 0.0
         self.goalkeeper_holding = False
         self.goalkeeper_catch_age = 0.0
@@ -1447,9 +1449,14 @@ class StrikerGame(Widget):
         if self.shot_context == "match" and self.current_chance_difficulty == "hard":
             # Keep normal physical defenders, including one marking the central
             # shooting lane. Corners and gaps remain available to a good shot.
+            profile=self._defensive_profile()
             lane_y = self.shot_origin_y * 0.48
-            lane_x = self.shot_origin_x * 0.48 + self.career.rng.uniform(-0.65, 0.65)
-            positions = [(lane_x, lane_y)] + random.sample(list(defenders), 3)
+            lane_x = self.shot_origin_x * 0.48 + self.career.rng.uniform(-profile.lane_jitter,profile.lane_jitter)
+            # A second marker covers the far-side lane before the target is chosen.
+            cover_fraction=.55+.05*profile.level
+            cover_y=self.shot_origin_y*cover_fraction
+            cover_x=self.shot_origin_x*cover_fraction-math.copysign(1.65,self.shot_origin_x)*(1-cover_fraction)
+            positions = [(lane_x,lane_y),(cover_x,cover_y)] + random.sample(list(defenders),profile.defenders-2)
             self.field_players = [FieldPlayer(x, y, "defender", random.uniform(0.0, math.tau)) for x, y in positions]
             return
         if self.one_on_one:
@@ -1525,6 +1532,15 @@ class StrikerGame(Widget):
         self.field_players = players
 
 
+    def _defensive_profile(self):
+        from defensive_difficulty import defensive_profile
+        club=self.career.club
+        opponent=None
+        if self.match_home is not None and self.match_away is not None and club is not None:
+            opponent=self.match_away if self.match_home.uid==club.uid else self.match_home
+        tier=(opponent or club).tier if (opponent or club) is not None else 4
+        return defensive_profile(tier,self.match_is_international)
+
     def _aligned_goalkeeper_x(self) -> float:
         """Posição na linha entre a bola e o centro da baliza."""
         if self.ball.y > GOALKEEPER_Y + 0.05:
@@ -1548,6 +1564,8 @@ class StrikerGame(Widget):
         self.goalkeeper_is_diving = False
         self.goalkeeper_should_dive = False
         self.goalkeeper_high_reach = 0.0
+        self.goalkeeper_low_reach = 0.0
+        self.goalkeeper_save_height = None
         self.goalkeeper_dive_age = 0.0
 
 
@@ -1631,7 +1649,8 @@ class StrikerGame(Widget):
             abs(intercept_x) <= self.goal_half_width + 0.20
             and -0.10 <= intercept_z <= self.goal_height + 0.20
         )
-        horizontal_gap = intercept_x - self.goalkeeper_x
+        perceived_x=intercept_x+(self.goalkeeper_read_error if self.shot_context=='match' else 0.0)
+        horizontal_gap = perceived_x - self.goalkeeper_x
 
 
         # Uma bola exterior ou dirigida ao corpo não justifica um mergulho.
@@ -1645,7 +1664,7 @@ class StrikerGame(Widget):
         )
         if not self.goalkeeper_should_dive:
             target = clamp(
-                intercept_x if threatens_goal else self._aligned_goalkeeper_x(),
+                perceived_x if threatens_goal else self._aligned_goalkeeper_x(),
                 -self.goal_half_width + 0.42,
                 self.goal_half_width - 0.42,
             )
@@ -1661,20 +1680,22 @@ class StrikerGame(Widget):
             return
 
 
-        # Continua a ajustar os apoios e compromete-se nos últimos 0,30 s.
+        # Competitive ability changes footwork and commitment, not save volumes.
+        profile=self._defensive_profile() if self.shot_context=='match' else None
+        # Continua a ajustar os apoios antes do mergulho.
         # Em bolas cruzadas, este cálculo é feito no plano do GR, não no fundo
         # da baliza, evitando lançamentos precoces e deslocações impossíveis.
-        if time_to_keeper > 0.30:
+        if time_to_keeper > (profile.commitment_time if profile else .30):
             step_target = clamp(
-                intercept_x,
+                perceived_x,
                 -self.goal_half_width + 0.42,
                 self.goal_half_width - 0.42,
             )
             self._move_goalkeeper_towards(
                 step_target,
                 dt,
-                max_speed=3.0 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 1.95,
-                acceleration=14.0 if self.shot_context == "match" and self.current_chance_difficulty == "hard" else 10.5,
+                max_speed=profile.step_speed if profile else 1.95,
+                acceleration=profile.acceleration if profile else 10.5,
             )
             self.goalkeeper_dive_start_x = self.goalkeeper_x
             return
@@ -1685,10 +1706,12 @@ class StrikerGame(Widget):
         self.goalkeeper_dive_start_x = self.goalkeeper_x
         self.goalkeeper_dive_age = 0.0
         self.goalkeeper_high_reach = clamp(
-            (intercept_z - 1.52) / 0.82,
+            (intercept_z - (1.0 if self.shot_context=='match' else 1.52)) / (1.30 if self.shot_context=='match' else .82),
             0.0,
             1.0,
         )
+        self.goalkeeper_low_reach=clamp((.95-intercept_z)/.70,0.0,1.0) if self.shot_context=='match' else 0.0
+        self.goalkeeper_save_height=clamp(intercept_z,.18,self.goal_height+.15) if self.shot_context=='match' else None
         dive_delta = intercept_x + self.goalkeeper_read_error - self.goalkeeper_x
         # Um mergulho desloca o centro de massa no máximo cerca de 1,72 m.
         # A limitação é ainda mais importante nas trajetórias muito cruzadas.
@@ -1749,6 +1772,8 @@ class StrikerGame(Widget):
         self.player_kick_progress = 0.0
         self.last_field_collision = None
         self.goalkeeper_high_reach = 0.0
+        self.goalkeeper_low_reach = 0.0
+        self.goalkeeper_save_height = None
         self.goalkeeper_dive_age = 0.0
 
 
@@ -1786,8 +1811,15 @@ class StrikerGame(Widget):
         if hard:
             self.goalkeeper_read_error = random.gauss(0.0, 0.13)
             reaction_low, reaction_high = 0.18, 0.27
+        if self.shot_context=='match':
+            profile=self._defensive_profile()
+            reaction_low,reaction_high=profile.reaction_low,profile.reaction_high
+            # A close one-on-one stays harder to read than a distant shot.
+            reading_error=profile.reading_error*(1.0 if hard else 1.8-.6*self.shot_distance_factor)
+            self.goalkeeper_read_error=random.gauss(0.0,reading_error)
+            self.goalkeeper_target_x=clamp(destination_x+self.goalkeeper_read_error,-self.goal_half_width+.62,self.goal_half_width-.62)
         self.goalkeeper_reaction = random.uniform(reaction_low, reaction_high)
-        self.goalkeeper_dive_speed = 5.2 if hard else 3.90 + 0.80 * self.shot_distance_factor
+        self.goalkeeper_dive_speed = profile.dive_speed if self.shot_context=='match' else 3.90 + 0.80 * self.shot_distance_factor
         dive_delta = self.goalkeeper_target_x - self.goalkeeper_x
         self.goalkeeper_should_dive = (
             abs(destination_x - self.goalkeeper_x) > 0.58
@@ -2163,6 +2195,7 @@ class StrikerGame(Widget):
         smooth = raw * raw * (3.0 - 2.0 * raw)
         dive = smooth * self.goalkeeper_dive_amount
         high = clamp(self.goalkeeper_high_reach, 0.0, 1.0)
+        low = clamp(getattr(self,'goalkeeper_low_reach',0.0),0.0,1.0)
 
 
         # O centro de massa sobe e volta a descer. A versão anterior ficava
@@ -2186,7 +2219,9 @@ class StrikerGame(Widget):
         center_z = self.goalkeeper_scale * (
             0.89 - ready_crouch - 0.29 * dive - 0.10 * landing * dive
         )
-        center_z += self.goalkeeper_scale * flight * (0.34 + 0.34 * high)
+        jump_boost=self._defensive_profile().jump_boost if self.shot_context=='match' else 0.0
+        center_z += self.goalkeeper_scale * flight * (0.34 + (0.34+jump_boost) * high)
+        center_z -= self.goalkeeper_scale*.20*low*dive
 
 
         def transform(local_x: float, local_z: float) -> tuple[float, float]:
@@ -2226,6 +2261,9 @@ class StrikerGame(Widget):
             reach_z = center_z + self.goalkeeper_scale * (
                 0.24 + 0.88 * high + 0.12 * flight
             )
+            # Low saves reach down rather than leaving both gloves above the ball.
+            save_height=getattr(self,'goalkeeper_save_height',None)
+            reach_z=clamp(save_height,.18,reach_z) if save_height is not None else reach_z*(1-low)+.18*low
             lead = "hand_r" if self.goalkeeper_dive_sign > 0.0 else "hand_l"
             trail = "hand_l" if lead == "hand_r" else "hand_r"
             for key, lag, vertical_offset in (
@@ -2552,6 +2590,8 @@ class StrikerGame(Widget):
         self.goalkeeper_is_diving = False
         self.goalkeeper_should_dive = False
         self.goalkeeper_high_reach = 0.0
+        self.goalkeeper_low_reach = 0.0
+        self.goalkeeper_save_height = None
         self.goalkeeper_dive_age = 0.0
         self.goalkeeper_vx = 0.0
 
