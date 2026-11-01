@@ -1,6 +1,6 @@
 # Scorer World: 0.9 test phase → 1.0 release
 
-Owner decision: the next test version is **0.9**; the public launch is **1.0**. World only, free, no adverts/IAP, names editor included. The delivered APK is still 0.6.48; changing source metadata does not create or rename a tested binary.
+Owner decision: the next test version is **0.9**; the public launch is **1.0**. World only, free, no adverts/IAP, names editor included. The 0.9 QA acceptance candidate now includes the completed World competition implementation. Version 0.6.48 is retained as a historical QA build.
 
 ## Version configuration
 

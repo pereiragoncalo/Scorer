@@ -1,0 +1,69 @@
+{
+  "version": "0.9",
+  "version_code": 1026900,
+  "package": "com.clemir.scorerworld",
+  "app_source_commit": "7371e3c56db83d5657dbbebe2c15bbb70b2d1d50",
+  "artifact": "Scorer-World-0.9.apk",
+  "bytes": 74045671,
+  "sha256": "6d753934ce024443be30fddbd9f61b6964159d5713fd36b062c6914f87f46f33",
+  "certificate_sha256": "84c17cdf31e2ee7c6e9c082bde539df6822bf48267a0603de9814d6e2846ef49",
+  "signing": "existing DEBUG upgrade key; QA acceptance candidate",
+  "target_api": 36,
+  "min_api": 26,
+  "architecture": "arm64-v8a",
+  "elf16k": 118,
+  "zip16k": true,
+  "advertising_sdk": false,
+  "billing_sdk": false,
+  "tests": {
+    "core": 233,
+    "native_kivy": 114,
+    "total_unique": 347
+  },
+  "lifecycle": {
+    "method": "Seeded engine lifecycle with controlled player-team scores; not physical or human Android play.",
+    "seed": 902026,
+    "season": 2029,
+    "completed_matches": 148,
+    "types": {
+      "league": 66,
+      "libertadores": 39,
+      "world_cup_q4": 1,
+      "friendly": 9,
+      "domestic:Brazil": 18,
+      "world_cup": 8,
+      "copa_q0": 1,
+      "copa": 6
+    },
+    "reloads": 9,
+    "archived_seasons": 3,
+    "seconds": 24.61,
+    "caps": 25,
+    "international_goals": 25,
+    "calendar_nondecreasing": true,
+    "repeated_fixtures": false
+  },
+  "point_1_implementation_complete": true,
+  "formats": "Explicit game models; not certified official access lists/country regulations",
+  "exact_compiled_source_verified": [
+    "main",
+    "career",
+    "world_competitions",
+    "season_transitions",
+    "domestic_rules",
+    "menu_ui",
+    "defensive_difficulty",
+    "privacy_requests",
+    "anonymous_stats"
+  ],
+  "compiled_competition_and_save_smoke_passed": true,
+  "existing_careers_and_aliases_retained": true,
+  "physical_android_tested": false,
+  "production_signed": false,
+  "play_uploaded": false,
+  "remaining_launch_points": [
+    2,
+    3,
+    4
+  ]
+}
