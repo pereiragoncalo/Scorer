@@ -1,5 +1,5 @@
 """Install reviewed public-page files/config only; do not touch secrets or SQLite.
-The bundled proposal stays visibly DRAFT and never completes Play review flags.
+The bundled World policy is final English text; Play approval is a separate process.
 """
 import argparse,json,os,stat,subprocess,sys,tempfile,time
 from pathlib import Path
@@ -24,11 +24,10 @@ def check(source,config):
         p=source/name
         if not p.is_file() or p.is_symlink():raise ValueError('Public page source is missing or a symlink: '+name)
     d=load_config(config)
-    if d['publication_status']!='draft':raise ValueError('This installer only installs the explicitly labelled review draft')
     for path in ('/privacy','/terms','/delete'):
         status,body=page(path,config)
         if status!=200:raise ValueError('Public document validation failed: '+path)
-        if path=='/privacy' and b'data-publication-status="draft"' not in body:raise ValueError('Draft warning is missing')
+        if path=='/privacy' and ('data-publication-status="'+d['publication_status']+'"').encode() not in body:raise ValueError('Declared policy status is missing')
     return d
 
 def apply(source,config,target,stop,start,verify):
@@ -42,7 +41,7 @@ def apply(source,config,target,stop,start,verify):
         except (OSError,ValueError,TypeError):existing=None
         if existing:
             raw=json.loads(active.read_text(encoding='utf8'))
-            if existing['publication_status']=='published' or 'publication_status' not in raw:raise ValueError('An existing completed or legacy policy is installed; refusing to replace it with a draft')
+            if d['publication_status']=='draft' and (existing['publication_status']=='published' or 'publication_status' not in raw):raise ValueError('An existing completed or legacy policy is installed; refusing to replace it with a draft')
     originals={}
     for name in FILES:
         p=target/name
@@ -65,7 +64,7 @@ def apply(source,config,target,stop,start,verify):
             start()
         raise
 
-def verify_local():
+def verify_local(expected_status="published"):
     from urllib.request import build_opener,ProxyHandler
     # Loopback service checks must stay on the laptop, not go through any proxy.
     client=build_opener(ProxyHandler({}));last=None
@@ -75,21 +74,22 @@ def verify_local():
                 with client.open('http://127.0.0.1:8787'+path,timeout=2) as response:
                     body=response.read(131073)
                     if response.status!=200 or len(body)>131072:raise ValueError('Invalid local document response')
-                    if path=='/privacy' and b'data-publication-status="draft"' not in body:raise ValueError('Running service did not load the draft renderer')
+                    if path=='/privacy' and ('data-publication-status="'+expected_status+'"').encode() not in body:raise ValueError('Running service did not load the expected renderer')
             return
         except Exception as error:last=error;time.sleep(.25)
     raise RuntimeError('Local public-page checks failed; the previous files will be restored') from last
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--check',action='store_true');args=p.parse_args()
-    config=ROOT/'server/public.policy.review.json';check(ROOT,config)
-    if args.check:print('Draft/configuration validated; /privacy, /terms and /delete render locally. No files or services changed.');return
+    config=ROOT/'server/public.world.policy.json';check(ROOT,config)
+    if args.check:print('Final English World policy validated; /privacy, /terms and /delete render locally. No files or services changed.');return
     if os.geteuid()!=0:raise SystemExit('Run as root on the laptop, or use --check for validation only')
     target=Path('/opt/scorer')
+    if not (target/'server/privacy_cases.py').is_file() or not (target/'privacy_requests.py').is_file():raise SystemExit('Install this version of server/install_online.sh first: the final policy requires the privacy-request endpoint')
     def control(action):subprocess.run(['systemctl',action,'scorer-online'],check=True)
     apply(ROOT,config,target,lambda:control('stop'),lambda:control('start'),verify_local)
     print('Public-page update complete: local /privacy, /terms and /delete return HTTP200.')
-    print('Privacy is visibly a DRAFT. Play legal/provider/children review flags were not changed.')
+    print('Final English World policy installed. This does not certify Google Play approval or change Console review flags.')
     print('No administrator token, tunnel, maintenance timer, game save or database was read or changed by this installer.')
     print('Check externally: https://stats.clemir.com/privacy · /terms · /delete')
 

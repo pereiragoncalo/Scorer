@@ -286,5 +286,20 @@
   "Export before uninstalling or changing to the Play version. The file includes your name and game progress; keep it private. Only the same edition can import it. No PINs or online credentials are exported.": "Xuất trước khi gỡ hoặc chuyển sang bản Play. Tệp chứa tên và tiến trình, hãy giữ riêng tư. Chỉ cùng phiên bản mới nhập được. Không xuất PIN hay thông tin xác thực trực tuyến.",
   "Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.": "Sự nghiệp lưu trên thiết bị. Kỷ lục công khai là tùy chọn và có thể xóa. Gỡ ứng dụng không xóa kỷ lục công khai.",
   "Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.": "Scorer và Scorer World là hai ứng dụng miễn phí riêng, có sự nghiệp độc lập. Không quảng cáo hay mua trong ứng dụng.",
-  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "Tệp cục bộ và tệp xuất chứa tiến trình. Hãy giữ riêng tư. Có kèm giấy phép dữ liệu và phông chữ."
+  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "Tệp cục bộ và tệp xuất chứa tiến trình. Hãy giữ riêng tư. Có kèm giấy phép dữ liệu và phông chữ.",
+  "PRIVACY RIGHTS": "QUYỀN RIÊNG TƯ",
+  "SUBMIT PRIVACY REQUEST": "GỬI YÊU CẦU RIÊNG TƯ",
+  "CHECK REQUEST": "KIỂM TRA YÊU CẦU",
+  "WITHDRAW PRIVACY REQUEST": "RÚT YÊU CẦU RIÊNG TƯ",
+  "Usage suspended for a privacy request.": "Đã tạm dừng thu thập thống kê do yêu cầu riêng tư.",
+  "Request saved. Usage collection is suspended.": "Đã lưu yêu cầu. Việc thu thập thống kê đã tạm dừng.",
+  "Usage is paused for this session. Could not save the request; contact support and retry.": "Đã tạm dừng thu thập trong phiên này. Không thể lưu yêu cầu; hãy liên hệ hỗ trợ và thử lại.",
+  "Request withdrawn. Automatic usage resumes on your next opening.": "Đã rút yêu cầu. Thu thập tự động tiếp tục khi mở ứng dụng lần sau.",
+  "Privacy request received. Usage remains suspended.": "Đã nhận yêu cầu riêng tư. Việc thu thập vẫn tạm dừng.",
+  "Offline or unavailable. Usage stays suspended; retry or contact support.": "Ngoại tuyến hoặc không khả dụng. Việc thu thập vẫn tạm dừng; thử lại hoặc liên hệ hỗ trợ.",
+  "Scorer World is free, with an included names editor. No advertising or in-app purchases.": "Scorer World miễn phí và có trình sửa tên. Không có quảng cáo hay mua hàng trong ứng dụng.",
+  "Use this page for a privacy objection or other applicable legal request. Usage is suspended while your request is pending or granted. This does not remove public records.": "Dùng trang này để phản đối việc xử lý dữ liệu hoặc gửi yêu cầu pháp lý áp dụng khác. Việc thu thập tạm dừng khi yêu cầu đang chờ hoặc đã được chấp thuận. Thao tác này không xóa kỷ lục công khai.",
+  "Contact goncalo@clemir.com with your reference. Do not send secret tokens, PINs or career files.": "Liên hệ goncalo@clemir.com kèm mã tham chiếu. Không gửi mã bí mật, PIN hay tệp sự nghiệp.",
+  "Withdraw your privacy request? Automatic usage resumes on your next opening after confirmation from the server.": "Rút yêu cầu riêng tư? Thu thập tự động tiếp tục khi mở ứng dụng lần sau sau khi máy chủ xác nhận.",
+  "Submit a privacy objection? Usage collection pauses immediately while your request is handled. Contact goncalo@clemir.com with the displayed reference for assistance.": "Gửi phản đối xử lý dữ liệu? Việc thu thập thống kê dừng ngay trong khi xử lý yêu cầu. Để được giúp đỡ, liên hệ goncalo@clemir.com kèm mã tham chiếu hiển thị."
 }

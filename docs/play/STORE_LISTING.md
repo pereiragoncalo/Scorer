@@ -1,107 +1,69 @@
-# Store listings — Scorer0.6.46
+# Google Play listing — Scorer World
 
-Developer: Gonçalo Pereira. Support: goncalo@clemir.com. Both apps FREE per owner.
-Privacy URL after deployment: https://stats.clemir.com/privacy. Category: Games /
-Sports. No advertising or in-app purchases. IARC rating must come from the actual
-questionnaire; no rating is invented here. Audience includes minors.
+Launch product: **Scorer World** (`com.clemir.scorerworld`) only.
+Price: **Free**. Advertising: **No**. In-app purchases: **No**.
+The local names editor is included. The separate Free edition is not a Play
+launch target. Existing legacy saves and record-removal support remain available.
+Developer: Gonçalo Pereira. Support/privacy: goncalo@clemir.com.
+Primary store locale: en-US. Public documents: English.
 
-## Scorer — English
+## Title
 
-Title: Scorer
+Scorer World
 
-Short: Build your striker career. Train, play and make every goal count.
+## Short description
 
-Create your player and start a football career in Scorer League, a single playable
-division with fictional clubs. Train weekly, play your match opportunities and
-follow fixtures, league tables, scorers and transfer offers. Save your progress
-locally and keep playing offline. The interface is in English. Free, with no ads
-or in-app purchases.
+Build your striker career around the world. Play, score and edit club names.
 
-Optional online season records show completed-season personal bests. Public access
-is adult-managed, and sharing a name/team requires separate agreement to community
-rules. Submissions are reviewed before appearing. Report and block tools are
-available. Results are self-reported. Automatic aggregate usage counts are explained
-before the first transmission and in Privacy. Internet is needed for online
-features; it is not needed to play offline. Export/import your career locally
-before changing installations. Scorer World is a separate free app and career.
+## Full description
 
-## Scorer — Portuguese
+Create your striker, choose a nationality and starting country, and build a
+football career in Scorer World.
 
-Título: Scorer
+Train each week, play your match opportunities and follow your club's fixtures,
+league tables, scorers and transfer offers. Work through domestic divisions and
+keep your progress on your device. You can play offline.
 
-Descrição curta: Cria a tua carreira de avançado. Treina, joga e marca a diferença.
+The names editor is included at no extra cost. Personalise club, league and player
+display names, preview JSON document imports and export your changes. These edits
+stay local and do not change match statistics. Export and import your career
+separately when moving between installations of Scorer World.
 
-Cria o teu jogador e começa uma carreira na Liga Scorer, com uma divisão jogável
-e clubes fictícios. Treina semanalmente, joga as oportunidades e acompanha jogos,
-classificação, marcadores e propostas. Guarda a carreira no dispositivo e joga
-offline. A interface está em inglês. Gratuito, sem publicidade nem compras na app.
+Optional online leaderboards show personal bests from completed club seasons,
+separated by country and division. Public access is adult-managed. Sharing your
+chosen name and team requires accepting the community rules and a separate Share
+action. New submissions are reviewed before appearing. Report, block and removal
+tools are available. Scores are self-reported, not verified competition results.
 
-Os recordes online opcionais mostram as melhores épocas concluídas. O acesso
-público é gerido por um adulto, e a partilha do nome/equipa exige acordo separado
-com as regras. As publicações são analisadas antes de aparecerem. É possível
-denunciar e bloquear. Os resultados são auto-reportados. As contagens automáticas
-de utilização são explicadas antes do primeiro envio e em Privacidade. A Internet
-é necessária para funções online; podes jogar offline. Exporta/importa a carreira
-localmente antes de mudar de instalação. O Scorer World é outra app gratuita,
-com carreira independente.
-
-## Scorer World — English
-
-Title: Scorer World
-
-Short: Start a striker career around the world, with local saves and name editing.
-
-Create your striker, choose nationality and a starting country, and develop an
-independent career in the World edition. Follow domestic divisions, training,
-match opportunities, goals, contracts and league movement. Browse competitions
-and use the local names editor with previewed JSON document imports and exports.
-The football model uses fictional clubs and reference-based presentation. National
-formats remain provisional: this is not a licensed current database or a promise
-that every real competition/regulation is reproduced.
+The game has no advertising and no in-app purchases. Automatic aggregate usage
+counts are explained in the app and Privacy Policy. Online functions require an
+internet connection; offline careers do not.
 
 Choose English, Portuguese, Spanish, German, Italian, Korean, Japanese, Simplified
-Chinese or Vietnamese. Keep your career on-device and play offline. This is a
-separate free app from Scorer, with its own save. No ads or in-app purchases.
+Chinese or Vietnamese in the game. Public privacy, community and removal documents
+are provided in English.
 
-Optional completed-season boards are separated by country and division. Public
-access is adult-managed. Share chosen names/teams only after accepting community
-rules; new submissions await moderation. Report/block controls and record removal
-are available. Scores are self-reported. Automatic aggregate usage counts are
-explained before the first transmission and in Privacy. Career export/import
-supports transfers between installations of this edition, without copying PINs
-or online credentials.
+Scorer World uses fictional football clubs and reference-based presentation.
+Country-specific competition formats remain provisional. It is not a licensed
+current football database or a claim to reproduce every real-world regulation,
+continental competition or national-team tournament.
 
-## Scorer World — Portuguese
+## App access instructions for reviewers
 
-Título: Scorer World
+No Scorer email/password login is needed. Start a new player, choose a first
+contract, complete the weekly training and play the available match chances.
+The World browser and local names editor are included. The leaderboard is optional,
+adult-managed and separate from local game progress. Names appear only after a
+completed-season submission is approved by moderation.
 
-Descrição curta: Começa uma carreira de avançado pelo mundo e personaliza os nomes.
+The administrator token for stats.clemir.com/admin is private operator access;
+it is not an app-review credential and must never be included in Console forms.
 
-Cria o teu avançado, escolhe a nacionalidade e o país inicial e desenvolve uma
-carreira independente na edição World. Acompanha divisões nacionais, treinos,
-oportunidades de jogo, golos, contratos e movimentos entre divisões. Explora
-competições e usa o editor local de nomes, com pré-visualização de importações e
-exportações JSON. O modelo usa clubes fictícios e apresentação baseada em
-referências. Os formatos nacionais continuam provisórios: não é uma base de dados
-atual licenciada nem uma reprodução de todas as competições e regulamentos reais.
+## Store artwork and screenshots
 
-Escolhe inglês, português, espanhol, alemão, italiano, coreano, japonês, chinês
-simplificado ou vietnamita. Guarda a carreira no dispositivo e joga offline.
-É uma app gratuita separada do Scorer, com o seu próprio save. Sem publicidade
-nem compras na aplicação.
-
-Os leaderboards opcionais de épocas concluídas são separados por país e divisão.
-O acesso público é gerido por um adulto. A partilha de nomes/equipas exige aceitar
-as regras; novas publicações aguardam moderação. Há denúncia, bloqueio e remoção
-de recordes. Resultados auto-reportados. As contagens automáticas de utilização
-são explicadas antes do primeiro envio e em Privacidade. A exportação/importação
-permite transferir carreiras desta edição, sem copiar PINs ou credenciais online.
-
-## Image package
-
-release/store/free and world contain exported512×512icons and1024×500feature
-art using existing project branding. These are store artwork, not Android gameplay
-screenshots. Actual screenshots from the installed final Android candidate and
-pre-launch/device execution are still required; desktop QA captures are explicitly
-labelled and are not substituted. Video is optional. Confirm rights to original
-project artwork and retain bundled data/font attribution.
+Use release/store/world/icon-512.png and feature-1024x500.png. These are branding
+artwork, not gameplay screenshots. Capture the final installed World candidate on
+Android: career dashboard, a match opportunity, World browsing and names editor.
+Use fictional names and do not capture PINs/tokens or another player's identifying
+data. Desktop previews do not establish Android execution. Complete IARC/audience,
+Data Safety and any testing/production-access steps actually shown in Console.

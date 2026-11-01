@@ -14,7 +14,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from anonymous_stats import valid_payload
 from server.leaderboard import initialize,submit,leaders,withdraw
 from server import season_records as records
-from server import moderation
+from server import moderation,privacy_cases
 from urllib.parse import urlsplit,parse_qs
 
 class Collector(ThreadingHTTPServer):
@@ -28,12 +28,13 @@ class Collector(ThreadingHTTPServer):
             initialize(db)
             records.initialize(db)
             moderation.initialize(db)
-            moderation.prune(db)
+            privacy_cases.initialize(db)
+            moderation.prune(db);privacy_cases.prune(db)
         super().__init__(address,Handler)
     def service_actions(self):
         if time.monotonic()-self._last_prune>3600:
             try:
-                with self.db() as db:moderation.prune(db)
+                with self.db() as db:moderation.prune(db);privacy_cases.prune(db)
                 self._last_prune=time.monotonic()
             except sqlite3.Error:pass
     def get_request(self):
@@ -65,20 +66,22 @@ class Handler(BaseHTTPRequestHandler):
     def authorized(self):
         return bool(self.server.admin_token) and hmac.compare_digest(self.headers.get('Authorization',''),'Bearer '+self.server.admin_token)
     def do_POST(self):
-        if self.path=='/v1/moderation':
+        if self.path in ('/v1/moderation','/v1/privacy/admin'):
             if not self.authorized():self.reply(404,{'error':'not_found'});return
             try:
                 length=int(self.headers.get('Content-Length','0'))
                 if not 0<length<=4096 or self.headers.get('Transfer-Encoding') or self.headers.get_content_type()!='application/json':raise ValueError()
                 data=json.loads(self.rfile.read(length))
-                with self.server.db() as db:moderation.moderate(db,data)
+                with self.server.db() as db:
+                    if self.path=='/v1/privacy/admin':privacy_cases.resolve(db,data)
+                    else:moderation.moderate(db,data)
                 self.reply(204,{})
             except (ValueError,TypeError):self.reply(400,{'error':'invalid'})
             except Exception:self.reply(503,{'error':'unavailable'})
             return
         if self.path in ('/v1/leaderboard','/v2/records'):
             self.reply(426,{'error':'app_update_required'});return
-        if self.path not in ('/v1/usage','/v1/leaderboard','/v1/leaderboard/withdraw','/v2/records','/v2/records/withdraw','/v3/records','/v3/records/withdraw','/v3/reports'):self.reply(404,{'error':'not_found'});return
+        if self.path not in ('/v1/usage','/v1/leaderboard','/v1/leaderboard/withdraw','/v2/records','/v2/records/withdraw','/v3/records','/v3/records/withdraw','/v3/reports','/v1/privacy/request'):self.reply(404,{'error':'not_found'});return
         if not self.server.allow():self.reply(429,{'error':'busy'});return
         try:length=int(self.headers.get('Content-Length','0'))
         except ValueError:self.reply(400,{'error':'invalid'});return
@@ -86,6 +89,9 @@ class Handler(BaseHTTPRequestHandler):
         self.connection.settimeout(5)
         try:
             data=json.loads(self.rfile.read(length))
+            if self.path=='/v1/privacy/request':
+                with self.server.db() as db:result=privacy_cases.request(db,data)
+                self.reply(200,result);return
             if self.path!='/v1/usage':
                 with self.server.db() as db:
                     if self.path.endswith('/withdraw'):
@@ -112,13 +118,13 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(status);self.send_header('Content-Type','text/html; charset=utf-8');self.send_header('Cache-Control','no-store')
             self.send_header('X-Content-Type-Options','nosniff');self.send_header('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'")
             self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body);return
-        if self.path=='/v1/moderation' or self.path.startswith('/v1/moderation?'):
+        if self.path in ('/v1/moderation','/v1/privacy/admin') or self.path.startswith(('/v1/moderation?','/v1/privacy/admin?')):
             if not self.authorized():self.reply(404,{'error':'not_found'});return
             try:
                 query=parse_qs(urlsplit(self.path).query,strict_parsing=True)
                 if set(query)-{'offset'} or any(len(v)!=1 for v in query.values()):raise ValueError('invalid page')
                 offset=int(query.get('offset',['0'])[0])
-                with self.server.db() as db:data=moderation.queue(db,offset)
+                with self.server.db() as db:data=privacy_cases.queue(db,offset) if self.path.startswith('/v1/privacy/admin') else moderation.queue(db,offset)
                 self.reply(200,data)
             except ValueError:self.reply(400,{'error':'invalid'})
             except Exception:self.reply(503,{'error':'unavailable'})
@@ -152,7 +158,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path!='/v1/totals' or not self.server.admin_token or not hmac.compare_digest(supplied,expected):self.reply(404,{'error':'not_found'});return
         try:
             with self.server.db() as db:
-                moderation.prune(db)
+                moderation.prune(db);privacy_cases.prune(db)
                 rows=db.execute('SELECT day,event,count FROM totals ORDER BY day,event').fetchall()
             self.reply(200,{'schema':1,'totals':[{'day':d,'event':e,'count':n} for d,e,n in rows]})
         except Exception:self.reply(503,{'error':'unavailable'})

@@ -14,12 +14,24 @@ class PublicPolicyTests(unittest.TestCase):
         self.data=json.loads((ROOT/'server/public.policy.review.json').read_text());self.write(self.data)
     def tearDown(self):self.temp.cleanup()
     def write(self,data):self.config.write_text(json.dumps(data,ensure_ascii=False),encoding='utf8')
-    def test_complete_review_facts_render_bilingual_and_explicit_draft(self):
+    def test_complete_review_facts_render_english_world_only_and_explicit_draft(self):
         d=load_config(self.config);self.assertEqual(d['publication_status'],'draft')
         status,body=page('/privacy',self.config);text=body.decode();self.assertEqual(status,200)
-        for expected in ('data-publication-status="draft"','PROPOSTA EM REVISÃO','DRAFT UNDER REVIEW','goncalo@clemir.com','Gonçalo Pereira','lang="pt-PT"','lang="en"','não constitui consentimento','is not consent'):
+        for expected in ('data-publication-status="draft"','DRAFT UNDER REVIEW','goncalo@clemir.com','Gonçalo Pereira','lang="en"','is not consent'):
             self.assertIn(expected,text)
+        self.assertNotIn('lang="pt-PT"',text);self.assertIn('Scorer World Privacy Policy',text);self.assertIn('included local names editor',text)
         self.assertNotIn('Operator review pending',text);self.assertNotIn('[OWNER',text)
+    def test_final_world_policy_is_english_published_and_describes_actual_rights(self):
+        config=ROOT/'server/public.world.policy.json'
+        check(ROOT,config)
+        for path in ('/privacy','/terms','/delete'):
+            code,body=page(path,config);self.assertEqual(code,200)
+            self.assertIn(b'lang="en"',body);self.assertNotIn(b'DRAFT UNDER REVIEW',body)
+        body=page('/privacy',config)[1].decode()
+        for phrase in ('data-publication-status="published"','Privacy rights','Tunnel/proxy','advertising SDKs or in-app purchases','included local names editor','only when you make a request','legitimate interests'):
+            self.assertIn(phrase,body)
+        self.assertNotIn('Proposal for assessment',body)
+
     def test_terms_and_removal_are_available_with_identity_before_privacy_finalization(self):
         self.write(dict(developer_name='Gonçalo Pereira',support_email='goncalo@clemir.com'))
         for path in ('/terms','/delete'):
@@ -71,6 +83,15 @@ class PolicyDeploymentTests(unittest.TestCase):
         stop.assert_called_once();start.assert_called_once();verify.assert_called_once()
         self.assertEqual(sentinel.read_text(),'private test sentinel');self.assertEqual(stat.S_IMODE(sentinel.stat().st_mode),0o600);self.assertEqual(database.read_bytes(),b'not touched')
         self.assertEqual(load_config(self.target/'public.json')['publication_status'],'draft');self.assertEqual(stat.S_IMODE((self.target/'public.json').stat().st_mode),0o644)
+    def test_draft_to_final_is_allowed_and_final_to_draft_is_rejected(self):
+        apply(ROOT,self.config,self.target,Mock(),Mock(),Mock())
+        final=ROOT/'server/public.world.policy.json'
+        apply(ROOT,final,self.target,Mock(),Mock(),Mock())
+        self.assertEqual(load_config(self.target/'public.json')['publication_status'],'published')
+        stop=Mock()
+        with self.assertRaises(ValueError):apply(ROOT,self.config,self.target,stop,Mock(),Mock())
+        stop.assert_not_called()
+
     def test_failed_running_service_check_restores_previous_renderer_and_configuration(self):
         original={name:(self.target/name).read_bytes() for name in FILES[:-1]}
         (self.target/'public.json').write_text('{invalid old config')

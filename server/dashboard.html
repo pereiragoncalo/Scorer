@@ -19,4 +19,15 @@ document.getElementById('moderation-form').onsubmit=async e=>{e.preventDefault()
 window.addEventListener('pagehide',()=>{admin=''});setInterval(()=>{admin='';document.getElementById('moderation-status').textContent='For security, enter the token again before the next action'},10*60*1000);
 </script>
 
+<h2>Privacy requests</h2><p>Pending requests suspend automatic usage on the requesting device. Grant an applicable objection; only the requester can withdraw it. For correspondence, use the public case reference, never ask for its secret token.</p>
+<form id="rights-form"><input id="rights-token" type="password" autocomplete="off" placeholder="Administrator token" required><button>Load privacy requests</button></form>
+<p id="rights-status"></p><div id="rights"></div>
+<script>
+let rightsAdmin='',rightsOffset=0;
+const rightsApi=async(data)=>{const r=await fetch('/v1/privacy/admin'+(data?'':'?offset='+rightsOffset),{method:data?'POST':'GET',headers:{Authorization:'Bearer '+rightsAdmin,'Content-Type':'application/json'},body:data?JSON.stringify(data):undefined,cache:'no-store'});if(!r.ok)throw Error();return r.status===204?{}:r.json()};
+const loadRights=async()=>{const d=await rightsApi();const box=document.getElementById('rights');box.replaceChildren();for(const [label,offset] of [['Previous',Math.max(0,d.offset-100)],['Next',d.next]]){const b=document.createElement('button');b.textContent=label;b.disabled=offset===null||offset===d.offset;b.onclick=async()=>{rightsOffset=offset;try{await loadRights()}catch(_){document.getElementById('rights-status').textContent='Unavailable'}};box.append(b)}for(const x of d.entries){const p=document.createElement('p');p.textContent=[x.reference,x.status,x.created,x.updated].join(' · ');box.append(p);if(x.status==='pending'){const b=document.createElement('button');b.textContent='Grant objection';b.onclick=async()=>{if(!confirm('Grant '+x.reference+'? Collection stays suspended.'))return;try{await rightsApi({reference:x.reference,action:'grant'});await loadRights()}catch(_){document.getElementById('rights-status').textContent='Action failed'}};box.append(b)}}document.getElementById('rights-status').textContent='Loaded '+d.total+' requests'};
+document.getElementById('rights-form').onsubmit=async e=>{e.preventDefault();const t=document.getElementById('rights-token');rightsAdmin=t.value;t.value='';try{await loadRights()}catch(_){rightsAdmin='';document.getElementById('rights-status').textContent='Unavailable or incorrect token'}};
+window.addEventListener('pagehide',()=>{rightsAdmin=''});setInterval(()=>{rightsAdmin='';document.getElementById('rights-status').textContent='Enter the token again before the next action'},10*60*1000);
+</script>
+
 </html>

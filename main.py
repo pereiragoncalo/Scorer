@@ -270,6 +270,8 @@ class StrikerGame(Widget):
         from online_leaderboard import Leaderboard
         from online_config import ORIGIN
         self.leaderboard = Leaderboard(self.career.save_path.parent,ORIGIN)
+        from privacy_requests import PrivacyRequest
+        self.privacy_request=PrivacyRequest(self.career.save_path.parent,ORIGIN)
         from online_safety import FamilyControls
         self.family=FamilyControls(self.career.save_path.parent)
         self._safety_draft={};self._safety_notice='';self._safety_return='privacy';self._adult_unlocked_until=0
@@ -2754,6 +2756,28 @@ class StrikerGame(Widget):
         return True
 
 
+    def _privacy_request_done(self):
+        def finish(_):
+            if self.privacy_request.active:self.usage.respect_privacy_request(True)
+            self.draw()
+        Clock.schedule_once(finish,0)
+
+    def _confirm_privacy_request(self,withdraw=False):
+        content=BoxLayout(orientation='vertical',spacing=dp(8),padding=dp(8))
+        message=('Withdraw your privacy request? Automatic usage resumes on your next opening after confirmation from the server.' if withdraw else 'Submit a privacy objection? Usage collection pauses immediately while your request is handled. Contact goncalo@clemir.com with the displayed reference for assistance.')
+        from kivy.uix.scrollview import ScrollView
+        scroll=ScrollView(do_scroll_x=False);scroll.add_widget(FlowLabel(text=message));content.add_widget(scroll)
+        buttons=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(8))
+        popup=Popup(title='PRIVACY RIGHTS',content=content,size_hint=(.95,.9),auto_dismiss=False)
+        def confirm():
+            popup.dismiss()
+            if not withdraw:
+                self.privacy_request.object();self.usage.respect_privacy_request(True)
+            self.privacy_request.sync(self._privacy_request_done,withdraw=withdraw,force=True)
+            self.draw()
+        buttons.add_widget(TouchButton('CANCEL',popup.dismiss))
+        buttons.add_widget(TouchButton('CONFIRM',confirm,accent=True));content.add_widget(buttons);popup.open()
+
     def _request_record_sharing(self):
         from online_safety import TERMS_TEXT
         from kivy.uix.scrollview import ScrollView
@@ -2796,6 +2820,14 @@ class StrikerGame(Widget):
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
         import time
+        if action=='privacy_rights' and self.view=='privacy':
+            self.view='privacy_rights';self.draw();return
+        if action=='rights_back' and self.view=='privacy_rights':
+            self.view='privacy';self.draw();return
+        if self.view=='privacy_rights' and action in ('rights_object','rights_withdraw','rights_check'):
+            if action=='rights_check':self.privacy_request.sync(self._privacy_request_done,force=True)
+            elif not self.privacy_request.busy:self._confirm_privacy_request(action=='rights_withdraw')
+            self.draw();return
         if action=='notice_exit' and self.view=='data_notice':self._request_exit();return
         if action=='notice_continue' and self.view=='data_notice':
             try:
@@ -5424,6 +5456,8 @@ class StrikerApp(App):
 
     def _flush_usage(self):
         if self.root is not None:
+            request=getattr(self.root,'privacy_request',None)
+            if request is not None and request.status=='pending':request.sync(self.root._privacy_request_done)
             self.root.usage.flush_async()
             board=self.root.leaderboard
             if board.pending_withdrawal and not board.busy:
@@ -5444,6 +5478,8 @@ class StrikerApp(App):
 
     def on_resume(self):
         if self.root is not None:
+            request=getattr(self.root,'privacy_request',None)
+            if request is not None:self.root.usage.respect_privacy_request(request.active)
             self.root.usage.begin_session()
             self.root.usage.flush_async()
         if self.root and edition.is_world():

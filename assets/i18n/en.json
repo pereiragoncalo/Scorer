@@ -286,5 +286,20 @@
   "Export before uninstalling or changing to the Play version. The file includes your name and game progress; keep it private. Only the same edition can import it. No PINs or online credentials are exported.": "Export before uninstalling or changing to the Play version. The file includes your name and game progress; keep it private. Only the same edition can import it. No PINs or online credentials are exported.",
   "Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.": "Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.",
   "Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.": "Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.",
-  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "Local files and exports contain game progress. Keep exported files private. Data and font licences are included."
+  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.",
+  "PRIVACY RIGHTS": "PRIVACY RIGHTS",
+  "SUBMIT PRIVACY REQUEST": "SUBMIT PRIVACY REQUEST",
+  "CHECK REQUEST": "CHECK REQUEST",
+  "WITHDRAW PRIVACY REQUEST": "WITHDRAW PRIVACY REQUEST",
+  "Usage suspended for a privacy request.": "Usage suspended for a privacy request.",
+  "Request saved. Usage collection is suspended.": "Request saved. Usage collection is suspended.",
+  "Usage is paused for this session. Could not save the request; contact support and retry.": "Usage is paused for this session. Could not save the request; contact support and retry.",
+  "Request withdrawn. Automatic usage resumes on your next opening.": "Request withdrawn. Automatic usage resumes on your next opening.",
+  "Privacy request received. Usage remains suspended.": "Privacy request received. Usage remains suspended.",
+  "Offline or unavailable. Usage stays suspended; retry or contact support.": "Offline or unavailable. Usage stays suspended; retry or contact support.",
+  "Scorer World is free, with an included names editor. No advertising or in-app purchases.": "Scorer World is free, with an included names editor. No advertising or in-app purchases.",
+  "Use this page for a privacy objection or other applicable legal request. Usage is suspended while your request is pending or granted. This does not remove public records.": "Use this page for a privacy objection or other applicable legal request. Usage is suspended while your request is pending or granted. This does not remove public records.",
+  "Contact goncalo@clemir.com with your reference. Do not send secret tokens, PINs or career files.": "Contact goncalo@clemir.com with your reference. Do not send secret tokens, PINs or career files.",
+  "Withdraw your privacy request? Automatic usage resumes on your next opening after confirmation from the server.": "Withdraw your privacy request? Automatic usage resumes on your next opening after confirmation from the server.",
+  "Submit a privacy objection? Usage collection pauses immediately while your request is handled. Contact goncalo@clemir.com with the displayed reference for assistance.": "Submit a privacy objection? Usage collection pauses immediately while your request is handled. Contact goncalo@clemir.com with the displayed reference for assistance."
 }

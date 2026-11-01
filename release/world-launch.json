@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "play_products": ["world"],
+  "package": "com.clemir.scorerworld",
+  "title": "Scorer World",
+  "price": "free",
+  "advertising": false,
+  "in_app_purchases": false,
+  "editor_included": true,
+  "public_document_language": "en",
+  "primary_store_locale": "en-US"
+}

@@ -14,7 +14,7 @@ with zipfile.ZipFile(artifact) as z:
         assert r['PRIVACY_URL']=='https://stats.clemir.com/privacy'
         assert r['WORLD_LISTING_READY'] is False
         names=tar.getnames()
-        for required in ('online_safety','career_transfer','career_documents'):
+        for required in ('online_safety','career_transfer','career_documents','privacy_requests'):
             assert any(n.endswith('/'+required+'.pyc') or n==required+'.pyc' for n in names)
         code=module('anonymous_stats');assert 'APP_STATS_MANDATORY' in code.co_names
 print('Compiled edition/channel/public metadata/safety/transfer modules verified:',product,channel)

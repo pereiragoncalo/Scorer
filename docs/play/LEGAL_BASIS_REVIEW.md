@@ -1,53 +1,9 @@
-# Automatic aggregate usage — concrete assessment for operator review
+# World automatic usage: adopted purpose and safeguards
 
-Owner: Gonçalo Pereira; privacy/support: goncalo@clemir.com. Both apps are free,
-ad-free and include children in their intended audience. The owner requires
-usage counts to be automatic, without an in-game disable switch.
+Controller: Gonçalo Pereira, goncalo@clemir.com. World is free, ad-free, includes minors and has no ordinary usage switch. The owner confirms legal exceptions and Cloudflare Tunnel/proxy only, with no Web Analytics/Logpush. This is the owner's deployment report, not a direct Cloudflare account audit.
 
-## Actual safeguards implemented in 0.6.46
+The final policy adopts legitimate interests where applicable for minimal aggregate usage and service security, with applicable law taking precedence. Continue acknowledges a notice and is not consent. Offline football does not need analytics. The purpose is measuring actual use of training, matches and failures rather than identifying or targeting players. Alternative store download totals do not show use/failures; per-player telemetry and advertising analytics are unnecessary and excluded. Nine numeric counters, no player/device/session ID or exact event time, bounded queues and 7/90-day retention limit impact. Cloudflare still processes connection information. Children's reasonable expectations and local device-storage/consent laws remain relevant; the policy is not a blanket exemption from them.
 
-Nine bounded counters only, no player/device/session identifiers in usage payload;
-no exact event timestamps or raw diagnostic text. Local queue expires after seven
-days; server keeps combined receipt-day totals90days and periodic cleanup also
-runs without new traffic. HTTPS certificates verified. No raw request/IP/UA logs
-in collector. No advertising/billing SDKs. Usage transmission waits for the
-first-run detailed notice to be acknowledged; public names require independent
-adult-managed access, accepted terms and explicit Share. These are separate flows.
-No PIN or birth date is uploaded. DOB is checked then discarded locally. Adult
-PIN uses salted PBKDF2 and persisted lockout; it is not verified identity or proof
-of legal parental consent.
+Version 0.6.47 adds a real rights workflow: an explicit privacy objection suspends collection and deletes queued counts immediately, including offline. Private request credentials are created only on request and never accompany aggregate counters. Admin can grant, never force resumption; only explicit user withdrawal can resume on the next opening after server confirmation. Pending cases persist until resolved; closed/granted cases expire after 90 days. Corrupt local state fails closed. Email assistance is available without secret credentials. Already combined anonymous totals cannot be separated into a person's history.
 
-## Proposed basis and unresolved decision
-
-A possible basis for aggregate product analytics is legitimate interests in
-understanding operation and improving a free game. The payload minimization and
-absence of profiles/advertising reduce risk. However, convenience to the owner
-does not prove necessity or override children's rights. Counts are not needed to
-play offline. The owner must assess necessity/alternatives, users' reasonable
-expectations, proportionality, the applicable national rules on device storage,
-minors, and how objections would be honored when the owner requests no switch.
-The processor's handling of IP addresses remains relevant even if our own totals
-cannot be attributed to a person.
-
-The Continue button is acknowledgement of a notice, NOT freely given analytics
-consent. Do not label it consent or silently set legal review flags. If the
-applicable assessment requires opt-in/withdrawal or a different arrangement for
-children, implement that before production; this engineering work does not grant
-an exemption. An app-store declaration cannot replace a lawful basis.
-
-## Operator evidence still needed
-
-- Reviewed basis/necessity/balancing record, with particular assessment of children
-  and practical handling of rights/objections.
-- Actual Cloudflare configuration, processor terms, geography, retention/logging
-  and applicable transfer safeguards. No access to those account settings here.
-- Operator adoption of the terms/moderation process and prompt response to
-  goncalo@clemir.com. The code does not provide human moderation by itself.
-- Effective policy date and approval of the final text after deployment settings
-  are confirmed. Complete server/public.example.json and publication review config
-  only with true facts. Empty legal/provider fields intentionally prevent a draft
-  policy from being served as a completed production policy.
-
-See the official User Data and Families sources linked in the audit. Production
-staging blocks while these operator attestations are missing; rehearsal AABs
-remain available for technical verification. This is not a legal opinion.
+Local adult declarations/PINs are not verified identity or proof of parental consent. Public sharing stays locked by default, requires adult action, terms and explicit Share, and names await moderation. A human must actually monitor moderation and the support mailbox. No legal or Google certification is claimed. If applicable law requires a different basis, consent or additional child safeguards, adapt the processing before releasing into that jurisdiction. Production review flags remain explicit gates rather than being inferred from a final-policy filename or HTTP 200.

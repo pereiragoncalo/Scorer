@@ -26,7 +26,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety'))
+MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','privacy_rights'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -226,7 +226,7 @@ class CareerMenu(BoxLayout):
         if self.game.view == 'scorers':
             header.add_widget(self._button('GLOBAL', 'leaderboard'))
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
+            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'rights_back' if self.game.view=='privacy_rights' else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view in ('hub', 'offers'):
@@ -387,7 +387,7 @@ class CareerMenu(BoxLayout):
 
     def _privacy(self):
         card = self.card('PRIVACY')
-        card.label('Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.')
+        card.label('Scorer World is free, with an included names editor. No advertising or in-app purchases.')
         self._privacy_contact(card)
         controls=self.card('ADULT CONTROLS');controls.add_widget(self._button('ADULT CONTROLS','family_controls'))
         controls.add_widget(self._button('STOP SHARING & REMOVE','leaderboard_leave'))
@@ -398,12 +398,27 @@ class CareerMenu(BoxLayout):
         transfer.add_widget(self._button('EXPORT CAREER','career_export'));transfer.add_widget(self._button('IMPORT CAREER','career_import'))
         if self.game._safety_notice:transfer.label(self.game._safety_notice)
         from online_safety import NOTICE_TEXT
-        stats=self.card('Automatic usage statistics');stats.label(NOTICE_TEXT);stats.label('Status: Automatic')
+        stats=self.card('Automatic usage statistics');stats.label(NOTICE_TEXT);stats.label('Usage suspended for a privacy request.' if self.game.privacy_request.active else 'Status: Automatic')
+        stats.add_widget(self._button('PRIVACY RIGHTS','privacy_rights'))
         if self.game.usage_notice:stats.label(self.game.usage_notice)
+
+    def _privacy_rights(self):
+        request=self.game.privacy_request
+        card=self.card('PRIVACY RIGHTS')
+        card.label('Use this page for a privacy objection or other applicable legal request. Usage is suspended while your request is pending or granted. This does not remove public records.')
+        card.label('Contact goncalo@clemir.com with your reference. Do not send secret tokens, PINs or career files.')
+        if request.case_reference:card.label(request.case_reference,localize=False)
+        card.label('Usage suspended for a privacy request.' if request.active else 'Status: Automatic')
+        if request.message:card.label(request.message)
+        if not request.active:card.add_widget(self._button('SUBMIT PRIVACY REQUEST','rights_object'))
+        elif request.status=='needs_support':card.add_widget(self._button('SUBMIT PRIVACY REQUEST','rights_object'))
+        else:
+            card.add_widget(self._button('CHECK REQUEST','rights_check'))
+            card.add_widget(self._button('WITHDRAW PRIVACY REQUEST','rights_withdraw'))
 
     def _privacy_contact(self, card):
         card.label('Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.')
-        card.label('Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.')
+        card.label('Scorer World is free, with an included names editor. No advertising or in-app purchases.')
         card.label('Local files and exports contain game progress. Keep exported files private. Data and font licences are included.')
         card.label('GeoNames / CC BY 4.0 · OpenFootball / CC0 · Annexare / MIT · Barlow, Noto CJK / OFL 1.1 · CLDR / Unicode',muted=True,localize=False)
         if release_settings.DEVELOPER_NAME:card.label(release_settings.DEVELOPER_NAME,localize=False)

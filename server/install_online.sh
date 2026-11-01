@@ -1,7 +1,7 @@
 #!/bin/bash
-# Run with sudo from a reviewed checkout. Never prints administrator credentials.
+# Run as root from a reviewed checkout. Never prints administrator credentials.
 set -euo pipefail
-if [ "$(id -u)" != 0 ]; then echo 'Run this installer with sudo.' >&2; exit 1; fi
+if [ "$(id -u)" != 0 ]; then echo 'Run this installer as root (su - on the laptop).' >&2; exit 1; fi
 scorer_install_source="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 for scorer_command in python3 systemctl install useradd; do command -v "$scorer_command" >/dev/null; done
 if ! id scorer >/dev/null 2>&1; then useradd --system --home /var/lib/scorer --shell /usr/sbin/nologin scorer; fi
@@ -10,8 +10,8 @@ install -d -m 700 -o scorer -g scorer /var/lib/scorer
 install -d -m 700 /etc/scorer
 # Retire the old raw database backup: the new backup process copies totals only.
 if [ -f /var/lib/scorer/online.backup.sqlite ]; then rm /var/lib/scorer/online.backup.sqlite; fi
-install -m 644 "$scorer_install_source/anonymous_stats.py" "$scorer_install_source/season_records.py" "$scorer_install_source/online_safety.py" /opt/scorer/
-for scorer_file in usage_collector.py leaderboard.py season_records.py moderation.py maintenance.py public_pages.py configure_public.py dashboard.html; do install -m 644 "$scorer_install_source/server/$scorer_file" /opt/scorer/server/; done
+install -m 644 "$scorer_install_source/anonymous_stats.py" "$scorer_install_source/season_records.py" "$scorer_install_source/online_safety.py" "$scorer_install_source/privacy_requests.py" /opt/scorer/
+for scorer_file in usage_collector.py leaderboard.py season_records.py moderation.py privacy_cases.py maintenance.py public_pages.py configure_public.py dashboard.html; do install -m 644 "$scorer_install_source/server/$scorer_file" /opt/scorer/server/; done
 if [ ! -f /etc/scorer/online.env ]; then
     python3 - <<'PY'
 import os,secrets

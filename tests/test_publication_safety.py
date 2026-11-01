@@ -139,7 +139,7 @@ class ModerationPagingTests(unittest.TestCase):
             finally:service.server_close()
 
 class StagingTests(unittest.TestCase):
-    def test_both_production_identities_require_explicit_review_and_keep_public_metadata(self):
+    def test_world_only_production_launch_keeps_editor_and_free_cannot_be_staged_for_play(self):
         from tools.prepare_editions import prepare_edition
         from tools.play.publication import validate_publication
         from tools.play.prepare import ROOT
@@ -148,11 +148,13 @@ class StagingTests(unittest.TestCase):
         self.assertTrue(validate_publication(None));self.assertTrue(validate_publication({}))
         review={k:True for k in ('automatic_usage_legal_review','children_social_review','moderation_operator_ready','public_policy_live','cloudflare_practices_reviewed')};review['legal_basis']='Synthetic test review only, not an actual legal approval'
         with tempfile.TemporaryDirectory() as t:
-            with self.assertRaises(ValueError):prepare_edition('free',Path(t)/'refused',channel='production',config=config)
-            for product in ('free','world'):
-                stage=prepare_edition(product,Path(t)/product,channel='production',config=config,publication=review)
-                spec=configparser.ConfigParser();spec.read(stage/'buildozer.spec')
-                self.assertEqual(spec['app']['package.name'],'striker' if product=='free' else 'scorerworld')
-                ns={};exec((stage/'release_settings.py').read_text(),ns)
-                self.assertEqual(ns['CHANNEL'],'production');self.assertEqual(ns['SUPPORT_EMAIL'],'goncalo@clemir.com');self.assertFalse(ns['WORLD_LISTING_READY'])
-                self.assertNotIn('android.gradle_dependencies',spec['app']);self.assertFalse((stage/'server').exists())
+            with self.assertRaises(ValueError):prepare_edition('world',Path(t)/'unreviewed',channel='production',config=config)
+            with self.assertRaisesRegex(ValueError,'Only Scorer World'):prepare_edition('free',Path(t)/'free',channel='production',config=config,publication=review)
+            stage=prepare_edition('world',Path(t)/'world',channel='production',config=config,publication=review)
+            spec=configparser.ConfigParser();spec.read(stage/'buildozer.spec')
+            self.assertEqual(spec['app']['package.name'],'scorerworld')
+            ns={};exec((stage/'release_settings.py').read_text(),ns)
+            self.assertEqual(ns['CHANNEL'],'production');self.assertEqual(ns['SUPPORT_EMAIL'],'goncalo@clemir.com');self.assertFalse(ns['WORLD_LISTING_READY'])
+            e={};exec((stage/'edition.py').read_text(),e);self.assertTrue(e['WORLD_BUILD']);self.assertFalse(e['WORLD_PREVIEW'])
+            self.assertTrue((stage/'name_packs.py').is_file());self.assertTrue((stage/'android/worldsrc/com/clemir/striker/files/LocalNameFiles.java').is_file())
+            self.assertNotIn('android.gradle_dependencies',spec['app']);self.assertFalse((stage/'server').exists())

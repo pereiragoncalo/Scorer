@@ -2,6 +2,7 @@
 from pathlib import Path
 import argparse,os,sqlite3,time
 from server.moderation import prune
+from server import privacy_cases
 PRIVATE_TABLES=('leaderboard','season_records','moderation','reports','banned_publishers')
 def backup(database,target):
     target=Path(target)
@@ -17,7 +18,7 @@ def backup(database,target):
 
 def maintain(database):
     database=Path(database)
-    with sqlite3.connect(database) as db:prune(db)
+    with sqlite3.connect(database) as db:privacy_cases.initialize(db);prune(db);privacy_cases.prune(db)
     old=database.parent/'online.backup.sqlite'
     # Older installer backups can contain names: remove once on migration.
     old.unlink(missing_ok=True)

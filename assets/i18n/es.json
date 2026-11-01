@@ -286,5 +286,20 @@
   "Export before uninstalling or changing to the Play version. The file includes your name and game progress; keep it private. Only the same edition can import it. No PINs or online credentials are exported.": "Exporta antes de desinstalar o cambiar a la versión Play. El archivo incluye nombre y progreso; mantenlo privado. Solo la misma edición puede importarlo. No se exportan PIN ni credenciales online.",
   "Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.": "Las carreras quedan en el dispositivo. Los récords públicos son opcionales y se pueden borrar. Desinstalar no los borra.",
   "Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.": "Scorer y Scorer World son apps gratuitas separadas con carreras independientes. Sin anuncios ni compras integradas.",
-  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "Los archivos locales y exportados contienen progreso. Mantén las exportaciones privadas. Se incluyen licencias de datos y fuentes."
+  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "Los archivos locales y exportados contienen progreso. Mantén las exportaciones privadas. Se incluyen licencias de datos y fuentes.",
+  "PRIVACY RIGHTS": "DERECHOS DE PRIVACIDAD",
+  "SUBMIT PRIVACY REQUEST": "ENVIAR SOLICITUD DE PRIVACIDAD",
+  "CHECK REQUEST": "CONSULTAR SOLICITUD",
+  "WITHDRAW PRIVACY REQUEST": "RETIRAR SOLICITUD DE PRIVACIDAD",
+  "Usage suspended for a privacy request.": "Uso suspendido por una solicitud de privacidad.",
+  "Request saved. Usage collection is suspended.": "Solicitud guardada. La recopilación de uso está suspendida.",
+  "Usage is paused for this session. Could not save the request; contact support and retry.": "El uso está suspendido durante esta sesión. No se pudo guardar la solicitud; contacta con soporte e inténtalo de nuevo.",
+  "Request withdrawn. Automatic usage resumes on your next opening.": "Solicitud retirada. El uso automático se reanuda en la próxima apertura.",
+  "Privacy request received. Usage remains suspended.": "Solicitud de privacidad recibida. El uso sigue suspendido.",
+  "Offline or unavailable. Usage stays suspended; retry or contact support.": "Sin conexión o no disponible. El uso sigue suspendido; reintenta o contacta con soporte.",
+  "Scorer World is free, with an included names editor. No advertising or in-app purchases.": "Scorer World es gratuito e incluye un editor de nombres. Sin publicidad ni compras en la aplicación.",
+  "Use this page for a privacy objection or other applicable legal request. Usage is suspended while your request is pending or granted. This does not remove public records.": "Usa esta página para oponerte al tratamiento u otra solicitud legal aplicable. El uso se suspende mientras la solicitud esté pendiente o concedida. Esto no elimina récords públicos.",
+  "Contact goncalo@clemir.com with your reference. Do not send secret tokens, PINs or career files.": "Contacta con goncalo@clemir.com e indica tu referencia. No envíes tokens secretos, PIN ni archivos de carrera.",
+  "Withdraw your privacy request? Automatic usage resumes on your next opening after confirmation from the server.": "¿Retirar tu solicitud de privacidad? El uso automático se reanuda en la próxima apertura tras la confirmación del servidor.",
+  "Submit a privacy objection? Usage collection pauses immediately while your request is handled. Contact goncalo@clemir.com with the displayed reference for assistance.": "¿Enviar una oposición al tratamiento? La recopilación de uso se suspende inmediatamente mientras se tramita tu solicitud. Para recibir ayuda, contacta con goncalo@clemir.com e indica la referencia mostrada."
 }

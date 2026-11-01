@@ -286,5 +286,20 @@
   "Export before uninstalling or changing to the Play version. The file includes your name and game progress; keep it private. Only the same edition can import it. No PINs or online credentials are exported.": "卸载或切换至Play版本前请导出。文件包含姓名和游戏进度，请妥善保密。仅相同版本类型可导入，不导出PIN或在线凭据。",
   "Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.": "生涯保存在设备上。公开记录为可选且可删除，卸载应用不会删除公开记录。",
   "Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.": "Scorer和Scorer World是独立的免费应用，生涯互不相通，无广告或内购。",
-  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "本地和导出文件包含游戏进度，请保密。已附数据和字体许可证。"
+  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "本地和导出文件包含游戏进度，请保密。已附数据和字体许可证。",
+  "PRIVACY RIGHTS": "隐私权利",
+  "SUBMIT PRIVACY REQUEST": "提交隐私请求",
+  "CHECK REQUEST": "检查请求",
+  "WITHDRAW PRIVACY REQUEST": "撤回隐私请求",
+  "Usage suspended for a privacy request.": "因隐私请求暂停使用统计收集。",
+  "Request saved. Usage collection is suspended.": "请求已保存。使用统计收集已暂停。",
+  "Usage is paused for this session. Could not save the request; contact support and retry.": "本次运行期间已暂停收集。无法保存请求，请联系支持并重试。",
+  "Request withdrawn. Automatic usage resumes on your next opening.": "请求已撤回。下次打开应用时恢复自动收集。",
+  "Privacy request received. Usage remains suspended.": "已收到隐私请求。收集继续暂停。",
+  "Offline or unavailable. Usage stays suspended; retry or contact support.": "离线或服务不可用。收集继续暂停，请重试或联系支持。",
+  "Scorer World is free, with an included names editor. No advertising or in-app purchases.": "Scorer World免费，包含名称编辑器。没有广告或应用内购买。",
+  "Use this page for a privacy objection or other applicable legal request. Usage is suspended while your request is pending or granted. This does not remove public records.": "在此页面可对个人信息处理提出异议或提交其他适用的法律请求。请求待处理或已获准期间暂停收集。这不会删除公开记录。",
+  "Contact goncalo@clemir.com with your reference. Do not send secret tokens, PINs or career files.": "请提供参考编号并联系goncalo@clemir.com。请勿发送秘密令牌、PIN或生涯文件。",
+  "Withdraw your privacy request? Automatic usage resumes on your next opening after confirmation from the server.": "撤回隐私请求？服务器确认后，下次打开应用时恢复自动收集。",
+  "Submit a privacy objection? Usage collection pauses immediately while your request is handled. Contact goncalo@clemir.com with the displayed reference for assistance.": "提交个人信息处理异议？处理请求期间将立即暂停使用统计收集。如需帮助，请提供显示的参考编号并联系goncalo@clemir.com。"
 }

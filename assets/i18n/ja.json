@@ -286,5 +286,20 @@
   "Export before uninstalling or changing to the Play version. The file includes your name and game progress; keep it private. Only the same edition can import it. No PINs or online credentials are exported.": "アンインストールやPlay版への移行前にエクスポートしてください。名前と進行状況を含むため秘密に保管してください。同じ版でのみインポートできます。PINとオンライン認証情報は含まれません。",
   "Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.": "キャリアは端末内に保存されます。公開記録は任意で削除可能です。アンインストールしても公開記録は削除されません。",
   "Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.": "ScorerとScorer Worldは独立したキャリアを持つ別々の無料アプリです。広告やアプリ内購入はありません。",
-  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "ローカル・エクスポートファイルには進行状況を含みます。秘密に保管してください。データとフォントのライセンスを同梱しています。"
+  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "ローカル・エクスポートファイルには進行状況を含みます。秘密に保管してください。データとフォントのライセンスを同梱しています。",
+  "PRIVACY RIGHTS": "プライバシーの権利",
+  "SUBMIT PRIVACY REQUEST": "プライバシー申請を送信",
+  "CHECK REQUEST": "申請を確認",
+  "WITHDRAW PRIVACY REQUEST": "プライバシー申請を撤回",
+  "Usage suspended for a privacy request.": "プライバシー申請により利用統計の収集を停止しています。",
+  "Request saved. Usage collection is suspended.": "申請を保存しました。利用統計の収集を停止します。",
+  "Usage is paused for this session. Could not save the request; contact support and retry.": "今回の起動中は収集を停止します。申請を保存できませんでした。サポートに連絡し、再試行してください。",
+  "Request withdrawn. Automatic usage resumes on your next opening.": "申請を撤回しました。次回の起動時に自動収集が再開します。",
+  "Privacy request received. Usage remains suspended.": "プライバシー申請を受け付けました。収集は引き続き停止します。",
+  "Offline or unavailable. Usage stays suspended; retry or contact support.": "オフラインまたは利用できません。収集は停止したままです。再試行するかサポートに連絡してください。",
+  "Scorer World is free, with an included names editor. No advertising or in-app purchases.": "Scorer Worldは無料で、名前エディターを含みます。広告やアプリ内購入はありません。",
+  "Use this page for a privacy objection or other applicable legal request. Usage is suspended while your request is pending or granted. This does not remove public records.": "このページでは個人情報の処理への異議や適用される法的申請を行えます。申請が保留中または承認済みの間、収集を停止します。公開記録は削除されません。",
+  "Contact goncalo@clemir.com with your reference. Do not send secret tokens, PINs or career files.": "参照番号を添えてgoncalo@clemir.comに連絡してください。秘密のトークン、PIN、キャリアファイルは送らないでください。",
+  "Withdraw your privacy request? Automatic usage resumes on your next opening after confirmation from the server.": "プライバシー申請を撤回しますか？サーバーの確認後、次回の起動時に自動収集が再開します。",
+  "Submit a privacy objection? Usage collection pauses immediately while your request is handled. Contact goncalo@clemir.com with the displayed reference for assistance.": "個人情報の処理に異議を申し立てますか？申請の処理中は利用統計の収集を直ちに停止します。お困りの場合は、表示された参照番号を添えてgoncalo@clemir.comに連絡してください。"
 }

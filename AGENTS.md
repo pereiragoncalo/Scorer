@@ -1,3 +1,5 @@
+- Owner 2026-11-01 / 0.6.47: Launch ONLY Scorer World on Google Play, free, no advertising or IAP, names editor included. Free is legacy QA, not a second listing. Public privacy/terms/removal and store materials are English; keep nine game UI languages. Owner confirms Cloudflare Tunnel/proxy only, no Web Analytics/Logpush, and accepts legally applicable privacy exceptions to automatic usage. Implemented Privacy rights requests suspend collection locally/offline and clear unsent counters; requests remain paused until requester explicitly withdraws with server confirmation. Private case token is created only on request, never linked to aggregate usage; admin may grant, never force resume. Final English policy is server/public.world.policy.json; installing it is not Google approval. Preserve signing, device and Console gates, original physics/careers/editor and unrelated WIP.
+
 # SCORER Android — repository instructions for Codex
 
 ## Absolute scope

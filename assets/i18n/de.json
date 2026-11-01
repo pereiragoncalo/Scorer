@@ -286,5 +286,20 @@
   "Export before uninstalling or changing to the Play version. The file includes your name and game progress; keep it private. Only the same edition can import it. No PINs or online credentials are exported.": "Vor Deinstallation oder Wechsel zur Play-Version exportieren. Die Datei enthält Namen und Fortschritt; privat aufbewahren. Nur dieselbe Edition kann sie importieren. PINs und Online-Zugangsdaten werden nicht exportiert.",
   "Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.": "Karrieren bleiben auf dem Gerät. Öffentliche Rekorde sind freiwillig und löschbar. Deinstallieren entfernt sie nicht.",
   "Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.": "Scorer und Scorer World sind getrennte kostenlose Apps mit unabhängigen Karrieren. Keine Werbung oder In-App-Käufe.",
-  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "Lokale und exportierte Dateien enthalten Spielfortschritt. Exporte privat halten. Daten- und Schriftlizenzen liegen bei."
+  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "Lokale und exportierte Dateien enthalten Spielfortschritt. Exporte privat halten. Daten- und Schriftlizenzen liegen bei.",
+  "PRIVACY RIGHTS": "DATENSCHUTZRECHTE",
+  "SUBMIT PRIVACY REQUEST": "DATENSCHUTZANTRAG SENDEN",
+  "CHECK REQUEST": "ANTRAG PRÜFEN",
+  "WITHDRAW PRIVACY REQUEST": "DATENSCHUTZANTRAG ZURÜCKZIEHEN",
+  "Usage suspended for a privacy request.": "Nutzungserfassung wegen eines Datenschutzantrags ausgesetzt.",
+  "Request saved. Usage collection is suspended.": "Antrag gespeichert. Die Nutzungserfassung ist ausgesetzt.",
+  "Usage is paused for this session. Could not save the request; contact support and retry.": "Die Nutzungserfassung ist für diese Sitzung ausgesetzt. Der Antrag konnte nicht gespeichert werden; Support kontaktieren und erneut versuchen.",
+  "Request withdrawn. Automatic usage resumes on your next opening.": "Antrag zurückgezogen. Die automatische Nutzungserfassung beginnt beim nächsten Öffnen wieder.",
+  "Privacy request received. Usage remains suspended.": "Datenschutzantrag empfangen. Die Nutzungserfassung bleibt ausgesetzt.",
+  "Offline or unavailable. Usage stays suspended; retry or contact support.": "Offline oder nicht verfügbar. Die Nutzungserfassung bleibt ausgesetzt; erneut versuchen oder Support kontaktieren.",
+  "Scorer World is free, with an included names editor. No advertising or in-app purchases.": "Scorer World ist kostenlos und enthält einen Namenseditor. Keine Werbung oder In-App-Käufe.",
+  "Use this page for a privacy objection or other applicable legal request. Usage is suspended while your request is pending or granted. This does not remove public records.": "Diese Seite dient einem Datenschutzwiderspruch oder einem anderen anwendbaren Rechtsantrag. Die Nutzungserfassung bleibt bei ausstehendem oder bewilligtem Antrag ausgesetzt. Öffentliche Rekorde werden dadurch nicht entfernt.",
+  "Contact goncalo@clemir.com with your reference. Do not send secret tokens, PINs or career files.": "Kontaktiere goncalo@clemir.com mit deiner Referenz. Keine geheimen Tokens, PINs oder Karrieredateien senden.",
+  "Withdraw your privacy request? Automatic usage resumes on your next opening after confirmation from the server.": "Datenschutzantrag zurückziehen? Nach Bestätigung des Servers beginnt die automatische Nutzungserfassung beim nächsten Öffnen wieder.",
+  "Submit a privacy objection? Usage collection pauses immediately while your request is handled. Contact goncalo@clemir.com with the displayed reference for assistance.": "Datenschutzwiderspruch einreichen? Die Nutzungserfassung wird während der Bearbeitung sofort ausgesetzt. Für Hilfe goncalo@clemir.com mit der angezeigten Referenz kontaktieren."
 }

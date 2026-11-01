@@ -286,5 +286,20 @@
   "Export before uninstalling or changing to the Play version. The file includes your name and game progress; keep it private. Only the same edition can import it. No PINs or online credentials are exported.": "삭제하거나 Play 버전으로 바꾸기 전에 내보내세요. 파일에는 이름과 게임 진행이 포함되므로 비공개로 보관하세요. 같은 에디션만 가져올 수 있습니다. PIN과 온라인 인증 정보는 내보내지 않습니다.",
   "Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.": "커리어는 기기에 저장됩니다. 공개 기록은 선택 사항이며 삭제할 수 있습니다. 앱 삭제만으로 공개 기록은 삭제되지 않습니다.",
   "Scorer and Scorer World are separate free apps with independent careers. No advertising or in-app purchases.": "Scorer와 Scorer World는 독립 커리어를 가진 별도의 무료 앱입니다. 광고와 인앱 구매가 없습니다.",
-  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "로컬 파일과 내보낸 파일에 게임 진행이 포함됩니다. 내보낸 파일은 비공개로 보관하세요. 데이터와 글꼴 라이선스가 포함되어 있습니다."
+  "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.": "로컬 파일과 내보낸 파일에 게임 진행이 포함됩니다. 내보낸 파일은 비공개로 보관하세요. 데이터와 글꼴 라이선스가 포함되어 있습니다.",
+  "PRIVACY RIGHTS": "개인정보 권리",
+  "SUBMIT PRIVACY REQUEST": "개인정보 요청 제출",
+  "CHECK REQUEST": "요청 확인",
+  "WITHDRAW PRIVACY REQUEST": "개인정보 요청 철회",
+  "Usage suspended for a privacy request.": "개인정보 요청으로 사용 통계 수집이 중단되었습니다.",
+  "Request saved. Usage collection is suspended.": "요청이 저장되었습니다. 사용 통계 수집이 중단됩니다.",
+  "Usage is paused for this session. Could not save the request; contact support and retry.": "이번 실행 동안 수집이 중단됩니다. 요청을 저장할 수 없습니다. 지원팀에 문의하고 다시 시도하세요.",
+  "Request withdrawn. Automatic usage resumes on your next opening.": "요청이 철회되었습니다. 다음에 앱을 열면 자동 수집이 재개됩니다.",
+  "Privacy request received. Usage remains suspended.": "개인정보 요청이 접수되었습니다. 수집은 계속 중단됩니다.",
+  "Offline or unavailable. Usage stays suspended; retry or contact support.": "오프라인이거나 이용할 수 없습니다. 수집은 계속 중단됩니다. 다시 시도하거나 지원팀에 문의하세요.",
+  "Scorer World is free, with an included names editor. No advertising or in-app purchases.": "Scorer World는 무료이며 이름 편집기가 포함되어 있습니다. 광고나 앱 내 구매가 없습니다.",
+  "Use this page for a privacy objection or other applicable legal request. Usage is suspended while your request is pending or granted. This does not remove public records.": "이 페이지에서 개인정보 처리에 대한 이의 제기 또는 관련 법적 요청을 제출할 수 있습니다. 요청이 대기 중이거나 승인된 동안 수집은 중단됩니다. 공개 기록은 삭제되지 않습니다.",
+  "Contact goncalo@clemir.com with your reference. Do not send secret tokens, PINs or career files.": "참조 번호와 함께 goncalo@clemir.com으로 문의하세요. 비밀 토큰, PIN 또는 커리어 파일을 보내지 마세요.",
+  "Withdraw your privacy request? Automatic usage resumes on your next opening after confirmation from the server.": "개인정보 요청을 철회할까요? 서버 확인 후 다음에 앱을 열면 자동 수집이 재개됩니다.",
+  "Submit a privacy objection? Usage collection pauses immediately while your request is handled. Contact goncalo@clemir.com with the displayed reference for assistance.": "개인정보 처리에 이의를 제기할까요? 요청 처리 중 사용 통계 수집이 즉시 중단됩니다. 도움이 필요하면 표시된 참조 번호와 함께 goncalo@clemir.com으로 문의하세요."
 }
