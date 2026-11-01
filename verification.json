@@ -1,0 +1,50 @@
+{
+  "version": "0.9.3",
+  "version_code": 1026903,
+  "package": "com.clemir.scorerworld",
+  "source_commit": "1c7550289bb359b03233b261e90cc20b0c1469db",
+  "artifact": "Scorer-World-0.9.3.apk",
+  "bytes": 74037323,
+  "sha256": "d7f1ce0a3348384b9ce1fb38a1f36dd475a68b88d7418e7cff79414b01d21967",
+  "certificate_sha256": "84c17cdf31e2ee7c6e9c082bde539df6822bf48267a0603de9814d6e2846ef49",
+  "signing": "Existing DEBUG upgrade key; QA candidate",
+  "target_api": 36,
+  "min_api": 26,
+  "architecture": "arm64-v8a",
+  "elf16k": 118,
+  "zip16k": true,
+  "tests": {
+    "core_unique": 232,
+    "native_kivy_unique": 116,
+    "total_unique": 348,
+    "note": "231 initial core passes + deterministic rollover fixture targeted pass;113 initial UI passes + requested button-count correction targeted pass +2new access tests; six failing subtests belonged to one UI case"
+  },
+  "main_privacy_removed": true,
+  "top_scorers_global_removed": true,
+  "leaderboard_read_without_adult_gate": true,
+  "publication_confirmation_retained": true,
+  "report_block_available_to_viewers": true,
+  "career_transfer_path": "Help > Settings",
+  "startup_agreement_retained": true,
+  "client_privacy_request_workflow": false,
+  "exact_compiled_source_verified": true,
+  "compiled_portuguese_labels_verified": true,
+  "competition_save_reload_verified": true,
+  "physical_android_tested": false,
+  "production_signed": false,
+  "play_uploaded": false,
+  "live_server_updated": false,
+  "live_read_check": {
+    "scope": "World/England/4",
+    "http": 200,
+    "schema": 3,
+    "records": 0
+  },
+  "uncompressed_json_download": {
+    "url": "https://github.com/pereiragoncalo/Scorer/releases/download/real-names-2026-07/Scorer-World-Real-Names-Europe-Brazil-Argentina-2026-07.json",
+    "content_disposition": "attachment; filename=Scorer-World-Real-Names-Europe-Brazil-Argentina-2026-07.json",
+    "bytes": 113122,
+    "sha256": "16720b564ebf69c1eb495e5b803a0db2630f4cc76fd220e988bde9786ea4f951",
+    "matches_source": true
+  }
+}
