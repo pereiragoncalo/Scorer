@@ -1,0 +1,30 @@
+{
+  "release": "0.6.47",
+  "source": "19c13b10d51e9dc49f4bbd70f34f66b82cb50ffc",
+  "packs": [
+    {
+      "file": "Scorer-World-Real-Names-Europe-2026-07.json",
+      "bytes": 85269,
+      "sha256": "36a10dab7f6c840f8b57a40637b69c9ba7c0909040b789ce353bc9f0468375eb",
+      "clubs": 398,
+      "players": 1406,
+      "actual_release_preview_apply_save_reload": "pass",
+      "backup_created": true,
+      "changed_save_fields": [
+        "display_aliases"
+      ]
+    },
+    {
+      "file": "Scorer-World-Real-Names-Portugal-2026-07.json",
+      "bytes": 18431,
+      "sha256": "00daefae340cedbef7ef82d4a2dc7cfc50edb047598d43d4c5ab0878a444e7c2",
+      "clubs": 72,
+      "players": 323,
+      "actual_release_preview_apply_save_reload": "pass",
+      "backup_created": true,
+      "changed_save_fields": [
+        "display_aliases"
+      ]
+    }
+  ]
+}

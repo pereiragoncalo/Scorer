@@ -1,0 +1,4799 @@
+{
+  "countries": [
+    "Portugal",
+    "England",
+    "Spain",
+    "Germany",
+    "Italy",
+    "France"
+  ],
+  "club_entries": 398,
+  "player_aliases": 1406,
+  "clubs_with_player_names": 146,
+  "matched_clubs": [
+    {
+      "uid": "c8d6431e000ec7467295",
+      "country": "Portugal",
+      "game_club_reference": "SL Benfica",
+      "source_club_name": "SL Benfica",
+      "source_club_id": "294",
+      "player_names": [
+        "Andreas Schjelderup",
+        "Vangelis Pavlidis",
+        "Gianluca Prestianni",
+        "Anísio Cabral",
+        "Bruma",
+        "Henrique Araújo",
+        "Rodrigo Rêgo",
+        "Richard Ríos",
+        "Leandro Barreiro",
+        "Fredrik Aursnes",
+        "Enzo Barrenechea",
+        "Manu Silva"
+      ]
+    },
+    {
+      "uid": "00d46be2fe2f866aca10",
+      "country": "Portugal",
+      "game_club_reference": "Sporting CP",
+      "source_club_name": "Sporting CP",
+      "source_club_id": "336",
+      "player_names": [
+        "Geovany Quenda",
+        "Luis Suárez",
+        "Pedro Gonçalves",
+        "Geny Catamo",
+        "Fotis Ioannidis",
+        "Rodrigo Ribeiro",
+        "Rafael Nel",
+        "Souleymane Faye",
+        "Mauro Couto",
+        "Lucas Anjos",
+        "Chris Grombahi",
+        "Morten Hjulmand"
+      ]
+    },
+    {
+      "uid": "d3811223093359dac065",
+      "country": "Portugal",
+      "game_club_reference": "FC Porto",
+      "source_club_name": "FC Porto",
+      "source_club_id": "720",
+      "player_names": [
+        "Samu Aghehowa",
+        "William Gomes",
+        "Oskar Pietuszewski",
+        "Borja Sainz",
+        "Pepê",
+        "Ángel Alarcón",
+        "Deniz Gül",
+        "Gonçalo Sousa",
+        "Yann Karamoh",
+        "Luuk de Jong",
+        "Tiago Andrade",
+        "André Miranda"
+      ]
+    },
+    {
+      "uid": "582cdd1845afc7c3faff",
+      "country": "Portugal",
+      "game_club_reference": "SC Braga",
+      "source_club_name": "SC Braga",
+      "source_club_id": "1075",
+      "player_names": [
+        "Pau Víctor",
+        "Ricardo Horta",
+        "Gabri Martínez",
+        "Fran Navarro",
+        "Sandro Vidigal",
+        "Amine El Ouazzani",
+        "João Marques",
+        "João Aragão",
+        "Mordomo",
+        "Samy Jr. Merheg",
+        "Rodrigo Zalazar",
+        "Mario Dorgeles"
+      ]
+    },
+    {
+      "uid": "ab3f115c251fea1b8d9f",
+      "country": "Portugal",
+      "game_club_reference": "Vitória de Guimarães",
+      "source_club_name": "Vitória Guimarães SC",
+      "source_club_id": "2420",
+      "player_names": [
+        "Noah Saviolo",
+        "Oumar Camara",
+        "Gustavo Silva",
+        "Telmo Arcanjo",
+        "Miguel Nogueira",
+        "Alioune Ndoye",
+        "Fabio Blanco",
+        "Nélson Oliveira",
+        "Rodrigo Duarte",
+        "Ejike Opara",
+        "Guilherme Paula",
+        "Diogo Sousa"
+      ]
+    },
+    {
+      "uid": "560353d7b1b1b7d0be34",
+      "country": "Portugal",
+      "game_club_reference": "Rio Ave FC",
+      "source_club_name": "Rio Ave FC",
+      "source_club_id": "2425",
+      "player_names": [
+        "Jalen Blesa",
+        "Diogo Bezerra",
+        "Dario Špikić",
+        "Tamble",
+        "Rafael Lobato",
+        "Tobías Medina",
+        "Karem Zoabi",
+        "Marc Gual",
+        "Amine Rehmi",
+        "Ole Pohlmann",
+        "Brandon Aguilera",
+        "Ryan Guilherme"
+      ]
+    },
+    {
+      "uid": "0e6753645198c3e1ed59",
+      "country": "Portugal",
+      "game_club_reference": "Os Belenenses",
+      "source_club_name": "CF Os Belenenses",
+      "source_club_id": "68608",
+      "player_names": []
+    },
+    {
+      "uid": "15fa5760aa5dfe54e687",
+      "country": "Portugal",
+      "game_club_reference": "Casa Pia",
+      "source_club_name": "Casa Pia AC",
+      "source_club_id": "3268",
+      "player_names": [
+        "Jérémy Livolant",
+        "Tiago Morais",
+        "Kelian Nsona",
+        "Xander Severina",
+        "Korede Osundina",
+        "Kiki",
+        "Cassiano",
+        "Clau Mendes",
+        "Rafael Brito",
+        "Seba Pérez",
+        "Kevin Prieto",
+        "Iyad Mohamed"
+      ]
+    },
+    {
+      "uid": "94fed88d3d0bb2a8c1ca",
+      "country": "Portugal",
+      "game_club_reference": "Estoril Praia",
+      "source_club_name": "GD Estoril Praia",
+      "source_club_id": "1465",
+      "player_names": [
+        "Yanis Begraoui",
+        "Rafik Guitane",
+        "Alejandro Marqués",
+        "André Lacximicant",
+        "Khayon Edwards",
+        "Fabrício Garcia",
+        "Peixinho",
+        "João Carvalho",
+        "Jordan Holsgrove",
+        "Jandro Orellana",
+        "Xeka",
+        "Nodar Lominadze"
+      ]
+    },
+    {
+      "uid": "9b658898a7275eb40aac",
+      "country": "Portugal",
+      "game_club_reference": "Boavista FC",
+      "source_club_name": "Boavista FC",
+      "source_club_id": "2503",
+      "player_names": []
+    },
+    {
+      "uid": "d1fd8dce9882f24d16b9",
+      "country": "Portugal",
+      "game_club_reference": "AVS Futebol",
+      "source_club_name": "Avs Futebol",
+      "source_club_id": "110302",
+      "player_names": [
+        "Kobamelo Kodisang",
+        "Óscar Perea",
+        "Tunde Akinsola",
+        "Antoine Baroan",
+        "Guilherme Neiva",
+        "Diego Duarte",
+        "Tomané",
+        "Nenê",
+        "Jordi Escobar",
+        "Edson Mucuana",
+        "Pedro Lima",
+        "Gustavo Assunção"
+      ]
+    },
+    {
+      "uid": "d51606eab1019fdf7281",
+      "country": "Portugal",
+      "game_club_reference": "GD Chaves",
+      "source_club_name": "GD Chaves",
+      "source_club_id": "3325",
+      "player_names": [
+        "Zach Muscat"
+      ]
+    },
+    {
+      "uid": "db7d1b4b9cc415545634",
+      "country": "Portugal",
+      "game_club_reference": "CD Feirense",
+      "source_club_name": "CD Feirense",
+      "source_club_id": "3349",
+      "player_names": []
+    },
+    {
+      "uid": "1fdc69c867e13ae1a659",
+      "country": "Portugal",
+      "game_club_reference": "Vitória de Setúbal",
+      "source_club_name": "Vitória Setúbal FC",
+      "source_club_id": "1085",
+      "player_names": []
+    },
+    {
+      "uid": "29b7e51552fc753bab79",
+      "country": "Portugal",
+      "game_club_reference": "CS Marítimo",
+      "source_club_name": "CS Marítimo",
+      "source_club_id": "1301",
+      "player_names": []
+    },
+    {
+      "uid": "404adb3453af4787c460",
+      "country": "Portugal",
+      "game_club_reference": "CD Nacional Madeira",
+      "source_club_name": "CD Nacional",
+      "source_club_id": "982",
+      "player_names": [
+        "Jesús Ramírez",
+        "Gabriel Veron",
+        "Paulinho Bóia",
+        "Witi",
+        "Pablo Ruan",
+        "Lucas João",
+        "Watts",
+        "Motez Nourani",
+        "Liziero",
+        "Matheus Dias",
+        "Filipe Soares",
+        "Daniel Jr"
+      ]
+    },
+    {
+      "uid": "4af36bff0eaa37b64b2f",
+      "country": "Portugal",
+      "game_club_reference": "Moreirense FC",
+      "source_club_name": "Moreirense FC",
+      "source_club_id": "979",
+      "player_names": [
+        "Guilherme Schettine",
+        "Landerson",
+        "Cedric Teguia",
+        "Kiko Bondoso",
+        "Luís Semedo",
+        "Yan Maranhão",
+        "Joel Jorquera",
+        "Alan",
+        "Mateja Stjepanović",
+        "Vasco Sousa",
+        "Rodri Alonso",
+        "Lawrence Ofori"
+      ]
+    },
+    {
+      "uid": "5c3a9aa8eea2c6b6352e",
+      "country": "Portugal",
+      "game_club_reference": "FC Paços de Ferreira",
+      "source_club_name": "FC Paços de Ferreira",
+      "source_club_id": "2995",
+      "player_names": [
+        "David Costa"
+      ]
+    },
+    {
+      "uid": "619c457865ab4e078d8c",
+      "country": "Portugal",
+      "game_club_reference": "Portimonense SC",
+      "source_club_name": "Portimonense SC",
+      "source_club_id": "7378",
+      "player_names": []
+    },
+    {
+      "uid": "62611f28eca86577e20d",
+      "country": "Portugal",
+      "game_club_reference": "FC Vizela",
+      "source_club_name": "FC Vizela",
+      "source_club_id": "6912",
+      "player_names": [
+        "Matías Lacava",
+        "Yassin Fortuné",
+        "Heinz Mörschel",
+        "Nikita Demchenko",
+        "Leverton Pierre",
+        "Jójó"
+      ]
+    },
+    {
+      "uid": "6cf9f5cdbbe3296f7212",
+      "country": "Portugal",
+      "game_club_reference": "CD Tondela",
+      "source_club_name": "CD Tondela",
+      "source_club_id": "7179",
+      "player_names": [
+        "Jordan",
+        "Maranhão",
+        "Rony Lopes",
+        "Makan Aïko",
+        "Miro",
+        "Benjamin Kimpioka",
+        "Ivan Cavaleiro",
+        "Arjen van der Heide",
+        "Moudjatovic",
+        "Afonso Rodrigues",
+        "Tray Fuller",
+        "Yefrei Rodríguez"
+      ]
+    },
+    {
+      "uid": "6d0a94b6d9d584ce77e0",
+      "country": "Portugal",
+      "game_club_reference": "Académica de Coimbra",
+      "source_club_name": "Académica Coimbra",
+      "source_club_id": "2990",
+      "player_names": []
+    },
+    {
+      "uid": "7fc18d19e24210fbb207",
+      "country": "Portugal",
+      "game_club_reference": "FC Arouca",
+      "source_club_name": "FC Arouca",
+      "source_club_id": "8024",
+      "player_names": [
+        "Naïs Djouahra",
+        "Alfonso Trezza",
+        "Fally Mayulu",
+        "Iván Barbero",
+        "Dylan Nandín",
+        "Brian Mansilla",
+        "Miguel Puche",
+        "Romualdas Jansonas",
+        "Vladislav Morozov",
+        "Batata",
+        "Taichi Fukui",
+        "Hyun-ju Lee"
+      ]
+    },
+    {
+      "uid": "8c93a89e7dee6245a132",
+      "country": "Portugal",
+      "game_club_reference": "FC Penafiel",
+      "source_club_name": "FC Penafiel",
+      "source_club_id": "3327",
+      "player_names": []
+    },
+    {
+      "uid": "9e19e6a3f14749644d5c",
+      "country": "Portugal",
+      "game_club_reference": "SC Beira-Mar",
+      "source_club_name": "SC Beira-Mar",
+      "source_club_id": "1436",
+      "player_names": []
+    },
+    {
+      "uid": "c269ef3642e47735d90e",
+      "country": "Portugal",
+      "game_club_reference": "Desportivo de Chaves",
+      "source_club_name": "GD Chaves",
+      "source_club_id": "3325",
+      "player_names": [
+        "Zach Muscat"
+      ]
+    },
+    {
+      "uid": "c8332ba3d0176138579a",
+      "country": "Portugal",
+      "game_club_reference": "CF Estrela da Amadora",
+      "source_club_name": "CF Estrela Amadora",
+      "source_club_id": "2431",
+      "player_names": [
+        "Kikas",
+        "Jovane Cabral",
+        "Abraham Marcus",
+        "Jorge Meireles",
+        "Alan Godoy",
+        "Leandro Antonetti",
+        "Chilohem Onuoha",
+        "Mathew Gbomadu",
+        "Rodrigo Pinho",
+        "Alisson Souza",
+        "João Resende",
+        "Gonzalo Calçada"
+      ]
+    },
+    {
+      "uid": "d5d90872c6806e3ff34a",
+      "country": "Portugal",
+      "game_club_reference": "SC Farense",
+      "source_club_name": "SC Farense",
+      "source_club_id": "4294",
+      "player_names": [
+        "Yannick Semedo",
+        "Rivaldo"
+      ]
+    },
+    {
+      "uid": "d9b5361477f978f1e161",
+      "country": "Portugal",
+      "game_club_reference": "Gil Vicente FC",
+      "source_club_name": "Gil Vicente FC",
+      "source_club_id": "2424",
+      "player_names": [
+        "Gustavo Varela",
+        "Joelson Fernandes",
+        "Agustín Moreira",
+        "Héctor Hernández",
+        "Murilo",
+        "Sergio Bermejo",
+        "Tidjany Touré",
+        "Carlos Eduardo",
+        "Bassco Soyer",
+        "Rodrigo Rodrigues",
+        "Luís Esteves",
+        "Santi García"
+      ]
+    },
+    {
+      "uid": "6b6c08359d8173d073c1",
+      "country": "Portugal",
+      "game_club_reference": "FC Alverca",
+      "source_club_name": "FC Alverca",
+      "source_club_id": "2521",
+      "player_names": [
+        "Chiquinho",
+        "Figueiredo",
+        "Marko Milovanović",
+        "Cédric Nuozzi",
+        "Stéphane Diarra",
+        "Mathis Clairicia",
+        "Felipe Lima",
+        "Sandro Lima",
+        "Tiago Leite",
+        "Amorim",
+        "Lincoln",
+        "Rhaldney"
+      ]
+    },
+    {
+      "uid": "ad8b7e33eb5a8b514f52",
+      "country": "Portugal",
+      "game_club_reference": "SC Olhanense",
+      "source_club_name": "SC Olhanense",
+      "source_club_id": "4750",
+      "player_names": []
+    },
+    {
+      "uid": "b8b83f917daf659926d4",
+      "country": "Portugal",
+      "game_club_reference": "CD Santa Clara",
+      "source_club_name": "CD Santa Clara",
+      "source_club_id": "2423",
+      "player_names": [
+        "Gabriel Silva",
+        "Vinícius Lopes",
+        "Brenner",
+        "Gonçalo Paciência",
+        "Welinton Torrão",
+        "João Costa",
+        "Fernando",
+        "Vitinho",
+        "Pedro Ferreira",
+        "Serginho",
+        "Djé",
+        "Darlan"
+      ]
+    },
+    {
+      "uid": "cce054014376d1b95931",
+      "country": "Portugal",
+      "game_club_reference": "FC Famalicão",
+      "source_club_name": "FC Famalicão",
+      "source_club_id": "3329",
+      "player_names": [
+        "Sorriso",
+        "Óscar Aranda",
+        "Gil Dias",
+        "Antoine Joujou",
+        "Roméo Beney",
+        "Simon Elisor",
+        "Umar Abubakar",
+        "Pedro Santos",
+        "Rochinha",
+        "Rudi Almeida",
+        "Gustavo Sá",
+        "Mathias de Amorim"
+      ]
+    },
+    {
+      "uid": "3b5061393bf5b96c8d74",
+      "country": "Portugal",
+      "game_club_reference": "SL Benfica",
+      "source_club_name": "SL Benfica",
+      "source_club_id": "294",
+      "player_names": [
+        "Andreas Schjelderup",
+        "Vangelis Pavlidis",
+        "Gianluca Prestianni",
+        "Anísio Cabral",
+        "Bruma",
+        "Henrique Araújo",
+        "Rodrigo Rêgo",
+        "Richard Ríos",
+        "Leandro Barreiro",
+        "Fredrik Aursnes",
+        "Enzo Barrenechea",
+        "Manu Silva"
+      ]
+    },
+    {
+      "uid": "3f12595cf716a9d4a5bd",
+      "country": "Portugal",
+      "game_club_reference": "Sporting CP",
+      "source_club_name": "Sporting CP",
+      "source_club_id": "336",
+      "player_names": [
+        "Geovany Quenda",
+        "Luis Suárez",
+        "Pedro Gonçalves",
+        "Geny Catamo",
+        "Fotis Ioannidis",
+        "Rodrigo Ribeiro",
+        "Rafael Nel",
+        "Souleymane Faye",
+        "Mauro Couto",
+        "Lucas Anjos",
+        "Chris Grombahi",
+        "Morten Hjulmand"
+      ]
+    },
+    {
+      "uid": "59c53b55cabc2221d108",
+      "country": "Portugal",
+      "game_club_reference": "FC Porto",
+      "source_club_name": "FC Porto",
+      "source_club_id": "720",
+      "player_names": [
+        "Samu Aghehowa",
+        "William Gomes",
+        "Oskar Pietuszewski",
+        "Borja Sainz",
+        "Pepê",
+        "Ángel Alarcón",
+        "Deniz Gül",
+        "Gonçalo Sousa",
+        "Yann Karamoh",
+        "Luuk de Jong",
+        "Tiago Andrade",
+        "André Miranda"
+      ]
+    },
+    {
+      "uid": "7a9917e3ea437d644b32",
+      "country": "Portugal",
+      "game_club_reference": "SC Braga",
+      "source_club_name": "SC Braga",
+      "source_club_id": "1075",
+      "player_names": [
+        "Pau Víctor",
+        "Ricardo Horta",
+        "Gabri Martínez",
+        "Fran Navarro",
+        "Sandro Vidigal",
+        "Amine El Ouazzani",
+        "João Marques",
+        "João Aragão",
+        "Mordomo",
+        "Samy Jr. Merheg",
+        "Rodrigo Zalazar",
+        "Mario Dorgeles"
+      ]
+    },
+    {
+      "uid": "874b8fdf990c543e9062",
+      "country": "Portugal",
+      "game_club_reference": "Vitória de Guimarães",
+      "source_club_name": "Vitória Guimarães SC",
+      "source_club_id": "2420",
+      "player_names": [
+        "Noah Saviolo",
+        "Oumar Camara",
+        "Gustavo Silva",
+        "Telmo Arcanjo",
+        "Miguel Nogueira",
+        "Alioune Ndoye",
+        "Fabio Blanco",
+        "Nélson Oliveira",
+        "Rodrigo Duarte",
+        "Ejike Opara",
+        "Guilherme Paula",
+        "Diogo Sousa"
+      ]
+    },
+    {
+      "uid": "bd60e005feece162b09e",
+      "country": "Portugal",
+      "game_club_reference": "Rio Ave FC",
+      "source_club_name": "Rio Ave FC",
+      "source_club_id": "2425",
+      "player_names": [
+        "Jalen Blesa",
+        "Diogo Bezerra",
+        "Dario Špikić",
+        "Tamble",
+        "Rafael Lobato",
+        "Tobías Medina",
+        "Karem Zoabi",
+        "Marc Gual",
+        "Amine Rehmi",
+        "Ole Pohlmann",
+        "Brandon Aguilera",
+        "Ryan Guilherme"
+      ]
+    },
+    {
+      "uid": "c0417942003268da0c3f",
+      "country": "Portugal",
+      "game_club_reference": "Os Belenenses",
+      "source_club_name": "CF Os Belenenses",
+      "source_club_id": "68608",
+      "player_names": []
+    },
+    {
+      "uid": "cc2c4caaa5db15788da9",
+      "country": "Portugal",
+      "game_club_reference": "Casa Pia",
+      "source_club_name": "Casa Pia AC",
+      "source_club_id": "3268",
+      "player_names": [
+        "Jérémy Livolant",
+        "Tiago Morais",
+        "Kelian Nsona",
+        "Xander Severina",
+        "Korede Osundina",
+        "Kiki",
+        "Cassiano",
+        "Clau Mendes",
+        "Rafael Brito",
+        "Seba Pérez",
+        "Kevin Prieto",
+        "Iyad Mohamed"
+      ]
+    },
+    {
+      "uid": "e1627fca6b0ed732c641",
+      "country": "Portugal",
+      "game_club_reference": "Estoril Praia",
+      "source_club_name": "GD Estoril Praia",
+      "source_club_id": "1465",
+      "player_names": [
+        "Yanis Begraoui",
+        "Rafik Guitane",
+        "Alejandro Marqués",
+        "André Lacximicant",
+        "Khayon Edwards",
+        "Fabrício Garcia",
+        "Peixinho",
+        "João Carvalho",
+        "Jordan Holsgrove",
+        "Jandro Orellana",
+        "Xeka",
+        "Nodar Lominadze"
+      ]
+    },
+    {
+      "uid": "e6134a852687dc5e602d",
+      "country": "Portugal",
+      "game_club_reference": "Boavista FC",
+      "source_club_name": "Boavista FC",
+      "source_club_id": "2503",
+      "player_names": []
+    },
+    {
+      "uid": "5d27df05665c0406256b",
+      "country": "England",
+      "game_club_reference": "Arsenal FC",
+      "source_club_name": "Arsenal FC",
+      "source_club_id": "11",
+      "player_names": [
+        "Bukayo Saka",
+        "Viktor Gyökeres",
+        "Kai Havertz",
+        "Noni Madueke",
+        "Gabriel Martinelli",
+        "Max Dowman",
+        "Leandro Trossard",
+        "Gabriel Jesus",
+        "Ceadach O'Neill",
+        "Andre Harriman-Annous",
+        "Brando Bailey-Joseph",
+        "Declan Rice"
+      ]
+    },
+    {
+      "uid": "fd1111e5e54231a2a93f",
+      "country": "England",
+      "game_club_reference": "Manchester City FC",
+      "source_club_name": "Manchester City",
+      "source_club_id": "281",
+      "player_names": [
+        "Erling Haaland",
+        "Antoine Semenyo",
+        "Jérémy Doku",
+        "Omar Marmoush",
+        "Savinho",
+        "Oscar Bobb",
+        "Reigan Heskey",
+        "Ryan McAidoo",
+        "Tyrone Samba",
+        "Rayan Cherki",
+        "Phil Foden",
+        "Rodri"
+      ]
+    },
+    {
+      "uid": "79f1e283c133ea287c86",
+      "country": "England",
+      "game_club_reference": "Liverpool FC",
+      "source_club_name": "Liverpool FC",
+      "source_club_id": "31",
+      "player_names": [
+        "Alexander Isak",
+        "Hugo Ekitiké",
+        "Cody Gakpo",
+        "Rio Ngumoha",
+        "Mohamed Salah",
+        "Ben Gannon-Doak",
+        "Federico Chiesa",
+        "Kaide Gordon",
+        "Jayden Danns",
+        "Trent Koné-Doherty",
+        "Keyrol Figueroa",
+        "Kieran Morrison"
+      ]
+    },
+    {
+      "uid": "1dd757d88c0069bcd7cd",
+      "country": "England",
+      "game_club_reference": "Chelsea FC",
+      "source_club_name": "Chelsea FC",
+      "source_club_id": "631",
+      "player_names": [
+        "João Pedro",
+        "Estêvão",
+        "Pedro Neto",
+        "Jamie Gittens",
+        "Liam Delap",
+        "Alejandro Garnacho",
+        "Tyrique George",
+        "Mykhaylo Mudryk",
+        "Marc Guiu",
+        "Shumaira Mheuka",
+        "Jesse Derry",
+        "Ryan Kavuma-McQueen"
+      ]
+    },
+    {
+      "uid": "1b90a5a7b45d01807901",
+      "country": "England",
+      "game_club_reference": "Manchester United FC",
+      "source_club_name": "Manchester United",
+      "source_club_id": "985",
+      "player_names": [
+        "Bryan Mbeumo",
+        "Matheus Cunha",
+        "Benjamin Sesko",
+        "Amad Diallo",
+        "Patrick Dorgu",
+        "Joshua Zirkzee",
+        "Chido Obi",
+        "Bendito Mantato",
+        "Shea Lacey",
+        "Kobbie Mainoo",
+        "Bruno Fernandes",
+        "Mason Mount"
+      ]
+    },
+    {
+      "uid": "d1e35165727184231fcf",
+      "country": "England",
+      "game_club_reference": "Tottenham Hotspur FC",
+      "source_club_name": "Tottenham Hotspur",
+      "source_club_id": "148",
+      "player_names": [
+        "Mohammed Kudus",
+        "Brennan Johnson",
+        "Dominic Solanke",
+        "Richarlison",
+        "Mathys Tel",
+        "Randal Kolo Muani",
+        "Wilson Odobert",
+        "James Wilson",
+        "Yusuf Akhamrich",
+        "Tynan Thompson",
+        "Lucas Bergvall",
+        "Archie Gray"
+      ]
+    },
+    {
+      "uid": "09746d7dd23654a57132",
+      "country": "England",
+      "game_club_reference": "West Ham United FC",
+      "source_club_name": "West Ham United",
+      "source_club_id": "379",
+      "player_names": [
+        "Crysencio Summerville",
+        "Jarrod Bowen",
+        "Taty Castellanos",
+        "Pablo",
+        "Luís Guilherme",
+        "Adama Traoré",
+        "Callum Wilson",
+        "Niclas Füllkrug",
+        "Callum Marshall",
+        "Keiber Lamadrid",
+        "Joshua Ajala",
+        "Mateus Fernandes"
+      ]
+    },
+    {
+      "uid": "130fb10fa80de3c38c54",
+      "country": "England",
+      "game_club_reference": "Fulham FC",
+      "source_club_name": "Fulham FC",
+      "source_club_id": "931",
+      "player_names": [
+        "Harry Wilson",
+        "Alex Iwobi",
+        "Rodrigo Muniz",
+        "Raúl Jiménez",
+        "Jonah Kusi-Asare",
+        "Sander Berge",
+        "Josh King",
+        "Emile Smith Rowe",
+        "Saša Lukić",
+        "Harrison Reed",
+        "Luke Harris",
+        "Tom Cairney"
+      ]
+    },
+    {
+      "uid": "580564a18e7f9a8b3b5b",
+      "country": "England",
+      "game_club_reference": "Crystal Palace FC",
+      "source_club_name": "Crystal Palace",
+      "source_club_id": "873",
+      "player_names": [
+        "Ismaïla Sarr",
+        "Jean-Philippe Mateta",
+        "Evann Guessand",
+        "Eddie Nketiah",
+        "Romain Esse",
+        "Zach Marsh",
+        "Ben Casey",
+        "Joél Drakes-Thomas",
+        "Adam Wharton",
+        "Justin Devenny",
+        "Daichi Kamada",
+        "Cheick Doucouré"
+      ]
+    },
+    {
+      "uid": "9bd2bb2c62d7dfbb7720",
+      "country": "England",
+      "game_club_reference": "Queens Park Rangers FC",
+      "source_club_name": "Queens Park Rangers",
+      "source_club_id": "1039",
+      "player_names": [
+        "Rumarn Burrell",
+        "Koki Saito",
+        "Paul Smyth",
+        "Isaac Hayden",
+        "Jimmy Dunne",
+        "Rhys Norrington-Davies"
+      ]
+    },
+    {
+      "uid": "aacfc41ae5531e5d1966",
+      "country": "England",
+      "game_club_reference": "Brentford FC",
+      "source_club_name": "Brentford FC",
+      "source_club_id": "1148",
+      "player_names": [
+        "Igor Thiago",
+        "Kevin Schade",
+        "Dango Ouattara",
+        "Reiss Nelson",
+        "Romelle Donovan",
+        "Gustavo Nunes",
+        "Yegor Yarmolyuk",
+        "Mikkel Damsgaard",
+        "Keane Lewis-Potter",
+        "Vitaly Janelt",
+        "Antoni Milambo",
+        "Mathias Jensen"
+      ]
+    },
+    {
+      "uid": "5e6fb51939396ab1d435",
+      "country": "England",
+      "game_club_reference": "Everton FC",
+      "source_club_name": "Everton FC",
+      "source_club_id": "29",
+      "player_names": [
+        "Iliman Ndiaye",
+        "Thierno Barry",
+        "Jack Grealish",
+        "Dwight McNeil",
+        "Beto",
+        "Tyler Dibling",
+        "Youssef Chermiti",
+        "Braiden Graham",
+        "James Garner",
+        "Kiernan Dewsbury-Hall",
+        "Tim Iroegbunam",
+        "Merlin Röhl"
+      ]
+    },
+    {
+      "uid": "7152e05946596e01d215",
+      "country": "England",
+      "game_club_reference": "Burnley FC",
+      "source_club_name": "Burnley FC",
+      "source_club_id": "1132",
+      "player_names": [
+        "Jaidon Anthony",
+        "Loum Tchaouna",
+        "Zian Flemming",
+        "Lyle Foster",
+        "Zeki Amdouni",
+        "Marcus Edwards",
+        "Armando Broja",
+        "Jacob Bruun Larsen",
+        "Jaydon Banel",
+        "Enock Agyei",
+        "Michael Obafemi",
+        "Ashley Barnes"
+      ]
+    },
+    {
+      "uid": "c3356217dfb0aad1f592",
+      "country": "England",
+      "game_club_reference": "Wigan Athletic FC",
+      "source_club_name": "Wigan Athletic",
+      "source_club_id": "1071",
+      "player_names": [
+        "James Carragher"
+      ]
+    },
+    {
+      "uid": "65e090ca1885b3535a2e",
+      "country": "England",
+      "game_club_reference": "Aston Villa FC",
+      "source_club_name": "Aston Villa",
+      "source_club_id": "405",
+      "player_names": [
+        "Ollie Watkins",
+        "Jadon Sancho",
+        "Emiliano Buendía",
+        "Alysson",
+        "Lewis Dobbin",
+        "Bradley Burrowes",
+        "Kadan Young",
+        "Morgan Rogers",
+        "Amadou Onana",
+        "Boubacar Kamara",
+        "Youri Tielemans",
+        "Lamare Bogarde"
+      ]
+    },
+    {
+      "uid": "6a99ca790639293f9354",
+      "country": "England",
+      "game_club_reference": "Newcastle United FC",
+      "source_club_name": "Newcastle United",
+      "source_club_id": "762",
+      "player_names": [
+        "Anthony Gordon",
+        "Nick Woltemade",
+        "Harvey Barnes",
+        "Anthony Elanga",
+        "William Osula",
+        "Yoane Wissa",
+        "Jacob Murphy",
+        "Sean Neave",
+        "Seung-soo Park",
+        "Sandro Tonali",
+        "Bruno Guimarães",
+        "Jacob Ramsey"
+      ]
+    },
+    {
+      "uid": "a7c81923e589677fdbef",
+      "country": "England",
+      "game_club_reference": "Southampton FC",
+      "source_club_name": "Southampton FC",
+      "source_club_id": "180",
+      "player_names": [
+        "Ben Brereton Díaz",
+        "Finn Azaz",
+        "Shea Charles",
+        "Joe Aribo",
+        "Ryan Manning"
+      ]
+    },
+    {
+      "uid": "b888b4bd07d927396f36",
+      "country": "England",
+      "game_club_reference": "Sunderland AFC",
+      "source_club_name": "Sunderland AFC",
+      "source_club_id": "289",
+      "player_names": [
+        "Brian Brobbey",
+        "Chemsdine Talbi",
+        "Simon Adingra",
+        "Wilson Isidor",
+        "Eliezer Mayenda",
+        "Romaine Mundle",
+        "Bertrand Traoré",
+        "Patrick Roberts",
+        "Jocelin Ta Bi",
+        "Ahmed Abdullahi",
+        "Timur Tuterov",
+        "Finn Geragusyan"
+      ]
+    },
+    {
+      "uid": "c8ffc3e8ad64b4eba1d9",
+      "country": "England",
+      "game_club_reference": "Leicester City FC",
+      "source_club_name": "Leicester City",
+      "source_club_id": "1003",
+      "player_names": [
+        "Abdul Fatawu",
+        "Jordan Ayew",
+        "Hamza Choudhury",
+        "Bobby De Cordova-Reid",
+        "Victor Kristiansen",
+        "Jannik Vestergaard"
+      ]
+    },
+    {
+      "uid": "cd4ea223a0f4ac10d96c",
+      "country": "England",
+      "game_club_reference": "West Bromwich Albion FC",
+      "source_club_name": "West Bromwich Albion",
+      "source_club_id": "984",
+      "player_names": [
+        "Aune Heggebø",
+        "Mikey Johnston",
+        "Tammer Bany",
+        "Isaac Price",
+        "Jayson Molumby",
+        "Callum Styles",
+        "Chris Mepham",
+        "George Campbell"
+      ]
+    },
+    {
+      "uid": "d974e271dcfd1fb749df",
+      "country": "England",
+      "game_club_reference": "Wolverhampton Wanderers FC",
+      "source_club_name": "Wolverhampton Wanderers",
+      "source_club_id": "543",
+      "player_names": [
+        "Jørgen Strand Larsen",
+        "Adam Armstrong",
+        "Hee-chan Hwang",
+        "Enso González",
+        "Nathan Fraser",
+        "Tom Edozie",
+        "João Gomes",
+        "André",
+        "Mateus Mané",
+        "Jean-Ricner Bellegarde",
+        "Rodrigo Gomes",
+        "Tommy Doyle"
+      ]
+    },
+    {
+      "uid": "2a07d45a4e258473267d",
+      "country": "England",
+      "game_club_reference": "Middlesbrough FC",
+      "source_club_name": "Middlesbrough FC",
+      "source_club_id": "641",
+      "player_names": [
+        "Tommy Conway",
+        "David Strelec",
+        "Sam Silvera",
+        "Aidan Morris",
+        "Riley McGree",
+        "Alfie Jones"
+      ]
+    },
+    {
+      "uid": "431b9e3318c7726a521d",
+      "country": "England",
+      "game_club_reference": "Leeds United FC",
+      "source_club_name": "Leeds United",
+      "source_club_id": "399",
+      "player_names": [
+        "Noah Okafor",
+        "Dominic Calvert-Lewin",
+        "Wilfried Gnonto",
+        "Lukas Nmecha",
+        "Daniel James",
+        "Joël Piroe",
+        "Largie Ramazani",
+        "Jack Harrison",
+        "Harry Gray",
+        "Ethan Ampadu",
+        "Anton Stach",
+        "Brenden Aaronson"
+      ]
+    },
+    {
+      "uid": "52dd6ac692d8509fd3bf",
+      "country": "England",
+      "game_club_reference": "Huddersfield Town AFC",
+      "source_club_name": "Huddersfield Town",
+      "source_club_id": "1110",
+      "player_names": [
+        "Dion Charles"
+      ]
+    },
+    {
+      "uid": "8cf541ec08f3fc87de15",
+      "country": "England",
+      "game_club_reference": "Hull City AFC",
+      "source_club_name": "Hull City",
+      "source_club_id": "3008",
+      "player_names": [
+        "Lewis Koumas",
+        "Liam Millar",
+        "Yu Hirakawa",
+        "Paddy McNair",
+        "John Egan",
+        "Semi Ajayi"
+      ]
+    },
+    {
+      "uid": "b5ec225cd8a28af9a059",
+      "country": "England",
+      "game_club_reference": "Sheffield United FC",
+      "source_club_name": "Sheffield United",
+      "source_club_id": "350",
+      "player_names": [
+        "Tahith Chong",
+        "Tyler Bindon"
+      ]
+    },
+    {
+      "uid": "cb22dd80e6dda073d126",
+      "country": "England",
+      "game_club_reference": "Stoke City FC",
+      "source_club_name": "Stoke City",
+      "source_club_id": "512",
+      "player_names": [
+        "Sorba Thomas",
+        "Róbert Boženík",
+        "Jun-ho Bae",
+        "Bosun Lawal",
+        "Maksym Taloverov"
+      ]
+    },
+    {
+      "uid": "19095df3226aa88b052c",
+      "country": "England",
+      "game_club_reference": "Norwich City FC",
+      "source_club_name": "Norwich City",
+      "source_club_id": "1123",
+      "player_names": [
+        "Mathias Kvistgaarden",
+        "Mirko Topić",
+        "Anis Ben Slimane",
+        "Kenny McLean",
+        "Ali Ahmed",
+        "José Córdoba",
+        "Ruairi McConville"
+      ]
+    },
+    {
+      "uid": "2baa22fbf7e416a165ed",
+      "country": "England",
+      "game_club_reference": "Watford FC",
+      "source_club_name": "Watford FC",
+      "source_club_id": "1010",
+      "player_names": [
+        "Nestory Irankunda",
+        "Rocco Vata",
+        "Edo Kayembe",
+        "Giorgi Chakvetadze",
+        "Hector Kyprianou",
+        "Nampalys Mendy",
+        "James Abankwah",
+        "Jeremy Ngakia"
+      ]
+    },
+    {
+      "uid": "9ea32d8eccb78b289471",
+      "country": "England",
+      "game_club_reference": "Ipswich Town FC",
+      "source_club_name": "Ipswich Town",
+      "source_club_id": "677",
+      "player_names": [
+        "George Hirst",
+        "Chiedozie Ogbene",
+        "Marcelino Núñez",
+        "Kasey McAteer",
+        "Jack Taylor",
+        "Anis Mehmeti",
+        "Dara O'Shea"
+      ]
+    },
+    {
+      "uid": "adc4a08603794cb29f62",
+      "country": "England",
+      "game_club_reference": "Nottingham Forest FC",
+      "source_club_name": "Nottingham Forest",
+      "source_club_id": "703",
+      "player_names": [
+        "Dan Ndoye",
+        "Callum Hudson-Odoi",
+        "Igor Jesus",
+        "Taiwo Awoniyi",
+        "Chris Wood",
+        "Zyan Blake",
+        "Lamin Sillah",
+        "Elliot Anderson",
+        "Morgan Gibbs-White",
+        "Omari Hutchinson",
+        "Ibrahim Sangaré",
+        "Douglas Luiz"
+      ]
+    },
+    {
+      "uid": "bd907520acaa62bbe188",
+      "country": "England",
+      "game_club_reference": "AFC Bournemouth",
+      "source_club_name": "AFC Bournemouth",
+      "source_club_id": "989",
+      "player_names": [
+        "Junior Kroupi",
+        "Rayan",
+        "Evanilson",
+        "Amine Adli",
+        "David Brooks",
+        "Enes Ünal",
+        "Dominic Sadi",
+        "Remy Rees-Dottin",
+        "Alex Scott",
+        "Justin Kluivert",
+        "Tyler Adams",
+        "Marcus Tavernier"
+      ]
+    },
+    {
+      "uid": "eb80d680b6f05b1132fa",
+      "country": "England",
+      "game_club_reference": "Reading FC",
+      "source_club_name": "Reading FC",
+      "source_club_id": "1032",
+      "player_names": []
+    },
+    {
+      "uid": "0a57fa8e31a868f0b6e9",
+      "country": "Spain",
+      "game_club_reference": "Real Madrid",
+      "source_club_name": "Real Madrid",
+      "source_club_id": "418",
+      "player_names": [
+        "Kylian Mbappé",
+        "Vinicius Junior",
+        "Rodrygo",
+        "Franco Mastantuono",
+        "Endrick",
+        "Brahim Díaz",
+        "Gonzalo García",
+        "Álvaro Leiva",
+        "Daniel Yáñez",
+        "Jude Bellingham",
+        "Federico Valverde",
+        "Arda Güler"
+      ]
+    },
+    {
+      "uid": "ba2bfbd0a51871c48b80",
+      "country": "Spain",
+      "game_club_reference": "FC Barcelona",
+      "source_club_name": "FC Barcelona",
+      "source_club_id": "131",
+      "player_names": [
+        "Lamine Yamal",
+        "Raphinha",
+        "Ferran Torres",
+        "Marcus Rashford",
+        "Roony Bardghji",
+        "Robert Lewandowski",
+        "Dani Rodríguez",
+        "Pedri",
+        "Fermín López",
+        "Dani Olmo",
+        "Frenkie de Jong",
+        "Gavi"
+      ]
+    },
+    {
+      "uid": "6b74be0a0c0301dca0bf",
+      "country": "Spain",
+      "game_club_reference": "Atlético Madrid",
+      "source_club_name": "Atlético de Madrid",
+      "source_club_id": "13",
+      "player_names": [
+        "Julián Alvarez",
+        "Álex Baena",
+        "Giuliano Simeone",
+        "Alexander Sørloth",
+        "Thiago Almada",
+        "Antoine Griezmann",
+        "Iker Luque",
+        "Sergio Esteban",
+        "Miguel Cubo",
+        "Pablo Barrios",
+        "Johnny Cardoso",
+        "Obed Vargas"
+      ]
+    },
+    {
+      "uid": "8679f789551c7cd079d6",
+      "country": "Spain",
+      "game_club_reference": "Athletic Club Bilbao",
+      "source_club_name": "Athletic Bilbao",
+      "source_club_id": "621",
+      "player_names": [
+        "Nico Williams",
+        "Iñaki Williams",
+        "Robert Navarro",
+        "Gorka Guruzeta",
+        "Álex Berenguer",
+        "Maroan Sannadi",
+        "Nico Serrano",
+        "Urko Izeta",
+        "Elijah Gift",
+        "Asier Hierro",
+        "Endika Buján",
+        "Adrián Pérez"
+      ]
+    },
+    {
+      "uid": "a236192def0f049f14cd",
+      "country": "Spain",
+      "game_club_reference": "Villarreal CF",
+      "source_club_name": "Villarreal CF",
+      "source_club_id": "1050",
+      "player_names": [
+        "Alberto Moleiro",
+        "Yéremy Pino",
+        "Georges Mikautadze",
+        "Tajon Buchanan",
+        "Ilias Akhomach",
+        "Manor Solomon",
+        "Tani Oluwaseyi",
+        "Nicolas Pépé",
+        "Ayoze Pérez",
+        "Alfon González",
+        "Gerard Moreno",
+        "Hugo López"
+      ]
+    },
+    {
+      "uid": "cda69a2ccf769147c70e",
+      "country": "Spain",
+      "game_club_reference": "Real Sociedad",
+      "source_club_name": "Real Sociedad",
+      "source_club_id": "681",
+      "player_names": [
+        "Mikel Oyarzabal",
+        "Takefusa Kubo",
+        "Orri Óskarsson",
+        "Ander Barrenetxea",
+        "Gonçalo Guedes",
+        "Jon Karrikaburu",
+        "Arkaitz Mariezkurrena",
+        "Alex Marchal",
+        "Dani Díaz",
+        "Gorka Carrera",
+        "Job Ochieng",
+        "Lander Astiazaran"
+      ]
+    },
+    {
+      "uid": "0a42465910473e27fb78",
+      "country": "Spain",
+      "game_club_reference": "Getafe CF",
+      "source_club_name": "Getafe CF",
+      "source_club_id": "3709",
+      "player_names": [
+        "Christantus Uche",
+        "Martín Satriano",
+        "Borja Mayoral",
+        "Veljko Birmancevic",
+        "Adrián Liso",
+        "Abu Kamara",
+        "Álex Sola",
+        "Álex Sancris",
+        "Peter Federico",
+        "Juanmi",
+        "Joselu Pérez",
+        "Yassin Tallal"
+      ]
+    },
+    {
+      "uid": "1ff36095147a8d097a96",
+      "country": "Spain",
+      "game_club_reference": "Rayo Vallecano",
+      "source_club_name": "Rayo Vallecano",
+      "source_club_id": "367",
+      "player_names": [
+        "Jorge de Frutos",
+        "Sergio Camello",
+        "Isi Palazón",
+        "Fran Pérez",
+        "Álvaro García",
+        "Carlos Martín",
+        "Pedro Díaz",
+        "Unai López",
+        "Óscar Valentín",
+        "Pathé Ciss",
+        "Gerard Gumbau",
+        "Randy Nteka"
+      ]
+    },
+    {
+      "uid": "6fd0d82cbea00411d468",
+      "country": "Spain",
+      "game_club_reference": "Málaga CF",
+      "source_club_name": "Málaga CF",
+      "source_club_id": "1084",
+      "player_names": []
+    },
+    {
+      "uid": "700e13942a34696fdae5",
+      "country": "Spain",
+      "game_club_reference": "Sevilla FC",
+      "source_club_name": "Sevilla FC",
+      "source_club_id": "368",
+      "player_names": [
+        "Dodi Lukébakio",
+        "Akor Adams",
+        "Rubén Vargas",
+        "Isaac Romero",
+        "Chidera Ejuke",
+        "Peque Fernández",
+        "Alexis Sánchez",
+        "Adnan Januzaj",
+        "Miguel Sierra",
+        "Álex Costa",
+        "Lucien Agoumé",
+        "Djibril Sow"
+      ]
+    },
+    {
+      "uid": "758e6440964310000b18",
+      "country": "Spain",
+      "game_club_reference": "Real Betis",
+      "source_club_name": "Real Betis Balompié",
+      "source_club_id": "150",
+      "player_names": [
+        "Antony",
+        "Abde Ezzalzouli",
+        "Cucho Hernández",
+        "Pablo García",
+        "Aitor Ruibal",
+        "Rodrigo Riquelme",
+        "Cédric Bakambu",
+        "Chimy Ávila",
+        "Rodrigo Marina",
+        "José Antonio Morante",
+        "Sergi Altimira",
+        "Nelson Deossa"
+      ]
+    },
+    {
+      "uid": "9a379d34a2761d2ec3f2",
+      "country": "Spain",
+      "game_club_reference": "UD Almería",
+      "source_club_name": "UD Almería",
+      "source_club_id": "3302",
+      "player_names": [
+        "Dion Lopy"
+      ]
+    },
+    {
+      "uid": "bf5c108fa4229b42d35b",
+      "country": "Spain",
+      "game_club_reference": "Cádiz CF",
+      "source_club_name": "Cádiz CF",
+      "source_club_id": "2687",
+      "player_names": [
+        "Iuri Tabatadze"
+      ]
+    },
+    {
+      "uid": "dcc53ffc992657a3a5cd",
+      "country": "Spain",
+      "game_club_reference": "Córdoba CF",
+      "source_club_name": "Córdoba CF",
+      "source_club_id": "993",
+      "player_names": []
+    },
+    {
+      "uid": "2a77e6d4b136e14aecf7",
+      "country": "Spain",
+      "game_club_reference": "Granada CF",
+      "source_club_name": "Granada CF",
+      "source_club_id": "16795",
+      "player_names": []
+    },
+    {
+      "uid": "3c36d77419abd167f313",
+      "country": "Spain",
+      "game_club_reference": "RCD Espanyol",
+      "source_club_name": "RCD Espanyol Barcelona",
+      "source_club_id": "714",
+      "player_names": [
+        "Tyrhys Dolan",
+        "Roberto Fernández",
+        "Javi Puado",
+        "Luca Koleosho",
+        "Jofre Carreras",
+        "Antoniu Roca",
+        "Pere Milla",
+        "Kike García",
+        "Alex Almansa",
+        "Lluc Castell",
+        "Urko González de Zárate",
+        "Pol Lozano"
+      ]
+    },
+    {
+      "uid": "7b15af2c47f099189d6a",
+      "country": "Spain",
+      "game_club_reference": "Girona FC",
+      "source_club_name": "Girona FC",
+      "source_club_id": "12321",
+      "player_names": [
+        "Viktor Tsygankov",
+        "Vladyslav Vanat",
+        "Yáser Asprilla",
+        "Bryan Gil",
+        "Joel Roca",
+        "Bojan Miovski",
+        "Abel Ruiz",
+        "Portu",
+        "Dawda Camara",
+        "Cristhian Stuani",
+        "Juan Arango",
+        "Papa Ba"
+      ]
+    },
+    {
+      "uid": "954ee5ab0cb586116b49",
+      "country": "Spain",
+      "game_club_reference": "RCD La Coruña",
+      "source_club_name": "Deportivo de La Coruña",
+      "source_club_id": "897",
+      "player_names": []
+    },
+    {
+      "uid": "a5118afe5b4e005dc42a",
+      "country": "Spain",
+      "game_club_reference": "RC Celta Vigo",
+      "source_club_name": "Celta de Vigo",
+      "source_club_id": "940",
+      "player_names": [
+        "Williot Swedberg",
+        "Ferran Jutglà",
+        "Hugo Álvarez",
+        "Jones El-Abdellaoui",
+        "Pablo Durán",
+        "Borja Iglesias",
+        "Iago Aspas",
+        "Franco Cervi",
+        "Hugo González",
+        "Ángel Arcos",
+        "Fer López",
+        "Ilaix Moriba"
+      ]
+    },
+    {
+      "uid": "c14f58f27f9c54c4bf93",
+      "country": "Spain",
+      "game_club_reference": "Valencia CF",
+      "source_club_name": "Valencia CF",
+      "source_club_id": "1049",
+      "player_names": [
+        "Hugo Duro",
+        "Diego López",
+        "Umar Sadiq",
+        "Arnaut Danjuma",
+        "Luis Rioja",
+        "Dani Raba",
+        "David Otorbi",
+        "Pablo López",
+        "Mario Domínguez",
+        "Marc Jurado",
+        "Aimar Blázquez",
+        "Javi Guerra"
+      ]
+    },
+    {
+      "uid": "da05a0e0cb6df34f908d",
+      "country": "Spain",
+      "game_club_reference": "Levante UD",
+      "source_club_name": "Levante UD",
+      "source_club_id": "3368",
+      "player_names": [
+        "Carlos Espí",
+        "Karl Etta Eyong",
+        "Iván Romero",
+        "Goduine Koyalipou",
+        "Roger Brugué",
+        "Kareem Tunde",
+        "Iker Losada",
+        "Víctor García",
+        "Paco Cortés",
+        "Tay Abed",
+        "José Luis Morales",
+        "Carlos Álvarez"
+      ]
+    },
+    {
+      "uid": "0a4abb38626da14e3a4d",
+      "country": "Spain",
+      "game_club_reference": "Elche CF",
+      "source_club_name": "Elche CF",
+      "source_club_id": "1531",
+      "player_names": [
+        "Álvaro Rodríguez",
+        "Germán Valera",
+        "Rafa Mir",
+        "André Silva",
+        "Mourad El Ghezouani",
+        "Lucas Cepeda",
+        "Grady Diangana",
+        "Yago Santiago",
+        "Adam Boayar",
+        "Josan",
+        "Piri",
+        "Juan Piera"
+      ]
+    },
+    {
+      "uid": "14184fff1a8dec6a0bd6",
+      "country": "Spain",
+      "game_club_reference": "Deportivo Alavés",
+      "source_club_name": "Deportivo Alavés",
+      "source_club_id": "1108",
+      "player_names": [
+        "Toni Martínez",
+        "Lucas Boyé",
+        "Carlos Vicente",
+        "Ángel Pérez",
+        "Abde Rebbach",
+        "Aitor Mañas",
+        "Mariano Díaz",
+        "Diego Morcillo",
+        "Izei Hernández",
+        "Antonio Blanco",
+        "Pablo Ibáñez",
+        "Carles Aleñá"
+      ]
+    },
+    {
+      "uid": "33d5a68a9e390cee5d3a",
+      "country": "Spain",
+      "game_club_reference": "SD Eibar",
+      "source_club_name": "SD Eibar",
+      "source_club_id": "1533",
+      "player_names": []
+    },
+    {
+      "uid": "4844fc1372c8c51e82e9",
+      "country": "Spain",
+      "game_club_reference": "Sporting Gijón",
+      "source_club_name": "Sporting Gijón",
+      "source_club_id": "2448",
+      "player_names": []
+    },
+    {
+      "uid": "28287e8e6bd50eb49e5d",
+      "country": "Germany",
+      "game_club_reference": "Bayern München",
+      "source_club_name": "Bayern Munich",
+      "source_club_id": "27",
+      "player_names": [
+        "Michael Olise",
+        "Luis Díaz",
+        "Harry Kane",
+        "Nicolas Jackson",
+        "Serge Gnabry",
+        "Wisdom Mike",
+        "Maycon Cardozo",
+        "Bastian Assomo",
+        "Jamal Musiala",
+        "Aleksandar Pavlovic",
+        "Lennart Karl",
+        "Tom Bischof"
+      ]
+    },
+    {
+      "uid": "26d175cbef2faf758d99",
+      "country": "Germany",
+      "game_club_reference": "Borussia Dortmund",
+      "source_club_name": "Borussia Dortmund",
+      "source_club_id": "16",
+      "player_names": [
+        "Karim Adeyemi",
+        "Maximilian Beier",
+        "Serhou Guirassy",
+        "Fábio Silva",
+        "Samuele Inácio",
+        "Julien Duranville",
+        "Cole Campbell",
+        "Mathis Albert",
+        "Felix Nmecha",
+        "Jobe Bellingham",
+        "Carney Chukwuemeka",
+        "Julian Brandt"
+      ]
+    },
+    {
+      "uid": "3b0ab4d6654dea65ca71",
+      "country": "Germany",
+      "game_club_reference": "Bayer 04 Leverkusen",
+      "source_club_name": "Bayer 04 Leverkusen",
+      "source_club_id": "15",
+      "player_names": [
+        "Christian Kofane",
+        "Eliesse Ben Seghir",
+        "Patrik Schick",
+        "Nathan Tella",
+        "Montrell Culbreath",
+        "Martin Terrier",
+        "Farid Alfa-Ruprecht",
+        "Alejo Sarco",
+        "Ken Izekor",
+        "Emmanuel Chigozie Owen",
+        "Ibrahim Maza",
+        "Malik Tillman"
+      ]
+    },
+    {
+      "uid": "7df49f2d8391ad4906db",
+      "country": "Germany",
+      "game_club_reference": "RB Leipzig",
+      "source_club_name": "RB Leipzig",
+      "source_club_id": "23826",
+      "player_names": [
+        "Yan Diomande",
+        "Antonio Nusa",
+        "Rômulo",
+        "Johan Bakayoko",
+        "Conrad Harder",
+        "Tidiam Gomis",
+        "Suleman Sani",
+        "Timo Werner",
+        "Ayodele Thomas",
+        "Samba Konaté",
+        "Christoph Baumgartner",
+        "Xavi Simons"
+      ]
+    },
+    {
+      "uid": "d2a00f43a072dab65d46",
+      "country": "Germany",
+      "game_club_reference": "Eintracht Frankfurt",
+      "source_club_name": "Eintracht Frankfurt",
+      "source_club_id": "24",
+      "player_names": [
+        "Jonathan Burkardt",
+        "Arnaud Kalimuendo",
+        "Jean-Mattéo Bahoya",
+        "Ritsu Doan",
+        "Ansgar Knauff",
+        "Ayoube Amaimouni-Echghouyab",
+        "Younes Ebnoutalib",
+        "Michy Batshuayi",
+        "Alexander Staff",
+        "Can Uzun",
+        "Hugo Larsson",
+        "Oscar Højlund"
+      ]
+    },
+    {
+      "uid": "dcee2ca6a0bab34f98e6",
+      "country": "Germany",
+      "game_club_reference": "VfB Stuttgart",
+      "source_club_name": "VfB Stuttgart",
+      "source_club_id": "79",
+      "player_names": [
+        "Jamie Leweling",
+        "Ermedin Demirovic",
+        "Deniz Undav",
+        "Tiago Tomás",
+        "Chris Führich",
+        "Badredine Bouanani",
+        "Jeremy Arévalo",
+        "Lazar Jovanovic",
+        "Justin Diehl",
+        "Lauri Penna",
+        "Angelo Stiller",
+        "Bilal El Khannouss"
+      ]
+    },
+    {
+      "uid": "355e795cd1a8bc9ecd8e",
+      "country": "Germany",
+      "game_club_reference": "1. FC Nürnberg",
+      "source_club_name": "1.FC Nuremberg",
+      "source_club_id": "4",
+      "player_names": [
+        "Adam Markhiev",
+        "Fabio Gruber",
+        "Luka Lochoshvili"
+      ]
+    },
+    {
+      "uid": "37c376b5cf4329e2aeb8",
+      "country": "Germany",
+      "game_club_reference": "SpVgg Greuther Fürth",
+      "source_club_name": "SpVgg Greuther Fürth",
+      "source_club_id": "65",
+      "player_names": []
+    },
+    {
+      "uid": "3997a0282d1ae63129f5",
+      "country": "Germany",
+      "game_club_reference": "FC Augsburg",
+      "source_club_name": "FC Augsburg",
+      "source_club_id": "167",
+      "player_names": [
+        "Ismaël Gharbi",
+        "Phillip Tietz",
+        "Michael Gregoritsch",
+        "Aiman Dardari",
+        "Kyliane Dong",
+        "Thomas Kastanaras",
+        "Elias Saad",
+        "Alexis Claude-Maurice",
+        "Mert Kömür",
+        "Anton Kade",
+        "Han-Noah Massengo",
+        "Kristijan Jakic"
+      ]
+    },
+    {
+      "uid": "6c5b21be99a4e0976cad",
+      "country": "Germany",
+      "game_club_reference": "FC Ingolstadt 04",
+      "source_club_name": "FC Ingolstadt 04",
+      "source_club_id": "4795",
+      "player_names": []
+    },
+    {
+      "uid": "4fc518cb365ae90e2712",
+      "country": "Germany",
+      "game_club_reference": "1. FC Köln",
+      "source_club_name": "1.FC Köln",
+      "source_club_id": "3",
+      "player_names": [
+        "Said El Mala",
+        "Jakub Kamiński",
+        "Ragnar Ache",
+        "Jan Thielmann",
+        "Linton Maina",
+        "Luca Waldschmidt",
+        "Youssoupha Niang",
+        "Marius Bülter",
+        "Fynn Schenten",
+        "Malek El Mala",
+        "Ísak Jóhannesson",
+        "Eric Martel"
+      ]
+    },
+    {
+      "uid": "8778a051ccc43d9e40df",
+      "country": "Germany",
+      "game_club_reference": "Fortuna Düsseldorf",
+      "source_club_name": "Fortuna Düsseldorf",
+      "source_club_id": "38",
+      "player_names": [
+        "Cedric Itten",
+        "Florent Muslija",
+        "Satoshi Tanaka",
+        "Sotiris Alexandropoulos",
+        "Valgeir Lunddal"
+      ]
+    },
+    {
+      "uid": "a03e96d6f15095e779b0",
+      "country": "Germany",
+      "game_club_reference": "FC Schalke 04",
+      "source_club_name": "FC Schalke 04",
+      "source_club_id": "33",
+      "player_names": [
+        "Nikola Katic"
+      ]
+    },
+    {
+      "uid": "b503761e89e23907040e",
+      "country": "Germany",
+      "game_club_reference": "Bor. Mönchengladbach",
+      "source_club_name": "Borussia Mönchengladbach",
+      "source_club_id": "18",
+      "player_names": [
+        "Tim Kleindienst",
+        "Franck Honorat",
+        "Robin Hack",
+        "Hugo Bolin",
+        "Shuto Machino",
+        "Haris Tabakovic",
+        "Nathan Ngoumou",
+        "Grant-Leon Ranos",
+        "Jan Urbich",
+        "Rocco Reitz",
+        "Wael Mohya",
+        "Jens Castrop"
+      ]
+    },
+    {
+      "uid": "b7c7e453a8818671f9a8",
+      "country": "Germany",
+      "game_club_reference": "VfL Bochum",
+      "source_club_name": "VfL Bochum",
+      "source_club_id": "80",
+      "player_names": [
+        "Gerrit Holtmann",
+        "Matus Bero"
+      ]
+    },
+    {
+      "uid": "d94737454ac063bc7859",
+      "country": "Germany",
+      "game_club_reference": "Arminia Bielefeld",
+      "source_club_name": "Arminia Bielefeld",
+      "source_club_id": "10",
+      "player_names": []
+    },
+    {
+      "uid": "09f4d4e2666ea72ee574",
+      "country": "Germany",
+      "game_club_reference": "SC Paderborn 07",
+      "source_club_name": "SC Paderborn 07",
+      "source_club_id": "127",
+      "player_names": []
+    },
+    {
+      "uid": "0b0e55f7ce27b78e366b",
+      "country": "Italy",
+      "game_club_reference": "FC Internazionale Milano",
+      "source_club_name": "Inter Milan",
+      "source_club_id": "46",
+      "player_names": [
+        "Lautaro Martínez",
+        "Marcus Thuram",
+        "Pio Esposito",
+        "Ange-Yoan Bonny",
+        "Matteo Spinaccè",
+        "Matteo Lavelli",
+        "Mattia Mosconi",
+        "Nicolò Barella",
+        "Petar Sučić",
+        "Davide Frattesi",
+        "Luis Henrique",
+        "Hakan Çalhanoğlu"
+      ]
+    },
+    {
+      "uid": "e1e8a4498a1104be3486",
+      "country": "Italy",
+      "game_club_reference": "AC Milan",
+      "source_club_name": "AC Milan",
+      "source_club_id": "5",
+      "player_names": [
+        "Rafael Leão",
+        "Christian Pulisic",
+        "Christopher Nkunku",
+        "Samuel Chukwueze",
+        "Santiago Gimenez",
+        "Alex Castiello",
+        "Cheveyo Balentien",
+        "Maximilian Ibrahimović",
+        "Emanuele Borsani",
+        "Ardon Jashari",
+        "Youssouf Fofana",
+        "Samuele Ricci"
+      ]
+    },
+    {
+      "uid": "1783c72961b1da9ec6ce",
+      "country": "Italy",
+      "game_club_reference": "Juventus",
+      "source_club_name": "Juventus FC",
+      "source_club_id": "506",
+      "player_names": [
+        "Kenan Yıldız",
+        "Dušan Vlahović",
+        "Francisco Conceição",
+        "Jonathan David",
+        "Loïs Openda",
+        "Nico González",
+        "Edon Zhegrova",
+        "Jérémie Boga",
+        "Arkadiusz Milik",
+        "Lorenzo Anghelè",
+        "Khéphren Thuram",
+        "Weston McKennie"
+      ]
+    },
+    {
+      "uid": "7db45bcfc5d635bf6a33",
+      "country": "Italy",
+      "game_club_reference": "SSC Napoli",
+      "source_club_name": "SSC Napoli",
+      "source_club_id": "6195",
+      "player_names": [
+        "Rasmus Højlund",
+        "Alisson Santos",
+        "David Neres",
+        "Noa Lang",
+        "Lorenzo Lucca",
+        "Giovane",
+        "Romelu Lukaku",
+        "Matteo Politano",
+        "Walid Cheddira",
+        "Giuseppe Ambrosino",
+        "Scott McTominay",
+        "Billy Gilmour"
+      ]
+    },
+    {
+      "uid": "a2fb9f1e2eb7fac49500",
+      "country": "Italy",
+      "game_club_reference": "AS Roma",
+      "source_club_name": "Associazione Sportiva Roma",
+      "source_club_id": "12",
+      "player_names": [
+        "Donyell Malen",
+        "Matías Soulé",
+        "Evan Ferguson",
+        "Artem Dovbyk",
+        "Leon Bailey",
+        "Bryan Zaragoza",
+        "Paulo Dybala",
+        "Lorenzo Venturino",
+        "Stephan El Shaarawy",
+        "Edoardo Morucci",
+        "Antonio Arena",
+        "Manu Koné"
+      ]
+    },
+    {
+      "uid": "32960978137121dbb8a1",
+      "country": "Italy",
+      "game_club_reference": "Atalanta Bergamo",
+      "source_club_name": "Atalanta BC",
+      "source_club_id": "800",
+      "player_names": [
+        "Ademola Lookman",
+        "Gianluca Scamacca",
+        "Giacomo Raspadori",
+        "Kamaldeen Sulemana",
+        "Dominic Vavassori",
+        "Henry Camara",
+        "Éderson",
+        "Charles De Ketelaere",
+        "Nicola Zalewski",
+        "Lorenzo Bernasconi",
+        "Lazar Samardžić",
+        "Raoul Bellanova"
+      ]
+    },
+    {
+      "uid": "2128f2b8f01e8eeecf3a",
+      "country": "Italy",
+      "game_club_reference": "SS Lazio",
+      "source_club_name": "Società Sportiva Lazio S.p.A.",
+      "source_club_id": "398",
+      "player_names": [
+        "Gustav Isaksen",
+        "Petar Ratkov",
+        "Tijjani Noslin",
+        "Mattia Zaccagni",
+        "Matteo Cancellieri",
+        "Boulaye Dia",
+        "Pedro",
+        "Saná Fernandes",
+        "Federico Serra",
+        "Mattéo Guendouzi",
+        "Kenneth Taylor",
+        "Nicolò Rovella"
+      ]
+    },
+    {
+      "uid": "229e4a20bd05abd959f4",
+      "country": "Italy",
+      "game_club_reference": "US Cremonese",
+      "source_club_name": "US Cremonese",
+      "source_club_id": "2239",
+      "player_names": [
+        "Jeremy Sarmiento",
+        "Felix Afena-Gyan",
+        "Faris Moumbagna",
+        "Federico Bonazzoli",
+        "Antonio Sanabria",
+        "Manuel De Luca",
+        "David Okereke",
+        "Dennis Johnsen",
+        "Milan Djuric",
+        "Jamie Vardy",
+        "Adrian Lickūnas",
+        "Nouroudine Faye"
+      ]
+    },
+    {
+      "uid": "22bf77ba37e1c174297c",
+      "country": "Italy",
+      "game_club_reference": "Brescia Calcio",
+      "source_club_name": "Brescia Calcio",
+      "source_club_id": "19",
+      "player_names": []
+    },
+    {
+      "uid": "677f801e826a1c28d08b",
+      "country": "Italy",
+      "game_club_reference": "AC Monza",
+      "source_club_name": "AC Monza",
+      "source_club_id": "2919",
+      "player_names": [
+        "Valentin Antov"
+      ]
+    },
+    {
+      "uid": "7ffa78f5eaccb968a9e8",
+      "country": "Italy",
+      "game_club_reference": "Torino FC",
+      "source_club_name": "Torino FC",
+      "source_club_id": "416",
+      "player_names": [
+        "Giovanni Simeone",
+        "Cyril Ngonge",
+        "Zakaria Aboukhlal",
+        "Ché Adams",
+        "Sandro Kulenović",
+        "Alieu Njie",
+        "Duván Zapata",
+        "Zanos Savva",
+        "Tommaso Gabellini",
+        "Cesare Casadei",
+        "Kristjan Asllani",
+        "Nikola Vlašić"
+      ]
+    },
+    {
+      "uid": "a66d019af33c89e0619d",
+      "country": "Italy",
+      "game_club_reference": "Hellas Verona",
+      "source_club_name": "Hellas Verona",
+      "source_club_id": "276",
+      "player_names": [
+        "Gift Orban",
+        "Amin Sarr",
+        "Daniel Mosquera",
+        "Dailon Livramento",
+        "Stefan Mitrović",
+        "Mathis Lambourde",
+        "Isaac",
+        "Junior Ajayi",
+        "Ioan Vermeșan",
+        "Ruben Akalé",
+        "Tomas Suslov",
+        "Sandi Lovrić"
+      ]
+    },
+    {
+      "uid": "b1d1ccbb9e77bc53c029",
+      "country": "Italy",
+      "game_club_reference": "AC Chievo Verona",
+      "source_club_name": "Chievo Verona",
+      "source_club_id": "862",
+      "player_names": []
+    },
+    {
+      "uid": "cca8ede4bdb14b148a50",
+      "country": "Italy",
+      "game_club_reference": "Venezia FC",
+      "source_club_name": "Venezia FC",
+      "source_club_id": "607",
+      "player_names": [
+        "Marko Farji",
+        "John Yeboah",
+        "Bjarki Bjarkason",
+        "Seid Korac"
+      ]
+    },
+    {
+      "uid": "01ad3f1b1ae3abf80357",
+      "country": "Italy",
+      "game_club_reference": "Udinese Calcio",
+      "source_club_name": "Udinese Calcio",
+      "source_club_id": "410",
+      "player_names": [
+        "Nicolò Zaniolo",
+        "Keinan Davis",
+        "Iker Bravo",
+        "Vakoun Bayo",
+        "Rui Modesto",
+        "Giulio Vinciati",
+        "Arthur Atta",
+        "Jurgen Ekkelenkamp",
+        "Lennon Miller",
+        "Simone Pafundi",
+        "Jakub Piotrowski",
+        "Jesper Karlström"
+      ]
+    },
+    {
+      "uid": "08cbe6fff42b0db62f58",
+      "country": "Italy",
+      "game_club_reference": "Genoa CFC",
+      "source_club_name": "Genoa CFC",
+      "source_club_id": "252",
+      "player_names": [
+        "Jeff Ekhator",
+        "Lorenzo Colombo",
+        "Vitinha",
+        "Maxwel Cornet",
+        "Caleb Ekuban",
+        "Junior Messias",
+        "Seydou Fini",
+        "Marco Romano",
+        "Joi Nuredini",
+        "Elia Spicuglia",
+        "Daniel Ndulue",
+        "Morten Frendrup"
+      ]
+    },
+    {
+      "uid": "1c59e7de1e38bfd7fc9b",
+      "country": "Italy",
+      "game_club_reference": "UC Sampdoria",
+      "source_club_name": "UC Sampdoria",
+      "source_club_id": "1038",
+      "player_names": [
+        "Dennis Hadzikadunic"
+      ]
+    },
+    {
+      "uid": "3e7664c32a09c63e3231",
+      "country": "Italy",
+      "game_club_reference": "Benevento Calcio",
+      "source_club_name": "Benevento Calcio",
+      "source_club_id": "4171",
+      "player_names": []
+    },
+    {
+      "uid": "64778226f8b756816059",
+      "country": "Italy",
+      "game_club_reference": "FC Crotone",
+      "source_club_name": "FC Crotone",
+      "source_club_id": "4083",
+      "player_names": []
+    },
+    {
+      "uid": "9a01f8964264e56b3d6b",
+      "country": "Italy",
+      "game_club_reference": "Bologna FC",
+      "source_club_name": "Bologna Football Club 1909",
+      "source_club_id": "1025",
+      "player_names": [
+        "Santiago Castro",
+        "Riccardo Orsolini",
+        "Nicolò Cambiaghi",
+        "Thijs Dallinga",
+        "Benja Domínguez",
+        "Federico Bernardeschi",
+        "Ciro Immobile",
+        "Francesco Castaldo",
+        "Simone Negri",
+        "Lewis Ferguson",
+        "Jens Odgaard",
+        "Giovanni Fabbian"
+      ]
+    },
+    {
+      "uid": "a9630ee6b10efe335596",
+      "country": "Italy",
+      "game_club_reference": "US Sassuolo Calcio",
+      "source_club_name": "US Sassuolo",
+      "source_club_id": "6574",
+      "player_names": [
+        "Armand Laurienté",
+        "Andrea Pinamonti",
+        "Domenico Berardi",
+        "Alieu Fadera",
+        "M'Bala Nzola",
+        "Samuele Mulattieri",
+        "Agustín Álvarez",
+        "Luca Moro",
+        "Nicholas Pierini",
+        "Laurs Skjellerup",
+        "Ismaël Koné",
+        "Kristian Thorstvedt"
+      ]
+    },
+    {
+      "uid": "ab499fc6e74fb3aa243a",
+      "country": "Italy",
+      "game_club_reference": "SPAL Ferrara",
+      "source_club_name": "SPAL",
+      "source_club_id": "2722",
+      "player_names": []
+    },
+    {
+      "uid": "d131ea66b5567c4142d6",
+      "country": "Italy",
+      "game_club_reference": "ACF Fiorentina",
+      "source_club_name": "ACF Fiorentina",
+      "source_club_id": "430",
+      "player_names": [
+        "Moise Kean",
+        "Roberto Piccoli",
+        "Albert Gudmundsson",
+        "Riccardo Braschi",
+        "Christian Kouamé",
+        "Edin Dzeko",
+        "Giorgio Puzzoli",
+        "Gabriele Bertolini",
+        "Cher Ndour",
+        "Nicolò Fagioli",
+        "Rolando Mandragora",
+        "Marco Brescianini"
+      ]
+    },
+    {
+      "uid": "f603e65adef013ca0bf7",
+      "country": "Italy",
+      "game_club_reference": "Empoli FC",
+      "source_club_name": "FC Empoli",
+      "source_club_id": "749",
+      "player_names": []
+    },
+    {
+      "uid": "0bc572c6dc37a97b5e7a",
+      "country": "Italy",
+      "game_club_reference": "AC Pisa",
+      "source_club_name": "Pisa Sporting Club",
+      "source_club_id": "4172",
+      "player_names": [
+        "Rafiu Durosinmi",
+        "Alexander Lind",
+        "Henrik Meister",
+        "Mehdi Léris",
+        "Stefano Moreo",
+        "Mert Durmush",
+        "Louis Buffon",
+        "Lorenzo Tosi",
+        "Felipe Loyola",
+        "Ebenezer Akinsanmiro",
+        "Samuel Iling-Junior",
+        "Idrissa Touré"
+      ]
+    },
+    {
+      "uid": "0d4f37774190ff41bab9",
+      "country": "Italy",
+      "game_club_reference": "Cagliari Calcio",
+      "source_club_name": "Cagliari Calcio",
+      "source_club_id": "1390",
+      "player_names": [
+        "Sebastiano Esposito",
+        "Paul Mendy",
+        "Gennaro Borrelli",
+        "Mattia Felici",
+        "Agustín Albarracín",
+        "Yael Trepy",
+        "Andrea Belotti",
+        "Leonardo Pavoletti",
+        "Alessandro Vinciguerra",
+        "Michel Adopo",
+        "Gianluca Gaetano",
+        "Michael Folorunsho"
+      ]
+    },
+    {
+      "uid": "0e813c129db07f76eb5d",
+      "country": "Italy",
+      "game_club_reference": "Frosinone Calcio",
+      "source_club_name": "Frosinone Calcio",
+      "source_club_id": "8970",
+      "player_names": [
+        "Giorgi Kvernadze"
+      ]
+    },
+    {
+      "uid": "36949ece4e635566c72b",
+      "country": "Italy",
+      "game_club_reference": "Palermo FC",
+      "source_club_name": "Palermo FC",
+      "source_club_id": "458",
+      "player_names": [
+        "Joel Pohjanpalo",
+        "Bartosz Bereszyński"
+      ]
+    },
+    {
+      "uid": "3763369b1ea5add9f0ac",
+      "country": "Italy",
+      "game_club_reference": "Parma Calcio",
+      "source_club_name": "Parma Calcio 1913",
+      "source_club_id": "130",
+      "player_names": [
+        "Mateo Pellegrino",
+        "Jacob Ondrejka",
+        "Nesta Elphege",
+        "Pontus Almqvist",
+        "Daniel Mikołajewski",
+        "Dario Sits",
+        "Tjas Begic",
+        "Alessandro Cardinali",
+        "Mandela Keita",
+        "Adrián Bernabé",
+        "Christian Ordóñez",
+        "Gaetano Oristanio"
+      ]
+    },
+    {
+      "uid": "39bf17ff392b16b09f1c",
+      "country": "Italy",
+      "game_club_reference": "Pescara",
+      "source_club_name": "Delfino Pescara 1936",
+      "source_club_id": "2921",
+      "player_names": []
+    },
+    {
+      "uid": "43ddfb260e9ccd93a2f8",
+      "country": "Italy",
+      "game_club_reference": "Salernitana",
+      "source_club_name": "US Salernitana 1919",
+      "source_club_id": "380",
+      "player_names": []
+    },
+    {
+      "uid": "52426322c9f802c1647e",
+      "country": "Italy",
+      "game_club_reference": "Spezia Calcio",
+      "source_club_name": "Spezia Calcio",
+      "source_club_id": "3522",
+      "player_names": [
+        "Gianluca Lapadula",
+        "Petko Hristov"
+      ]
+    },
+    {
+      "uid": "3aafb272e8752af57673",
+      "country": "France",
+      "game_club_reference": "Paris Saint-Germain",
+      "source_club_name": "Paris Saint-Germain",
+      "source_club_id": "583",
+      "player_names": [
+        "Khvicha Kvaratskhelia",
+        "Désiré Doué",
+        "Ousmane Dembélé",
+        "Bradley Barcola",
+        "Gonçalo Ramos",
+        "Ibrahim Mbaye",
+        "Quentin Ndjantou",
+        "Noah Nsoki",
+        "Pierre Mounguengue",
+        "Vitinha",
+        "João Neves",
+        "Warren Zaïre-Emery"
+      ]
+    },
+    {
+      "uid": "70016252382c95789326",
+      "country": "France",
+      "game_club_reference": "Olympique de Marseille",
+      "source_club_name": "Olympique Marseille",
+      "source_club_id": "244",
+      "player_names": [
+        "Mason Greenwood",
+        "Igor Paixão",
+        "Amine Gouiri",
+        "Jonathan Rowe",
+        "Robinio Vaz",
+        "Hamed Traoré",
+        "Amine Harit",
+        "Neal Maupay",
+        "Pierre-Emerick Aubameyang",
+        "Ange Lago",
+        "Keyliane Abdallah",
+        "Tadjidine Mmadi"
+      ]
+    },
+    {
+      "uid": "f29add313c45f046c569",
+      "country": "France",
+      "game_club_reference": "AS Monaco",
+      "source_club_name": "AS Monaco",
+      "source_club_id": "162",
+      "player_names": [
+        "Maghnes Akliouche",
+        "Folarin Balogun",
+        "Ansu Fati",
+        "Mika Biereth",
+        "Takumi Minamino",
+        "Paris Brunner",
+        "Lamine Camara",
+        "Denis Zakaria",
+        "Aleksandr Golovin",
+        "Aladji Bamba",
+        "Mamadou Coulibaly",
+        "Krépin Diatta"
+      ]
+    },
+    {
+      "uid": "fda9c90903e5a56a33bd",
+      "country": "France",
+      "game_club_reference": "Olympique Lyonnais",
+      "source_club_name": "Olympique Lyon",
+      "source_club_id": "1041",
+      "player_names": [
+        "Malick Fofana",
+        "Afonso Moreira",
+        "Ernest Nuamah",
+        "Rémi Himbert",
+        "Rachid Ghezzal",
+        "Enzo Molebe",
+        "Alejandro Gomes Rodríguez",
+        "Adil Hamdani",
+        "Tyler Morton",
+        "Noah Nartey",
+        "Khalis Merah",
+        "Corentin Tolisso"
+      ]
+    },
+    {
+      "uid": "1677074cfcb68877beba",
+      "country": "France",
+      "game_club_reference": "Lille OSC",
+      "source_club_name": "LOSC Lille",
+      "source_club_id": "1082",
+      "player_names": [
+        "Matias Fernandez-Pardo",
+        "Hamza Igamane",
+        "Félix Correia",
+        "Osame Sahraoui",
+        "Ethan Mbappé",
+        "Gaëtan Perrin",
+        "Marius Broholm",
+        "Noah Edjouma",
+        "Soriba Diaoune",
+        "Olivier Giroud",
+        "Younes Lachaab",
+        "Angel Yondjo Matah"
+      ]
+    },
+    {
+      "uid": "8c754b0b5afac945a2c3",
+      "country": "France",
+      "game_club_reference": "RC Lens",
+      "source_club_name": "RC Lens",
+      "source_club_id": "826",
+      "player_names": [
+        "Odsonne Édouard",
+        "Rayan Fofana",
+        "Wesley Saïd",
+        "Florian Thauvin",
+        "Abdallah Sima",
+        "Florian Sotoca",
+        "Anthony Bermont",
+        "Erawan Garnier",
+        "Mamadou Sangaré",
+        "Andy Diouf",
+        "Andrija Bulatovic",
+        "Adrien Thomasson"
+      ]
+    },
+    {
+      "uid": "10d54a40828b00dc35c1",
+      "country": "France",
+      "game_club_reference": "Paris FC",
+      "source_club_name": "Paris FC",
+      "source_club_id": "10004",
+      "player_names": [
+        "Ilan Kebbal",
+        "Moses Simon",
+        "Willem Geubbels",
+        "Jonathan Ikoné",
+        "Jean-Philippe Krasso",
+        "Mathieu Cafaro",
+        "Alimami Gory",
+        "Nouha Dicko",
+        "Pierre-Yves Hamel",
+        "Lamine Gueye",
+        "Julien Lopez",
+        "Zakarya Khaldi"
+      ]
+    },
+    {
+      "uid": "40d3a7943b8d71c78040",
+      "country": "France",
+      "game_club_reference": "Amiens SC",
+      "source_club_name": "Amiens SC",
+      "source_club_id": "1416",
+      "player_names": [
+        "Jan Mlakar",
+        "Rayan Lutin"
+      ]
+    },
+    {
+      "uid": "55744f20044991dcf6bd",
+      "country": "France",
+      "game_club_reference": "Angers SCO",
+      "source_club_name": "Angers SCO",
+      "source_club_id": "1420",
+      "player_names": [
+        "Sidiki Chérif",
+        "Prosper Peter",
+        "Amine Sbaï",
+        "Lanroy Machine",
+        "Harouna Djibirin",
+        "Jim Allevinah",
+        "Yahia Jlidi",
+        "Yassin Belkhdim",
+        "Louis Mouton",
+        "Branco van den Boomen",
+        "Marius Courcoul",
+        "Haris Belkebla"
+      ]
+    },
+    {
+      "uid": "62f0a8a7cacddd97c2f9",
+      "country": "France",
+      "game_club_reference": "Girondins de Bordeaux",
+      "source_club_name": "FC Girondins Bordeaux",
+      "source_club_id": "40",
+      "player_names": []
+    },
+    {
+      "uid": "6a5a99645fad7809bb02",
+      "country": "France",
+      "game_club_reference": "Stade Malherbe Caen",
+      "source_club_name": "SM Caen",
+      "source_club_id": "1162",
+      "player_names": []
+    },
+    {
+      "uid": "abc8e8bff221743ca3b4",
+      "country": "France",
+      "game_club_reference": "Dijon FCO",
+      "source_club_name": "Dijon FCO",
+      "source_club_id": "2969",
+      "player_names": []
+    },
+    {
+      "uid": "b9e082b5af8f268047f2",
+      "country": "France",
+      "game_club_reference": "EA Guingamp",
+      "source_club_name": "EA Guingamp",
+      "source_club_id": "855",
+      "player_names": [
+        "Sohaib Naïr",
+        "Akim Abdallah"
+      ]
+    },
+    {
+      "uid": "c9b48f760695a3d96c47",
+      "country": "France",
+      "game_club_reference": "FC Metz",
+      "source_club_name": "FC Metz",
+      "source_club_id": "347",
+      "player_names": [
+        "Brian Madjo",
+        "Idrissa Gueye",
+        "Gauthier Hein",
+        "Nathan Mbala",
+        "Habib Diallo",
+        "Lucas Michal",
+        "Giorgi Tsitaishvili",
+        "Cheikh Sabaly",
+        "Giorgi Abuashvili",
+        "Giorgi Kvilitaia",
+        "Joel Asoro",
+        "Malick Mbaye"
+      ]
+    },
+    {
+      "uid": "0ea667eba770279bcb4d",
+      "country": "France",
+      "game_club_reference": "Montpellier HSC",
+      "source_club_name": "Montpellier HSC",
+      "source_club_id": "969",
+      "player_names": [
+        "Nathanaël Mbuku"
+      ]
+    },
+    {
+      "uid": "1aec775a1e0bbc0f4a0e",
+      "country": "France",
+      "game_club_reference": "FC Nantes",
+      "source_club_name": "FC Nantes",
+      "source_club_id": "995",
+      "player_names": [
+        "Matthis Abline",
+        "Herba Guirassy",
+        "Mostafa Mohamed",
+        "Mayckel Lahdo",
+        "Ignatius Ganago",
+        "Youssef El Arabi",
+        "Yassine Benhattab",
+        "Junior Koné",
+        "Louis Leroux",
+        "Johann Lepenant",
+        "Dehmaine Tabibou",
+        "Ibrahima Sissoko"
+      ]
+    },
+    {
+      "uid": "1e6db57f0300984d527b",
+      "country": "France",
+      "game_club_reference": "OGC Nice",
+      "source_club_name": "OGC Nice",
+      "source_club_id": "417",
+      "player_names": [
+        "Elye Wahi",
+        "Sofiane Diop",
+        "Mohamed-Ali Cho",
+        "Terem Moffi",
+        "Kaïl Boudache",
+        "Isak Jansson",
+        "Tiago Gouveia",
+        "Billal Brahimi",
+        "Zoumana Diallo",
+        "Kéfren Ali",
+        "Enguerrand Bouard",
+        "Jah-Mason Telusson"
+      ]
+    },
+    {
+      "uid": "28ef8b8ff55e67114af6",
+      "country": "France",
+      "game_club_reference": "Stade Rennais FC",
+      "source_club_name": "Stade Rennais FC",
+      "source_club_id": "273",
+      "player_names": [
+        "Estéban Lepaul",
+        "Kader Meïté",
+        "Breel Embolo",
+        "Mousa Tamari",
+        "Yassir Zabiri",
+        "Bertuğ Yıldırım",
+        "Arnaud Nordin",
+        "Ibrahim Salah",
+        "Elías Legendre Quiñónez",
+        "Nordan Mukiele",
+        "Lucas Rosier",
+        "Sebastian Szymanski"
+      ]
+    },
+    {
+      "uid": "33d1544fd885ba9908b1",
+      "country": "France",
+      "game_club_reference": "AS Saint-Étienne",
+      "source_club_name": "AS Saint-Étienne",
+      "source_club_id": "618",
+      "player_names": [
+        "Zuriko Davitashvili",
+        "Irvin Cardona",
+        "Marten-Chris Paalberg",
+        "Mahmoud Jaber",
+        "Ben Old"
+      ]
+    },
+    {
+      "uid": "35f2a8362d8017836e91",
+      "country": "France",
+      "game_club_reference": "RC Strasbourg",
+      "source_club_name": "RC Strasbourg Alsace",
+      "source_club_id": "667",
+      "player_names": [
+        "Joaquín Panichelli",
+        "Dilane Bakwa",
+        "Emmanuel Emegha",
+        "Martial Godo",
+        "Sebastian Nanasi",
+        "Gessime Yassine",
+        "Samuel Amo-Ameyaw",
+        "David Datro Fofana",
+        "Yaya Diémé",
+        "Ghianny Kodia",
+        "Jean-Baptiste Bosey",
+        "Stanley Ogbonna"
+      ]
+    },
+    {
+      "uid": "40614e964673609022b4",
+      "country": "France",
+      "game_club_reference": "Toulouse FC",
+      "source_club_name": "FC Toulouse",
+      "source_club_id": "415",
+      "player_names": [
+        "Yann Gboho",
+        "Santiago Hidalgo",
+        "Jacen Russell-Rowe",
+        "Frank Magri",
+        "Julián Vignolo",
+        "Enzo Faty",
+        "Ilyas Azizi",
+        "Alexis Vossah",
+        "Cristian Cásseres Jr.",
+        "Pape Demba Diop",
+        "Aron Dønnum",
+        "Niklas Schmidt"
+      ]
+    },
+    {
+      "uid": "6148c410fb3b2947879a",
+      "country": "France",
+      "game_club_reference": "ES Troyes AC",
+      "source_club_name": "ESTAC Troyes",
+      "source_club_id": "1095",
+      "player_names": [
+        "Ismaël Boura"
+      ]
+    },
+    {
+      "uid": "6b27acc4f4b1642294ea",
+      "country": "France",
+      "game_club_reference": "Stade de Reims",
+      "source_club_name": "Stade Reims",
+      "source_club_id": "1421",
+      "player_names": [
+        "Keito Nakamura",
+        "John Patrick",
+        "Hiroki Sekine"
+      ]
+    },
+    {
+      "uid": "70832772cce093cd3a3a",
+      "country": "France",
+      "game_club_reference": "Nîmes Olympique",
+      "source_club_name": "Nîmes Olympique",
+      "source_club_id": "1160",
+      "player_names": []
+    },
+    {
+      "uid": "7ae092360edc3159b422",
+      "country": "France",
+      "game_club_reference": "AC Ajaccio",
+      "source_club_name": "AC Ajaccio",
+      "source_club_id": "1147",
+      "player_names": []
+    },
+    {
+      "uid": "7c14a77b452dec3b13d8",
+      "country": "France",
+      "game_club_reference": "GFC Ajaccio",
+      "source_club_name": "GFC Ajaccio",
+      "source_club_id": "3558",
+      "player_names": []
+    },
+    {
+      "uid": "8fecb2f10590b7af1a16",
+      "country": "France",
+      "game_club_reference": "AJ Auxerre",
+      "source_club_name": "AJ Auxerre",
+      "source_club_id": "290",
+      "player_names": [
+        "Lassine Sinayoko",
+        "Ibrahim Osman",
+        "Danny Namaso",
+        "Sékou Mara",
+        "Josué Casimir",
+        "Theo Bair",
+        "Lasso Coulibaly",
+        "Ado Onaiwu",
+        "Ryan Rodin",
+        "Mamoudou Cissokho",
+        "Kévin Danois",
+        "Rudy Matondo"
+      ]
+    },
+    {
+      "uid": "bda1335ce63b00c23476",
+      "country": "France",
+      "game_club_reference": "Stade Brestois 29",
+      "source_club_name": "Stade Brestois 29",
+      "source_club_id": "3911",
+      "player_names": [
+        "Romain Del Castillo",
+        "Rémy Labeau Lascary",
+        "Ludovic Ajorque",
+        "Mama Baldé",
+        "Pathé Mboup",
+        "Axel Camblan",
+        "Saliou Diop",
+        "Ibrahim Yayiya Kanté",
+        "Mathis Lainé",
+        "Kamory Doumbia",
+        "Joris Chotard",
+        "Hugo Magnetti"
+      ]
+    },
+    {
+      "uid": "e0583863c302f2b70933",
+      "country": "France",
+      "game_club_reference": "Clermont Foot 63",
+      "source_club_name": "Clermont Foot 63",
+      "source_club_id": "3524",
+      "player_names": []
+    },
+    {
+      "uid": "e261747b2b6b6ae5ba27",
+      "country": "France",
+      "game_club_reference": "Le Havre AC",
+      "source_club_name": "Le Havre AC",
+      "source_club_id": "738",
+      "player_names": [
+        "Issa Soumaré",
+        "Kenny Quetant",
+        "Damián Pizarro",
+        "Noam Obougou",
+        "Ally Samatta",
+        "Felix Mambimbi",
+        "Godson Kyeremeh",
+        "Yanis Beau Djellel",
+        "Rassoul Ndiaye",
+        "Lucas Gourna-Douath",
+        "Simon Ebonog",
+        "Yassine Kechta"
+      ]
+    },
+    {
+      "uid": "032162d8688657493a2e",
+      "country": "France",
+      "game_club_reference": "FC Lorient",
+      "source_club_name": "FC Lorient",
+      "source_club_id": "1158",
+      "player_names": [
+        "Pablo Pagis",
+        "Bamba Dieng",
+        "Sambou Soumano",
+        "Mohamed Bamba",
+        "Aiyegun Tosin",
+        "Trevan Sanusi",
+        "Sohan Baldoni",
+        "Mamadou Koné",
+        "Arthur Avom",
+        "Jean-Victor Makengo",
+        "Théo Le Bris",
+        "Noah Cadiou"
+      ]
+    },
+    {
+      "uid": "12619058e011694467d9",
+      "country": "France",
+      "game_club_reference": "AS Nancy Lorraine",
+      "source_club_name": "AS Nancy-Lorraine",
+      "source_club_id": "1159",
+      "player_names": [
+        "Martin Expérience"
+      ]
+    },
+    {
+      "uid": "45df509009642afc2a1b",
+      "country": "France",
+      "game_club_reference": "FC Sochaux-Montbéliard",
+      "source_club_name": "FC Sochaux-Montbéliard",
+      "source_club_id": "750",
+      "player_names": [
+        "Elson Mendes",
+        "Bendjaloud Youssouf"
+      ]
+    },
+    {
+      "uid": "67d2ffd991da3bba60b3",
+      "country": "France",
+      "game_club_reference": "Valenciennes FC",
+      "source_club_name": "Valenciennes FC",
+      "source_club_id": "1423",
+      "player_names": []
+    },
+    {
+      "uid": "979ba7e09f9dc55d79bd",
+      "country": "France",
+      "game_club_reference": "SC Bastia",
+      "source_club_name": "SC Bastia",
+      "source_club_id": "595",
+      "player_names": [
+        "Mehdi Merghem",
+        "Florian Bohnert"
+      ]
+    }
+  ],
+  "clubs_with_missing_or_partial_player_data": [
+    {
+      "uid": "0e6753645198c3e1ed59",
+      "country": "Portugal",
+      "club": "Os Belenenses",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "70bc983ce8d45360cfcb",
+      "country": "Portugal",
+      "club": "CD Mafra",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "7f651ae64b829f05aa36",
+      "country": "Portugal",
+      "club": "SC União Torreense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "947b9ef7af3a73650841",
+      "country": "Portugal",
+      "club": "CD Cova Piedade",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9b658898a7275eb40aac",
+      "country": "Portugal",
+      "club": "Boavista FC",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "a65b749f4ee63dc63ed2",
+      "country": "Portugal",
+      "club": "UD Oliveirense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "aa01e74f52cb5da63d3f",
+      "country": "Portugal",
+      "club": "CD Aves",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d51606eab1019fdf7281",
+      "country": "Portugal",
+      "club": "GD Chaves",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "db7d1b4b9cc415545634",
+      "country": "Portugal",
+      "club": "CD Feirense",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "1fdc69c867e13ae1a659",
+      "country": "Portugal",
+      "club": "Vitória de Setúbal",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "29b7e51552fc753bab79",
+      "country": "Portugal",
+      "club": "CS Marítimo",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "5c3a9aa8eea2c6b6352e",
+      "country": "Portugal",
+      "club": "FC Paços de Ferreira",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "619c457865ab4e078d8c",
+      "country": "Portugal",
+      "club": "Portimonense SC",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "62611f28eca86577e20d",
+      "country": "Portugal",
+      "club": "FC Vizela",
+      "reason": "only 6 eligible names"
+    },
+    {
+      "uid": "6d0a94b6d9d584ce77e0",
+      "country": "Portugal",
+      "club": "Académica de Coimbra",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "8c93a89e7dee6245a132",
+      "country": "Portugal",
+      "club": "FC Penafiel",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "9e19e6a3f14749644d5c",
+      "country": "Portugal",
+      "club": "SC Beira-Mar",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "c269ef3642e47735d90e",
+      "country": "Portugal",
+      "club": "Desportivo de Chaves",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "d5d90872c6806e3ff34a",
+      "country": "Portugal",
+      "club": "SC Farense",
+      "reason": "only 2 eligible names"
+    },
+    {
+      "uid": "e4823008bb7b58b4873d",
+      "country": "Portugal",
+      "club": "União de Leiria",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f27a8d5d873af11c5df0",
+      "country": "Portugal",
+      "club": "União da Madeira",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "0345b7df88d691d59fc3",
+      "country": "Portugal",
+      "club": "SC Salgueiros",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "0e0ee8acc1b8ed3d41c9",
+      "country": "Portugal",
+      "club": "FC Tirsense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "39c56362a7b576c9b012",
+      "country": "Portugal",
+      "club": "SC Campomaiorense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "3d9fe6c0224c7c2862db",
+      "country": "Portugal",
+      "club": "FC Felgueiras",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "5762fdd32b6efeb18b95",
+      "country": "Portugal",
+      "club": "Leça FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "956868dd3b0205f4f2bf",
+      "country": "Portugal",
+      "club": "Sporting de Espinho",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a59dac83815df1678c80",
+      "country": "Portugal",
+      "club": "Leixões SC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a7a4b6c8efda8cec705c",
+      "country": "Portugal",
+      "club": "Naval 1º de Maio",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "ad8b7e33eb5a8b514f52",
+      "country": "Portugal",
+      "club": "SC Olhanense",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "c37a49ac0a90dfccafe4",
+      "country": "Portugal",
+      "club": "CD Trofense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c773f339eacc3935289e",
+      "country": "Portugal",
+      "club": "Varzim SC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "ceb9c27938c7ea20ecca",
+      "country": "Portugal",
+      "club": "SC Covilhã",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "dd061d65eeda5ce8cfcc",
+      "country": "Portugal",
+      "club": "Académico Viseu",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e6c0b9f197568690cd3e",
+      "country": "Portugal",
+      "club": "Anadia FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "faa815ba15c986f7862c",
+      "country": "Portugal",
+      "club": "AC Marinhense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "1658afeeb46b41b9f21a",
+      "country": "Portugal",
+      "club": "CU Fabril Barreiro",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "34c24816145b56010a22",
+      "country": "Portugal",
+      "club": "FC Barreirense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "3a0accace2c3dda88a2b",
+      "country": "Portugal",
+      "club": "Amarante FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "3a5d661a7b184611efa0",
+      "country": "Portugal",
+      "club": "FC Vilaverdense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c0417942003268da0c3f",
+      "country": "Portugal",
+      "club": "Os Belenenses",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "dcd5f88b5e087c22203f",
+      "country": "Portugal",
+      "club": "CD Mafra",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "dff7a8579accd9698b28",
+      "country": "Portugal",
+      "club": "SC União Torreense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e0ba22bae7c8d6a8d66a",
+      "country": "Portugal",
+      "club": "CD Cova Piedade",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e6134a852687dc5e602d",
+      "country": "Portugal",
+      "club": "Boavista FC",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "e9a2c5f4d043fc22ec4e",
+      "country": "Portugal",
+      "club": "UD Oliveirense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2ed2b73a3addfc479596",
+      "country": "England",
+      "club": "Charlton Athletic FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "598e41ea1bbbc63de2af",
+      "country": "England",
+      "club": "Wimbledon FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "8876c578731a7d91e847",
+      "country": "England",
+      "club": "AFC Wimbledon",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "8e39cfc3a668a6247f5e",
+      "country": "England",
+      "club": "Kingstonian FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9bd2bb2c62d7dfbb7720",
+      "country": "England",
+      "club": "Queens Park Rangers FC",
+      "reason": "only 6 eligible names"
+    },
+    {
+      "uid": "9f377e619b036578e321",
+      "country": "England",
+      "club": "Millwall FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b248abb315678ece6735",
+      "country": "England",
+      "club": "Leyton Orient FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b5c77508adcea637c44b",
+      "country": "England",
+      "club": "Barnet FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b898a96e6a03ee75030a",
+      "country": "England",
+      "club": "Dagenham & Redbridge FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "fef17a257ddee7bd6283",
+      "country": "England",
+      "club": "Bromley FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "03492f3d574afdcabc8b",
+      "country": "England",
+      "club": "Hayes & Yeading United FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "043b8d41e70dba2b6f79",
+      "country": "England",
+      "club": "Welling United FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "17a41d494bef0bfeff6f",
+      "country": "England",
+      "club": "Sutton United FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "17e7d6c9745778328371",
+      "country": "England",
+      "club": "Hampton & Richmond Borough FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "29176aa614c07e08268e",
+      "country": "England",
+      "club": "Haringey Borough FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "29515561e3220d26fa78",
+      "country": "England",
+      "club": "Carshalton Athletic FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "48a9744961e6f9343224",
+      "country": "England",
+      "club": "Dulwich Hamlet FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "592bdc9f7372c0cdc544",
+      "country": "England",
+      "club": "Wealdstone FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "6a193ff627b83966fe82",
+      "country": "England",
+      "club": "Blackburn Rovers FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "791190c891c0b5aa3dff",
+      "country": "England",
+      "club": "Blackpool FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "794e427d3d70947c6ae2",
+      "country": "England",
+      "club": "South Shore FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a0eb76b58586f17a8014",
+      "country": "England",
+      "club": "Preston North End FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a59cc216be08f6392fba",
+      "country": "England",
+      "club": "AFC Fylde",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "bf31722e94ef488a5429",
+      "country": "England",
+      "club": "Nelson FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "bfa8e5d8320168fecf60",
+      "country": "England",
+      "club": "Oldham Athletic AFC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c1e91e1d684859f5854f",
+      "country": "England",
+      "club": "Bolton Wanderers FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c3356217dfb0aad1f592",
+      "country": "England",
+      "club": "Wigan Athletic FC",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "c6058a9b95413094e1d4",
+      "country": "England",
+      "club": "Atherton Collieries",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "cd7a4e6d166f1869a4b2",
+      "country": "England",
+      "club": "Stockport County FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e31f1e0740f0c812ec68",
+      "country": "England",
+      "club": "Bury FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f4790bfde2e8119578e5",
+      "country": "England",
+      "club": "Rochdale AFC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f6d6ca20162ebbfab031",
+      "country": "England",
+      "club": "Altrincham FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "0e760392362a2b04cd96",
+      "country": "England",
+      "club": "Droylsden FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2b8aee981d487c7e24e8",
+      "country": "England",
+      "club": "Hyde United FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "3bbecd722a54b81c9fbe",
+      "country": "England",
+      "club": "Stalybridge Celtic FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "49efa0ee7f006dad53e4",
+      "country": "England",
+      "club": "Salford City FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "691e652eee9467a9f3fd",
+      "country": "England",
+      "club": "Birmingham City FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "790297270e078e729302",
+      "country": "England",
+      "club": "Newcastle West End FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "79a0625a16c54bbe83d4",
+      "country": "England",
+      "club": "Newcastle East End FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "88b22b411ac4759bc902",
+      "country": "England",
+      "club": "Ashington AFC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "896dae4d1df6cd02a9b3",
+      "country": "England",
+      "club": "South Shields FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9cbf77588f9639dbff54",
+      "country": "England",
+      "club": "Gateshead FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a7c81923e589677fdbef",
+      "country": "England",
+      "club": "Southampton FC",
+      "reason": "only 5 eligible names"
+    },
+    {
+      "uid": "af82da459e810fbcf611",
+      "country": "England",
+      "club": "Aldershot Town FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b424a65f0d6a519d0211",
+      "country": "England",
+      "club": "Portsmouth FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b4ea062295f3294f689b",
+      "country": "England",
+      "club": "Eastleigh FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b72b926fb09feb2b71a0",
+      "country": "England",
+      "club": "Havant & Waterlooville FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c8ffc3e8ad64b4eba1d9",
+      "country": "England",
+      "club": "Leicester City FC",
+      "reason": "only 6 eligible names"
+    },
+    {
+      "uid": "cd4ea223a0f4ac10d96c",
+      "country": "England",
+      "club": "West Bromwich Albion FC",
+      "reason": "only 8 eligible names"
+    },
+    {
+      "uid": "d269f9cd1ab0265d802b",
+      "country": "England",
+      "club": "Coventry City FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d97c5b78d9b7a9d3977f",
+      "country": "England",
+      "club": "Walsall FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "dd4c54fefd5b1f1c9079",
+      "country": "England",
+      "club": "Solihull Moors FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "09ffd23ee35662bb54bc",
+      "country": "England",
+      "club": "Stafford Rangers FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "0a60cd0f92ca003bf96a",
+      "country": "England",
+      "club": "Stourbridge FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "0fc3d1eadc18ccdeadb5",
+      "country": "England",
+      "club": "York City FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2a07d45a4e258473267d",
+      "country": "England",
+      "club": "Middlesbrough FC",
+      "reason": "only 6 eligible names"
+    },
+    {
+      "uid": "305c197fc35b6d2abfe9",
+      "country": "England",
+      "club": "Scarborough Athletic FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "309328b0b2f7d307d3b9",
+      "country": "England",
+      "club": "Harrogate Town AFC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "49058e2c95947a33b58e",
+      "country": "England",
+      "club": "Bradford City AFC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "4ca172ab0800e999bd47",
+      "country": "England",
+      "club": "Bradford Park Avenue AFC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "52dd6ac692d8509fd3bf",
+      "country": "England",
+      "club": "Huddersfield Town AFC",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "632f7cc9c6833414cba7",
+      "country": "England",
+      "club": "FC Halifax Town",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "6c59c2cdb84a68aa3b51",
+      "country": "England",
+      "club": "Farsley Celtic FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "7fb8a52bdd1aa7dc9e25",
+      "country": "England",
+      "club": "Guiseley AFC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "8cf541ec08f3fc87de15",
+      "country": "England",
+      "club": "Hull City AFC",
+      "reason": "only 6 eligible names"
+    },
+    {
+      "uid": "a6946841829f1221c8be",
+      "country": "England",
+      "club": "North Ferriby United AFC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a8a344e5e94e46befed7",
+      "country": "England",
+      "club": "Sheffield Wednesday FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b5ec225cd8a28af9a059",
+      "country": "England",
+      "club": "Sheffield United FC",
+      "reason": "only 2 eligible names"
+    },
+    {
+      "uid": "c1a6183035e9185f94ac",
+      "country": "England",
+      "club": "Barnsley FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c232ffb9475a5c7e1b98",
+      "country": "England",
+      "club": "Rotherham United FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "ca3f3a527eb332ca729d",
+      "country": "England",
+      "club": "Doncaster Rovers FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "cb22dd80e6dda073d126",
+      "country": "England",
+      "club": "Stoke City FC",
+      "reason": "only 5 eligible names"
+    },
+    {
+      "uid": "cf67cc4081b3c710bb43",
+      "country": "England",
+      "club": "Port Vale FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e5fd3ac2fd2899b41214",
+      "country": "England",
+      "club": "Burton Albion FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "eb2a93d0f893588ef790",
+      "country": "England",
+      "club": "Tamworth FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "12f690f6b94fc11d6a97",
+      "country": "England",
+      "club": "Derby County FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "19095df3226aa88b052c",
+      "country": "England",
+      "club": "Norwich City FC",
+      "reason": "only 7 eligible names"
+    },
+    {
+      "uid": "1da9050ff7413057d9e2",
+      "country": "England",
+      "club": "King's Lynn FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2baa22fbf7e416a165ed",
+      "country": "England",
+      "club": "Watford FC",
+      "reason": "only 8 eligible names"
+    },
+    {
+      "uid": "351273e778ec8265b239",
+      "country": "England",
+      "club": "Hitchin Town FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "3f3be1d6e3524f456d44",
+      "country": "England",
+      "club": "Oxford United FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "4d5a4d8f036a3616953e",
+      "country": "England",
+      "club": "Oxford City FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "51dfaf5d757deebd8e71",
+      "country": "England",
+      "club": "Peterborough United FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "7da76b130a65db084b5e",
+      "country": "England",
+      "club": "Cambridge United FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9aef288e8d12dc27b9ea",
+      "country": "England",
+      "club": "Histon FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9ea32d8eccb78b289471",
+      "country": "England",
+      "club": "Ipswich Town FC",
+      "reason": "only 7 eligible names"
+    },
+    {
+      "uid": "a128945211c2964294af",
+      "country": "England",
+      "club": "Notts County FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b608fa5ba823a3324a6f",
+      "country": "England",
+      "club": "Mansfield Town FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d220308ec7976756cb7e",
+      "country": "England",
+      "club": "Weymouth FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "eb80d680b6f05b1132fa",
+      "country": "England",
+      "club": "Reading FC",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "fdec0b5f57fc0f0303c0",
+      "country": "England",
+      "club": "Maidenhead United FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2224dfac92112d65324f",
+      "country": "Spain",
+      "club": "AD Alcorcón",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2ae1fdba3d80fa72b257",
+      "country": "Spain",
+      "club": "CF Fuenlabrada",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "323630c553b2b55b9eb5",
+      "country": "Spain",
+      "club": "CF Rayo Majadahonda",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "6fd0d82cbea00411d468",
+      "country": "Spain",
+      "club": "Málaga CF",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "8e8904232485cb82559c",
+      "country": "Spain",
+      "club": "Algeciras CF",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9a379d34a2761d2ec3f2",
+      "country": "Spain",
+      "club": "UD Almería",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "bf5c108fa4229b42d35b",
+      "country": "Spain",
+      "club": "Cádiz CF",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "dcc53ffc992657a3a5cd",
+      "country": "Spain",
+      "club": "Córdoba CF",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "1b67915201f9c0650021",
+      "country": "Spain",
+      "club": "Écija Balompié",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "287017beb66d6aa94cd0",
+      "country": "Spain",
+      "club": "Real Jaén CF",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2a77e6d4b136e14aecf7",
+      "country": "Spain",
+      "club": "Granada CF",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "36bbf4792586ead764ed",
+      "country": "Spain",
+      "club": "Granada 74",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "4283e4f9c8a54b4b1265",
+      "country": "Spain",
+      "club": "UE Sant Andreu",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "524a000ba8e665156dd0",
+      "country": "Spain",
+      "club": "Gimnàstic Tarragona",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "833fcf2f1a0ebee87526",
+      "country": "Spain",
+      "club": "CF Reus",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "83c93edbe115490df0dd",
+      "country": "Spain",
+      "club": "Lleida Esportiu",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "954ee5ab0cb586116b49",
+      "country": "Spain",
+      "club": "RCD La Coruña",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "a9b465a15af9b3b612c7",
+      "country": "Spain",
+      "club": "SD Compostela",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "be3737acc0434200d47e",
+      "country": "Spain",
+      "club": "Racing Ferrol",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f5cb961d9010cec54525",
+      "country": "Spain",
+      "club": "Alicante CF",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f97028a20a75782b6cde",
+      "country": "Spain",
+      "club": "Hércules CF",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "013adfb05c2a1e3d9b59",
+      "country": "Spain",
+      "club": "CD Alcoyano",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "0d03f9d60d6a9aeb90bc",
+      "country": "Spain",
+      "club": "CD Castellón",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "12628c943a93b544f8af",
+      "country": "Spain",
+      "club": "CD Eldense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "33d5a68a9e390cee5d3a",
+      "country": "Spain",
+      "club": "SD Eibar",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "4844fc1372c8c51e82e9",
+      "country": "Spain",
+      "club": "Sporting Gijón",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "48663f43dd1c61f5c869",
+      "country": "Spain",
+      "club": "Albacete Balompié",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "48aa2645eb2f8d5c4ff3",
+      "country": "Spain",
+      "club": "CD Guadalajara",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "645a4224909a8de69e92",
+      "country": "Spain",
+      "club": "CD Badajoz",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "64b64ab32343dae171f6",
+      "country": "Spain",
+      "club": "Extremadura UD",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "884715e2abeec6451b9e",
+      "country": "Spain",
+      "club": "CP Mérida",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9603e587dd779bef5d96",
+      "country": "Spain",
+      "club": "Mérida AD",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "99e020fc99214f84720e",
+      "country": "Spain",
+      "club": "Burgos CF",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a3fe8eb43ec931d81f48",
+      "country": "Spain",
+      "club": "CD Mirandés",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "acbea935b025582ce711",
+      "country": "Spain",
+      "club": "Real Murcia CF",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "edf587d0ff055e9cd69b",
+      "country": "Spain",
+      "club": "UCAM Murcia",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f8cf1bef1aafe12e7e50",
+      "country": "Spain",
+      "club": "CF Ciudad de Murcia",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "03edc6f8feb218f97a7a",
+      "country": "Germany",
+      "club": "TSV 1860 München",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "07f895571f3fae2eaa49",
+      "country": "Germany",
+      "club": "Türkgücü München",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "355e795cd1a8bc9ecd8e",
+      "country": "Germany",
+      "club": "1. FC Nürnberg",
+      "reason": "only 3 eligible names"
+    },
+    {
+      "uid": "37c376b5cf4329e2aeb8",
+      "country": "Germany",
+      "club": "SpVgg Greuther Fürth",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "4fbcd2cd7b55a72e8ed5",
+      "country": "Germany",
+      "club": "TSV Schwaben Augsburg",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "66b79300d1bb4e30a515",
+      "country": "Germany",
+      "club": "SpVgg Unterhaching",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "6c5b21be99a4e0976cad",
+      "country": "Germany",
+      "club": "FC Ingolstadt 04",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "7520ce3ebf41a307e522",
+      "country": "Germany",
+      "club": "SSV Jahn Regensburg",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9e90b993b2ca6783b176",
+      "country": "Germany",
+      "club": "1. FC Schweinfurt 05",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b9541fbe6c5c2b7c8697",
+      "country": "Germany",
+      "club": "Würzburger Kickers",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "cb4ff0b96b2afccbaee5",
+      "country": "Germany",
+      "club": "Wacker Burghausen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "1bc63634577a576d3b30",
+      "country": "Germany",
+      "club": "Viktoria Aschaffenburg",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "1dd7344e0bca76751080",
+      "country": "Germany",
+      "club": "TSV 1860 Rosenheim",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2b95f9e7457be8d1d333",
+      "country": "Germany",
+      "club": "SpVgg Bayreuth",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2e86b284f1f019df8a43",
+      "country": "Germany",
+      "club": "FC Eintracht Bamberg",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "60489765faae2422dda4",
+      "country": "Germany",
+      "club": "Fortuna Köln",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "8246f38c3dbde150bb63",
+      "country": "Germany",
+      "club": "FC Viktoria Köln",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "8778a051ccc43d9e40df",
+      "country": "Germany",
+      "club": "Fortuna Düsseldorf",
+      "reason": "only 5 eligible names"
+    },
+    {
+      "uid": "a03e96d6f15095e779b0",
+      "country": "Germany",
+      "club": "FC Schalke 04",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "b384e3de300c07221951",
+      "country": "Germany",
+      "club": "MSV Duisburg",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b7c7e453a8818671f9a8",
+      "country": "Germany",
+      "club": "VfL Bochum",
+      "reason": "only 2 eligible names"
+    },
+    {
+      "uid": "c728a817ab84348331ea",
+      "country": "Germany",
+      "club": "SG Wattenscheid 09",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d94737454ac063bc7859",
+      "country": "Germany",
+      "club": "Arminia Bielefeld",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "e184a8f98b4ec383df4a",
+      "country": "Germany",
+      "club": "Preußen Münster",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e226f6917a6abbee0980",
+      "country": "Germany",
+      "club": "Gütersloh",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e6af2ba0f3e504de4326",
+      "country": "Germany",
+      "club": "KFC Uerdingen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "fc20c10a9acd9781e1be",
+      "country": "Germany",
+      "club": "Alemannia Aachen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "09f4d4e2666ea72ee574",
+      "country": "Germany",
+      "club": "SC Paderborn 07",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "0d9806e6e569154814b8",
+      "country": "Germany",
+      "club": "Rot Weiss Ahlen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2bc7c86f26ecec0056ee",
+      "country": "Germany",
+      "club": "Rot-Weiß Oberhausen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "4b4f6c50cec6ecdb565f",
+      "country": "Germany",
+      "club": "SF Siegen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "4d8e822c4e3338cd684e",
+      "country": "Germany",
+      "club": "Wuppertaler SV",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "5df07d9f18bff1558c44",
+      "country": "Germany",
+      "club": "Rot-Weiss Essen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "7172df3e51d79f56351f",
+      "country": "Germany",
+      "club": "SC Verl",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "774a96b41a2b55c233e5",
+      "country": "Germany",
+      "club": "SV Rödinghausen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9207b7748d20771eff64",
+      "country": "Germany",
+      "club": "RSV Meinerzhagen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9379ad741fdcf79884af",
+      "country": "Germany",
+      "club": "1. FC Düren",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9e44682dfe2a385979e9",
+      "country": "Germany",
+      "club": "Bonner SC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "ac447f4b50972b02331b",
+      "country": "Germany",
+      "club": "1. FC Kaan-Marienborn",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d3d1fc78afef39c958fa",
+      "country": "Germany",
+      "club": "SV Straelen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d859d1c24baafbd6ffa2",
+      "country": "Germany",
+      "club": "FC Gütersloh",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "daac7e578f2a877306df",
+      "country": "Germany",
+      "club": "1. FC Saarbrücken",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e603d1d262793865b5eb",
+      "country": "Germany",
+      "club": "FC 08 Homburg",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f290762c15541e3dc0c1",
+      "country": "Germany",
+      "club": "VfB Borussia Neunkirchen",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f6f9e8a3130ebef1cf77",
+      "country": "Germany",
+      "club": "VfL Osnabrück",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "22bf77ba37e1c174297c",
+      "country": "Italy",
+      "club": "Brescia Calcio",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "677f801e826a1c28d08b",
+      "country": "Italy",
+      "club": "AC Monza",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "92cbc4a093020a2b10f5",
+      "country": "Italy",
+      "club": "Alessandria",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b1d1ccbb9e77bc53c029",
+      "country": "Italy",
+      "club": "AC Chievo Verona",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "cca8ede4bdb14b148a50",
+      "country": "Italy",
+      "club": "Venezia FC",
+      "reason": "only 4 eligible names"
+    },
+    {
+      "uid": "dbdeedafe5d0689d61e0",
+      "country": "Italy",
+      "club": "LR Vicenza Virtus",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e62a871b1df919357911",
+      "country": "Italy",
+      "club": "Calcio Padova",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "fa0022499b6625a794dc",
+      "country": "Italy",
+      "club": "Cittadella",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "04174881d98fd5ce39b8",
+      "country": "Italy",
+      "club": "US Triestina Calcio",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "1c59e7de1e38bfd7fc9b",
+      "country": "Italy",
+      "club": "UC Sampdoria",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "3e7664c32a09c63e3231",
+      "country": "Italy",
+      "club": "Benevento Calcio",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "481c42937f172a47406f",
+      "country": "Italy",
+      "club": "Avellino",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "64778226f8b756816059",
+      "country": "Italy",
+      "club": "FC Crotone",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "83001dde6d8ced2a44fe",
+      "country": "Italy",
+      "club": "Bari",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "965017ed24fd0bc1b89c",
+      "country": "Italy",
+      "club": "Calcio Foggia 1920",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "994ac6d710072a1337ce",
+      "country": "Italy",
+      "club": "Ravenna FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "ab499fc6e74fb3aa243a",
+      "country": "Italy",
+      "club": "SPAL Ferrara",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "b36d57bd386034d10b76",
+      "country": "Italy",
+      "club": "Carpi",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c4fc6984d183781b441c",
+      "country": "Italy",
+      "club": "Modena FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f603e65adef013ca0bf7",
+      "country": "Italy",
+      "club": "Empoli FC",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "f95925e3af500f7a0b6f",
+      "country": "Italy",
+      "club": "SS Robur Siena",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "0c603059202dcd6f4ac3",
+      "country": "Italy",
+      "club": "Ascoli",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "0e813c129db07f76eb5d",
+      "country": "Italy",
+      "club": "Frosinone Calcio",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "1c5ee5896519f7cb7283",
+      "country": "Italy",
+      "club": "Novara",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "36949ece4e635566c72b",
+      "country": "Italy",
+      "club": "Palermo FC",
+      "reason": "only 2 eligible names"
+    },
+    {
+      "uid": "388475a8bb31dcedfe30",
+      "country": "Italy",
+      "club": "AC Perugia",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "39bf17ff392b16b09f1c",
+      "country": "Italy",
+      "club": "Pescara",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "3a0268f324efdce2abce",
+      "country": "Italy",
+      "club": "Pro Vercelli",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "43ddfb260e9ccd93a2f8",
+      "country": "Italy",
+      "club": "Salernitana",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "52426322c9f802c1647e",
+      "country": "Italy",
+      "club": "Spezia Calcio",
+      "reason": "only 2 eligible names"
+    },
+    {
+      "uid": "5cb26277fbea56fe64f8",
+      "country": "Italy",
+      "club": "Ternana",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "8c47724e2fb4ce882017",
+      "country": "Italy",
+      "club": "Virtus Entella",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b8cf8d2529764e5db701",
+      "country": "Italy",
+      "club": "Piacenza Calcio",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d2bbd97f2e8c97c92ec7",
+      "country": "Italy",
+      "club": "US Anconitana ASD",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "db21580278f88704b0c0",
+      "country": "Italy",
+      "club": "AC Ancona",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "eb087bd2d9c5070c8a5f",
+      "country": "Italy",
+      "club": "Cosenza Calcio",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "16ba2ee08fcbdfd5347c",
+      "country": "France",
+      "club": "Red Star FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "24d2acf89cd421b12a7b",
+      "country": "France",
+      "club": "Racing Club de France",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "306f6155a6b00e2b6f71",
+      "country": "France",
+      "club": "FC Versailles",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "40d3a7943b8d71c78040",
+      "country": "France",
+      "club": "Amiens SC",
+      "reason": "only 2 eligible names"
+    },
+    {
+      "uid": "465f5269db5b7754453f",
+      "country": "France",
+      "club": "FC Chambly",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "62f0a8a7cacddd97c2f9",
+      "country": "France",
+      "club": "Girondins de Bordeaux",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "6a5a99645fad7809bb02",
+      "country": "France",
+      "club": "Stade Malherbe Caen",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "abc8e8bff221743ca3b4",
+      "country": "France",
+      "club": "Dijon FCO",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "b9e082b5af8f268047f2",
+      "country": "France",
+      "club": "EA Guingamp",
+      "reason": "only 2 eligible names"
+    },
+    {
+      "uid": "0ea667eba770279bcb4d",
+      "country": "France",
+      "club": "Montpellier HSC",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "33d1544fd885ba9908b1",
+      "country": "France",
+      "club": "AS Saint-Étienne",
+      "reason": "only 5 eligible names"
+    },
+    {
+      "uid": "6148c410fb3b2947879a",
+      "country": "France",
+      "club": "ES Troyes AC",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "6b27acc4f4b1642294ea",
+      "country": "France",
+      "club": "Stade de Reims",
+      "reason": "only 3 eligible names"
+    },
+    {
+      "uid": "70832772cce093cd3a3a",
+      "country": "France",
+      "club": "Nîmes Olympique",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "7ae092360edc3159b422",
+      "country": "France",
+      "club": "AC Ajaccio",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "7c14a77b452dec3b13d8",
+      "country": "France",
+      "club": "GFC Ajaccio",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "bc7829e8d8fec431f856",
+      "country": "France",
+      "club": "Bourg-en-Bresse 01",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "bdc88936c352b52f8afb",
+      "country": "France",
+      "club": "LB Châteauroux",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e0583863c302f2b70933",
+      "country": "France",
+      "club": "Clermont Foot 63",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "12619058e011694467d9",
+      "country": "France",
+      "club": "AS Nancy Lorraine",
+      "reason": "only 1 eligible names"
+    },
+    {
+      "uid": "3cfcf18d3a7061db626b",
+      "country": "France",
+      "club": "Chamois Niortais FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "413624503d4c5353ee68",
+      "country": "France",
+      "club": "US Orléans",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "428e7b40ab4c540c9d8b",
+      "country": "France",
+      "club": "US Quevilly-Rouen Métropole",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "45df509009642afc2a1b",
+      "country": "France",
+      "club": "FC Sochaux-Montbéliard",
+      "reason": "only 2 eligible names"
+    },
+    {
+      "uid": "4f82bc1770c4504a31ab",
+      "country": "France",
+      "club": "Tours FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "67d2ffd991da3bba60b3",
+      "country": "France",
+      "club": "Valenciennes FC",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "7bc04adae9689875bcaf",
+      "country": "France",
+      "club": "AC Arles-Avignon",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "979ba7e09f9dc55d79bd",
+      "country": "France",
+      "club": "SC Bastia",
+      "reason": "only 2 eligible names"
+    },
+    {
+      "uid": "a22a60d822863bc3c447",
+      "country": "France",
+      "club": "CA Bastia",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a720c06da425eec8ea46",
+      "country": "France",
+      "club": "AS Beauvais Oise",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b1f5ccbd7d74f679dde2",
+      "country": "France",
+      "club": "Racing Besançon",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d29140ccfa4ed9b0109b",
+      "country": "France",
+      "club": "US Boulogne",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d3ddbc24262a938f039a",
+      "country": "France",
+      "club": "AS Cannes",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f10d3a0001b11fa3aaee",
+      "country": "France",
+      "club": "FCO Charleville",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f41f2f24d4565e73cc27",
+      "country": "France",
+      "club": "US Créteil",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f5937f81490aa08e803e",
+      "country": "France",
+      "club": "SAS Épinal",
+      "reason": "no unique club match"
+    }
+  ],
+  "input_sha256": {
+    "players.csv.gz": "d22e407981d5b51a79bf8ff59835729f3526f7dc3495a6d8ed2f852ed2e86403",
+    "clubs.csv.gz": "aa57ab56e87faffaea1e8697439a32caf10116d8f2f2dfb3a57193c0bb1d641b"
+  }
+}
