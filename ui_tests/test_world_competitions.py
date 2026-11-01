@@ -20,6 +20,17 @@ class WorldCompetitionUI(unittest.TestCase):
             g.match_home=CareerClub('Brazil','Brazil','National Team',1,90,uid='nation:Brazil');g.match_away=CareerClub('Argentina','Argentina','National Team',1,90,uid='nation:Argentina')
             g._match_shot_goal_counted=False;g.match_home_score=g.match_away_score=0;g._record_player_match_goal()
             self.assertEqual((g.match_home_score,g.match_away_score),(0,1));g._record_player_match_goal();self.assertEqual(g.match_away_score,1)
+    def test_imported_aliases_are_used_for_cross_country_cup_and_calendar(self):
+        from menu_ui import CompactTable
+        with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+            g.career.accept_starting_offer(g.career.offers[0]);g._activate_ui('competitions');cup=g.career.world_competitions.tournaments['ucl'];f=cup.fixtures[0]
+            g.career.apply_names({'version':1,'clubs':{f['home']:'Imported Cross Country Club'}})
+            g._activate_ui('competition_open','ucl');settle()
+            self.assertTrue(any('Imported Cross Country Club' in w.text for w in g.walk() if isinstance(w,Label)))
+            g.career.fixture_history.append({'date':g.career.current_date.isoformat(),'competition':cup.title,'country':'Portugal','home':cup.teams[f['home']]['name'],'away':cup.teams[f['away']]['name'],'home_uid':f['home'],'away_uid':f['away'],'status':'1-0','played':True})
+            g.view='calendar';g.draw();settle();table=next(w for w in g.walk() if isinstance(w,CompactTable))
+            self.assertTrue(any('Imported Cross Country Club' in str(row) for row in table.rows))
+
     def test_phone_views_and_translations_keep_actions_accessible(self):
         old=Window.size
         try:

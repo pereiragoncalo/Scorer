@@ -474,10 +474,11 @@
   },
   "tests": {
     "core": 233,
-    "native_kivy": 114,
-    "total_unique": 347
+    "native_kivy": 115,
+    "total_unique": 348
   },
   "actual_android_device_tested": false,
   "point_1_implementation_complete": true,
-  "production_play_approved": false
+  "production_play_approved": false,
+  "cross_country_imported_aliases_and_localized_nations": true
 }

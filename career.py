@@ -1187,7 +1187,7 @@ class CareerMode:
         self.last_result=f'{home.name} {score[0]}-{score[1]} {away.name}{decision}'
         self.message=self.last_result
         self.fixture_history.append({'date':(date(self.season,7,12)+timedelta(weeks=f['week'],days=(2 if cup is None else fixture_day(cup)))).isoformat(),'competition':title,'country':self.current_league.country,
-                                     'home':home.name,'away':away.name,'status':f'{score[0]}-{score[1]}{decision}','played':True})
+                                     'home':home.name,'away':away.name,'home_uid':home.uid,'away_uid':away.uid,'status':f'{score[0]}-{score[1]}{decision}','played':True})
         self.fixture_history=self.fixture_history[-128:]
         if key.startswith('domestic:'):
             self.cup_history=(self.cup_history+[f["stage"]+': '+self.last_result])[-8:]
@@ -1253,7 +1253,7 @@ class CareerMode:
                 actor='nation:'+self.nationality if cup.national else self.club.uid
                 for f in cup.fixtures:
                     if f['score'] is not None or actor not in (f['home'],f['away']):continue
-                    entries.append({'date':(start+timedelta(weeks=f['week'],days=fixture_day(cup))).isoformat(),'competition':cup.title,'country':self.current_league.country,'home':cup.teams[f['home']]['name'],'away':cup.teams[f['away']]['name'],'status':f['stage'],'played':False})
+                    entries.append({'date':(start+timedelta(weeks=f['week'],days=fixture_day(cup))).isoformat(),'competition':cup.title,'country':self.current_league.country,'home':cup.teams[f['home']]['name'],'away':cup.teams[f['away']]['name'],'home_uid':f['home'],'away_uid':f['away'],'status':f['stage'],'played':False})
         return sorted(entries, key=lambda entry: str(entry.get('date', '')))
 
 

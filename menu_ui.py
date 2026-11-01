@@ -338,7 +338,13 @@ class CareerMenu(BoxLayout):
             ranking.setdefault(c.player_name, 0)
             rows = [(i + 1, c.display_scorer(name), goals) for i, (name, goals) in enumerate(sorted(ranking.items(), key=lambda x: (-x[1], x[0])))]
             return CompactTable('TOP SCORERS', ('POS', 'PLAYER', 'GOALS'), rows, focus=c.player_name)
-        rows = [(str(e.get('date', ''))[8:10] + '/' + str(e.get('date', ''))[5:7], c.display_text(f"{e.get('home', '')} vs {e.get('away', '')}", e.get("country")),
+        clubs={club.uid:club for league in c.leagues.values() for club in league.clubs}
+        def team(entry,side):
+            uid=entry.get(side+'_uid','')
+            if uid.startswith('nation:'):return self.game.i18n.country(uid[7:])
+            if uid in clubs:return c.display_club(clubs[uid])
+            return c.display_text(entry.get(side,''),entry.get('country'))
+        rows = [(str(e.get('date', ''))[8:10] + '/' + str(e.get('date', ''))[5:7], team(e,'home')+' vs '+team(e,'away'),
                  self.game.i18n.competition(c,e.get('competition', ''),e.get('country')), self.game.i18n.tr(e.get('status', ''))) for e in c.calendar_entries()]
         return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
                             summary=(0, 1, 2, 3))
@@ -493,24 +499,28 @@ class CareerMenu(BoxLayout):
             card.add_widget(self._button(c.display_text(f'{club}\n{c.leagues[key].name}', c.leagues[key].country), 'transfer', (club, key)))
         card.add_widget(self._button('FIND OFFERS', 'agent_refresh'))
 
+    def _competition_team_name(self,team):
+        if team['uid'].startswith('nation:'):return self.game.i18n.country(team['country'])
+        return self.game.career.display_club(self.game.career._competition_club(team))
+
     def _competitions(self):
         c=self.game.career
         competitions=list(c.world_competitions.tournaments.items());page=self.game.competition_list_page
         for key,cup in competitions[page*10:(page+1)*10]:
             card=self.card(cup.title)
-            card.label(('Winner: '+c.display_text(cup.teams[cup.champion]['name'])) if cup.champion and cup.kind!='qualifying' else cup.stage)
+            card.label(('Winner: '+self._competition_team_name(cup.teams[cup.champion])) if cup.champion and cup.kind!='qualifying' else cup.stage)
             card.add_widget(self._button('VIEW COMPETITION','competition_open',key))
         controls=self.card()
         controls.add_widget(self._button('PREVIOUS','competition_list_page',-1));controls.add_widget(self._button('NEXT','competition_list_page',1))
         for season in reversed(c.competition_archive):
             card=self.card('SEASON HISTORY');card.label(str(season['season']),localize=False)
             for key,team in season['winners'].items():
-                if not key.startswith('playoff:'):card.label(key+' · '+c.display_text(team['name']),localize=False)
+                if not key.startswith('playoff:'):card.label(key+' · '+self._competition_team_name(team),localize=False)
 
     def _competition(self):
         c=self.game.career;cup=c.world_competitions.tournaments[self.game.competition_key]
         card=self.card(cup.title);card.label(cup.stage)
-        if cup.champion and cup.kind!='qualifying':card.label('Winner: '+c.display_text(cup.teams[cup.champion]['name']))
+        if cup.champion and cup.kind!='qualifying':card.label('Winner: '+self._competition_team_name(cup.teams[cup.champion]))
         tabs=BoxLayout(size_hint_y=None,height=dp(48));tabs.add_widget(self._button('FIXTURES','competition_tab','fixtures'))
         if cup.groups:tabs.add_widget(self._button('STANDINGS','competition_tab','table'))
         card.add_widget(tabs)
@@ -520,13 +530,13 @@ class CareerMenu(BoxLayout):
             controls=BoxLayout(size_hint_y=None,height=dp(48));controls.add_widget(self._button('PREVIOUS','competition_group',-1));controls.add_widget(self._button('NEXT','competition_group',1));card.add_widget(controls)
             card.label(self.game.i18n.tr('CLUB')+' · '+self.game.i18n.tr('P')+' · '+self.game.i18n.tr('PTS'),localize=False)
             for row in cup.table(i):
-                card.label(f"{c.display_text(cup.teams[row['uid']]['name'])} · {row['p']} · {row['pts']}",localize=False)
+                card.label(f"{self._competition_team_name(cup.teams[row['uid']])} · {row['p']} · {row['pts']}",localize=False)
         else:
             page=self.game.competition_page;rows=cup.fixtures[page*12:(page+1)*12]
             for f in rows:
                 score='–' if f['score'] is None else str(f['score'][0])+'–'+str(f['score'][1])
                 if f['penalties']:score+=' ('+str(f['penalties'][0])+'–'+str(f['penalties'][1])+')'
-                card.label(f"{f['week']}: {c.display_text(cup.teams[f['home']]['name'])} {score} {c.display_text(cup.teams[f['away']]['name'])}",localize=False)
+                card.label(f"{f['week']}: {self._competition_team_name(cup.teams[f['home']])} {score} {self._competition_team_name(cup.teams[f['away']])}",localize=False)
             controls=BoxLayout(size_hint_y=None,height=dp(48));controls.add_widget(self._button('PREVIOUS','competition_page',-1));controls.add_widget(self._button('NEXT','competition_page',1));card.add_widget(controls)
             card.label(str(page+1)+' / '+str(max(1,(len(cup.fixtures)+11)//12)),localize=False)
 
