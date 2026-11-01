@@ -2,10 +2,10 @@
   "version": "0.9",
   "version_code": 1026900,
   "package": "com.clemir.scorerworld",
-  "app_source_commit": "7371e3c56db83d5657dbbebe2c15bbb70b2d1d50",
+  "app_source_commit": "e06d8b5eab09a1a6130f87bb2546106b56fd93de",
   "artifact": "Scorer-World-0.9.apk",
-  "bytes": 74045671,
-  "sha256": "6d753934ce024443be30fddbd9f61b6964159d5713fd36b062c6914f87f46f33",
+  "bytes": 74046347,
+  "sha256": "ffbc2a495904acdd408e8e46a43b5aa57ee3bc35b06ee3cb877dcf68679d2ea0",
   "certificate_sha256": "84c17cdf31e2ee7c6e9c082bde539df6822bf48267a0603de9814d6e2846ef49",
   "signing": "existing DEBUG upgrade key; QA acceptance candidate",
   "target_api": 36,
@@ -17,8 +17,8 @@
   "billing_sdk": false,
   "tests": {
     "core": 233,
-    "native_kivy": 114,
-    "total_unique": 347
+    "native_kivy": 115,
+    "total_unique": 348
   },
   "lifecycle": {
     "method": "Seeded engine lifecycle with controlled player-team scores; not physical or human Android play.",
@@ -65,5 +65,6 @@
     2,
     3,
     4
-  ]
+  ],
+  "cross_country_editor_aliases_verified": true
 }
