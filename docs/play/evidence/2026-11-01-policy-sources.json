@@ -1,0 +1,42 @@
+[
+  {
+    "key": "cloudflare_privacy",
+    "url": "https://www.cloudflare.com/privacypolicy/",
+    "status": 200,
+    "extracted_text_sha256": "ee2262e2941c4b22a917ae8e605a35d7b3bf8774932c0442492e59ea328870e7",
+    "retrieved_utc_date": "2026-11-01",
+    "characters": 52054
+  },
+  {
+    "key": "cloudflare_dpa",
+    "url": "https://www.cloudflare.com/cloudflare-customer-dpa/",
+    "status": 200,
+    "extracted_text_sha256": "e31ec47d2fae4f7668a91d9c19edae1c9bdf7237570b5afcf338f3dac95e0b2e",
+    "retrieved_utc_date": "2026-11-01",
+    "characters": 61656
+  },
+  {
+    "key": "cloudflare_gdpr",
+    "url": "https://www.cloudflare.com/trust-hub/gdpr/",
+    "status": 200,
+    "extracted_text_sha256": "3ee000f74d81f5aad70b24c18ba539b6bbed85483b7bf1c81b4be61051d07fa4",
+    "retrieved_utc_date": "2026-11-01",
+    "characters": 33179
+  },
+  {
+    "key": "google_userdata",
+    "url": "https://support.google.com/googleplay/android-developer/answer/10144311?hl=en",
+    "status": 200,
+    "extracted_text_sha256": "667867cce68edb832307aad124a10fc8be3e38070e2cc66633da1a9c8a95ef16",
+    "retrieved_utc_date": "2026-11-01",
+    "characters": 30471
+  },
+  {
+    "key": "google_families",
+    "url": "https://support.google.com/googleplay/android-developer/answer/9893335?hl=en",
+    "status": 200,
+    "extracted_text_sha256": "360828865b28f6c35fca1b86f0e63bbee7bb748f7bbcb4828d0f732c339acbfd",
+    "retrieved_utc_date": "2026-11-01",
+    "characters": 19490
+  }
+]
