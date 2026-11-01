@@ -19,6 +19,7 @@ def _write(path,data,mode=0o644):
 
 def check(source,config):
     source=Path(source);config=Path(config)
+    if config.is_symlink():raise ValueError('Refusing a symlink configuration')
     for name in FILES[:-1]:
         p=source/name
         if not p.is_file() or p.is_symlink():raise ValueError('Public page source is missing or a symlink: '+name)
@@ -35,6 +36,7 @@ def apply(source,config,target,stop,start,verify):
     source=Path(source);target=Path(target);d=check(source,config)
     if not (target/'server/usage_collector.py').is_file():raise ValueError('Install the Scorer server before this public-page update')
     active=target/'public.json'
+    if active.is_symlink():raise ValueError('Refusing a symlink public configuration')
     if active.exists():
         try:existing=load_config(active)
         except (OSError,ValueError,TypeError):existing=None

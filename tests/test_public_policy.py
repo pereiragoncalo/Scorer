@@ -1,7 +1,7 @@
 """Public legal-document content, transparency and policy-only deployment safety."""
 import json,os,stat,tempfile,threading,http.client,unittest
 from pathlib import Path
-from unittest.mock import Mock
+from unittest.mock import Mock,patch
 from server.public_pages import page,load_config,TERMS_PT
 from server.install_public_policy import apply,check,ROOT,FILES
 from server.usage_collector import Collector
@@ -93,3 +93,8 @@ class PolicyDeploymentTests(unittest.TestCase):
         original=self.target/'original.py';original.write_text('keep');p=self.target/'server/public_pages.py';p.unlink();p.symlink_to(original)
         with self.assertRaises(ValueError):apply(ROOT,self.config,self.target,stop,Mock(),Mock())
         self.assertEqual(original.read_text(),'keep')
+        p.unlink();p.write_text('# restored test renderer')
+        (self.target/'public.json').symlink_to(original)
+        with patch('server.install_public_policy.load_config',wraps=load_config) as loader:
+            with self.assertRaises(ValueError):apply(ROOT,self.config,self.target,stop,Mock(),Mock())
+            self.assertTrue(all(Path(call.args[0])!=self.target/'public.json' for call in loader.call_args_list))
