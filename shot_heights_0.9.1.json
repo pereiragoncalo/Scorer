@@ -1,0 +1,358 @@
+{
+  "before": {
+    "method": "Real fixed-step shot/keeper/defender collisions, exact targets and varied power. Seeded comparison, not human scoring rates.",
+    "rows": [
+      {
+        "tier": 4,
+        "context": "training",
+        "band": "low",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 90,
+          "GOAL!": 4,
+          "MISS!": 26
+        },
+        "conversion": 0.03333333333333333
+      },
+      {
+        "tier": 4,
+        "context": "training",
+        "band": "middle",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 63,
+          "MISS!": 18,
+          "GOAL!": 39
+        },
+        "conversion": 0.325
+      },
+      {
+        "tier": 4,
+        "context": "training",
+        "band": "high",
+        "samples": 120,
+        "outcomes": {
+          "GOAL!": 113,
+          "SAVED!": 6,
+          "MISS!": 1
+        },
+        "conversion": 0.9416666666666667
+      },
+      {
+        "tier": 4,
+        "context": "easy",
+        "band": "low",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 112,
+          "GOAL!": 8
+        },
+        "conversion": 0.06666666666666667
+      },
+      {
+        "tier": 4,
+        "context": "easy",
+        "band": "middle",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 86,
+          "GOAL!": 34
+        },
+        "conversion": 0.2833333333333333
+      },
+      {
+        "tier": 4,
+        "context": "easy",
+        "band": "high",
+        "samples": 120,
+        "outcomes": {
+          "GOAL!": 110,
+          "SAVED!": 10
+        },
+        "conversion": 0.9166666666666666
+      },
+      {
+        "tier": 4,
+        "context": "hard",
+        "band": "low",
+        "samples": 120,
+        "outcomes": {
+          "MISS!": 70,
+          "SAVED!": 50
+        },
+        "conversion": 0.0
+      },
+      {
+        "tier": 4,
+        "context": "hard",
+        "band": "middle",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 64,
+          "MISS!": 42,
+          "GOAL!": 14
+        },
+        "conversion": 0.11666666666666667
+      },
+      {
+        "tier": 4,
+        "context": "hard",
+        "band": "high",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 47,
+          "GOAL!": 72,
+          "MISS!": 1
+        },
+        "conversion": 0.6
+      },
+      {
+        "tier": 1,
+        "context": "easy",
+        "band": "low",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 117,
+          "GOAL!": 3
+        },
+        "conversion": 0.025
+      },
+      {
+        "tier": 1,
+        "context": "easy",
+        "band": "middle",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 101,
+          "GOAL!": 19
+        },
+        "conversion": 0.15833333333333333
+      },
+      {
+        "tier": 1,
+        "context": "easy",
+        "band": "high",
+        "samples": 120,
+        "outcomes": {
+          "GOAL!": 98,
+          "SAVED!": 22
+        },
+        "conversion": 0.8166666666666667
+      },
+      {
+        "tier": 1,
+        "context": "hard",
+        "band": "low",
+        "samples": 120,
+        "outcomes": {
+          "MISS!": 67,
+          "SAVED!": 53
+        },
+        "conversion": 0.0
+      },
+      {
+        "tier": 1,
+        "context": "hard",
+        "band": "middle",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 65,
+          "MISS!": 50,
+          "GOAL!": 5
+        },
+        "conversion": 0.041666666666666664
+      },
+      {
+        "tier": 1,
+        "context": "hard",
+        "band": "high",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 68,
+          "GOAL!": 49,
+          "MISS!": 3
+        },
+        "conversion": 0.4083333333333333
+      }
+    ]
+  },
+  "after": {
+    "method": "Real fixed-step shot/keeper/defender collisions, exact targets and varied power. Seeded comparison, not human scoring rates.",
+    "rows": [
+      {
+        "tier": 4,
+        "context": "training",
+        "band": "low",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 80,
+          "GOAL!": 14,
+          "MISS!": 26
+        },
+        "conversion": 0.11666666666666667
+      },
+      {
+        "tier": 4,
+        "context": "training",
+        "band": "middle",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 87,
+          "GOAL!": 15,
+          "MISS!": 18
+        },
+        "conversion": 0.125
+      },
+      {
+        "tier": 4,
+        "context": "training",
+        "band": "high",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 99,
+          "GOAL!": 20,
+          "MISS!": 1
+        },
+        "conversion": 0.16666666666666666
+      },
+      {
+        "tier": 4,
+        "context": "easy",
+        "band": "low",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 91,
+          "GOAL!": 29
+        },
+        "conversion": 0.24166666666666667
+      },
+      {
+        "tier": 4,
+        "context": "easy",
+        "band": "middle",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 84,
+          "GOAL!": 36
+        },
+        "conversion": 0.3
+      },
+      {
+        "tier": 4,
+        "context": "easy",
+        "band": "high",
+        "samples": 120,
+        "outcomes": {
+          "GOAL!": 55,
+          "SAVED!": 65
+        },
+        "conversion": 0.4583333333333333
+      },
+      {
+        "tier": 4,
+        "context": "hard",
+        "band": "low",
+        "samples": 120,
+        "outcomes": {
+          "MISS!": 71,
+          "GOAL!": 3,
+          "SAVED!": 46
+        },
+        "conversion": 0.025
+      },
+      {
+        "tier": 4,
+        "context": "hard",
+        "band": "middle",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 69,
+          "MISS!": 44,
+          "GOAL!": 7
+        },
+        "conversion": 0.058333333333333334
+      },
+      {
+        "tier": 4,
+        "context": "hard",
+        "band": "high",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 109,
+          "GOAL!": 10,
+          "MISS!": 1
+        },
+        "conversion": 0.08333333333333333
+      },
+      {
+        "tier": 1,
+        "context": "easy",
+        "band": "low",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 108,
+          "GOAL!": 12
+        },
+        "conversion": 0.1
+      },
+      {
+        "tier": 1,
+        "context": "easy",
+        "band": "middle",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 106,
+          "GOAL!": 14
+        },
+        "conversion": 0.11666666666666667
+      },
+      {
+        "tier": 1,
+        "context": "easy",
+        "band": "high",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 93,
+          "GOAL!": 27
+        },
+        "conversion": 0.225
+      },
+      {
+        "tier": 1,
+        "context": "hard",
+        "band": "low",
+        "samples": 120,
+        "outcomes": {
+          "MISS!": 68,
+          "SAVED!": 49,
+          "GOAL!": 3
+        },
+        "conversion": 0.025
+      },
+      {
+        "tier": 1,
+        "context": "hard",
+        "band": "middle",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 67,
+          "MISS!": 50,
+          "GOAL!": 3
+        },
+        "conversion": 0.025
+      },
+      {
+        "tier": 1,
+        "context": "hard",
+        "band": "high",
+        "samples": 120,
+        "outcomes": {
+          "SAVED!": 110,
+          "GOAL!": 7,
+          "MISS!": 3
+        },
+        "conversion": 0.058333333333333334
+      }
+    ]
+  }
+}
