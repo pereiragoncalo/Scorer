@@ -54,6 +54,14 @@ read them without gaining access to private credentials.
 
 ## Public pages
 
+**Update01/11/2026:** the operator confirmed server schema3 and the maintenance timer;
+the empty policy example caused HTTP503. Use the [prepared review proposal and
+policy-only installer](POLICY_NEXT_STEP_2026-11-01.md) to make the documents
+available for review. The policy stays explicitly DRAFT; production/legal flags
+remain pending. The manual final-policy configuration below is for a completed
+review, not a workaround for empty fields.
+
+
 The example includes the owner-approved name/email. Complete effective date,
 reviewed legal basis, actual provider/children practices and transfer safeguards
 in /home/clemir/scorer-publicacao-0646-public.json (the copy created above). These are public facts, never

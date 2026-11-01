@@ -56,8 +56,30 @@ Local validation requires no root or service changes:
 python3 server/install_public_policy.py --check
 ```
 
-The deployment command uses a fresh pinned worktree on the laptop; the final
-reply supplies the concrete revision. If a complete policy has already been
+The deployment uses the reviewed revision `267350765e75bcf7966fc68c32ea2fe89842848a`.
+In the root SSH session shown by the operator, these commands create a fresh
+worktree without modifying the old checkout or its partial configuration:
+
+```sh
+runuser -u clemir -- git -C /home/clemir/scorer-publicacao-0646 fetch --depth 1 origin 267350765e75bcf7966fc68c32ea2fe89842848a
+runuser -u clemir -- git -C /home/clemir/scorer-publicacao-0646 worktree add --detach /home/clemir/scorer-politica-20261101 267350765e75bcf7966fc68c32ea2fe89842848a
+python3 /home/clemir/scorer-politica-20261101/server/install_public_policy.py
+```
+
+A pre-existing new worktree is not overwritten: if worktree creation fails,
+inspect the directory/revision before running an installer from it. After the
+installer's local checks pass, verify the public route in the browser and, if
+needed, inspect only HTTP status codes rather than printing long HTML in Termius:
+
+```sh
+for scorer_page in privacy terms delete; do
+  curl --fail --silent --show-error --output /dev/null --write-out "$scorer_page: %{http_code}\n" "https://stats.clemir.com/$scorer_page"
+done
+```
+
+Expected: HTTP200 on all three pages, with the prominent proposal banner on
+/privacy. Public status has to be verified on the laptop after deployment;
+these cloud tests do not establish a deployed site. If a complete policy has already been
 installed independently, preserve it instead of using this draft installer.
 No cloud SSH access is available, so public installation is not claimed here.
 
