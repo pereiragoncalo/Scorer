@@ -32,7 +32,7 @@ class CompactHub(BoxLayout):
         actions = GridLayout(cols=4, spacing=dp(4))
         entries = [('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
                    ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
-                   ('PLAYER', 'profile'), ('PRIVACY', 'privacy'), ('HELP', 'help')]
+                   ('PLAYER', 'profile'), ('HELP', 'help')]
         if c.world_unlocked:entries.extend([('NAMES EDITOR','editor'),('WORLD LEAGUES','upgrade')])
         entries.append(('EXIT', 'exit'))
         for title, action in entries:

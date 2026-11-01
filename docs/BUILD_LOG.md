@@ -1,3 +1,9 @@
+## 2026-11-01 — World0.9.3 direct leaderboard and menu cleanup
+
+Removed main/start Privacy and scorer Global buttons. Public leaderboard reads without guardian/legal detour; publication remains separate. Report/block open for viewers. Help > Settings retains career export/import. JSON names attachment published through a manual repo workflow after local release upload credentials failed; first workflow assumed a release existed after the failed CLI creation rolled it back. Corrected create-before-upload and verified final attachment disposition/hash. No secrets read or sent.
+
+232 unique core +116 unique native Kivy passes, including initial expected-button-count updates and deterministic domestic-rollover fixture correction; details in RELEASE_0.9.3.md. Actual debug APK/source/labels/notice gate/competition reload/118ELF16KB verified. Live read-only scoped records endpoint200/schema3/zero rows. No device/Play or live policy deployment claimed. Unrelated badge/mode WIP excluded.
+
 ## 2026-11-01 — World 0.9.2 translated agreement actions
 
 Owner correction: Portuguese startup buttons CONCORDO / NÃO CONCORDO, equivalent translated agreement actions in all nine UI languages. Matching notice/policy wording; disagree still immediately exits, agree continues. Existing client-request removal, editor and gameplay retained. 52 targeted tests passed (25 localization/public pages,6 editions,13 publication safety,8 native Kivy including Portuguese button/exit layouts and all notice translations). APK debug rebuilt; actual compiled source/labels/Portuguese catalogue, usage gate, competition reload, signing/package and118ELF/16KB checks. No real handset, Console or live server deployment claimed. Unrelated WIP excluded.

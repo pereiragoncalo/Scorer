@@ -2890,9 +2890,9 @@ class StrikerGame(Widget):
                 else:self._safety_notice='Check the adult details or PIN. After three failed PINs wait five minutes.'
             except OSError:self._safety_notice='Unable to save settings. Please try again.'
             self.draw();return
-        if action=='record_safety' and self.view=='leaderboard' and self.family.social:
+        if action=='record_safety' and self.view=='leaderboard':
             self._safety_return='leaderboard';self._safety_notice='';self.view='record_safety';self.draw();return
-        if action in ('record_report','record_block','record_unblock_all') and self.view=='record_safety' and self.family.social:
+        if action in ('record_report','record_block','record_unblock_all') and self.view=='record_safety':
             if action=='record_unblock_all':
                 self.leaderboard.blocked.clear();self.leaderboard.save();self._safety_notice='Blocked names cleared. Refresh the leaderboard.'
             else:
@@ -2918,8 +2918,8 @@ class StrikerGame(Widget):
         if action in ('leaderboard','leaderboard_refresh','leaderboard_join','leaderboard_confirm_join','leaderboard_leave'):
             from online_leaderboard import valid_origin
             board=self.leaderboard
-            if action!='leaderboard_leave' and not self.family.social:
-                self._safety_return='privacy';self.view='family';self._safety_notice='An adult must enable public features first.';self.draw();return
+            if action in ('leaderboard_join','leaderboard_confirm_join') and not self.family.social:
+                self._safety_return='leaderboard';self.view='family';self._safety_notice='An adult must enable public features first.';self.draw();return
             self.view='leaderboard'
             if action in ('leaderboard_join','leaderboard_confirm_join') and time.monotonic()>self._adult_unlocked_until:
                 self._safety_return='leaderboard';self.view='family';self._safety_notice='Enter the adult PIN before sharing.';self.draw();return
@@ -2935,7 +2935,6 @@ class StrikerGame(Widget):
                     lambda:Clock.schedule_once(lambda _:self.draw(),0),
                     withdraw=board.pending_withdrawal)
             else:board.status='Online service is not configured yet.'
-            if not self.family.social:self.view='privacy'
             self.draw();return
         if action == "splash_continue" and self.view == "splash":
             self.usage.begin_session()
@@ -3093,7 +3092,7 @@ class StrikerGame(Widget):
             text = json.dumps(self.career.names_template(self.editor_key), ensure_ascii=False, indent=2) if action == 'names_export' else None
             self._names_picker.pick(text)
         elif action == "privacy":
-            self._privacy_return = self.view if self.view in ('start','hub','data_notice') else 'start'
+            self._privacy_return = self.view if self.view in ('start','hub','help','data_notice') else 'start'
             self.view = 'privacy'
         elif action == "privacy_back":
             self.view = self._privacy_return

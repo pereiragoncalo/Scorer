@@ -73,6 +73,10 @@ class SimplifiedDomesticTests(unittest.TestCase):
         upper, lower = c.leagues['Yemen|1'], c.leagues['Yemen|2']
         self.rank(upper)
         self.rank(lower)
+        # World rollover completes outstanding fixtures. Make the intended final
+        # order insurmountable rather than letting random remaining games alter it.
+        for league in (upper,lower):
+            for index,club in enumerate(league.table()):club.points=100000-index*1000
         c.club_name = lower.table()[1].name
         uid = c.club.uid
         before = {x.uid for x in upper.clubs + lower.clubs}

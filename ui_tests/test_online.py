@@ -3,10 +3,12 @@ from unittest.mock import patch
 from test_menus import isolated_game,settle
 
 class OnlineUITests(unittest.TestCase):
-    def test_global_screen_reachable_from_scorers_and_offline_join_is_inert(self):
+    def test_leaderboard_is_direct_and_offline_join_is_inert(self):
         with isolated_game(saved=True) as g:
             g.family.social=True
             g.view='scorers';g.draw();settle()
+            from kivy.uix.button import Button
+            self.assertNotIn('GLOBAL',{w.text for w in g.walk() if isinstance(w,Button)})
             with patch.object(g.leaderboard,'sync') as sync:
                 g._activate_ui('leaderboard');settle()
                 self.assertEqual(g.view,'leaderboard');sync.assert_not_called()

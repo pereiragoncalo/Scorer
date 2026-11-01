@@ -311,5 +311,7 @@
   "IMPORT NAMES FILE": "导入名称文件",
   "I AGREE": "同意",
   "I DO NOT AGREE": "不同意",
-  "Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. I AGREE continues with automatic usage reporting; I DO NOT AGREE closes the game.": "Scorer World会向stats.clemir.com发送使用次数：应用启动和关闭、生涯创建和读取、训练、比赛、进球及保存和读取失败。不包含姓名、生涯文件或设备标识符。待发送的计数在7天后过期；服务器的每日汇总在90天后过期。Cloudflare会处理IP地址等连接数据。公开分享纪录是单独的可选功能。同意表示继续游戏并自动发送计数；不同意表示关闭游戏。"
+  "Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. I AGREE continues with automatic usage reporting; I DO NOT AGREE closes the game.": "Scorer World会向stats.clemir.com发送使用次数：应用启动和关闭、生涯创建和读取、训练、比赛、进球及保存和读取失败。不包含姓名、生涯文件或设备标识符。待发送的计数在7天后过期；服务器的每日汇总在90天后过期。Cloudflare会处理IP地址等连接数据。公开分享纪录是单独的可选功能。同意表示继续游戏并自动发送计数；不同意表示关闭游戏。",
+  "SETTINGS": "设置",
+  "No published records in this division yet.": "此级别尚无公开纪录。"
 }

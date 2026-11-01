@@ -1,3 +1,9 @@
+## Scorer World 0.9.3 — direct leaderboard and cleaner menus
+
+[Download World 0.9.3 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9.3/Scorer-World-0.9.3.apk) · [Download real names JSON — Europe, Brazil and Argentina](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-2026-07/Scorer-World-Real-Names-Europe-Brazil-Argentina-2026-07.json)
+
+Privacy removed from the start and main menus; Global removed from Top Scorers. Leaderboard opens the public records table directly, without a legal/adult-control page. Adult/share confirmation applies when publishing, not viewing. Reporting/blocking/removal remain accessible; career transfer/settings are under Help → Settings. Startup agreement and 0.9.1 gameplay/editor remain. Save and Exit, install over World QA and Load Game. DEBUG test build; public launch remains1.0. [Verification](docs/RELEASE_0.9.3.md).
+
 ## Scorer World 0.9.2 — translated agreement buttons
 
 [Download World 0.9.2 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9.2/Scorer-World-0.9.2.apk)

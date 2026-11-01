@@ -201,7 +201,7 @@ class CareerMenu(BoxLayout):
             brand.add_widget(BoundedLabel(text=detail, font_size=sp(11), color=MUTED))
         elif self.game.view=='leaderboard':
             header.height=dp(48)
-            brand.add_widget(MenuLogo())
+            brand.add_widget(BoundedLabel(text='LEADERBOARD',font_size=sp(20),bold=True))
         elif paged:
             header.height = dp(52)
             titles = {'standings': 'STANDINGS', 'scorers': 'TOP SCORERS', 'calendar': 'FIXTURES', 'world_league': 'WORLD LEAGUE'}
@@ -222,11 +222,6 @@ class CareerMenu(BoxLayout):
                 button = MenuTile(title, lambda a=action: self.action(a))
                 button.size_hint_x, button.width = None, dp(76)
                 header.add_widget(button)
-            privacy = MenuTile('PRIVACY', lambda: self.action('privacy'))
-            privacy.size_hint_x, privacy.width = None, dp(76)
-            header.add_widget(privacy)
-        if self.game.view == 'scorers':
-            header.add_widget(self._button('GLOBAL', 'leaderboard'))
         if self.game.view not in ('hub', 'offers'):
             back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
@@ -418,6 +413,7 @@ class CareerMenu(BoxLayout):
         card = self.card(title)
         card.label(text)
         if edition.is_world():card.add_widget(self._button('LANGUAGE', 'language'))
+        card.add_widget(self._button('SETTINGS','privacy'))
         controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         controls.add_widget(self._button('PREVIOUS', 'help_page', -1))
         controls.add_widget(BoundedLabel(text=f'{self.game.help_page+1}/{len(HELP_PAGES)}', halign='center', size_hint_x=.3))
@@ -792,7 +788,6 @@ class EntryScreen(FloatLayout):
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         self.entry_actions=actions
         actions.add_widget(MenuTile('HELP', lambda: menu.action('help')))
-        actions.add_widget(MenuTile('PRIVACY', lambda: menu.action('privacy')))
         actions.add_widget(MenuTile('EXIT', menu.game._request_exit))
         self.panel.add_widget(actions)
         self.panel.canvas.before.remove(self.panel.edge)
@@ -1281,10 +1276,7 @@ class SeasonRecordsScreen(BoxLayout):
         self.scope_label=BoundedLabel(text=heading+' · SEASON RECORDS',localize=False,bold=True,color=GREEN,
                                       font_size=sp(17),size_hint_y=None,height=dp(28))
         self.add_widget(self.scope_label)
-        self.notice=BoundedLabel(text='Share your player name, team and best completed season. Usage statistics are separate.',
-                                 font_size=sp(12),size_hint_y=None,height=dp(36),max_lines=2)
-        self.add_widget(self.notice)
-        status=b.status or 'Records appear after completing a season. In-progress goals are not published.'
+        status=b.status or ('No published records in this division yet.' if not b.entries else '')
         if b.pending_withdrawal:status='Removal pending. Refresh when connected.'
         self.status=BoundedLabel(text=status,font_size=sp(12),color=MUTED,size_hint_y=None,height=dp(24),max_lines=1)
         self.add_widget(self.status)
@@ -1302,7 +1294,6 @@ class SeasonRecordsScreen(BoxLayout):
     def _fit(self,*_):
         short=self.height<dp(320);tiny=self.height<dp(200)
         self.spacing=dp(2 if tiny else 4 if short else 6)
-        self.notice.height=0 if short else dp(36);self.notice.opacity=0 if short else 1
         self.scope_label.height=0 if tiny else dp(24 if short else 28);self.scope_label.opacity=0 if tiny else 1
         self.status.height=0 if tiny else dp(20 if short else 24);self.status.opacity=0 if tiny else 1
 

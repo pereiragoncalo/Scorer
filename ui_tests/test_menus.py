@@ -358,7 +358,7 @@ class MenuTests(unittest.TestCase):
                 game.view = origin
                 game.draw()
                 settle()
-                self.assertIn('PRIVACY', {w.text for w in game.walk() if isinstance(w, Label)})
+                self.assertNotIn('PRIVACY', {w.text for w in game.walk() if isinstance(w, TouchButton)})
                 game._activate_ui('privacy')
                 game.draw()
                 settle()
@@ -801,7 +801,7 @@ class MenuTests(unittest.TestCase):
             settle()
             self.assertEqual(game.view, 'start')
             labels = [w.text for w in game.walk() if isinstance(w, TouchButton)]
-            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'HELP', 'PRIVACY', 'EXIT'})
+            self.assertEqual(set(labels), {'NEW GAME', 'LOAD GAME', 'HELP', 'EXIT'})
             self.assertEqual(game.career.save_path.read_bytes(), before)
             game._activate_ui('load_game')
             settle()
@@ -1059,7 +1059,7 @@ class MenuTests(unittest.TestCase):
                     menu = self.game._menu
                     self.assertFalse(any(isinstance(w, ScrollView) for w in menu.walk()))
                     buttons = [w for w in menu.walk() if isinstance(w, TouchButton)]
-                    self.assertEqual(len(buttons), 11)
+                    self.assertEqual(len(buttons), 10)
                     self.assertFalse(any('WORLD' in button.text for button in buttons))
                     for button in buttons:
                         self.assertGreaterEqual(button.width, dp(48) - 1)
