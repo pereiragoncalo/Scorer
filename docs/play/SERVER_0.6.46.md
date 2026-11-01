@@ -21,22 +21,35 @@ admin token, clemir-social and local career files must stay unchanged.
 
 ## Install from reviewed source
 
-Use a fresh clean checkout of the final revision, not an older deploy directory.
-As clemir, fetch origin/main and prepare a clean worktree at the reviewed commit.
-Then in normal SSH use `su -` (this Debian machine has no sudo):
+The reviewed backend revision is `5108550eebd6264de7da9c4bba8e7900373e0b2d`.
+The commands below CREATE a new directory on the laptop. They do not assume that
+it already exists and do not overwrite your existing project/deploy directory.
+Run these first as **clemir** (if currently root, return to your clemir SSH shell):
 
 ```sh
-bash /home/clemir/REVIEWED-CHECKOUT/server/install_online.sh
+git clone --depth 1 --single-branch --branch main https://github.com/pereiragoncalo/Scorer.git /home/clemir/scorer-publicacao-0646
+git -C /home/clemir/scorer-publicacao-0646 fetch --depth 1 origin 5108550eebd6264de7da9c4bba8e7900373e0b2d
+git -C /home/clemir/scorer-publicacao-0646 checkout --detach 5108550eebd6264de7da9c4bba8e7900373e0b2d
+su -
+```
+
+After entering the root password, run as **root** (no sudo required):
+
+```sh
+bash /home/clemir/scorer-publicacao-0646/server/install_online.sh
 systemctl status scorer-online --no-pager
 systemctl status scorer-maintenance.timer --no-pager
 curl --fail http://127.0.0.1:8787/health
 curl --fail 'https://stats.clemir.com/v3/records?edition=free&country=Scorer&division=1'
 ```
 
-REVIEWED-CHECKOUT is intentionally a placeholder, not a claim that a directory was
-created on the laptop. The final release report gives the source commit. Server
+If the new directory already exists, do not delete it blindly: use a different
+fresh directory consistently or inspect the existing checkout first. Server
 upgrade is required for the new app's public records; usage protocol is unchanged.
 Do not run a second tunnel or rotate the existing administrator token.
+The original private admin environment remains root-only; public policy facts
+are installed separately in /opt/scorer/public.json so the scorer service can
+read them without gaining access to private credentials.
 
 ## Public pages
 

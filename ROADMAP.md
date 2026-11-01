@@ -1,3 +1,14 @@
+## Estado atual — 01/11/2026
+
+O dono confirmou conta Play ativa/verificada. Scorer e Scorer World são apps
+independentes, GRATUITAS e sem publicidade/IAP. Público inclui menores.
+A preparação0.6.46 acrescenta divulgação automática, controlos adultos,
+moderação/denúncia/bloqueio, transferência de carreira e AABs de ensaio.
+[Entrega e gates externos](docs/play/RELEASE_0.6.46.md).
+O plano abaixo é histórico onde contradiz estas decisões; não reativar anúncios,
+compras ou modelos de app única. Publicação depende de configuração/revisão
+legal no laptop, assinatura e testes/formulários da Play.
+
 ## Latest owner decisions — 25 October 2026
 
 Two separate APKs: Free com.clemir.striker, World com.clemir.scorerworld.

@@ -1,3 +1,15 @@
+## Scorer0.6.46 — Google Play preparation
+
+[Scorer-Free-0.6.46.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.46/Scorer-Free-0.6.46.apk)
+
+[Scorer-World-0.6.46.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.46/Scorer-World-0.6.46.apk)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.46/Scorer-Free.exe)
+
+Both apps free/ad-free. Automatic counts wait for the first-run notice. Adult controls, reviewed public names, report/block and local career transfer added. 298unique tests passed; both new AABs validated, native Windows tested.
+
+[Release/AABs and external production gates](docs/play/RELEASE_0.6.46.md) · [Laptop update commands](docs/play/SERVER_0.6.46.md). Backend v3/public policy are not deployed by this cloud session. These are QA candidates, not production-signed or Google-approved releases.
+
 [Google Play: current publication audit (31/10/2026)](docs/play/PUBLISHING_AUDIT_2026-10-31.md). QA builds below are not production-ready Play releases.
 
 ## Scorer0.6.45 — automatic usage counts

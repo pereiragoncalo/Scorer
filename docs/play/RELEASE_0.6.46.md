@@ -77,3 +77,27 @@ so withdraw public records before deleting the old installation/data.
 On laptop: install reviewed server, finish reviewed public config, verify public
 pages and v3, exercise moderation/removal. On Play: finalize legal/content forms,
 sign with actual upload key, install from test track and run pre-launch/phone tests.
+
+Verified on2026-11-01:193core/security+105Kivy tests PASS (298unique), additional
+backend13/PIN independence1 focused checks PASS. Native Windows run41254289408/
+sourceceeeb0a passed6staging checks and frozen gameplay/safety/transfer smoke.
+Both actual APKs inspected with matching Python3.14: notice-gated mandatory
+factory, PIN/controls/transfer/SAF and corrected ad-free Help. Both new release
+AABs validated with bundletool, derived APKs, compiled metadata, no ad/billing DEX,
+16KB bundle/ZIP/118ELF checks. AABs unsigned rehearsal; real Android/Play runtime
+tests and upload signing are NOT claimed. No names/counters were sent to owner.
+Public checks:health200, v3/privacy404, unauthenticated totals404: deploy remains
+a laptop step. Android enumeration was unavailable due host read-only home; no
+connected-device or phone execution proof is inferred from failed enumeration.
+
+Direct candidates:
+
+[Scorer-Free-0.6.46.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.46/Scorer-Free-0.6.46.apk)
+
+[Scorer-Free-0.6.46-UNSIGNED.aab](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.46/Scorer-Free-0.6.46-UNSIGNED.aab)
+
+[Scorer-World-0.6.46.apk](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.46/Scorer-World-0.6.46.apk)
+
+[Scorer-World-0.6.46-UNSIGNED.aab](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.46/Scorer-World-0.6.46-UNSIGNED.aab)
+
+[Scorer-Free.exe](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.46/Scorer-Free.exe)
