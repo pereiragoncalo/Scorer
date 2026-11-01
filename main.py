@@ -195,11 +195,13 @@ class StrikerGame(Widget):
         self.goalkeeper_high_reach = 0.0
         self.goalkeeper_low_reach = 0.0
         self.goalkeeper_save_height = None
+        self.goalkeeper_save_x = None
         self.goalkeeper_dive_age = 0.0
         self.goalkeeper_holding = False
         self.goalkeeper_catch_age = 0.0
         self.goalkeeper_dive_speed = 2.2
         self.goalkeeper_read_error = 0.0
+        self.goalkeeper_vertical_error = 0.0
         self.goalkeeper_vx = 0.0
         self.shot_distance_factor = 0.5
 
@@ -273,8 +275,6 @@ class StrikerGame(Widget):
         from online_leaderboard import Leaderboard
         from online_config import ORIGIN
         self.leaderboard = Leaderboard(self.career.save_path.parent,ORIGIN)
-        from privacy_requests import PrivacyRequest
-        self.privacy_request=PrivacyRequest(self.career.save_path.parent,ORIGIN)
         from online_safety import FamilyControls
         self.family=FamilyControls(self.career.save_path.parent)
         self._safety_draft={};self._safety_notice='';self._safety_return='privacy';self._adult_unlocked_until=0
@@ -1532,10 +1532,10 @@ class StrikerGame(Widget):
         from defensive_difficulty import defensive_profile
         club=self.career.club
         opponent=None
-        if self.match_home is not None and self.match_away is not None and club is not None:
+        if self.shot_context=='match' and self.match_home is not None and self.match_away is not None and club is not None:
             opponent=self.match_away if self.match_home.uid==club.uid else self.match_home
         tier=(opponent or club).tier if (opponent or club) is not None else 4
-        return defensive_profile(tier,self.match_is_international)
+        return defensive_profile(tier,self.match_is_international and self.shot_context=='match')
 
     def _aligned_goalkeeper_x(self) -> float:
         """Posição na linha entre a bola e o centro da baliza."""
@@ -1562,6 +1562,7 @@ class StrikerGame(Widget):
         self.goalkeeper_high_reach = 0.0
         self.goalkeeper_low_reach = 0.0
         self.goalkeeper_save_height = None
+        self.goalkeeper_save_x = None
         self.goalkeeper_dive_age = 0.0
 
 
@@ -1645,7 +1646,7 @@ class StrikerGame(Widget):
             abs(intercept_x) <= self.goal_half_width + 0.20
             and -0.10 <= intercept_z <= self.goal_height + 0.20
         )
-        perceived_x=intercept_x+(self.goalkeeper_read_error if self.shot_context=='match' else 0.0)
+        perceived_x=intercept_x+self.goalkeeper_read_error
         horizontal_gap = perceived_x - self.goalkeeper_x
 
 
@@ -1677,11 +1678,11 @@ class StrikerGame(Widget):
 
 
         # Competitive ability changes footwork and commitment, not save volumes.
-        profile=self._defensive_profile() if self.shot_context=='match' else None
+        profile=self._defensive_profile()
         # Continua a ajustar os apoios antes do mergulho.
         # Em bolas cruzadas, este cálculo é feito no plano do GR, não no fundo
         # da baliza, evitando lançamentos precoces e deslocações impossíveis.
-        if time_to_keeper > (profile.commitment_time if profile else .30):
+        if time_to_keeper > profile.commitment_time + .10*clamp((intercept_z-1.4)/.7,0.0,1.0):
             step_target = clamp(
                 perceived_x,
                 -self.goal_half_width + 0.42,
@@ -1702,20 +1703,21 @@ class StrikerGame(Widget):
         self.goalkeeper_dive_start_x = self.goalkeeper_x
         self.goalkeeper_dive_age = 0.0
         self.goalkeeper_high_reach = clamp(
-            (intercept_z - (1.0 if self.shot_context=='match' else 1.52)) / (1.30 if self.shot_context=='match' else .82),
+            (intercept_z - 1.0) / 1.30,
             0.0,
             1.0,
         )
-        self.goalkeeper_low_reach=clamp((.95-intercept_z)/.70,0.0,1.0) if self.shot_context=='match' else 0.0
-        self.goalkeeper_save_height=clamp(intercept_z,.18,self.goal_height+.15) if self.shot_context=='match' else None
-        dive_delta = intercept_x + self.goalkeeper_read_error - self.goalkeeper_x
+        self.goalkeeper_low_reach=clamp((.95-intercept_z)/.70,0.0,1.0)
+        self.goalkeeper_save_height=clamp(intercept_z + self.goalkeeper_vertical_error,.18,self.goal_height+.15)
+        self.goalkeeper_save_x = perceived_x
+        dive_delta = perceived_x - self.goalkeeper_x
         # Um mergulho desloca o centro de massa no máximo cerca de 1,72 m.
         # A limitação é ainda mais importante nas trajetórias muito cruzadas.
         crossing_ratio = abs(self.ball.vx) / max(0.1, abs(self.ball.vy))
         maximum_reach = 1.72 - 0.25 * clamp(crossing_ratio / 1.2, 0.0, 1.0)
         dive_delta = clamp(dive_delta, -maximum_reach, maximum_reach)
         self.goalkeeper_target_x = clamp(
-            self.goalkeeper_x + dive_delta,
+            self.goalkeeper_x + dive_delta * .68,
             -self.goal_half_width + 0.48,
             self.goal_half_width - 0.48,
         )
@@ -1770,6 +1772,7 @@ class StrikerGame(Widget):
         self.goalkeeper_high_reach = 0.0
         self.goalkeeper_low_reach = 0.0
         self.goalkeeper_save_height = None
+        self.goalkeeper_save_x = None
         self.goalkeeper_dive_age = 0.0
 
 
@@ -1807,15 +1810,16 @@ class StrikerGame(Widget):
         if hard:
             self.goalkeeper_read_error = random.gauss(0.0, 0.13)
             reaction_low, reaction_high = 0.18, 0.27
-        if self.shot_context=='match':
+        if self.shot_context in ('match','training'):
             profile=self._defensive_profile()
             reaction_low,reaction_high=profile.reaction_low,profile.reaction_high
             # A close one-on-one stays harder to read than a distant shot.
             reading_error=profile.reading_error*(1.0 if hard else 1.8-.6*self.shot_distance_factor)
             self.goalkeeper_read_error=random.gauss(0.0,reading_error)
             self.goalkeeper_target_x=clamp(destination_x+self.goalkeeper_read_error,-self.goal_half_width+.62,self.goal_half_width-.62)
-        self.goalkeeper_reaction = random.uniform(reaction_low, reaction_high)
-        self.goalkeeper_dive_speed = profile.dive_speed if self.shot_context=='match' else 3.90 + 0.80 * self.shot_distance_factor
+        self.goalkeeper_vertical_error=random.gauss(0.0,.16)
+        self.goalkeeper_reaction = random.uniform(reaction_low, reaction_high) * (1.0 - .25*clamp((destination_z-1.4)/.7,0.0,1.0))
+        self.goalkeeper_dive_speed = profile.dive_speed + 1.2*clamp((destination_z-1.4)/.7,0.0,1.0) - .8*clamp((.8-destination_z)/.6,0.0,1.0)
         dive_delta = self.goalkeeper_target_x - self.goalkeeper_x
         self.goalkeeper_should_dive = (
             abs(destination_x - self.goalkeeper_x) > 0.58
@@ -2215,8 +2219,8 @@ class StrikerGame(Widget):
         center_z = self.goalkeeper_scale * (
             0.89 - ready_crouch - 0.29 * dive - 0.10 * landing * dive
         )
-        jump_boost=self._defensive_profile().jump_boost if self.shot_context=='match' else 0.0
-        center_z += self.goalkeeper_scale * flight * (0.34 + (0.34+jump_boost) * high)
+        jump_boost=self._defensive_profile().jump_boost
+        center_z += self.goalkeeper_scale * flight * (0.34 + (0.85+jump_boost) * high)
         center_z -= self.goalkeeper_scale*.20*low*dive
 
 
@@ -2250,10 +2254,11 @@ class StrikerGame(Widget):
         # A perna do lado oposto dá o último impulso e a outra fica a arrastar
         # durante o voo, evitando a antiga rotação rígida de todo o corpo.
         if dive > 0.0 or high > 0.0:
-            launch = clamp(max(dive, high * smooth) * 1.28, 0.0, 1.0)
-            reach_x = center_x + self.goalkeeper_dive_sign * self.goalkeeper_scale * (
-                0.76 + 0.82 * dive
-            )
+            launch = clamp(max(dive, high * smooth) * (1.28 - .35*low), 0.0, 1.0)
+            reach_x = center_x + self.goalkeeper_dive_sign * self.goalkeeper_scale * (0.08 + 1.50 * dive)
+            save_x=getattr(self,'goalkeeper_save_x',None)
+            if save_x is not None:
+                reach_x=center_x+clamp(save_x-center_x,-1.35*self.goalkeeper_scale,1.35*self.goalkeeper_scale)
             reach_z = center_z + self.goalkeeper_scale * (
                 0.24 + 0.88 * high + 0.12 * flight
             )
@@ -2588,6 +2593,7 @@ class StrikerGame(Widget):
         self.goalkeeper_high_reach = 0.0
         self.goalkeeper_low_reach = 0.0
         self.goalkeeper_save_height = None
+        self.goalkeeper_save_x = None
         self.goalkeeper_dive_age = 0.0
         self.goalkeeper_vx = 0.0
 
@@ -2661,6 +2667,7 @@ class StrikerGame(Widget):
 
     @localized_call
     def _request_exit(self):
+        if self.view=='data_notice':self._reject_notice();return
         if self._exit_popup is not None or self.view not in ("hub", "offers", "start"):
             return
         content = BoxLayout(orientation="vertical", spacing=dp(12), padding=dp(12))
@@ -2792,27 +2799,10 @@ class StrikerGame(Widget):
         return True
 
 
-    def _privacy_request_done(self):
-        def finish(_):
-            if self.privacy_request.active:self.usage.respect_privacy_request(True)
-            self.draw()
-        Clock.schedule_once(finish,0)
-
-    def _confirm_privacy_request(self,withdraw=False):
-        content=BoxLayout(orientation='vertical',spacing=dp(8),padding=dp(8))
-        message=('Withdraw your privacy request? Automatic usage resumes on your next opening after confirmation from the server.' if withdraw else 'Submit a privacy objection? Usage collection pauses immediately while your request is handled. Contact goncalo@clemir.com with the displayed reference for assistance.')
-        from kivy.uix.scrollview import ScrollView
-        scroll=ScrollView(do_scroll_x=False);scroll.add_widget(FlowLabel(text=message));content.add_widget(scroll)
-        buttons=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(8))
-        popup=Popup(title='PRIVACY RIGHTS',content=content,size_hint=(.95,.9),auto_dismiss=False)
-        def confirm():
-            popup.dismiss()
-            if not withdraw:
-                self.privacy_request.object();self.usage.respect_privacy_request(True)
-            self.privacy_request.sync(self._privacy_request_done,withdraw=withdraw,force=True)
-            self.draw()
-        buttons.add_widget(TouchButton('CANCEL',popup.dismiss))
-        buttons.add_widget(TouchButton('CONFIRM',confirm,accent=True));content.add_widget(buttons);popup.open()
+    def _reject_notice(self):
+        self.usage.reject_notice()
+        app=App.get_running_app()
+        if app is not None:app.stop()
 
     def _request_record_sharing(self):
         from online_safety import TERMS_TEXT
@@ -2856,14 +2846,6 @@ class StrikerGame(Widget):
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
         import time
-        if action=='privacy_rights' and self.view=='privacy':
-            self.view='privacy_rights';self.draw();return
-        if action=='rights_back' and self.view=='privacy_rights':
-            self.view='privacy';self.draw();return
-        if self.view=='privacy_rights' and action in ('rights_object','rights_withdraw','rights_check'):
-            if action=='rights_check':self.privacy_request.sync(self._privacy_request_done,force=True)
-            elif not self.privacy_request.busy:self._confirm_privacy_request(action=='rights_withdraw')
-            self.draw();return
         if action=='competitions' and self.career.world_unlocked and self.career.club:
             self.career._ensure_competitions();self.view='competitions';self.draw();return
         if action=='competition_open' and self.career.world_unlocked and self.career.world_competitions is not None and value in self.career.world_competitions.tournaments:
@@ -2882,7 +2864,7 @@ class StrikerGame(Widget):
             self.draw();return
         if action=='competitions_back' and self.view in ('competitions','competition'):
             self.view='competitions' if self.view=='competition' else 'world';self.draw();return
-        if action=='notice_exit' and self.view=='data_notice':self._request_exit();return
+        if action=='notice_exit' and self.view=='data_notice':self._reject_notice();return
         if action=='notice_continue' and self.view=='data_notice':
             try:
                 self.family.acknowledge();self.usage.delivery_ready=True
@@ -2958,7 +2940,7 @@ class StrikerGame(Widget):
         if action == "splash_continue" and self.view == "splash":
             self.usage.begin_session()
             self.usage.flush_async()
-            self.view = 'data_notice' if self.usage.mandatory and not self.family.notice_seen else 'start'
+            self.view = 'data_notice' if self.usage.mandatory else 'start'
         elif action == "select_mode" and self.view in ("start", "hub", "upgrade"):
             self._select_career_mode(str(value))
         elif action == "new_game" and self.view == "start":
@@ -5510,8 +5492,6 @@ class StrikerApp(App):
 
     def _flush_usage(self):
         if self.root is not None:
-            request=getattr(self.root,'privacy_request',None)
-            if request is not None and request.status=='pending':request.sync(self.root._privacy_request_done)
             self.root.usage.flush_async()
             board=self.root.leaderboard
             if board.pending_withdrawal and not board.busy:
@@ -5532,8 +5512,6 @@ class StrikerApp(App):
 
     def on_resume(self):
         if self.root is not None:
-            request=getattr(self.root,'privacy_request',None)
-            if request is not None:self.root.usage.respect_privacy_request(request.active)
             self.root.usage.begin_session()
             self.root.usage.flush_async()
         if self.root and edition.is_world():

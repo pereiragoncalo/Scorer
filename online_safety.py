@@ -3,10 +3,10 @@ from datetime import date
 import hashlib,hmac,json,os,secrets,tempfile,time
 from pathlib import Path
 
-NOTICE_VERSION=1
+NOTICE_VERSION=2
 TERMS_VERSION=1
 TERMS_TEXT=('Use a nickname, never a real full name, contact details or school. Do not publish abuse, hate, sexual content, threats, impersonation or spam. Names and teams are public only after review. Report or block unsafe entries. Moderators may remove records and suspend publishing. Scores are self-reported. You can stop sharing and remove your records at any time.')
-NOTICE_TEXT=('Scorer automatically sends counts of app openings and normal closes, new and loaded careers, completed training and matches, goals and save/load failures to stats.clemir.com to understand game usage. No player name, career file or device identifier is included in these counts. Our collector stores combined daily totals for 90 days; unsent counts expire after 7 days. Cloudflare handles the HTTPS connection and IP address. Public name sharing is separate and optional. There is no usage switch in this version. Continue acknowledges this notice; it is not consent to publish your name.')
+NOTICE_TEXT=('Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. OK continues with automatic usage reporting; NOT OK closes the game.')
 
 def atomic_json(path,data):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)

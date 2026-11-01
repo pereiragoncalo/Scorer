@@ -66,6 +66,7 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=None, chann
     with (target/'buildozer.spec').open('w') as f:spec.write(f)
     # Do not ship historical in-app mode state or obsolete QA launch scripts.
     (target/'career_mode_state.py').unlink(missing_ok=True)
+    (target/'privacy_requests.py').unlink(missing_ok=True)
     (target/'.scorer-edition').write_text(product+'\nBuild preparation only. No store upload or payment activation.\n')
     return target
 

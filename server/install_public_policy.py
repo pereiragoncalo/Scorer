@@ -85,7 +85,6 @@ def main():
     if args.check:print('Final English World policy validated; /privacy, /terms and /delete render locally. No files or services changed.');return
     if os.geteuid()!=0:raise SystemExit('Run as root on the laptop, or use --check for validation only')
     target=Path('/opt/scorer')
-    if not (target/'server/privacy_cases.py').is_file() or not (target/'privacy_requests.py').is_file():raise SystemExit('Install this version of server/install_online.sh first: the final policy requires the privacy-request endpoint')
     def control(action):subprocess.run(['systemctl',action,'scorer-online'],check=True)
     apply(ROOT,config,target,lambda:control('stop'),lambda:control('start'),verify_local)
     print('Public-page update complete: local /privacy, /terms and /delete return HTTP200.')

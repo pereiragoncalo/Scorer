@@ -1,4 +1,4 @@
-"""Automatic aggregate game usage counters with legal-request suspension. No accounts, names, device IDs or event logs."""
+"""Automatic aggregate usage gated by the launch notice. No accounts, names, device IDs or event logs."""
 from datetime import datetime, timezone, date
 import json
 import os
@@ -71,7 +71,7 @@ class UsageStatistics(NoStatistics):
         self._scope=self.endpoint or 'local-v1'
         self._lock=threading.RLock();self._sender=sender;self._sending=False;self._generation=0
         self._foreground_active=False;self._session_seen=False;self._session_counted=False;self._session_ended=False;self._flush_requested=False
-        self.privacy_hold=False;self.delivery_ready=True;self.enabled=self.mandatory;self.counts={};self.day=self._today();self.last_error=''
+        self.notice_rejected=False;self.delivery_ready=True;self.enabled=self.mandatory;self.counts={};self.day=self._today();self.last_error=''
         self._load_state()
         if self.mandatory:self.enabled=True
 
@@ -128,12 +128,10 @@ class UsageStatistics(NoStatistics):
         if enabled and self._session_seen:self.begin_session()
         return True
 
-    def respect_privacy_request(self,hold):
+    def reject_notice(self):
         with self._lock:
-            self.privacy_hold=bool(hold)
-            if self.privacy_hold:
-                self._generation+=1;self.counts={};self._session_counted=False
-                self._save()
+            self.notice_rejected=True;self.delivery_ready=False;self._generation+=1
+            self.counts={};self._session_counted=False;self._save()
 
     def begin_session(self):
         with self._lock:
@@ -159,7 +157,7 @@ class UsageStatistics(NoStatistics):
     def record(self,event,amount=1):
         if not isinstance(event,str) or event not in EVENTS or type(amount) is not int or not 0<amount<=MAX_COUNT:return False
         with self._lock:
-            if not self.enabled or self.privacy_hold:return False
+            if not self.enabled or self.notice_rejected:return False
             old=self.counts;old_day=self.day
             age=(date.fromisoformat(self._today())-date.fromisoformat(self.day)).days
             self.counts=dict(self.counts) if 0<=age<=7 else {};self.day=self._today() if age<0 or age>7 else self.day
@@ -169,7 +167,7 @@ class UsageStatistics(NoStatistics):
 
     def flush_async(self):
         with self._lock:
-            if not self.enabled or self.privacy_hold or not self.remote_available or not self.delivery_ready or not self.counts:return False
+            if not self.enabled or self.notice_rejected or not self.remote_available or not self.delivery_ready or not self.counts:return False
             if self._sending:
                 self._flush_requested=True;return False
             age=(date.fromisoformat(self._today())-date.fromisoformat(self.day)).days
@@ -205,9 +203,6 @@ def create_statistics(world,directory,endpoint=None):
         from analytics_config import ENDPOINT
         endpoint=ENDPOINT
     usage=UsageStatistics(directory,endpoint,mandatory=APP_STATS_MANDATORY)
-    from privacy_requests import PrivacyRequest
-    if PrivacyRequest(directory).active:usage.respect_privacy_request(True)
     if APP_STATS_MANDATORY:
-        from online_safety import FamilyControls
-        usage.delivery_ready=FamilyControls(directory).notice_seen
+        usage.delivery_ready=False  # Each process must reach OK before any transmission.
     return usage

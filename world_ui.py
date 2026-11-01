@@ -33,7 +33,7 @@ class CompactHub(BoxLayout):
         entries = [('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
                    ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
                    ('PLAYER', 'profile'), ('PRIVACY', 'privacy'), ('HELP', 'help')]
-        if c.world_unlocked:entries.append(('WORLD LEAGUES', 'upgrade'))
+        if c.world_unlocked:entries.extend([('NAMES EDITOR','editor'),('WORLD LEAGUES','upgrade')])
         entries.append(('EXIT', 'exit'))
         for title, action in entries:
             button = MenuTile(title, lambda a=action: menu.action(a), accent=action == 'play')
@@ -41,6 +41,7 @@ class CompactHub(BoxLayout):
             if action == 'play': button.disabled = not c.trained_this_week
             actions.add_widget(button)
         self.add_widget(actions)
+        self.bind(size=lambda *_:setattr(actions,'cols',5 if c.world_unlocked and self.height<dp(290) else 4))
 
 
 class WorldBrowser(BoxLayout):
@@ -98,6 +99,7 @@ class NamesEditor(Card):
         game.editor_club_index %= len(league.clubs)
         club = league.clubs[game.editor_club_index]
         self.club = club
+        self.add_widget(MenuTile('IMPORT NAMES FILE',lambda:menu.action('names_import'),accent=True))
         controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(6))
         controls.add_widget(MenuTile('PREVIOUS CLUB', lambda: menu.action('editor_club', -1)))
         controls.add_widget(MenuTile('NEXT CLUB', lambda: menu.action('editor_club', 1)))
@@ -118,7 +120,6 @@ class NamesEditor(Card):
         files = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         files.add_widget(MenuTile('SAVE NAMES', self.save_names, accent=True))
         files.add_widget(MenuTile('EXPORT TEMPLATE', lambda: menu.action('names_export')))
-        files.add_widget(MenuTile('IMPORT JSON', lambda: menu.action('names_import')))
         files.add_widget(MenuTile('JSON FORMAT', lambda: menu.action('names_format')))
         self.add_widget(files)
         note = self.label('Export this league’s clubs and players; import JSON to preview. Names stay on this device.', muted=True)

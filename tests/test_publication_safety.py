@@ -31,7 +31,7 @@ class FamilyTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as t:
             u=create_statistics(False,t,endpoint='https://stats.example.com/v1/usage');u.begin_session();u._sender=lambda *_:self.fail('Sent before notice')
             self.assertTrue(u.enabled);self.assertFalse(u.delivery_ready);self.assertFalse(u.flush_async());self.assertFalse(u.set_enabled(False))
-            f=FamilyControls(t);f.acknowledge();self.assertTrue(create_statistics(False,t,endpoint='').delivery_ready)
+            f=FamilyControls(t);f.acknowledge();self.assertFalse(create_statistics(False,t,endpoint='').delivery_ready)
 
 class TransferTests(unittest.TestCase):
     def test_real_roundtrip_backup_and_no_credentials_exported(self):
@@ -151,7 +151,7 @@ class StagingTests(unittest.TestCase):
             with self.assertRaises(ValueError):prepare_edition('world',Path(t)/'unreviewed',channel='production',config=config)
             with self.assertRaisesRegex(ValueError,'Only Scorer World'):prepare_edition('free',Path(t)/'free',channel='production',config=config,publication=review)
             with self.assertRaisesRegex(ValueError,'above the 0.9'):
-                prepare_edition('world',Path(t)/'stale-code',channel='production',config=dict(config,version_code=1026900),publication=review)
+                prepare_edition('world',Path(t)/'stale-code',channel='production',config=dict(config,version_code=1026901),publication=review)
             stage=prepare_edition('world',Path(t)/'world',channel='production',config=config,publication=review)
             spec=configparser.ConfigParser();spec.read(stage/'buildozer.spec')
             self.assertEqual(spec['app']['package.name'],'scorerworld')

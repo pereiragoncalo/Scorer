@@ -6,8 +6,6 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             return marshal.loads(tar.extractfile(member).read()[16:])
         safety_module=types.ModuleType('online_safety');sys.modules['online_safety']=safety_module
         safety=safety_module.__dict__;exec(code('online_safety'),safety)
-        rights_module=types.ModuleType('privacy_requests');sys.modules['privacy_requests']=rights_module
-        exec(code('privacy_requests'),rights_module.__dict__)
         stats={};exec(code('anonymous_stats'),stats)
         assert stats['APP_STATS_MANDATORY'] is True
         with tempfile.TemporaryDirectory() as t:
@@ -15,11 +13,8 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             u.begin_session();assert u.counts=={'sessions':1};assert not u.set_enabled(False);assert not u.flush_async()
             f=safety['FamilyControls'](t);assert not f.social and not f.configured
             assert f.configure('1980-01-01','123456','123456');assert f.social and f.unlock('123456')
-            f.acknowledge();assert stats['create_statistics'](False,t,endpoint='').delivery_ready
-        with tempfile.TemporaryDirectory() as t:
-            request=rights_module.PrivacyRequest(t);request.object()
-            u=stats['create_statistics'](True,t,endpoint='');assert u.privacy_hold
-            assert not u.record('sessions') and not u.flush_async()
+            f.acknowledge();assert not stats['create_statistics'](False,t,endpoint='').delivery_ready
+            u.reject_notice();assert not u.delivery_ready and not u.counts and not u.flush_async()
         game=next(c for c in code('main').co_consts if hasattr(c,'co_name') and c.co_name=='StrikerGame')
         action=next(c for c in game.co_consts if hasattr(c,'co_name') and c.co_name=='_activate_ui')
         def flatten(items):

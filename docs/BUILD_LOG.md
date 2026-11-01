@@ -1,3 +1,9 @@
+## 2026-11-01 — World 0.9.1 startup/editor/height balance
+
+Owner superseded the previous client privacy-request workflow: launch notice only, OK continues, NOT OK immediately exits/discards pending unsent counts. Direct hub editor and top import action. Keeper height balance corrected in matches and training; physical aim/ball/goal/collider dimensions and competition engine preserved. See RELEASE_0.9.1.md and data/shot_heights_0.9.1.json.
+
+Validation: 232 core + 114 unique native Kivy UI = 346 passing tests. First core run used a venv missing fontTools/cryptography; rerun with installed host dependencies passed. First UI run had two new test-fixture/assertion failures (mandatory flag overridden by isolation fixture; wrong expected editor route); corrected and both targeted tests passed. 1,800 paired actual fixed-step shots per build. Android debug package built; actual compiled source/modules, notice gate/rejection, career/competition reload, package/code/certificate, 118ELF/16KB verified. Removed privacy_requests module absent from APK. No real Android/Play acceptance or live server deployment claimed. Unrelated badge/mode-state WIP excluded.
+
 # Build log
 
 ## Packaging snapshot, 23/10/2026

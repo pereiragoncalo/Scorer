@@ -14,33 +14,20 @@ class PrivacyClientTests(unittest.TestCase):
             self.assertTrue(u.enabled);self.assertFalse(u.set_enabled(False));self.assertFalse(PrivacyRequest(t).active)
             self.assertFalse((Path(t)/'scorer_privacy_request.json').exists())
             self.assertEqual(u.counts,{'sessions':1})
-    def test_request_drops_queued_counts_and_survives_restart_without_transmission(self):
+    def test_reject_notice_discards_counts_and_never_retries_on_stop(self):
         with tempfile.TemporaryDirectory() as t:
-            u=create_statistics(True,t,endpoint='');u.begin_session();r=PrivacyRequest(t);r.object();u.respect_privacy_request(r.active)
-            self.assertEqual(u.counts,{});self.assertFalse(u.record('goals_scored'));self.assertFalse(u.flush_async())
-            again=create_statistics(True,t,endpoint='');self.assertTrue(again.privacy_hold);again.begin_session();self.assertEqual(again.counts,{})
-            self.assertNotIn(r.token,u.path.read_text());self.assertEqual(PrivacyRequest(t).case_reference,r.case_reference)
-    def test_inflight_acknowledgement_cannot_restore_discarded_counts(self):
-        from anonymous_stats import UsageStatistics
-        started=threading.Event();release=threading.Event()
-        def sender(*_):started.set();release.wait(3);return True
+            u=create_statistics(True,t,endpoint='https://stats.example.com/v1/usage');u.begin_session()
+            with patch.object(u,'_sender') as sender:
+                u.reject_notice();self.assertEqual(u.counts,{})
+                self.assertFalse(u.record('goals_scored'));self.assertFalse(u.flush_async())
+                self.assertFalse(u.delivery_ready);sender.assert_not_called()
+            again=create_statistics(True,t,endpoint='');self.assertFalse(again.delivery_ready)
+    def test_old_case_file_does_not_restore_removed_client_workflow(self):
         with tempfile.TemporaryDirectory() as t:
-            u=UsageStatistics(t,'https://stats.example.com/v1/usage',sender=sender,mandatory=True)
-            u.begin_session();u.flush_async();self.assertTrue(started.wait(2))
-            u.respect_privacy_request(True);release.set()
-            import time
-            for _ in range(100):
-                if not u._sending:break
-                time.sleep(.01)
-            self.assertFalse(u._sending);self.assertEqual(u.counts,{});self.assertTrue(u.privacy_hold)
+            (Path(t)/'scorer_privacy_request.json').write_text('{broken')
+            u=create_statistics(True,t,endpoint='');u.begin_session()
+            self.assertEqual(u.counts,{'sessions':1});self.assertFalse(u.delivery_ready)
 
-    def test_corrupt_request_fails_closed_and_save_failure_does_not_unpause(self):
-        with tempfile.TemporaryDirectory() as t:
-            p=Path(t)/'scorer_privacy_request.json';p.write_text('{broken')
-            self.assertTrue(create_statistics(True,t,endpoint='').privacy_hold)
-            r=PrivacyRequest(t)
-            with patch('privacy_requests.atomic_json',side_effect=OSError('disk')):r.object()
-            self.assertTrue(r.active);self.assertIn('Could not save',r.message)
     def test_offline_and_failed_withdrawal_keep_hold(self):
         with tempfile.TemporaryDirectory() as t:
             r=PrivacyRequest(t,'https://stats.example.com');r.object();done=threading.Event()

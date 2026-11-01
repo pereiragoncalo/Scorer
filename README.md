@@ -1,3 +1,11 @@
+## Scorer World 0.9.1 — startup notice, editor and shot balance
+
+[Download World 0.9.1 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9.1/Scorer-World-0.9.1.apk)
+
+After each launch splash, the notice has only **OK** (continue) and **NOT OK** (close immediately and discard pending usage counts). The in-app privacy-request workflow is removed. No usage is sent before OK. World hub → **Names Editor** → **Import Names File** opens the document picker and existing import preview.
+
+Keeper movement and visible glove reach now defend high shots and leave a fairer opportunity for low shots, in matches and training. Ball targets, goal geometry, career progress, competitions and imported names are preserved. Save and Exit, install over your existing World QA app, then Load Game. [Checks and limitations](docs/RELEASE_0.9.1.md). DEBUG QA; public launch remains 1.0.
+
 ## Scorer World 0.9 — World competitions integrated
 
 [Download World 0.9 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9/Scorer-World-0.9.apk)
@@ -28,7 +36,7 @@ Only **Scorer World** (`com.clemir.scorerworld`) will launch: **free, ad-free, n
 
 Public privacy, community rules, removal instructions and the store listing are English. [Final English policy](docs/play/PRIVACY_POLICY.md) · [World launch and remaining steps](docs/play/WORLD_LAUNCH_0.6.47.md).
 
-Automatic usage has no ordinary off switch. Privacy rights requests suspend collection while pending/granted, including offline. No Play upload or rollout has been performed.
+This historical build included a privacy-request screen, removed in 0.9.1 in favour of the startup OK/NOT OK notice. No Play upload or rollout has been performed.
 
 ## Scorer0.6.46 — Google Play preparation
 

@@ -17,7 +17,6 @@ class PublicationUITests(unittest.TestCase):
                 try:
                     g._activate_ui('splash_continue');self.assertEqual(g.view,'data_notice');self.assertFalse(g.usage.delivery_ready)
                     g.usage.flush_async();sender.assert_not_called()
-                    g._activate_ui('privacy');g._activate_ui('privacy_back');self.assertEqual(g.view,'data_notice')
                     g._activate_ui('notice_continue');self.assertEqual(g.view,'start');self.assertTrue(g.usage.delivery_ready);self.assertTrue(g.family.notice_seen)
                     self.assertTrue(g.usage.enabled);self.assertFalse(g.usage.set_enabled(False))
                 finally:StrikerApp.on_stop(app)
@@ -42,7 +41,7 @@ class PublicationUITests(unittest.TestCase):
                 Window.size=size
                 with isolated_game(saved=True) as g:
                     g.size=size
-                    for view in ('data_notice','family','record_safety','privacy'):
+                    for view in ('family','record_safety','privacy'):
                         g.view=view;g.draw();settle();self.assertIsNotNone(g._menu.scroll)
                         for w in g._menu.body.walk():
                             if isinstance(w,Button):self.assertGreaterEqual(w.height,48-1)
@@ -56,7 +55,7 @@ class PublicationUITests(unittest.TestCase):
                 g.i18n.choose(language)
                 for key in keys:self.assertNotEqual(g.i18n.tr(key),key,(language,key))
             g.i18n.choose('pt');g.view='data_notice';g.draw();settle()
-            self.assertIn('Estatísticas automáticas de utilização',{w.text for w in g.walk() if isinstance(w,Label)})
+            self.assertIn('ANTES DE JOGAR',{w.text for w in g.walk() if isinstance(w,Label)})
 
     def test_pending_removal_retries_while_public_access_remains_locked(self):
         with isolated_game(saved=True) as g:

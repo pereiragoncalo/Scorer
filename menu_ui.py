@@ -26,7 +26,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','privacy_rights','competitions','competition'))
+MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -161,6 +161,8 @@ class CareerMenu(BoxLayout):
             self.game.ads.entry_visible(False)
         self.clear_widgets()
         self._shade.a = 1 if self.game.view == 'splash' else 0.62
+        if self.game.view=='data_notice':
+            self.padding=dp(16);self.spacing=dp(10);self.scroll=None;self.body=LaunchNotice(self);self.add_widget(self.body);return
         if self.game.view == 'language' and not edition.is_world():
             self.game.view='start'
         if self.game.view == 'language':
@@ -226,7 +228,7 @@ class CareerMenu(BoxLayout):
         if self.game.view == 'scorers':
             header.add_widget(self._button('GLOBAL', 'leaderboard'))
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'rights_back' if self.game.view=='privacy_rights' else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
+            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view in ('hub', 'offers'):
@@ -349,14 +351,6 @@ class CareerMenu(BoxLayout):
         return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
                             summary=(0, 1, 2, 3))
 
-    def _data_notice(self):
-        from online_safety import NOTICE_TEXT
-        card=self.card('Automatic usage statistics');card.label(NOTICE_TEXT)
-        if self.game._safety_notice:card.label(self.game._safety_notice)
-        card.add_widget(self._button('PRIVACY','privacy'))
-        card.add_widget(self._button('CONTINUE','notice_continue',accent=True))
-        card.add_widget(TouchButton('EXIT',self.game._request_exit))
-
     def _draft_field(self,card,key,hint,password=False):
         from ui_localization import LocalizedInput
         field=LocalizedInput(text=self.game._safety_draft.get(key,''),hint_text=hint,password=password,multiline=False,size_hint_y=None,height=dp(52))
@@ -405,23 +399,8 @@ class CareerMenu(BoxLayout):
         transfer.add_widget(self._button('EXPORT CAREER','career_export'));transfer.add_widget(self._button('IMPORT CAREER','career_import'))
         if self.game._safety_notice:transfer.label(self.game._safety_notice)
         from online_safety import NOTICE_TEXT
-        stats=self.card('Automatic usage statistics');stats.label(NOTICE_TEXT);stats.label('Usage suspended for a privacy request.' if self.game.privacy_request.active else 'Status: Automatic')
-        stats.add_widget(self._button('PRIVACY RIGHTS','privacy_rights','competitions','competition'))
+        stats=self.card('Automatic usage statistics');stats.label(NOTICE_TEXT);stats.label('Status: Automatic')
         if self.game.usage_notice:stats.label(self.game.usage_notice)
-
-    def _privacy_rights(self):
-        request=self.game.privacy_request
-        card=self.card('PRIVACY RIGHTS')
-        card.label('Use this page for a privacy objection or other applicable legal request. Usage is suspended while your request is pending or granted. This does not remove public records.')
-        card.label('Contact goncalo@clemir.com with your reference. Do not send secret tokens, PINs or career files.')
-        if request.case_reference:card.label(request.case_reference,localize=False)
-        card.label('Usage suspended for a privacy request.' if request.active else 'Status: Automatic')
-        if request.message:card.label(request.message)
-        if not request.active:card.add_widget(self._button('SUBMIT PRIVACY REQUEST','rights_object'))
-        elif request.status=='needs_support':card.add_widget(self._button('SUBMIT PRIVACY REQUEST','rights_object'))
-        else:
-            card.add_widget(self._button('CHECK REQUEST','rights_check'))
-            card.add_widget(self._button('WITHDRAW PRIVACY REQUEST','rights_withdraw'))
 
     def _privacy_contact(self, card):
         card.label('Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.')
@@ -551,6 +530,19 @@ class CareerMenu(BoxLayout):
         for country in sorted(WORLD_COUNTRIES):
             depth = EUROPE_PYRAMID_DEPTH.get(country, 1)
             self.card(country).label(f'{depth} divisions')
+
+
+class LaunchNotice(BoxLayout):
+    def __init__(self,menu):
+        super().__init__(orientation='vertical',spacing=dp(10))
+        from online_safety import NOTICE_TEXT
+        self.add_widget(BoundedLabel(text='BEFORE YOU PLAY',font_size=sp(21),bold=True,size_hint_y=None,height=dp(38)))
+        scroll=ScrollView(do_scroll_x=False);message=FlowLabel(text=NOTICE_TEXT,font_size=sp(15));scroll.add_widget(message);self.add_widget(scroll)
+        if menu.game._safety_notice:self.add_widget(FlowLabel(text=menu.game._safety_notice))
+        buttons=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(10))
+        buttons.add_widget(MenuTile('NOT OK',lambda:menu.action('notice_exit'),localize=False))
+        buttons.add_widget(MenuTile('OK',lambda:menu.action('notice_continue'),accent=True,localize=False))
+        self.add_widget(buttons)
 
 
 class MatchNotice(BoxLayout):
@@ -883,7 +875,7 @@ class MainDashboard(BoxLayout):
         self.add_widget(self.hero)
         self.actions = GridLayout(cols=5, spacing=dp(6), size_hint_y=None, height=dp(52))
         for title, action in [('STANDINGS', 'standings'),
-                              ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent')]:
+                              ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent')]+([('NAMES EDITOR','editor')] if c.world_unlocked else []):
             button = MenuTile(title, lambda name=action: menu.action(name))
             self.actions.add_widget(button)
             if action == 'scorers':
@@ -915,7 +907,7 @@ class MainDashboard(BoxLayout):
                     self.actions.remove_widget(button)
                     self.footer.add_widget(button)
                 self.add_widget(self.hero, index=self.children.index(self.identity))
-            self.actions.cols = 2 if portrait else 5
+            self.actions.cols = 2 if portrait else 6 if self.menu.game.career.world_unlocked else 5
         rows = (len(self.actions.children) + self.actions.cols - 1) // self.actions.cols
         self.actions.height = rows * dp(52) + (rows - 1) * dp(6)
         self.hero.orientation = 'vertical' if portrait else 'horizontal'
