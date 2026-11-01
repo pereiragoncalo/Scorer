@@ -1,0 +1,36 @@
+{
+  "version": "0.9.2",
+  "version_code": 1026902,
+  "package": "com.clemir.scorerworld",
+  "source_commit": "91e13417d181f222f7c907ccb940729e49bc665a",
+  "artifact": "Scorer-World-0.9.2.apk",
+  "bytes": 74037615,
+  "sha256": "0939656f3301e4e62b68b5bf639f80df9ac1f4b26f8074535d4a4164b6a19b79",
+  "certificate_sha256": "84c17cdf31e2ee7c6e9c082bde539df6822bf48267a0603de9814d6e2846ef49",
+  "signing": "Existing DEBUG upgrade key; QA candidate",
+  "target_api": 36,
+  "min_api": 26,
+  "architecture": "arm64-v8a",
+  "elf16k": 118,
+  "zip16k": true,
+  "targeted_tests_passed": 52,
+  "portuguese_buttons": [
+    "CONCORDO",
+    "NÃO CONCORDO"
+  ],
+  "english_buttons": [
+    "I AGREE",
+    "I DO NOT AGREE"
+  ],
+  "ui_languages": 9,
+  "notice_disagree_exits": true,
+  "no_delivery_before_agree": true,
+  "client_privacy_request_workflow": false,
+  "exact_compiled_source_verified": true,
+  "compiled_portuguese_labels_verified": true,
+  "competition_save_reload_verified": true,
+  "physical_android_tested": false,
+  "production_signed": false,
+  "play_uploaded": false,
+  "live_server_updated": false
+}
