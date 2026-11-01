@@ -26,7 +26,7 @@ For uniformly distributed exact targets inside the goal:
 | 2 | 1.19 | 0.40 | 0.00% |
 | 1 | 1.18 | 0.37 | 0.00% |
 
-The raw physical outcomes and all four projected strategies are in [difficulty_0.6.48.json](data/difficulty_0.6.48.json). Players can choose other targets, power and timing, so real device/player feedback remains important.
+The raw physical outcomes and all four projected strategies are in [difficulty_0.6.48.json](difficulty_0.6.48.json). Players can choose other targets, power and timing, so real device/player feedback remains important.
 
 ## Delivery and validation
 
