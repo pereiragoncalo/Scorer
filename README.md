@@ -1,5 +1,7 @@
 ## Scorer World 0.6.47 — current Google Play launch scope
 
+[Download Scorer World 0.6.47 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.47/Scorer-World-0.6.47.apk) · [Laptop update commands](docs/play/SERVER_0.6.47.md)
+
 Only **Scorer World** (`com.clemir.scorerworld`) will launch: **free, ad-free, no in-app purchases, local names editor included**. The nine game UI languages remain available. Earlier Free builds below are historical QA downloads, not a second Play product.
 
 Public privacy, community rules, removal instructions and the store listing are English. [Final English policy](docs/play/PRIVACY_POLICY.md) · [World launch and remaining steps](docs/play/WORLD_LAUNCH_0.6.47.md).
