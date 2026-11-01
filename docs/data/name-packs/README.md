@@ -2,10 +2,12 @@
 
 Download the **JSON file**, then open a World career and choose **Editor > Import names**, select the file, review the preview and confirm. No new APK is needed. The editor creates a names backup before updating a saved career. Keep your own career export too.
 
+- [Europe + Brazil + Argentina JSON](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/main/docs/data/name-packs/Scorer-World-Real-Names-Europe-Brazil-Argentina-2026-07.json): all eight countries; 494 club-slot aliases and 1,898 player-slot aliases, 113,122 bytes. Use this for a single import.
+- [Brazil + Argentina add-on JSON](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/main/docs/data/name-packs/Scorer-World-Real-Names-Brazil-Argentina-2026-07.json): 96 club-slot aliases and 492 player-slot aliases, 27,925 bytes. Import after the previous Europe pack to add these countries while preserving European names, including custom edits.
 - [Europe JSON](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/main/docs/data/name-packs/Scorer-World-Real-Names-Europe-2026-07.json): Portugal, England, Spain, Germany, Italy and France; 398 club-slot aliases and 1,406 player-slot aliases, 85,269 bytes.
 - [Portugal-only JSON](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/main/docs/data/name-packs/Scorer-World-Real-Names-Portugal-2026-07.json): 72 club-slot aliases and 323 player-slot aliases, 18,431 bytes. The Europe file already includes these names.
 
-Both files use the existing version-1 editor format and fit its 256 KiB / 4,096-name limits. Import the JSON without `.provenance` in its filename. The provenance and validation files are documentation, not editor packs.
+All four files use the existing version-1 editor format and fit its 256 KiB / 4,096-name limits. Import the JSON without `.provenance` in its filename. The provenance and validation files are documentation, not editor packs.
 
 ## Scope and reference date
 
@@ -27,4 +29,6 @@ Downloaded on 1 November 2026. Exact compressed input hashes and per-club source
 
 Rebuild with `tools/build_real_name_pack.py --players PATH/players.csv.gz --clubs PATH/clubs.csv.gz --output OUTPUT.json`; add `--countries Portugal` for the small pack. The generator does not download data or touch a career.
 
-Validation used clean Scorer World 0.6.47 source `19c13b10d51e9dc49f4bbd70f34f66b82cb50ffc`: actual editor preview, apply, save, automatic backup and reload passed for both files. Only `career.display_aliases` changed in the saved game; simulation and progress were preserved. See [validation.json](validation.json).
+Validation used clean Scorer World 0.6.47 source `19c13b10d51e9dc49f4bbd70f34f66b82cb50ffc`: actual editor preview, apply, save, automatic backup and reload passed for all four files. Only `career.display_aliases` changed in the saved game; simulation and progress were preserved. See [validation.json](validation.json).
+
+The Brazil/Argentina add-on was also applied after the original Europe pack: its merged aliases equal the combined file, and importing it preserves custom European names. Country-specific source matching uses BRA1 (Brazil) and ARG1 (Argentina); Botafogo RJ is not confused with Botafogo SP. The reference date and missing-player limitations above also apply to these countries.

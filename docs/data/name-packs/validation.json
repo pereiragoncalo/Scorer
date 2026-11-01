@@ -3,11 +3,35 @@
   "source": "19c13b10d51e9dc49f4bbd70f34f66b82cb50ffc",
   "packs": [
     {
+      "file": "Scorer-World-Real-Names-Brazil-Argentina-2026-07.json",
+      "bytes": 27925,
+      "sha256": "8bf6e985383d528b25eada1960cd340b00ece8cbf0df1155d05a3ad48a8bda5a",
+      "clubs": 96,
+      "players": 492,
+      "actual_release_preview_apply_save_reload": "pass",
+      "backup_created": true,
+      "changed_save_fields": [
+        "display_aliases"
+      ]
+    },
+    {
       "file": "Scorer-World-Real-Names-Europe-2026-07.json",
       "bytes": 85269,
       "sha256": "36a10dab7f6c840f8b57a40637b69c9ba7c0909040b789ce353bc9f0468375eb",
       "clubs": 398,
       "players": 1406,
+      "actual_release_preview_apply_save_reload": "pass",
+      "backup_created": true,
+      "changed_save_fields": [
+        "display_aliases"
+      ]
+    },
+    {
+      "file": "Scorer-World-Real-Names-Europe-Brazil-Argentina-2026-07.json",
+      "bytes": 113122,
+      "sha256": "16720b564ebf69c1eb495e5b803a0db2630f4cc76fd220e988bde9786ea4f951",
+      "clubs": 494,
+      "players": 1898,
       "actual_release_preview_apply_save_reload": "pass",
       "backup_created": true,
       "changed_save_fields": [
@@ -26,5 +50,9 @@
         "display_aliases"
       ]
     }
-  ]
+  ],
+  "brazil_argentina_addon": {
+    "merged_with_original_europe_equals_combined": true,
+    "preserves_custom_european_names": true
+  }
 }

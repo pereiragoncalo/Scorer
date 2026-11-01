@@ -1,0 +1,1216 @@
+{
+  "countries": [
+    "Brazil",
+    "Argentina"
+  ],
+  "club_entries": 96,
+  "player_aliases": 492,
+  "clubs_with_player_names": 41,
+  "matched_clubs": [
+    {
+      "uid": "1811a02d3dea0e34d763",
+      "country": "Brazil",
+      "game_club_reference": "Flamengo RJ",
+      "source_club_name": "Clube de Regatas do Flamengo",
+      "source_club_id": "614",
+      "player_names": [
+        "Pedro",
+        "Samuel Lino",
+        "Gonzalo Plata",
+        "Everton",
+        "Luiz Araújo",
+        "Wallace Yan",
+        "Bruno Henrique",
+        "Giorgian de Arrascaeta",
+        "Jorge Carrascal",
+        "Evertton Araújo",
+        "Nicolás de la Cruz",
+        "Erick Pulgar"
+      ]
+    },
+    {
+      "uid": "b12c65334b70507f4c00",
+      "country": "Brazil",
+      "game_club_reference": "Palmeiras SP",
+      "source_club_name": "Sociedade Esportiva Palmeiras",
+      "source_club_id": "1023",
+      "player_names": [
+        "Vitor Roque",
+        "Flaco López",
+        "Allan",
+        "Jhon Arias",
+        "Ramón Sosa",
+        "Paulinho",
+        "Luighi",
+        "Felipe Anderson",
+        "Riquelme Fillipi",
+        "Mauricio",
+        "Andreas Pereira",
+        "Emiliano Martínez"
+      ]
+    },
+    {
+      "uid": "5f9f7033f562b3fe6218",
+      "country": "Brazil",
+      "game_club_reference": "Corinthians SP",
+      "source_club_name": "Sport Club Corinthians Paulista",
+      "source_club_id": "199",
+      "player_names": [
+        "Yuri Alberto",
+        "Memphis Depay",
+        "Gui Negão",
+        "Dieguinho",
+        "Pedro Raul",
+        "Kayke",
+        "Vitinho",
+        "Breno Bidon",
+        "André",
+        "Rodrigo Garro",
+        "Raniele",
+        "Matheus Pereira"
+      ]
+    },
+    {
+      "uid": "0a06e2b7aeb94d18c23d",
+      "country": "Brazil",
+      "game_club_reference": "São Paulo FC",
+      "source_club_name": "São Paulo Futebol Clube",
+      "source_club_id": "585",
+      "player_names": [
+        "Artur",
+        "Ryan Francisco",
+        "Ferreirinha",
+        "Gonzalo Tapia",
+        "André Silva",
+        "Lucca",
+        "Victor Sá",
+        "Lucas Moura",
+        "Jonathan Calleri",
+        "Luciano",
+        "Tetê",
+        "Paulinho"
+      ]
+    },
+    {
+      "uid": "0a85927f40ff51c7b32e",
+      "country": "Brazil",
+      "game_club_reference": "Fluminense RJ",
+      "source_club_name": "Fluminense Football Club",
+      "source_club_id": "2462",
+      "player_names": [
+        "John Kennedy",
+        "Agustín Canobbio",
+        "Rodrigo Castillo",
+        "Riquelme",
+        "Kevin Serna",
+        "Yeferson Soteldo",
+        "Hulk",
+        "Germán Cano",
+        "Matheus Reis",
+        "Martinelli",
+        "Hércules",
+        "Jefferson Savarino"
+      ]
+    },
+    {
+      "uid": "e319d9e58a3c3f88a2b1",
+      "country": "Brazil",
+      "game_club_reference": "Grêmio RS",
+      "source_club_name": "Grêmio Foot-Ball Porto Alegrense",
+      "source_club_id": "210",
+      "player_names": [
+        "Francis Amuzu",
+        "Carlos Vinícius",
+        "José Enamorado",
+        "André Henrique",
+        "Martin Braithwaite",
+        "Willian",
+        "Roger",
+        "Gabriel Mec",
+        "Juan Nardoni",
+        "Leonel Pérez",
+        "Erick Noriega",
+        "Arthur Melo"
+      ]
+    },
+    {
+      "uid": "2d8ed6622c1975e49c94",
+      "country": "Brazil",
+      "game_club_reference": "Santos SP",
+      "source_club_name": "Santos Futebol Clube",
+      "source_club_id": "221",
+      "player_names": [
+        "Benjamín Rollheiser",
+        "Álvaro Barreal",
+        "Robinho Junior",
+        "Rony",
+        "Gabriel Barbosa",
+        "Moisés",
+        "Lautaro Díaz",
+        "Mateus Xavier",
+        "Gustavo Caballero",
+        "Enzo Boer",
+        "Gabriel Bontempo",
+        "Neymar"
+      ]
+    },
+    {
+      "uid": "7dbdb87d52a6ada5b5b4",
+      "country": "Brazil",
+      "game_club_reference": "RB Bragantino",
+      "source_club_name": "Red Bull Bragantino",
+      "source_club_id": "8793",
+      "player_names": [
+        "Isidro Pitta",
+        "Lucas Barbosa",
+        "Henry Mosquera",
+        "Vinicinho",
+        "José Herrera",
+        "Fernando",
+        "Ignacio Laquintana",
+        "Eduardo Sasha",
+        "Gabriel Novaes",
+        "Davi Gomes",
+        "Kawê",
+        "Rodriguinho"
+      ]
+    },
+    {
+      "uid": "dd2c0384360bb3d6cde8",
+      "country": "Brazil",
+      "game_club_reference": "Mirassol FC SP",
+      "source_club_name": "Mirasol Futebol Clube",
+      "source_club_id": "3876",
+      "player_names": [
+        "Antonio Galeano",
+        "Negueba",
+        "Alesson",
+        "Nathan Fogaça",
+        "Edson Carioca",
+        "Everton Galdino",
+        "André Luis",
+        "Tiquinho Soares",
+        "Carlos Eduardo",
+        "Luiz Filipe",
+        "Fernandinho",
+        "Neto Moura"
+      ]
+    },
+    {
+      "uid": "fc670f783b7d5938bbef",
+      "country": "Brazil",
+      "game_club_reference": "Botafogo RJ",
+      "source_club_name": "S. A. F. Botafogo",
+      "source_club_id": "537",
+      "player_names": [
+        "Álvaro Montoro",
+        "Arthur Cabral",
+        "Matheus Martins",
+        "Nathan Fernandes",
+        "Júnior Santos",
+        "Chris Ramos",
+        "Kadir Barría",
+        "Joaquín Correa",
+        "Elias Manoel",
+        "Lucas Villalba",
+        "Danilo",
+        "Cristian Medina"
+      ]
+    },
+    {
+      "uid": "3eada2d1f193589b7b04",
+      "country": "Brazil",
+      "game_club_reference": "CR Vasco da Gama",
+      "source_club_name": "Club de Regatas Vasco da Gama",
+      "source_club_id": "978",
+      "player_names": [
+        "Andrés Gómez",
+        "Nuno Moreira",
+        "Marino Hinestroza",
+        "Brenner",
+        "Claudio Spinelli",
+        "Adson",
+        "David",
+        "Matheus França",
+        "Cauan Barros",
+        "JP",
+        "Thiago Mendes",
+        "Mateus Carvalho"
+      ]
+    },
+    {
+      "uid": "444f0bb2369094dc1592",
+      "country": "Brazil",
+      "game_club_reference": "Atlético MG",
+      "source_club_name": "Clube Atlético Mineiro",
+      "source_club_id": "330",
+      "player_names": [
+        "Mateo Cassierra",
+        "Tomás Cuello",
+        "Alan Minda",
+        "Dudu",
+        "Bernard",
+        "Cauã Soares",
+        "Victor Hugo",
+        "Alexsander",
+        "Gustavo Scarpa",
+        "Alan Franco",
+        "Tomás Pérez",
+        "Igor Gomes"
+      ]
+    },
+    {
+      "uid": "6b635ff592ba6ab0f2ff",
+      "country": "Brazil",
+      "game_club_reference": "Cruzeiro MG",
+      "source_club_name": "Cruzeiro Esporte Clube",
+      "source_club_id": "609",
+      "player_names": [
+        "Kaio Jorge",
+        "Luis Sinisterra",
+        "Keny Arroyo",
+        "Néiser Villarreal",
+        "Wanderson",
+        "Kaique Kenji",
+        "Marquinhos",
+        "Bruno Rodrigues",
+        "Chico da Costa",
+        "Gerson",
+        "Matheus Pereira",
+        "Christian"
+      ]
+    },
+    {
+      "uid": "bdd72d1dee8bba461b77",
+      "country": "Brazil",
+      "game_club_reference": "Internacional Porto Alegre",
+      "source_club_name": "Sport Club Internacional",
+      "source_club_id": "6600",
+      "player_names": [
+        "Johan Carbonero",
+        "Kayky",
+        "Vitinho",
+        "Alerrandro",
+        "Bruno Tabata",
+        "Raykkonen",
+        "Rodrigo Villagra",
+        "Thiago Maia",
+        "Alan Rodríguez",
+        "Alan Patrick",
+        "Ronaldo",
+        "Paulinho Paula"
+      ]
+    },
+    {
+      "uid": "cbc46c19529b25718728",
+      "country": "Brazil",
+      "game_club_reference": "Esporte Clube Juventude",
+      "source_club_name": "Esporte Clube Juventude",
+      "source_club_id": "10492",
+      "player_names": []
+    },
+    {
+      "uid": "410fb77ee1776a8c83b6",
+      "country": "Brazil",
+      "game_club_reference": "Atlético PR",
+      "source_club_name": "Clube Atlético Paranaense",
+      "source_club_id": "679",
+      "player_names": [
+        "Kevin Viveros",
+        "Bruninho",
+        "Julimar",
+        "Jorge Rivaldo",
+        "Renan Peixoto",
+        "Isaac",
+        "Leozinho",
+        "Stiven Mendoza",
+        "Renan Viana",
+        "Daniel Aguilar",
+        "Juan Portilla",
+        "Dudu"
+      ]
+    },
+    {
+      "uid": "48d9cd640aeb236efc72",
+      "country": "Brazil",
+      "game_club_reference": "Coritiba PR",
+      "source_club_name": "Coritiba Foot Ball Club",
+      "source_club_id": "776",
+      "player_names": [
+        "Lucas Ronier",
+        "Joaquín Lavega",
+        "Breno Lopes",
+        "Pedro Rocha",
+        "Fabinho",
+        "Renato Marques",
+        "Brian Ocampo",
+        "Rodrigo Rodrigues",
+        "Keno",
+        "Éberth",
+        "Sebastián Gómez",
+        "Fernando Sobral"
+      ]
+    },
+    {
+      "uid": "827e3be6ed9e27772a9a",
+      "country": "Brazil",
+      "game_club_reference": "Chapecoense",
+      "source_club_name": "Associação Chapecoense de Futebol",
+      "source_club_id": "17776",
+      "player_names": [
+        "Italo Vargas",
+        "Ênio",
+        "Maurício Garcez",
+        "Marcinho",
+        "Kevin Ramírez",
+        "Neto Pessoa",
+        "Rubens",
+        "Yannick Bolasie",
+        "João Bom",
+        "Carvalheira",
+        "Camilo",
+        "Robert Santos"
+      ]
+    },
+    {
+      "uid": "3145ed569b6a9aadd63d",
+      "country": "Argentina",
+      "game_club_reference": "River Plate",
+      "source_club_name": "Club Atlético River Plate",
+      "source_club_id": "209",
+      "player_names": [
+        "Lucas Beltrán",
+        "Facundo Colidio",
+        "Sebastián Driussi",
+        "Maximiliano Salas",
+        "Rafael Borré",
+        "Ian Subiabre",
+        "Agustín Ruberto",
+        "Joaquín Freitas",
+        "Leonel Jaime",
+        "Aníbal Moreno",
+        "Kevin Castaño",
+        "Fausto Vera"
+      ]
+    },
+    {
+      "uid": "794dfa592f5ab59b07c2",
+      "country": "Argentina",
+      "game_club_reference": "Boca Juniors",
+      "source_club_name": "Club Atlético Boca Juniors",
+      "source_club_id": "189",
+      "player_names": [
+        "Exequiel Zeballos",
+        "Miguel Merentiel",
+        "Adam Bareiro",
+        "Kevin Zenón",
+        "Alan Velasco",
+        "Milton Giménez",
+        "Ángel Romero",
+        "Edinson Cavani",
+        "Nicolás Orsini",
+        "Gonzalo Gelini",
+        "Lucas Janson",
+        "Iker Zufiaurre"
+      ]
+    },
+    {
+      "uid": "c0f4799cb1271c270fdc",
+      "country": "Argentina",
+      "game_club_reference": "Racing Club",
+      "source_club_name": "Racing Club Asociación Civil de Avellaneda",
+      "source_club_id": "1444",
+      "player_names": [
+        "Santiago Solari",
+        "Adrián Martínez",
+        "Tomás Conechny",
+        "Duván Vergara",
+        "Elías Torres",
+        "Tomás Pérez",
+        "Emiliano Saliadarre",
+        "Santiago Sosa",
+        "Valentín Carboni",
+        "Matko Miljevic",
+        "Baltasar Rodríguez",
+        "Matías Zaracho"
+      ]
+    },
+    {
+      "uid": "25978b18d31edad02b79",
+      "country": "Argentina",
+      "game_club_reference": "CA Independiente de Avellaneda",
+      "source_club_name": "Club Atlético Independiente de Avellaneda",
+      "source_club_id": "1234",
+      "player_names": [
+        "Matías Abaldo",
+        "Santiago Montiel",
+        "Maximiliano Gutiérrez",
+        "Ignacio Pussetto",
+        "Gabriel Ávalos",
+        "Maximiliano Meza",
+        "Facundo Valdez",
+        "Lautaro Millán",
+        "David Martínez",
+        "Luciano Cabral",
+        "Mateo Pérez Curci",
+        "Rodrigo Fernández Cedrés"
+      ]
+    },
+    {
+      "uid": "0d92151a68e6da614f20",
+      "country": "Argentina",
+      "game_club_reference": "San Lorenzo",
+      "source_club_name": "Club Atlético San Lorenzo de Almagro",
+      "source_club_id": "1775",
+      "player_names": [
+        "Alexis Cuello",
+        "Rodrigo Auzmendi",
+        "Facundo Bruera",
+        "Matías Reali",
+        "Luciano Vietto",
+        "Nahuel Barrios",
+        "Gregorio Rodríguez",
+        "Diego Herazo",
+        "Agustín Ladstatter",
+        "Branco Salinardi",
+        "Ezequiel Cerutti",
+        "Matías Hernández"
+      ]
+    },
+    {
+      "uid": "c5228a533372536cd76e",
+      "country": "Argentina",
+      "game_club_reference": "Vélez Sarsfield",
+      "source_club_name": "Club Atlético Vélez Sársfield",
+      "source_club_id": "1029",
+      "player_names": [
+        "Florián Monzón",
+        "Matías Pellegrini",
+        "Imanol Machuca",
+        "Dilan Godoy",
+        "Braian Romero",
+        "Rodrigo Piñeiro",
+        "Álex Verón",
+        "Tobías Andrada",
+        "Diego Valdés",
+        "Lucas Robertone",
+        "Claudio Baeza",
+        "Manuel Lanzini"
+      ]
+    },
+    {
+      "uid": "965775a9e30df3b88ea5",
+      "country": "Argentina",
+      "game_club_reference": "Argentinos Juniors",
+      "source_club_name": "Asociación Atlética Argentinos Juniors",
+      "source_club_id": "1030",
+      "player_names": [
+        "Tomás Molina",
+        "Matías Giménez",
+        "Facundo Jainikoski",
+        "Iván Morales",
+        "Gastón Verón",
+        "Lautaro Giaccone",
+        "Emiliano Viveros",
+        "Diego Porcel",
+        "Ryoga Kida",
+        "Damián Batallini",
+        "Alan Lescano",
+        "Hernán López Muñoz"
+      ]
+    },
+    {
+      "uid": "b0b525e63b6788ce2d80",
+      "country": "Argentina",
+      "game_club_reference": "Huracán",
+      "source_club_name": "Club Atlético Huracán",
+      "source_club_id": "2063",
+      "player_names": [
+        "Óscar Cortés",
+        "Jordy Caicedo",
+        "Juan Bisanz",
+        "Eric Ramírez",
+        "Alejandro Martínez",
+        "Leonardo Sequeira",
+        "Facundo Waller",
+        "Thaiel Peralta",
+        "Óscar Romero",
+        "Emmanuel Ojeda",
+        "Leonardo Gil",
+        "Facundo Kalinger"
+      ]
+    },
+    {
+      "uid": "e7de5631beeb6bb11c0f",
+      "country": "Argentina",
+      "game_club_reference": "Barracas Central",
+      "source_club_name": "Club Atlético Barracas Central",
+      "source_club_id": "25184",
+      "player_names": [
+        "Gonzalo Morales",
+        "Jhonatan Candia",
+        "Norberto Briasco",
+        "Wilfredo Rivera",
+        "Enzo Taborda",
+        "Lucas Gamba",
+        "Gonzalo Maroni",
+        "Iván Tapia",
+        "Tomás Porra",
+        "Iván Guaraz",
+        "Manuel Duarte",
+        "Yeison Gordillo"
+      ]
+    },
+    {
+      "uid": "2e875787392b8a13ca9b",
+      "country": "Argentina",
+      "game_club_reference": "Deportivo Riestra",
+      "source_club_name": "Asociación de Fomento Deportivo Riestra Barrio Colón",
+      "source_club_id": "19775",
+      "player_names": [
+        "Antony Alonso",
+        "Alexander Díaz",
+        "Nicolás Benegas",
+        "Jonathan Herrera",
+        "Gonzalo Flores",
+        "Gabriel Obredor",
+        "Tomás González",
+        "Johnson Nsumoh",
+        "Ángel Stringa",
+        "José María Ingratti",
+        "Agustín Graneros",
+        "Carlos Gugenheim"
+      ]
+    },
+    {
+      "uid": "8e8e546098ac28a9b465",
+      "country": "Argentina",
+      "game_club_reference": "CA Tigre",
+      "source_club_name": "Club Atlético Tigre",
+      "source_club_id": "11831",
+      "player_names": [
+        "David Romero",
+        "Ignacio Russo",
+        "Santiago López",
+        "Alfio Oviedo",
+        "Manuel Fernández",
+        "Jabes Saralegui",
+        "Bruno Leyes",
+        "Santiago González",
+        "Jalil Elías",
+        "Elías Cabrera",
+        "Tiago Serrago",
+        "Joaquín Mosqueira"
+      ]
+    },
+    {
+      "uid": "ca6254bec4d1db868a3a",
+      "country": "Argentina",
+      "game_club_reference": "CA Lanús",
+      "source_club_name": "Club Atlético Lanús",
+      "source_club_id": "333",
+      "player_names": [
+        "Dylan Aquino",
+        "Yoshan Valois",
+        "Eduardo Salvio",
+        "Walter Bou",
+        "Lucas Besozzi",
+        "Alexis Segovia",
+        "Bruno Cabrera",
+        "Thomás De Martis",
+        "Marcelino Moreno",
+        "Agustín Medina",
+        "Agustín Cardozo",
+        "Felipe Peña Biafore"
+      ]
+    },
+    {
+      "uid": "eb9c5585a341f47c1cb3",
+      "country": "Argentina",
+      "game_club_reference": "Estudiantes LP",
+      "source_club_name": "Club Estudiantes de La Plata",
+      "source_club_id": "288",
+      "player_names": [
+        "Tiago Palacios",
+        "Edwuin Cetré",
+        "Brian Aguirre",
+        "Mauro Méndez",
+        "Fabricio Pérez",
+        "Joaquín Tobio Burgos",
+        "Adolfo Gaich",
+        "Guido Carrillo",
+        "Luciano Giménez",
+        "Lucas Alario",
+        "Franco Domínguez",
+        "Mikel Amondarain"
+      ]
+    },
+    {
+      "uid": "efeee8a328d8df880cf1",
+      "country": "Argentina",
+      "game_club_reference": "Gimnasia y Esgrima LP",
+      "source_club_name": "Club de Gimnasia y Esgrima La Plata",
+      "source_club_id": "1106",
+      "player_names": [
+        "Marcelo Torres",
+        "Manuel Panaro",
+        "Agustín Auzmendi",
+        "Jeremías Merlo",
+        "Maximiliano Zalazar",
+        "Franco Torres",
+        "Ivo Mammini",
+        "Jorge de Asís",
+        "Nicolás Barros Schelotto",
+        "Ignacio Miramón",
+        "Mateo Seoane",
+        "Facundo Di Biasi"
+      ]
+    },
+    {
+      "uid": "f16440c710730c38eec5",
+      "country": "Argentina",
+      "game_club_reference": "Club Atlético Aldosivi",
+      "source_club_name": "Club Atlético Aldosivi",
+      "source_club_id": "12301",
+      "player_names": [
+        "Tomás Fernández",
+        "Nicolás Cordero",
+        "Mauro Da Luz",
+        "Alan Sosa",
+        "Junior Arias",
+        "Agustín Palavecino",
+        "Bautista Dadín",
+        "Natanael Guzmán",
+        "Rodrigo Márquez",
+        "Facundo De La Vega",
+        "Alejandro Villarreal",
+        "David Juárez"
+      ]
+    },
+    {
+      "uid": "1455f448e9c4a4d11f0c",
+      "country": "Argentina",
+      "game_club_reference": "Club Atlético Banfield",
+      "source_club_name": "Club Atlético Banfield",
+      "source_club_id": "830",
+      "player_names": [
+        "Tiziano Perrotta",
+        "Lisandro Piñero",
+        "David Zalazar",
+        "Bruno Sepúlveda",
+        "Federico Medina",
+        "Federico Anselmo",
+        "Thomas Rodríguez",
+        "Mauricio Roldán",
+        "Santiago López García",
+        "Ignacio Pais",
+        "Neyder Moreno",
+        "Lautaro Ríos"
+      ]
+    },
+    {
+      "uid": "41ced4e8990a394a82cc",
+      "country": "Argentina",
+      "game_club_reference": "Defensa y Justicia",
+      "source_club_name": "Club Social y Deportivo Defensa y Justicia",
+      "source_club_id": "2402",
+      "player_names": [
+        "Juan Gutiérrez",
+        "Abiel Osorio",
+        "Facundo Altamira",
+        "David Barbona",
+        "Leandro Fernández",
+        "David Fernández",
+        "Luciano González",
+        "Facundo Echevarría",
+        "Aarón Molinas",
+        "César Pérez",
+        "Santiago Sosa",
+        "Julián López"
+      ]
+    },
+    {
+      "uid": "508f24590b47dcc47de5",
+      "country": "Argentina",
+      "game_club_reference": "Sarmiento Junín",
+      "source_club_name": "Club Atlético Sarmiento",
+      "source_club_id": "12454",
+      "player_names": [
+        "Junior Marabel",
+        "Gastón González",
+        "Julián Contrera",
+        "Jhon Rentería",
+        "Joaquín Ardaiz",
+        "Yair Arismendi",
+        "Pablo Magnin",
+        "Diego Churín",
+        "Alexis González",
+        "Brandon Márquez",
+        "Ulices Delgado",
+        "Cristian Zabala"
+      ]
+    },
+    {
+      "uid": "ffae10346c2f3d63b6a2",
+      "country": "Argentina",
+      "game_club_reference": "Platense",
+      "source_club_name": "Club Atlético Platense",
+      "source_club_id": "928",
+      "player_names": [
+        "Guido Mainero",
+        "Tomás Nasif",
+        "Juan Carlos Gauto",
+        "Nicolás Retamar",
+        "Gonzalo Lencina",
+        "Augusto Lotti",
+        "Héctor Bobadilla",
+        "Bautista Merlini",
+        "Franco Minerva",
+        "Agustín Ocampo",
+        "Manuel Tucker",
+        "Benjamín Bosch"
+      ]
+    },
+    {
+      "uid": "4312db24191363e41f80",
+      "country": "Argentina",
+      "game_club_reference": "Unión Santa Fe",
+      "source_club_name": "Club Atlético Unión",
+      "source_club_id": "7097",
+      "player_names": [
+        "Marcelo Estigarribia",
+        "Franco Fragapane",
+        "Agustín Colazo",
+        "Cristian Tarragona",
+        "Misael Aguirre",
+        "Diego Díaz",
+        "José Vanetta",
+        "Rafael Profini",
+        "Julián Palacios",
+        "Mauro Pittón",
+        "Brahian Cuello",
+        "Lionel Verde"
+      ]
+    },
+    {
+      "uid": "467f4ab72e58d7afcf98",
+      "country": "Argentina",
+      "game_club_reference": "Newell's Old Boys",
+      "source_club_name": "Club Atlético Newell’s Old Boys",
+      "source_club_id": "1286",
+      "player_names": [
+        "Walter Mazzantti",
+        "Ignacio Ramírez",
+        "Luciano Herrera",
+        "Walter Núñez",
+        "Franco Orozco",
+        "Franco García",
+        "Michael Hoyos",
+        "Francisco Scarpeccio",
+        "Thiago Gigena",
+        "Jerónimo Gómez Mattar",
+        "Luca Regiardo",
+        "Facundo Guch"
+      ]
+    },
+    {
+      "uid": "4f1b8a36c32432bac4a7",
+      "country": "Argentina",
+      "game_club_reference": "Rosario Central",
+      "source_club_name": "Club Atlético Rosario Central",
+      "source_club_id": "1418",
+      "player_names": [
+        "Jáminton Campaz",
+        "Julián Fernández",
+        "Enzo Copetti",
+        "Ángel Di María",
+        "Giovanni Cantizano",
+        "Gaspar Duarte",
+        "Fabricio Oviedo",
+        "Marco Ruben",
+        "Franco Ibarra",
+        "Vicente Pizarro",
+        "Enzo Giménez",
+        "Federico Navarro"
+      ]
+    },
+    {
+      "uid": "d6f1ad7c40a6d759241f",
+      "country": "Argentina",
+      "game_club_reference": "Talleres de Córdoba",
+      "source_club_name": "Club Atlético Talleres",
+      "source_club_id": "3938",
+      "player_names": [
+        "Ronaldo Martínez",
+        "Rick",
+        "Bruno Barticciotto",
+        "Diego Valoyes",
+        "Valentín Dávila",
+        "Valentín Depietri",
+        "Ignacio Alastra",
+        "Emiliano Chiavassa",
+        "Matías Galarza",
+        "Franco Cristaldo",
+        "Giovanni Baroni",
+        "Martín Río"
+      ]
+    },
+    {
+      "uid": "f2f62ba44f23dad333c9",
+      "country": "Argentina",
+      "game_club_reference": "Club Atlético Belgrano",
+      "source_club_name": "Club Atlético Belgrano",
+      "source_club_id": "2417",
+      "player_names": [
+        "Nicolás Fernández",
+        "Lucas Passerini",
+        "Emiliano Rigoni",
+        "Lautaro Gutiérrez",
+        "Agustín Melano",
+        "Adrián Sánchez",
+        "Lucas Zelarayán",
+        "Santiago Longo",
+        "Francisco González Metilli",
+        "Franco Vázquez",
+        "Ramiro Hernandes",
+        "Julián Mavilla"
+      ]
+    }
+  ],
+  "clubs_with_missing_or_partial_player_data": [
+    {
+      "uid": "3a89cb834dd44ff7f559",
+      "country": "Brazil",
+      "club": "Ponte Preta",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a1c5ad3a302e2042d43e",
+      "country": "Brazil",
+      "club": "RB Brasil",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "fcb25f741981fc120e77",
+      "country": "Brazil",
+      "club": "Oeste SP",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "fd542fd70c60524a3346",
+      "country": "Brazil",
+      "club": "Portuguesa",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "3fcfab4b5b52419961cf",
+      "country": "Brazil",
+      "club": "Botafogo SP",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "46f103af27ea2450da0f",
+      "country": "Brazil",
+      "club": "Guarani FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "5261112a0e6cf315b415",
+      "country": "Brazil",
+      "club": "São Bento",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "637d11ae77f0ab027b3a",
+      "country": "Brazil",
+      "club": "AD São Caetano",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "7c70035088e8dbc53515",
+      "country": "Brazil",
+      "club": "União São João",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "7f05e5c2f2e87cee6e63",
+      "country": "Brazil",
+      "club": "Grêmio Barueri",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a6a2c6ef7d3418a3bb65",
+      "country": "Brazil",
+      "club": "Santo André",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c62677c4ebf4acf5e786",
+      "country": "Brazil",
+      "club": "São José",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d784b618657926f69d9a",
+      "country": "Brazil",
+      "club": "Grêmio Novorizontino",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "dea575cbcedb1dbe8c56",
+      "country": "Brazil",
+      "club": "Ituano FC SP",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "3fadceaf412aedaea3be",
+      "country": "Brazil",
+      "club": "America RJ",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "7dec948eb275cdb0ca09",
+      "country": "Brazil",
+      "club": "América MG",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "872917a857e759ba7240",
+      "country": "Brazil",
+      "club": "Tupi MG",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9da740fce76f8332ad59",
+      "country": "Brazil",
+      "club": "Ipatinga Futebol Clube",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "9f1f2eeb5d80231cb2fe",
+      "country": "Brazil",
+      "club": "Betim FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a424499ad11d52e6264a",
+      "country": "Brazil",
+      "club": "Tombense FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c17249d28e0b3ae32320",
+      "country": "Brazil",
+      "club": "Brasil RS",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "cbc46c19529b25718728",
+      "country": "Brazil",
+      "club": "Esporte Clube Juventude",
+      "reason": "only 0 eligible names"
+    },
+    {
+      "uid": "13d47ca8d33aaa5e55dc",
+      "country": "Brazil",
+      "club": "Ypiranga FC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "20749e0224d901ef63ab",
+      "country": "Brazil",
+      "club": "América de Natal",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "2ad4bdcce8169901d500",
+      "country": "Brazil",
+      "club": "ABC FC RN",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "401bff39ba28d83d13f8",
+      "country": "Brazil",
+      "club": "Sousa EC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "5863f646def5a274ab4a",
+      "country": "Brazil",
+      "club": "Londrina EC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "5f0da96482cdece3e751",
+      "country": "Brazil",
+      "club": "Paraná Clube",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "735aa97510b645f7ec2d",
+      "country": "Brazil",
+      "club": "Operário Ferroviário",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "80130f9190a6522d07d3",
+      "country": "Brazil",
+      "club": "Figueirense",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "dc10ec30e2ac55815d1b",
+      "country": "Brazil",
+      "club": "Criciúma EC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "68b20d1ea15f4c77f241",
+      "country": "Argentina",
+      "club": "All Boys",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c9b3ca4bfe01e9c0f6c5",
+      "country": "Argentina",
+      "club": "Nueva Chicago",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "e44cb2df00fb7f694ace",
+      "country": "Argentina",
+      "club": "Atlanta",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "10f5ddeec065cca786d7",
+      "country": "Argentina",
+      "club": "Defensores de Belgranes",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "51abc0b1877e266067d2",
+      "country": "Argentina",
+      "club": "Estudiantes de Buenos Aires",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "69e5f87b8e3a1cb78c70",
+      "country": "Argentina",
+      "club": "Ferro Carril Oeste",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a36397528390ce73f609",
+      "country": "Argentina",
+      "club": "Deportivo Español",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "bf0d1d564f9518b3464d",
+      "country": "Argentina",
+      "club": "Quilmes AC",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "d4f0801b8f86951ab741",
+      "country": "Argentina",
+      "club": "Arsenal de Sarandí",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "13f27f484a950e2b2fb9",
+      "country": "Argentina",
+      "club": "Alvarado",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "4279d0e1c7fb3bc28cff",
+      "country": "Argentina",
+      "club": "Olimpo Bahía Blanca",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "64906de3a92ea0189319",
+      "country": "Argentina",
+      "club": "Temperley",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "709f5a25c053d083efc6",
+      "country": "Argentina",
+      "club": "Chacarita Juniors",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "a09bbb924f41b1a66907",
+      "country": "Argentina",
+      "club": "Agropecuario Argentino",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "b5d2899a4ae69c061291",
+      "country": "Argentina",
+      "club": "Almagro",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "f9608e1ae8e957996432",
+      "country": "Argentina",
+      "club": "Brown",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "fa8aca59d7411aefa4a4",
+      "country": "Argentina",
+      "club": "Deportivo Morón",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "0a6e7855e2a04fd391c2",
+      "country": "Argentina",
+      "club": "Santamarina",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "227dfca78d6500b2b22b",
+      "country": "Argentina",
+      "club": "Villa Dálmine",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "22a58ab909c5349e5135",
+      "country": "Argentina",
+      "club": "Huracán de Tres Arroyos",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "3316a81bb485681f0c2c",
+      "country": "Argentina",
+      "club": "CA Los Andes",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "3f38162d8b150e8d962e",
+      "country": "Argentina",
+      "club": "Colón Santa Fe",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "7b4a2db4ddeed60790ca",
+      "country": "Argentina",
+      "club": "Tiro Federal",
+      "reason": "no unique club match"
+    },
+    {
+      "uid": "c6cec2df55e087309fd0",
+      "country": "Argentina",
+      "club": "Atlético Rafaela",
+      "reason": "no unique club match"
+    }
+  ],
+  "input_sha256": {
+    "players.csv.gz": "d22e407981d5b51a79bf8ff59835729f3526f7dc3495a6d8ed2f852ed2e86403",
+    "clubs.csv.gz": "aa57ab56e87faffaea1e8697439a32caf10116d8f2f2dfb3a57193c0bb1d641b"
+  }
+}
