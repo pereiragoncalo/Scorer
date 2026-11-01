@@ -12,19 +12,19 @@ class LaunchNoticeUI(unittest.TestCase):
         try:
             for size in ((640,360),(320,240),(360,640)):
                 Window.size=size
-                with isolated_game(saved=True) as g:
-                    g.size=size;g.family.acknowledge()
+                with patch('edition.WORLD_BUILD',True),isolated_game(saved=True) as g:
+                    g.i18n.choose('pt');g.size=size;g.family.acknowledge()
                     with patch('anonymous_stats.APP_STATS_MANDATORY',True):g.usage=create_statistics(True,g.career.save_path.parent,endpoint='')
                     g._activate_ui('splash_continue');g.draw();settle()
                     self.assertEqual(g.view,'data_notice');self.assertFalse(g.usage.delivery_ready)
                     buttons=[w for w in g._menu.walk() if isinstance(w,Button)]
-                    self.assertEqual({w.text for w in buttons},{'OK','NOT OK'})
+                    self.assertEqual({w.text for w in buttons},{'CONCORDO','NÃO CONCORDO'})
                     for w in buttons:
                         self.assertGreaterEqual(w.height,48);self.assertGreaterEqual(w.y,g.y);self.assertLessEqual(w.top,g.top+1)
                     g.usage.begin_session()
                     app=type('App',(),{'stop':lambda self:None})()
                     with patch('main.App.get_running_app',return_value=app),patch.object(app,'stop') as stop:
-                        next(w for w in buttons if w.text=='NOT OK').trigger_action(duration=0);settle();stop.assert_called_once()
+                        next(w for w in buttons if w.text=='NÃO CONCORDO').trigger_action(duration=0);settle();stop.assert_called_once()
                     self.assertTrue(g.usage.notice_rejected);self.assertEqual(g.usage.counts,{})
                     StrikerApp.on_stop(type('App',(),{'root':g})());self.assertEqual(g.usage.counts,{})
         finally:Window.size=old

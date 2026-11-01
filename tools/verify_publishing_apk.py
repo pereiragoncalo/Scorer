@@ -23,6 +23,13 @@ with zipfile.ZipFile(sys.argv[1]) as z:
                 elif isinstance(item,tuple):yield from flatten(item)
         constants=set(flatten(action.co_consts))
         assert {'notice_continue','adult_disable','career_import'}<=constants
+        notice=next(c for c in code('menu_ui').co_consts if hasattr(c,'co_name') and c.co_name=='LaunchNotice')
+        constructor=next(c for c in notice.co_consts if hasattr(c,'co_name') and c.co_name=='__init__')
+        assert {'I AGREE','I DO NOT AGREE'}<=set(flatten(constructor.co_consts))
+        import json
+        pt_member=next(m for m in tar if m.name.endswith('assets/i18n/pt.json'))
+        pt=json.loads(tar.extractfile(pt_member).read())
+        assert pt['I AGREE']=='CONCORDO' and pt['I DO NOT AGREE']=='NÃO CONCORDO'
         app=next(c for c in code('main').co_consts if hasattr(c,'co_name') and c.co_name=='StrikerApp')
         flush=next(c for c in app.co_consts if hasattr(c,'co_name') and c.co_name=='_flush_usage')
         assert 'pending_withdrawal' in flush.co_names and 'sync' in flush.co_names

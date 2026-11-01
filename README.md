@@ -1,3 +1,9 @@
+## Scorer World 0.9.2 — translated agreement buttons
+
+[Download World 0.9.2 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9.2/Scorer-World-0.9.2.apk)
+
+The launch notice now uses **CONCORDO / NÃO CONCORDO** in Portuguese, **I AGREE / I DO NOT AGREE** in English, and matching translations in all nine UI languages. Agree continues; disagree immediately exits. World 0.9.1 gameplay/editor changes and saved careers are retained. DEBUG QA; public launch remains1.0.
+
 ## Scorer World 0.9.1 — startup notice, editor and shot balance
 
 [Download World 0.9.1 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9.1/Scorer-World-0.9.1.apk)

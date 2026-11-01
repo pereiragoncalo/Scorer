@@ -540,8 +540,8 @@ class LaunchNotice(BoxLayout):
         scroll=ScrollView(do_scroll_x=False);message=FlowLabel(text=NOTICE_TEXT,font_size=sp(15));scroll.add_widget(message);self.add_widget(scroll)
         if menu.game._safety_notice:self.add_widget(FlowLabel(text=menu.game._safety_notice))
         buttons=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(10))
-        buttons.add_widget(MenuTile('NOT OK',lambda:menu.action('notice_exit'),localize=False))
-        buttons.add_widget(MenuTile('OK',lambda:menu.action('notice_continue'),accent=True,localize=False))
+        buttons.add_widget(MenuTile('I DO NOT AGREE',lambda:menu.action('notice_exit')))
+        buttons.add_widget(MenuTile('I AGREE',lambda:menu.action('notice_continue'),accent=True))
         self.add_widget(buttons)
 
 

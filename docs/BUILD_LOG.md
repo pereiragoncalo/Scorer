@@ -1,3 +1,7 @@
+## 2026-11-01 — World 0.9.2 translated agreement actions
+
+Owner correction: Portuguese startup buttons CONCORDO / NÃO CONCORDO, equivalent translated agreement actions in all nine UI languages. Matching notice/policy wording; disagree still immediately exits, agree continues. Existing client-request removal, editor and gameplay retained. 52 targeted tests passed (25 localization/public pages,6 editions,13 publication safety,8 native Kivy including Portuguese button/exit layouts and all notice translations). APK debug rebuilt; actual compiled source/labels/Portuguese catalogue, usage gate, competition reload, signing/package and118ELF/16KB checks. No real handset, Console or live server deployment claimed. Unrelated WIP excluded.
+
 ## 2026-11-01 — World 0.9.1 startup/editor/height balance
 
 Owner superseded the previous client privacy-request workflow: launch notice only, OK continues, NOT OK immediately exits/discards pending unsent counts. Direct hub editor and top import action. Keeper height balance corrected in matches and training; physical aim/ball/goal/collider dimensions and competition engine preserved. See RELEASE_0.9.1.md and data/shot_heights_0.9.1.json.

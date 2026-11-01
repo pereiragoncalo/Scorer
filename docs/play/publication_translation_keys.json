@@ -45,7 +45,7 @@
   "Could not import career. Your current career is unchanged.",
   "Career exported. Keep the file safe before uninstalling.",
   "Could not read or write this document. No career changed.",
-  "Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. OK continues with automatic usage reporting; NOT OK closes the game.",
+  "Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. I AGREE continues with automatic usage reporting; I DO NOT AGREE closes the game.",
   "Use a nickname, never a real full name, contact details or school. Do not publish abuse, hate, sexual content, threats, impersonation or spam. Names and teams are public only after review. Report or block unsafe entries. Moderators may remove records and suspend publishing. Scores are self-reported. You can stop sharing and remove your records at any time.",
   "An adult manages access to public names. The game remains playable with public features locked.",
   "Use a nickname, never personal contact or school information.",
@@ -60,5 +60,7 @@
   "Local files and exports contain game progress. Keep exported files private. Data and font licences are included.",
   "Scorer World is free, with an included names editor. No advertising or in-app purchases.",
   "BEFORE YOU PLAY",
-  "IMPORT NAMES FILE"
+  "IMPORT NAMES FILE",
+  "I AGREE",
+  "I DO NOT AGREE"
 ]

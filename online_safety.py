@@ -6,7 +6,7 @@ from pathlib import Path
 NOTICE_VERSION=2
 TERMS_VERSION=1
 TERMS_TEXT=('Use a nickname, never a real full name, contact details or school. Do not publish abuse, hate, sexual content, threats, impersonation or spam. Names and teams are public only after review. Report or block unsafe entries. Moderators may remove records and suspend publishing. Scores are self-reported. You can stop sharing and remove your records at any time.')
-NOTICE_TEXT=('Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. OK continues with automatic usage reporting; NOT OK closes the game.')
+NOTICE_TEXT=('Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. I AGREE continues with automatic usage reporting; I DO NOT AGREE closes the game.')
 
 def atomic_json(path,data):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)

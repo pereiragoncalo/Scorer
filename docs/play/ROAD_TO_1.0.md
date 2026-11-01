@@ -4,7 +4,7 @@ Owner decision: the next test version is **0.9**; the public launch is **1.0**. 
 
 ## Version configuration
 
-`release/world-launch.json` is the version-name authority used by edition staging. Rehearsal selects 0.9.1/versionCode 1026901; production selects 1.0, with example code 1030000. Both codes exceed the delivered 1026648. Production must use a code above the 0.9 candidate and an unused code confirmed against Play Console. Further test candidates need fresh increasing codes if uploaded. Package/save identity stays com.clemir.scorerworld; numbering does not reset progress or imported aliases.
+`release/world-launch.json` is the version-name authority used by edition staging. Rehearsal selects 0.9.2/versionCode 1026902; production selects 1.0, with example code 1030000. Both codes exceed the delivered 1026648. Production must use a code above the 0.9 candidate and an unused code confirmed against Play Console. Further test candidates need fresh increasing codes if uploaded. Package/save identity stays com.clemir.scorerworld; numbering does not reset progress or imported aliases.
 
 `release/play.example.json` is the public 0.9 configuration; `release/play.production.example.json` is a separate public production example. Review gates, protected signing and owner approval of the concrete rollout still apply. No Console upload or 1.0 approval is implied.
 
@@ -17,6 +17,6 @@ Owner decision: the next test version is **0.9**; the public launch is **1.0**. 
 
 ## Already available
 
-Original Kivy game, ad-free separate World identity, names editor/import packs, nine game UI languages, career export/import, automatic usage launch notice (OK/NOT OK), adult-managed public sharing, moderation/report/block/withdrawal code, retention/aggregate backup code, English final public documents, World store text/artwork, and the 0.6.48 difficulty update. These should be carried forward and validated rather than reimplemented.
+Original Kivy game, ad-free separate World identity, names editor/import packs, nine game UI languages, career export/import, automatic usage launch notice (I AGREE/I DO NOT AGREE, translated), adult-managed public sharing, moderation/report/block/withdrawal code, retention/aggregate backup code, English final public documents, World store text/artwork, and the 0.6.48 difficulty update. These should be carried forward and validated rather than reimplemented.
 
 The **0.9 acceptance candidate** now integrates the World competition scope from clean, reviewed source. A **1.0 production candidate** follows completion of the checks above. No new APK is produced merely by this version-plan change.
