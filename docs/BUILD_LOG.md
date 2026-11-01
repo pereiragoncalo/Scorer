@@ -1581,3 +1581,7 @@ Owner screenshot confirms server schema3, health and maintenance timer installed
 ## World 0.6.47 — 1 November 2026
 
 World-only free Play scope, no ads/IAP, editor retained. Final English public policy/terms/removal and listing; owner Tunnel/proxy report and legal exceptions recorded. Privacy-request suspension is real and survives offline/restart; no case ID in usage or aggregate backups. 216 core/security + 108 Kivy = 324 unique tests passed. Actual matching-debug-cert APK and unsigned rehearsal AAB passed compiled-source equality and 118 ELF/16KB/static/bundletool checks. Existing unrelated root WIP preserved. No physical Android, production signing, laptop deployment or Play upload claimed. See RELEASE_0.6.47_artifacts.json and SERVER_0.6.47.md.
+
+## World 0.6.48 — competitive difficulty
+
+Owner requests averages above one goal/match to be difficult. Progressive opponent-tier keeper reactions/footwork/height-directed high and low saves and pre-aim central/far-side marking implemented. Existing physical target/goal/collider geometry, training and morale opportunity floors retained; no score cap or recent-goal adjustment. 218 core + 111 Kivy = 329 tests pass. 6,400 paired physical shots each before/after; synthetic season evidence and limitations in DIFFICULTY_0.6.48.md/data JSON. Native high/low save captures inspected. World debug APK versionCode1026648 retains upgrade certificate, exact compiled modules and 118 ELF/16KB verified. No physical Android or Play-production claim. Unrelated root WIP preserved.
