@@ -30,6 +30,7 @@ Run these first as **clemir** (if currently root, return to your clemir SSH shel
 git clone --depth 1 --single-branch --branch main https://github.com/pereiragoncalo/Scorer.git /home/clemir/scorer-publicacao-0646
 git -C /home/clemir/scorer-publicacao-0646 fetch --depth 1 origin 5108550eebd6264de7da9c4bba8e7900373e0b2d
 git -C /home/clemir/scorer-publicacao-0646 checkout --detach 5108550eebd6264de7da9c4bba8e7900373e0b2d
+cp -n /home/clemir/scorer-publicacao-0646/server/public.example.json /home/clemir/scorer-publicacao-0646-public.json
 su -
 ```
 
@@ -55,11 +56,12 @@ read them without gaining access to private credentials.
 
 The example includes the owner-approved name/email. Complete effective date,
 reviewed legal basis, actual provider/children practices and transfer safeguards
-in a separate copy of server/public.example.json. These are public facts, never
+in /home/clemir/scorer-publicacao-0646-public.json (the copy created above). These are public facts, never
 passwords or tokens. Once finalized, from the reviewed checkout as root:
 
 ```sh
-python3 -m server.configure_public /path/to/completed-public.json
+cd /home/clemir/scorer-publicacao-0646
+python3 -m server.configure_public /home/clemir/scorer-publicacao-0646-public.json
 curl --fail https://stats.clemir.com/privacy
 curl --fail https://stats.clemir.com/terms
 curl --fail https://stats.clemir.com/delete
