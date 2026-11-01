@@ -1,3 +1,7 @@
+## 0.9: point 1 implemented
+
+World tournaments now have persistent fixtures, qualifying/group tables, knockout results, national-team participation, domestic cups, played promotion playoffs, balanced promotion/relegation, qualification snapshots and recoverable season transitions. Explicit game formats and validation are [documented](docs/WORLD_COMPETITIONS_0.9.md). Proceed to real Android acceptance, then remaining server and Play release checks; public version remains1.0.
+
 ## Release sequence: 0.9 → 1.0
 
 Owner decision: next test version 0.9; public World release 1.0. Preserve the same package/saves and increasing unused Android version codes. Finish World competition behaviour and multi-season validation, real Android acceptance, actual final-policy/server deployment and production Play signing/forms/testing. See [current checklist](docs/play/ROAD_TO_1.0.md). Earlier release schedules below are historical; version numbering does not imply production approval.

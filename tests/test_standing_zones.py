@@ -4,12 +4,12 @@ from domestic_rules import table_zones
 class StandingZoneTests(unittest.TestCase):
     def test_priority_pyramid_boundaries_and_legacy_playoff_places(self):
         z=table_zones(4,18,{1,2,3,4},simplified=False)
-        self.assertEqual(z.promotion,(1,2,3));self.assertEqual(z.playoff,(4,5,6,7));self.assertFalse(z.relegation)
+        self.assertEqual(z.promotion,(1,2));self.assertEqual(z.playoff,(3,4,5,6));self.assertFalse(z.relegation)
         middle=table_zones(2,18,{1,2,3,4},simplified=False)
-        self.assertEqual(middle.relegation,(17,18));self.assertEqual(middle.at(7),'playoff');self.assertEqual(middle.at(8),'')
+        self.assertEqual(middle.relegation,(16,17,18));self.assertEqual(middle.at(6),'playoff');self.assertEqual(middle.at(8),'')
         top=table_zones(1,18,{1,2,3,4},simplified=False)
-        self.assertFalse(top.promotion);self.assertFalse(top.playoff);self.assertEqual(top.relegation,(17,18))
-        self.assertTrue(z.provisional)
+        self.assertFalse(top.promotion);self.assertFalse(top.playoff);self.assertEqual(top.relegation,(16,17,18))
+        self.assertFalse(z.provisional)
     def test_two_tier_fallback_has_three_places_and_no_playoffs(self):
         for tier in (1,2):
             z=table_zones(tier,12,{1,2},simplified=True)

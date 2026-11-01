@@ -257,6 +257,7 @@ class StrikerGame(Widget):
         self.editor_club_index = 0
         self.world_country = "England"
         self.world_league_key = "England|4"
+        self.competition_key='';self.competition_group=0;self.competition_page=0;self.competition_tab='fixtures';self.competition_list_page=0
         self._names_picker = None
         self._world_available = edition.is_world()
         self._career_mode = edition.product_mode()
@@ -734,7 +735,7 @@ class StrikerGame(Widget):
 
 
     def _match_outfield_kits(self):
-        player_name = "Portugal" if self.match_is_international else self.career.club_name
+        player_name = self.career.nationality if self.match_is_international else self.career.club_name
         opponent_name = "Opponent"
         if self.match_home and self.match_away:
             opponent_name = (
@@ -803,37 +804,25 @@ class StrikerGame(Widget):
             self.view = 'hub'
             self.draw()
             return
-        self.match_is_international = self.career.called_up
-        self.match_is_cup = False
-        self.match_competition = "international" if self.match_is_international else "league"
-        if self.match_is_international:
-            opponents = (
-                "Spain", "France", "Germany", "Italy", "Netherlands",
-                "Belgium", "Croatia", "Denmark", "Switzerland", "Poland",
-            )
-            opponent = self.career.rng.choice(opponents)
-            self.match_home = CareerClub("Portugal", "Portugal", "National Team", 1, 89)
-            self.match_away = CareerClub(opponent, opponent, "National Team", 1, 84)
-            self.career.called_up = False
-        else:
-            scheduled = self.career.next_match()
-            if scheduled is None:
-                self.career.message = 'The season has ended. Talk to your agent or start the new season.'
-                self.view = "hub"
-                return
-            self.match_competition, self.match_home, self.match_away = scheduled
-            self.match_is_cup = self.match_competition == "cup"
+        scheduled=self.career.next_match()
+        if not self.career.trained_this_week:
+            self.career.message='Complete this week’s training to unlock Play.';self.view='hub';self.draw();return
+        if scheduled is None:
+            self.career.message='No scheduled match is available.';self.view='hub';return
+        if not self.career.world_unlocked and self.career.called_up:
+            opponent=self.career.rng.choice([c for c in WORLD_COUNTRIES if c!='Portugal'])
+            scheduled=('international',CareerClub('Portugal','Portugal','National Team',1,89),CareerClub(opponent,opponent,'National Team',1,84))
+        self.match_competition,self.match_home,self.match_away=scheduled
+        self.match_is_international=self.match_competition=='international' or (self.match_competition.startswith('world|') and self.match_home.uid.startswith('nation:'))
+        self.match_is_cup=self.match_competition=='cup' or self.match_competition.startswith('world|domestic:')
 
-
-        self._request_club_badge(self.match_home.name)
-        self._request_club_badge(self.match_away.name)
         self.match_minute = 0.0
         self.match_stoppage = self.career.rng.randint(1, 8)
         self.match_first_stoppage = self.career.rng.randint(1, 4)
         self.match_half = 1
         self.match_halftime = False
         self.scoreboard_flash_until = 0.0
-        player_home = self.match_is_international or self.match_home.name == self.career.club_name
+        player_home = self._player_match_is_home()
         opponent = self.match_away if player_home else self.match_home
         chance_profile = self.career.opponent_chance_profile(opponent)
         chance_total = self.career.chance_count(opponent)
@@ -849,8 +838,8 @@ class StrikerGame(Widget):
         self.match_home_score = 0
         self.match_away_score = 0
         self.match_goal_event_index = 0
-        player_home = self.match_is_international or self.match_home.name == self.career.club_name
-        if self.match_is_cup or self.match_is_international:
+        player_home = self._player_match_is_home()
+        if self.match_is_cup or self.match_is_international or self.match_competition.startswith('world|'):
             home_mean, away_mean = realistic_goal_means(self.match_home.rating, self.match_away.rating)
         else:
             home_mean, away_mean = self.career.fixture_goal_means(self.match_home, self.match_away)
@@ -892,12 +881,19 @@ class StrikerGame(Widget):
     def _flash_scoreboard(self) -> None:
         self.scoreboard_flash_until = self.elapsed + 1.0
 
+    def _player_match_is_home(self):
+        if self.match_home is None:return False
+        if self.match_competition.startswith('world|'):
+            actor='nation:'+self.career.nationality if self.match_is_international else self.career.club.uid
+            return self.match_home.uid==actor
+        return self.match_home.name==('Portugal' if self.match_is_international else self.career.club_name)
+
     def _record_player_match_goal(self) -> None:
         if self._match_shot_goal_counted:
             return
         self._match_shot_goal_counted = True
         self.match_player_goals += 1
-        if self.match_home and self.match_home.name in (self.career.club_name, "Portugal"):
+        if self._player_match_is_home():
             self.match_home_score += 1
         else:
             self.match_away_score += 1
@@ -2868,6 +2864,24 @@ class StrikerGame(Widget):
             if action=='rights_check':self.privacy_request.sync(self._privacy_request_done,force=True)
             elif not self.privacy_request.busy:self._confirm_privacy_request(action=='rights_withdraw')
             self.draw();return
+        if action=='competitions' and self.career.world_unlocked and self.career.club:
+            self.career._ensure_competitions();self.view='competitions';self.draw();return
+        if action=='competition_open' and self.career.world_unlocked and self.career.world_competitions is not None and value in self.career.world_competitions.tournaments:
+            self.competition_key=value;self.competition_group=0;self.competition_page=0;self.competition_tab='fixtures';self.view='competition';self.draw();return
+        if action=='competition_list_page' and self.view=='competitions':
+            count=len(self.career.world_competitions.tournaments)
+            self.competition_list_page=max(0,min((count-1)//10,self.competition_list_page+int(value)));self.draw();return
+        if action=='competition_page' and self.view=='competition':
+            cup=self.career.world_competitions.tournaments[self.competition_key]
+            self.competition_page=max(0,min((len(cup.fixtures)-1)//12,self.competition_page+int(value)));self.draw();return
+        if action=='competition_tab' and self.view=='competition' and value in ('table','fixtures'):
+            self.competition_tab=value;self.draw();return
+        if action=='competition_group' and self.view=='competition':
+            cup=self.career.world_competitions.tournaments[self.competition_key]
+            if cup.groups:self.competition_group=(self.competition_group+int(value))%len(cup.groups)
+            self.draw();return
+        if action=='competitions_back' and self.view in ('competitions','competition'):
+            self.view='competitions' if self.view=='competition' else 'world';self.draw();return
         if action=='notice_exit' and self.view=='data_notice':self._request_exit();return
         if action=='notice_continue' and self.view=='data_notice':
             try:
@@ -3490,7 +3504,7 @@ class StrikerGame(Widget):
             max_width=left_width - 40,
         )
         self._draw_text(
-            f"PORTUGAL  {career.international_caps:02d} matches / {career.international_goals:02d} goals",
+            f"{career.nationality.upper()}  {career.international_caps:02d} matches / {career.international_goals:02d} goals",
             left_x + 20,
             content_top - 258 * vertical_scale,
             max(12, int(self.height * 0.021)),
@@ -3511,7 +3525,7 @@ class StrikerGame(Widget):
 
         scheduled = career.next_match()
         if career.called_up:
-            next_text = 'NEXT: PORTUGAL - INTERNATIONAL MATCH'
+            next_text = 'NEXT: '+career.nationality.upper()+' - INTERNATIONAL MATCH'
         elif scheduled:
             competition, home, away = scheduled
             prefix = career.cup_name if competition == "cup" else league.name

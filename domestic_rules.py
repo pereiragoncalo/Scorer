@@ -72,7 +72,7 @@ class TableZones:
         return ''
 
 
-def table_zones(tier,team_count,active_tiers,*,simplified):
+def table_zones(tier,team_count,active_tiers,*,simplified,country=""):
     """Match existing 3-up / simulated4–7 /2-down career eligibility.
 
     The owner's two-tier fallback instead uses3-up/3-down and no playoffs.
@@ -80,8 +80,13 @@ def table_zones(tier,team_count,active_tiers,*,simplified):
     """
     if tier not in active_tiers:return TableZones(archived=simplified and tier>2)
     if team_count<6:return TableZones()
-    up=3 if tier-1 in active_tiers else 0
-    down=(3 if simplified else 2) if tier+1 in active_tiers else 0
-    playoff=tuple(range(4,min(7,team_count-down)+1)) if up and not simplified else ()
+    from season_transitions import promotion_format
+    direct,places=promotion_format(country,tier,simplified)
+    up=direct if tier-1 in active_tiers else 0
+    if tier+1 in active_tiers:
+        next_direct,next_playoff=promotion_format(country,tier+1,simplified)
+        down=next_direct+bool(next_playoff)
+    else:down=0
+    playoff=tuple(p for p in places if p<=team_count-down) if up else ()
     return TableZones(tuple(range(1,up+1)),playoff,
-                      tuple(range(team_count-down+1,team_count+1)) if down else (),provisional=not simplified)
+                      tuple(range(team_count-down+1,team_count+1)) if down else (),provisional=False)

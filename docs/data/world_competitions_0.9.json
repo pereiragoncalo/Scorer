@@ -1,0 +1,483 @@
+{
+  "version": "0.9",
+  "formats_are_game_models": true,
+  "fixtures_formats": {
+    "2026": {
+      "ucl": {
+        "teams": 36,
+        "fixtures": 189,
+        "groups": 1,
+        "kind": "swiss",
+        "all_scores_complete": true,
+        "champion": "1368c8d58ffcc963b615"
+      },
+      "uel": {
+        "teams": 36,
+        "fixtures": 189,
+        "groups": 1,
+        "kind": "swiss",
+        "all_scores_complete": true,
+        "champion": "4bcef2b4b15e011b0674"
+      },
+      "uecl": {
+        "teams": 36,
+        "fixtures": 153,
+        "groups": 1,
+        "kind": "swiss",
+        "all_scores_complete": true,
+        "champion": "73ec719c71ce7a21be38"
+      },
+      "libertadores": {
+        "teams": 32,
+        "fixtures": 125,
+        "groups": 8,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "c0c5c854f2d7f005b413"
+      },
+      "caf_cl": {
+        "teams": 16,
+        "fixtures": 62,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "faab02adb734c6205b96"
+      },
+      "concacaf": {
+        "teams": 27,
+        "fixtures": 51,
+        "groups": 0,
+        "kind": "concacaf",
+        "all_scores_complete": true,
+        "champion": "50e42673c3f21e9dcaff"
+      },
+      "ofc": {
+        "teams": 8,
+        "fixtures": 15,
+        "groups": 2,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "3e500a31160fa01dad5b"
+      },
+      "afc_elite": {
+        "teams": 24,
+        "fixtures": 119,
+        "groups": 2,
+        "kind": "regional",
+        "all_scores_complete": true,
+        "champion": "80032f0836f3114a0e4e"
+      },
+      "nations_a": {
+        "teams": 16,
+        "fixtures": 51,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Netherlands"
+      },
+      "nations_b": {
+        "teams": 16,
+        "fixtures": 51,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Kazakhstan"
+      },
+      "nations_c": {
+        "teams": 16,
+        "fixtures": 51,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:North Macedonia"
+      },
+      "nations_d": {
+        "teams": 7,
+        "fixtures": 19,
+        "groups": 2,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Latvia"
+      },
+      "world_cup_q0": {
+        "teams": 55,
+        "fixtures": 81,
+        "groups": 14,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Spain"
+      },
+      "world_cup_q1": {
+        "teams": 54,
+        "fixtures": 135,
+        "groups": 9,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Mauritius"
+      },
+      "world_cup_q2": {
+        "teams": 46,
+        "fixtures": 110,
+        "groups": 8,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Malaysia"
+      },
+      "world_cup_q3": {
+        "teams": 35,
+        "fixtures": 85,
+        "groups": 6,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Panama"
+      },
+      "world_cup_q4": {
+        "teams": 10,
+        "fixtures": 12,
+        "groups": 3,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Argentina"
+      },
+      "world_cup_q5": {
+        "teams": 11,
+        "fixtures": 55,
+        "groups": 1,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Cook Islands"
+      },
+      "world_cup": {
+        "teams": 48,
+        "fixtures": 104,
+        "groups": 12,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Spain"
+      }
+    },
+    "2027": {
+      "ucl": {
+        "teams": 36,
+        "fixtures": 189,
+        "groups": 1,
+        "kind": "swiss",
+        "all_scores_complete": true,
+        "champion": "b5aa31f1d41e9d223a83"
+      },
+      "uel": {
+        "teams": 36,
+        "fixtures": 189,
+        "groups": 1,
+        "kind": "swiss",
+        "all_scores_complete": true,
+        "champion": "22bf77ba37e1c174297c"
+      },
+      "uecl": {
+        "teams": 36,
+        "fixtures": 153,
+        "groups": 1,
+        "kind": "swiss",
+        "all_scores_complete": true,
+        "champion": "6639b8c8b6ffb80533de"
+      },
+      "libertadores": {
+        "teams": 32,
+        "fixtures": 125,
+        "groups": 8,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "476da5df0f4f0c10c052"
+      },
+      "caf_cl": {
+        "teams": 16,
+        "fixtures": 62,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "665d51feda945d7f6204"
+      },
+      "concacaf": {
+        "teams": 27,
+        "fixtures": 51,
+        "groups": 0,
+        "kind": "concacaf",
+        "all_scores_complete": true,
+        "champion": "61e85ffcffcba6f37608"
+      },
+      "ofc": {
+        "teams": 8,
+        "fixtures": 15,
+        "groups": 2,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "dfc0c98cc2e0621a7a7c"
+      },
+      "afc_elite": {
+        "teams": 24,
+        "fixtures": 119,
+        "groups": 2,
+        "kind": "regional",
+        "all_scores_complete": true,
+        "champion": "80032f0836f3114a0e4e"
+      },
+      "nations_a": {
+        "teams": 16,
+        "fixtures": 51,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:France"
+      },
+      "nations_b": {
+        "teams": 16,
+        "fixtures": 51,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Poland"
+      },
+      "nations_c": {
+        "teams": 16,
+        "fixtures": 51,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:North Macedonia"
+      },
+      "nations_d": {
+        "teams": 7,
+        "fixtures": 19,
+        "groups": 2,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Sweden"
+      },
+      "afcon_q0": {
+        "teams": 54,
+        "fixtures": 78,
+        "groups": 14,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Uganda"
+      },
+      "asian_q0": {
+        "teams": 46,
+        "fixtures": 66,
+        "groups": 12,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Kuwait"
+      },
+      "gold_q0": {
+        "teams": 35,
+        "fixtures": 51,
+        "groups": 9,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Cuba"
+      },
+      "afcon": {
+        "teams": 24,
+        "fixtures": 51,
+        "groups": 6,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Mauritius"
+      },
+      "asian": {
+        "teams": 24,
+        "fixtures": 51,
+        "groups": 6,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Myanmar"
+      },
+      "gold": {
+        "teams": 16,
+        "fixtures": 31,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:United States"
+      }
+    },
+    "2028": {
+      "ucl": {
+        "teams": 36,
+        "fixtures": 189,
+        "groups": 1,
+        "kind": "swiss",
+        "all_scores_complete": true,
+        "champion": "2d45257fee6f5b1ca6e8"
+      },
+      "uel": {
+        "teams": 36,
+        "fixtures": 189,
+        "groups": 1,
+        "kind": "swiss",
+        "all_scores_complete": true,
+        "champion": "d4e82e56790c2c613d95"
+      },
+      "uecl": {
+        "teams": 36,
+        "fixtures": 153,
+        "groups": 1,
+        "kind": "swiss",
+        "all_scores_complete": true,
+        "champion": "95a6b47fbbaea0e7b727"
+      },
+      "libertadores": {
+        "teams": 32,
+        "fixtures": 125,
+        "groups": 8,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "ad9d2616d04b32c37abd"
+      },
+      "caf_cl": {
+        "teams": 16,
+        "fixtures": 62,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "faab02adb734c6205b96"
+      },
+      "concacaf": {
+        "teams": 27,
+        "fixtures": 51,
+        "groups": 0,
+        "kind": "concacaf",
+        "all_scores_complete": true,
+        "champion": "1c74fda5a4d3325ad9cd"
+      },
+      "ofc": {
+        "teams": 8,
+        "fixtures": 15,
+        "groups": 2,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "98872cde92de43a54beb"
+      },
+      "afc_elite": {
+        "teams": 24,
+        "fixtures": 119,
+        "groups": 2,
+        "kind": "regional",
+        "all_scores_complete": true,
+        "champion": "646d350b462e066c4573"
+      },
+      "nations_a": {
+        "teams": 16,
+        "fixtures": 51,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:England"
+      },
+      "nations_b": {
+        "teams": 16,
+        "fixtures": 51,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Ukraine"
+      },
+      "nations_c": {
+        "teams": 16,
+        "fixtures": 51,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Malta"
+      },
+      "nations_d": {
+        "teams": 7,
+        "fixtures": 19,
+        "groups": 2,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Iceland"
+      },
+      "euro_q0": {
+        "teams": 55,
+        "fixtures": 81,
+        "groups": 14,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Estonia"
+      },
+      "copa_q0": {
+        "teams": 45,
+        "fixtures": 63,
+        "groups": 12,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:Saint Kitts and Nevis"
+      },
+      "ofc_nations_q0": {
+        "teams": 11,
+        "fixtures": 15,
+        "groups": 3,
+        "kind": "qualifying",
+        "all_scores_complete": true,
+        "champion": "nation:New Zealand"
+      },
+      "euro": {
+        "teams": 24,
+        "fixtures": 51,
+        "groups": 6,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Italy"
+      },
+      "copa": {
+        "teams": 16,
+        "fixtures": 31,
+        "groups": 4,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Uruguay"
+      },
+      "ofc_nations": {
+        "teams": 8,
+        "fixtures": 15,
+        "groups": 2,
+        "kind": "groups",
+        "all_scores_complete": true,
+        "champion": "nation:Fiji"
+      }
+    }
+  },
+  "lifecycle": {
+    "method": "Seeded engine lifecycle with controlled player-team scores; not physical or human Android play.",
+    "seed": 902026,
+    "season": 2029,
+    "completed_matches": 148,
+    "types": {
+      "league": 66,
+      "libertadores": 39,
+      "world_cup_q4": 1,
+      "friendly": 9,
+      "domestic:Brazil": 18,
+      "world_cup": 8,
+      "copa_q0": 1,
+      "copa": 6
+    },
+    "reloads": 9,
+    "archived_seasons": 3,
+    "seconds": 24.61,
+    "caps": 25,
+    "international_goals": 25,
+    "calendar_nondecreasing": true,
+    "repeated_fixtures": false
+  },
+  "tests": {
+    "core": 233,
+    "native_kivy": 114,
+    "total_unique": 347
+  },
+  "actual_android_device_tested": false,
+  "point_1_implementation_complete": true,
+  "production_play_approved": false
+}

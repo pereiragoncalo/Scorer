@@ -745,6 +745,8 @@ class CareerMode:
         self.league_key = FREE_LEAGUE_KEY
         self.free_start_key = FREE_LEAGUE_KEY
         self.suggested_country = starter_country if self.world_unlocked and starter_country in WORLD_COUNTRIES else "England"
+        if self.world_unlocked:
+            self.nationality = self.suggested_country
         self.display_aliases = {"version": 1, "clubs": {}, "leagues": {}, "players": {}}
         self._alias_pattern = None
         self.alias_revision = 0
@@ -756,6 +758,11 @@ class CareerMode:
         self.international_caps = 0
         self.international_goals = 0
         self.called_up = False
+        self.world_competitions = None
+        self.competition_archive = []
+        self.qualification_snapshot = None
+        self.world_membership = None
+        self.world_run_in = False
         self.last_result = ""
         self.message = 'Choose the first contract of your career.'
         self.last_training_week = -1
@@ -967,6 +974,9 @@ class CareerMode:
 
     @property
     def cup_round_label(self) -> str:
+        if self.world_unlocked and self.world_competitions is not None:
+            cup=self.world_competitions.tournaments.get('domestic:'+self.current_league.country)
+            if cup:return 'Winner' if self.club and cup.champion==self.club.uid else 'Eliminated' if not self.cup_active else cup.stage
         index = min(self.cup_round_index, len(CUP_ROUNDS) - 1)
         return CUP_ROUNDS[index]
 
@@ -997,6 +1007,15 @@ class CareerMode:
     ) -> Optional[tuple[CareerClub, CareerClub]]:
         player = self.club
         if player is None:
+            return None
+        if self.world_unlocked and self.world_competitions is None and self.club:self._ensure_competitions()
+        if self.world_unlocked and self.world_competitions is not None:
+            cup=self.world_competitions.tournaments.get('domestic:'+self.current_league.country)
+            if cup and self.club:
+                pending=[f for f in cup.fixtures if f['score'] is None and self.club.uid in (f['home'],f['away'])]
+                if pending:
+                    f=min(pending,key=lambda f:(f['week'],f['id']))
+                    if requested_week is None or requested_week==f['week']:return self._competition_club(cup.teams[f['home']]),self._competition_club(cup.teams[f['away']])
             return None
         if self.cup_round_index >= len(self.cup_weeks) or not self.cup_active:
             return None
@@ -1062,6 +1081,23 @@ class CareerMode:
 
 
     def next_match(self) -> Optional[tuple[str, CareerClub, CareerClub]]:
+        if self.world_unlocked and self.club:
+            self._ensure_competitions()
+            for _ in range(200):
+                ended=self.current_league.round_index>=self.current_league.total_rounds
+                if ended:self._prepare_world_run_in()
+                pending=self.world_competitions.next_fixture(200 if ended else self.week,self.club.uid,self.nationality,self.national_team_eligible)
+                if pending:
+                    key,f,home,away,national=pending
+                    self.week=max(self.week,f['week'])
+                    self.called_up=national
+                    return ('world|'+key+'|'+f['id'],self._competition_club(home),self._competition_club(away))
+                if ended:
+                    self._finish_season();self._ensure_competitions();continue
+                for home,away in self.current_league.pairings():
+                    if self.club_name in (home.name,away.name):return 'league',home,away
+                raise ValueError('No personal league fixture')
+            raise ValueError('Competition calendar could not progress')
         if (
             self.cup_active
             and self.cup_round_index < len(self.cup_weeks)
@@ -1076,7 +1112,100 @@ class CareerMode:
         return None
 
 
+    def _competition_club(self,team):
+        current=next((c for l in self.leagues.values() for c in l.clubs if c.uid==team['uid']),None)
+        if current:return current
+        return CareerClub(team['name'],team['country'],'World competition',int(team.get('tier',1)),float(team['rating']),uid=team['uid'])
+
+    @property
+    def national_team_eligible(self):
+        return bool(self.world_unlocked and self.club and self.club.tier==1 and self.matches>=5
+                    and sum(self.form_goals[-5:])>=4 and self.morale>=13 and self.nationality in WORLD_COUNTRIES)
+
+    def _ensure_competitions(self):
+        if self.world_competitions is None:
+            from world_competitions import CompetitionBook
+            entries=self.qualification_snapshot['entries'] if self.qualification_snapshot and self.qualification_snapshot['season']==self.season else None
+            self.world_competitions=CompetitionBook(self.season,self.world_seed,self.leagues,entries)
+            self.world_competitions.legacy_actor=self.club.uid if self.club else ''
+            self.world_competitions.add_domestic(self.current_league.country,self.leagues,self.cup_weeks,legacy_round=min(self.cup_round_index,7),exclude=self.club.uid if self.club and not self.cup_active else '')
+            # Legacy saves simulate elapsed external matches without adding personal statistics.
+            for cup in self.world_competitions.tournaments.values():
+                cup.advance(max(0,self.week-1),[self.club.uid] if cup.key.startswith('domestic:') and self.club and self.cup_active else [])
+        else:
+            key='domestic:'+self.current_league.country
+            new=key not in self.world_competitions.tournaments
+            cup=self.world_competitions.add_domestic(self.current_league.country,self.leagues,self.cup_weeks)
+            if new:cup.advance(max(0,self.week-1))
+        self._refresh_competition_status()
+
+    def _prepare_world_run_in(self):
+        if self.world_run_in:return
+        from season_transitions import promotion_format
+        from world_competitions import Tournament
+        for league in self.leagues.values():
+            if uses_simplified_model(league.country,EUROPE_PYRAMID_DEPTH) and league.tier>2:continue
+            while league.round_index<league.total_rounds:
+                rng=random.Random(f'{self.world_seed}:{self.season}:{league.key}:{league.round_index}')
+                for home,away in league.pairings():league.simulate_fixture(home,away,rng)
+                league.round_index+=1
+        for country in WORLD_COUNTRIES:
+            pyramid=self.domestic_leagues(country)
+            for lower in pyramid:
+                if lower.tier-1 not in {l.tier for l in pyramid}:continue
+                direct,positions=promotion_format(country,lower.tier,uses_simplified_model(country,EUROPE_PYRAMID_DEPTH))
+                if not positions:continue
+                field=[lower.table()[i-1] for i in positions]
+                teams=[{'uid':c.uid,'name':c.name,'country':c.country,'rating':c.rating,'tier':c.tier} for c in field]
+                key=f'playoff:{country}:{lower.tier}'
+                self.world_competitions.tournaments[key]=Tournament(key,country+' Promotion playoff',teams,f'{self.world_seed}:{self.season}',kind='knockout',knockout_legs=1 if country=='England' and lower.tier==5 else 2,start_week=self.week+1,seeded=True)
+        self.world_run_in=True
+
+    def _finish_world_fixture(self,token,home,away,player_goals,player_misses,score):
+        from world_competitions import fixture_day
+        _,key,fixture_id=token.split('|',2)
+        self._ensure_competitions()
+        cup=None if key=='friendly' else self.world_competitions.tournaments[key]
+        expected=self.world_competitions.friendlies[fixture_id] if cup is None else next(f for f in cup.fixtures if f['id']==fixture_id)
+        if expected['home']!=home.uid or expected['away']!=away.uid or expected['score'] is not None or expected['week']>self.week:raise ValueError('Fixture does not match the scheduled game')
+        national=key=='friendly' or cup.national
+        actor='nation:'+self.nationality if national else self.club.uid
+        if actor not in (home.uid,away.uid):raise ValueError('Player does not participate in this fixture')
+        if score is None:
+            means=realistic_goal_means(home.rating,away.rating)
+            score=tuple(poisson_goal(self.rng,max(.05,m-.35))+ (player_goals if (home if i==0 else away).uid==actor else 0) for i,m in enumerate(means))
+        if player_goals<0 or player_misses<0 or score[0 if home.uid==actor else 1]<player_goals:raise ValueError('Personal goals exceed the team score')
+        f=self.world_competitions.record(key,fixture_id,score)
+        title='International friendly' if key=='friendly' else self.world_competitions.tournaments[key].title
+        if national:
+            self.international_caps+=1;self.international_goals+=player_goals;self.called_up=False
+        else:
+            self.matches+=1;self.goals+=player_goals;self.missed_chances+=player_misses
+            self.form_goals=(self.form_goals+[player_goals])[-8:]
+        self._update_attributes(player_goals,player_misses)
+        decision='' if not f.get('penalties') else f" (pen. {f['penalties'][0]}-{f['penalties'][1]})"
+        self.last_result=f'{home.name} {score[0]}-{score[1]} {away.name}{decision}'
+        self.message=self.last_result
+        self.fixture_history.append({'date':(date(self.season,7,12)+timedelta(weeks=f['week'],days=(2 if cup is None else fixture_day(cup)))).isoformat(),'competition':title,'country':self.current_league.country,
+                                     'home':home.name,'away':away.name,'status':f'{score[0]}-{score[1]}{decision}','played':True})
+        self.fixture_history=self.fixture_history[-128:]
+        if key.startswith('domestic:'):
+            self.cup_history=(self.cup_history+[f["stage"]+': '+self.last_result])[-8:]
+        self._refresh_competition_status();self.save()
+        return tuple(score)
+
+    def _refresh_competition_status(self):
+        if self.world_competitions is not None:
+            self.international_status={cup.title:(('Qualified: '+str(len(cup.qualified))) if cup.kind=='qualifying' and cup.champion else 'Winner: '+cup.teams[cup.champion]['name'] if cup.champion else cup.stage) for cup in self.world_competitions.tournaments.values()}
+            cup=self.world_competitions.tournaments.get('domestic:'+self.current_league.country)
+            if cup and cup.champion:self.national_cup_winners[self.current_league.country]=cup.teams[cup.champion]['name']
+            if cup and self.club:
+                alive={x for f in cup.fixtures if f['id'] in cup.active for x in (f['home'],f['away'])}|set(cup.direct)
+                self.cup_active=not cup.champion and self.club.uid in alive
+                self.cup_round_index=min(len(CUP_ROUNDS)-1,max(0,cup.stage_number-1))
+
     def _skip_reserved_cup_breaks(self) -> None:
+        if self.world_unlocked:return
         while self.week in self.cup_weeks and not (
             self.cup_active and self.cup_round_index < len(self.cup_weeks)
             and self.week == self.cup_weeks[self.cup_round_index]
@@ -1096,8 +1225,8 @@ class CareerMode:
         future_round = self.current_league.round_index
         while future_round < self.current_league.total_rounds:
             match_date = start + timedelta(weeks=future_week)
-            if future_week in self.cup_weeks:
-                if (self.cup_active and self.cup_round_index < len(self.cup_weeks)
+            if not self.world_unlocked and future_week in self.cup_weeks:
+                if (not self.world_unlocked and self.cup_active and self.cup_round_index < len(self.cup_weeks)
                         and future_week == self.cup_weeks[self.cup_round_index]):
                     fixture = self._cup_fixture_for_week(future_week)
                     if fixture:
@@ -1111,12 +1240,20 @@ class CareerMode:
                                 if self.club_name in (pair[0].name, pair[1].name)), None)
                 if fixture:
                     entries.append({
-                        "date": match_date.isoformat(), "competition": self.current_league.name,
+                        "date": (match_date+timedelta(days=4 if self.world_unlocked else 0)).isoformat(), "competition": self.current_league.name,
                         "home": fixture[0].name, "away": fixture[1].name,
                         "status": f"Matchweek {future_round + 1}", "played": False,
                     })
                 future_round += 1
             future_week += 1
+        if self.world_unlocked and self.club:
+            from world_competitions import fixture_day
+            self._ensure_competitions()
+            for cup in self.world_competitions.tournaments.values():
+                actor='nation:'+self.nationality if cup.national else self.club.uid
+                for f in cup.fixtures:
+                    if f['score'] is not None or actor not in (f['home'],f['away']):continue
+                    entries.append({'date':(start+timedelta(weeks=f['week'],days=fixture_day(cup))).isoformat(),'competition':cup.title,'country':self.current_league.country,'home':cup.teams[f['home']]['name'],'away':cup.teams[f['away']]['name'],'status':f['stage'],'played':False})
         return sorted(entries, key=lambda entry: str(entry.get('date', '')))
 
 
@@ -1165,7 +1302,7 @@ class CareerMode:
 
         if legacy_depths is not None:
             return
-        self.international_status = {
+        self.international_status = {} if self.world_unlocked else {
             "UEFA Champions League": "League phase - 36 clubs",
             "UEFA Europa League": "League phase - 36 clubs",
             "UEFA Conference League": "League phase - 36 clubs",
@@ -1437,7 +1574,9 @@ class CareerMode:
         forced_score: Optional[tuple[int, int]] = None,
         competition: str = "league",
     ) -> tuple[int, int]:
-        match_date = self.current_date
+        if competition.startswith('world|'):
+            return self._finish_world_fixture(competition,home,away,player_goals,player_misses,forced_score)
+        match_date = self.current_date+timedelta(days=4 if self.world_unlocked else 0)
         if is_international:
             if forced_score is None:
                 home_mean, away_mean = realistic_goal_means(home.rating, away.rating)
@@ -1550,7 +1689,9 @@ class CareerMode:
         self._check_national_team()
         self._maybe_generate_transfer_offers()
         if competition == "league" and league.round_index >= league.total_rounds:
-            self._finish_season()
+            if self.world_unlocked:
+                self._ensure_competitions();self._prepare_world_run_in()
+            else:self._finish_season()
         self.save()
         return score
 
@@ -1657,45 +1798,16 @@ class CareerMode:
             league.round_index += 1
 
 
-        # As competições internacionais avançam em semanas próprias sem
-        # obrigar o Android a guardar milhares de objetos de eliminatórias.
-        if self.week and self.week % 4 == 0:
-            stage = 1 + self.week // 4
-            if stage <= 8:
-                self.international_status["UEFA Champions League"] = f"League phase - round {stage}/8"
-                self.international_status["UEFA Europa League"] = f"League phase - round {stage}/8"
-                self.international_status["UEFA Conference League"] = f"League phase - round {min(stage, 6)}/6"
-            elif self.week < 44:
-                knockout = "Round of 16" if self.week < 36 else "Semi-finals"
-                self.international_status["UEFA Champions League"] = knockout
-                self.international_status["UEFA Europa League"] = knockout
-                self.international_status["UEFA Conference League"] = knockout
-            else:
-                european_tables = [
-                    league.table() for league in self.leagues.values()
-                    if league.country in EUROPE_PYRAMID_DEPTH and league.tier == 1
-                ]
-                winners = [table[0].name for table in european_tables if table]
-                runners = [table[min(1, len(table) - 1)].name for table in european_tables if table]
-                thirds = [table[min(2, len(table) - 1)].name for table in european_tables if table]
-                if winners:
-                    self.international_status["UEFA Champions League"] = f"Winner: {self.rng.choice(winners)}"
-                    self.international_status["UEFA Europa League"] = f"Winner: {self.rng.choice(runners)}"
-                    self.international_status["UEFA Conference League"] = f"Winner: {self.rng.choice(thirds)}"
-        if self.week in (7, 11, 15, 19):
-            self.international_status["UEFA Nations League"] = f"League phase - round {min(6, 2 + self.week // 4)}/6"
+        if self.world_unlocked:
+            self._ensure_competitions()
+            self.world_competitions.next_fixture(self.week,self.club.uid if self.club else '',self.nationality,self.national_team_eligible)
+            self._refresh_competition_status()
 
-
-    def _check_national_team(self) -> None:
-        club = self.club
-        recent = sum(self.form_goals[-5:])
-        self.called_up = bool(
-            club and club.tier == 1 and self.matches >= 5
-            and recent >= 4 and self.morale >= 13.0 and self.week % 4 == 0
-        )
-        if self.called_up:
-            self.message = 'You have been called up to the national team!'
-
+    def _check_national_team(self):
+        if self.world_unlocked:self.called_up=bool(self.national_team_eligible and self.week in (6,10,14,18,22,26,30,34))
+        else:
+            club=self.club;self.called_up=bool(club and club.tier==1 and self.matches>=5 and sum(self.form_goals[-5:])>=4 and self.morale>=13 and self.week%4==0)
+        if self.called_up:self.message='You have been called up to the national team!'
 
     def generate_agent_offers(
         self, guaranteed: bool = False
@@ -1795,7 +1907,44 @@ class CareerMode:
         self.save()
 
 
+    def _finish_world_season(self):
+        from season_records import completed_snapshot,keep_best
+        from season_transitions import exchange_pyramid
+        self._ensure_competitions();self._prepare_world_run_in();book=self.world_competitions;book.complete()
+        self.completed_records=keep_best(self.completed_records,completed_snapshot(self))
+        league=self.current_league;club=self.club;old_tier=club.tier
+        position=next(i+1 for i,c in enumerate(league.table()) if c.uid==club.uid)
+        # Simulate unvisited national cups as real knockout fixtures, storing only winners.
+        for country in WORLD_COUNTRIES:
+            cup=book.add_domestic(country,self.leagues,self.cup_weeks);cup.finish()
+            self.national_cup_winners[country]=cup.teams[cup.champion]['name']
+        self.qualification_snapshot={'season':self.season+1,'entries':book.entrants_for_next_season(self.leagues)}
+        winners={k:cup.champion for k,cup in book.tournaments.items()}
+        moves=[]
+        for country in WORLD_COUNTRIES:
+            moves.extend(exchange_pyramid(self.domestic_leagues(country),country,winners,uses_simplified_model(country,EUROPE_PYRAMID_DEPTH)))
+        if uses_simplified_model(league.country,EUROPE_PYRAMID_DEPTH) and old_tier>2:
+            lower=self.leagues[league.country+'|2'];displaced=lower.table()[-1]
+            lower.clubs.remove(displaced);league.clubs.remove(club);lower.clubs.append(club);league.clubs.append(displaced)
+            club.tier,club.league=2,lower.name;displaced.tier,displaced.league=old_tier,league.name
+        self.league_key=league.country+'|'+str(club.tier)
+        champions={k:cup.teams[cup.champion] for k,cup in book.tournaments.items() if cup.kind!='qualifying' and not k.startswith('domestic:')}
+        self.competition_archive=(self.competition_archive+[{'season':self.season,'winners':champions,'movements':moves,'domestic_winners':dict(self.national_cup_winners)}])[-5:]
+        self.world_membership={k:[c.uid for c in l.clubs] for k,l in self.leagues.items()}
+        self.world_competitions=None;self.world_run_in=False;self.season+=1;self.week=0
+        self.morale_ad_week=-1;self.morale_ad_token='';self.last_training_week=-1;self.training_session_week=-1;self.training_shots_taken=0;self.training_session_goals=0
+        self.cup_active=True;self.cup_round_index=0;self.cup_history.clear();self.agent_offers.clear();self.last_offer_week=-99
+        self.morale=clamp(self.morale+(2 if club.tier<old_tier else -1 if club.tier>old_tier else 0),0,20);self.stamina=clamp(self.stamina+3,0,20)
+        self.message=f'Season finished in position {position}. New season {self.season}/{str(self.season+1)[-2:]}.'
+        self.international_status={}
+        for l in self.leagues.values():
+            random.Random(f'{self.world_seed}:{self.season}:{l.key}').shuffle(l.clubs);l.schedule_version=2;l.round_index=0;l.scorer_goals.clear()
+            for c in l.clubs:c.played=c.wins=c.draws=c.losses=c.goals_for=c.goals_against=c.points=0
+        self.matches=self.goals=self.missed_chances=0;self.form_goals.clear()
+
     def _finish_season(self) -> None:
+        if self.world_unlocked:
+            self._finish_world_season();return
         from season_records import completed_snapshot,keep_best
         self.completed_records=keep_best(self.completed_records,completed_snapshot(self))
         league = self.current_league
@@ -1845,6 +1994,12 @@ class CareerMode:
                 CareerClub(old_club.name, league.country, target.name, target_tier, old_club.rating + (2 if promoted else -2), uid=old_club.uid)
             )
             self.league_key = target_key
+        if self.world_competitions is not None:
+            winners={}
+            for key,cup in self.world_competitions.tournaments.items():
+                winner=cup.finish();winners[key]=cup.teams[winner]
+            self.competition_archive=(self.competition_archive+[{'season':self.season,'winners':winners}])[-5:]
+            self.world_competitions=None
         self.season += 1
         self.morale_ad_week = -1
         self.morale_ad_token = ""
@@ -1861,27 +2016,8 @@ class CareerMode:
         self.morale = clamp(self.morale + (2 if promoted else -1 if relegated else 0), 0, 20)
         self.stamina = clamp(self.stamina + 3.0, 0, 20)
         self.message = f"Season finished in position {position}. New season {self.season}/{str(self.season + 1)[-2:]}."
-        if self.season % 4 == 0:
-            self.international_status["European Championship"] = f"Winner: {self.rng.choice(EUROPE_COUNTRIES)}"
-        else:
-            self.international_status["European Championship"] = "Qualifying"
-        if self.season % 4 == 2:
-            self.international_status["FIFA World Cup"] = f"Winner: {self.rng.choice(WORLD_COUNTRIES)}"
-        else:
-            self.international_status["FIFA World Cup"] = "Qualifying - 6 confederations"
-        self.national_cup_winners = {}
-        for country in WORLD_COUNTRIES:
-            candidates = [
-                club
-                for world_league in self.leagues.values()
-                if world_league.country == country
-                for club in world_league.clubs
-            ]
-            if candidates:
-                weights = [max(1.0, club.rating - 30.0) ** 2 for club in candidates]
-                self.national_cup_winners[country] = self.rng.choices(
-                    candidates, weights=weights, k=1
-                )[0].name
+        self.international_status={}
+        self.national_cup_winners={}
         for world_league in self.leagues.values():
             random.Random(f"{self.world_seed}:{self.season}:{world_league.key}").shuffle(world_league.clubs)
             world_league.schedule_version = 2
@@ -1917,7 +2053,7 @@ class CareerMode:
             "world_state": {k: {'clubs': [asdict(c) for c in v.clubs], 'round': v.round_index,
                                  'scorers': v.scorer_goals, 'name': v.name, 'schedule': v.schedule_version}
                             for k, v in self.leagues.items()
-                            if self.world_unlocked and v.country in self._active_world_countries and k != self.league_key},
+                            if self.world_unlocked and (v.country in self._active_world_countries or self.world_run_in) and k != self.league_key},
             "completed_records": self.completed_records,
             "player_name": self.player_name,
             "nationality": self.nationality,
@@ -1956,6 +2092,12 @@ class CareerMode:
             "clubs": [asdict(club) for club in league.clubs],
             "scorers": league.scorer_goals,
             "international_status": self.international_status,
+            "world_competitions": self.world_competitions.to_dict() if self.world_unlocked and self.world_competitions is not None else None,
+            "competition_archive": self.competition_archive if self.world_unlocked else [],
+            "qualification_snapshot": self.qualification_snapshot if self.world_unlocked else None,
+            "world_membership": self.world_membership if self.world_unlocked else None,
+            "world_run_in": self.world_run_in if self.world_unlocked else False,
+            "active_world_countries": sorted(self._active_world_countries) if self.world_unlocked else [],
         }
         try:
             envelope = {
@@ -2052,6 +2194,9 @@ class CareerMode:
             if self._save_slot == "world" and active.get("edition") != "WORLD":
                 return False  # No automatic or file-based Free-to-World conversion.
             if self.world_unlocked and active.get('edition') == 'WORLD':
+                self.world_seed=int(active.get('world_seed',self.world_seed));self.season=int(active.get('season',self.season))
+                self.leagues={};self._build_world()
+                self.world_competitions=None;self.qualification_snapshot=None;self.world_membership=None;self.world_run_in=False
                 saved_states = active.get('world_state', {})
                 if not isinstance(saved_states, dict):
                     raise ValueError('Invalid saved World state')
@@ -2079,6 +2224,18 @@ class CareerMode:
                         legacy_depths[country] = max(legacy_depths.get(country, 0), int(tier_text))
                 if legacy_depths:
                     self._build_world(legacy_depths)
+            membership=active.get('world_membership')
+            if membership is not None and self.world_unlocked:
+                if not isinstance(membership,dict) or set(membership)!=set(self.leagues):raise ValueError('Invalid World membership')
+                pool={c.uid:c for l in self.leagues.values() for c in l.clubs}
+                flat=[uid for ids in membership.values() for uid in ids]
+                if len(flat)!=len(set(flat)) or set(flat)!=set(pool):raise ValueError('Invalid global club identity')
+                for key,ids in membership.items():
+                    l=self.leagues[key]
+                    if len(ids)!=len(l.clubs) or any(pool[uid].country!=l.country for uid in ids):raise ValueError('Invalid league membership')
+                    l.clubs=[pool[uid] for uid in ids]
+                    for c in l.clubs:c.tier,c.league=l.tier,l.name
+                self.world_membership=membership
             key_for_access = str(active.get("league_key", FREE_LEAGUE_KEY))
             chosen = str(active.get('free_start_key', FREE_LEAGUE_KEY))
             valid_starts = {f'{c}|{4 if c == "England" else EUROPE_PYRAMID_DEPTH.get(c, 1)}' for c in WORLD_COUNTRIES}
@@ -2245,8 +2402,53 @@ class CareerMode:
                 self._alias_pattern = None
                 self.alias_revision += 1
             self._active_world_countries = {self.current_league.country} | ({self.leagues[k].country for k in data.get("world_state", {})} if self.world_unlocked else set())
+            if self.world_unlocked and 'active_world_countries' in data:
+                countries=data['active_world_countries']
+                if not isinstance(countries,list) or len(countries)>220 or any(c not in WORLD_COUNTRIES for c in countries):raise ValueError('Invalid active countries')
+                self._active_world_countries=set(countries)|{self.current_league.country}
             self._skip_reserved_cup_breaks()
             self.international_status.update(data.get("international_status", {}))
+            if self.world_unlocked and data.get('world_competitions') is not None:
+                from world_competitions import CompetitionBook
+                self.world_competitions=CompetitionBook.from_dict(data['world_competitions'])
+                if self.world_competitions.season!=self.season or self.world_competitions.seed!=self.world_seed:
+                    raise ValueError('World competition season mismatch')
+                pool={c.uid for l in self.leagues.values() for c in l.clubs}
+                for cup in self.world_competitions.tournaments.values():
+                    if not cup.national and not set(cup.teams)<=pool:raise ValueError('Unknown competition club')
+                    if cup.national and not set(cup.teams)<=set(self.world_competitions.nations):raise ValueError('Unknown competition nation')
+            archive=data.get('competition_archive',[])
+            if not isinstance(archive,list) or len(archive)>5:raise ValueError('Invalid competition archive')
+            for item in archive:
+                if not isinstance(item,dict) or type(item.get('season'))is not int or not isinstance(item.get('winners'),dict) or len(item['winners'])>256:raise ValueError('Invalid season history')
+                for team in item['winners'].values():
+                    if not isinstance(team,dict) or not isinstance(team.get('name'),str) or not 1<=len(team['name'])<=100:raise ValueError('Invalid archived winner')
+                if not isinstance(item.get('movements',[]),list) or len(item.get('movements',[]))>4096:raise ValueError('Invalid movement history')
+            self.competition_archive=archive if self.world_unlocked else []
+            self.world_run_in=data.get('world_run_in',False) if self.world_unlocked else False
+            if type(self.world_run_in)is not bool:raise ValueError('Invalid run-in state')
+            snapshot=data.get('qualification_snapshot')
+            if snapshot is not None and self.world_unlocked:
+                if not isinstance(snapshot,dict) or set(snapshot)!={'season','entries'} or snapshot['season']!=self.season or not isinstance(snapshot['entries'],dict) or len(snapshot['entries'])>16:raise ValueError('Invalid qualification snapshot')
+                if any(not isinstance(v,list) or len(v)>36 for v in snapshot['entries'].values()):raise ValueError('Invalid qualified entrants')
+                expected={'ucl':36,'uel':36,'uecl':36,'libertadores':32,'caf_cl':16,'concacaf':27,'ofc':8,'afc_elite':24}
+                if not set(expected)<=set(snapshot['entries']):raise ValueError('Missing qualification fields')
+                pool={c.uid for l in self.leagues.values() for c in l.clubs}
+                seen=set()
+                for key,teams in snapshot['entries'].items():
+                    if key not in expected and key not in ('nations_a','nations_b','nations_c','nations_d'):raise ValueError('Unknown qualification')
+                    if key in expected and len(teams)!=expected[key]:raise ValueError('Invalid entrant count')
+                    ids=[]
+                    for team in teams:
+                        if not isinstance(team,dict) or not isinstance(team.get('uid'),str) or not isinstance(team.get('name'),str) or not isinstance(team.get('country'),str) or type(team.get('rating'))not in (int,float) or not math.isfinite(team['rating']) or not 0<=team['rating']<=100:raise ValueError('Invalid qualified team')
+                        if key in expected and team['uid'] not in pool:raise ValueError('Unknown qualified club')
+                        ids.append(team['uid'])
+                    if len(ids)!=len(set(ids)):raise ValueError('Duplicate qualifiers')
+                    if key in ('ucl','uel','uecl'):
+                        if seen.intersection(ids):raise ValueError('Club qualified twice in Europe')
+                        seen.update(ids)
+                self.qualification_snapshot=snapshot
+
             # Mantém todos os outros campeonatos na mesma semana da carreira
             # depois de fechar e voltar a abrir o jogo.
             for other_key, other_league in self.leagues.items():

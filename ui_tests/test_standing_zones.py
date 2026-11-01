@@ -20,7 +20,7 @@ class StandingZoneUITests(unittest.TestCase):
             Window.size=(1280,640)
             with patch('edition.WORLD_BUILD',True),isolated_game() as g:
                 self.world(g);g.career.club_name=g.career.current_league.table()[8].name;g.career.save();rng=g.career.rng.getstate();save=g.career.save_path.read_bytes();identity=g.career.league_key
-                t=self.table(g);self.assertEqual([r[0] for r in t.rows[:8]],['1 P','2 P','3 P','4 PO','5 PO','6 PO','7 PO',8])
+                t=self.table(g);self.assertEqual([r[0] for r in t.rows[:8]],['1 P','2 P','3 PO','4 PO','5 PO','6 PO',7,8])
                 self.assertFalse(t.zones.relegation)
                 hero=next(w for row in t.lines.children for w in row.children if isinstance(w,Label) and w.text==g.career.display_text(g.career.club_name))
                 self.assertNotEqual(tuple(hero.color),GREEN)
@@ -29,9 +29,9 @@ class StandingZoneUITests(unittest.TestCase):
                         label=next(w for w in row.children if isinstance(w,Label) and w.text.endswith((' P',' PO')))
                         self.assertEqual(tuple(label.color),ZONE_COLOURS[row.standing_zone])
                 t.show_rules();settle();p=t.rules_popup;texts={w.text for w in p.walk() if isinstance(w,Label)}
-                self.assertIn(g.i18n.tr('PO: Playoff (simulated) {places}',places='4-7'),texts)
+                self.assertIn(g.i18n.tr('PO: Promotion playoff {places}',places='3-6'),texts)
                 self.assertIn(g.i18n.tr('R: No relegation'),texts);p.dismiss();settle()
-                t=self.table(g,'Portugal|2');self.assertEqual([r[0] for r in t.rows[-2:]],['17 R','18 R']);t.move(t.pages-1);settle()
+                t=self.table(g,'Portugal|2');self.assertEqual([r[0] for r in t.rows[-3:]],['16 R','17 R','18 R']);t.move(t.pages-1);settle()
                 self.assertIn('relegation',{r.standing_zone for r in t.lines.children})
                 t.toggle_detail();settle();self.assertIn('relegation',{r.standing_zone for r in t.lines.children})
                 t=self.table(g,'Portugal|1');self.assertFalse(t.zones.promotion);self.assertFalse(t.zones.playoff)

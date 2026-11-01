@@ -44,7 +44,7 @@ Chinese or Vietnamese in the game. Public privacy, community and removal documen
 are provided in English.
 
 Scorer World uses fictional football clubs and reference-based presentation.
-Country-specific competition formats remain provisional. It is not a licensed
+Competitions use the game’s published formats, with simulated qualifiers, league phases and knockout results. It is not a licensed
 current football database or a claim to reproduce every real-world regulation,
 continental competition or national-team tournament.
 

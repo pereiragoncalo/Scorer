@@ -26,7 +26,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','privacy_rights'))
+MENU_VIEWS = frozenset(('offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','privacy_rights','competitions','competition'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -134,7 +134,7 @@ class CareerMenu(BoxLayout):
     def sync(self):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
-        signature = (self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
+        signature = (self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals,
@@ -226,7 +226,7 @@ class CareerMenu(BoxLayout):
         if self.game.view == 'scorers':
             header.add_widget(self._button('GLOBAL', 'leaderboard'))
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'rights_back' if self.game.view=='privacy_rights' else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
+            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'rights_back' if self.game.view=='privacy_rights' else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view in ('hub', 'offers'):
@@ -244,6 +244,7 @@ class CareerMenu(BoxLayout):
             self.add_widget(self.body)
             return
         if self.game.view == 'world' and c.world_unlocked:
+            if c.club:header.add_widget(self._button('COMPETITIONS','competitions'))
             from world_ui import WorldBrowser
             self.scroll = None
             self.body = WorldBrowser(self)
@@ -316,7 +317,7 @@ class CareerMenu(BoxLayout):
         c=self.game.career
         if not c.world_unlocked:return None
         return table_zones(league.tier,len(league.clubs),{l.tier for l in c.domestic_leagues(league.country)},
-                           simplified=uses_simplified_model(league.country,EUROPE_PYRAMID_DEPTH))
+                           simplified=uses_simplified_model(league.country,EUROPE_PYRAMID_DEPTH),country=league.country)
 
     def _standing_position(self,league,position):
         zones=self._table_zones(league)
@@ -399,7 +400,7 @@ class CareerMenu(BoxLayout):
         if self.game._safety_notice:transfer.label(self.game._safety_notice)
         from online_safety import NOTICE_TEXT
         stats=self.card('Automatic usage statistics');stats.label(NOTICE_TEXT);stats.label('Usage suspended for a privacy request.' if self.game.privacy_request.active else 'Status: Automatic')
-        stats.add_widget(self._button('PRIVACY RIGHTS','privacy_rights'))
+        stats.add_widget(self._button('PRIVACY RIGHTS','privacy_rights','competitions','competition'))
         if self.game.usage_notice:stats.label(self.game.usage_notice)
 
     def _privacy_rights(self):
@@ -474,7 +475,7 @@ class CareerMenu(BoxLayout):
             if league.country == self.game.world_country:
                 grid.add_widget(self._button(self.game.i18n.league(c,league), 'world_league', key))
         card.add_widget(grid)
-        card.label('Simplified format: 2 divisions; 3 promoted and 3 relegated. No playoffs.' if uses_simplified_model(self.game.world_country, EUROPE_PYRAMID_DEPTH) else 'Country regulations under review; regional/amateur competitions are not fully modelled.', muted=True)
+        card.label('Simplified format: 2 divisions; 3 promoted and 3 relegated. No playoffs.' if uses_simplified_model(self.game.world_country, EUROPE_PYRAMID_DEPTH) else 'Game format: ranked promotion and relegation; playoffs are decided by fixtures.', muted=True)
 
     def _editor(self):
         if not self.game.career.world_unlocked:
@@ -491,6 +492,43 @@ class CareerMenu(BoxLayout):
         for club, key in c.agent_offers:
             card.add_widget(self._button(c.display_text(f'{club}\n{c.leagues[key].name}', c.leagues[key].country), 'transfer', (club, key)))
         card.add_widget(self._button('FIND OFFERS', 'agent_refresh'))
+
+    def _competitions(self):
+        c=self.game.career
+        competitions=list(c.world_competitions.tournaments.items());page=self.game.competition_list_page
+        for key,cup in competitions[page*10:(page+1)*10]:
+            card=self.card(cup.title)
+            card.label(('Winner: '+c.display_text(cup.teams[cup.champion]['name'])) if cup.champion and cup.kind!='qualifying' else cup.stage)
+            card.add_widget(self._button('VIEW COMPETITION','competition_open',key))
+        controls=self.card()
+        controls.add_widget(self._button('PREVIOUS','competition_list_page',-1));controls.add_widget(self._button('NEXT','competition_list_page',1))
+        for season in reversed(c.competition_archive):
+            card=self.card('SEASON HISTORY');card.label(str(season['season']),localize=False)
+            for key,team in season['winners'].items():
+                if not key.startswith('playoff:'):card.label(key+' · '+c.display_text(team['name']),localize=False)
+
+    def _competition(self):
+        c=self.game.career;cup=c.world_competitions.tournaments[self.game.competition_key]
+        card=self.card(cup.title);card.label(cup.stage)
+        if cup.champion and cup.kind!='qualifying':card.label('Winner: '+c.display_text(cup.teams[cup.champion]['name']))
+        tabs=BoxLayout(size_hint_y=None,height=dp(48));tabs.add_widget(self._button('FIXTURES','competition_tab','fixtures'))
+        if cup.groups:tabs.add_widget(self._button('STANDINGS','competition_tab','table'))
+        card.add_widget(tabs)
+        if self.game.competition_tab=='table' and cup.groups:
+            i=self.game.competition_group%len(cup.groups)
+            card.label(self.game.i18n.tr('Group {number}',number=i+1))
+            controls=BoxLayout(size_hint_y=None,height=dp(48));controls.add_widget(self._button('PREVIOUS','competition_group',-1));controls.add_widget(self._button('NEXT','competition_group',1));card.add_widget(controls)
+            card.label(self.game.i18n.tr('CLUB')+' · '+self.game.i18n.tr('P')+' · '+self.game.i18n.tr('PTS'),localize=False)
+            for row in cup.table(i):
+                card.label(f"{c.display_text(cup.teams[row['uid']]['name'])} · {row['p']} · {row['pts']}",localize=False)
+        else:
+            page=self.game.competition_page;rows=cup.fixtures[page*12:(page+1)*12]
+            for f in rows:
+                score='–' if f['score'] is None else str(f['score'][0])+'–'+str(f['score'][1])
+                if f['penalties']:score+=' ('+str(f['penalties'][0])+'–'+str(f['penalties'][1])+')'
+                card.label(f"{f['week']}: {c.display_text(cup.teams[f['home']]['name'])} {score} {c.display_text(cup.teams[f['away']]['name'])}",localize=False)
+            controls=BoxLayout(size_hint_y=None,height=dp(48));controls.add_widget(self._button('PREVIOUS','competition_page',-1));controls.add_widget(self._button('NEXT','competition_page',1));card.add_widget(controls)
+            card.label(str(page+1)+' / '+str(max(1,(len(cup.fixtures)+11)//12)),localize=False)
 
     def _world(self):
         if not self.game.career.world_unlocked:
@@ -1041,13 +1079,13 @@ class StandingsRulesDialog(ModalView):
         else:
             for field,source,empty in (
                 ('promotion','P: Promotion {places}','P: No promotion'),
-                ('playoff','PO: Playoff (simulated) {places}','PO: No playoffs'),
+                ('playoff','PO: Promotion playoff {places}','PO: No playoffs'),
                 ('relegation','R: Relegation {places}','R: No relegation')):
                 places=getattr(zones,field)
                 text=localizer.tr(source,places=f'{places[0]}-{places[-1]}') if places else localizer.tr(empty)
                 self.body.add_widget(FlowLabel(text=text,font_size=sp(14),color=ZONE_COLOURS[field] if places else MUTED))
             if zones.playoff:
-                self.body.add_widget(FlowLabel(text='Playoff outcomes are simulated; knockout matches are not yet played.',font_size=sp(13)))
+                self.body.add_widget(FlowLabel(text='Playoff promotion is decided by knockout fixtures.',font_size=sp(13)))
             if zones.provisional:
                 self.body.add_widget(FlowLabel(text='Country-specific regulations are still being implemented.',font_size=sp(13),color=MUTED))
         self.back=MenuTile('BACK',self.dismiss);self.panel.add_widget(self.back)
@@ -1083,7 +1121,7 @@ class CompactTable(EdgePanel):
         if zones is not None:
             marker=lambda places:f'{places[0]}-{places[-1]}' if places else '-'
             summary=self._localizer.tr('Rules: P {up} / PO {playoff} / R {down}',
-                       up=marker(zones.promotion),playoff=marker(zones.playoff)+('*' if zones.playoff else ''),down=marker(zones.relegation))
+                       up=marker(zones.promotion),playoff=marker(zones.playoff),down=marker(zones.relegation))
             self.zone_legend=MenuTile(summary,self.show_rules)
             self.zone_legend.font_size=sp(12);self.zone_legend.height=dp(48);self.zone_legend.shorten=False
             self.add_widget(self.zone_legend)

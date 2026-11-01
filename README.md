@@ -1,6 +1,14 @@
+## Scorer World 0.9 — World competitions integrated
+
+[Download World 0.9 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9/Scorer-World-0.9.apk)
+
+Persistent continental/national tournaments, qualifying games, domestic brackets, played promotion playoffs, ranked movement and next-season qualification. The player can inspect fixtures, groups and results under **World → Competitions**. Existing careers and imported names are retained; export a career backup before upgrading, then Save and Exit, install the matching World QA APK and Load Game.
+
+[Game formats, save handling and verification](docs/WORLD_COMPETITIONS_0.9.md). Point 1 is implemented; actual Android acceptance and the remaining server/Play steps follow. This is a DEBUG QA candidate; public launch remains 1.0.
+
 ## Next milestones: 0.9 testing → 1.0 launch
 
-The next Scorer World test version will be **0.9** and the public release **1.0**. Version staging now selects those names with increasing Android version codes. The latest delivered APK below remains 0.6.48.
+The current Scorer World test phase is **0.9** and the public release will be **1.0**. Version staging now selects those names with increasing Android version codes. Version 0.6.48 is retained below as a historical QA build.
 
 [Current remaining work and acceptance criteria](docs/play/ROAD_TO_1.0.md): complete intended World competition behaviour, real Android acceptance, deploy/verify final English policies and online safety, then production signing and Console checks. Developer account verification is already confirmed.
 
