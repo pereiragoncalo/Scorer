@@ -144,15 +144,21 @@ class StagingTests(unittest.TestCase):
         from tools.play.publication import validate_publication
         from tools.play.prepare import ROOT
         import configparser
-        config=json.loads((ROOT/'release/play.example.json').read_text());config['version_code']=1026646
+        config=json.loads((ROOT/'release/play.example.json').read_text());config['version_code']=1030000
         self.assertTrue(validate_publication(None));self.assertTrue(validate_publication({}))
         review={k:True for k in ('automatic_usage_legal_review','children_social_review','moderation_operator_ready','public_policy_live','cloudflare_practices_reviewed')};review['legal_basis']='Synthetic test review only, not an actual legal approval'
         with tempfile.TemporaryDirectory() as t:
             with self.assertRaises(ValueError):prepare_edition('world',Path(t)/'unreviewed',channel='production',config=config)
             with self.assertRaisesRegex(ValueError,'Only Scorer World'):prepare_edition('free',Path(t)/'free',channel='production',config=config,publication=review)
+            with self.assertRaisesRegex(ValueError,'above the 0.9'):
+                prepare_edition('world',Path(t)/'stale-code',channel='production',config=dict(config,version_code=1026900),publication=review)
             stage=prepare_edition('world',Path(t)/'world',channel='production',config=config,publication=review)
             spec=configparser.ConfigParser();spec.read(stage/'buildozer.spec')
             self.assertEqual(spec['app']['package.name'],'scorerworld')
+            self.assertEqual(spec['app']['version'],'1.0');self.assertEqual(spec['app']['android.numeric_version'],'1030000')
+            default_stage=prepare_edition('world',Path(t)/'production-default',channel='production',publication=review)
+            default_spec=configparser.ConfigParser();default_spec.read(default_stage/'buildozer.spec')
+            self.assertEqual(default_spec['app']['version'],'1.0');self.assertEqual(default_spec['app']['android.numeric_version'],'1030000')
             ns={};exec((stage/'release_settings.py').read_text(),ns)
             self.assertEqual(ns['CHANNEL'],'production');self.assertEqual(ns['SUPPORT_EMAIL'],'goncalo@clemir.com');self.assertFalse(ns['WORLD_LISTING_READY'])
             e={};exec((stage/'edition.py').read_text(),e);self.assertTrue(e['WORLD_BUILD']);self.assertFalse(e['WORLD_PREVIEW'])

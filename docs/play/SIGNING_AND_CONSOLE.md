@@ -15,9 +15,9 @@ into chat or commit them. No new production key was generated in the cloud.
 3. Use Play App Signing. Distinguish upload key from app signing key that signs
    installed Play packages. Different signing identities from current debug APKs
    prevent ordinary in-place replacement: export/verify career recovery first.
-4. Complete actual review flags/configuration described in WORLD_LAUNCH_0.6.47.md;
+4. Complete actual review flags/configuration described in ROAD_TO_1.0.md;
    select an unused increasing versionCode for com.clemir.scorerworld and stage production
-   via tools/prepare_editions.py --channel production. Build AAB release.
+   via tools/prepare_editions.py --channel production. This selects versionName 1.0; the separate release/play.production.example.json defaults to code 1030000, which must be confirmed unused. Build AAB release.
 5. Inject SCORER_UPLOAD_KEYSTORE, SCORER_UPLOAD_ALIAS, SCORER_UPLOAD_STORE_PASSWORD
    and SCORER_UPLOAD_KEY_PASSWORD securely on the owner's machine and use
    tools/play/sign_aab.sh INPUT.aab OUTPUT_SIGNED.aab. Password values must never

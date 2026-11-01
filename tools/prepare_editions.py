@@ -19,14 +19,16 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=None, chann
     if analytics_endpoint and not valid_endpoint(analytics_endpoint):
         raise ValueError('Analytics needs an HTTPS /v1/usage endpoint')
     source = Path(source)
-    config = dict(config) if config is not None else json.loads((source/'release/play.example.json').read_text())
-    if channel=='rehearsal':config['version_code']=1026648
+    launch=json.loads((source/'release/world-launch.json').read_text())
+    config_name='play.production.example.json' if channel=='production' else 'play.example.json'
+    config = dict(config) if config is not None else json.loads((source/'release'/config_name).read_text())
+    if channel=='rehearsal':config['version_code']=launch['next_test_version_code']
     if channel=='production':
-        launch=json.loads((source/'release/world-launch.json').read_text())
         if product not in launch['play_products']:raise ValueError('Only Scorer World is approved for the current Google Play launch; Free remains legacy QA only')
         from tools.play.publication import validate_publication
         errors=validate_publication(publication)
         if errors:raise ValueError('\n'.join(errors))
+        if type(config.get('version_code')) is not int or config['version_code']<=launch['next_test_version_code']:raise ValueError('Production versionCode must be above the 0.9 test code; confirm it is unused in Play Console')
     if channel=='rehearsal':config['billing']['enabled'] = False
     target = prepare(config, Path(target), channel, source)
     identity = target/'edition.py'
@@ -38,7 +40,8 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=None, chann
     app['title'] = 'Scorer World' if product == 'world' else 'Scorer'
     app['icon.filename'] = 'assets/icon_world.png' if product == 'world' else 'assets/icon.png'
     app['package.domain'], app['package.name'] = 'com.clemir', 'scorerworld' if product == 'world' else 'striker'
-    app['version'], app['android.numeric_version'] = '0.6.48', str(config['version_code'])
+    app['version'] = launch['production_version'] if channel=='production' else launch['next_test_version']
+    app['android.numeric_version'] = str(config['version_code'])
     (target/'release_settings.py').write_text((target/'release_settings.py').read_text()+"\nWORLD_LISTING_READY = False\n")
     # Both products share a Python/Kivy native distribution, not an Android identity.
     app['p4a.extra_args'] = '--dist_name=striker'

@@ -1,3 +1,9 @@
+## Next milestones: 0.9 testing → 1.0 launch
+
+The next Scorer World test version will be **0.9** and the public release **1.0**. Version staging now selects those names with increasing Android version codes. The latest delivered APK below remains 0.6.48.
+
+[Current remaining work and acceptance criteria](docs/play/ROAD_TO_1.0.md): complete intended World competition behaviour, real Android acceptance, deploy/verify final English policies and online safety, then production signing and Console checks. Developer account verification is already confirmed.
+
 ## Scorer World 0.6.48 — stronger defending
 
 [Download World 0.6.48 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.6.48/Scorer-World-0.6.48.apk)
