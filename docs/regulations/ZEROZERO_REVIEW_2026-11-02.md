@@ -1,5 +1,26 @@
 # Zerozero and domestic-data review — 2026-11-02
 
+## Successful retry
+
+General competition routes are now readable. Friendly edition routes and some overview child pages can still return the suspension page. Followed the links in the homepage and competition pages, using a normal anonymous session. [Collected source data](zerozero_2026_competitions.json):15complete club lists plus the French Ligue2overview, which explicitly states18teams; its regular-season table remains unavailable. This supersedes the all-unavailable status in the first attempt below.
+
+| Country | Division1/2 confirmed on Zerozero |
+| --- | --- |
+| Portugal | 18/18 |
+| England | 20/24 |
+| Spain | 20/22 |
+| Italy | 20/20 |
+| Germany | 18/18 |
+| France | 18/18 (Ligue2overview only) |
+| Brazil | 20/20 |
+| Argentina | 30/36 |
+
+Portugal tables show the16th-place relegation playoff and17th/18th direct relegation in both divisions; Liga2also marks direct promotion/playoff zones. SportingB/BenficaB markers were retained explicitly. These raw colours are not enough to establish eligibility: B teams must not be promoted merely because their displayed row has a promotion colour. The official regulations reviewed below remain necessary. Other retrieved tables expose national differences, including the English/Spanish promotion playoffs, German cross-division playoff and Brazilian4-club relegation zones. Argentine group tables alone do not verify annual-average relegation or all promotion rules.
+
+**No game changes in this retry.** Country-specific rules, eligibility and complete playoff procedures are not newly certified by these table legends.
+
+## First attempt (retained log)
+
 Zerozero was requested as the reference for clubs, division sizes and promotion/relegation. From this environment the home, competitions index and two competition pages returned HTTP200 **after redirecting to `/suspended.php`**, headed “Serviço Temporariamente Suspenso”. No Zerozero club list, count or rule was read or verified. Robots was reachable; no disallowed path or access-block circumvention was used.
 
 The Liga Portugal2026/27 regulation PDF was downloaded again from its official publisher; its2,440,200bytes/SHA256 match the previously read copy. Articles21/25 confirm18teams in each professional division; articles22/26 provide2direct movements plus conditional playoffs. Article31 specifies the cross-division two-leg playoff, B-team exclusion, aggregate goals, extra time and penalties. The Liga2/Liga3 playoff also depends on FPF conditions. This is a partial professional-league review, not full-country certification.

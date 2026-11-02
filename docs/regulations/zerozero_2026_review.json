@@ -1,7 +1,7 @@
 {
   "checked_date": "2026-11-02",
   "purpose": "Research audit following owner instruction to use Zerozero; no APK or game changes",
-  "zerozero_status": "Requested competition pages and home redirect to suspended.php",
+  "zerozero_status": "Partial recovery:8country count pairs confirmed,15complete club tables and1overview-only record",
   "zerozero_requests": [
     {
       "url": "https://www.zerozero.pt/robots.txt",
@@ -57,9 +57,15 @@
         "https://en.wikipedia.org/wiki/2026%E2%80%9327_Liga_Portugal_2"
       ],
       "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
-      "zerozero_verified": false,
+      "zerozero_verified": true,
       "rules_status": "partial_primary_review",
-      "fixed_three_rule_is_not_a_verified_national_profile": true
+      "fixed_three_rule_is_not_a_verified_national_profile": true,
+      "zerozero_count_verified": true,
+      "zerozero_full_club_lists_verified": true,
+      "zerozero_count_pair": [
+        18,
+        18
+      ]
     },
     {
       "country": "England",
@@ -77,9 +83,15 @@
         "https://en.wikipedia.org/wiki/2026%E2%80%9327_EFL_Championship"
       ],
       "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
-      "zerozero_verified": false,
+      "zerozero_verified": true,
       "rules_status": "not_newly_verified",
-      "fixed_three_rule_is_not_a_verified_national_profile": true
+      "fixed_three_rule_is_not_a_verified_national_profile": true,
+      "zerozero_count_verified": true,
+      "zerozero_full_club_lists_verified": true,
+      "zerozero_count_pair": [
+        20,
+        24
+      ]
     },
     {
       "country": "Spain",
@@ -97,9 +109,15 @@
         "https://en.wikipedia.org/wiki/2026%E2%80%9327_Segunda_Divisi%C3%B3n"
       ],
       "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
-      "zerozero_verified": false,
+      "zerozero_verified": true,
       "rules_status": "not_newly_verified",
-      "fixed_three_rule_is_not_a_verified_national_profile": true
+      "fixed_three_rule_is_not_a_verified_national_profile": true,
+      "zerozero_count_verified": true,
+      "zerozero_full_club_lists_verified": true,
+      "zerozero_count_pair": [
+        20,
+        22
+      ]
     },
     {
       "country": "Germany",
@@ -117,9 +135,15 @@
         "https://en.wikipedia.org/wiki/2026%E2%80%9327_2._Bundesliga"
       ],
       "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
-      "zerozero_verified": false,
+      "zerozero_verified": true,
       "rules_status": "not_newly_verified",
-      "fixed_three_rule_is_not_a_verified_national_profile": true
+      "fixed_three_rule_is_not_a_verified_national_profile": true,
+      "zerozero_count_verified": true,
+      "zerozero_full_club_lists_verified": true,
+      "zerozero_count_pair": [
+        18,
+        18
+      ]
     },
     {
       "country": "Italy",
@@ -137,9 +161,15 @@
         "https://en.wikipedia.org/wiki/2026%E2%80%9327_Serie_B"
       ],
       "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
-      "zerozero_verified": false,
+      "zerozero_verified": true,
       "rules_status": "not_newly_verified",
-      "fixed_three_rule_is_not_a_verified_national_profile": true
+      "fixed_three_rule_is_not_a_verified_national_profile": true,
+      "zerozero_count_verified": true,
+      "zerozero_full_club_lists_verified": true,
+      "zerozero_count_pair": [
+        20,
+        20
+      ]
     },
     {
       "country": "France",
@@ -157,9 +187,15 @@
         "https://en.wikipedia.org/wiki/2026%E2%80%9327_Ligue_2"
       ],
       "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
-      "zerozero_verified": false,
+      "zerozero_verified": true,
       "rules_status": "not_newly_verified",
-      "fixed_three_rule_is_not_a_verified_national_profile": true
+      "fixed_three_rule_is_not_a_verified_national_profile": true,
+      "zerozero_count_verified": true,
+      "zerozero_full_club_lists_verified": false,
+      "zerozero_count_pair": [
+        18,
+        18
+      ]
     },
     {
       "country": "Brazil",
@@ -177,9 +213,15 @@
         "https://en.wikipedia.org/wiki/2026_Campeonato_Brasileiro_S%C3%A9rie_B"
       ],
       "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
-      "zerozero_verified": false,
+      "zerozero_verified": true,
       "rules_status": "not_newly_verified",
-      "fixed_three_rule_is_not_a_verified_national_profile": true
+      "fixed_three_rule_is_not_a_verified_national_profile": true,
+      "zerozero_count_verified": true,
+      "zerozero_full_club_lists_verified": true,
+      "zerozero_count_pair": [
+        20,
+        20
+      ]
     },
     {
       "country": "Argentina",
@@ -197,9 +239,15 @@
         "https://en.wikipedia.org/wiki/2026_Primera_Nacional"
       ],
       "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
-      "zerozero_verified": false,
+      "zerozero_verified": true,
       "rules_status": "not_newly_verified",
-      "fixed_three_rule_is_not_a_verified_national_profile": true
+      "fixed_three_rule_is_not_a_verified_national_profile": true,
+      "zerozero_count_verified": true,
+      "zerozero_full_club_lists_verified": true,
+      "zerozero_count_pair": [
+        30,
+        36
+      ]
     }
   ],
   "unrepresented_clubs_in_supported_first_two_tiers": 68,
@@ -243,5 +291,8 @@
     "Ten reserve clubs, without a simulated third league",
     "Release a player when their team exits Division2"
   ],
-  "implementation_status": "0.9.4 still uses generic capacities and fixed3 movement; not replaced with verified country profiles by this research"
+  "implementation_status": "0.9.4 still uses generic capacities and fixed3 movement; not replaced with verified country profiles by this research",
+  "retry_status": "Working general competition pages;15full lists plus French Ligue2 overview",
+  "retry_source": "zerozero_2026_competitions.json",
+  "initial_zerozero_status": "Requested competition pages and home redirect to suspended.php"
 }
