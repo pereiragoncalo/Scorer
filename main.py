@@ -735,18 +735,18 @@ class StrikerGame(Widget):
 
 
     def _match_outfield_kits(self):
-        player_name = self.career.nationality if self.match_is_international else self.career.club_name
+        # Training must not inherit the opponent/national team from the last match.
+        training = self.shot_context == 'training'
+        international = self.match_is_international and not training
+        player_name = self.career.nationality if international else self.career.club_name
+        player_club = self.career.club if player_name and not international else None
+        opponent_club = None
         opponent_name = "Opponent"
-        if self.match_home and self.match_away:
-            opponent_name = (
-                self.match_away.name
-                if self.match_home.name == player_name
-                else self.match_home.name
-            )
-        player_club = next((c for c in (self.match_home, self.match_away) if c and c.name == player_name), None)
-        opponent_club = next((c for c in (self.match_home, self.match_away) if c and c.name == opponent_name), None)
-        player_kit = self.career.kit_for_club(player_club) if player_club and not self.match_is_international else club_kit(player_name)
-        opponent_kit = self.career.kit_for_club(opponent_club) if opponent_club and not self.match_is_international else club_kit(opponent_name)
+        if not training and self.match_home and self.match_away:
+            opponent_club = self.match_away if self.match_home.name == player_name else self.match_home
+            opponent_name = opponent_club.name
+        player_kit = self.career.kit_for_club(player_club) if player_club else club_kit(player_name)
+        opponent_kit = self.career.kit_for_club(opponent_club) if opponent_club and not international else club_kit(opponent_name)
         colour_distance = sum(
             abs(player_kit[0][index] - opponent_kit[0][index])
             for index in range(3)

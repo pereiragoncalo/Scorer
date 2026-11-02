@@ -1623,3 +1623,25 @@ Owner requested closing launch point1. Integrated/reviewed existing competition 
 233core +114nativeKivy =347tests PASS. Three seeded seasons:148controlled player-team fixtures,9reloads, actual World Cup/Libertadores/Copa/qualifiers,3archives; no repeated fixtures or backward calendar dates. Current fixtures/tables captured natively. APK0.9/code1026900 built and exact compiled source plus compiled competition/save smoke checked using matchingPython3.14;118ELF/16KB and existing debug upgrade cert verified. These are host/engine QA checks, not physical Android or Play-production approval. Point2(real handset acceptance),point3(actual final-policy/server operation) andpoint4(production signing/Console) remain. Source/proof in WORLD_COMPETITIONS_0.9.md and data/world_competitions_0.9.json.
 
 0.9 final UI acceptance additionally checks imported aliases across countries in international fixture lists and calendar rows, resolving club names by stableUID and national team names through the country catalogue. World history carries sideUIDs for unambiguous presentation after rename/promotion. Final candidate validation totals233core+115Kivy=348unique checks.
+
+## 2026-11-02 — 0.9.5 built-in club home colours
+
+- Added 352 offline UID palettes matching the current eight-country real-name
+  pack (272 active clubs plus 80 reserves), with factual source revisions and
+  explicit representative-colour overrides. Names import is independent.
+- Training resolves the current club instead of stale international participants.
+  Existing World palette fallbacks follow UID after canonical edits too.
+- Core suite: 249 passed. Native SDL/Kivy suite: 121 passed. Final delivery checks:
+  15 passed (edition staging, kit movement/import/save/fallback and presentation).
+  Syntax compilation passed. Native tests are host tests, not a physical phone.
+- Initial tests correctly exposed two obsolete presentation expectations; updated
+  fallback tests to remove both data sources and Porto to its new palette. A new
+  transfer fixture initially lacked an actual agent offer; corrected the fixture.
+- First APK source/data verification rejected a missing club_kits.json: staging
+  allowed only the older world_clubs.json. Added the new data to the explicit
+  staging allowlist and a byte-for-byte staging regression assertion. Rebuilt in
+  a fresh staging directory; distribute only the final verified candidate.
+- Source/ELF/signature and compiled-behaviour APK evidence is recorded separately
+  in RELEASE_0.9.5_artifacts.json. Annual patterns/away kits, real palettes for
+  unsupported countries and researched national competition formats are not
+  claimed complete by this release. Public version remains 1.0.

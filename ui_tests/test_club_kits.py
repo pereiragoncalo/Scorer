@@ -1,0 +1,21 @@
+import unittest
+from unittest.mock import patch
+from test_menus import isolated_game,settle
+
+class KitUITests(unittest.TestCase):
+    def test_training_uses_current_club_after_international_match_and_editor_import(self):
+        with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+            c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True
+            g.match_home=c.leagues['Portugal|1'].clubs[0];g.match_away=c.leagues['Portugal|1'].clubs[1];g.match_is_international=True
+            g.shot_context='training';expected=c.kit_for_club(c.club)
+            self.assertEqual(g._match_outfield_kits()[0],expected)
+            c.display_aliases['clubs'][c.club.uid]='My edited name'
+            g.view='training';g.draw();settle();self.assertEqual(g._match_outfield_kits()[0],expected)
+            g.start_training();settle();self.assertEqual(g.view,'shot');self.assertEqual(g._match_outfield_kits()[0],expected)
+    def test_match_resolves_opponent_actual_uid_with_no_name_pack(self):
+        with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+            c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True;g.shot_context='match';g.match_is_international=False
+            opponent=next(x for x in c.leagues['Portugal|1'].clubs if sum(abs(a-b) for a,b in zip(c.kit_for_club(c.club)[0][:3],c.kit_for_club(x)[0][:3]))>=.42)
+            for home,away in [(c.club,opponent),(opponent,c.club)]:
+                g.match_home,g.match_away=home,away
+                self.assertEqual(g._match_outfield_kits(),(c.kit_for_club(c.club),c.kit_for_club(opponent)))

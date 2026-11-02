@@ -1,0 +1,2821 @@
+{
+  "version": 1,
+  "clubs": {
+    "c8d6431e000ec7467295": {
+      "home": [
+        "FE0000",
+        "FFFFFF",
+        "FE0000",
+        "FFFFFF"
+      ]
+    },
+    "00d46be2fe2f866aca10": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "008000"
+      ]
+    },
+    "d3811223093359dac065": {
+      "home": [
+        "0122EB",
+        "0122EB",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "582cdd1845afc7c3faff": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "ab3f115c251fea1b8d9f": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "560353d7b1b1b7d0be34": {
+      "home": [
+        "FFFFFF",
+        "007711",
+        "007711",
+        "008000"
+      ]
+    },
+    "0e6753645198c3e1ed59": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "008000"
+      ]
+    },
+    "15fa5760aa5dfe54e687": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "70bc983ce8d45360cfcb": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "7f651ae64b829f05aa36": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "008000"
+      ]
+    },
+    "947b9ef7af3a73650841": {
+      "home": [
+        "FFFF00",
+        "0000FF",
+        "FFFF00",
+        "FFFFFF"
+      ]
+    },
+    "94fed88d3d0bb2a8c1ca": {
+      "home": [
+        "FFE000",
+        "0033FF",
+        "0033FF",
+        "FFFFFF"
+      ]
+    },
+    "9b658898a7275eb40aac": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "008000"
+      ]
+    },
+    "a65b749f4ee63dc63ed2": {
+      "home": [
+        "D60000",
+        "FF0000",
+        "FF0000",
+        "FF0000"
+      ]
+    },
+    "aa01e74f52cb5da63d3f": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FF0000"
+      ]
+    },
+    "d1fd8dce9882f24d16b9": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "d51606eab1019fdf7281": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "db7d1b4b9cc415545634": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "1fdc69c867e13ae1a659": {
+      "home": [
+        "AA0000",
+        "003B6F",
+        "AA0000",
+        "003B6F"
+      ]
+    },
+    "29b7e51552fc753bab79": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "404adb3453af4787c460": {
+      "home": [
+        "0033FF",
+        "0033FF",
+        "0033FF",
+        "FFFFFF"
+      ]
+    },
+    "4af36bff0eaa37b64b2f": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FF0000"
+      ]
+    },
+    "5c3a9aa8eea2c6b6352e": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "619c457865ab4e078d8c": {
+      "home": [
+        "000000",
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "62611f28eca86577e20d": {
+      "home": [
+        "66D2FD",
+        "000066",
+        "66D2FD",
+        "FFFFFF"
+      ]
+    },
+    "6cf9f5cdbbe3296f7212": {
+      "home": [
+        "FFDD00",
+        "FFDD00",
+        "FFDD00",
+        "008000"
+      ]
+    },
+    "6d0a94b6d9d584ce77e0": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "7fc18d19e24210fbb207": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "8c93a89e7dee6245a132": {
+      "home": [
+        "FF0000",
+        "000000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "9e19e6a3f14749644d5c": {
+      "home": [
+        "FE0000",
+        "FFFFFF",
+        "FE0000",
+        "FFFFFF"
+      ]
+    },
+    "c269ef3642e47735d90e": {
+      "home": [
+        "191970",
+        "191970",
+        "191970",
+        "800020"
+      ]
+    },
+    "c8332ba3d0176138579a": {
+      "home": [
+        "FFDD00",
+        "000000",
+        "FFD000",
+        "FFFFFF"
+      ]
+    },
+    "d5d90872c6806e3ff34a": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "d9b5361477f978f1e161": {
+      "home": [
+        "0122EB",
+        "0122EB",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "e4823008bb7b58b4873d": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "f27a8d5d873af11c5df0": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "008000"
+      ]
+    },
+    "0345b7df88d691d59fc3": {
+      "home": [
+        "0000FF",
+        "FFFFFF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "0e0ee8acc1b8ed3d41c9": {
+      "home": [
+        "FFD700",
+        "2FBF2F",
+        "2FBF2F",
+        "008000"
+      ]
+    },
+    "39c56362a7b576c9b012": {
+      "home": [
+        "E93343",
+        "206ECB",
+        "E93343",
+        "FF0000"
+      ]
+    },
+    "3d9fe6c0224c7c2862db": {
+      "home": [
+        "FFDD00",
+        "114422",
+        "FFDD00",
+        "FFFFFF"
+      ]
+    },
+    "5762fdd32b6efeb18b95": {
+      "home": [
+        "008000",
+        "000000",
+        "008000",
+        "FFFFFF"
+      ]
+    },
+    "6b6c08359d8173d073c1": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "08457E",
+        "003B6F"
+      ]
+    },
+    "956868dd3b0205f4f2bf": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "a59dac83815df1678c80": {
+      "home": [
+        "FFFF00",
+        "000000",
+        "FFFF00",
+        "000000"
+      ]
+    },
+    "a7a4b6c8efda8cec705c": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "ad8b7e33eb5a8b514f52": {
+      "home": [
+        "008000",
+        "FFFFFF",
+        "008000",
+        "FFFFFF"
+      ]
+    },
+    "5d27df05665c0406256b": {
+      "home": [
+        "F00000",
+        "FFFFFF",
+        "F00000",
+        "FFFFFF"
+      ]
+    },
+    "fd1111e5e54231a2a93f": {
+      "home": [
+        "98C6EB",
+        "FFFFFF",
+        "1C214F",
+        "FFFFFF"
+      ]
+    },
+    "79f1e283c133ea287c86": {
+      "home": [
+        "8F1E32",
+        "8F1E32",
+        "8F1E32",
+        "FFFFFF"
+      ]
+    },
+    "1dd757d88c0069bcd7cd": {
+      "home": [
+        "14349B",
+        "14349B",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "1b90a5a7b45d01807901": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "d1e35165727184231fcf": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "09746d7dd23654a57132": {
+      "home": [
+        "0000FF",
+        "FFFFFF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "130fb10fa80de3c38c54": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "2ed2b73a3addfc479596": {
+      "home": [
+        "69091C",
+        "BBD5F2",
+        "BBD5F2",
+        "99CCFF"
+      ]
+    },
+    "580564a18e7f9a8b3b5b": {
+      "home": [
+        "0044AA",
+        "0044AA",
+        "0044AA",
+        "FF0000"
+      ]
+    },
+    "598e41ea1bbbc63de2af": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "8876c578731a7d91e847": {
+      "home": [
+        "FF0000",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "8e39cfc3a668a6247f5e": {
+      "home": [
+        "62B5E5",
+        "62B5E5",
+        "62B5E5",
+        "FFFFFF"
+      ]
+    },
+    "9bd2bb2c62d7dfbb7720": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FFDD00"
+      ]
+    },
+    "9f377e619b036578e321": {
+      "home": [
+        "FF9900",
+        "000000",
+        "FF9900",
+        "000000"
+      ]
+    },
+    "aacfc41ae5531e5d1966": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "b248abb315678ece6735": {
+      "home": [
+        "0333A0",
+        "FFFFFF",
+        "0333A0",
+        "FFFFFF"
+      ]
+    },
+    "b5c77508adcea637c44b": {
+      "home": [
+        "D70926",
+        "FFFFFF",
+        "D70926",
+        "FFFFFF"
+      ]
+    },
+    "b898a96e6a03ee75030a": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "FF0000"
+      ]
+    },
+    "fef17a257ddee7bd6283": {
+      "home": [
+        "1144DD",
+        "1144DD",
+        "1144DD",
+        "FFFFFF"
+      ]
+    },
+    "03492f3d574afdcabc8b": {
+      "home": [
+        "7E1823",
+        "FFFFFF",
+        "FFFFFF",
+        "99CCFF"
+      ]
+    },
+    "043b8d41e70dba2b6f79": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "17a41d494bef0bfeff6f": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "0033AA"
+      ]
+    },
+    "17e7d6c9745778328371": {
+      "home": [
+        "000F36",
+        "FFFFFF",
+        "000F36",
+        "FFFFFF"
+      ]
+    },
+    "29176aa614c07e08268e": {
+      "home": [
+        "0000FF",
+        "FFFFFF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "29515561e3220d26fa78": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "48a9744961e6f9343224": {
+      "home": [
+        "0000FF",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "592bdc9f7372c0cdc544": {
+      "home": [
+        "091453",
+        "FFFFFF",
+        "091453",
+        "FFFFFF"
+      ]
+    },
+    "5e6fb51939396ab1d435": {
+      "home": [
+        "F4B125",
+        "000000",
+        "F4B125",
+        "FFFFFF"
+      ]
+    },
+    "6a193ff627b83966fe82": {
+      "home": [
+        "FFFFFF",
+        "1F97E6",
+        "1F97E6",
+        "1F97E6"
+      ]
+    },
+    "7152e05946596e01d215": {
+      "home": [
+        "6C1D45",
+        "FFFFFF",
+        "6C1D45",
+        "99CCFF"
+      ]
+    },
+    "791190c891c0b5aa3dff": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "794e427d3d70947c6ae2": {
+      "home": [
+        "FF0000",
+        "000000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "a0eb76b58586f17a8014": {
+      "home": [
+        "FFFFFF",
+        "000055",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "a59cc216be08f6392fba": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "bf31722e94ef488a5429": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "bfa8e5d8320168fecf60": {
+      "home": [
+        "FFFF00",
+        "009A40",
+        "FFFF00",
+        "FFFFFF"
+      ]
+    },
+    "c1e91e1d684859f5854f": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "c3356217dfb0aad1f592": {
+      "home": [
+        "FDF200",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "c6058a9b95413094e1d4": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "cd7a4e6d166f1869a4b2": {
+      "home": [
+        "0000FF",
+        "FFFFFF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "e31f1e0740f0c812ec68": {
+      "home": [
+        "CE131A",
+        "1C1819",
+        "EC1C40",
+        "FFFFFF"
+      ]
+    },
+    "f4790bfde2e8119578e5": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "f6d6ca20162ebbfab031": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "0e760392362a2b04cd96": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "2b8aee981d487c7e24e8": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "3bbecd722a54b81c9fbe": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "49efa0ee7f006dad53e4": {
+      "home": [
+        "FF6600",
+        "FFFFFF",
+        "FF6600",
+        "FFFFFF"
+      ]
+    },
+    "65e090ca1885b3535a2e": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "691e652eee9467a9f3fd": {
+      "home": [
+        "0044FF",
+        "FFFFFF",
+        "0044FF",
+        "FFFFFF"
+      ]
+    },
+    "6a99ca790639293f9354": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "790297270e078e729302": {
+      "home": [
+        "FFD700",
+        "000000",
+        "000000",
+        "800020"
+      ]
+    },
+    "79a0625a16c54bbe83d4": {
+      "home": [
+        "037FF8",
+        "FFFFFF",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "88b22b411ac4759bc902": {
+      "home": [
+        "0257BD",
+        "000000",
+        "0257BD",
+        "FFFFFF"
+      ]
+    },
+    "0a57fa8e31a868f0b6e9": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "ba2bfbd0a51871c48b80": {
+      "home": [
+        "05003B",
+        "05003B",
+        "05003B",
+        "FF0000"
+      ]
+    },
+    "6b74be0a0c0301dca0bf": {
+      "home": [
+        "FF0000",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "8679f789551c7cd079d6": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "FF0000"
+      ]
+    },
+    "a236192def0f049f14cd": {
+      "home": [
+        "FFFF00",
+        "FFFF00",
+        "FFFF00",
+        "FFFFFF"
+      ]
+    },
+    "cda69a2ccf769147c70e": {
+      "home": [
+        "0042FF",
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "0a42465910473e27fb78": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "1ff36095147a8d097a96": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "2224dfac92112d65324f": {
+      "home": [
+        "FFFFFF",
+        "0055CC",
+        "FFFFFF",
+        "0055CC"
+      ]
+    },
+    "2ae1fdba3d80fa72b257": {
+      "home": [
+        "FFFFFF",
+        "0000FF",
+        "0000FF",
+        "0000FF"
+      ]
+    },
+    "323630c553b2b55b9eb5": {
+      "home": [
+        "87CEEB",
+        "FFFFFF",
+        "87CEEB",
+        "FFFFFF"
+      ]
+    },
+    "6fd0d82cbea00411d468": {
+      "home": [
+        "FFFFFF",
+        "103E9E",
+        "FFFFFF",
+        "0042FF"
+      ]
+    },
+    "700e13942a34696fdae5": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "E20000",
+        "E20001"
+      ]
+    },
+    "758e6440964310000b18": {
+      "home": [
+        "359B5C",
+        "FFFFFF",
+        "359B5C",
+        "FFFFFF"
+      ]
+    },
+    "8e8904232485cb82559c": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "9a379d34a2761d2ec3f2": {
+      "home": [
+        "222730",
+        "222730",
+        "222730",
+        "FF0000"
+      ]
+    },
+    "bf5c108fa4229b42d35b": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "008000"
+      ]
+    },
+    "dcc53ffc992657a3a5cd": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "0042FF"
+      ]
+    },
+    "1b67915201f9c0650021": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "287017beb66d6aa94cd0": {
+      "home": [
+        "FFEE00",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "2a77e6d4b136e14aecf7": {
+      "home": [
+        "E00000",
+        "0000DD",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "36bbf4792586ead764ed": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "008000"
+      ]
+    },
+    "3c36d77419abd167f313": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "4283e4f9c8a54b4b1265": {
+      "home": [
+        "173097",
+        "173097",
+        "173097",
+        "FF0000"
+      ]
+    },
+    "524a000ba8e665156dd0": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000",
+        "FF0000"
+      ]
+    },
+    "7b15af2c47f099189d6a": {
+      "home": [
+        "FFFFFF",
+        "0042FF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "833fcf2f1a0ebee87526": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "83c93edbe115490df0dd": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "954ee5ab0cb586116b49": {
+      "home": [
+        "000055",
+        "FFD000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "a5118afe5b4e005dc42a": {
+      "home": [
+        "87CEEB",
+        "FFFFFF",
+        "87CEEB",
+        "FFFFFF"
+      ]
+    },
+    "a9b465a15af9b3b612c7": {
+      "home": [
+        "FEFEFE",
+        "FEFEFE",
+        "FEFEFE",
+        "FFFFFF"
+      ]
+    },
+    "be3737acc0434200d47e": {
+      "home": [
+        "192030",
+        "192030",
+        "192030",
+        "FF0000"
+      ]
+    },
+    "c14f58f27f9c54c4bf93": {
+      "home": [
+        "FFFF00",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "da05a0e0cb6df34f908d": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "0042FF"
+      ]
+    },
+    "f5cb961d9010cec54525": {
+      "home": [
+        "FF0000",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "f97028a20a75782b6cde": {
+      "home": [
+        "0000DD",
+        "FFFFFF",
+        "0000DD",
+        "FFFFFF"
+      ]
+    },
+    "013adfb05c2a1e3d9b59": {
+      "home": [
+        "FFD000",
+        "FFD000",
+        "FFD000",
+        "FFFFFF"
+      ]
+    },
+    "0a4abb38626da14e3a4d": {
+      "home": [
+        "FFFFFF",
+        "0000FF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "0d03f9d60d6a9aeb90bc": {
+      "home": [
+        "FF0000",
+        "0000FF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "12628c943a93b544f8af": {
+      "home": [
+        "008800",
+        "FFFFFF",
+        "134A29",
+        "FFFFFF"
+      ]
+    },
+    "14184fff1a8dec6a0bd6": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "0033FF",
+        "0033FF"
+      ]
+    },
+    "33d5a68a9e390cee5d3a": {
+      "home": [
+        "FF0000",
+        "1F285F",
+        "1F285F",
+        "FF0000"
+      ]
+    },
+    "4844fc1372c8c51e82e9": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "48663f43dd1c61f5c869": {
+      "home": [
+        "EF0000",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "48aa2645eb2f8d5c4ff3": {
+      "home": [
+        "FF0000",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "645a4224909a8de69e92": {
+      "home": [
+        "FFFFFF",
+        "0000FF",
+        "0000FF",
+        "0042FF"
+      ]
+    },
+    "28287e8e6bd50eb49e5d": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "26d175cbef2faf758d99": {
+      "home": [
+        "FFE300",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "3b0ab4d6654dea65ca71": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "FF0000"
+      ]
+    },
+    "7df49f2d8391ad4906db": {
+      "home": [
+        "FFFFFF",
+        "FF0000",
+        "FF0000",
+        "FF0000"
+      ]
+    },
+    "d2a00f43a072dab65d46": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "FF0000"
+      ]
+    },
+    "dcee2ca6a0bab34f98e6": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "03edc6f8feb218f97a7a": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "07f895571f3fae2eaa49": {
+      "home": [
+        "0000DD",
+        "FFFFFF",
+        "0000DD",
+        "FFFFFF"
+      ]
+    },
+    "355e795cd1a8bc9ecd8e": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "008000"
+      ]
+    },
+    "37c376b5cf4329e2aeb8": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "0044AA"
+      ]
+    },
+    "3997a0282d1ae63129f5": {
+      "home": [
+        "EDE6DC",
+        "680F00",
+        "EDE6DC",
+        "FFFFFF"
+      ]
+    },
+    "4fbcd2cd7b55a72e8ed5": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "66b79300d1bb4e30a515": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "009A59",
+        "008000"
+      ]
+    },
+    "6c5b21be99a4e0976cad": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "7520ce3ebf41a307e522": {
+      "home": [
+        "FE0000",
+        "FE0000",
+        "FE0000",
+        "FFFFFF"
+      ]
+    },
+    "9e90b993b2ca6783b176": {
+      "home": [
+        "FFFFFF",
+        "FF0000",
+        "0000FF",
+        "000000"
+      ]
+    },
+    "b9541fbe6c5c2b7c8697": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "cb4ff0b96b2afccbaee5": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "1bc63634577a576d3b30": {
+      "home": [
+        "900000",
+        "000000",
+        "C70205",
+        "000000"
+      ]
+    },
+    "1dd7344e0bca76751080": {
+      "home": [
+        "493AA6",
+        "493AA6",
+        "493AA6",
+        "FFFFFF"
+      ]
+    },
+    "2b95f9e7457be8d1d333": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "0044AA"
+      ]
+    },
+    "2e86b284f1f019df8a43": {
+      "home": [
+        "FFDD00",
+        "0044FF",
+        "FFDD00",
+        "FFFFFF"
+      ]
+    },
+    "4fc518cb365ae90e2712": {
+      "home": [
+        "EF0000",
+        "FFFFFF",
+        "EF0000",
+        "FFFFFF"
+      ]
+    },
+    "60489765faae2422dda4": {
+      "home": [
+        "0000FF",
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "8246f38c3dbde150bb63": {
+      "home": [
+        "FFCC00",
+        "000000",
+        "FFCC00",
+        "FFFFFF"
+      ]
+    },
+    "8778a051ccc43d9e40df": {
+      "home": [
+        "FFEFDD",
+        "01744D",
+        "FFEFDD",
+        "008000"
+      ]
+    },
+    "a03e96d6f15095e779b0": {
+      "home": [
+        "FF0C0B",
+        "000000",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "b384e3de300c07221951": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FF0000"
+      ]
+    },
+    "b503761e89e23907040e": {
+      "home": [
+        "FF0019",
+        "FF0019",
+        "FF0019",
+        "FFFFFF"
+      ]
+    },
+    "b7c7e453a8818671f9a8": {
+      "home": [
+        "313055",
+        "313055",
+        "313055",
+        "FFFFFF"
+      ]
+    },
+    "c728a817ab84348331ea": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "d94737454ac063bc7859": {
+      "home": [
+        "0030FF",
+        "000000",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "e184a8f98b4ec383df4a": {
+      "home": [
+        "0042FF",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "e226f6917a6abbee0980": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "e6af2ba0f3e504de4326": {
+      "home": [
+        "65423A",
+        "65423A",
+        "65423A",
+        "FFFFFF"
+      ]
+    },
+    "fc20c10a9acd9781e1be": {
+      "home": [
+        "1A3A2F",
+        "1A3A2F",
+        "1A3A2F",
+        "FFFFFF"
+      ]
+    },
+    "09f4d4e2666ea72ee574": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "0d9806e6e569154814b8": {
+      "home": [
+        "FFFFFF",
+        "E3000F",
+        "E3000F",
+        "000000"
+      ]
+    },
+    "2bc7c86f26ecec0056ee": {
+      "home": [
+        "FFFFFF",
+        "FF0000",
+        "FF0000",
+        "000000"
+      ]
+    },
+    "4b4f6c50cec6ecdb565f": {
+      "home": [
+        "B00000",
+        "B00000",
+        "B00000",
+        "FFFFFF"
+      ]
+    },
+    "4d8e822c4e3338cd684e": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "0044AA"
+      ]
+    },
+    "5df07d9f18bff1558c44": {
+      "home": [
+        "F1EBDB",
+        "D80000",
+        "F1EBDB",
+        "FF0000"
+      ]
+    },
+    "7172df3e51d79f56351f": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "774a96b41a2b55c233e5": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "008000"
+      ]
+    },
+    "9207b7748d20771eff64": {
+      "home": [
+        "FFDE00",
+        "FFDE00",
+        "FFDE00",
+        "000000"
+      ]
+    },
+    "9379ad741fdcf79884af": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "0044AA"
+      ]
+    },
+    "0b0e55f7ce27b78e366b": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "0055AA"
+      ]
+    },
+    "e1e8a4498a1104be3486": {
+      "home": [
+        "000000",
+        "FFFFFF",
+        "000000",
+        "FF0000"
+      ]
+    },
+    "1783c72961b1da9ec6ce": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "7db45bcfc5d635bf6a33": {
+      "home": [
+        "5F8EE6",
+        "FFFFFF",
+        "5F8EE6",
+        "FFFFFF"
+      ]
+    },
+    "a2fb9f1e2eb7fac49500": {
+      "home": [
+        "980729",
+        "681F30",
+        "980729",
+        "FFDD00"
+      ]
+    },
+    "32960978137121dbb8a1": {
+      "home": [
+        "0055AA",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "2128f2b8f01e8eeecf3a": {
+      "home": [
+        "88BFF7",
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "229e4a20bd05abd959f4": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "22bf77ba37e1c174297c": {
+      "home": [
+        "FFFFFF",
+        "000040",
+        "000040",
+        "FF0000"
+      ]
+    },
+    "677f801e826a1c28d08b": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "7ffa78f5eaccb968a9e8": {
+      "home": [
+        "65001B",
+        "FFFFFF",
+        "65001B",
+        "FFFFFF"
+      ]
+    },
+    "92cbc4a093020a2b10f5": {
+      "home": [
+        "00003C",
+        "FFFFFF",
+        "00003C",
+        "FF0000"
+      ]
+    },
+    "a66d019af33c89e0619d": {
+      "home": [
+        "00A746",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "b1d1ccbb9e77bc53c029": {
+      "home": [
+        "552A79",
+        "552A79",
+        "552A79",
+        "FFFFFF"
+      ]
+    },
+    "cca8ede4bdb14b148a50": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "FF6600"
+      ]
+    },
+    "dbdeedafe5d0689d61e0": {
+      "home": [
+        "022249",
+        "022249",
+        "022249",
+        "FF0000"
+      ]
+    },
+    "e62a871b1df919357911": {
+      "home": [
+        "F5D661",
+        "F5D661",
+        "F5D661",
+        "FFFFFF"
+      ]
+    },
+    "fa0022499b6625a794dc": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "01ad3f1b1ae3abf80357": {
+      "home": [
+        "AA0000",
+        "AA0000",
+        "AA0000",
+        "888888"
+      ]
+    },
+    "04174881d98fd5ce39b8": {
+      "home": [
+        "203664",
+        "203664",
+        "203664",
+        "FFDD00"
+      ]
+    },
+    "08cbe6fff42b0db62f58": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "0055AA"
+      ]
+    },
+    "1c59e7de1e38bfd7fc9b": {
+      "home": [
+        "000000",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "3e7664c32a09c63e3231": {
+      "home": [
+        "FFB8CA",
+        "FFB8CA",
+        "FFB8CA",
+        "FFFFFF"
+      ]
+    },
+    "481c42937f172a47406f": {
+      "home": [
+        "3D8776",
+        "3D8776",
+        "008000",
+        "FFFFFF"
+      ]
+    },
+    "64778226f8b756816059": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "0055AA"
+      ]
+    },
+    "83001dde6d8ced2a44fe": {
+      "home": [
+        "8E3145",
+        "000000",
+        "8E3145",
+        "FFFFFF"
+      ]
+    },
+    "965017ed24fd0bc1b89c": {
+      "home": [
+        "FFFF00",
+        "000000",
+        "000000",
+        "FF0000"
+      ]
+    },
+    "994ac6d710072a1337ce": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFDD00"
+      ]
+    },
+    "9a01f8964264e56b3d6b": {
+      "home": [
+        "FFFF00",
+        "FF0000",
+        "FF0000",
+        "FF0000"
+      ]
+    },
+    "a9630ee6b10efe335596": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "ab499fc6e74fb3aa243a": {
+      "home": [
+        "FFDD00",
+        "0000AA",
+        "0000AA",
+        "0000AA"
+      ]
+    },
+    "b36d57bd386034d10b76": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "c4fc6984d183781b441c": {
+      "home": [
+        "FFEC00",
+        "000040",
+        "000040",
+        "FFFFFF"
+      ]
+    },
+    "d131ea66b5567c4142d6": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "f603e65adef013ca0bf7": {
+      "home": [
+        "0055FF",
+        "0055FF",
+        "0055FF",
+        "FFFFFF"
+      ]
+    },
+    "f95925e3af500f7a0b6f": {
+      "home": [
+        "2345C0",
+        "FFFFFF",
+        "2234A4",
+        "2234A4"
+      ]
+    },
+    "0bc572c6dc37a97b5e7a": {
+      "home": [
+        "8D0000",
+        "8D0000",
+        "8D0000",
+        "FFFFFF"
+      ]
+    },
+    "0c603059202dcd6f4ac3": {
+      "home": [
+        "000040",
+        "000040",
+        "000040",
+        "FF0000"
+      ]
+    },
+    "0d4f37774190ff41bab9": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "0e813c129db07f76eb5d": {
+      "home": [
+        "FFDD00",
+        "FF0000",
+        "FFDD00",
+        "FF0000"
+      ]
+    },
+    "1c5ee5896519f7cb7283": {
+      "home": [
+        "1F77C1",
+        "FFFFFF",
+        "1F77C1",
+        "FFFFFF"
+      ]
+    },
+    "36949ece4e635566c72b": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "3763369b1ea5add9f0ac": {
+      "home": [
+        "671912",
+        "671912",
+        "671912",
+        "FFFFFF"
+      ]
+    },
+    "388475a8bb31dcedfe30": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "39bf17ff392b16b09f1c": {
+      "home": [
+        "1E90FF",
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    },
+    "3a0268f324efdce2abce": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "3aafb272e8752af57673": {
+      "home": [
+        "0000CC",
+        "0000CC",
+        "0000CC",
+        "FF0000"
+      ]
+    },
+    "70016252382c95789326": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "66CCFF"
+      ]
+    },
+    "f29add313c45f046c569": {
+      "home": [
+        "FE0000",
+        "FE0000",
+        "FE0000",
+        "FFFFFF"
+      ]
+    },
+    "fda9c90903e5a56a33bd": {
+      "home": [
+        "FFFFFF",
+        "0000FF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "1677074cfcb68877beba": {
+      "home": [
+        "FE0000",
+        "221F64",
+        "221F64",
+        "FFFFFF"
+      ]
+    },
+    "8c754b0b5afac945a2c3": {
+      "home": [
+        "FFDD00",
+        "FF0000",
+        "FF0000",
+        "FF0000"
+      ]
+    },
+    "10d54a40828b00dc35c1": {
+      "home": [
+        "000060",
+        "000060",
+        "000060",
+        "FFFFFF"
+      ]
+    },
+    "16ba2ee08fcbdfd5347c": {
+      "home": [
+        "FF0000",
+        "000000",
+        "000000",
+        "FF0000"
+      ]
+    },
+    "24d2acf89cd421b12a7b": {
+      "home": [
+        "FF0000",
+        "000000",
+        "000000",
+        "FF0000"
+      ]
+    },
+    "306f6155a6b00e2b6f71": {
+      "home": [
+        "0000DD",
+        "FFFFFF",
+        "0000DD",
+        "FFFFFF"
+      ]
+    },
+    "40d3a7943b8d71c78040": {
+      "home": [
+        "3C0082",
+        "3C0082",
+        "3C0082",
+        "FFFFFF"
+      ]
+    },
+    "465f5269db5b7754453f": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "55744f20044991dcf6bd": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "62f0a8a7cacddd97c2f9": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "0033AA"
+      ]
+    },
+    "6a5a99645fad7809bb02": {
+      "home": [
+        "EF0000",
+        "EF0000",
+        "EF0000",
+        "FFFFFF"
+      ]
+    },
+    "abc8e8bff221743ca3b4": {
+      "home": [
+        "8ED6F9",
+        "0D2142",
+        "0D2142",
+        "0D2142"
+      ]
+    },
+    "b9e082b5af8f268047f2": {
+      "home": [
+        "FF6600",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "c9b48f760695a3d96c47": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FF0000"
+      ]
+    },
+    "0ea667eba770279bcb4d": {
+      "home": [
+        "0C6646",
+        "0C6646",
+        "0C6646",
+        "FFFFFF"
+      ]
+    },
+    "1aec775a1e0bbc0f4a0e": {
+      "home": [
+        "FFFF00",
+        "FFFF00",
+        "FFFF00",
+        "008000"
+      ]
+    },
+    "1e6db57f0300984d527b": {
+      "home": [
+        "800020",
+        "800020",
+        "800020",
+        "FFFFFF"
+      ]
+    },
+    "28ef8b8ff55e67114af6": {
+      "home": [
+        "FF3232",
+        "000000",
+        "FF3232",
+        "000000"
+      ]
+    },
+    "33d1544fd885ba9908b1": {
+      "home": [
+        "19995C",
+        "FFFFFF",
+        "19995C",
+        "FFFFFF"
+      ]
+    },
+    "35f2a8362d8017836e91": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "40614e964673609022b4": {
+      "home": [
+        "CC0000",
+        "000066",
+        "CC0000",
+        "000066"
+      ]
+    },
+    "6148c410fb3b2947879a": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "6b27acc4f4b1642294ea": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "70832772cce093cd3a3a": {
+      "home": [
+        "000066",
+        "FFFFFF",
+        "000066",
+        "FFFFFF"
+      ]
+    },
+    "7ae092360edc3159b422": {
+      "home": [
+        "0044AA",
+        "0044AA",
+        "0044AA",
+        "FFFFFF"
+      ]
+    },
+    "7c14a77b452dec3b13d8": {
+      "home": [
+        "FF0000",
+        "000000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "8fecb2f10590b7af1a16": {
+      "home": [
+        "FF6000",
+        "FF6000",
+        "FF6000",
+        "FFFFFF"
+      ]
+    },
+    "bc7829e8d8fec431f856": {
+      "home": [
+        "000055",
+        "FF6600",
+        "000055",
+        "FFFFFF"
+      ]
+    },
+    "bda1335ce63b00c23476": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "bdc88936c352b52f8afb": {
+      "home": [
+        "FFDD00",
+        "073662",
+        "FFDD00",
+        "073662"
+      ]
+    },
+    "e0583863c302f2b70933": {
+      "home": [
+        "DD0000",
+        "DD0000",
+        "DD0000",
+        "FFDD00"
+      ]
+    },
+    "e261747b2b6b6ae5ba27": {
+      "home": [
+        "FFFE2A",
+        "0B1031",
+        "FFFE2A",
+        "0B1031"
+      ]
+    },
+    "032162d8688657493a2e": {
+      "home": [
+        "0000D4",
+        "0000D4",
+        "0000D4",
+        "FFFFFF"
+      ]
+    },
+    "12619058e011694467d9": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "3cfcf18d3a7061db626b": {
+      "home": [
+        "206AEF",
+        "DD0000",
+        "0000DD",
+        "FF0000"
+      ]
+    },
+    "413624503d4c5353ee68": {
+      "home": [
+        "FFDD00",
+        "FF0000",
+        "FFDD00",
+        "FF0000"
+      ]
+    },
+    "428e7b40ab4c540c9d8b": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "45df509009642afc2a1b": {
+      "home": [
+        "000066",
+        "000066",
+        "000066",
+        "FFDD00"
+      ]
+    },
+    "4f82bc1770c4504a31ab": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "67d2ffd991da3bba60b3": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "7bc04adae9689875bcaf": {
+      "home": [
+        "0000AA",
+        "FFFFFF",
+        "0000AA",
+        "FFFFFF"
+      ]
+    },
+    "979ba7e09f9dc55d79bd": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "1811a02d3dea0e34d763": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "000000"
+      ]
+    },
+    "b12c65334b70507f4c00": {
+      "home": [
+        "035F30",
+        "FFFFFF",
+        "035F30",
+        "FFFFFF"
+      ]
+    },
+    "5f9f7033f562b3fe6218": {
+      "home": [
+        "FCFAF5",
+        "000000",
+        "FCFAF5",
+        "FFFFFF"
+      ]
+    },
+    "0a06e2b7aeb94d18c23d": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "0a85927f40ff51c7b32e": {
+      "home": [
+        "800000",
+        "FFFFFF",
+        "FFFFFF",
+        "008000"
+      ]
+    },
+    "e319d9e58a3c3f88a2b1": {
+      "home": [
+        "000000",
+        "000000",
+        "FFFFFF",
+        "66CCFF"
+      ]
+    },
+    "2d8ed6622c1975e49c94": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "3a89cb834dd44ff7f559": {
+      "home": [
+        "FFF200",
+        "FFF200",
+        "FFF200",
+        "FFFFFF"
+      ]
+    },
+    "7dbdb87d52a6ada5b5b4": {
+      "home": [
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "a1c5ad3a302e2042d43e": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "fcb25f741981fc120e77": {
+      "home": [
+        "000000",
+        "FFFFFF",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "fd542fd70c60524a3346": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "3fcfab4b5b52419961cf": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "46f103af27ea2450da0f": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "5261112a0e6cf315b415": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "637d11ae77f0ab027b3a": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "008000"
+      ]
+    },
+    "7c70035088e8dbc53515": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "7f05e5c2f2e87cee6e63": {
+      "home": [
+        "FF0000",
+        "000000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "a6a2c6ef7d3418a3bb65": {
+      "home": [
+        "FFFFFF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "c62677c4ebf4acf5e786": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "d784b618657926f69d9a": {
+      "home": [
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "dd2c0384360bb3d6cde8": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "FBC500"
+      ]
+    },
+    "dea575cbcedb1dbe8c56": {
+      "home": [
+        "FFEE00",
+        "007020",
+        "007020",
+        "008000"
+      ]
+    },
+    "fc670f783b7d5938bbef": {
+      "home": [
+        "FD1220",
+        "0E00EE",
+        "FFFFFF",
+        "0000FF"
+      ]
+    },
+    "3eada2d1f193589b7b04": {
+      "home": [
+        "016D39",
+        "FFFFFF",
+        "016D39",
+        "FFFFFF"
+      ]
+    },
+    "3fadceaf412aedaea3be": {
+      "home": [
+        "FFD700",
+        "000000",
+        "FFD700",
+        "008000"
+      ]
+    },
+    "444f0bb2369094dc1592": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "6b635ff592ba6ab0f2ff": {
+      "home": [
+        "FFDD00",
+        "FFDD00",
+        "FFDD00",
+        "000000"
+      ]
+    },
+    "7dec948eb275cdb0ca09": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "FF0000"
+      ]
+    },
+    "872917a857e759ba7240": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "0000FF"
+      ]
+    },
+    "9da740fce76f8332ad59": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "9f1f2eeb5d80231cb2fe": {
+      "home": [
+        "FFE500",
+        "FFE500",
+        "FFE500",
+        "008000"
+      ]
+    },
+    "a424499ad11d52e6264a": {
+      "home": [
+        "800020",
+        "FFFFFF",
+        "800020",
+        "66021E"
+      ]
+    },
+    "bdd72d1dee8bba461b77": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FFFFFF"
+      ]
+    },
+    "3145ed569b6a9aadd63d": {
+      "home": [
+        "FFFFFF",
+        "000000",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "794dfa592f5ab59b07c2": {
+      "home": [
+        "000080",
+        "000080",
+        "000080",
+        "FFDD00"
+      ]
+    },
+    "c0f4799cb1271c270fdc": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "44A3FC",
+        "44A3FC"
+      ]
+    },
+    "25978b18d31edad02b79": {
+      "home": [
+        "FF0000",
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "0d92151a68e6da614f20": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FF0000"
+      ]
+    },
+    "c5228a533372536cd76e": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "0000AA"
+      ]
+    },
+    "68b20d1ea15f4c77f241": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "965775a9e30df3b88ea5": {
+      "home": [
+        "FF0000",
+        "FF0000",
+        "FF0000",
+        "FFFFFF"
+      ]
+    },
+    "b0b525e63b6788ce2d80": {
+      "home": [
+        "FFFFFF",
+        "FF0000",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "c9b3ca4bfe01e9c0f6c5": {
+      "home": [
+        "0000FF",
+        "0000FF",
+        "0000FF",
+        "FF0000"
+      ]
+    },
+    "e44cb2df00fb7f694ace": {
+      "home": [
+        "58151C",
+        "800000",
+        "58151C",
+        "FFFFFF"
+      ]
+    },
+    "e7de5631beeb6bb11c0f": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "10f5ddeec065cca786d7": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "000000"
+      ]
+    },
+    "2e875787392b8a13ca9b": {
+      "home": [
+        "008000",
+        "000000",
+        "000000",
+        "000000"
+      ]
+    },
+    "51abc0b1877e266067d2": {
+      "home": [
+        "FFDD00",
+        "0000FF",
+        "0000FF",
+        "0000AA"
+      ]
+    },
+    "69e5f87b8e3a1cb78c70": {
+      "home": [
+        "004000",
+        "004000",
+        "004000",
+        "FFFFFF"
+      ]
+    },
+    "8e8e546098ac28a9b465": {
+      "home": [
+        "4ABBFF",
+        "000000",
+        "4ABBFF",
+        "FFFFFF"
+      ]
+    },
+    "a36397528390ce73f609": {
+      "home": [
+        "000000",
+        "000000",
+        "000000",
+        "FF0000"
+      ]
+    },
+    "bf0d1d564f9518b3464d": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "0000AA"
+      ]
+    },
+    "ca6254bec4d1db868a3a": {
+      "home": [
+        "FFFFFF",
+        "008000",
+        "008000",
+        "FF0000"
+      ]
+    },
+    "d4f0801b8f86951ab741": {
+      "home": [
+        "0000AA",
+        "FFFFFF",
+        "000000",
+        "000000"
+      ]
+    },
+    "eb9c5585a341f47c1cb3": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "efeee8a328d8df880cf1": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "FF0000"
+      ]
+    },
+    "f16440c710730c38eec5": {
+      "home": [
+        "7DBEFF",
+        "000040",
+        "000040",
+        "000040"
+      ]
+    },
+    "13f27f484a950e2b2fb9": {
+      "home": [
+        "400080",
+        "400080",
+        "400080",
+        "FFFFFF"
+      ]
+    },
+    "1455f448e9c4a4d11f0c": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "7DBEFF"
+      ]
+    },
+    "41ced4e8990a394a82cc": {
+      "home": [
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
+        "44A3FC"
+      ]
+    },
+    "4279d0e1c7fb3bc28cff": {
+      "home": [
+        "27BEF8",
+        "000040",
+        "27BEF8",
+        "FF0000"
+      ]
+    },
+    "508f24590b47dcc47de5": {
+      "home": [
+        "7DBEFF",
+        "7DBEFF",
+        "7DBEFF",
+        "000000"
+      ]
+    },
+    "64906de3a92ea0189319": {
+      "home": [
+        "FFDD00",
+        "000000",
+        "000000",
+        "FFFFFF"
+      ]
+    },
+    "709f5a25c053d083efc6": {
+      "home": [
+        "4ABBFF",
+        "FFFFFF",
+        "4ABBFF",
+        "FFFFFF"
+      ]
+    },
+    "a09bbb924f41b1a66907": {
+      "home": [
+        "FFFFFF",
+        "000040",
+        "FFFFFF",
+        "008000"
+      ]
+    },
+    "b5d2899a4ae69c061291": {
+      "home": [
+        "008000",
+        "000000",
+        "008000",
+        "FFFFFF"
+      ]
+    },
+    "f9608e1ae8e957996432": {
+      "home": [
+        "008000",
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF"
+      ]
+    }
+  }
+}

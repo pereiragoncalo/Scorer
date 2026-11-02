@@ -1375,8 +1375,12 @@ class CareerMode(TwoDivisionCareer):
 
     def kit_for_club(self, club):
         if self.world_unlocked:
-            from world_clubs import style
-            row = style(club)
+            from club_kits import home_colours
+            colours = home_colours(club)
+            if colours:
+                return tuple(hex_rgba(value) for value in colours)
+            from world_clubs import catalogue
+            row = catalogue().get(club.uid)
             if row and row.get('colours'):
                 return tuple(hex_rgba(value) for value in row['colours'])
         return club_kit(club.name)

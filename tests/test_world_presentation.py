@@ -8,6 +8,7 @@ from unittest.mock import patch
 
 from career import CareerMode, CareerClub, club_kit, hex_rgba
 from world_clubs import catalogue
+from club_kits import catalogue as kit_catalogue
 
 
 class Access:
@@ -65,18 +66,20 @@ class WorldPresentationTests(unittest.TestCase):
         world=CareerMode(Access(),autoload=False);club=world.current_league.clubs[0]
         catalogue.cache_clear()
         try:
-            with patch('world_clubs.Path.open',side_effect=OSError('unavailable')) as reader:
+            kit_catalogue.cache_clear()
+            with patch('world_clubs.Path.open',side_effect=OSError('unavailable')) as reader, patch('club_kits.Path.read_text',side_effect=OSError('unavailable')):
                 self.assertEqual(world.display_club(club),club.name)
                 self.assertEqual(world.display_club(club),club.name)
                 self.assertEqual(world.kit_for_club(club),club_kit(club.name))
                 self.assertEqual(reader.call_count,1)
-        finally:catalogue.cache_clear()
+        finally:
+            catalogue.cache_clear();kit_catalogue.cache_clear()
 
     def test_reference_palette_and_user_alias_follow_uid_through_promotion_and_reload(self):
         world=CareerMode(Access(),autoload=False,starter_country='Portugal',save_slot='world')
         porto=next(c for c in world.leagues['Portugal|1'].clubs if c.name=='Porto Dragons')
         self.assertEqual(world.display_club(porto),'GD Porto')
-        self.assertEqual(world.kit_for_club(porto)[0],hex_rgba('#005CA9'))
+        self.assertEqual(world.kit_for_club(porto)[0],hex_rgba('#0122EB'))
         world.accept_starting_offer(world.offers[0]);uid=world.club.uid
         name=world.display_club(world.club);kit=world.kit_for_club(world.club)
         world.club.points=999;world._finish_season()
