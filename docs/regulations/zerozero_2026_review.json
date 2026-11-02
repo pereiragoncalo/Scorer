@@ -1,0 +1,247 @@
+{
+  "checked_date": "2026-11-02",
+  "purpose": "Research audit following owner instruction to use Zerozero; no APK or game changes",
+  "zerozero_status": "Requested competition pages and home redirect to suspended.php",
+  "zerozero_requests": [
+    {
+      "url": "https://www.zerozero.pt/robots.txt",
+      "status": 200,
+      "final_url": "https://www.zerozero.pt/robots.txt",
+      "bytes": 860,
+      "content_type": null,
+      "sha256": "e743fa809e7c553d9befc4c9c8cc2d865ecc4ab10544a55a370f6cd8af008c37",
+      "excerpt": "User-agent: *\r\nDisallow: /zzmap_v3.php\nSitemap: https://www.zerozero.pt/map/sitemap_index_main.xml\nSitemap: https://www.zerozero.pt/map/sitemap_index_players.xml\nSitemap: https://www.zerozero.pt/map/sitemap_index_coaches"
+    },
+    {
+      "url": "https://www.zerozero.pt/competicao/liga-portuguesa/3",
+      "status": 200,
+      "final_url": "https://www.zerozero.pt/suspended.php",
+      "bytes": 3754,
+      "content_type": null,
+      "sha256": "4af583113022eb6e642abb79b37376d6caf7583bfad56cb133b102e271c074ff",
+      "excerpt": "<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<title>Serviço Temporariamente Suspenso</title>\n\t\t<meta charset=\"utf-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t<meta name=\"robots\" content=\"noindex\">"
+    },
+    {
+      "url": "https://www.zerozero.pt/competicao/ii-liga/4",
+      "status": 200,
+      "final_url": "https://www.zerozero.pt/suspended.php",
+      "bytes": 3754,
+      "content_type": null,
+      "sha256": "c0c9abd24d15a3b1642995cfa7276b1d29780ebc159f6d6870a64e80d4cb6e41",
+      "excerpt": "<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<title>Serviço Temporariamente Suspenso</title>\n\t\t<meta charset=\"utf-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t<meta name=\"robots\" content=\"noindex\">"
+    },
+    {
+      "url": "https://www.zerozero.pt/competicoes",
+      "status": 200,
+      "final_url": "https://www.zerozero.pt/suspended.php",
+      "bytes": 3754,
+      "content_type": null,
+      "sha256": "dd8e3627db25bd261b7c96e07ddffaf3c1314a6a2d83d5ed239e6f7822975739",
+      "excerpt": "<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<title>Serviço Temporariamente Suspenso</title>\n\t\t<meta charset=\"utf-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t<meta name=\"robots\" content=\"noindex\">"
+    }
+  ],
+  "season_counts": [
+    {
+      "country": "Portugal",
+      "season": "2026-27",
+      "current_game_counts": [
+        18,
+        18
+      ],
+      "reference_counts": [
+        18,
+        18
+      ],
+      "reference_urls": [
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_Primeira_Liga",
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_Liga_Portugal_2"
+      ],
+      "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
+      "zerozero_verified": false,
+      "rules_status": "partial_primary_review",
+      "fixed_three_rule_is_not_a_verified_national_profile": true
+    },
+    {
+      "country": "England",
+      "season": "2026-27",
+      "current_game_counts": [
+        20,
+        24
+      ],
+      "reference_counts": [
+        20,
+        24
+      ],
+      "reference_urls": [
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_Premier_League",
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_EFL_Championship"
+      ],
+      "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
+      "zerozero_verified": false,
+      "rules_status": "not_newly_verified",
+      "fixed_three_rule_is_not_a_verified_national_profile": true
+    },
+    {
+      "country": "Spain",
+      "season": "2026-27",
+      "current_game_counts": [
+        18,
+        18
+      ],
+      "reference_counts": [
+        20,
+        22
+      ],
+      "reference_urls": [
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_La_Liga",
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_Segunda_Divisi%C3%B3n"
+      ],
+      "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
+      "zerozero_verified": false,
+      "rules_status": "not_newly_verified",
+      "fixed_three_rule_is_not_a_verified_national_profile": true
+    },
+    {
+      "country": "Germany",
+      "season": "2026-27",
+      "current_game_counts": [
+        18,
+        18
+      ],
+      "reference_counts": [
+        18,
+        18
+      ],
+      "reference_urls": [
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_Bundesliga",
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_2._Bundesliga"
+      ],
+      "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
+      "zerozero_verified": false,
+      "rules_status": "not_newly_verified",
+      "fixed_three_rule_is_not_a_verified_national_profile": true
+    },
+    {
+      "country": "Italy",
+      "season": "2026-27",
+      "current_game_counts": [
+        18,
+        18
+      ],
+      "reference_counts": [
+        20,
+        20
+      ],
+      "reference_urls": [
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_Serie_A",
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_Serie_B"
+      ],
+      "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
+      "zerozero_verified": false,
+      "rules_status": "not_newly_verified",
+      "fixed_three_rule_is_not_a_verified_national_profile": true
+    },
+    {
+      "country": "France",
+      "season": "2026-27",
+      "current_game_counts": [
+        18,
+        18
+      ],
+      "reference_counts": [
+        18,
+        18
+      ],
+      "reference_urls": [
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_Ligue_1",
+        "https://en.wikipedia.org/wiki/2026%E2%80%9327_Ligue_2"
+      ],
+      "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
+      "zerozero_verified": false,
+      "rules_status": "not_newly_verified",
+      "fixed_three_rule_is_not_a_verified_national_profile": true
+    },
+    {
+      "country": "Brazil",
+      "season": "2026",
+      "current_game_counts": [
+        12,
+        12
+      ],
+      "reference_counts": [
+        20,
+        20
+      ],
+      "reference_urls": [
+        "https://en.wikipedia.org/wiki/2026_Campeonato_Brasileiro_S%C3%A9rie_A",
+        "https://en.wikipedia.org/wiki/2026_Campeonato_Brasileiro_S%C3%A9rie_B"
+      ],
+      "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
+      "zerozero_verified": false,
+      "rules_status": "not_newly_verified",
+      "fixed_three_rule_is_not_a_verified_national_profile": true
+    },
+    {
+      "country": "Argentina",
+      "season": "2026",
+      "current_game_counts": [
+        12,
+        12
+      ],
+      "reference_counts": [
+        30,
+        36
+      ],
+      "reference_urls": [
+        "https://en.wikipedia.org/wiki/2026_Argentine_Primera_Divisi%C3%B3n",
+        "https://en.wikipedia.org/wiki/2026_Primera_Nacional"
+      ],
+      "count_source": "Previously reviewed revisioned membership manifest, not Zerozero",
+      "zerozero_verified": false,
+      "rules_status": "not_newly_verified",
+      "fixed_three_rule_is_not_a_verified_national_profile": true
+    }
+  ],
+  "unrepresented_clubs_in_supported_first_two_tiers": 68,
+  "portugal_official_pdf": {
+    "url": "https://www.ligaportugal.pt/backoffice/assets/20260701_RC_2026_27_f53785bcd4.pdf",
+    "status": 200,
+    "bytes": 2440200,
+    "sha256": "6ff749baf9a3da7698983e097d25cb573f4c029ce65e7fca1e52c02be3e8a550",
+    "same_as_prior_review": true
+  },
+  "portugal_review": {
+    "edition": "2026-27",
+    "articles": [
+      21,
+      22,
+      25,
+      26,
+      31
+    ],
+    "teams_first_division": 18,
+    "teams_second_division": 18,
+    "direct_promotions_from_second": 2,
+    "direct_relegations_from_first": 2,
+    "first_second_playoff": {
+      "first_division_position": 16,
+      "second_division_participant": "Highest eligible side outside the direct promotion places, excluding B teams",
+      "legs": 2,
+      "extra_time_minutes": 30,
+      "penalties": true,
+      "away_goals": false
+    },
+    "direct_relegations_from_second": 2,
+    "second_third_playoff": {
+      "second_division_position": 16,
+      "third_division_participant": "FPF designated representative; linked FPF conditions remain to be reviewed"
+    },
+    "not_a_complete_national_rules_profile": true
+  },
+  "owner_model_to_keep": [
+    "Two playable divisions in each game country",
+    "Ten reserve clubs, without a simulated third league",
+    "Release a player when their team exits Division2"
+  ],
+  "implementation_status": "0.9.4 still uses generic capacities and fixed3 movement; not replaced with verified country profiles by this research"
+}
