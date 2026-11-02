@@ -1,6 +1,10 @@
+## Corrected real names by division
+
+[Download JSON — Europe2026/27, Brazil/Argentina2026](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-divisions-2026/Scorer-World-Real-Names-Divisions-2026.json). All494 selected club slots checked against their real division; no duplicate real teams. Reimport in Names Editor; World0.9.3 remains compatible, with no APK update. Existing game capacities and simulated movement are preserved. [Reference/validation](docs/data/name-packs/README.md).
+
 ## Scorer World 0.9.3 — direct leaderboard and cleaner menus
 
-[Download World 0.9.3 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9.3/Scorer-World-0.9.3.apk) · [Download real names JSON — Europe, Brazil and Argentina](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-2026-07/Scorer-World-Real-Names-Europe-Brazil-Argentina-2026-07.json)
+[Download World 0.9.3 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9.3/Scorer-World-0.9.3.apk) · [Download real names JSON — Europe, Brazil and Argentina](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-divisions-2026/Scorer-World-Real-Names-Divisions-2026.json)
 
 Privacy removed from the start and main menus; Global removed from Top Scorers. Leaderboard opens the public records table directly, without a legal/adult-control page. Adult/share confirmation applies when publishing, not viewing. Reporting/blocking/removal remain accessible; career transfer/settings are under Help → Settings. Startup agreement and 0.9.1 gameplay/editor remain. Save and Exit, install over World QA and Load Game. DEBUG test build; public launch remains1.0. [Verification](docs/RELEASE_0.9.3.md).
 

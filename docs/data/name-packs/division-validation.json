@@ -1,0 +1,98 @@
+{
+  "reference": "Europe2026-27; Brazil/Argentina2026",
+  "source_app": "World0.9.3 (c00084b metadata /1c75502 app)",
+  "artifact": "Scorer-World-Real-Names-Divisions-2026.json",
+  "bytes": 146520,
+  "sha256": "d26ebbfb966c78d222e1b8ab25e064db27424d8a729838589604edcaf71e4c83",
+  "club_aliases": 494,
+  "league_aliases": 29,
+  "player_aliases": 2633,
+  "real_player_names": 1741,
+  "fallback_resets": 892,
+  "total_aliases": 3156,
+  "real_identities_unique": true,
+  "all_initial_slot_divisions_match_manifest": true,
+  "old_player_alias_keys_fully_replaced": true,
+  "editor_preview_apply_save_backup_reload": "pass",
+  "only_changed_save_field": "display_aliases",
+  "progress_and_membership_preserved": true,
+  "tests": 5,
+  "independent_top_division_checks": [
+    {
+      "country": "Portugal",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/pt.1.json",
+      "sha256": "57cac2d6caab5a303d0b846ce523462b4571da10766a128ac0a5102bd0182e7e",
+      "source_count": 18,
+      "unmatched": [],
+      "missing_ids": [],
+      "unexpected_ids": [],
+      "pass_check": true
+    },
+    {
+      "country": "England",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/en.1.json",
+      "sha256": "bb91f0ab3e8359df163bb9ec98549bfed85e200dd4c32f3bd606b5890d932dd2",
+      "source_count": 20,
+      "unmatched": [],
+      "missing_ids": [],
+      "unexpected_ids": [],
+      "pass_check": true
+    },
+    {
+      "country": "Spain",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/es.1.json",
+      "sha256": "4b1a9906e3f2b279a1f25497a38f2f58e21ec19ea726b882fa646da7c07bc0e0",
+      "source_count": 20,
+      "unmatched": [],
+      "missing_ids": [],
+      "unexpected_ids": [],
+      "pass_check": true
+    },
+    {
+      "country": "Germany",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/de.1.json",
+      "sha256": "07fab65d4a1de8ce4c8472da9ccf4d1d2b145ecd5abdc5b6d4250a5c119d7681",
+      "source_count": 18,
+      "unmatched": [],
+      "missing_ids": [],
+      "unexpected_ids": [],
+      "pass_check": true
+    },
+    {
+      "country": "Italy",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/it.1.json",
+      "sha256": "721a6c220fecb8208287e41401fa2fce652cd23765ce58a39bf98cdaa3d528ad",
+      "source_count": 20,
+      "unmatched": [],
+      "missing_ids": [],
+      "unexpected_ids": [],
+      "pass_check": true
+    },
+    {
+      "country": "France",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/fr.1.json",
+      "sha256": "f875275f835e378fc8c4e7d48c7a2f327e7d426237bd057fe652fd47f30b5a4f",
+      "source_count": 18,
+      "unmatched": [],
+      "missing_ids": [],
+      "unexpected_ids": [],
+      "pass_check": true
+    },
+    {
+      "country": "Brazil",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026/br.1.json",
+      "sha256": "828be04070293393096d88f13c9e7f06784516963843ff09ba47fedd08c4e171",
+      "source_count": 20,
+      "unmatched": [],
+      "missing_ids": [],
+      "unexpected_ids": [],
+      "pass_check": true
+    }
+  ],
+  "represented_subset_due_to_game_capacity": true,
+  "not_represented_real_source_teams": 298,
+  "native_android_tested": false,
+  "new_apk_required": false,
+  "independent_rebuild_matches_bytes": true,
+  "shuffled_initial_club_order_does_not_change_pack": true
+}

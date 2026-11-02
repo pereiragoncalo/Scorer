@@ -12,7 +12,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view real-names-2026-07 >/dev/null 2>&1; then
-            gh release create real-names-2026-07 --target "$GITHUB_SHA" --title 'Scorer World real names — Europe, Brazil and Argentina' --notes 'Uncompressed JSON names pack for the Scorer World editor. Dataset snapshot: July 2026. Download the JSON asset, then Names Editor → Import Names File.'
+          if ! gh release view real-names-divisions-2026 >/dev/null 2>&1; then
+            gh release create real-names-divisions-2026 --target "$GITHUB_SHA" --title 'Corrected real names by division — Europe 2026/27, Brazil and Argentina 2026' --notes 'Corrected division mapping for 494 unique real clubs. Europe 2026/27; Brazil and Argentina 2026. Existing game capacities apply; player source remains July 2026. Download the uncompressed JSON asset and reimport in Names Editor. Compatible with World 0.9.3; no new APK. This supersedes the older July names packs.'
           fi
-          gh release upload real-names-2026-07 docs/data/name-packs/Scorer-World-Real-Names-Europe-Brazil-Argentina-2026-07.json --clobber
+          gh release upload real-names-divisions-2026 docs/data/name-packs/Scorer-World-Real-Names-Divisions-2026.json --clobber

@@ -1,5 +1,22 @@
 # Real club and player names for the Scorer World editor
 
+## Current corrected pack
+
+[Download the division-corrected JSON](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-divisions-2026/Scorer-World-Real-Names-Divisions-2026.json). **Use this file instead of the older packs below.** Compatible with World0.9.3; no new APK.494 unique real clubs,29 league names and2633 player aliases (including892 fictional-slot resets to remove old wrong-club squad aliases);146520 bytes.
+
+Club membership reference: **2026/27 for Portugal, England, Spain, Germany, Italy and France; 2026 for Brazil and Argentina.** Every selected name is assigned to a slot in its verified initial division, and no real team is repeated. The old generator merely cycled through reference clubs without validating their actual tier. This generator checks the explicit [division manifest](../real_divisions_2026.json), including separately identified reserve teams and similarly named clubs. All29 source page revisions and hashes are recorded; top divisions for the six European countries and Brazil were independently cross-checked against OpenFootball fixtures.
+
+The game keeps its current division capacities: where these are smaller than the real competition, the pack represents a documented subset. Existing catalogue references are preferred within their verified tier, then source table order; clubs are never borrowed from a different tier to fill vacancies. Argentina tiers3/4 use the metropolitan branches. See the [mapping/omissions](Scorer-World-Real-Names-Divisions-2026.provenance.json).
+
+Import over the old combined pack to replace all its club and player aliases; preview/apply, save, backup and reload were verified. It changes names only, not results, progress or already simulated promotions/relegations. The initial membership reference does not freeze teams against future in-game movement. Player source remains the July6,2026 snapshot; this correction does not claim current November squads. A slot without a sourced current-club name keeps/reverts to a fictional player, rather than retaining another real club’s old squad. [Validation](division-validation.json).
+
+Source attribution: Wikipedia contributors, linked revisioned season pages (CC BY-SA; membership facts), OpenFootball fixture data, and the existing CC0 player dataset below.
+
+## Older packs — historical reproduction only
+
+The following July files did **not** validate real divisions and are superseded by the corrected pack above.
+
+
 Download the **JSON file**, then open a World career and choose **Editor > Import names**, select the file, review the preview and confirm. No new APK is needed. The editor creates a names backup before updating a saved career. Keep your own career export too.
 
 - [Europe + Brazil + Argentina JSON](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/main/docs/data/name-packs/Scorer-World-Real-Names-Europe-Brazil-Argentina-2026-07.json): all eight countries; 494 club-slot aliases and 1,898 player-slot aliases, 113,122 bytes. Use this for a single import.

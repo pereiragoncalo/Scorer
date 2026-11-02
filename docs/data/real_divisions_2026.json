@@ -1,0 +1,5447 @@
+{
+  "schema": 1,
+  "retrieved": "2026-11-02",
+  "scope": "European 2026-27; Brazil/Argentina 2026. Membership facts only; source HTML not redistributed. Argentina tiers3/4 use the metropolitan branches. Game capacity may represent a subset.",
+  "attribution": "Wikipedia contributors, linked season/league pages (CC BY-SA); factual club membership lists. Source page SHA256 retained.",
+  "divisions": [
+    {
+      "country": "Portugal",
+      "tier": 1,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Primeira_Liga",
+      "source_sha256": "c36f585fa727e931ea481da92c3a9bf427594efbf6f0319f8dbf3f8dbae6041f",
+      "tables": [
+        1
+      ],
+      "teams": [
+        {
+          "name": "Académico de Viseu",
+          "wiki_path": "https://en.wikipedia.org/wiki/Académico_de_Viseu_F.C.",
+          "aliases": [
+            "Académico de Viseu FC"
+          ],
+          "identity": "Portugal:academicodeviseu"
+        },
+        {
+          "name": "Alverca",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Alverca",
+          "aliases": [],
+          "identity": "Portugal:alverca"
+        },
+        {
+          "name": "Arouca",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Arouca",
+          "aliases": [],
+          "identity": "Portugal:arouca"
+        },
+        {
+          "name": "Benfica",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.L._Benfica",
+          "aliases": [
+            "SL Benfica",
+            "Sport Lisboa e Benfica"
+          ],
+          "identity": "Portugal:benfica"
+        },
+        {
+          "name": "Braga",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.C._Braga",
+          "aliases": [
+            "SC Braga",
+            "Sporting Clube de Braga"
+          ],
+          "identity": "Portugal:braga"
+        },
+        {
+          "name": "Casa Pia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Casa_Pia_A.C.",
+          "aliases": [
+            "Casa Pia AC"
+          ],
+          "identity": "Portugal:casapia"
+        },
+        {
+          "name": "Estoril Praia",
+          "wiki_path": "https://en.wikipedia.org/wiki/G.D._Estoril_Praia",
+          "aliases": [
+            "GD Estoril Praia"
+          ],
+          "identity": "Portugal:estorilpraia"
+        },
+        {
+          "name": "Estrela da Amadora",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.F._Estrela_da_Amadora",
+          "aliases": [
+            "CF Estrela da Amadora",
+            "CF Estrela Amadora"
+          ],
+          "identity": "Portugal:estreladaamadora"
+        },
+        {
+          "name": "Famalicão",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Famalicão",
+          "aliases": [],
+          "identity": "Portugal:famalicao"
+        },
+        {
+          "name": "Gil Vicente",
+          "wiki_path": "https://en.wikipedia.org/wiki/Gil_Vicente_F.C.",
+          "aliases": [],
+          "identity": "Portugal:gilvicente"
+        },
+        {
+          "name": "Marítimo",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.S._Marítimo",
+          "aliases": [
+            "CS Marítimo"
+          ],
+          "identity": "Portugal:maritimo"
+        },
+        {
+          "name": "Moreirense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Moreirense_F.C.",
+          "aliases": [],
+          "identity": "Portugal:moreirense"
+        },
+        {
+          "name": "Nacional",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D._Nacional",
+          "aliases": [
+            "CD Nacional Madeira",
+            "CD Nacional"
+          ],
+          "identity": "Portugal:nacional"
+        },
+        {
+          "name": "Porto",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Porto",
+          "aliases": [
+            "FC Porto"
+          ],
+          "identity": "Portugal:porto"
+        },
+        {
+          "name": "Rio Ave",
+          "wiki_path": "https://en.wikipedia.org/wiki/Rio_Ave_F.C.",
+          "aliases": [],
+          "identity": "Portugal:rioave"
+        },
+        {
+          "name": "Santa Clara",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D._Santa_Clara",
+          "aliases": [],
+          "identity": "Portugal:santaclara"
+        },
+        {
+          "name": "Sporting CP",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sporting_CP",
+          "aliases": [
+            "Sporting Clube de Portugal"
+          ],
+          "identity": "Portugal:sportingcp"
+        },
+        {
+          "name": "Vitória de Guimarães",
+          "wiki_path": "https://en.wikipedia.org/wiki/Vitória_S.C.",
+          "aliases": [
+            "Vitória Guimarães SC"
+          ],
+          "identity": "Portugal:vitoriadeguimaraes"
+        }
+      ],
+      "source_revision": 1383286106
+    },
+    {
+      "country": "Portugal",
+      "tier": 2,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Liga_Portugal_2",
+      "source_sha256": "f12bfeabe514da74ae1310ff6465f8c5997198821f22fb809dc86a3645e20801",
+      "tables": [
+        2
+      ],
+      "teams": [
+        {
+          "name": "Académica",
+          "wiki_path": "https://en.wikipedia.org/wiki/Académica_de_Coimbra_(football)",
+          "aliases": [
+            "Académica de Coimbra",
+            "Académica Coimbra"
+          ],
+          "identity": "Portugal:academica"
+        },
+        {
+          "name": "AFS",
+          "wiki_path": "https://en.wikipedia.org/wiki/AVS_Futebol_SAD",
+          "aliases": [
+            "AVS Futebol",
+            "AVS Futebol SAD"
+          ],
+          "identity": "Portugal:afs"
+        },
+        {
+          "name": "Amarante",
+          "wiki_path": "https://en.wikipedia.org/wiki/Amarante_F.C.",
+          "aliases": [],
+          "identity": "Portugal:amarante"
+        },
+        {
+          "name": "Benfica B",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.L._Benfica_B",
+          "aliases": [],
+          "identity": "Portugal:benficab"
+        },
+        {
+          "name": "Chaves",
+          "wiki_path": "https://en.wikipedia.org/wiki/G.D._Chaves",
+          "aliases": [
+            "Desportivo de Chaves",
+            "GD Chaves"
+          ],
+          "identity": "Portugal:chaves"
+        },
+        {
+          "name": "Farense",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.C._Farense",
+          "aliases": [],
+          "identity": "Portugal:farense"
+        },
+        {
+          "name": "Feirense",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D._Feirense",
+          "aliases": [],
+          "identity": "Portugal:feirense"
+        },
+        {
+          "name": "Felgueiras",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Felgueiras_(2006)",
+          "aliases": [],
+          "identity": "Portugal:felgueiras"
+        },
+        {
+          "name": "Leixões",
+          "wiki_path": "https://en.wikipedia.org/wiki/Leixões_S.C.",
+          "aliases": [],
+          "identity": "Portugal:leixoes"
+        },
+        {
+          "name": "Lusitânia Lourosa",
+          "wiki_path": "https://en.wikipedia.org/wiki/Lusitânia_F.C.",
+          "aliases": [],
+          "identity": "Portugal:lusitanialourosa"
+        },
+        {
+          "name": "Penafiel",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Penafiel",
+          "aliases": [],
+          "identity": "Portugal:penafiel"
+        },
+        {
+          "name": "Portimonense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Portimonense_S.C.",
+          "aliases": [],
+          "identity": "Portugal:portimonense"
+        },
+        {
+          "name": "Porto B",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Porto_B",
+          "aliases": [],
+          "identity": "Portugal:portob"
+        },
+        {
+          "name": "Sporting CP B",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sporting_CP_B",
+          "aliases": [],
+          "identity": "Portugal:sportingcpb"
+        },
+        {
+          "name": "Tondela",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D._Tondela",
+          "aliases": [],
+          "identity": "Portugal:tondela"
+        },
+        {
+          "name": "Torreense",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.C.U._Torreense",
+          "aliases": [
+            "SC União Torreense"
+          ],
+          "identity": "Portugal:torreense"
+        },
+        {
+          "name": "União de Leiria",
+          "wiki_path": "https://en.wikipedia.org/wiki/U.D._Leiria",
+          "aliases": [
+            "União Leiria"
+          ],
+          "identity": "Portugal:uniaodeleiria"
+        },
+        {
+          "name": "Vizela",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Vizela",
+          "aliases": [],
+          "identity": "Portugal:vizela"
+        }
+      ],
+      "source_revision": 1383235586
+    },
+    {
+      "country": "Portugal",
+      "tier": 3,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Liga_3_%28Portugal%29",
+      "source_sha256": "16d5c848c708e2e9fe22bc56d7df53c9d4bed435ecc5e0d41610f6ee518d199b",
+      "tables": [
+        2,
+        3
+      ],
+      "teams": [
+        {
+          "name": "Fafe",
+          "wiki_path": "https://en.wikipedia.org/wiki/AD_Fafe",
+          "aliases": [],
+          "identity": "Portugal:fafe"
+        },
+        {
+          "name": "Leça",
+          "wiki_path": "https://en.wikipedia.org/wiki/Leça_Futebol_Clube",
+          "aliases": [],
+          "identity": "Portugal:leca"
+        },
+        {
+          "name": "Marco 09",
+          "wiki_path": "https://en.wikipedia.org/wiki/A.D._Marco_09",
+          "aliases": [],
+          "identity": "Portugal:marco09"
+        },
+        {
+          "name": "Paços de Ferreira",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Paços_de_Ferreira",
+          "aliases": [],
+          "identity": "Portugal:pacosdeferreira"
+        },
+        {
+          "name": "Paredes",
+          "wiki_path": "https://en.wikipedia.org/wiki/U.S.C._Paredes",
+          "aliases": [],
+          "identity": "Portugal:paredes"
+        },
+        {
+          "name": "São João de Ver",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_São_João_de_Ver",
+          "aliases": [],
+          "identity": "Portugal:saojoaodever"
+        },
+        {
+          "name": "Trofense",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D._Trofense",
+          "aliases": [],
+          "identity": "Portugal:trofense"
+        },
+        {
+          "name": "Varzim",
+          "wiki_path": "https://en.wikipedia.org/wiki/Varzim_S.C.",
+          "aliases": [],
+          "identity": "Portugal:varzim"
+        },
+        {
+          "name": "Vianense",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Vianense",
+          "aliases": [],
+          "identity": "Portugal:vianense"
+        },
+        {
+          "name": "Vitória SC B",
+          "wiki_path": "https://en.wikipedia.org/wiki/Vitória_S.C._B",
+          "aliases": [],
+          "identity": "Portugal:vitoriab"
+        },
+        {
+          "name": "Atlético CP",
+          "wiki_path": "https://en.wikipedia.org/wiki/Atlético_Clube_de_Portugal",
+          "aliases": [],
+          "identity": "Portugal:atleticocp"
+        },
+        {
+          "name": "Belenenses",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.F._Os_Belenenses",
+          "aliases": [
+            "Os Belenenses",
+            "CF Os Belenenses"
+          ],
+          "identity": "Portugal:belenenses"
+        },
+        {
+          "name": "Caldas",
+          "wiki_path": "https://en.wikipedia.org/wiki/Caldas_S.C.",
+          "aliases": [],
+          "identity": "Portugal:caldas"
+        },
+        {
+          "name": "Louletano",
+          "wiki_path": "https://en.wikipedia.org/wiki/Louletano_Desportos_Clube",
+          "aliases": [],
+          "identity": "Portugal:louletano"
+        },
+        {
+          "name": "Lusitano Évora",
+          "wiki_path": "https://en.wikipedia.org/wiki/Lusitano_G.C.",
+          "aliases": [],
+          "identity": "Portugal:lusitanoevora"
+        },
+        {
+          "name": "Mafra",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D._Mafra",
+          "aliases": [],
+          "identity": "Portugal:mafra"
+        },
+        {
+          "name": "Oliveirense",
+          "wiki_path": "https://en.wikipedia.org/wiki/U.D._Oliveirense",
+          "aliases": [],
+          "identity": "Portugal:oliveirense"
+        },
+        {
+          "name": "Sp. Covilhã",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.C._Covilhã",
+          "aliases": [
+            "Sporting Covilhã"
+          ],
+          "identity": "Portugal:spcovilha"
+        },
+        {
+          "name": "União de Santarém",
+          "wiki_path": "https://en.wikipedia.org/wiki/União_de_Santarém",
+          "aliases": [],
+          "identity": "Portugal:uniaodesantarem"
+        },
+        {
+          "name": "Vitória Sernache",
+          "wiki_path": "https://en.wikipedia.org/wiki/G.D._Vitória_de_Sernache",
+          "aliases": [],
+          "identity": "Portugal:vitoriasernache"
+        }
+      ],
+      "source_revision": 1383062897
+    },
+    {
+      "country": "Portugal",
+      "tier": 4,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Campeonato_de_Portugal",
+      "source_sha256": "25c7585f795cb024300c0f03c7076ae4ab3cdf515531516312f9bc5b88e2a77f",
+      "tables": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "teams": [
+        {
+          "name": "Braga B",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.C._Braga_B",
+          "aliases": [],
+          "identity": "Portugal:bragab"
+        },
+        {
+          "name": "Limianos",
+          "wiki_path": "https://en.wikipedia.org/wiki/A.D._Os_Limianos",
+          "aliases": [],
+          "identity": "Portugal:limianos"
+        },
+        {
+          "name": "Bragança",
+          "wiki_path": "https://en.wikipedia.org/wiki/GD_Bragança",
+          "aliases": [],
+          "identity": "Portugal:braganca"
+        },
+        {
+          "name": "Chaves B",
+          "wiki_path": "https://en.wikipedia.org/wiki/G.D._Chaves",
+          "aliases": [],
+          "identity": "Portugal:chavesb"
+        },
+        {
+          "name": "Montalegre",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D.C._Montalegre",
+          "aliases": [],
+          "identity": "Portugal:montalegre"
+        },
+        {
+          "name": "Tirsense",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Tirsense",
+          "aliases": [],
+          "identity": "Portugal:tirsense"
+        },
+        {
+          "name": "Rebordosa",
+          "wiki_path": "https://en.wikipedia.org/wiki/Rebordosa_A.C.",
+          "aliases": [],
+          "identity": "Portugal:rebordosa"
+        },
+        {
+          "name": "Celoricense",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D._Celoricense",
+          "aliases": [],
+          "identity": "Portugal:celoricense"
+        },
+        {
+          "name": "Vila Meã",
+          "wiki_path": "https://en.wikipedia.org/wiki/AC_Vila_Meã",
+          "aliases": [],
+          "identity": "Portugal:vilamea"
+        },
+        {
+          "name": "Ponte da Barca",
+          "wiki_path": "https://en.wikipedia.org/wiki/A.D._Ponte_da_Barca",
+          "aliases": [],
+          "identity": "Portugal:pontedabarca"
+        },
+        {
+          "name": "Brito",
+          "wiki_path": "https://en.wikipedia.org/wiki/Brito_S.C.",
+          "aliases": [],
+          "identity": "Portugal:brito"
+        },
+        {
+          "name": "Maia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Maia_Lidador",
+          "aliases": [],
+          "identity": "Portugal:maia"
+        },
+        {
+          "name": "Maria da Fonte",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Maria_da_Fonte",
+          "aliases": [],
+          "identity": "Portugal:mariadafonte"
+        },
+        {
+          "name": "Vinhais",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Vinhais?action=edit&redlink=1",
+          "aliases": [],
+          "identity": "Portugal:vinhais"
+        },
+        {
+          "name": "Ovarense",
+          "wiki_path": "https://en.wikipedia.org/wiki/A.D._Ovarense",
+          "aliases": [],
+          "identity": "Portugal:ovarense"
+        },
+        {
+          "name": "Machico",
+          "wiki_path": "https://en.wikipedia.org/wiki/A.D._Machico",
+          "aliases": [],
+          "identity": "Portugal:machico"
+        },
+        {
+          "name": "Camacha",
+          "wiki_path": "https://en.wikipedia.org/wiki/A.D._Camacha",
+          "aliases": [],
+          "identity": "Portugal:camacha"
+        },
+        {
+          "name": "Florgrade",
+          "wiki_path": "https://en.wikipedia.org/wiki/Florgrade_FC",
+          "aliases": [],
+          "identity": "Portugal:florgrade"
+        },
+        {
+          "name": "Castro Daire",
+          "wiki_path": "https://en.wikipedia.org/wiki/A.D._Castro_Daire",
+          "aliases": [],
+          "identity": "Portugal:castrodaire"
+        },
+        {
+          "name": "Sanjoanense",
+          "wiki_path": "https://en.wikipedia.org/wiki/A.D._Sanjoanense",
+          "aliases": [],
+          "identity": "Portugal:sanjoanense"
+        },
+        {
+          "name": "União de Lamas",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.F._União_de_Lamas",
+          "aliases": [],
+          "identity": "Portugal:uniaodelamas"
+        },
+        {
+          "name": "Salgueiros",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.C._Salgueiros",
+          "aliases": [],
+          "identity": "Portugal:salgueiros"
+        },
+        {
+          "name": "Cinfães",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D._Cinfães",
+          "aliases": [],
+          "identity": "Portugal:cinfaes"
+        },
+        {
+          "name": "Beira-Mar",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.C._Beira-Mar",
+          "aliases": [],
+          "identity": "Portugal:beiramar"
+        },
+        {
+          "name": "Alpendorada",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Alpendorada",
+          "aliases": [],
+          "identity": "Portugal:alpendorada"
+        },
+        {
+          "name": "Calheta",
+          "wiki_path": "https://en.wikipedia.org/wiki/Estrela_da_Calheta_F.C.",
+          "aliases": [],
+          "identity": "Portugal:calheta"
+        },
+        {
+          "name": "Sousense",
+          "wiki_path": "https://en.wikipedia.org/wiki/UD_Sousense",
+          "aliases": [],
+          "identity": "Portugal:sousense"
+        },
+        {
+          "name": "Guarda",
+          "wiki_path": "https://en.wikipedia.org/wiki/Guarda_F.C.?action=edit&redlink=1",
+          "aliases": [],
+          "identity": "Portugal:guarda"
+        },
+        {
+          "name": "Oliveira do Hospital",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Oliveira_do_Hospital",
+          "aliases": [],
+          "identity": "Portugal:oliveiradohospital"
+        },
+        {
+          "name": "Mortágua",
+          "wiki_path": "https://en.wikipedia.org/wiki/Mortágua_F.C.",
+          "aliases": [],
+          "identity": "Portugal:mortagua"
+        },
+        {
+          "name": "O Elvas",
+          "wiki_path": "https://en.wikipedia.org/wiki/O_Elvas_C.A.D.",
+          "aliases": [],
+          "identity": "Portugal:oelvas"
+        },
+        {
+          "name": "Marialvas",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.F._Os_Marialvas",
+          "aliases": [],
+          "identity": "Portugal:marialvas"
+        },
+        {
+          "name": "União da Serra",
+          "wiki_path": "https://en.wikipedia.org/wiki/U.D._Serra",
+          "aliases": [],
+          "identity": "Portugal:uniaodaserra"
+        },
+        {
+          "name": "Benfica Castelo Branco",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sport_Benfica_e_Castelo_Branco",
+          "aliases": [],
+          "identity": "Portugal:benficacastelobranco"
+        },
+        {
+          "name": "Atlético da Malveira",
+          "wiki_path": "https://en.wikipedia.org/wiki/AC_Malveira",
+          "aliases": [],
+          "identity": "Portugal:atleticodamalveira"
+        },
+        {
+          "name": "Naval 1893",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Naval_1893",
+          "aliases": [],
+          "identity": "Portugal:naval1893"
+        },
+        {
+          "name": "Nogueirense",
+          "wiki_path": "https://en.wikipedia.org/wiki/A.D._Nogueirense",
+          "aliases": [],
+          "identity": "Portugal:nogueirense"
+        },
+        {
+          "name": "Alverca B",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Alverca",
+          "aliases": [],
+          "identity": "Portugal:alvercab"
+        },
+        {
+          "name": "Fátima",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D._Fátima",
+          "aliases": [],
+          "identity": "Portugal:fatima"
+        },
+        {
+          "name": "Sertanense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sertanense_F.C.",
+          "aliases": [],
+          "identity": "Portugal:sertanense"
+        },
+        {
+          "name": "Nazarenos",
+          "wiki_path": "https://en.wikipedia.org/wiki/G.D._Os_Nazarenos?action=edit&redlink=1",
+          "aliases": [],
+          "identity": "Portugal:nazarenos"
+        },
+        {
+          "name": "Fazendense",
+          "wiki_path": "https://en.wikipedia.org/wiki/AD_Fazendense",
+          "aliases": [],
+          "identity": "Portugal:fazendense"
+        },
+        {
+          "name": "Sintrense",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.U._Sintrense",
+          "aliases": [],
+          "identity": "Portugal:sintrense"
+        },
+        {
+          "name": "Imortal",
+          "wiki_path": "https://en.wikipedia.org/wiki/Imortal_D.C.",
+          "aliases": [],
+          "identity": "Portugal:imortal"
+        },
+        {
+          "name": "Real",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Sport_Clube",
+          "aliases": [],
+          "identity": "Portugal:real"
+        },
+        {
+          "name": "Lajense",
+          "wiki_path": "https://en.wikipedia.org/wiki/J.D._Lajense?action=edit&redlink=1",
+          "aliases": [],
+          "identity": "Portugal:lajense"
+        },
+        {
+          "name": "Serpa",
+          "wiki_path": "https://en.wikipedia.org/wiki/F.C._Serpa",
+          "aliases": [],
+          "identity": "Portugal:serpa"
+        },
+        {
+          "name": "Juventude de Évora",
+          "wiki_path": "https://en.wikipedia.org/wiki/Juventude_Sport_Clube",
+          "aliases": [],
+          "identity": "Portugal:juventudedeevora"
+        },
+        {
+          "name": "Amora",
+          "wiki_path": "https://en.wikipedia.org/wiki/Amora_F.C.",
+          "aliases": [],
+          "identity": "Portugal:amora"
+        },
+        {
+          "name": "1.º Dezembro",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.U._1º_Dezembro",
+          "aliases": [],
+          "identity": "Portugal:1odezembro"
+        },
+        {
+          "name": "Alcochetense",
+          "wiki_path": "https://en.wikipedia.org/wiki/GD_Alcochetense",
+          "aliases": [],
+          "identity": "Portugal:alcochetense"
+        },
+        {
+          "name": "Lagoa",
+          "wiki_path": "https://en.wikipedia.org/wiki/G.D._Lagoa",
+          "aliases": [],
+          "identity": "Portugal:lagoa"
+        },
+        {
+          "name": "Santa Clara B",
+          "wiki_path": "https://en.wikipedia.org/wiki/C.D._Santa_Clara",
+          "aliases": [],
+          "identity": "Portugal:santaclarab"
+        },
+        {
+          "name": "Portel",
+          "wiki_path": "https://en.wikipedia.org/wiki/G.D._Portel?action=edit&redlink=1",
+          "aliases": [],
+          "identity": "Portugal:portel"
+        },
+        {
+          "name": "Vitória de Setúbal",
+          "wiki_path": "https://en.wikipedia.org/wiki/Vitória_F.C.",
+          "aliases": [
+            "Vitória Setúbal FC"
+          ],
+          "identity": "Portugal:vitoriadesetubal"
+        },
+        {
+          "name": "Mineiro Aljustrelense",
+          "wiki_path": "https://en.wikipedia.org/wiki/S.C._Mineiro_Aljustrelense",
+          "aliases": [],
+          "identity": "Portugal:mineiroaljustrelense"
+        }
+      ],
+      "source_revision": 1382067630
+    },
+    {
+      "country": "England",
+      "tier": 1,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Premier_League",
+      "source_sha256": "5839a26bec64ecbcccffbeff1ade15bc0b7469cb3c0c95444ea009f1214e868f",
+      "tables": [
+        0
+      ],
+      "teams": [
+        {
+          "name": "Arsenal",
+          "wiki_path": "https://en.wikipedia.org/wiki/Arsenal_F.C.",
+          "aliases": [],
+          "identity": "England:arsenal"
+        },
+        {
+          "name": "Aston Villa",
+          "wiki_path": "https://en.wikipedia.org/wiki/Aston_Villa_F.C.",
+          "aliases": [],
+          "identity": "England:astonvilla"
+        },
+        {
+          "name": "Bournemouth",
+          "wiki_path": "https://en.wikipedia.org/wiki/AFC_Bournemouth",
+          "aliases": [],
+          "identity": "England:bournemouth"
+        },
+        {
+          "name": "Brentford",
+          "wiki_path": "https://en.wikipedia.org/wiki/Brentford_F.C.",
+          "aliases": [],
+          "identity": "England:brentford"
+        },
+        {
+          "name": "Brighton & Hove Albion",
+          "wiki_path": "https://en.wikipedia.org/wiki/Brighton_&_Hove_Albion_F.C.",
+          "aliases": [
+            "Brighton and Hove Albion"
+          ],
+          "identity": "England:brightonhovealbion"
+        },
+        {
+          "name": "Chelsea",
+          "wiki_path": "https://en.wikipedia.org/wiki/Chelsea_F.C.",
+          "aliases": [],
+          "identity": "England:chelsea"
+        },
+        {
+          "name": "Coventry City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Coventry_City_F.C.",
+          "aliases": [],
+          "identity": "England:coventrycity"
+        },
+        {
+          "name": "Crystal Palace",
+          "wiki_path": "https://en.wikipedia.org/wiki/Crystal_Palace_F.C.",
+          "aliases": [],
+          "identity": "England:crystalpalace"
+        },
+        {
+          "name": "Everton",
+          "wiki_path": "https://en.wikipedia.org/wiki/Everton_F.C.",
+          "aliases": [],
+          "identity": "England:everton"
+        },
+        {
+          "name": "Fulham",
+          "wiki_path": "https://en.wikipedia.org/wiki/Fulham_F.C.",
+          "aliases": [],
+          "identity": "England:fulham"
+        },
+        {
+          "name": "Hull City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Hull_City_A.F.C.",
+          "aliases": [],
+          "identity": "England:hullcity"
+        },
+        {
+          "name": "Ipswich Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Ipswich_Town_F.C.",
+          "aliases": [],
+          "identity": "England:ipswichtown"
+        },
+        {
+          "name": "Leeds United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Leeds_United_F.C.",
+          "aliases": [],
+          "identity": "England:leedsunited"
+        },
+        {
+          "name": "Liverpool",
+          "wiki_path": "https://en.wikipedia.org/wiki/Liverpool_F.C.",
+          "aliases": [],
+          "identity": "England:liverpool"
+        },
+        {
+          "name": "Manchester City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Manchester_City_F.C.",
+          "aliases": [],
+          "identity": "England:manchestercity"
+        },
+        {
+          "name": "Manchester United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Manchester_United_F.C.",
+          "aliases": [],
+          "identity": "England:manchesterunited"
+        },
+        {
+          "name": "Newcastle United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Newcastle_United_F.C.",
+          "aliases": [],
+          "identity": "England:newcastleunited"
+        },
+        {
+          "name": "Nottingham Forest",
+          "wiki_path": "https://en.wikipedia.org/wiki/Nottingham_Forest_F.C.",
+          "aliases": [],
+          "identity": "England:nottinghamforest"
+        },
+        {
+          "name": "Sunderland",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sunderland_A.F.C.",
+          "aliases": [],
+          "identity": "England:sunderland"
+        },
+        {
+          "name": "Tottenham Hotspur",
+          "wiki_path": "https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C.",
+          "aliases": [],
+          "identity": "England:tottenhamhotspur"
+        }
+      ],
+      "source_revision": 1383283643
+    },
+    {
+      "country": "England",
+      "tier": 2,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_EFL_Championship",
+      "source_sha256": "08d6dedb4596dc41cfdc942e05b905e5bec2e4791070c5ceffdef5c88bd72b39",
+      "tables": [
+        0
+      ],
+      "teams": [
+        {
+          "name": "Birmingham City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Birmingham_City_F.C.",
+          "aliases": [],
+          "identity": "England:birminghamcity"
+        },
+        {
+          "name": "Blackburn Rovers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Blackburn_Rovers_F.C.",
+          "aliases": [],
+          "identity": "England:blackburnrovers"
+        },
+        {
+          "name": "Bolton Wanderers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Bolton_Wanderers_F.C.",
+          "aliases": [],
+          "identity": "England:boltonwanderers"
+        },
+        {
+          "name": "Bristol City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Bristol_City_F.C.",
+          "aliases": [],
+          "identity": "England:bristolcity"
+        },
+        {
+          "name": "Burnley",
+          "wiki_path": "https://en.wikipedia.org/wiki/Burnley_F.C.",
+          "aliases": [],
+          "identity": "England:burnley"
+        },
+        {
+          "name": "Cardiff City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cardiff_City_F.C.",
+          "aliases": [],
+          "identity": "England:cardiffcity"
+        },
+        {
+          "name": "Charlton Athletic",
+          "wiki_path": "https://en.wikipedia.org/wiki/Charlton_Athletic_F.C.",
+          "aliases": [],
+          "identity": "England:charltonathletic"
+        },
+        {
+          "name": "Derby County",
+          "wiki_path": "https://en.wikipedia.org/wiki/Derby_County_F.C.",
+          "aliases": [],
+          "identity": "England:derbycounty"
+        },
+        {
+          "name": "Lincoln City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Lincoln_City_F.C.",
+          "aliases": [],
+          "identity": "England:lincolncity"
+        },
+        {
+          "name": "Middlesbrough",
+          "wiki_path": "https://en.wikipedia.org/wiki/Middlesbrough_F.C.",
+          "aliases": [],
+          "identity": "England:middlesbrough"
+        },
+        {
+          "name": "Millwall",
+          "wiki_path": "https://en.wikipedia.org/wiki/Millwall_F.C.",
+          "aliases": [],
+          "identity": "England:millwall"
+        },
+        {
+          "name": "Norwich City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Norwich_City_F.C.",
+          "aliases": [],
+          "identity": "England:norwichcity"
+        },
+        {
+          "name": "Portsmouth",
+          "wiki_path": "https://en.wikipedia.org/wiki/Portsmouth_F.C.",
+          "aliases": [],
+          "identity": "England:portsmouth"
+        },
+        {
+          "name": "Preston North End",
+          "wiki_path": "https://en.wikipedia.org/wiki/Preston_North_End_F.C.",
+          "aliases": [],
+          "identity": "England:prestonnorthend"
+        },
+        {
+          "name": "Queens Park Rangers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Queens_Park_Rangers_F.C.",
+          "aliases": [],
+          "identity": "England:queensparkrangers"
+        },
+        {
+          "name": "Sheffield United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sheffield_United_F.C.",
+          "aliases": [],
+          "identity": "England:sheffieldunited"
+        },
+        {
+          "name": "Southampton",
+          "wiki_path": "https://en.wikipedia.org/wiki/Southampton_F.C.",
+          "aliases": [],
+          "identity": "England:southampton"
+        },
+        {
+          "name": "Stoke City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Stoke_City_F.C.",
+          "aliases": [],
+          "identity": "England:stokecity"
+        },
+        {
+          "name": "Swansea City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Swansea_City_A.F.C.",
+          "aliases": [],
+          "identity": "England:swanseacity"
+        },
+        {
+          "name": "Watford",
+          "wiki_path": "https://en.wikipedia.org/wiki/Watford_F.C.",
+          "aliases": [],
+          "identity": "England:watford"
+        },
+        {
+          "name": "West Bromwich Albion",
+          "wiki_path": "https://en.wikipedia.org/wiki/West_Bromwich_Albion_F.C.",
+          "aliases": [],
+          "identity": "England:westbromwichalbion"
+        },
+        {
+          "name": "West Ham United",
+          "wiki_path": "https://en.wikipedia.org/wiki/West_Ham_United_F.C.",
+          "aliases": [],
+          "identity": "England:westhamunited"
+        },
+        {
+          "name": "Wolverhampton Wanderers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Wolverhampton_Wanderers_F.C.",
+          "aliases": [],
+          "identity": "England:wolverhamptonwanderers"
+        },
+        {
+          "name": "Wrexham",
+          "wiki_path": "https://en.wikipedia.org/wiki/Wrexham_A.F.C.",
+          "aliases": [],
+          "identity": "England:wrexham"
+        }
+      ],
+      "source_revision": 1383148258
+    },
+    {
+      "country": "England",
+      "tier": 3,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_EFL_League_One",
+      "source_sha256": "481062591dfe7252e303c8862b063ede25526aa3752f1b9df307569879052ee1",
+      "tables": [
+        0
+      ],
+      "teams": [
+        {
+          "name": "AFC Wimbledon",
+          "wiki_path": "https://en.wikipedia.org/wiki/AFC_Wimbledon",
+          "aliases": [],
+          "identity": "England:wimbledon"
+        },
+        {
+          "name": "Barnsley",
+          "wiki_path": "https://en.wikipedia.org/wiki/Barnsley_F.C.",
+          "aliases": [],
+          "identity": "England:barnsley"
+        },
+        {
+          "name": "Blackpool",
+          "wiki_path": "https://en.wikipedia.org/wiki/Blackpool_F.C.",
+          "aliases": [],
+          "identity": "England:blackpool"
+        },
+        {
+          "name": "Bradford City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Bradford_City_A.F.C.",
+          "aliases": [],
+          "identity": "England:bradfordcity"
+        },
+        {
+          "name": "Bromley",
+          "wiki_path": "https://en.wikipedia.org/wiki/Bromley_F.C.",
+          "aliases": [],
+          "identity": "England:bromley"
+        },
+        {
+          "name": "Burton Albion",
+          "wiki_path": "https://en.wikipedia.org/wiki/Burton_Albion_F.C.",
+          "aliases": [],
+          "identity": "England:burtonalbion"
+        },
+        {
+          "name": "Cambridge United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cambridge_United_F.C.",
+          "aliases": [],
+          "identity": "England:cambridgeunited"
+        },
+        {
+          "name": "Doncaster Rovers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Doncaster_Rovers_F.C.",
+          "aliases": [],
+          "identity": "England:doncasterrovers"
+        },
+        {
+          "name": "Huddersfield Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Huddersfield_Town_A.F.C.",
+          "aliases": [],
+          "identity": "England:huddersfieldtown"
+        },
+        {
+          "name": "Leicester City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Leicester_City_F.C.",
+          "aliases": [],
+          "identity": "England:leicestercity"
+        },
+        {
+          "name": "Leyton Orient",
+          "wiki_path": "https://en.wikipedia.org/wiki/Leyton_Orient_F.C.",
+          "aliases": [],
+          "identity": "England:leytonorient"
+        },
+        {
+          "name": "Luton Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Luton_Town_F.C.",
+          "aliases": [],
+          "identity": "England:lutontown"
+        },
+        {
+          "name": "Mansfield Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Mansfield_Town_F.C.",
+          "aliases": [],
+          "identity": "England:mansfieldtown"
+        },
+        {
+          "name": "Milton Keynes Dons",
+          "wiki_path": "https://en.wikipedia.org/wiki/Milton_Keynes_Dons_F.C.",
+          "aliases": [],
+          "identity": "England:miltonkeynesdons"
+        },
+        {
+          "name": "Notts County",
+          "wiki_path": "https://en.wikipedia.org/wiki/Notts_County_F.C.",
+          "aliases": [],
+          "identity": "England:nottscounty"
+        },
+        {
+          "name": "Oxford United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Oxford_United_F.C.",
+          "aliases": [],
+          "identity": "England:oxfordunited"
+        },
+        {
+          "name": "Peterborough United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Peterborough_United_F.C.",
+          "aliases": [],
+          "identity": "England:peterboroughunited"
+        },
+        {
+          "name": "Plymouth Argyle",
+          "wiki_path": "https://en.wikipedia.org/wiki/Plymouth_Argyle_F.C.",
+          "aliases": [],
+          "identity": "England:plymouthargyle"
+        },
+        {
+          "name": "Reading",
+          "wiki_path": "https://en.wikipedia.org/wiki/Reading_F.C.",
+          "aliases": [],
+          "identity": "England:reading"
+        },
+        {
+          "name": "Sheffield Wednesday",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sheffield_Wednesday_F.C.",
+          "aliases": [],
+          "identity": "England:sheffieldwednesday"
+        },
+        {
+          "name": "Stevenage",
+          "wiki_path": "https://en.wikipedia.org/wiki/Stevenage_F.C.",
+          "aliases": [],
+          "identity": "England:stevenage"
+        },
+        {
+          "name": "Stockport County",
+          "wiki_path": "https://en.wikipedia.org/wiki/Stockport_County_F.C.",
+          "aliases": [],
+          "identity": "England:stockportcounty"
+        },
+        {
+          "name": "Wigan Athletic",
+          "wiki_path": "https://en.wikipedia.org/wiki/Wigan_Athletic_F.C.",
+          "aliases": [],
+          "identity": "England:wiganathletic"
+        },
+        {
+          "name": "Wycombe Wanderers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Wycombe_Wanderers_F.C.",
+          "aliases": [],
+          "identity": "England:wycombewanderers"
+        }
+      ],
+      "source_revision": 1383230652
+    },
+    {
+      "country": "England",
+      "tier": 4,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_EFL_League_Two",
+      "source_sha256": "32d8ba3e39c35b694d826b0254a4c1cfa015adc2f5ce0d3361805dd629184c6b",
+      "tables": [
+        0
+      ],
+      "teams": [
+        {
+          "name": "Accrington Stanley",
+          "wiki_path": "https://en.wikipedia.org/wiki/Accrington_Stanley_F.C.",
+          "aliases": [],
+          "identity": "England:accringtonstanley"
+        },
+        {
+          "name": "Barnet",
+          "wiki_path": "https://en.wikipedia.org/wiki/Barnet_F.C.",
+          "aliases": [],
+          "identity": "England:barnet"
+        },
+        {
+          "name": "Bristol Rovers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Bristol_Rovers_F.C.",
+          "aliases": [],
+          "identity": "England:bristolrovers"
+        },
+        {
+          "name": "Cheltenham Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cheltenham_Town_F.C.",
+          "aliases": [],
+          "identity": "England:cheltenhamtown"
+        },
+        {
+          "name": "Chesterfield",
+          "wiki_path": "https://en.wikipedia.org/wiki/Chesterfield_F.C.",
+          "aliases": [],
+          "identity": "England:chesterfield"
+        },
+        {
+          "name": "Colchester United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Colchester_United_F.C.",
+          "aliases": [],
+          "identity": "England:colchesterunited"
+        },
+        {
+          "name": "Crawley Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Crawley_Town_F.C.",
+          "aliases": [],
+          "identity": "England:crawleytown"
+        },
+        {
+          "name": "Crewe Alexandra",
+          "wiki_path": "https://en.wikipedia.org/wiki/Crewe_Alexandra_F.C.",
+          "aliases": [],
+          "identity": "England:crewealexandra"
+        },
+        {
+          "name": "Exeter City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Exeter_City_F.C.",
+          "aliases": [],
+          "identity": "England:exetercity"
+        },
+        {
+          "name": "Fleetwood Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Fleetwood_Town_F.C.",
+          "aliases": [],
+          "identity": "England:fleetwoodtown"
+        },
+        {
+          "name": "Gillingham",
+          "wiki_path": "https://en.wikipedia.org/wiki/Gillingham_F.C.",
+          "aliases": [],
+          "identity": "England:gillingham"
+        },
+        {
+          "name": "Grimsby Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Grimsby_Town_F.C.",
+          "aliases": [],
+          "identity": "England:grimsbytown"
+        },
+        {
+          "name": "Newport County",
+          "wiki_path": "https://en.wikipedia.org/wiki/Newport_County_A.F.C.",
+          "aliases": [],
+          "identity": "England:newportcounty"
+        },
+        {
+          "name": "Northampton Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Northampton_Town_F.C.",
+          "aliases": [],
+          "identity": "England:northamptontown"
+        },
+        {
+          "name": "Oldham Athletic",
+          "wiki_path": "https://en.wikipedia.org/wiki/Oldham_Athletic_A.F.C.",
+          "aliases": [],
+          "identity": "England:oldhamathletic"
+        },
+        {
+          "name": "Port Vale",
+          "wiki_path": "https://en.wikipedia.org/wiki/Port_Vale_F.C.",
+          "aliases": [],
+          "identity": "England:portvale"
+        },
+        {
+          "name": "Rochdale",
+          "wiki_path": "https://en.wikipedia.org/wiki/Rochdale_A.F.C.",
+          "aliases": [],
+          "identity": "England:rochdale"
+        },
+        {
+          "name": "Rotherham United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Rotherham_United_F.C.",
+          "aliases": [],
+          "identity": "England:rotherhamunited"
+        },
+        {
+          "name": "Salford City",
+          "wiki_path": "https://en.wikipedia.org/wiki/Salford_City_F.C.",
+          "aliases": [],
+          "identity": "England:salfordcity"
+        },
+        {
+          "name": "Shrewsbury Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Shrewsbury_Town_F.C.",
+          "aliases": [],
+          "identity": "England:shrewsburytown"
+        },
+        {
+          "name": "Swindon Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Swindon_Town_F.C.",
+          "aliases": [],
+          "identity": "England:swindontown"
+        },
+        {
+          "name": "Tranmere Rovers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Tranmere_Rovers_F.C.",
+          "aliases": [],
+          "identity": "England:tranmererovers"
+        },
+        {
+          "name": "Walsall",
+          "wiki_path": "https://en.wikipedia.org/wiki/Walsall_F.C.",
+          "aliases": [],
+          "identity": "England:walsall"
+        },
+        {
+          "name": "York City",
+          "wiki_path": "https://en.wikipedia.org/wiki/York_City_F.C.",
+          "aliases": [],
+          "identity": "England:yorkcity"
+        }
+      ],
+      "source_revision": 1383095859
+    },
+    {
+      "country": "England",
+      "tier": 5,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_National_League",
+      "source_sha256": "3a80a83cc70cbe75c9a3f921bd3fab398526c9af80acce042e4fe5fbb4c0351c",
+      "tables": [
+        0
+      ],
+      "teams": [
+        {
+          "name": "AFC Fylde",
+          "wiki_path": "https://en.wikipedia.org/wiki/AFC_Fylde",
+          "aliases": [],
+          "identity": "England:fylde"
+        },
+        {
+          "name": "Aldershot Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Aldershot_Town_F.C.",
+          "aliases": [],
+          "identity": "England:aldershottown"
+        },
+        {
+          "name": "Altrincham",
+          "wiki_path": "https://en.wikipedia.org/wiki/Altrincham_F.C.",
+          "aliases": [],
+          "identity": "England:altrincham"
+        },
+        {
+          "name": "Barrow",
+          "wiki_path": "https://en.wikipedia.org/wiki/Barrow_A.F.C.",
+          "aliases": [],
+          "identity": "England:barrow"
+        },
+        {
+          "name": "Boreham Wood",
+          "wiki_path": "https://en.wikipedia.org/wiki/Boreham_Wood_F.C.",
+          "aliases": [],
+          "identity": "England:borehamwood"
+        },
+        {
+          "name": "Boston United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Boston_United_F.C.",
+          "aliases": [],
+          "identity": "England:bostonunited"
+        },
+        {
+          "name": "Carlisle United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Carlisle_United_F.C.",
+          "aliases": [],
+          "identity": "England:carlisleunited"
+        },
+        {
+          "name": "Eastleigh",
+          "wiki_path": "https://en.wikipedia.org/wiki/Eastleigh_F.C.",
+          "aliases": [],
+          "identity": "England:eastleigh"
+        },
+        {
+          "name": "FC Halifax Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Halifax_Town",
+          "aliases": [],
+          "identity": "England:halifaxtown"
+        },
+        {
+          "name": "Forest Green Rovers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Forest_Green_Rovers_F.C.",
+          "aliases": [],
+          "identity": "England:forestgreenrovers"
+        },
+        {
+          "name": "Gateshead",
+          "wiki_path": "https://en.wikipedia.org/wiki/Gateshead_F.C.",
+          "aliases": [],
+          "identity": "England:gateshead"
+        },
+        {
+          "name": "Harrogate Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Harrogate_Town_A.F.C.",
+          "aliases": [],
+          "identity": "England:harrogatetown"
+        },
+        {
+          "name": "Hartlepool United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Hartlepool_United_F.C.",
+          "aliases": [],
+          "identity": "England:hartlepoolunited"
+        },
+        {
+          "name": "Hornchurch",
+          "wiki_path": "https://en.wikipedia.org/wiki/Hornchurch_F.C.",
+          "aliases": [],
+          "identity": "England:hornchurch"
+        },
+        {
+          "name": "Kidderminster Harriers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Kidderminster_Harriers_F.C.",
+          "aliases": [],
+          "identity": "England:kidderminsterharriers"
+        },
+        {
+          "name": "Scunthorpe United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Scunthorpe_United_F.C.",
+          "aliases": [],
+          "identity": "England:scunthorpeunited"
+        },
+        {
+          "name": "Solihull Moors",
+          "wiki_path": "https://en.wikipedia.org/wiki/Solihull_Moors_F.C.",
+          "aliases": [],
+          "identity": "England:solihullmoors"
+        },
+        {
+          "name": "Southend United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Southend_United_F.C.",
+          "aliases": [],
+          "identity": "England:southendunited"
+        },
+        {
+          "name": "Sutton United",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sutton_United_F.C.",
+          "aliases": [],
+          "identity": "England:suttonunited"
+        },
+        {
+          "name": "Tamworth",
+          "wiki_path": "https://en.wikipedia.org/wiki/Tamworth_F.C.",
+          "aliases": [],
+          "identity": "England:tamworth"
+        },
+        {
+          "name": "Wealdstone",
+          "wiki_path": "https://en.wikipedia.org/wiki/Wealdstone_F.C.",
+          "aliases": [],
+          "identity": "England:wealdstone"
+        },
+        {
+          "name": "Woking",
+          "wiki_path": "https://en.wikipedia.org/wiki/Woking_F.C.",
+          "aliases": [],
+          "identity": "England:woking"
+        },
+        {
+          "name": "Worthing",
+          "wiki_path": "https://en.wikipedia.org/wiki/Worthing_F.C.",
+          "aliases": [],
+          "identity": "England:worthing"
+        },
+        {
+          "name": "Yeovil Town",
+          "wiki_path": "https://en.wikipedia.org/wiki/Yeovil_Town_F.C.",
+          "aliases": [],
+          "identity": "England:yeoviltown"
+        }
+      ],
+      "source_revision": 1383058794
+    },
+    {
+      "country": "Spain",
+      "tier": 1,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_La_Liga",
+      "source_sha256": "d5c01abe0e54a4999eaf157d68915f99005a03b3fdb2bf8c32777457e647ea5d",
+      "tables": [
+        1
+      ],
+      "teams": [
+        {
+          "name": "Alavés",
+          "wiki_path": "https://en.wikipedia.org/wiki/Deportivo_Alavés",
+          "aliases": [
+            "Deportivo Alavés"
+          ],
+          "identity": "Spain:alaves"
+        },
+        {
+          "name": "Athletic Bilbao",
+          "wiki_path": "https://en.wikipedia.org/wiki/Athletic_Bilbao",
+          "aliases": [
+            "Athletic Club Bilbao",
+            "Athletic Club"
+          ],
+          "identity": "Spain:athleticbilbao"
+        },
+        {
+          "name": "Atlético Madrid",
+          "wiki_path": "https://en.wikipedia.org/wiki/Atlético_Madrid",
+          "aliases": [
+            "Atlético de Madrid",
+            "Club Atlético de Madrid"
+          ],
+          "identity": "Spain:atleticomadrid"
+        },
+        {
+          "name": "Barcelona",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Barcelona",
+          "aliases": [
+            "FC Barcelona"
+          ],
+          "identity": "Spain:barcelona"
+        },
+        {
+          "name": "Celta Vigo",
+          "wiki_path": "https://en.wikipedia.org/wiki/RC_Celta_de_Vigo",
+          "aliases": [
+            "RC Celta Vigo",
+            "Celta de Vigo"
+          ],
+          "identity": "Spain:celtavigo"
+        },
+        {
+          "name": "Deportivo A Coruña",
+          "wiki_path": "https://en.wikipedia.org/wiki/Deportivo_de_A_Coruña",
+          "aliases": [
+            "RCD La Coruña",
+            "Deportivo de La Coruña",
+            "RC Deportivo La Coruña"
+          ],
+          "identity": "Spain:deportivoacoruna"
+        },
+        {
+          "name": "Elche",
+          "wiki_path": "https://en.wikipedia.org/wiki/Elche_CF",
+          "aliases": [],
+          "identity": "Spain:elche"
+        },
+        {
+          "name": "Espanyol",
+          "wiki_path": "https://en.wikipedia.org/wiki/RCD_Espanyol",
+          "aliases": [
+            "RCD Espanyol Barcelona",
+            "RCD Espanyol",
+            "RCD Espanyol de Barcelona"
+          ],
+          "identity": "Spain:espanyol"
+        },
+        {
+          "name": "Getafe",
+          "wiki_path": "https://en.wikipedia.org/wiki/Getafe_CF",
+          "aliases": [],
+          "identity": "Spain:getafe"
+        },
+        {
+          "name": "Levante",
+          "wiki_path": "https://en.wikipedia.org/wiki/Levante_UD",
+          "aliases": [],
+          "identity": "Spain:levante"
+        },
+        {
+          "name": "Málaga",
+          "wiki_path": "https://en.wikipedia.org/wiki/Málaga_CF",
+          "aliases": [],
+          "identity": "Spain:malaga"
+        },
+        {
+          "name": "Osasuna",
+          "wiki_path": "https://en.wikipedia.org/wiki/CA_Osasuna",
+          "aliases": [],
+          "identity": "Spain:osasuna"
+        },
+        {
+          "name": "Racing Santander",
+          "wiki_path": "https://en.wikipedia.org/wiki/Racing_de_Santander",
+          "aliases": [
+            "Racing de Santander",
+            "Real Racing Club de Santander"
+          ],
+          "identity": "Spain:racingsantander"
+        },
+        {
+          "name": "Rayo Vallecano",
+          "wiki_path": "https://en.wikipedia.org/wiki/Rayo_Vallecano",
+          "aliases": [
+            "Rayo Vallecano de Madrid"
+          ],
+          "identity": "Spain:rayovallecano"
+        },
+        {
+          "name": "Real Betis",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Betis",
+          "aliases": [
+            "Real Betis Balompié"
+          ],
+          "identity": "Spain:realbetis"
+        },
+        {
+          "name": "Real Madrid",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Madrid_CF",
+          "aliases": [],
+          "identity": "Spain:realmadrid"
+        },
+        {
+          "name": "Real Sociedad",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Sociedad",
+          "aliases": [
+            "Real Sociedad de Fútbol"
+          ],
+          "identity": "Spain:realsociedad"
+        },
+        {
+          "name": "Sevilla",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sevilla_FC",
+          "aliases": [],
+          "identity": "Spain:sevilla"
+        },
+        {
+          "name": "Valencia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Valencia_CF",
+          "aliases": [],
+          "identity": "Spain:valencia"
+        },
+        {
+          "name": "Villarreal",
+          "wiki_path": "https://en.wikipedia.org/wiki/Villarreal_CF",
+          "aliases": [],
+          "identity": "Spain:villarreal"
+        }
+      ],
+      "source_revision": 1383277434
+    },
+    {
+      "country": "Spain",
+      "tier": 2,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Segunda_Divisi%C3%B3n",
+      "source_sha256": "c2e9b1aa2ea6068fd18e0d4ce4be2d6cc4d837607b79ca97505303a475687113",
+      "tables": [
+        1
+      ],
+      "teams": [
+        {
+          "name": "Albacete",
+          "wiki_path": "https://en.wikipedia.org/wiki/Albacete_Balompié",
+          "aliases": [],
+          "identity": "Spain:albacete"
+        },
+        {
+          "name": "Almería",
+          "wiki_path": "https://en.wikipedia.org/wiki/UD_Almería",
+          "aliases": [],
+          "identity": "Spain:almeria"
+        },
+        {
+          "name": "Andorra",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Andorra",
+          "aliases": [],
+          "identity": "Spain:andorra"
+        },
+        {
+          "name": "Burgos",
+          "wiki_path": "https://en.wikipedia.org/wiki/Burgos_CF",
+          "aliases": [],
+          "identity": "Spain:burgos"
+        },
+        {
+          "name": "Cádiz",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cádiz_CF",
+          "aliases": [],
+          "identity": "Spain:cadiz"
+        },
+        {
+          "name": "Castellón",
+          "wiki_path": "https://en.wikipedia.org/wiki/CD_Castellón",
+          "aliases": [],
+          "identity": "Spain:castellon"
+        },
+        {
+          "name": "Celta Fortuna",
+          "wiki_path": "https://en.wikipedia.org/wiki/RC_Celta_Fortuna",
+          "aliases": [],
+          "identity": "Spain:celtafortuna"
+        },
+        {
+          "name": "Ceuta",
+          "wiki_path": "https://en.wikipedia.org/wiki/AD_Ceuta_FC",
+          "aliases": [],
+          "identity": "Spain:ceuta"
+        },
+        {
+          "name": "Córdoba",
+          "wiki_path": "https://en.wikipedia.org/wiki/Córdoba_CF",
+          "aliases": [],
+          "identity": "Spain:cordoba"
+        },
+        {
+          "name": "Eibar",
+          "wiki_path": "https://en.wikipedia.org/wiki/SD_Eibar",
+          "aliases": [],
+          "identity": "Spain:eibar"
+        },
+        {
+          "name": "Eldense",
+          "wiki_path": "https://en.wikipedia.org/wiki/CD_Eldense",
+          "aliases": [],
+          "identity": "Spain:eldense"
+        },
+        {
+          "name": "Girona",
+          "wiki_path": "https://en.wikipedia.org/wiki/Girona_FC",
+          "aliases": [],
+          "identity": "Spain:girona"
+        },
+        {
+          "name": "Granada",
+          "wiki_path": "https://en.wikipedia.org/wiki/Granada_CF",
+          "aliases": [],
+          "identity": "Spain:granada"
+        },
+        {
+          "name": "Las Palmas",
+          "wiki_path": "https://en.wikipedia.org/wiki/UD_Las_Palmas",
+          "aliases": [],
+          "identity": "Spain:laspalmas"
+        },
+        {
+          "name": "Leganés",
+          "wiki_path": "https://en.wikipedia.org/wiki/CD_Leganés",
+          "aliases": [],
+          "identity": "Spain:leganes"
+        },
+        {
+          "name": "Mallorca",
+          "wiki_path": "https://en.wikipedia.org/wiki/RCD_Mallorca",
+          "aliases": [],
+          "identity": "Spain:mallorca"
+        },
+        {
+          "name": "Oviedo",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Oviedo",
+          "aliases": [
+            "Real Oviedo"
+          ],
+          "identity": "Spain:oviedo"
+        },
+        {
+          "name": "Real Sociedad B",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Sociedad_B",
+          "aliases": [],
+          "identity": "Spain:realsociedadb"
+        },
+        {
+          "name": "Sabadell",
+          "wiki_path": "https://en.wikipedia.org/wiki/CE_Sabadell_FC",
+          "aliases": [],
+          "identity": "Spain:sabadell"
+        },
+        {
+          "name": "Sporting Gijón",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sporting_de_Gijón",
+          "aliases": [],
+          "identity": "Spain:sportinggijon"
+        },
+        {
+          "name": "Tenerife",
+          "wiki_path": "https://en.wikipedia.org/wiki/CD_Tenerife",
+          "aliases": [],
+          "identity": "Spain:tenerife"
+        },
+        {
+          "name": "Valladolid",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Valladolid",
+          "aliases": [
+            "Real Valladolid"
+          ],
+          "identity": "Spain:valladolid"
+        }
+      ],
+      "source_revision": 1383252510
+    },
+    {
+      "country": "Spain",
+      "tier": 3,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Primera_Federaci%C3%B3n",
+      "source_sha256": "5d715ae38faf3cea3077cb916a62321f0936db637be0965270464beaf78d4888",
+      "tables": [
+        1,
+        6
+      ],
+      "teams": [
+        {
+          "name": "Arenas",
+          "wiki_path": "https://en.wikipedia.org/wiki/Arenas_Club_de_Getxo",
+          "aliases": [],
+          "identity": "Spain:arenas"
+        },
+        {
+          "name": "Avilés Industrial",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Avilés_Industrial_CF",
+          "aliases": [],
+          "identity": "Spain:avilesindustrial"
+        },
+        {
+          "name": "Barakaldo",
+          "wiki_path": "https://en.wikipedia.org/wiki/Barakaldo_CF",
+          "aliases": [],
+          "identity": "Spain:barakaldo"
+        },
+        {
+          "name": "Bilbao Athletic",
+          "wiki_path": "https://en.wikipedia.org/wiki/Athletic_Bilbao_B",
+          "aliases": [],
+          "identity": "Spain:bilbaoathletic"
+        },
+        {
+          "name": "Cacereño",
+          "wiki_path": "https://en.wikipedia.org/wiki/CP_Cacereño",
+          "aliases": [],
+          "identity": "Spain:cacereno"
+        },
+        {
+          "name": "Coria",
+          "wiki_path": "https://en.wikipedia.org/wiki/CD_Coria",
+          "aliases": [],
+          "identity": "Spain:coria"
+        },
+        {
+          "name": "Cultural Leonesa",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cultural_y_Deportiva_Leonesa",
+          "aliases": [],
+          "identity": "Spain:culturalleonesa"
+        },
+        {
+          "name": "Deportivo Fabril",
+          "wiki_path": "https://en.wikipedia.org/wiki/Deportivo_Fabril",
+          "aliases": [],
+          "identity": "Spain:deportivofabril"
+        },
+        {
+          "name": "Extremadura",
+          "wiki_path": "https://en.wikipedia.org/wiki/CD_Extremadura",
+          "aliases": [],
+          "identity": "Spain:extremadura"
+        },
+        {
+          "name": "UD Logroñés",
+          "wiki_path": "https://en.wikipedia.org/wiki/UD_Logroñés",
+          "aliases": [],
+          "identity": "Spain:logrones"
+        },
+        {
+          "name": "Lugo",
+          "wiki_path": "https://en.wikipedia.org/wiki/CD_Lugo",
+          "aliases": [],
+          "identity": "Spain:lugo"
+        },
+        {
+          "name": "Mérida",
+          "wiki_path": "https://en.wikipedia.org/wiki/Mérida_AD",
+          "aliases": [],
+          "identity": "Spain:merida"
+        },
+        {
+          "name": "Mirandés",
+          "wiki_path": "https://en.wikipedia.org/wiki/CD_Mirandés",
+          "aliases": [],
+          "identity": "Spain:mirandes"
+        },
+        {
+          "name": "UD Ourense",
+          "wiki_path": "https://en.wikipedia.org/wiki/UD_Ourense",
+          "aliases": [],
+          "identity": "Spain:ourense"
+        },
+        {
+          "name": "Ponferradina",
+          "wiki_path": "https://en.wikipedia.org/wiki/SD_Ponferradina",
+          "aliases": [],
+          "identity": "Spain:ponferradina"
+        },
+        {
+          "name": "Pontevedra",
+          "wiki_path": "https://en.wikipedia.org/wiki/Pontevedra_CF",
+          "aliases": [],
+          "identity": "Spain:pontevedra"
+        },
+        {
+          "name": "Racing Ferrol",
+          "wiki_path": "https://en.wikipedia.org/wiki/Racing_de_Ferrol",
+          "aliases": [],
+          "identity": "Spain:racingferrol"
+        },
+        {
+          "name": "Real Unión",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Unión",
+          "aliases": [],
+          "identity": "Spain:realunion"
+        },
+        {
+          "name": "Unionistas",
+          "wiki_path": "https://en.wikipedia.org/wiki/Unionistas_de_Salamanca_CF",
+          "aliases": [],
+          "identity": "Spain:unionistas"
+        },
+        {
+          "name": "Zamora",
+          "wiki_path": "https://en.wikipedia.org/wiki/Zamora_CF",
+          "aliases": [],
+          "identity": "Spain:zamora"
+        },
+        {
+          "name": "Águilas",
+          "wiki_path": "https://en.wikipedia.org/wiki/Águilas_FC",
+          "aliases": [],
+          "identity": "Spain:aguilas"
+        },
+        {
+          "name": "Alcorcón",
+          "wiki_path": "https://en.wikipedia.org/wiki/AD_Alcorcón",
+          "aliases": [],
+          "identity": "Spain:alcorcon"
+        },
+        {
+          "name": "Algeciras",
+          "wiki_path": "https://en.wikipedia.org/wiki/Algeciras_CF",
+          "aliases": [],
+          "identity": "Spain:algeciras"
+        },
+        {
+          "name": "Antequera",
+          "wiki_path": "https://en.wikipedia.org/wiki/Antequera_CF",
+          "aliases": [],
+          "identity": "Spain:antequera"
+        },
+        {
+          "name": "Atlético Madrileño",
+          "wiki_path": "https://en.wikipedia.org/wiki/Atlético_Madrileño",
+          "aliases": [],
+          "identity": "Spain:atleticomadrileno"
+        },
+        {
+          "name": "Cartagena",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Cartagena",
+          "aliases": [],
+          "identity": "Spain:cartagena"
+        },
+        {
+          "name": "Europa",
+          "wiki_path": "https://en.wikipedia.org/wiki/CE_Europa",
+          "aliases": [],
+          "identity": "Spain:europa"
+        },
+        {
+          "name": "Gimnàstic",
+          "wiki_path": "https://en.wikipedia.org/wiki/Gimnàstic_de_Tarragona",
+          "aliases": [],
+          "identity": "Spain:gimnastic"
+        },
+        {
+          "name": "Hércules",
+          "wiki_path": "https://en.wikipedia.org/wiki/Hércules_CF",
+          "aliases": [],
+          "identity": "Spain:hercules"
+        },
+        {
+          "name": "Huesca",
+          "wiki_path": "https://en.wikipedia.org/wiki/SD_Huesca",
+          "aliases": [],
+          "identity": "Spain:huesca"
+        },
+        {
+          "name": "Ibiza",
+          "wiki_path": "https://en.wikipedia.org/wiki/UD_Ibiza",
+          "aliases": [],
+          "identity": "Spain:ibiza"
+        },
+        {
+          "name": "Jaén",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Jaén",
+          "aliases": [],
+          "identity": "Spain:jaen"
+        },
+        {
+          "name": "Juventud Torremolinos",
+          "wiki_path": "https://en.wikipedia.org/wiki/Juventud_de_Torremolinos_CF",
+          "aliases": [],
+          "identity": "Spain:juventudtorremolinos"
+        },
+        {
+          "name": "Murcia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Murcia",
+          "aliases": [],
+          "identity": "Spain:murcia"
+        },
+        {
+          "name": "Rayo Majadahonda",
+          "wiki_path": "https://en.wikipedia.org/wiki/CF_Rayo_Majadahonda",
+          "aliases": [],
+          "identity": "Spain:rayomajadahonda"
+        },
+        {
+          "name": "Real Madrid Castilla",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Madrid_Castilla",
+          "aliases": [],
+          "identity": "Spain:realmadridcastilla"
+        },
+        {
+          "name": "Sant Andreu",
+          "wiki_path": "https://en.wikipedia.org/wiki/UE_Sant_Andreu",
+          "aliases": [],
+          "identity": "Spain:santandreu"
+        },
+        {
+          "name": "Teruel",
+          "wiki_path": "https://en.wikipedia.org/wiki/CD_Teruel",
+          "aliases": [],
+          "identity": "Spain:teruel"
+        },
+        {
+          "name": "Villarreal B",
+          "wiki_path": "https://en.wikipedia.org/wiki/Villarreal_CF_B",
+          "aliases": [],
+          "identity": "Spain:villarrealb"
+        },
+        {
+          "name": "Zaragoza",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Zaragoza",
+          "aliases": [
+            "Real Zaragoza"
+          ],
+          "identity": "Spain:zaragoza"
+        }
+      ],
+      "source_revision": 1383293672
+    },
+    {
+      "country": "Germany",
+      "tier": 1,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Bundesliga",
+      "source_sha256": "63d265261dd4084812071a74fd9557a330411f7649af6aa56f50b56bd55bc5ac",
+      "tables": [
+        1
+      ],
+      "teams": [
+        {
+          "name": "FC Augsburg",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Augsburg",
+          "aliases": [],
+          "identity": "Germany:augsburg"
+        },
+        {
+          "name": "Union Berlin",
+          "wiki_path": "https://en.wikipedia.org/wiki/1._FC_Union_Berlin",
+          "aliases": [
+            "1. FC Union Berlin"
+          ],
+          "identity": "Germany:unionberlin"
+        },
+        {
+          "name": "Werder Bremen",
+          "wiki_path": "https://en.wikipedia.org/wiki/SV_Werder_Bremen",
+          "aliases": [],
+          "identity": "Germany:werderbremen"
+        },
+        {
+          "name": "Borussia Dortmund",
+          "wiki_path": "https://en.wikipedia.org/wiki/Borussia_Dortmund",
+          "aliases": [],
+          "identity": "Germany:borussiadortmund"
+        },
+        {
+          "name": "SV Elversberg",
+          "wiki_path": "https://en.wikipedia.org/wiki/SV_Elversberg",
+          "aliases": [
+            "SV 07 Elversberg"
+          ],
+          "identity": "Germany:elversberg"
+        },
+        {
+          "name": "Eintracht Frankfurt",
+          "wiki_path": "https://en.wikipedia.org/wiki/Eintracht_Frankfurt",
+          "aliases": [],
+          "identity": "Germany:eintrachtfrankfurt"
+        },
+        {
+          "name": "SC Freiburg",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Freiburg",
+          "aliases": [],
+          "identity": "Germany:freiburg"
+        },
+        {
+          "name": "Hamburger SV",
+          "wiki_path": "https://en.wikipedia.org/wiki/Hamburger_SV",
+          "aliases": [],
+          "identity": "Germany:hamburger"
+        },
+        {
+          "name": "TSG Hoffenheim",
+          "wiki_path": "https://en.wikipedia.org/wiki/TSG_1899_Hoffenheim",
+          "aliases": [
+            "1899 Hoffenheim",
+            "TSG 1899 Hoffenheim"
+          ],
+          "identity": "Germany:tsghoffenheim"
+        },
+        {
+          "name": "1. FC Köln",
+          "wiki_path": "https://en.wikipedia.org/wiki/1._FC_Köln",
+          "aliases": [],
+          "identity": "Germany:1koln"
+        },
+        {
+          "name": "RB Leipzig",
+          "wiki_path": "https://en.wikipedia.org/wiki/RB_Leipzig",
+          "aliases": [],
+          "identity": "Germany:rbleipzig"
+        },
+        {
+          "name": "Bayer Leverkusen",
+          "wiki_path": "https://en.wikipedia.org/wiki/Bayer_04_Leverkusen",
+          "aliases": [
+            "Bayer 04 Leverkusen"
+          ],
+          "identity": "Germany:bayerleverkusen"
+        },
+        {
+          "name": "Mainz 05",
+          "wiki_path": "https://en.wikipedia.org/wiki/1._FSV_Mainz_05",
+          "aliases": [
+            "1. FSV Mainz 05"
+          ],
+          "identity": "Germany:mainz05"
+        },
+        {
+          "name": "Borussia Mönchengladbach",
+          "wiki_path": "https://en.wikipedia.org/wiki/Borussia_Mönchengladbach",
+          "aliases": [
+            "Bor. Mönchengladbach"
+          ],
+          "identity": "Germany:borussiamonchengladbach"
+        },
+        {
+          "name": "Bayern Munich",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Bayern_Munich",
+          "aliases": [
+            "Bayern München"
+          ],
+          "identity": "Germany:bayernmunich"
+        },
+        {
+          "name": "SC Paderborn",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Paderborn_07",
+          "aliases": [
+            "SC Paderborn 07"
+          ],
+          "identity": "Germany:paderborn"
+        },
+        {
+          "name": "Schalke 04",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Schalke_04",
+          "aliases": [],
+          "identity": "Germany:schalke04"
+        },
+        {
+          "name": "VfB Stuttgart",
+          "wiki_path": "https://en.wikipedia.org/wiki/VfB_Stuttgart",
+          "aliases": [],
+          "identity": "Germany:stuttgart"
+        }
+      ],
+      "source_revision": 1383241795
+    },
+    {
+      "country": "Germany",
+      "tier": 2,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_2._Bundesliga",
+      "source_sha256": "78624b8198a3b53137c164f412f60640578419dcd4ebf603c216ada1912c6dda",
+      "tables": [
+        1
+      ],
+      "teams": [
+        {
+          "name": "Hertha BSC",
+          "wiki_path": "https://en.wikipedia.org/wiki/Hertha_BSC",
+          "aliases": [],
+          "identity": "Germany:herthabsc"
+        },
+        {
+          "name": "Arminia Bielefeld",
+          "wiki_path": "https://en.wikipedia.org/wiki/Arminia_Bielefeld",
+          "aliases": [],
+          "identity": "Germany:arminiabielefeld"
+        },
+        {
+          "name": "VfL Bochum",
+          "wiki_path": "https://en.wikipedia.org/wiki/VfL_Bochum",
+          "aliases": [],
+          "identity": "Germany:bochum"
+        },
+        {
+          "name": "Eintracht Braunschweig",
+          "wiki_path": "https://en.wikipedia.org/wiki/Eintracht_Braunschweig",
+          "aliases": [],
+          "identity": "Germany:eintrachtbraunschweig"
+        },
+        {
+          "name": "Energie Cottbus",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Energie_Cottbus",
+          "aliases": [],
+          "identity": "Germany:energiecottbus"
+        },
+        {
+          "name": "Darmstadt 98",
+          "wiki_path": "https://en.wikipedia.org/wiki/SV_Darmstadt_98",
+          "aliases": [],
+          "identity": "Germany:darmstadt98"
+        },
+        {
+          "name": "Dynamo Dresden",
+          "wiki_path": "https://en.wikipedia.org/wiki/Dynamo_Dresden",
+          "aliases": [],
+          "identity": "Germany:dynamodresden"
+        },
+        {
+          "name": "Greuther Fürth",
+          "wiki_path": "https://en.wikipedia.org/wiki/SpVgg_Greuther_Fürth",
+          "aliases": [],
+          "identity": "Germany:greutherfurth"
+        },
+        {
+          "name": "Hannover 96",
+          "wiki_path": "https://en.wikipedia.org/wiki/Hannover_96",
+          "aliases": [],
+          "identity": "Germany:hannover96"
+        },
+        {
+          "name": "1. FC Heidenheim",
+          "wiki_path": "https://en.wikipedia.org/wiki/1._FC_Heidenheim",
+          "aliases": [],
+          "identity": "Germany:1heidenheim"
+        },
+        {
+          "name": "1. FC Kaiserslautern",
+          "wiki_path": "https://en.wikipedia.org/wiki/1._FC_Kaiserslautern",
+          "aliases": [],
+          "identity": "Germany:1kaiserslautern"
+        },
+        {
+          "name": "Karlsruher SC",
+          "wiki_path": "https://en.wikipedia.org/wiki/Karlsruher_SC",
+          "aliases": [],
+          "identity": "Germany:karlsruher"
+        },
+        {
+          "name": "Holstein Kiel",
+          "wiki_path": "https://en.wikipedia.org/wiki/Holstein_Kiel",
+          "aliases": [],
+          "identity": "Germany:holsteinkiel"
+        },
+        {
+          "name": "1. FC Magdeburg",
+          "wiki_path": "https://en.wikipedia.org/wiki/1._FC_Magdeburg",
+          "aliases": [],
+          "identity": "Germany:1magdeburg"
+        },
+        {
+          "name": "1. FC Nürnberg",
+          "wiki_path": "https://en.wikipedia.org/wiki/1._FC_Nürnberg",
+          "aliases": [
+            "1.FC Nuremberg"
+          ],
+          "identity": "Germany:1nurnberg"
+        },
+        {
+          "name": "VfL Osnabrück",
+          "wiki_path": "https://en.wikipedia.org/wiki/VfL_Osnabrück",
+          "aliases": [],
+          "identity": "Germany:osnabruck"
+        },
+        {
+          "name": "FC St. Pauli",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_St._Pauli",
+          "aliases": [],
+          "identity": "Germany:stpauli"
+        },
+        {
+          "name": "VfL Wolfsburg",
+          "wiki_path": "https://en.wikipedia.org/wiki/VfL_Wolfsburg",
+          "aliases": [],
+          "identity": "Germany:wolfsburg"
+        }
+      ],
+      "source_revision": 1383213854
+    },
+    {
+      "country": "Germany",
+      "tier": 3,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_3._Liga",
+      "source_sha256": "6540c96d77d8ea61f1a9ba1d2ba3bbbe3f7c256fa4366127fc2b48cdf145b415",
+      "tables": [
+        1
+      ],
+      "teams": [
+        {
+          "name": "Alemannia Aachen",
+          "wiki_path": "https://en.wikipedia.org/wiki/Alemannia_Aachen",
+          "aliases": [],
+          "identity": "Germany:alemanniaaachen"
+        },
+        {
+          "name": "MSV Duisburg",
+          "wiki_path": "https://en.wikipedia.org/wiki/MSV_Duisburg",
+          "aliases": [],
+          "identity": "Germany:msvduisburg"
+        },
+        {
+          "name": "Fortuna Düsseldorf",
+          "wiki_path": "https://en.wikipedia.org/wiki/Fortuna_Düsseldorf",
+          "aliases": [],
+          "identity": "Germany:fortunadusseldorf"
+        },
+        {
+          "name": "Rot-Weiss Essen",
+          "wiki_path": "https://en.wikipedia.org/wiki/Rot-Weiss_Essen",
+          "aliases": [],
+          "identity": "Germany:rotweissessen"
+        },
+        {
+          "name": "Sonnenhof Großaspach",
+          "wiki_path": "https://en.wikipedia.org/wiki/SG_Sonnenhof_Großaspach",
+          "aliases": [],
+          "identity": "Germany:sonnenhofgroaspach"
+        },
+        {
+          "name": "TSV Havelse",
+          "wiki_path": "https://en.wikipedia.org/wiki/TSV_Havelse",
+          "aliases": [],
+          "identity": "Germany:havelse"
+        },
+        {
+          "name": "TSG Hoffenheim II",
+          "wiki_path": "https://en.wikipedia.org/wiki/TSG_1899_Hoffenheim_II",
+          "aliases": [],
+          "identity": "Germany:tsghoffenheimii"
+        },
+        {
+          "name": "FC Ingolstadt",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Ingolstadt_04",
+          "aliases": [],
+          "identity": "Germany:ingolstadt"
+        },
+        {
+          "name": "Fortuna Köln",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Fortuna_Köln",
+          "aliases": [],
+          "identity": "Germany:fortunakoln"
+        },
+        {
+          "name": "Viktoria Köln",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Viktoria_Köln",
+          "aliases": [],
+          "identity": "Germany:viktoriakoln"
+        },
+        {
+          "name": "Waldhof Mannheim",
+          "wiki_path": "https://en.wikipedia.org/wiki/SV_Waldhof_Mannheim",
+          "aliases": [],
+          "identity": "Germany:waldhofmannheim"
+        },
+        {
+          "name": "SV Meppen",
+          "wiki_path": "https://en.wikipedia.org/wiki/SV_Meppen",
+          "aliases": [],
+          "identity": "Germany:meppen"
+        },
+        {
+          "name": "Preußen Münster",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Preußen_Münster",
+          "aliases": [],
+          "identity": "Germany:preuenmunster"
+        },
+        {
+          "name": "Jahn Regensburg",
+          "wiki_path": "https://en.wikipedia.org/wiki/SSV_Jahn_Regensburg",
+          "aliases": [],
+          "identity": "Germany:jahnregensburg"
+        },
+        {
+          "name": "Hansa Rostock",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Hansa_Rostock",
+          "aliases": [],
+          "identity": "Germany:hansarostock"
+        },
+        {
+          "name": "1. FC Saarbrücken",
+          "wiki_path": "https://en.wikipedia.org/wiki/1._FC_Saarbrücken",
+          "aliases": [],
+          "identity": "Germany:1saarbrucken"
+        },
+        {
+          "name": "VfB Stuttgart II",
+          "wiki_path": "https://en.wikipedia.org/wiki/VfB_Stuttgart_II",
+          "aliases": [],
+          "identity": "Germany:stuttgartii"
+        },
+        {
+          "name": "SC Verl",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Verl",
+          "aliases": [],
+          "identity": "Germany:verl"
+        },
+        {
+          "name": "Wehen Wiesbaden",
+          "wiki_path": "https://en.wikipedia.org/wiki/SV_Wehen_Wiesbaden",
+          "aliases": [],
+          "identity": "Germany:wehenwiesbaden"
+        },
+        {
+          "name": "Würzburger Kickers",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Würzburger_Kickers",
+          "aliases": [],
+          "identity": "Germany:wurzburgerkickers"
+        }
+      ],
+      "source_revision": 1383271262
+    },
+    {
+      "country": "Italy",
+      "tier": 1,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Serie_A",
+      "source_sha256": "82b7de200832ef341e4e661fe01d6d38f89d33c7e1771a84d4222b94fb850c59",
+      "tables": [
+        1
+      ],
+      "teams": [
+        {
+          "name": "Atalanta",
+          "wiki_path": "https://en.wikipedia.org/wiki/Atalanta_BC",
+          "aliases": [
+            "Atalanta Bergamo",
+            "Atalanta BC"
+          ],
+          "identity": "Italy:atalanta"
+        },
+        {
+          "name": "Bologna",
+          "wiki_path": "https://en.wikipedia.org/wiki/Bologna_FC_1909",
+          "aliases": [
+            "Bologna Football Club 1909",
+            "Bologna FC",
+            "Bologna FC 1909"
+          ],
+          "identity": "Italy:bologna"
+        },
+        {
+          "name": "Cagliari",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cagliari_Calcio",
+          "aliases": [
+            "Cagliari Calcio"
+          ],
+          "identity": "Italy:cagliari"
+        },
+        {
+          "name": "Como",
+          "wiki_path": "https://en.wikipedia.org/wiki/Como_1907",
+          "aliases": [
+            "Como 1907"
+          ],
+          "identity": "Italy:como"
+        },
+        {
+          "name": "Fiorentina",
+          "wiki_path": "https://en.wikipedia.org/wiki/ACF_Fiorentina",
+          "aliases": [
+            "ACF Fiorentina"
+          ],
+          "identity": "Italy:fiorentina"
+        },
+        {
+          "name": "Frosinone",
+          "wiki_path": "https://en.wikipedia.org/wiki/Frosinone_Calcio",
+          "aliases": [
+            "Frosinone Calcio"
+          ],
+          "identity": "Italy:frosinone"
+        },
+        {
+          "name": "Genoa",
+          "wiki_path": "https://en.wikipedia.org/wiki/Genoa_CFC",
+          "aliases": [
+            "Genoa CFC"
+          ],
+          "identity": "Italy:genoa"
+        },
+        {
+          "name": "Inter Milan",
+          "wiki_path": "https://en.wikipedia.org/wiki/Inter_Milan",
+          "aliases": [
+            "FC Internazionale Milano",
+            "Internazionale"
+          ],
+          "identity": "Italy:intermilan"
+        },
+        {
+          "name": "Juventus",
+          "wiki_path": "https://en.wikipedia.org/wiki/Juventus_FC",
+          "aliases": [],
+          "identity": "Italy:juventus"
+        },
+        {
+          "name": "Lazio",
+          "wiki_path": "https://en.wikipedia.org/wiki/SS_Lazio",
+          "aliases": [
+            "Società Sportiva Lazio S.p.A.",
+            "SS Lazio"
+          ],
+          "identity": "Italy:lazio"
+        },
+        {
+          "name": "Lecce",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Lecce",
+          "aliases": [],
+          "identity": "Italy:lecce"
+        },
+        {
+          "name": "AC Milan",
+          "wiki_path": "https://en.wikipedia.org/wiki/AC_Milan",
+          "aliases": [],
+          "identity": "Italy:milan"
+        },
+        {
+          "name": "Monza",
+          "wiki_path": "https://en.wikipedia.org/wiki/AC_Monza",
+          "aliases": [],
+          "identity": "Italy:monza"
+        },
+        {
+          "name": "Napoli",
+          "wiki_path": "https://en.wikipedia.org/wiki/SSC_Napoli",
+          "aliases": [],
+          "identity": "Italy:napoli"
+        },
+        {
+          "name": "Parma",
+          "wiki_path": "https://en.wikipedia.org/wiki/Parma_Calcio_1913",
+          "aliases": [
+            "Parma Calcio",
+            "Parma Calcio 1913"
+          ],
+          "identity": "Italy:parma"
+        },
+        {
+          "name": "Roma",
+          "wiki_path": "https://en.wikipedia.org/wiki/AS_Roma",
+          "aliases": [
+            "Associazione Sportiva Roma",
+            "AS Roma"
+          ],
+          "identity": "Italy:roma"
+        },
+        {
+          "name": "Sassuolo",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Sassuolo_Calcio",
+          "aliases": [
+            "US Sassuolo Calcio",
+            "US Sassuolo"
+          ],
+          "identity": "Italy:sassuolo"
+        },
+        {
+          "name": "Torino",
+          "wiki_path": "https://en.wikipedia.org/wiki/Torino_FC",
+          "aliases": [],
+          "identity": "Italy:torino"
+        },
+        {
+          "name": "Udinese",
+          "wiki_path": "https://en.wikipedia.org/wiki/Udinese_Calcio",
+          "aliases": [
+            "Udinese Calcio"
+          ],
+          "identity": "Italy:udinese"
+        },
+        {
+          "name": "Venezia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Venezia_FC",
+          "aliases": [],
+          "identity": "Italy:venezia"
+        }
+      ],
+      "source_revision": 1383280297
+    },
+    {
+      "country": "Italy",
+      "tier": 2,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Serie_B",
+      "source_sha256": "ff03a295ed01dfa26ff2dd1a5e46d56175098b3bf6e80cba4d85e603621416d7",
+      "tables": [
+        1
+      ],
+      "teams": [
+        {
+          "name": "Arezzo",
+          "wiki_path": "https://en.wikipedia.org/wiki/SS_Arezzo",
+          "aliases": [],
+          "identity": "Italy:arezzo"
+        },
+        {
+          "name": "Ascoli",
+          "wiki_path": "https://en.wikipedia.org/wiki/Ascoli_Calcio_1898_FC",
+          "aliases": [],
+          "identity": "Italy:ascoli"
+        },
+        {
+          "name": "Avellino",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Avellino_1912",
+          "aliases": [],
+          "identity": "Italy:avellino"
+        },
+        {
+          "name": "Benevento",
+          "wiki_path": "https://en.wikipedia.org/wiki/Benevento_Calcio",
+          "aliases": [],
+          "identity": "Italy:benevento"
+        },
+        {
+          "name": "Carrarese",
+          "wiki_path": "https://en.wikipedia.org/wiki/Carrarese_Calcio_1908",
+          "aliases": [],
+          "identity": "Italy:carrarese"
+        },
+        {
+          "name": "Catanzaro",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Catanzaro_1929",
+          "aliases": [],
+          "identity": "Italy:catanzaro"
+        },
+        {
+          "name": "Cesena",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cesena_FC",
+          "aliases": [],
+          "identity": "Italy:cesena"
+        },
+        {
+          "name": "Cremonese",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Cremonese",
+          "aliases": [],
+          "identity": "Italy:cremonese"
+        },
+        {
+          "name": "Empoli",
+          "wiki_path": "https://en.wikipedia.org/wiki/Empoli_FC",
+          "aliases": [],
+          "identity": "Italy:empoli"
+        },
+        {
+          "name": "Hellas Verona",
+          "wiki_path": "https://en.wikipedia.org/wiki/Hellas_Verona_FC",
+          "aliases": [],
+          "identity": "Italy:hellasverona"
+        },
+        {
+          "name": "Juve Stabia",
+          "wiki_path": "https://en.wikipedia.org/wiki/SS_Juve_Stabia",
+          "aliases": [],
+          "identity": "Italy:juvestabia"
+        },
+        {
+          "name": "Mantova",
+          "wiki_path": "https://en.wikipedia.org/wiki/Mantova_1911",
+          "aliases": [],
+          "identity": "Italy:mantova"
+        },
+        {
+          "name": "Modena",
+          "wiki_path": "https://en.wikipedia.org/wiki/Modena_FC_2018",
+          "aliases": [],
+          "identity": "Italy:modena"
+        },
+        {
+          "name": "Padova",
+          "wiki_path": "https://en.wikipedia.org/wiki/Calcio_Padova",
+          "aliases": [],
+          "identity": "Italy:padova"
+        },
+        {
+          "name": "Palermo",
+          "wiki_path": "https://en.wikipedia.org/wiki/Palermo_FC",
+          "aliases": [],
+          "identity": "Italy:palermo"
+        },
+        {
+          "name": "Pisa",
+          "wiki_path": "https://en.wikipedia.org/wiki/Pisa_SC",
+          "aliases": [
+            "Pisa Sporting Club",
+            "AC Pisa"
+          ],
+          "identity": "Italy:pisa"
+        },
+        {
+          "name": "Sampdoria",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sampdoria",
+          "aliases": [],
+          "identity": "Italy:sampdoria"
+        },
+        {
+          "name": "Südtirol",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Südtirol",
+          "aliases": [],
+          "identity": "Italy:sudtirol"
+        },
+        {
+          "name": "Vicenza",
+          "wiki_path": "https://en.wikipedia.org/wiki/LR_Vicenza",
+          "aliases": [],
+          "identity": "Italy:vicenza"
+        },
+        {
+          "name": "Virtus Entella",
+          "wiki_path": "https://en.wikipedia.org/wiki/Virtus_Entella",
+          "aliases": [],
+          "identity": "Italy:virtusentella"
+        }
+      ],
+      "source_revision": 1383266663
+    },
+    {
+      "country": "Italy",
+      "tier": 3,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Serie_C",
+      "source_sha256": "62af217cb0f9a79660eb280173138fbe49ff8df6c64e2ef375a5219e41ee8c4e",
+      "tables": [
+        0,
+        3,
+        6
+      ],
+      "teams": [
+        {
+          "name": "AlbinoLeffe",
+          "wiki_path": "https://en.wikipedia.org/wiki/UC_AlbinoLeffe",
+          "aliases": [],
+          "identity": "Italy:albinoleffe"
+        },
+        {
+          "name": "Alcione Milano",
+          "wiki_path": "https://en.wikipedia.org/wiki/Alcione_Milano",
+          "aliases": [],
+          "identity": "Italy:alcionemilano"
+        },
+        {
+          "name": "Arzignano Valchiampo",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Arzignano_Valchiampo",
+          "aliases": [],
+          "identity": "Italy:arzignanovalchiampo"
+        },
+        {
+          "name": "Carpi",
+          "wiki_path": "https://en.wikipedia.org/wiki/AC_Carpi",
+          "aliases": [],
+          "identity": "Italy:carpi"
+        },
+        {
+          "name": "Cittadella",
+          "wiki_path": "https://en.wikipedia.org/wiki/AS_Cittadella",
+          "aliases": [],
+          "identity": "Italy:cittadella"
+        },
+        {
+          "name": "Desenzano",
+          "wiki_path": "https://en.wikipedia.org/wiki/Calcio_Desenzano_SSD",
+          "aliases": [],
+          "identity": "Italy:desenzano"
+        },
+        {
+          "name": "Dolomiti Bellunesi",
+          "wiki_path": "https://en.wikipedia.org/wiki/Dolomiti_Bellunesi_(football_club)",
+          "aliases": [],
+          "identity": "Italy:dolomitibellunesi"
+        },
+        {
+          "name": "Folgore Caratese",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Folgore_Caratese_ASD",
+          "aliases": [],
+          "identity": "Italy:folgorecaratese"
+        },
+        {
+          "name": "Giana Erminio",
+          "wiki_path": "https://en.wikipedia.org/wiki/AS_Giana_Erminio",
+          "aliases": [],
+          "identity": "Italy:gianaerminio"
+        },
+        {
+          "name": "Juventus Next Gen",
+          "wiki_path": "https://en.wikipedia.org/wiki/Juventus_Next_Gen",
+          "aliases": [],
+          "identity": "Italy:juventusnextgen"
+        },
+        {
+          "name": "Lecco",
+          "wiki_path": "https://en.wikipedia.org/wiki/Calcio_Lecco_1912",
+          "aliases": [],
+          "identity": "Italy:lecco"
+        },
+        {
+          "name": "Lumezzane",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Lumezzane",
+          "aliases": [],
+          "identity": "Italy:lumezzane"
+        },
+        {
+          "name": "Novara",
+          "wiki_path": "https://en.wikipedia.org/wiki/Novara_FC",
+          "aliases": [],
+          "identity": "Italy:novara"
+        },
+        {
+          "name": "Ospitaletto",
+          "wiki_path": "https://en.wikipedia.org/wiki/AC_Ospitaletto_Franciacorta",
+          "aliases": [],
+          "identity": "Italy:ospitaletto"
+        },
+        {
+          "name": "Pergolettese",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Pergolettese_1932",
+          "aliases": [],
+          "identity": "Italy:pergolettese"
+        },
+        {
+          "name": "Pro Vercelli",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Pro_Vercelli_1892",
+          "aliases": [],
+          "identity": "Italy:provercelli"
+        },
+        {
+          "name": "Renate",
+          "wiki_path": "https://en.wikipedia.org/wiki/AC_Renate",
+          "aliases": [],
+          "identity": "Italy:renate"
+        },
+        {
+          "name": "Trento",
+          "wiki_path": "https://en.wikipedia.org/wiki/AC_Trento_1921",
+          "aliases": [],
+          "identity": "Italy:trento"
+        },
+        {
+          "name": "Treviso",
+          "wiki_path": "https://en.wikipedia.org/wiki/Treviso_FBC",
+          "aliases": [],
+          "identity": "Italy:treviso"
+        },
+        {
+          "name": "Union Brescia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Union_Brescia",
+          "aliases": [],
+          "identity": "Italy:unionbrescia"
+        },
+        {
+          "name": "Atalanta U23",
+          "wiki_path": "https://en.wikipedia.org/wiki/Atalanta_Under_23",
+          "aliases": [],
+          "identity": "Italy:atalantau23"
+        },
+        {
+          "name": "Campobasso",
+          "wiki_path": "https://en.wikipedia.org/wiki/Campobasso_FC",
+          "aliases": [],
+          "identity": "Italy:campobasso"
+        },
+        {
+          "name": "Forlì",
+          "wiki_path": "https://en.wikipedia.org/wiki/Forlì_FC",
+          "aliases": [],
+          "identity": "Italy:forli"
+        },
+        {
+          "name": "Grosseto",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Grosseto_1912",
+          "aliases": [],
+          "identity": "Italy:grosseto"
+        },
+        {
+          "name": "Gubbio",
+          "wiki_path": "https://en.wikipedia.org/wiki/AS_Gubbio_1910",
+          "aliases": [],
+          "identity": "Italy:gubbio"
+        },
+        {
+          "name": "Guidonia Montecelio",
+          "wiki_path": "https://en.wikipedia.org/wiki/Guidonia_Montecelio_1937_FC",
+          "aliases": [],
+          "identity": "Italy:guidoniamontecelio"
+        },
+        {
+          "name": "Latina",
+          "wiki_path": "https://en.wikipedia.org/wiki/Latina_Calcio_1932",
+          "aliases": [],
+          "identity": "Italy:latina"
+        },
+        {
+          "name": "Livorno",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Livorno_1915",
+          "aliases": [],
+          "identity": "Italy:livorno"
+        },
+        {
+          "name": "Ostia Mare",
+          "wiki_path": "https://en.wikipedia.org/wiki/AS_Ostia_Mare_Lido_Calcio",
+          "aliases": [],
+          "identity": "Italy:ostiamare"
+        },
+        {
+          "name": "Pescara",
+          "wiki_path": "https://en.wikipedia.org/wiki/Delfino_Pescara_1936",
+          "aliases": [
+            "Delfino Pescara 1936"
+          ],
+          "identity": "Italy:pescara"
+        },
+        {
+          "name": "Perugia",
+          "wiki_path": "https://en.wikipedia.org/wiki/AC_Perugia_Calcio",
+          "aliases": [],
+          "identity": "Italy:perugia"
+        },
+        {
+          "name": "Pianese",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Pianese",
+          "aliases": [],
+          "identity": "Italy:pianese"
+        },
+        {
+          "name": "Pineto",
+          "wiki_path": "https://en.wikipedia.org/wiki/AS_Pineto_Calcio",
+          "aliases": [],
+          "identity": "Italy:pineto"
+        },
+        {
+          "name": "Ravenna",
+          "wiki_path": "https://en.wikipedia.org/wiki/Ravenna_FC",
+          "aliases": [],
+          "identity": "Italy:ravenna"
+        },
+        {
+          "name": "Reggiana",
+          "wiki_path": "https://en.wikipedia.org/wiki/AC_Reggiana_1919",
+          "aliases": [],
+          "identity": "Italy:reggiana"
+        },
+        {
+          "name": "Sambenedettese",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Sambenedettese",
+          "aliases": [],
+          "identity": "Italy:sambenedettese"
+        },
+        {
+          "name": "Spezia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Spezia_Calcio",
+          "aliases": [],
+          "identity": "Italy:spezia"
+        },
+        {
+          "name": "Torres",
+          "wiki_path": "https://en.wikipedia.org/wiki/SEF_Torres_1903",
+          "aliases": [],
+          "identity": "Italy:torres"
+        },
+        {
+          "name": "Vado",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Vado",
+          "aliases": [],
+          "identity": "Italy:vado"
+        },
+        {
+          "name": "Vis Pesaro",
+          "wiki_path": "https://en.wikipedia.org/wiki/Vis_Pesaro_dal_1898",
+          "aliases": [],
+          "identity": "Italy:vispesaro"
+        },
+        {
+          "name": "Altamura",
+          "wiki_path": "https://en.wikipedia.org/wiki/ASD_Team_Altamura",
+          "aliases": [],
+          "identity": "Italy:altamura"
+        },
+        {
+          "name": "Audace Cerignola",
+          "wiki_path": "https://en.wikipedia.org/wiki/SS_Audace_Cerignola",
+          "aliases": [],
+          "identity": "Italy:audacecerignola"
+        },
+        {
+          "name": "Bari",
+          "wiki_path": "https://en.wikipedia.org/wiki/SSC_Bari",
+          "aliases": [],
+          "identity": "Italy:bari"
+        },
+        {
+          "name": "Barletta",
+          "wiki_path": "https://en.wikipedia.org/wiki/SSD_Barletta_1922",
+          "aliases": [],
+          "identity": "Italy:barletta"
+        },
+        {
+          "name": "Casarano",
+          "wiki_path": "https://en.wikipedia.org/wiki/Casarano_Calcio",
+          "aliases": [],
+          "identity": "Italy:casarano"
+        },
+        {
+          "name": "Casertana",
+          "wiki_path": "https://en.wikipedia.org/wiki/Casertana_FC",
+          "aliases": [],
+          "identity": "Italy:casertana"
+        },
+        {
+          "name": "Catania",
+          "wiki_path": "https://en.wikipedia.org/wiki/Catania_FC",
+          "aliases": [],
+          "identity": "Italy:catania"
+        },
+        {
+          "name": "Cavese",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cavese_1919",
+          "aliases": [],
+          "identity": "Italy:cavese"
+        },
+        {
+          "name": "Cosenza",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cosenza_Calcio",
+          "aliases": [],
+          "identity": "Italy:cosenza"
+        },
+        {
+          "name": "Crotone",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Crotone",
+          "aliases": [],
+          "identity": "Italy:crotone"
+        },
+        {
+          "name": "Foggia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Calcio_Foggia_1920",
+          "aliases": [],
+          "identity": "Italy:foggia"
+        },
+        {
+          "name": "Giugliano",
+          "wiki_path": "https://en.wikipedia.org/wiki/Giugliano_Calcio_1928",
+          "aliases": [],
+          "identity": "Italy:giugliano"
+        },
+        {
+          "name": "Inter Milan U23",
+          "wiki_path": "https://en.wikipedia.org/wiki/Inter_Milan_Under-23",
+          "aliases": [],
+          "identity": "Italy:intermilanu23"
+        },
+        {
+          "name": "Monopoli",
+          "wiki_path": "https://en.wikipedia.org/wiki/SS_Monopoli_1966",
+          "aliases": [],
+          "identity": "Italy:monopoli"
+        },
+        {
+          "name": "Picerno",
+          "wiki_path": "https://en.wikipedia.org/wiki/AZ_Picerno",
+          "aliases": [],
+          "identity": "Italy:picerno"
+        },
+        {
+          "name": "Potenza",
+          "wiki_path": "https://en.wikipedia.org/wiki/Potenza_Calcio",
+          "aliases": [],
+          "identity": "Italy:potenza"
+        },
+        {
+          "name": "Salernitana",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Salernitana_1919",
+          "aliases": [
+            "US Salernitana 1919"
+          ],
+          "identity": "Italy:salernitana"
+        },
+        {
+          "name": "Savoia",
+          "wiki_path": "https://en.wikipedia.org/wiki/SSD_Savoia_1908_FC",
+          "aliases": [],
+          "identity": "Italy:savoia"
+        },
+        {
+          "name": "Scafatese",
+          "wiki_path": "https://en.wikipedia.org/wiki/Scafatese_Calcio_1922",
+          "aliases": [],
+          "identity": "Italy:scafatese"
+        },
+        {
+          "name": "Sorrento",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sorrento_Calcio_1945",
+          "aliases": [],
+          "identity": "Italy:sorrento"
+        }
+      ],
+      "source_revision": 1382760226
+    },
+    {
+      "country": "France",
+      "tier": 1,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Ligue_1",
+      "source_sha256": "9541716023887c2f5be5a11727953d8fa492da185bcd0d25b85c3bee513cf2b5",
+      "tables": [
+        1
+      ],
+      "teams": [
+        {
+          "name": "Angers",
+          "wiki_path": "https://en.wikipedia.org/wiki/Angers_SCO",
+          "aliases": [
+            "Angers SCO"
+          ],
+          "identity": "France:angers"
+        },
+        {
+          "name": "Auxerre",
+          "wiki_path": "https://en.wikipedia.org/wiki/AJ_Auxerre",
+          "aliases": [
+            "AJ Auxerre"
+          ],
+          "identity": "France:auxerre"
+        },
+        {
+          "name": "Brest",
+          "wiki_path": "https://en.wikipedia.org/wiki/Stade_Brestois_29",
+          "aliases": [
+            "Stade Brestois 29"
+          ],
+          "identity": "France:brest"
+        },
+        {
+          "name": "Le Havre",
+          "wiki_path": "https://en.wikipedia.org/wiki/Le_Havre_AC",
+          "aliases": [
+            "Le Havre AC"
+          ],
+          "identity": "France:lehavre"
+        },
+        {
+          "name": "Le Mans",
+          "wiki_path": "https://en.wikipedia.org/wiki/Le_Mans_FC",
+          "aliases": [
+            "Le Mans FC"
+          ],
+          "identity": "France:lemans"
+        },
+        {
+          "name": "Lens",
+          "wiki_path": "https://en.wikipedia.org/wiki/RC_Lens",
+          "aliases": [
+            "Racing Club de Lens"
+          ],
+          "identity": "France:lens"
+        },
+        {
+          "name": "Lille",
+          "wiki_path": "https://en.wikipedia.org/wiki/Lille_OSC",
+          "aliases": [
+            "Lille OSC",
+            "LOSC Lille"
+          ],
+          "identity": "France:lille"
+        },
+        {
+          "name": "Lorient",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Lorient",
+          "aliases": [],
+          "identity": "France:lorient"
+        },
+        {
+          "name": "Lyon",
+          "wiki_path": "https://en.wikipedia.org/wiki/Olympique_Lyonnais",
+          "aliases": [
+            "Olympique Lyonnais",
+            "Olympique Lyon"
+          ],
+          "identity": "France:lyon"
+        },
+        {
+          "name": "Marseille",
+          "wiki_path": "https://en.wikipedia.org/wiki/Olympique_de_Marseille",
+          "aliases": [
+            "Olympique de Marseille",
+            "Olympique Marseille"
+          ],
+          "identity": "France:marseille"
+        },
+        {
+          "name": "Monaco",
+          "wiki_path": "https://en.wikipedia.org/wiki/AS_Monaco_FC",
+          "aliases": [],
+          "identity": "France:monaco"
+        },
+        {
+          "name": "Nice",
+          "wiki_path": "https://en.wikipedia.org/wiki/OGC_Nice",
+          "aliases": [
+            "OGC Nice"
+          ],
+          "identity": "France:nice"
+        },
+        {
+          "name": "Paris FC",
+          "wiki_path": "https://en.wikipedia.org/wiki/Paris_FC",
+          "aliases": [],
+          "identity": "France:paris"
+        },
+        {
+          "name": "Paris Saint-Germain",
+          "wiki_path": "https://en.wikipedia.org/wiki/Paris_Saint-Germain_FC",
+          "aliases": [],
+          "identity": "France:parissaintgermain"
+        },
+        {
+          "name": "Rennes",
+          "wiki_path": "https://en.wikipedia.org/wiki/Stade_Rennais_FC",
+          "aliases": [
+            "Stade Rennais",
+            "Stade Rennais FC 1901"
+          ],
+          "identity": "France:rennes"
+        },
+        {
+          "name": "Strasbourg",
+          "wiki_path": "https://en.wikipedia.org/wiki/RC_Strasbourg_Alsace",
+          "aliases": [
+            "RC Strasbourg",
+            "RC Strasbourg Alsace"
+          ],
+          "identity": "France:strasbourg"
+        },
+        {
+          "name": "Toulouse",
+          "wiki_path": "https://en.wikipedia.org/wiki/Toulouse_FC",
+          "aliases": [
+            "Toulouse FC",
+            "FC Toulouse"
+          ],
+          "identity": "France:toulouse"
+        },
+        {
+          "name": "Troyes",
+          "wiki_path": "https://en.wikipedia.org/wiki/ES_Troyes_AC",
+          "aliases": [
+            "ES Troyes AC",
+            "ESTAC Troyes"
+          ],
+          "identity": "France:troyes"
+        }
+      ],
+      "source_revision": 1383267466
+    },
+    {
+      "country": "France",
+      "tier": 2,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Ligue_2",
+      "source_sha256": "609a34bfe7bd67fae5ea06a14b513fbe70fb984b67711332d7fa89681ab6f389",
+      "tables": [
+        0
+      ],
+      "teams": [
+        {
+          "name": "Annecy",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Annecy",
+          "aliases": [],
+          "identity": "France:annecy"
+        },
+        {
+          "name": "Boulogne",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Boulogne",
+          "aliases": [],
+          "identity": "France:boulogne"
+        },
+        {
+          "name": "Clermont",
+          "wiki_path": "https://en.wikipedia.org/wiki/Clermont_Foot",
+          "aliases": [],
+          "identity": "France:clermont"
+        },
+        {
+          "name": "Dijon",
+          "wiki_path": "https://en.wikipedia.org/wiki/Dijon_FCO",
+          "aliases": [],
+          "identity": "France:dijon"
+        },
+        {
+          "name": "Dunkerque",
+          "wiki_path": "https://en.wikipedia.org/wiki/USL_Dunkerque",
+          "aliases": [],
+          "identity": "France:dunkerque"
+        },
+        {
+          "name": "Grenoble",
+          "wiki_path": "https://en.wikipedia.org/wiki/Grenoble_Foot_38",
+          "aliases": [],
+          "identity": "France:grenoble"
+        },
+        {
+          "name": "Guingamp",
+          "wiki_path": "https://en.wikipedia.org/wiki/En_Avant_Guingamp",
+          "aliases": [],
+          "identity": "France:guingamp"
+        },
+        {
+          "name": "Laval",
+          "wiki_path": "https://en.wikipedia.org/wiki/Stade_Lavallois",
+          "aliases": [],
+          "identity": "France:laval"
+        },
+        {
+          "name": "Metz",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Metz",
+          "aliases": [],
+          "identity": "France:metz"
+        },
+        {
+          "name": "Montpellier",
+          "wiki_path": "https://en.wikipedia.org/wiki/Montpellier_HSC",
+          "aliases": [],
+          "identity": "France:montpellier"
+        },
+        {
+          "name": "Nancy",
+          "wiki_path": "https://en.wikipedia.org/wiki/AS_Nancy_Lorraine",
+          "aliases": [],
+          "identity": "France:nancy"
+        },
+        {
+          "name": "Nantes",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Nantes",
+          "aliases": [],
+          "identity": "France:nantes"
+        },
+        {
+          "name": "Pau",
+          "wiki_path": "https://en.wikipedia.org/wiki/Pau_FC",
+          "aliases": [],
+          "identity": "France:pau"
+        },
+        {
+          "name": "Red Star",
+          "wiki_path": "https://en.wikipedia.org/wiki/Red_Star_FC",
+          "aliases": [],
+          "identity": "France:redstar"
+        },
+        {
+          "name": "Reims",
+          "wiki_path": "https://en.wikipedia.org/wiki/Stade_de_Reims",
+          "aliases": [
+            "Stade de Reims",
+            "Stade Reims"
+          ],
+          "identity": "France:reims"
+        },
+        {
+          "name": "Rodez",
+          "wiki_path": "https://en.wikipedia.org/wiki/Rodez_AF",
+          "aliases": [],
+          "identity": "France:rodez"
+        },
+        {
+          "name": "Saint-Étienne",
+          "wiki_path": "https://en.wikipedia.org/wiki/AS_Saint-Étienne",
+          "aliases": [
+            "AS Saint-Etienne"
+          ],
+          "identity": "France:saintetienne"
+        },
+        {
+          "name": "Sochaux",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Sochaux-Montbéliard",
+          "aliases": [],
+          "identity": "France:sochaux"
+        }
+      ],
+      "source_revision": 1383140050
+    },
+    {
+      "country": "France",
+      "tier": 3,
+      "season": "2026-27",
+      "source_url": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Ligue_3",
+      "source_sha256": "cd3f42f59b3318d9da13908efdcac47416aace43ff6634f16a9ea10b6256065c",
+      "tables": [
+        2
+      ],
+      "teams": [
+        {
+          "name": "Amiens",
+          "wiki_path": "https://en.wikipedia.org/wiki/Amiens_SC",
+          "aliases": [],
+          "identity": "France:amiens"
+        },
+        {
+          "name": "Aubagne Air Bel",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Aubagne_Air_Bel",
+          "aliases": [],
+          "identity": "France:aubagneairbel"
+        },
+        {
+          "name": "Bastia",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Bastia",
+          "aliases": [],
+          "identity": "France:bastia"
+        },
+        {
+          "name": "Bourg-Péronnas",
+          "wiki_path": "https://en.wikipedia.org/wiki/Football_Bourg-en-Bresse_Péronnas_01",
+          "aliases": [],
+          "identity": "France:bourgperonnas"
+        },
+        {
+          "name": "Caen",
+          "wiki_path": "https://en.wikipedia.org/wiki/Stade_Malherbe_Caen",
+          "aliases": [
+            "Stade Malherbe Caen",
+            "SM Caen"
+          ],
+          "identity": "France:caen"
+        },
+        {
+          "name": "Cannes",
+          "wiki_path": "https://en.wikipedia.org/wiki/AS_Cannes",
+          "aliases": [],
+          "identity": "France:cannes"
+        },
+        {
+          "name": "Concarneau",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Concarneau",
+          "aliases": [],
+          "identity": "France:concarneau"
+        },
+        {
+          "name": "Fleury",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Fleury_91_(men)",
+          "aliases": [],
+          "identity": "France:fleury"
+        },
+        {
+          "name": "La Roche",
+          "wiki_path": "https://en.wikipedia.org/wiki/VFC_La_Roche-sur-Yon",
+          "aliases": [],
+          "identity": "France:laroche"
+        },
+        {
+          "name": "Le Puy",
+          "wiki_path": "https://en.wikipedia.org/wiki/Le_Puy_Foot_43_Auvergne",
+          "aliases": [],
+          "identity": "France:lepuy"
+        },
+        {
+          "name": "Orléans",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Orléans",
+          "aliases": [],
+          "identity": "France:orleans"
+        },
+        {
+          "name": "Paris 13 Atletico",
+          "wiki_path": "https://en.wikipedia.org/wiki/Paris_13_Atletico",
+          "aliases": [],
+          "identity": "France:paris13atletico"
+        },
+        {
+          "name": "Quevilly-Rouen",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Quevilly-Rouen_Métropole",
+          "aliases": [],
+          "identity": "France:quevillyrouen"
+        },
+        {
+          "name": "Rouen",
+          "wiki_path": "https://en.wikipedia.org/wiki/Football_Club_de_Rouen_1899",
+          "aliases": [],
+          "identity": "France:rouen"
+        },
+        {
+          "name": "Thionville",
+          "wiki_path": "https://en.wikipedia.org/wiki/US_Thionville_Lusitanos",
+          "aliases": [],
+          "identity": "France:thionville"
+        },
+        {
+          "name": "Valenciennes",
+          "wiki_path": "https://en.wikipedia.org/wiki/Valenciennes_FC",
+          "aliases": [],
+          "identity": "France:valenciennes"
+        },
+        {
+          "name": "Versailles",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Versailles_78",
+          "aliases": [],
+          "identity": "France:versailles"
+        },
+        {
+          "name": "Villefranche",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Villefranche_Beaujolais",
+          "aliases": [],
+          "identity": "France:villefranche"
+        }
+      ],
+      "source_revision": 1383141858
+    },
+    {
+      "country": "Brazil",
+      "tier": 1,
+      "season": "2026",
+      "source_url": "https://en.wikipedia.org/wiki/2026_Campeonato_Brasileiro_S%C3%A9rie_A",
+      "source_sha256": "653a0efc1459bbdcf340dbbb0bc963191bacee6f4b7843e007389df7090f4752",
+      "tables": [
+        3
+      ],
+      "teams": [
+        {
+          "name": "Athletico Paranaense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Athletico_Paranaense",
+          "aliases": [
+            "Atlético PR",
+            "Clube Atlético Paranaense",
+            "CA Paranaense"
+          ],
+          "identity": "Brazil:athleticoparanaense"
+        },
+        {
+          "name": "Atlético Mineiro",
+          "wiki_path": "https://en.wikipedia.org/wiki/Clube_Atlético_Mineiro",
+          "aliases": [
+            "Atlético MG",
+            "Clube Atlético Mineiro",
+            "CA Mineiro"
+          ],
+          "identity": "Brazil:atleticomineiro"
+        },
+        {
+          "name": "Bahia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Esporte_Clube_Bahia",
+          "aliases": [
+            "EC Bahia"
+          ],
+          "identity": "Brazil:bahia"
+        },
+        {
+          "name": "Botafogo",
+          "wiki_path": "https://en.wikipedia.org/wiki/Botafogo_FR",
+          "aliases": [
+            "Botafogo RJ",
+            "S. A. F. Botafogo",
+            "Botafogo FR"
+          ],
+          "identity": "Brazil:botafogo"
+        },
+        {
+          "name": "Chapecoense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Chapecoense_de_Futebol",
+          "aliases": [
+            "Associação Chapecoense de Futebol",
+            "Chapecoense AF"
+          ],
+          "identity": "Brazil:chapecoense"
+        },
+        {
+          "name": "Corinthians",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Corinthians_Paulista",
+          "aliases": [
+            "Corinthians SP",
+            "Sport Club Corinthians Paulista",
+            "SC Corinthians Paulista"
+          ],
+          "identity": "Brazil:corinthians"
+        },
+        {
+          "name": "Coritiba",
+          "wiki_path": "https://en.wikipedia.org/wiki/Coritiba_Foot_Ball_Club",
+          "aliases": [
+            "Coritiba PR",
+            "Coritiba Foot Ball Club",
+            "Coritiba FBC"
+          ],
+          "identity": "Brazil:coritiba"
+        },
+        {
+          "name": "Cruzeiro",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cruzeiro_EC",
+          "aliases": [
+            "Cruzeiro MG",
+            "Cruzeiro Esporte Clube",
+            "Cruzeiro EC"
+          ],
+          "identity": "Brazil:cruzeiro"
+        },
+        {
+          "name": "Flamengo",
+          "wiki_path": "https://en.wikipedia.org/wiki/CR_Flamengo",
+          "aliases": [
+            "Flamengo RJ",
+            "Clube de Regatas do Flamengo",
+            "CR Flamengo"
+          ],
+          "identity": "Brazil:flamengo"
+        },
+        {
+          "name": "Fluminense RJ",
+          "wiki_path": "https://en.wikipedia.org/wiki/Fluminense_FC",
+          "aliases": [
+            "Fluminense Football Club",
+            "Fluminense FC"
+          ],
+          "identity": "Brazil:fluminenserj"
+        },
+        {
+          "name": "Grêmio",
+          "wiki_path": "https://en.wikipedia.org/wiki/Grêmio_FBPA",
+          "aliases": [
+            "Grêmio RS",
+            "Grêmio Foot-Ball Porto Alegrense",
+            "Grêmio FBPA"
+          ],
+          "identity": "Brazil:gremio"
+        },
+        {
+          "name": "Internacional",
+          "wiki_path": "https://en.wikipedia.org/wiki/SC_Internacional",
+          "aliases": [
+            "Internacional Porto Alegre",
+            "Sport Club Internacional"
+          ],
+          "identity": "Brazil:internacional"
+        },
+        {
+          "name": "Mirassol",
+          "wiki_path": "https://en.wikipedia.org/wiki/Mirassol_Futebol_Clube",
+          "aliases": [
+            "Mirassol FC SP",
+            "Mirasol Futebol Clube"
+          ],
+          "identity": "Brazil:mirassol"
+        },
+        {
+          "name": "Palmeiras",
+          "wiki_path": "https://en.wikipedia.org/wiki/SE_Palmeiras",
+          "aliases": [
+            "Palmeiras SP",
+            "Sociedade Esportiva Palmeiras",
+            "SE Palmeiras"
+          ],
+          "identity": "Brazil:palmeiras"
+        },
+        {
+          "name": "Red Bull Bragantino",
+          "wiki_path": "https://en.wikipedia.org/wiki/Red_Bull_Bragantino",
+          "aliases": [
+            "RB Bragantino"
+          ],
+          "identity": "Brazil:redbullbragantino"
+        },
+        {
+          "name": "Remo",
+          "wiki_path": "https://en.wikipedia.org/wiki/Clube_do_Remo",
+          "aliases": [
+            "Clube do Remo"
+          ],
+          "identity": "Brazil:remo"
+        },
+        {
+          "name": "Santos",
+          "wiki_path": "https://en.wikipedia.org/wiki/Santos_FC",
+          "aliases": [
+            "Santos SP",
+            "Santos Futebol Clube"
+          ],
+          "identity": "Brazil:santos"
+        },
+        {
+          "name": "São Paulo",
+          "wiki_path": "https://en.wikipedia.org/wiki/São_Paulo_FC",
+          "aliases": [
+            "São Paulo FC",
+            "São Paulo Futebol Clube"
+          ],
+          "identity": "Brazil:saopaulo"
+        },
+        {
+          "name": "Vasco da Gama",
+          "wiki_path": "https://en.wikipedia.org/wiki/CR_Vasco_da_Gama",
+          "aliases": [
+            "CR Vasco da Gama",
+            "Club de Regatas Vasco da Gama"
+          ],
+          "identity": "Brazil:vascodagama"
+        },
+        {
+          "name": "Vitória BA",
+          "wiki_path": "https://en.wikipedia.org/wiki/Esporte_Clube_Vitória",
+          "aliases": [
+            "EC Vitória",
+            "Esporte Clube Vitória"
+          ],
+          "identity": "Brazil:vitoriaba"
+        }
+      ],
+      "source_revision": 1383071476
+    },
+    {
+      "country": "Brazil",
+      "tier": 2,
+      "season": "2026",
+      "source_url": "https://en.wikipedia.org/wiki/2026_Campeonato_Brasileiro_S%C3%A9rie_B",
+      "source_sha256": "e7e2b7acd7fe3fd6ff962a4de650917430c6919f8a5799ec6ab91b857f181cbb",
+      "tables": [
+        3
+      ],
+      "teams": [
+        {
+          "name": "América Mineiro",
+          "wiki_path": "https://en.wikipedia.org/wiki/América_Futebol_Clube_(MG)",
+          "aliases": [],
+          "identity": "Brazil:americamineiro"
+        },
+        {
+          "name": "Athletic",
+          "wiki_path": "https://en.wikipedia.org/wiki/Athletic_Club_(MG)",
+          "aliases": [],
+          "identity": "Brazil:athletic"
+        },
+        {
+          "name": "Atlético Goianiense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Atlético_Clube_Goianiense",
+          "aliases": [],
+          "identity": "Brazil:atleticogoianiense"
+        },
+        {
+          "name": "Avaí",
+          "wiki_path": "https://en.wikipedia.org/wiki/Avaí_FC",
+          "aliases": [],
+          "identity": "Brazil:avai"
+        },
+        {
+          "name": "Botafogo-SP",
+          "wiki_path": "https://en.wikipedia.org/wiki/Botafogo_Futebol_Clube_(SP)",
+          "aliases": [],
+          "identity": "Brazil:botafogosp"
+        },
+        {
+          "name": "Ceará",
+          "wiki_path": "https://en.wikipedia.org/wiki/Ceará_Sporting_Club",
+          "aliases": [],
+          "identity": "Brazil:ceara"
+        },
+        {
+          "name": "CRB",
+          "wiki_path": "https://en.wikipedia.org/wiki/Clube_de_Regatas_Brasil",
+          "aliases": [],
+          "identity": "Brazil:crb"
+        },
+        {
+          "name": "Criciúma",
+          "wiki_path": "https://en.wikipedia.org/wiki/Criciúma_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:criciuma"
+        },
+        {
+          "name": "Cuiabá",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cuiabá_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:cuiaba"
+        },
+        {
+          "name": "Fortaleza",
+          "wiki_path": "https://en.wikipedia.org/wiki/Fortaleza_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:fortaleza"
+        },
+        {
+          "name": "Goiás",
+          "wiki_path": "https://en.wikipedia.org/wiki/Goiás_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:goias"
+        },
+        {
+          "name": "Juventude",
+          "wiki_path": "https://en.wikipedia.org/wiki/Esporte_Clube_Juventude",
+          "aliases": [],
+          "identity": "Brazil:juventude"
+        },
+        {
+          "name": "Londrina",
+          "wiki_path": "https://en.wikipedia.org/wiki/Londrina_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:londrina"
+        },
+        {
+          "name": "Náutico",
+          "wiki_path": "https://en.wikipedia.org/wiki/Clube_Náutico_Capibaribe",
+          "aliases": [],
+          "identity": "Brazil:nautico"
+        },
+        {
+          "name": "Novorizontino",
+          "wiki_path": "https://en.wikipedia.org/wiki/Grêmio_Novorizontino",
+          "aliases": [],
+          "identity": "Brazil:novorizontino"
+        },
+        {
+          "name": "Operário Ferroviário",
+          "wiki_path": "https://en.wikipedia.org/wiki/Operário_Ferroviário_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:operarioferroviario"
+        },
+        {
+          "name": "Ponte Preta",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Atlética_Ponte_Preta",
+          "aliases": [],
+          "identity": "Brazil:pontepreta"
+        },
+        {
+          "name": "São Bernardo",
+          "wiki_path": "https://en.wikipedia.org/wiki/São_Bernardo_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:saobernardo"
+        },
+        {
+          "name": "Sport",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sport_Club_do_Recife",
+          "aliases": [],
+          "identity": "Brazil:sport"
+        },
+        {
+          "name": "Vila Nova",
+          "wiki_path": "https://en.wikipedia.org/wiki/Vila_Nova_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:vilanova"
+        }
+      ],
+      "source_revision": 1383294780
+    },
+    {
+      "country": "Brazil",
+      "tier": 3,
+      "season": "2026",
+      "source_url": "https://en.wikipedia.org/wiki/2026_Campeonato_Brasileiro_S%C3%A9rie_C",
+      "source_sha256": "2a1e6d2850865083e1e4e55204082c4ff74eea98d9bd042b69ad3a7b976ef26b",
+      "tables": [
+        3
+      ],
+      "teams": [
+        {
+          "name": "Amazonas",
+          "wiki_path": "https://en.wikipedia.org/wiki/Amazonas_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:amazonas"
+        },
+        {
+          "name": "Anápolis",
+          "wiki_path": "https://en.wikipedia.org/wiki/Anápolis_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:anapolis"
+        },
+        {
+          "name": "Barra",
+          "wiki_path": "https://en.wikipedia.org/wiki/Barra_Futebol_Clube_(SC)",
+          "aliases": [],
+          "identity": "Brazil:barra"
+        },
+        {
+          "name": "Botafogo-PB",
+          "wiki_path": "https://en.wikipedia.org/wiki/Botafogo_Futebol_Clube_(PB)",
+          "aliases": [],
+          "identity": "Brazil:botafogopb"
+        },
+        {
+          "name": "Brusque",
+          "wiki_path": "https://en.wikipedia.org/wiki/Brusque_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:brusque"
+        },
+        {
+          "name": "Caxias",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sociedade_Esportiva_e_Recreativa_Caxias_do_Sul",
+          "aliases": [],
+          "identity": "Brazil:caxias"
+        },
+        {
+          "name": "Confiança",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Desportiva_Confiança",
+          "aliases": [],
+          "identity": "Brazil:confianca"
+        },
+        {
+          "name": "Ferroviária",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Ferroviária_de_Esportes",
+          "aliases": [],
+          "identity": "Brazil:ferroviaria"
+        },
+        {
+          "name": "Figueirense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Figueirense_FC",
+          "aliases": [],
+          "identity": "Brazil:figueirense"
+        },
+        {
+          "name": "Floresta",
+          "wiki_path": "https://en.wikipedia.org/wiki/Floresta_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:floresta"
+        },
+        {
+          "name": "Guarani",
+          "wiki_path": "https://en.wikipedia.org/wiki/Guarani_FC",
+          "aliases": [],
+          "identity": "Brazil:guarani"
+        },
+        {
+          "name": "Inter de Limeira",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Atlética_Internacional_(Limeira)",
+          "aliases": [],
+          "identity": "Brazil:interdelimeira"
+        },
+        {
+          "name": "Itabaiana",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Olímpica_de_Itabaiana",
+          "aliases": [],
+          "identity": "Brazil:itabaiana"
+        },
+        {
+          "name": "Ituano",
+          "wiki_path": "https://en.wikipedia.org/wiki/Ituano_FC",
+          "aliases": [],
+          "identity": "Brazil:ituano"
+        },
+        {
+          "name": "Maranhão",
+          "wiki_path": "https://en.wikipedia.org/wiki/Maranhão_Atlético_Clube",
+          "aliases": [],
+          "identity": "Brazil:maranhao"
+        },
+        {
+          "name": "Maringá",
+          "wiki_path": "https://en.wikipedia.org/wiki/Maringá_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:maringa"
+        },
+        {
+          "name": "Paysandu",
+          "wiki_path": "https://en.wikipedia.org/wiki/Paysandu_Sport_Club",
+          "aliases": [],
+          "identity": "Brazil:paysandu"
+        },
+        {
+          "name": "Santa Cruz",
+          "wiki_path": "https://en.wikipedia.org/wiki/Santa_Cruz_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:santacruz"
+        },
+        {
+          "name": "Volta Redonda",
+          "wiki_path": "https://en.wikipedia.org/wiki/Volta_Redonda_FC",
+          "aliases": [],
+          "identity": "Brazil:voltaredonda"
+        },
+        {
+          "name": "Ypiranga",
+          "wiki_path": "https://en.wikipedia.org/wiki/Ypiranga_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:ypiranga"
+        }
+      ],
+      "source_revision": 1381812474
+    },
+    {
+      "country": "Brazil",
+      "tier": 4,
+      "season": "2026",
+      "source_url": "https://en.wikipedia.org/wiki/2026_Campeonato_Brasileiro_S%C3%A9rie_D",
+      "source_sha256": "1d25b976cc549d86f835e21c186c288a5b49caf02f7d734873ed028472144da9",
+      "tables": [
+        1
+      ],
+      "teams": [
+        {
+          "name": "Independência",
+          "wiki_path": "https://en.wikipedia.org/wiki/Independência_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:independencia"
+        },
+        {
+          "name": "Galvez",
+          "wiki_path": "https://en.wikipedia.org/wiki/Galvez_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:galvez"
+        },
+        {
+          "name": "Humaitá",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sport_Clube_Humaitá",
+          "aliases": [],
+          "identity": "Brazil:humaita"
+        },
+        {
+          "name": "CSA",
+          "wiki_path": "https://en.wikipedia.org/wiki/Centro_Sportivo_Alagoano",
+          "aliases": [],
+          "identity": "Brazil:csa"
+        },
+        {
+          "name": "ASA",
+          "wiki_path": "https://en.wikipedia.org/wiki/Agremiação_Sportiva_Arapiraquense",
+          "aliases": [],
+          "identity": "Brazil:asa"
+        },
+        {
+          "name": "CSE",
+          "wiki_path": "https://en.wikipedia.org/wiki/Clube_Sociedade_Esportiva",
+          "aliases": [],
+          "identity": "Brazil:cse"
+        },
+        {
+          "name": "Trem",
+          "wiki_path": "https://en.wikipedia.org/wiki/Trem_Desportivo_Clube",
+          "aliases": [],
+          "identity": "Brazil:trem"
+        },
+        {
+          "name": "Oratório",
+          "wiki_path": "https://en.wikipedia.org/wiki/Oratório_Recreativo_Clube",
+          "aliases": [],
+          "identity": "Brazil:oratorio"
+        },
+        {
+          "name": "Nacional",
+          "wiki_path": "https://en.wikipedia.org/wiki/Nacional_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:nacional"
+        },
+        {
+          "name": "Manaus",
+          "wiki_path": "https://en.wikipedia.org/wiki/Manaus_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:manaus"
+        },
+        {
+          "name": "Manauara",
+          "wiki_path": "https://en.wikipedia.org/wiki/Manauara_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:manauara"
+        },
+        {
+          "name": "Jacuipense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Esporte_Clube_Jacuipense",
+          "aliases": [],
+          "identity": "Brazil:jacuipense"
+        },
+        {
+          "name": "Atlético de Alagoinhas",
+          "wiki_path": "https://en.wikipedia.org/wiki/Alagoinhas_Atlético_Clube",
+          "aliases": [],
+          "identity": "Brazil:atleticodealagoinhas"
+        },
+        {
+          "name": "Porto",
+          "wiki_path": "https://en.wikipedia.org/wiki/Porto_Sport_Club",
+          "aliases": [],
+          "identity": "Brazil:porto"
+        },
+        {
+          "name": "Juazeirense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sociedade_Desportiva_Juazeirense",
+          "aliases": [],
+          "identity": "Brazil:juazeirense"
+        },
+        {
+          "name": "Maracanã",
+          "wiki_path": "https://en.wikipedia.org/wiki/Maracanã_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:maracana"
+        },
+        {
+          "name": "Ferroviário",
+          "wiki_path": "https://en.wikipedia.org/wiki/Ferroviário_Atlético_Clube_(CE)",
+          "aliases": [],
+          "identity": "Brazil:ferroviario"
+        },
+        {
+          "name": "Tirol",
+          "wiki_path": "https://en.wikipedia.org/wiki/Centro_de_Formação_de_Atletas_Tirol",
+          "aliases": [],
+          "identity": "Brazil:tirol"
+        },
+        {
+          "name": "Atlético Cearense",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Atlético_Cearense",
+          "aliases": [],
+          "identity": "Brazil:atleticocearense"
+        },
+        {
+          "name": "Iguatu",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Desportiva_Iguatu",
+          "aliases": [],
+          "identity": "Brazil:iguatu"
+        },
+        {
+          "name": "Rio Branco",
+          "wiki_path": "https://en.wikipedia.org/wiki/Rio_Branco_Atlético_Clube",
+          "aliases": [],
+          "identity": "Brazil:riobranco"
+        },
+        {
+          "name": "Vitória ES",
+          "wiki_path": "https://en.wikipedia.org/wiki/Vitória_Futebol_Clube_(ES)",
+          "aliases": [],
+          "identity": "Brazil:vitoriaes"
+        },
+        {
+          "name": "Real Noroeste",
+          "wiki_path": "https://en.wikipedia.org/wiki/Real_Noroeste_Capixaba_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:realnoroeste"
+        },
+        {
+          "name": "Gama",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sociedade_Esportiva_do_Gama",
+          "aliases": [],
+          "identity": "Brazil:gama"
+        },
+        {
+          "name": "Capital",
+          "wiki_path": "https://en.wikipedia.org/wiki/Capital_CF",
+          "aliases": [],
+          "identity": "Brazil:capital"
+        },
+        {
+          "name": "Ceilândia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Ceilândia_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:ceilandia"
+        },
+        {
+          "name": "Brasiliense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Brasiliense_FC",
+          "aliases": [],
+          "identity": "Brazil:brasiliense"
+        },
+        {
+          "name": "CRAC",
+          "wiki_path": "https://en.wikipedia.org/wiki/Clube_Recreativo_e_Atlético_Catalano",
+          "aliases": [],
+          "identity": "Brazil:crac"
+        },
+        {
+          "name": "ABECAT",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Beneficente_e_Esportiva_Catalana_e_Ouvidorense",
+          "aliases": [],
+          "identity": "Brazil:abecat"
+        },
+        {
+          "name": "Inhumas",
+          "wiki_path": "https://en.wikipedia.org/wiki/Inhumas_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:inhumas"
+        },
+        {
+          "name": "Goiatuba",
+          "wiki_path": "https://en.wikipedia.org/wiki/Goiatuba_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:goiatuba"
+        },
+        {
+          "name": "Aparecidense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Atlética_Aparecidense",
+          "aliases": [],
+          "identity": "Brazil:aparecidense"
+        },
+        {
+          "name": "Imperatriz",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sociedade_Imperatriz_de_Desportos",
+          "aliases": [],
+          "identity": "Brazil:imperatriz"
+        },
+        {
+          "name": "IAPE",
+          "wiki_path": "https://en.wikipedia.org/wiki/Instituto_de_Administração_de_Projetos_Educacionais_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:iape"
+        },
+        {
+          "name": "Sampaio Corrêa",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sampaio_Corrêa_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:sampaiocorrea"
+        },
+        {
+          "name": "Moto Club",
+          "wiki_path": "https://en.wikipedia.org/wiki/Moto_Club_de_São_Luís",
+          "aliases": [],
+          "identity": "Brazil:motoclub"
+        },
+        {
+          "name": "Primavera",
+          "wiki_path": "https://en.wikipedia.org/wiki/Primavera_Atlético_Clube",
+          "aliases": [],
+          "identity": "Brazil:primavera"
+        },
+        {
+          "name": "Mixto",
+          "wiki_path": "https://en.wikipedia.org/wiki/Mixto_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:mixto"
+        },
+        {
+          "name": "Luverdense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Luverdense_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:luverdense"
+        },
+        {
+          "name": "CEOV",
+          "wiki_path": "https://en.wikipedia.org/wiki/CE_Operário_Várzea-Grandense",
+          "aliases": [],
+          "identity": "Brazil:ceov"
+        },
+        {
+          "name": "União Rondonópolis",
+          "wiki_path": "https://en.wikipedia.org/wiki/União_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:uniaorondonopolis"
+        },
+        {
+          "name": "Operário",
+          "wiki_path": "https://en.wikipedia.org/wiki/Operário_Futebol_Clube_(MS)",
+          "aliases": [],
+          "identity": "Brazil:operario"
+        },
+        {
+          "name": "Ivinhema",
+          "wiki_path": "https://en.wikipedia.org/wiki/Ivinhema_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:ivinhema"
+        },
+        {
+          "name": "Tombense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Tombense_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:tombense"
+        },
+        {
+          "name": "Uberlândia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Uberlândia_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:uberlandia"
+        },
+        {
+          "name": "Betim",
+          "wiki_path": "https://en.wikipedia.org/wiki/Betim_Futebol",
+          "aliases": [],
+          "identity": "Brazil:betim"
+        },
+        {
+          "name": "Democrata GV",
+          "wiki_path": "https://en.wikipedia.org/wiki/Esporte_Clube_Democrata",
+          "aliases": [],
+          "identity": "Brazil:democratagv"
+        },
+        {
+          "name": "Pouso Alegre",
+          "wiki_path": "https://en.wikipedia.org/wiki/Pouso_Alegre_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:pousoalegre"
+        },
+        {
+          "name": "Tuna Luso",
+          "wiki_path": "https://en.wikipedia.org/wiki/Tuna_Luso_Brasileira",
+          "aliases": [],
+          "identity": "Brazil:tunaluso"
+        },
+        {
+          "name": "Águia de Marabá",
+          "wiki_path": "https://en.wikipedia.org/wiki/Águia_de_Marabá_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:aguiademaraba"
+        },
+        {
+          "name": "Sousa",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sousa_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:sousa"
+        },
+        {
+          "name": "Serra Branca",
+          "wiki_path": "https://en.wikipedia.org/wiki/Serra_Branca_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:serrabranca"
+        },
+        {
+          "name": "Treze",
+          "wiki_path": "https://en.wikipedia.org/wiki/Treze_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:treze"
+        },
+        {
+          "name": "Cianorte",
+          "wiki_path": "https://en.wikipedia.org/wiki/Cianorte_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:cianorte"
+        },
+        {
+          "name": "Azuriz",
+          "wiki_path": "https://en.wikipedia.org/wiki/Azuriz_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:azuriz"
+        },
+        {
+          "name": "São Joseense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Independente_Futebol_São_Joseense",
+          "aliases": [],
+          "identity": "Brazil:saojoseense"
+        },
+        {
+          "name": "FC Cascavel",
+          "wiki_path": "https://en.wikipedia.org/wiki/FC_Cascavel",
+          "aliases": [],
+          "identity": "Brazil:cascavel"
+        },
+        {
+          "name": "Retrô",
+          "wiki_path": "https://en.wikipedia.org/wiki/Retrô_Futebol_Clube_Brasil",
+          "aliases": [],
+          "identity": "Brazil:retro"
+        },
+        {
+          "name": "Maguary",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Atlética_Maguary",
+          "aliases": [],
+          "identity": "Brazil:maguary"
+        },
+        {
+          "name": "Decisão",
+          "wiki_path": "https://en.wikipedia.org/wiki/Decisão_Goiana_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:decisao"
+        },
+        {
+          "name": "Central",
+          "wiki_path": "https://en.wikipedia.org/wiki/Central_Sport_Club",
+          "aliases": [],
+          "identity": "Brazil:central"
+        },
+        {
+          "name": "Piauí",
+          "wiki_path": "https://en.wikipedia.org/wiki/Piauí_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:piaui"
+        },
+        {
+          "name": "Fluminense PI",
+          "wiki_path": "https://en.wikipedia.org/wiki/Fluminense_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:fluminensepi"
+        },
+        {
+          "name": "Altos",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Atlética_de_Altos",
+          "aliases": [],
+          "identity": "Brazil:altos"
+        },
+        {
+          "name": "Parnahyba",
+          "wiki_path": "https://en.wikipedia.org/wiki/Parnahyba_Sport_Club",
+          "aliases": [],
+          "identity": "Brazil:parnahyba"
+        },
+        {
+          "name": "Sampaio Corrêa-RJ",
+          "wiki_path": "https://en.wikipedia.org/wiki/Sampaio_Corrêa_Futebol_e_Esporte",
+          "aliases": [],
+          "identity": "Brazil:sampaiocorrearj"
+        },
+        {
+          "name": "Madureira",
+          "wiki_path": "https://en.wikipedia.org/wiki/Madureira_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:madureira"
+        },
+        {
+          "name": "America",
+          "wiki_path": "https://en.wikipedia.org/wiki/America_Football_Club_(Rio_de_Janeiro)",
+          "aliases": [],
+          "identity": "Brazil:america"
+        },
+        {
+          "name": "Maricá",
+          "wiki_path": "https://en.wikipedia.org/wiki/Maricá_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:marica"
+        },
+        {
+          "name": "Nova Iguaçu",
+          "wiki_path": "https://en.wikipedia.org/wiki/Nova_Iguaçu_FC",
+          "aliases": [],
+          "identity": "Brazil:novaiguacu"
+        },
+        {
+          "name": "Portuguesa-RJ",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Atlética_Portuguesa_(RJ)",
+          "aliases": [],
+          "identity": "Brazil:portuguesarj"
+        },
+        {
+          "name": "ABC",
+          "wiki_path": "https://en.wikipedia.org/wiki/ABC_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:abc"
+        },
+        {
+          "name": "América de Natal",
+          "wiki_path": "https://en.wikipedia.org/wiki/América_Futebol_Clube_(RN)",
+          "aliases": [],
+          "identity": "Brazil:americadenatal"
+        },
+        {
+          "name": "Laguna",
+          "wiki_path": "https://en.wikipedia.org/wiki/Clube_Laguna",
+          "aliases": [],
+          "identity": "Brazil:laguna"
+        },
+        {
+          "name": "São Luiz",
+          "wiki_path": "https://en.wikipedia.org/wiki/Esporte_Clube_São_Luiz",
+          "aliases": [],
+          "identity": "Brazil:saoluiz"
+        },
+        {
+          "name": "Guarany de Bagé",
+          "wiki_path": "https://en.wikipedia.org/wiki/Guarany_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:guaranydebage"
+        },
+        {
+          "name": "Brasil de Pelotas",
+          "wiki_path": "https://en.wikipedia.org/wiki/Grêmio_Esportivo_Brasil",
+          "aliases": [],
+          "identity": "Brazil:brasildepelotas"
+        },
+        {
+          "name": "São José",
+          "wiki_path": "https://en.wikipedia.org/wiki/Esporte_Clube_São_José",
+          "aliases": [],
+          "identity": "Brazil:saojose"
+        },
+        {
+          "name": "Porto Velho",
+          "wiki_path": "https://en.wikipedia.org/wiki/Porto_Velho_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:portovelho"
+        },
+        {
+          "name": "Guaporé",
+          "wiki_path": "https://en.wikipedia.org/wiki/Guaporé_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:guapore"
+        },
+        {
+          "name": "GAS",
+          "wiki_path": "https://en.wikipedia.org/wiki/Grêmio_Atlético_Sampaio",
+          "aliases": [],
+          "identity": "Brazil:gas"
+        },
+        {
+          "name": "Monte Roraima",
+          "wiki_path": "https://en.wikipedia.org/wiki/Monte_Roraima_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:monteroraima"
+        },
+        {
+          "name": "São Raimundo",
+          "wiki_path": "https://en.wikipedia.org/wiki/São_Raimundo_Esporte_Clube_(RR)",
+          "aliases": [],
+          "identity": "Brazil:saoraimundo"
+        },
+        {
+          "name": "Santa Catarina",
+          "wiki_path": "https://en.wikipedia.org/wiki/Santa_Catarina_Clube",
+          "aliases": [],
+          "identity": "Brazil:santacatarina"
+        },
+        {
+          "name": "Joinville",
+          "wiki_path": "https://en.wikipedia.org/wiki/Joinville_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:joinville"
+        },
+        {
+          "name": "Blumenau",
+          "wiki_path": "https://en.wikipedia.org/wiki/Blumenau_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:blumenau"
+        },
+        {
+          "name": "Marcílio Dias",
+          "wiki_path": "https://en.wikipedia.org/wiki/Clube_Náutico_Marcílio_Dias",
+          "aliases": [],
+          "identity": "Brazil:marciliodias"
+        },
+        {
+          "name": "Velo Clube",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Esportiva_Velo_Clube_Rioclarense",
+          "aliases": [],
+          "identity": "Brazil:veloclube"
+        },
+        {
+          "name": "Portuguesa",
+          "wiki_path": "https://en.wikipedia.org/wiki/Associação_Portuguesa_de_Desportos",
+          "aliases": [],
+          "identity": "Brazil:portuguesa"
+        },
+        {
+          "name": "Noroeste",
+          "wiki_path": "https://en.wikipedia.org/wiki/Esporte_Clube_Noroeste",
+          "aliases": [],
+          "identity": "Brazil:noroeste"
+        },
+        {
+          "name": "XV de Piracicaba",
+          "wiki_path": "https://en.wikipedia.org/wiki/Esporte_Clube_XV_de_Novembro_(Piracicaba)",
+          "aliases": [],
+          "identity": "Brazil:xvdepiracicaba"
+        },
+        {
+          "name": "Água Santa",
+          "wiki_path": "https://en.wikipedia.org/wiki/Esporte_Clube_Água_Santa",
+          "aliases": [],
+          "identity": "Brazil:aguasanta"
+        },
+        {
+          "name": "Lagarto",
+          "wiki_path": "https://en.wikipedia.org/wiki/Lagarto_Futebol_Clube",
+          "aliases": [],
+          "identity": "Brazil:lagarto"
+        },
+        {
+          "name": "Sergipe",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Sportivo_Sergipe",
+          "aliases": [],
+          "identity": "Brazil:sergipe"
+        },
+        {
+          "name": "Araguaína",
+          "wiki_path": "https://en.wikipedia.org/wiki/Araguaína_Futebol_e_Regatas",
+          "aliases": [],
+          "identity": "Brazil:araguaina"
+        },
+        {
+          "name": "Tocantinópolis",
+          "wiki_path": "https://en.wikipedia.org/wiki/Tocantinópolis_Esporte_Clube",
+          "aliases": [],
+          "identity": "Brazil:tocantinopolis"
+        }
+      ],
+      "source_revision": 1382392850
+    },
+    {
+      "country": "Argentina",
+      "tier": 1,
+      "season": "2026",
+      "source_url": "https://en.wikipedia.org/wiki/2026_Argentine_Primera_Divisi%C3%B3n",
+      "source_sha256": "7e3e5982e1b97663bfc89fecf28c5c4f043f646e109337ece62f691c5390ed5e",
+      "tables": [
+        0
+      ],
+      "teams": [
+        {
+          "name": "Aldosivi",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Aldosivi",
+          "aliases": [],
+          "identity": "Argentina:aldosivi"
+        },
+        {
+          "name": "Argentinos Juniors",
+          "wiki_path": "https://en.wikipedia.org/wiki/Argentinos_Juniors",
+          "aliases": [
+            "Asociación Atlética Argentinos Juniors"
+          ],
+          "identity": "Argentina:argentinosjuniors"
+        },
+        {
+          "name": "Atlético Tucumán",
+          "wiki_path": "https://en.wikipedia.org/wiki/Atlético_Tucumán",
+          "aliases": [],
+          "identity": "Argentina:atleticotucuman"
+        },
+        {
+          "name": "Banfield",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Banfield",
+          "aliases": [],
+          "identity": "Argentina:banfield"
+        },
+        {
+          "name": "Barracas Central",
+          "wiki_path": "https://en.wikipedia.org/wiki/Barracas_Central",
+          "aliases": [
+            "Club Atlético Barracas Central"
+          ],
+          "identity": "Argentina:barracascentral"
+        },
+        {
+          "name": "Belgrano",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Belgrano",
+          "aliases": [],
+          "identity": "Argentina:belgrano"
+        },
+        {
+          "name": "Boca Juniors",
+          "wiki_path": "https://en.wikipedia.org/wiki/Boca_Juniors",
+          "aliases": [
+            "Club Atlético Boca Juniors"
+          ],
+          "identity": "Argentina:bocajuniors"
+        },
+        {
+          "name": "Central Córdoba (SdE)",
+          "wiki_path": "https://en.wikipedia.org/wiki/Central_Córdoba_de_Santiago_del_Estero",
+          "aliases": [],
+          "identity": "Argentina:centralcordobasde"
+        },
+        {
+          "name": "Defensa y Justicia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Defensa_y_Justicia",
+          "aliases": [
+            "Club Social y Deportivo Defensa y Justicia"
+          ],
+          "identity": "Argentina:defensayjusticia"
+        },
+        {
+          "name": "Deportivo Riestra",
+          "wiki_path": "https://en.wikipedia.org/wiki/Deportivo_Riestra",
+          "aliases": [
+            "Asociación de Fomento Deportivo Riestra Barrio Colón"
+          ],
+          "identity": "Argentina:deportivoriestra"
+        },
+        {
+          "name": "Estudiantes (LP)",
+          "wiki_path": "https://en.wikipedia.org/wiki/Estudiantes_de_La_Plata",
+          "aliases": [
+            "Estudiantes LP",
+            "Club Estudiantes de La Plata"
+          ],
+          "identity": "Argentina:estudianteslp"
+        },
+        {
+          "name": "Estudiantes (RC)",
+          "wiki_path": "https://en.wikipedia.org/wiki/Estudiantes_de_Río_Cuarto",
+          "aliases": [],
+          "identity": "Argentina:estudiantes"
+        },
+        {
+          "name": "Gimnasia y Esgrima (LP)",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_de_Gimnasia_y_Esgrima_La_Plata",
+          "aliases": [
+            "Gimnasia y Esgrima LP",
+            "Club de Gimnasia y Esgrima La Plata"
+          ],
+          "identity": "Argentina:gimnasiayesgrimalp"
+        },
+        {
+          "name": "Gimnasia y Esgrima (M)",
+          "wiki_path": "https://en.wikipedia.org/wiki/Gimnasia_y_Esgrima_de_Mendoza",
+          "aliases": [],
+          "identity": "Argentina:gimnasiayesgrimam"
+        },
+        {
+          "name": "Huracán",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Huracán",
+          "aliases": [
+            "Club Atlético Huracán"
+          ],
+          "identity": "Argentina:huracan"
+        },
+        {
+          "name": "Independiente",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Independiente",
+          "aliases": [
+            "CA Independiente de Avellaneda",
+            "Club Atlético Independiente de Avellaneda"
+          ],
+          "identity": "Argentina:independiente"
+        },
+        {
+          "name": "Independiente Rivadavia",
+          "wiki_path": "https://en.wikipedia.org/wiki/Independiente_Rivadavia",
+          "aliases": [],
+          "identity": "Argentina:independienterivadavia"
+        },
+        {
+          "name": "Instituto",
+          "wiki_path": "https://en.wikipedia.org/wiki/Instituto_Atlético_Central_Córdoba",
+          "aliases": [],
+          "identity": "Argentina:instituto"
+        },
+        {
+          "name": "Lanús",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Lanús",
+          "aliases": [
+            "CA Lanús",
+            "Club Atlético Lanús"
+          ],
+          "identity": "Argentina:lanus"
+        },
+        {
+          "name": "Newell's Old Boys",
+          "wiki_path": "https://en.wikipedia.org/wiki/Newell's_Old_Boys",
+          "aliases": [
+            "Club Atlético Newell’s Old Boys"
+          ],
+          "identity": "Argentina:newellsoldboys"
+        },
+        {
+          "name": "Platense",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Platense",
+          "aliases": [
+            "Club Atlético Platense"
+          ],
+          "identity": "Argentina:platense"
+        },
+        {
+          "name": "Racing Club",
+          "wiki_path": "https://en.wikipedia.org/wiki/Racing_Club_de_Avellaneda",
+          "aliases": [
+            "Racing Club Asociación Civil de Avellaneda"
+          ],
+          "identity": "Argentina:racingclub"
+        },
+        {
+          "name": "River Plate",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_River_Plate",
+          "aliases": [
+            "Club Atlético River Plate"
+          ],
+          "identity": "Argentina:riverplate"
+        },
+        {
+          "name": "Rosario Central",
+          "wiki_path": "https://en.wikipedia.org/wiki/Rosario_Central",
+          "aliases": [
+            "Club Atlético Rosario Central"
+          ],
+          "identity": "Argentina:rosariocentral"
+        },
+        {
+          "name": "San Lorenzo",
+          "wiki_path": "https://en.wikipedia.org/wiki/San_Lorenzo_de_Almagro",
+          "aliases": [
+            "Club Atlético San Lorenzo de Almagro"
+          ],
+          "identity": "Argentina:sanlorenzo"
+        },
+        {
+          "name": "Sarmiento (J)",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Sarmiento",
+          "aliases": [
+            "Sarmiento Junín",
+            "Club Atlético Sarmiento"
+          ],
+          "identity": "Argentina:sarmientoj"
+        },
+        {
+          "name": "Talleres (C)",
+          "wiki_path": "https://en.wikipedia.org/wiki/Talleres_de_Córdoba",
+          "aliases": [
+            "Talleres de Córdoba",
+            "Club Atlético Talleres"
+          ],
+          "identity": "Argentina:talleresc"
+        },
+        {
+          "name": "Tigre",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Tigre",
+          "aliases": [
+            "CA Tigre",
+            "Club Atlético Tigre"
+          ],
+          "identity": "Argentina:tigre"
+        },
+        {
+          "name": "Unión",
+          "wiki_path": "https://en.wikipedia.org/wiki/Unión_de_Santa_Fe",
+          "aliases": [
+            "Unión Santa Fe",
+            "Club Atlético Unión"
+          ],
+          "identity": "Argentina:union"
+        },
+        {
+          "name": "Vélez Sarsfield",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Vélez_Sarsfield",
+          "aliases": [
+            "Club Atlético Vélez Sársfield"
+          ],
+          "identity": "Argentina:velezsarsfield"
+        }
+      ],
+      "source_revision": 1383292059
+    },
+    {
+      "country": "Argentina",
+      "tier": 2,
+      "season": "2026",
+      "source_url": "https://en.wikipedia.org/wiki/2026_Primera_Nacional",
+      "source_sha256": "66536d3d8fc27895396fcd5370193736c6c4ef61c7d2e1e1ab5b8a75634c95b6",
+      "tables": [
+        0
+      ],
+      "teams": [
+        {
+          "name": "Acassuso",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Acassuso",
+          "aliases": [],
+          "identity": "Argentina:acassuso"
+        },
+        {
+          "name": "Agropecuario Argentino",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Agropecuario_Argentino",
+          "aliases": [],
+          "identity": "Argentina:agropecuarioargentino"
+        },
+        {
+          "name": "All Boys",
+          "wiki_path": "https://en.wikipedia.org/wiki/All_Boys",
+          "aliases": [],
+          "identity": "Argentina:allboys"
+        },
+        {
+          "name": "Almagro",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Almagro",
+          "aliases": [],
+          "identity": "Argentina:almagro"
+        },
+        {
+          "name": "Almirante Brown",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Almirante_Brown",
+          "aliases": [],
+          "identity": "Argentina:almirantebrown"
+        },
+        {
+          "name": "Atlanta",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Atlanta",
+          "aliases": [],
+          "identity": "Argentina:atlanta"
+        },
+        {
+          "name": "Atlético de Rafaela",
+          "wiki_path": "https://en.wikipedia.org/wiki/Atlético_de_Rafaela",
+          "aliases": [],
+          "identity": "Argentina:atleticoderafaela"
+        },
+        {
+          "name": "Central Norte",
+          "wiki_path": "https://en.wikipedia.org/wiki/Central_Norte",
+          "aliases": [],
+          "identity": "Argentina:centralnorte"
+        },
+        {
+          "name": "Chacarita Juniors",
+          "wiki_path": "https://en.wikipedia.org/wiki/Chacarita_Juniors",
+          "aliases": [],
+          "identity": "Argentina:chacaritajuniors"
+        },
+        {
+          "name": "Chaco For Ever",
+          "wiki_path": "https://en.wikipedia.org/wiki/Chaco_For_Ever",
+          "aliases": [],
+          "identity": "Argentina:chacoforever"
+        },
+        {
+          "name": "Ciudad de Bolívar",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Ciudad_de_Bolívar",
+          "aliases": [],
+          "identity": "Argentina:ciudaddebolivar"
+        },
+        {
+          "name": "Colegiales",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Colegiales_(Argentina)",
+          "aliases": [],
+          "identity": "Argentina:colegiales"
+        },
+        {
+          "name": "Colón",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Colón",
+          "aliases": [],
+          "identity": "Argentina:colon"
+        },
+        {
+          "name": "Defensores de Belgrano",
+          "wiki_path": "https://en.wikipedia.org/wiki/Defensores_de_Belgrano",
+          "aliases": [],
+          "identity": "Argentina:defensoresdebelgrano"
+        },
+        {
+          "name": "Deportivo Madryn",
+          "wiki_path": "https://en.wikipedia.org/wiki/Deportivo_Madryn",
+          "aliases": [],
+          "identity": "Argentina:deportivomadryn"
+        },
+        {
+          "name": "Deportivo Maipú",
+          "wiki_path": "https://en.wikipedia.org/wiki/Deportivo_Maipú",
+          "aliases": [],
+          "identity": "Argentina:deportivomaipu"
+        },
+        {
+          "name": "Deportivo Morón",
+          "wiki_path": "https://en.wikipedia.org/wiki/Deportivo_Morón",
+          "aliases": [],
+          "identity": "Argentina:deportivomoron"
+        },
+        {
+          "name": "Estudiantes BA",
+          "wiki_path": "https://en.wikipedia.org/wiki/Estudiantes_de_Buenos_Aires",
+          "aliases": [],
+          "identity": "Argentina:estudiantesba"
+        },
+        {
+          "name": "Ferrocarril Midland",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Ferrocarril_Midland",
+          "aliases": [],
+          "identity": "Argentina:ferrocarrilmidland"
+        },
+        {
+          "name": "Ferro Carril Oeste",
+          "wiki_path": "https://en.wikipedia.org/wiki/Ferro_Carril_Oeste",
+          "aliases": [],
+          "identity": "Argentina:ferrocarriloeste"
+        },
+        {
+          "name": "Gimnasia Jujuy",
+          "wiki_path": "https://en.wikipedia.org/wiki/Gimnasia_y_Esgrima_de_Jujuy",
+          "aliases": [],
+          "identity": "Argentina:gimnasiajujuy"
+        },
+        {
+          "name": "Gimnasia y Tiro",
+          "wiki_path": "https://en.wikipedia.org/wiki/Gimnasia_y_Tiro",
+          "aliases": [],
+          "identity": "Argentina:gimnasiaytiro"
+        },
+        {
+          "name": "Godoy Cruz",
+          "wiki_path": "https://en.wikipedia.org/wiki/Godoy_Cruz_Antonio_Tomba",
+          "aliases": [],
+          "identity": "Argentina:godoycruz"
+        },
+        {
+          "name": "Güemes",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Güemes",
+          "aliases": [],
+          "identity": "Argentina:guemes"
+        },
+        {
+          "name": "Los Andes",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Los_Andes",
+          "aliases": [],
+          "identity": "Argentina:losandes"
+        },
+        {
+          "name": "Mitre",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Mitre",
+          "aliases": [],
+          "identity": "Argentina:mitre"
+        },
+        {
+          "name": "Nueva Chicago",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Nueva_Chicago",
+          "aliases": [],
+          "identity": "Argentina:nuevachicago"
+        },
+        {
+          "name": "Patronato",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Patronato",
+          "aliases": [],
+          "identity": "Argentina:patronato"
+        },
+        {
+          "name": "Quilmes",
+          "wiki_path": "https://en.wikipedia.org/wiki/Quilmes_Atlético_Club",
+          "aliases": [],
+          "identity": "Argentina:quilmes"
+        },
+        {
+          "name": "Racing Córdoba",
+          "wiki_path": "https://en.wikipedia.org/wiki/Racing_de_Córdoba",
+          "aliases": [],
+          "identity": "Argentina:racingcordoba"
+        },
+        {
+          "name": "San Martín San Juan",
+          "wiki_path": "https://en.wikipedia.org/wiki/San_Martín_de_San_Juan",
+          "aliases": [],
+          "identity": "Argentina:sanmartinsanjuan"
+        },
+        {
+          "name": "San Martín Tucumán",
+          "wiki_path": "https://en.wikipedia.org/wiki/San_Martín_de_Tucumán",
+          "aliases": [],
+          "identity": "Argentina:sanmartintucuman"
+        },
+        {
+          "name": "San Miguel",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_San_Miguel",
+          "aliases": [],
+          "identity": "Argentina:sanmiguel"
+        },
+        {
+          "name": "San Telmo",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_San_Telmo",
+          "aliases": [],
+          "identity": "Argentina:santelmo"
+        },
+        {
+          "name": "Temperley",
+          "wiki_path": "https://en.wikipedia.org/wiki/Club_Atlético_Temperley",
+          "aliases": [],
+          "identity": "Argentina:temperley"
+        },
+        {
+          "name": "Tristán Suárez",
+          "wiki_path": "https://en.wikipedia.org/wiki/CSyD_Tristán_Suárez",
+          "aliases": [],
+          "identity": "Argentina:tristansuarez"
+        }
+      ],
+      "source_revision": 1383293840
+    },
+    {
+      "country": "Argentina",
+      "tier": 3,
+      "season": "2026",
+      "source_url": "https://es.wikipedia.org/wiki/Campeonato_de_Primera_B_2026_(Argentina)",
+      "source_sha256": "a3dc76230eb4db0674559b3dde62a5bf824980b0f9a5294b99ddb55d8de02aac",
+      "tables": [
+        4
+      ],
+      "teams": [
+        {
+          "name": "Argentino de Merlo",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Argentino_(Merlo)",
+          "aliases": [],
+          "identity": "Argentina:argentinodemerlo"
+        },
+        {
+          "name": "Argentino de Quilmes",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Argentino_de_Quilmes",
+          "aliases": [],
+          "identity": "Argentina:argentinodequilmes"
+        },
+        {
+          "name": "Arsenal",
+          "wiki_path": "https://es.wikipedia.org/wiki/Arsenal_Fútbol_Club",
+          "aliases": [],
+          "identity": "Argentina:arsenal"
+        },
+        {
+          "name": "Brown de Adrogué",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Brown",
+          "aliases": [],
+          "identity": "Argentina:browndeadrogue"
+        },
+        {
+          "name": "Comunicaciones",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Comunicaciones_de_Buenos_Aires",
+          "aliases": [],
+          "identity": "Argentina:comunicaciones"
+        },
+        {
+          "name": "Defensores Unidos",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Defensores_Unidos",
+          "aliases": [],
+          "identity": "Argentina:defensoresunidos"
+        },
+        {
+          "name": "Deportivo Armenio",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Deportivo_Armenio",
+          "aliases": [],
+          "identity": "Argentina:deportivoarmenio"
+        },
+        {
+          "name": "Deportivo Camioneros",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Social_y_Deportivo_Camioneros",
+          "aliases": [],
+          "identity": "Argentina:deportivocamioneros"
+        },
+        {
+          "name": "Deportivo Laferrere",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Social_y_Cultural_Deportivo_Laferrere",
+          "aliases": [],
+          "identity": "Argentina:deportivolaferrere"
+        },
+        {
+          "name": "Deportivo Merlo",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Social_y_Deportivo_Merlo",
+          "aliases": [],
+          "identity": "Argentina:deportivomerlo"
+        },
+        {
+          "name": "Dock Sud",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Sportivo_Dock_Sud",
+          "aliases": [],
+          "identity": "Argentina:docksud"
+        },
+        {
+          "name": "Excursionistas",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Excursionistas",
+          "aliases": [],
+          "identity": "Argentina:excursionistas"
+        },
+        {
+          "name": "Flandria",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Social_y_Deportivo_Flandria",
+          "aliases": [],
+          "identity": "Argentina:flandria"
+        },
+        {
+          "name": "Ituzaingó",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Ituzaingó",
+          "aliases": [],
+          "identity": "Argentina:ituzaingo"
+        },
+        {
+          "name": "Liniers",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Social_y_Deportivo_Liniers",
+          "aliases": [],
+          "identity": "Argentina:liniers"
+        },
+        {
+          "name": "Real Pilar",
+          "wiki_path": "https://es.wikipedia.org/wiki/Real_Pilar_Fútbol_Club",
+          "aliases": [],
+          "identity": "Argentina:realpilar"
+        },
+        {
+          "name": "San Martín Burzaco",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Social_y_Deportivo_San_Martín",
+          "aliases": [],
+          "identity": "Argentina:sanmartinburzaco"
+        },
+        {
+          "name": "Sportivo Italiano",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Sportivo_Italiano",
+          "aliases": [],
+          "identity": "Argentina:sportivoitaliano"
+        },
+        {
+          "name": "Talleres Remedios de Escalada",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Talleres_(Remedios_de_Escalada)",
+          "aliases": [],
+          "identity": "Argentina:talleresremediosdeescalada"
+        },
+        {
+          "name": "UAI Urquiza",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Deportivo_UAI_Urquiza",
+          "aliases": [],
+          "identity": "Argentina:uaiurquiza"
+        },
+        {
+          "name": "Villa Dálmine",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Villa_Dálmine",
+          "aliases": [],
+          "identity": "Argentina:villadalmine"
+        },
+        {
+          "name": "Villa San Carlos",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Villa_San_Carlos",
+          "aliases": [],
+          "identity": "Argentina:villasancarlos"
+        }
+      ],
+      "source_revision": 176104776
+    },
+    {
+      "country": "Argentina",
+      "tier": 4,
+      "season": "2026",
+      "source_url": "https://es.wikipedia.org/wiki/Campeonato_de_Primera_C_2026_(Argentina)",
+      "source_sha256": "d613f031a1a775230a6b260f246325d80c19dc7ccfc3fc04f9aa4564d630d812",
+      "tables": [
+        5
+      ],
+      "teams": [
+        {
+          "name": "Argentino Rosario",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Argentino_(Rosario)",
+          "aliases": [],
+          "identity": "Argentina:argentinorosario"
+        },
+        {
+          "name": "Atlas",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Atlas",
+          "aliases": [],
+          "identity": "Argentina:atlas"
+        },
+        {
+          "name": "Berazategui",
+          "wiki_path": "https://es.wikipedia.org/wiki/Asociación_Deportiva_Berazategui",
+          "aliases": [],
+          "identity": "Argentina:berazategui"
+        },
+        {
+          "name": "Cañuelas",
+          "wiki_path": "https://es.wikipedia.org/wiki/Cañuelas_Fútbol_Club",
+          "aliases": [],
+          "identity": "Argentina:canuelas"
+        },
+        {
+          "name": "Central Ballester",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Social_y_Deportivo_Central_Ballester",
+          "aliases": [],
+          "identity": "Argentina:centralballester"
+        },
+        {
+          "name": "Central Córdoba",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Central_Córdoba_(Rosario)",
+          "aliases": [],
+          "identity": "Argentina:centralcordoba"
+        },
+        {
+          "name": "Centro Español",
+          "wiki_path": "https://es.wikipedia.org/wiki/Centro_Social_y_Recreativo_Español",
+          "aliases": [],
+          "identity": "Argentina:centroespanol"
+        },
+        {
+          "name": "Claypole",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Claypole",
+          "aliases": [],
+          "identity": "Argentina:claypole"
+        },
+        {
+          "name": "Defensores de Cambaceres",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Defensores_de_Cambaceres",
+          "aliases": [],
+          "identity": "Argentina:defensoresdecambaceres"
+        },
+        {
+          "name": "Deportivo Español",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Deportivo_Español_de_Buenos_Aires",
+          "aliases": [],
+          "identity": "Argentina:deportivoespanol"
+        },
+        {
+          "name": "Deportivo Paraguayo",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Deportivo_Paraguayo",
+          "aliases": [],
+          "identity": "Argentina:deportivoparaguayo"
+        },
+        {
+          "name": "El Porvenir",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_El_Porvenir",
+          "aliases": [],
+          "identity": "Argentina:elporvenir"
+        },
+        {
+          "name": "Estrella del Sur",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Estrella_del_Sur",
+          "aliases": [],
+          "identity": "Argentina:estrelladelsur"
+        },
+        {
+          "name": "Fénix",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Fénix",
+          "aliases": [],
+          "identity": "Argentina:fenix"
+        },
+        {
+          "name": "General Lamadrid",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_General_Lamadrid",
+          "aliases": [],
+          "identity": "Argentina:generallamadrid"
+        },
+        {
+          "name": "Justo José de Urquiza",
+          "wiki_path": "https://es.wikipedia.org/wiki/Asociación_Social_y_Deportiva_Justo_José_de_Urquiza",
+          "aliases": [],
+          "identity": "Argentina:justojosedeurquiza"
+        },
+        {
+          "name": "Juventud Unida",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Deportivo_y_Social_Juventud_Unida",
+          "aliases": [],
+          "identity": "Argentina:juventudunida"
+        },
+        {
+          "name": "Leandro N. Alem",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Deportivo_y_Mutual_Leandro_N._Alem",
+          "aliases": [],
+          "identity": "Argentina:leandronalem"
+        },
+        {
+          "name": "Leones",
+          "wiki_path": "https://es.wikipedia.org/wiki/Asociación_Civil_Leones_de_Rosario_Fútbol_Club?action=edit&redlink=1",
+          "aliases": [],
+          "identity": "Argentina:leones"
+        },
+        {
+          "name": "Lugano",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Lugano",
+          "aliases": [],
+          "identity": "Argentina:lugano"
+        },
+        {
+          "name": "Luján",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Luján",
+          "aliases": [],
+          "identity": "Argentina:lujan"
+        },
+        {
+          "name": "Mercedes",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Mercedes",
+          "aliases": [],
+          "identity": "Argentina:mercedes"
+        },
+        {
+          "name": "Muñiz",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Social_y_Deportivo_Muñiz",
+          "aliases": [],
+          "identity": "Argentina:muniz"
+        },
+        {
+          "name": "Puerto Nuevo",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Puerto_Nuevo",
+          "aliases": [],
+          "identity": "Argentina:puertonuevo"
+        },
+        {
+          "name": "Sacachispas",
+          "wiki_path": "https://es.wikipedia.org/wiki/Sacachispas_Fútbol_Club",
+          "aliases": [],
+          "identity": "Argentina:sacachispas"
+        },
+        {
+          "name": "Sportivo Barracas",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Sportivo_Barracas",
+          "aliases": [],
+          "identity": "Argentina:sportivobarracas"
+        },
+        {
+          "name": "Victoriano Arenas",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Atlético_Victoriano_Arenas",
+          "aliases": [],
+          "identity": "Argentina:victorianoarenas"
+        },
+        {
+          "name": "Yupanqui",
+          "wiki_path": "https://es.wikipedia.org/wiki/Club_Social_y_Deportivo_Yupanqui",
+          "aliases": [],
+          "identity": "Argentina:yupanqui"
+        }
+      ],
+      "source_revision": 176090413
+    }
+  ]
+}
