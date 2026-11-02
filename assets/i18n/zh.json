@@ -313,5 +313,12 @@
   "I DO NOT AGREE": "不同意",
   "Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. I AGREE continues with automatic usage reporting; I DO NOT AGREE closes the game.": "Scorer World会向stats.clemir.com发送使用次数：应用启动和关闭、生涯创建和读取、训练、比赛、进球及保存和读取失败。不包含姓名、生涯文件或设备标识符。待发送的计数在7天后过期；服务器的每日汇总在90天后过期。Cloudflare会处理IP地址等连接数据。公开分享纪录是单独的可选功能。同意表示继续游戏并自动发送计数；不同意表示关闭游戏。",
   "SETTINGS": "设置",
-  "No published records in this division yet.": "此级别尚无公开纪录。"
+  "No published records in this division yet.": "此级别尚无公开纪录。",
+  "FREE AGENT": "自由球员",
+  "Your club left Division 2. You are free to sign for another club.": "你的俱乐部已从第二级降级。你可以自由签约其他俱乐部。",
+  "Lower divisions were retired. You are now free to sign for a club.": "较低级别已移除。你现在可以自由签约俱乐部。",
+  "Sign for a club to continue your career.": "签约俱乐部以继续职业生涯。",
+  "RESERVE CLUBS": "候补俱乐部",
+  "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "仅有两个级别，每季各升降三队。第二级降级队与10支候补俱乐部轮流替换。",
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "选择新游戏或载入游戏，为球员命名并选择第一份合同。World会推荐手机设置的国家，也可选择从英格兰第四级别起步。"
 }

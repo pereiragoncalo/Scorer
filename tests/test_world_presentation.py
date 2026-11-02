@@ -44,7 +44,7 @@ class WorldPresentationTests(unittest.TestCase):
 
     def test_catalogue_covers_stable_uids_with_unique_local_names_and_no_core_changes(self):
         world=CareerMode(Access(),autoload=False)
-        data=catalogue();self.assertEqual(len(data),9896)
+        data=catalogue();self.assertEqual(len(data),10598)
         all_uids={c.uid for league in world.leagues.values() for c in league.clubs}
         self.assertTrue(all_uids <= set(data))  # Legacy-tier aliases remain available for old saves.
         for country in {l.country for l in world.leagues.values()}:

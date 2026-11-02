@@ -805,6 +805,7 @@ class StrikerGame(Widget):
             self.draw()
             return
         scheduled=self.career.next_match()
+        if self.career.free_agent:self.view='agent';self.draw();return
         if not self.career.trained_this_week:
             self.career.message='Complete this week’s training to unlock Play.';self.view='hub';self.draw();return
         if scheduled is None:
@@ -2668,7 +2669,7 @@ class StrikerGame(Widget):
     @localized_call
     def _request_exit(self):
         if self.view=='data_notice':self._reject_notice();return
-        if self._exit_popup is not None or self.view not in ("hub", "offers", "start"):
+        if self._exit_popup is not None or self.view not in ("hub", "offers", "start", "agent"):
             return
         content = BoxLayout(orientation="vertical", spacing=dp(12), padding=dp(12))
         message = 'Your career will be saved before you exit.'
@@ -2710,7 +2711,7 @@ class StrikerGame(Widget):
             if self.view=='data_notice' and key==27:self._request_exit()
             return True
         if key == 27:  # ESC
-            if self.view not in ("hub", "offers", "start") and self.career.club_name:
+            if self.view not in ("hub", "offers", "start", "agent") and self.career.club_name:
                 self.view = "hub"
                 return True
             self._request_exit()
@@ -3074,7 +3075,7 @@ class StrikerGame(Widget):
             self.career.activate_world_country(self.world_country)
             self.career.save()
             self.view = 'world_country'
-        elif action == 'world_league' and self.career.world_unlocked and value in self.career.leagues:
+        elif action == 'world_league' and self.career.world_unlocked and self.career.is_league_playable(value):
             self.world_league_key = value
             self.view = 'world_league'
         elif action == 'edit_browsed' and self.career.world_unlocked:
@@ -3108,6 +3109,8 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     @localized_call
     def draw(self) -> None:
+        if self.career.free_agent and self.view in ('hub','training','shot'):
+            self.view='agent'
         # Keep touch grabs and the widget tree stable while a notice is visible.
         show_notice = self.view == "match" and (self.match_finished or self.awaiting_chance or self.match_halftime)
         if self._match_notice is not None and self._match_notice.parent is self and not show_notice:

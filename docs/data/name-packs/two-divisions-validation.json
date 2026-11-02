@@ -1,0 +1,29 @@
+{
+  "layout": "World0.9.4: two active divisions, ten reserve clubs per country",
+  "artifact": "Scorer-World-Real-Names-Two-Divisions-2026.json",
+  "bytes": 123595,
+  "sha256": "2423ed8cf2bd522bfb2877cdd4a006c478b46aa1824f61c285ec7f958594cef3",
+  "countries": [
+    "Portugal",
+    "England",
+    "Spain",
+    "Germany",
+    "Italy",
+    "France",
+    "Brazil",
+    "Argentina"
+  ],
+  "clubs": 352,
+  "active_clubs": 272,
+  "reserve_clubs": 80,
+  "league_aliases": 16,
+  "player_aliases": 2283,
+  "real_player_names": 1738,
+  "active_names_unchanged_from_previous_corrected_pack": true,
+  "ten_real_reserve_names_each_supported_country": true,
+  "editor_upgrade_only_changes_display_aliases": true,
+  "world_countries": 212,
+  "active_leagues": 424,
+  "non_playable_fifo_size_per_country": 10,
+  "game_models_are_not_official_league_sizes": true
+}

@@ -151,7 +151,7 @@ class StagingTests(unittest.TestCase):
             with self.assertRaises(ValueError):prepare_edition('world',Path(t)/'unreviewed',channel='production',config=config)
             with self.assertRaisesRegex(ValueError,'Only Scorer World'):prepare_edition('free',Path(t)/'free',channel='production',config=config,publication=review)
             with self.assertRaisesRegex(ValueError,'above the 0.9'):
-                prepare_edition('world',Path(t)/'stale-code',channel='production',config=dict(config,version_code=1026903),publication=review)
+                prepare_edition('world',Path(t)/'stale-code',channel='production',config=dict(config,version_code=1026904),publication=review)
             stage=prepare_edition('world',Path(t)/'world',channel='production',config=config,publication=review)
             spec=configparser.ConfigParser();spec.read(stage/'buildozer.spec')
             self.assertEqual(spec['app']['package.name'],'scorerworld')

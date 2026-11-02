@@ -56,16 +56,16 @@ class WorldTests(unittest.TestCase):
 
     def test_world_keeps_local_start_and_english_four_option(self):
         c = CareerMode(PreviewAccess(), autoload=False, starter_country='Portugal', save_slot='world')
-        self.assertEqual(c.league_key, 'Portugal|4')
+        self.assertEqual(c.league_key, 'Portugal|2')
         self.assertTrue(c.choose_start_country('England'))
-        self.assertEqual(c.league_key, FREE_LEAGUE_KEY)
+        self.assertEqual(c.league_key, 'England|2')
 
     def test_world_covers_every_region_and_keeps_visited_tables_across_reload(self):
         c = self.world()
         self.assertEqual({v.country for v in c.leagues.values()}, set(WORLD_COUNTRIES))
         self.assertEqual(c.leagues['England|4'].name, 'England Division 4')
         self.assertEqual(len([v for v in c.leagues.values() if v.country == 'Brazil']), 4)
-        self.assertEqual(len([v for v in c.leagues.values() if v.country == 'Yemen']), 2)
+        self.assertEqual(len(c.domestic_leagues('Yemen')), 2)
         self.assertEqual(len({club.uid for league in c.leagues.values() for club in league.clubs}), sum(len(v.clubs) for v in c.leagues.values()))
         kind,h,a=c.next_match();c.finish_match(h,a,0,1,forced_score=(0,0),competition=kind)
         c.activate_world_country('Brazil');c.save()
@@ -106,7 +106,7 @@ class WorldTests(unittest.TestCase):
         c=self.world();club=c.club;uid=club.uid;old_key=c.league_key
         c.apply_names({'version':1,'clubs':{uid:'Promotion Alias'}})
         c.club.points=999;c._finish_season()
-        self.assertEqual(c.league_key,'Portugal|3')
+        self.assertEqual(c.league_key,'Portugal|1')
         self.assertEqual(c.club.uid,uid)
         self.assertEqual(c.display_text(c.club_name),'Promotion Alias')
         self.assertEqual(sum(x.uid==uid for v in c.leagues.values() for x in v.clubs),1)

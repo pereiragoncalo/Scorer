@@ -1,3 +1,11 @@
+## World 0.9.4: two divisions and ten reserves
+
+[Download the JSON for the two-division model](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-two-divisions-2026/Scorer-World-Real-Names-Two-Divisions-2026.json). Install World0.9.4 first.272 real active-club names plus80 real reserve-club names:10 per supported country,352 unique clubs total.16 active league names and2283 player aliases. The eight supported real-name countries remain Portugal, England, Spain, Germany, Italy, France, Brazil and Argentina; other game countries use the existing fictional local names.
+
+Every country now has only two playable leagues and a FIFO reserve of10 clubs, not a simulated third division. The file preserves all active-club aliases from the prior corrected pack, and uses verified third-tier names for the initial reserve. Imported aliases follow the stable club UID as it moves between leagues and the reserve. Reimporting does not undo simulated promotions/relegations. Reference seasons and player-snapshot limitations below still apply. [Mapping](Scorer-World-Real-Names-Two-Divisions-2026.provenance.json) · [Validation](two-divisions-validation.json).
+
+The generator now defaults to `--layout two-divisions`; use `--layout historical` only to reproduce the previous full-pyramid pack. For this new file use `--previous Scorer-World-Real-Names-Divisions-2026.json` so stale player aliases on the selected slots are reset safely. Hidden archived aliases are retained for old match history.
+
 # Real club and player names for the Scorer World editor
 
 ## Current corrected pack

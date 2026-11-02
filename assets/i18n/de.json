@@ -313,5 +313,12 @@
   "I DO NOT AGREE": "ICH STIMME NICHT ZU",
   "Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. I AGREE continues with automatic usage reporting; I DO NOT AGREE closes the game.": "Scorer World sendet Nutzungszähler an stats.clemir.com: App-Starts und -Schließungen, erstellte und geladene Karrieren, Training, Spiele, Tore und Speicher-/Ladefehler. Namen, Karrieredateien und Gerätekennungen sind nicht enthalten. Ausstehende Zähler verfallen nach 7 Tagen, tägliche Serversummen nach 90 Tagen. Cloudflare verarbeitet Verbindungsdaten einschließlich IP-Adressen. Öffentliche Rekorde werden getrennt und freiwillig geteilt. ICH STIMME ZU setzt das Spiel mit automatischer Übermittlung fort; ICH STIMME NICHT ZU beendet es.",
   "SETTINGS": "EINSTELLUNGEN",
-  "No published records in this division yet.": "In dieser Liga gibt es noch keine veröffentlichten Rekorde."
+  "No published records in this division yet.": "In dieser Liga gibt es noch keine veröffentlichten Rekorde.",
+  "FREE AGENT": "VEREINSLOS",
+  "Your club left Division 2. You are free to sign for another club.": "Dein Verein ist aus der zweiten Liga abgestiegen. Du kannst bei einem anderen Verein unterschreiben.",
+  "Lower divisions were retired. You are now free to sign for a club.": "Die unteren Ligen wurden entfernt. Du kannst nun bei einem Verein unterschreiben.",
+  "Sign for a club to continue your career.": "Unterschreibe bei einem Verein, um deine Karriere fortzusetzen.",
+  "RESERVE CLUBS": "RESERVEVEREINE",
+  "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "Zwei Ligen. Drei Vereine steigen auf und ab; Absteiger aus Liga 2 werden durch einen rotierenden Pool von 10 Vereinen ersetzt.",
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "Wähle Neues Spiel oder Spiel laden. Benenne deinen Spieler und wähle den ersten Vertrag. World schlägt das Land deines Telefons vor; alternativ kannst du in Englands vierter Liga starten."
 }

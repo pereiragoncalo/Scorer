@@ -1,10 +1,12 @@
+Current QA is0.9.4: owner replaced earlier multi-tier pyramids with two active divisions and10 rotating reserves in every country; release to free-agent status below2. See ../RELEASE_0.9.4.md. Historical competition-format references below are superseded where they describe additional domestic tiers or playoffs.
+
 # Scorer World: 0.9 test phase → 1.0 release
 
 Owner decision: the next test version is **0.9**; the public launch is **1.0**. World only, free, no adverts/IAP, names editor included. The 0.9 QA acceptance candidate now includes the completed World competition implementation. Version 0.6.48 is retained as a historical QA build.
 
 ## Version configuration
 
-`release/world-launch.json` is the version-name authority used by edition staging. Rehearsal selects 0.9.2/versionCode 1026902; production selects 1.0, with example code 1030000. Both codes exceed the delivered 1026648. Production must use a code above the 0.9 candidate and an unused code confirmed against Play Console. Further test candidates need fresh increasing codes if uploaded. Package/save identity stays com.clemir.scorerworld; numbering does not reset progress or imported aliases.
+`release/world-launch.json` is the version-name authority used by edition staging. Rehearsal selects 0.9.4/versionCode 1026904; production selects 1.0, with example code 1030000. Both codes exceed the delivered 1026648. Production must use a code above the 0.9 candidate and an unused code confirmed against Play Console. Further test candidates need fresh increasing codes if uploaded. Package/save identity stays com.clemir.scorerworld; numbering does not reset progress or imported aliases.
 
 `release/play.example.json` is the public 0.9 configuration; `release/play.production.example.json` is a separate public production example. Review gates, protected signing and owner approval of the concrete rollout still apply. No Console upload or 1.0 approval is implied.
 

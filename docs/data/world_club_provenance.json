@@ -11,7 +11,8 @@
     "regions_with_club_city_references": 91,
     "clubs_with_reference": 4160,
     "clubs_with_reference_palette": 92,
-    "regions_with_multiple_cities": 193
+    "regions_with_multiple_cities": 193,
+    "two_division_reserve_extension": 702
   },
   "clubs": {
     "4e2de75b6e320ad6fcaa": {
@@ -79639,6 +79640,5622 @@
       "tier_at_origin": 4,
       "adapted": "Kadoma City",
       "city": "Kadoma",
+      "reference": null,
+      "colours": null
+    },
+    "07c85ec3779cb9b2d391": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "Tirana FC Central",
+      "city": "Tirana",
+      "reference": null,
+      "colours": null
+    },
+    "112be2751502c089fbe5": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Tirana Central",
+      "city": "Tirana",
+      "reference": null,
+      "colours": null
+    },
+    "1fdce954f7008b5d7619": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "United Vlorë",
+      "city": "Vlorë",
+      "reference": null,
+      "colours": null
+    },
+    "296dc37e20e256689704": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "Vlorë Athletic",
+      "city": "Vlorë",
+      "reference": null,
+      "colours": null
+    },
+    "2e36dabd98fb326483ec": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Kukës",
+      "city": "Kukës",
+      "reference": null,
+      "colours": null
+    },
+    "304c28c64d382cabc395": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "United Kamëz",
+      "city": "Kamëz",
+      "reference": null,
+      "colours": null
+    },
+    "3818baddcf8cdfefcff9": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Durrës",
+      "city": "Durrës",
+      "reference": null,
+      "colours": null
+    },
+    "3f5e6a3864f09ecbe023": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "FC Kamëz",
+      "city": "Kamëz",
+      "reference": null,
+      "colours": null
+    },
+    "41447b97371d0a10ba97": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "Korçë Athletic",
+      "city": "Korçë",
+      "reference": null,
+      "colours": null
+    },
+    "4ef93fb5377d4482644e": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "Shkodër Athletic",
+      "city": "Shkodër",
+      "reference": null,
+      "colours": null
+    },
+    "507f0dbe24e1d0bfba68": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "United Laç",
+      "city": "Laç",
+      "reference": null,
+      "colours": null
+    },
+    "52cd5e7683bf896d0b7e": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "United Ballsh",
+      "city": "Ballsh",
+      "reference": null,
+      "colours": null
+    },
+    "6419d7a760d9e0d68c47": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "FC Shkodër",
+      "city": "Shkodër",
+      "reference": null,
+      "colours": null
+    },
+    "a4bf1e11c609a43511dc": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "SC Durrës",
+      "city": "Durrës",
+      "reference": null,
+      "colours": null
+    },
+    "a97fb51db397a6128d93": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Gjirokastër",
+      "city": "Gjirokastër",
+      "reference": null,
+      "colours": null
+    },
+    "c5c864fe16994fcd9264": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "Kamëz Athletic",
+      "city": "Kamëz",
+      "reference": null,
+      "colours": null
+    },
+    "e9683f6e9bf1991849cf": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "United Korçë",
+      "city": "Korçë",
+      "reference": null,
+      "colours": null
+    },
+    "ee6bcf27fce810c55c11": {
+      "country": "Albania",
+      "tier_at_origin": 3,
+      "adapted": "Gjirokastër Athletic",
+      "city": "Gjirokastër",
+      "reference": null,
+      "colours": null
+    },
+    "0f400b73f0f885ac5925": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Escaldes-Engordany SC",
+      "city": "Escaldes-Engordany",
+      "reference": null,
+      "colours": null
+    },
+    "121952f0f42bb3276ba8": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "FC El Pas de la Casa",
+      "city": "El Pas de la Casa",
+      "reference": null,
+      "colours": null
+    },
+    "1bc1c6e1a637efccf80a": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "AC Encamp",
+      "city": "Encamp",
+      "reference": null,
+      "colours": null
+    },
+    "25534e054b7b7f2f7d05": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Sporting El Pas de la Casa",
+      "city": "El Pas de la Casa",
+      "reference": null,
+      "colours": null
+    },
+    "48490211f3a3d9f9b120": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Ordino FC",
+      "city": "Ordino",
+      "reference": null,
+      "colours": null
+    },
+    "4bfbf111ff4abb7a8a37": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Encamp SC",
+      "city": "Encamp",
+      "reference": null,
+      "colours": null
+    },
+    "4ffa058c99610971244c": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "United El Pas de la Casa",
+      "city": "El Pas de la Casa",
+      "reference": null,
+      "colours": null
+    },
+    "505d00f6b59c5625bd46": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "FC Andorra la Vella Central",
+      "city": "Andorra la Vella",
+      "reference": null,
+      "colours": null
+    },
+    "5afdde60600bbff1a54b": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "AC Andorra la Vella Central",
+      "city": "Andorra la Vella",
+      "reference": null,
+      "colours": null
+    },
+    "67a5197f5c3963b50b41": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Encamp Athletic",
+      "city": "Encamp",
+      "reference": null,
+      "colours": null
+    },
+    "7d58e4292db20d15665c": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Ordino SC",
+      "city": "Ordino",
+      "reference": null,
+      "colours": null
+    },
+    "8e360d89680babb58c93": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Encamp",
+      "city": "Encamp",
+      "reference": null,
+      "colours": null
+    },
+    "bc4ace53d5864440d7a0": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Escaldes-Engordany FC Central",
+      "city": "Escaldes-Engordany",
+      "reference": null,
+      "colours": null
+    },
+    "bde5e26f3311e7540f1b": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "El Pas de la Casa Athletic",
+      "city": "El Pas de la Casa",
+      "reference": null,
+      "colours": null
+    },
+    "c026abe779c44d545aa4": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Andorra la Vella Athletic North",
+      "city": "Andorra la Vella",
+      "reference": null,
+      "colours": null
+    },
+    "c7be12e4ba04432de9a2": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Andorra la Vella SC North",
+      "city": "Andorra la Vella",
+      "reference": null,
+      "colours": null
+    },
+    "c9bbbc2e5a8e7e65592d": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "SC El Pas de la Casa",
+      "city": "El Pas de la Casa",
+      "reference": null,
+      "colours": null
+    },
+    "f8f2581a5bae82574281": {
+      "country": "Andorra",
+      "tier_at_origin": 3,
+      "adapted": "Sant Julià FC",
+      "city": "Sant Julià",
+      "reference": null,
+      "colours": null
+    },
+    "1485cae764606dd92d4c": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Kapan FC",
+      "city": "Kapan",
+      "reference": null,
+      "colours": null
+    },
+    "15532a38f6374fca7c33": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Kapan SC",
+      "city": "Kapan",
+      "reference": null,
+      "colours": null
+    },
+    "25974ad7dd2c6188250e": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Kapan",
+      "city": "Kapan",
+      "reference": null,
+      "colours": null
+    },
+    "29f61ccec00a37e03b49": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Armavir",
+      "city": "Armavir",
+      "reference": null,
+      "colours": null
+    },
+    "2cce5cbe6b719cbab32d": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Armavir FC",
+      "city": "Armavir",
+      "reference": null,
+      "colours": null
+    },
+    "2dbb1a7548c3bdf4e2fd": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "United Kapan",
+      "city": "Kapan",
+      "reference": null,
+      "colours": null
+    },
+    "34b302645fd5d6986d05": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Kapan SC Central",
+      "city": "Kapan",
+      "reference": null,
+      "colours": null
+    },
+    "3b6ee1900a279554fd9a": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Charentsavan SC",
+      "city": "Charentsavan",
+      "reference": null,
+      "colours": null
+    },
+    "3d854ddca327211ad8ad": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Charentsavan",
+      "city": "Charentsavan",
+      "reference": null,
+      "colours": null
+    },
+    "4b159243040fb77959b1": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Kapan FC Central",
+      "city": "Kapan",
+      "reference": null,
+      "colours": null
+    },
+    "581835519b3473c62f3a": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "United Charentsavan",
+      "city": "Charentsavan",
+      "reference": null,
+      "colours": null
+    },
+    "70951d483808f0b0934f": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Charentsavan Athletic",
+      "city": "Charentsavan",
+      "reference": null,
+      "colours": null
+    },
+    "be2fcc14f2e41a8774b2": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Armavir SC",
+      "city": "Armavir",
+      "reference": null,
+      "colours": null
+    },
+    "c6955904e14d822bfc32": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Charentsavan SC Central",
+      "city": "Charentsavan",
+      "reference": null,
+      "colours": null
+    },
+    "c88cf597159cc4b67fe8": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Charentsavan Athletic Central",
+      "city": "Charentsavan",
+      "reference": null,
+      "colours": null
+    },
+    "d678a6d79ea152051639": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "Kapan Athletic Central",
+      "city": "Kapan",
+      "reference": null,
+      "colours": null
+    },
+    "f2e4bff25280fefb53b1": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "AC Yerevan South",
+      "city": "Yerevan",
+      "reference": null,
+      "colours": null
+    },
+    "f5036af91e1a34b3d8e0": {
+      "country": "Armenia",
+      "tier_at_origin": 3,
+      "adapted": "SC Kapan Central",
+      "city": "Kapan",
+      "reference": null,
+      "colours": null
+    },
+    "211f87ece0a25c7b50c6": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "Traiskirchen SC",
+      "city": "Traiskirchen",
+      "reference": null,
+      "colours": null
+    },
+    "338e66f8be8e8a64f4ce": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "SC Maria Enzersdorf",
+      "city": "Maria Enzersdorf",
+      "reference": null,
+      "colours": null
+    },
+    "33f84c76d8c2ac2ff399": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "United Schwechat",
+      "city": "Schwechat",
+      "reference": null,
+      "colours": null
+    },
+    "3467f94cd80477c853e7": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "Draßburg SC",
+      "city": "Draßburg",
+      "reference": null,
+      "colours": null
+    },
+    "416fa54d883583f3f0cf": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Horn",
+      "city": "Horn",
+      "reference": null,
+      "colours": null
+    },
+    "5fc27311bb9440809e82": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "SC Bruck an der Leitha",
+      "city": "Bruck an der Leitha",
+      "reference": null,
+      "colours": null
+    },
+    "65399cc99da2854dcf91": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "SC Ebreichsdorf",
+      "city": "Ebreichsdorf",
+      "reference": null,
+      "colours": null
+    },
+    "6df70048ab4bd7c4e16c": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "SC Leobendorf",
+      "city": "Leobendorf",
+      "reference": null,
+      "colours": null
+    },
+    "7d3efacd17f0389e87a7": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Neusiedl am See",
+      "city": "Neusiedl am See",
+      "reference": null,
+      "colours": null
+    },
+    "95cd47032d19fd0a5cc8": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "Draßburg FC",
+      "city": "Draßburg",
+      "reference": null,
+      "colours": null
+    },
+    "9744430834336ade3e67": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "FC Schrems",
+      "city": "Schrems",
+      "reference": null,
+      "colours": null
+    },
+    "a630da849085ee3e5b9f": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "Maria Enzersdorf SC",
+      "city": "Maria Enzersdorf",
+      "reference": null,
+      "colours": null
+    },
+    "a6761077350e380f61c9": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "St. Pölten Athletic",
+      "city": "St. Pölten",
+      "reference": null,
+      "colours": null
+    },
+    "b15b2a150719e0230949": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "Sporting St. Pölten",
+      "city": "St. Pölten",
+      "reference": null,
+      "colours": null
+    },
+    "dd454919ca66782584d9": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "SC Draßburg",
+      "city": "Draßburg",
+      "reference": null,
+      "colours": null
+    },
+    "e860bc620ef070cf229c": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "AC Parndorf",
+      "city": "Parndorf",
+      "reference": null,
+      "colours": null
+    },
+    "e93357e44311c177109b": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "Horn SC",
+      "city": "Horn",
+      "reference": null,
+      "colours": null
+    },
+    "f1eb827ef33c82d8fb00": {
+      "country": "Austria",
+      "tier_at_origin": 3,
+      "adapted": "United Parndorf",
+      "city": "Parndorf",
+      "reference": null,
+      "colours": null
+    },
+    "2570b58c5d4c6bea7310": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "FC Shamakhi",
+      "city": "Shamakhi",
+      "reference": null,
+      "colours": null
+    },
+    "35dd2e13a38863e4d9b6": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "Nakchivan SC",
+      "city": "Nakchivan",
+      "reference": null,
+      "colours": null
+    },
+    "4437ef9a2132db12db30": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "İmişli FC",
+      "city": "İmişli",
+      "reference": null,
+      "colours": null
+    },
+    "579f8133ff4f167e7eb4": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "Shamakhi FC",
+      "city": "Shamakhi",
+      "reference": null,
+      "colours": null
+    },
+    "5d2b0797c36f45f6363c": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "İmişli SC",
+      "city": "İmişli",
+      "reference": null,
+      "colours": null
+    },
+    "6ad1b6afa5c6734735b6": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "Nakchivan Athletic",
+      "city": "Nakchivan",
+      "reference": null,
+      "colours": null
+    },
+    "77570573a2c4a73604d2": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "Ganja FC",
+      "city": "Ganja",
+      "reference": null,
+      "colours": null
+    },
+    "85bbc89651aa4eacaa38": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "AC Tovuz",
+      "city": "Tovuz",
+      "reference": null,
+      "colours": null
+    },
+    "938f99433e4477634d59": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "Sporting İmişli",
+      "city": "İmişli",
+      "reference": null,
+      "colours": null
+    },
+    "9d529dd47afa2ef0a725": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "SC Shamakhi",
+      "city": "Shamakhi",
+      "reference": null,
+      "colours": null
+    },
+    "ab80e4bf9be6a3600452": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Nakchivan",
+      "city": "Nakchivan",
+      "reference": null,
+      "colours": null
+    },
+    "b47633d309b8121f5b76": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "Ganja SC",
+      "city": "Ganja",
+      "reference": null,
+      "colours": null
+    },
+    "b4b993f71d75847fb168": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "United İmişli",
+      "city": "İmişli",
+      "reference": null,
+      "colours": null
+    },
+    "c4a4b52f0c777eb34032": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "SC Ganja",
+      "city": "Ganja",
+      "reference": null,
+      "colours": null
+    },
+    "df6791941af712ff0920": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "AC Shamakhi",
+      "city": "Shamakhi",
+      "reference": null,
+      "colours": null
+    },
+    "e86111e71abbbeae98f8": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "AC Ganja",
+      "city": "Ganja",
+      "reference": null,
+      "colours": null
+    },
+    "eaf628b0cdffe67ed26e": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "Tovuz FC",
+      "city": "Tovuz",
+      "reference": null,
+      "colours": null
+    },
+    "f3134dfe8dceb172a2d3": {
+      "country": "Azerbaijan",
+      "tier_at_origin": 3,
+      "adapted": "United Shamakhi Central",
+      "city": "Shamakhi",
+      "reference": null,
+      "colours": null
+    },
+    "070ed947511e21b32abc": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FK Smorgon",
+      "city": "Smorgon",
+      "reference": null,
+      "colours": null
+    },
+    "0f4cfcfe064df555f6eb": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Smorgon Central",
+      "city": "Smorgon",
+      "reference": null,
+      "colours": null
+    },
+    "1515da088d9ad417c3f9": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FK Barysaw Central",
+      "city": "Barysaw",
+      "reference": null,
+      "colours": null
+    },
+    "23f8b55e206d443e500a": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Zhodino",
+      "city": "Zhodino",
+      "reference": null,
+      "colours": null
+    },
+    "3b82a8fbd93a42dbb2ad": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Dzerzhinsk",
+      "city": "Dzerzhinsk",
+      "reference": null,
+      "colours": null
+    },
+    "481d60780cd56dd91154": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FK Dzerzhinsk Central",
+      "city": "Dzerzhinsk",
+      "reference": null,
+      "colours": null
+    },
+    "60ba6dfd4251fb8995ad": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Bobruisk",
+      "city": "Bobruisk",
+      "reference": null,
+      "colours": null
+    },
+    "6c31decdf50f7c05f77e": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Zhodino Central",
+      "city": "Zhodino",
+      "reference": null,
+      "colours": null
+    },
+    "83d186aa5a34d28209e8": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "NK Zhodino Central",
+      "city": "Zhodino",
+      "reference": null,
+      "colours": null
+    },
+    "84dad41d22825e95d298": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Dzerzhinsk Central",
+      "city": "Dzerzhinsk",
+      "reference": null,
+      "colours": null
+    },
+    "9be303957caa165f9bd5": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Barysaw Central",
+      "city": "Barysaw",
+      "reference": null,
+      "colours": null
+    },
+    "9ca6f7e052852a0f08f5": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FK Zhodino Central",
+      "city": "Zhodino",
+      "reference": null,
+      "colours": null
+    },
+    "b1b770c1640d9b480e3f": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "SK Dzerzhinsk Central",
+      "city": "Dzerzhinsk",
+      "reference": null,
+      "colours": null
+    },
+    "cca6eb1059af45789523": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "SK Barysaw Central",
+      "city": "Barysaw",
+      "reference": null,
+      "colours": null
+    },
+    "dd9413970cd6e5a5e911": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Smorgon Central",
+      "city": "Smorgon",
+      "reference": null,
+      "colours": null
+    },
+    "ed801b4bb06d7bf035fe": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Dzerzhinsk Central",
+      "city": "Dzerzhinsk",
+      "reference": null,
+      "colours": null
+    },
+    "f55b4d045a61a2dba73e": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Smorgon Central",
+      "city": "Smorgon",
+      "reference": null,
+      "colours": null
+    },
+    "f9a828fbeea6ef8f2b29": {
+      "country": "Belarus",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Dzerzhinsk Central",
+      "city": "Dzerzhinsk",
+      "reference": null,
+      "colours": null
+    },
+    "11cd352b595b7c89ed30": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Banovići",
+      "city": "Banovići",
+      "reference": null,
+      "colours": null
+    },
+    "37993e92aa9b9abea526": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "SK Banovići",
+      "city": "Banovići",
+      "reference": null,
+      "colours": null
+    },
+    "3b59c89da49f113a9b29": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Trebinje",
+      "city": "Trebinje",
+      "reference": null,
+      "colours": null
+    },
+    "4116d366ead6716668c2": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FK Trebinje",
+      "city": "Trebinje",
+      "reference": null,
+      "colours": null
+    },
+    "4538a88987870a7c3cef": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "SK Trebinje Central",
+      "city": "Trebinje",
+      "reference": null,
+      "colours": null
+    },
+    "48c13c66c1516ae08b76": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Banovići Central",
+      "city": "Banovići",
+      "reference": null,
+      "colours": null
+    },
+    "4b43af515164f79a385c": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "NK Orašje",
+      "city": "Orašje",
+      "reference": null,
+      "colours": null
+    },
+    "6d4c31eaf8ce310ab3de": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Čitluk",
+      "city": "Čitluk",
+      "reference": null,
+      "colours": null
+    },
+    "70c9755816e0a924c5ee": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FK Banovići Central",
+      "city": "Banovići",
+      "reference": null,
+      "colours": null
+    },
+    "95d5bf1761e69adc2784": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Trebinje Central",
+      "city": "Trebinje",
+      "reference": null,
+      "colours": null
+    },
+    "980e0b5dcd744e2c948f": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FK Orašje",
+      "city": "Orašje",
+      "reference": null,
+      "colours": null
+    },
+    "a2bf8c5c8cdb88d79b7b": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Trebinje Central",
+      "city": "Trebinje",
+      "reference": null,
+      "colours": null
+    },
+    "a8194d7adb78118d8ffb": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "NK Banovići Central",
+      "city": "Banovići",
+      "reference": null,
+      "colours": null
+    },
+    "ad31fee7864312b0eb9b": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "NK Mostar Central",
+      "city": "Mostar",
+      "reference": null,
+      "colours": null
+    },
+    "be976ec44882faa7151b": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Mostar Central",
+      "city": "Mostar",
+      "reference": null,
+      "colours": null
+    },
+    "bea52567eeda457981ce": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Orašje Central",
+      "city": "Orašje",
+      "reference": null,
+      "colours": null
+    },
+    "d49cef56fe1ae2558dba": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Orašje Central",
+      "city": "Orašje",
+      "reference": null,
+      "colours": null
+    },
+    "f746aff18d76be16ee53": {
+      "country": "Bosnia and Herzegovina",
+      "tier_at_origin": 3,
+      "adapted": "SK Orašje Central",
+      "city": "Orašje",
+      "reference": null,
+      "colours": null
+    },
+    "0001f0b2474ccfef729d": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "NK Razgrad",
+      "city": "Razgrad",
+      "reference": null,
+      "colours": null
+    },
+    "03fa541fd23f719872d0": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Veliko Tarnovo",
+      "city": "Veliko Tarnovo",
+      "reference": null,
+      "colours": null
+    },
+    "0ef37c50348ad6c50d92": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FK Lovech",
+      "city": "Lovech",
+      "reference": null,
+      "colours": null
+    },
+    "119361cffe8e68029cb5": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Dupnitsa",
+      "city": "Dupnitsa",
+      "reference": null,
+      "colours": null
+    },
+    "18e4d1bc71f9a960f61b": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Ruse",
+      "city": "Ruse",
+      "reference": null,
+      "colours": null
+    },
+    "1d7bc755bbb8f65fb3c3": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Dupnitsa",
+      "city": "Dupnitsa",
+      "reference": null,
+      "colours": null
+    },
+    "463b320cc183f30a38d4": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Burgas",
+      "city": "Burgas",
+      "reference": null,
+      "colours": null
+    },
+    "4c5ac39d773b3cee4ef4": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Montana",
+      "city": "Montana",
+      "reference": null,
+      "colours": null
+    },
+    "52dcfb8669cd56e37433": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Sofia",
+      "city": "Sofia",
+      "reference": null,
+      "colours": null
+    },
+    "6d028c1ebbd82937a375": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Burgas",
+      "city": "Burgas",
+      "reference": null,
+      "colours": null
+    },
+    "8b8756b6b4cd31fdb71f": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Lovech",
+      "city": "Lovech",
+      "reference": null,
+      "colours": null
+    },
+    "8f2f72341020601d766a": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Veliko Tarnovo",
+      "city": "Veliko Tarnovo",
+      "reference": null,
+      "colours": null
+    },
+    "a03598b12caf69a96aab": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "SK Pazardzhik",
+      "city": "Pazardzhik",
+      "reference": null,
+      "colours": null
+    },
+    "adf5fbeaf64b5ecb51ea": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "NK Dupnitsa",
+      "city": "Dupnitsa",
+      "reference": null,
+      "colours": null
+    },
+    "ae8bdc4ccbb6d105a365": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Stara Zagora",
+      "city": "Stara Zagora",
+      "reference": null,
+      "colours": null
+    },
+    "bcfcf1eb3d812030082c": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Plovdiv",
+      "city": "Plovdiv",
+      "reference": null,
+      "colours": null
+    },
+    "f3e5a772e01f3933a1a6": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Dupnitsa",
+      "city": "Dupnitsa",
+      "reference": null,
+      "colours": null
+    },
+    "faaa26ef17226f5f7e20": {
+      "country": "Bulgaria",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Burgas",
+      "city": "Burgas",
+      "reference": null,
+      "colours": null
+    },
+    "2600a1bfb4956e253fd4": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Koprivnica",
+      "city": "Koprivnica",
+      "reference": null,
+      "colours": null
+    },
+    "2c433181eba8a14c26b5": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FC Koprivnica",
+      "city": "Koprivnica",
+      "reference": null,
+      "colours": null
+    },
+    "2cb1f6353a8f47b7d2c8": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Zagreb North",
+      "city": "Zagreb",
+      "reference": null,
+      "colours": null
+    },
+    "37d3b4c901b03f8dd312": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "SK Vukovar",
+      "city": "Vukovar",
+      "reference": null,
+      "colours": null
+    },
+    "5782071883d010c04680": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FK Čakovec",
+      "city": "Čakovec",
+      "reference": null,
+      "colours": null
+    },
+    "661852618bced66dc617": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "SK Rijeka",
+      "city": "Rijeka",
+      "reference": null,
+      "colours": null
+    },
+    "94f52470f258d512cd47": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "NK Vukovar",
+      "city": "Vukovar",
+      "reference": null,
+      "colours": null
+    },
+    "988316985016d438ddf5": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FK Zagreb North",
+      "city": "Zagreb",
+      "reference": null,
+      "colours": null
+    },
+    "99699a1fe27aab6702c6": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Rijeka",
+      "city": "Rijeka",
+      "reference": null,
+      "colours": null
+    },
+    "b166fc2dafe8ad5bb58e": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Vukovar",
+      "city": "Vukovar",
+      "reference": null,
+      "colours": null
+    },
+    "bd6dd489e36f422f44e0": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FC Vukovar",
+      "city": "Vukovar",
+      "reference": null,
+      "colours": null
+    },
+    "c7b1318f1b87c723ab04": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FK Koprivnica",
+      "city": "Koprivnica",
+      "reference": null,
+      "colours": null
+    },
+    "d48ea607a25b40c020a7": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Zagreb North",
+      "city": "Zagreb",
+      "reference": null,
+      "colours": null
+    },
+    "dd407f2ecff2a511c62d": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "SK Čakovec",
+      "city": "Čakovec",
+      "reference": null,
+      "colours": null
+    },
+    "e078890ddb20cdd47fed": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Koprivnica",
+      "city": "Koprivnica",
+      "reference": null,
+      "colours": null
+    },
+    "e850065a9c108db3c5f9": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Zagreb North",
+      "city": "Zagreb",
+      "reference": null,
+      "colours": null
+    },
+    "edee8475974bce9bd9b1": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Vukovar",
+      "city": "Vukovar",
+      "reference": null,
+      "colours": null
+    },
+    "f7d31f7e771265315b10": {
+      "country": "Croatia",
+      "tier_at_origin": 3,
+      "adapted": "NK Čakovec",
+      "city": "Čakovec",
+      "reference": null,
+      "colours": null
+    },
+    "0e5ff9e32d8a02c3bb60": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "GS Katokopia",
+      "city": "Katokopia",
+      "reference": null,
+      "colours": null
+    },
+    "27898017718596e05e67": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "Athienou SC",
+      "city": "Athienou",
+      "reference": null,
+      "colours": null
+    },
+    "41a0332c78905f1555a4": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "APO Limassol Central",
+      "city": "Limassol",
+      "reference": null,
+      "colours": null
+    },
+    "660443151366e9da0e6a": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "PO Limassol Central",
+      "city": "Limassol",
+      "reference": null,
+      "colours": null
+    },
+    "78cefa8ec3a1ea5c6c0f": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "Larnaca FC",
+      "city": "Larnaca",
+      "reference": null,
+      "colours": null
+    },
+    "799fe4e349c28118f0b6": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "APO Morphou",
+      "city": "Morphou",
+      "reference": null,
+      "colours": null
+    },
+    "856513505f1c4a6a8edb": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "AO Limassol Central",
+      "city": "Limassol",
+      "reference": null,
+      "colours": null
+    },
+    "90b53823807cb578f442": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "GS Athienou",
+      "city": "Athienou",
+      "reference": null,
+      "colours": null
+    },
+    "9a418cc19131b284ae94": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "AS Morphou",
+      "city": "Morphou",
+      "reference": null,
+      "colours": null
+    },
+    "a47081e6433e8de6b946": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "Katokopia FC",
+      "city": "Katokopia",
+      "reference": null,
+      "colours": null
+    },
+    "aa9809004ab2dbd493d5": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "AO Katokopia",
+      "city": "Katokopia",
+      "reference": null,
+      "colours": null
+    },
+    "ba69efce040b4b01b325": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "Zakaki SC",
+      "city": "Zakaki",
+      "reference": null,
+      "colours": null
+    },
+    "c37ceada856bad2d0b8c": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "GS Larnaca",
+      "city": "Larnaca",
+      "reference": null,
+      "colours": null
+    },
+    "d1e63a40e351d819f8d7": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "APO Larnaca",
+      "city": "Larnaca",
+      "reference": null,
+      "colours": null
+    },
+    "d64d13a7c3594f1a6d27": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "Limassol SC Central",
+      "city": "Limassol",
+      "reference": null,
+      "colours": null
+    },
+    "d87c2e544267cc21f52b": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "PO Oroklini",
+      "city": "Oroklini",
+      "reference": null,
+      "colours": null
+    },
+    "e4093434920b4283b9ae": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "PO Morphou",
+      "city": "Morphou",
+      "reference": null,
+      "colours": null
+    },
+    "efc9311c1b7a8cc3ce13": {
+      "country": "Cyprus",
+      "tier_at_origin": 3,
+      "adapted": "APO Katokopia",
+      "city": "Katokopia",
+      "reference": null,
+      "colours": null
+    },
+    "095ab658b687be3e1190": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "SC Tallinn Central",
+      "city": "Tallinn",
+      "reference": null,
+      "colours": null
+    },
+    "0b51ca5421b97fa48354": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "Tallinn SC Central",
+      "city": "Tallinn",
+      "reference": null,
+      "colours": null
+    },
+    "0bb638145a46c7d9ab8d": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "Paide SC Central",
+      "city": "Paide",
+      "reference": null,
+      "colours": null
+    },
+    "110fb455a781b4762403": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Paide Central",
+      "city": "Paide",
+      "reference": null,
+      "colours": null
+    },
+    "1a23c5dc9ddb78286f79": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "Pärnu SC Central",
+      "city": "Pärnu",
+      "reference": null,
+      "colours": null
+    },
+    "204a98f7a36695901513": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "Paide Athletic Central",
+      "city": "Paide",
+      "reference": null,
+      "colours": null
+    },
+    "21873973aa48cd975156": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Pärnu Central",
+      "city": "Pärnu",
+      "reference": null,
+      "colours": null
+    },
+    "2b7bb1ba594629c7e895": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "AC Pärnu Central",
+      "city": "Pärnu",
+      "reference": null,
+      "colours": null
+    },
+    "67e2fd7ed903654a1ae4": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "United Pärnu Central",
+      "city": "Pärnu",
+      "reference": null,
+      "colours": null
+    },
+    "69b8d0419dac2a226a60": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "AC Paide Central",
+      "city": "Paide",
+      "reference": null,
+      "colours": null
+    },
+    "75f211540df5923d976e": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "Pärnu Athletic Central",
+      "city": "Pärnu",
+      "reference": null,
+      "colours": null
+    },
+    "92d252b0e331bbdd56aa": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "AC Tallinn Central",
+      "city": "Tallinn",
+      "reference": null,
+      "colours": null
+    },
+    "a28a72a49744122ea737": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Tallinn Central",
+      "city": "Tallinn",
+      "reference": null,
+      "colours": null
+    },
+    "aa590fb4346815c81624": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "Viljandi SC Central",
+      "city": "Viljandi",
+      "reference": null,
+      "colours": null
+    },
+    "ac1f6ea4daa3afecef25": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "United Tallinn Central",
+      "city": "Tallinn",
+      "reference": null,
+      "colours": null
+    },
+    "b87ae9c27f2694cbcfa8": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Pärnu Central",
+      "city": "Pärnu",
+      "reference": null,
+      "colours": null
+    },
+    "ca6ecf26740a05a536e2": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "United Viljandi Central",
+      "city": "Viljandi",
+      "reference": null,
+      "colours": null
+    },
+    "d8c8a0c21141f6f82485": {
+      "country": "Estonia",
+      "tier_at_origin": 3,
+      "adapted": "Paide FC Central",
+      "city": "Paide",
+      "reference": null,
+      "colours": null
+    },
+    "109707c6db37ca8e8ad8": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "Vágur FF Central",
+      "city": "Vágur",
+      "reference": null,
+      "colours": null
+    },
+    "1a09b409a61a6262319f": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "Fuglafjørður FK Central",
+      "city": "Fuglafjørður",
+      "reference": null,
+      "colours": null
+    },
+    "26774bbb84d51b1bacf7": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "Vágur IF Central",
+      "city": "Vágur",
+      "reference": null,
+      "colours": null
+    },
+    "2ce11f94366b2fe2ce01": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "IK Vágur Central",
+      "city": "Vágur",
+      "reference": null,
+      "colours": null
+    },
+    "40aa908b4d27960f5ce3": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "Fuglafjørður IF Central",
+      "city": "Fuglafjørður",
+      "reference": null,
+      "colours": null
+    },
+    "48cb1445952058e651ba": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "IL Fuglafjørður Central",
+      "city": "Fuglafjørður",
+      "reference": null,
+      "colours": null
+    },
+    "57c343f156da30314f1d": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "Vágur BK Central",
+      "city": "Vágur",
+      "reference": null,
+      "colours": null
+    },
+    "589a39c5ded7864c844d": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "IL Leirvík Central",
+      "city": "Leirvík",
+      "reference": null,
+      "colours": null
+    },
+    "5eba5490cacd79df2078": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "IF Fuglafjørður Central",
+      "city": "Fuglafjørður",
+      "reference": null,
+      "colours": null
+    },
+    "727ddf82a58856b765ae": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "IL Vágur Central",
+      "city": "Vágur",
+      "reference": null,
+      "colours": null
+    },
+    "774384a3b6607408fa7a": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "IK Fuglafjørður Central",
+      "city": "Fuglafjørður",
+      "reference": null,
+      "colours": null
+    },
+    "7ac0ce28db22796605c1": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "IF Sandur Central",
+      "city": "Sandur",
+      "reference": null,
+      "colours": null
+    },
+    "88a3ec78016be9ef0352": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "Fuglafjørður FF Central",
+      "city": "Fuglafjørður",
+      "reference": null,
+      "colours": null
+    },
+    "a1097742034e5701763d": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "SK Vágur Central",
+      "city": "Vágur",
+      "reference": null,
+      "colours": null
+    },
+    "d061c51c3bbd388e60b5": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "IK Leirvík Central",
+      "city": "Leirvík",
+      "reference": null,
+      "colours": null
+    },
+    "f2088cae39b96d9e0bc2": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "SK Fuglafjørður Central",
+      "city": "Fuglafjørður",
+      "reference": null,
+      "colours": null
+    },
+    "f372153d5762416fd0c7": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "Leirvík FF Central",
+      "city": "Leirvík",
+      "reference": null,
+      "colours": null
+    },
+    "f6f6832fb7ee0345b95d": {
+      "country": "Faroe Islands",
+      "tier_at_origin": 3,
+      "adapted": "IF Vágur Central",
+      "city": "Vágur",
+      "reference": null,
+      "colours": null
+    },
+    "07c410c6ed71b9a45cf8": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "Poti Athletic",
+      "city": "Poti",
+      "reference": null,
+      "colours": null
+    },
+    "081a1876f13fa019f769": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "SC Poti",
+      "city": "Poti",
+      "reference": null,
+      "colours": null
+    },
+    "2121b4e22eebf5d30c95": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "AC Poti Central",
+      "city": "Poti",
+      "reference": null,
+      "colours": null
+    },
+    "35dc1535e216ac20f6db": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Tbilisi North",
+      "city": "Tbilisi",
+      "reference": null,
+      "colours": null
+    },
+    "3897c5bdd904545d1394": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "United Tbilisi North",
+      "city": "Tbilisi",
+      "reference": null,
+      "colours": null
+    },
+    "5df350198d53c334101a": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "SC Poti Central",
+      "city": "Poti",
+      "reference": null,
+      "colours": null
+    },
+    "7688cfdaeddcbde5cb05": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "United Zestafoni",
+      "city": "Zestafoni",
+      "reference": null,
+      "colours": null
+    },
+    "76a4e2f3502463a56ac5": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "FC Tskaltubo",
+      "city": "Tskaltubo",
+      "reference": null,
+      "colours": null
+    },
+    "8859fc80dc7bcc9261ef": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "FC Poti Central",
+      "city": "Poti",
+      "reference": null,
+      "colours": null
+    },
+    "94dfaf37018b0616508d": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "Zestafoni Athletic Central",
+      "city": "Zestafoni",
+      "reference": null,
+      "colours": null
+    },
+    "a771ebbd26acc22330f9": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Zestafoni Central",
+      "city": "Zestafoni",
+      "reference": null,
+      "colours": null
+    },
+    "b4076c0913944ebf837f": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "Poti FC Central",
+      "city": "Poti",
+      "reference": null,
+      "colours": null
+    },
+    "b46fe1119456c083ca22": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "SC Tbilisi North",
+      "city": "Tbilisi",
+      "reference": null,
+      "colours": null
+    },
+    "c5122aeec85190320ce1": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "AC Tskaltubo",
+      "city": "Tskaltubo",
+      "reference": null,
+      "colours": null
+    },
+    "c91826b78a4a85db76f6": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "Tskaltubo Athletic Central",
+      "city": "Tskaltubo",
+      "reference": null,
+      "colours": null
+    },
+    "d08de0a9af1ec865047a": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "Poti SC Central",
+      "city": "Poti",
+      "reference": null,
+      "colours": null
+    },
+    "d2f7ee2a0b90d672e3a6": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "AC Tskaltubo Central",
+      "city": "Tskaltubo",
+      "reference": null,
+      "colours": null
+    },
+    "f9c36a3f263735f8434f": {
+      "country": "Georgia",
+      "tier_at_origin": 3,
+      "adapted": "FC Tskaltubo Central",
+      "city": "Tskaltubo",
+      "reference": null,
+      "colours": null
+    },
+    "02908741641f4868b857": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "SC Gibraltar",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "078da6a6727f4eb27d56": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "United Gibraltar",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "15fc59b588c439f145d2": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Gibraltar",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "1b6de75856810af71110": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "FC Gibraltar",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "34962ed8a8ef38755e31": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "AC Gibraltar",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "4b8c4599b0fe5611641e": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "Gibraltar FC",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "553af89c7a7409b4e4f6": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "Gibraltar SC",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "6d99847414ea79881549": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "Gibraltar SC Central",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "7f79e6734dd5f8c1146d": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "Gibraltar FC Central",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "9a0f5a46bed4ac64aba8": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "United Gibraltar Central",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "9c4a4539a0d1263613c7": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "SC Gibraltar Central",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "9e91447152fbef6bc064": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "AC Gibraltar Central",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "abd2d529d99a28ee4db6": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Gibraltar Central",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "ac65dca98e693a9a8295": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "Gibraltar Athletic Central",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "df31daf94a5277e9da74": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "FC Gibraltar Central",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "e9bcf55e16e411e16a86": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "United Gibraltar North",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "ea3ab80448509b9ddaa9": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "Gibraltar SC North",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "ef75e602a0cc8ebd0256": {
+      "country": "Gibraltar",
+      "tier_at_origin": 3,
+      "adapted": "AC Gibraltar North",
+      "city": "Gibraltar",
+      "reference": null,
+      "colours": null
+    },
+    "0398dc624a318e8b3f19": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "PAE Agrinio",
+      "city": "Agrinio",
+      "reference": null,
+      "colours": null
+    },
+    "0ae35a0a37f8846cbe48": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "GS Chania",
+      "city": "Chania",
+      "reference": null,
+      "colours": null
+    },
+    "23075b34fa834d9d02aa": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "APO Corfu",
+      "city": "Corfu",
+      "reference": null,
+      "colours": null
+    },
+    "43c6f84379b67bee99e9": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "APO Heraklion",
+      "city": "Heraklion",
+      "reference": null,
+      "colours": null
+    },
+    "46404fca966deb3b0aa5": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "PAE Corfu",
+      "city": "Corfu",
+      "reference": null,
+      "colours": null
+    },
+    "670f51a2748e4cb17ab4": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "PAE Ioannina",
+      "city": "Ioannina",
+      "reference": null,
+      "colours": null
+    },
+    "6c3441b940dfb0b0c334": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "AS Edessa",
+      "city": "Edessa",
+      "reference": null,
+      "colours": null
+    },
+    "805a27d2edb16121257a": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "PAE Fyli",
+      "city": "Fyli",
+      "reference": null,
+      "colours": null
+    },
+    "88d7a0de8520c46e0126": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "Piraeus FC",
+      "city": "Piraeus",
+      "reference": null,
+      "colours": null
+    },
+    "964f4002b653d1c9dc0a": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "PO Heraklion",
+      "city": "Heraklion",
+      "reference": null,
+      "colours": null
+    },
+    "9bb1694a584780d8f185": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "PO Thessaloniki",
+      "city": "Thessaloniki",
+      "reference": null,
+      "colours": null
+    },
+    "ad171d12f20d6cd28d68": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "PAE Edessa",
+      "city": "Edessa",
+      "reference": null,
+      "colours": null
+    },
+    "bd5b6409196c9130eab7": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "AS Agrinio",
+      "city": "Agrinio",
+      "reference": null,
+      "colours": null
+    },
+    "d63aee7595c2ba6390ee": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "Kalamaria FC",
+      "city": "Kalamaria",
+      "reference": null,
+      "colours": null
+    },
+    "d7761703e798afe9db42": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "APO Kallithea",
+      "city": "Kallithea",
+      "reference": null,
+      "colours": null
+    },
+    "e645f63ab167206935a4": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "PAE Kalamaria",
+      "city": "Kalamaria",
+      "reference": null,
+      "colours": null
+    },
+    "f55a2adc4d6caacdaf83": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "APO Chania",
+      "city": "Chania",
+      "reference": null,
+      "colours": null
+    },
+    "f8ae49544c6678b19859": {
+      "country": "Greece",
+      "tier_at_origin": 3,
+      "adapted": "APO Edessa",
+      "city": "Edessa",
+      "reference": null,
+      "colours": null
+    },
+    "1424f39c580091ce6d9a": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "Vác SC",
+      "city": "Vác",
+      "reference": null,
+      "colours": null
+    },
+    "1cae42985bbc9796c3c4": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "SC Tatabánya",
+      "city": "Tatabánya",
+      "reference": null,
+      "colours": null
+    },
+    "1f4abb79e2518fdd1bb0": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "SC Kazincbarcika",
+      "city": "Kazincbarcika",
+      "reference": null,
+      "colours": null
+    },
+    "272eb259d94c4aa9a79a": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "Tatabánya FC",
+      "city": "Tatabánya",
+      "reference": null,
+      "colours": null
+    },
+    "355f95a538147233279b": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "United Szombathely",
+      "city": "Szombathely",
+      "reference": null,
+      "colours": null
+    },
+    "5394747f5674d531c63c": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "Pécs Athletic",
+      "city": "Pécs",
+      "reference": null,
+      "colours": null
+    },
+    "5c59912a288d9875e39f": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "AC Budapest North",
+      "city": "Budapest",
+      "reference": null,
+      "colours": null
+    },
+    "6bedf4c6ae6ac47e2f8a": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "United Kisvárda",
+      "city": "Kisvárda",
+      "reference": null,
+      "colours": null
+    },
+    "73075af816eb99dd528c": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "SC Budaörs",
+      "city": "Budaörs",
+      "reference": null,
+      "colours": null
+    },
+    "812790a04067b20ef7e9": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "SC Pécs",
+      "city": "Pécs",
+      "reference": null,
+      "colours": null
+    },
+    "8cab30d8a7792a7eba6c": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "FC Csákvár",
+      "city": "Csákvár",
+      "reference": null,
+      "colours": null
+    },
+    "9203863f0a4c2c51d05c": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "Tatabánya Athletic",
+      "city": "Tatabánya",
+      "reference": null,
+      "colours": null
+    },
+    "9bafad0d3b176e652572": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Salgótarján",
+      "city": "Salgótarján",
+      "reference": null,
+      "colours": null
+    },
+    "a39141e4e6c85645cb0a": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "Salgótarján SC",
+      "city": "Salgótarján",
+      "reference": null,
+      "colours": null
+    },
+    "aa891f1de9daa06bdec5": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Békéscsaba",
+      "city": "Békéscsaba",
+      "reference": null,
+      "colours": null
+    },
+    "c217ab303bc0fe709808": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "FC Békéscsaba",
+      "city": "Békéscsaba",
+      "reference": null,
+      "colours": null
+    },
+    "d54186ef0af4ef553f46": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "Budaörs Athletic",
+      "city": "Budaörs",
+      "reference": null,
+      "colours": null
+    },
+    "f831f6bf9b383d9c8632": {
+      "country": "Hungary",
+      "tier_at_origin": 3,
+      "adapted": "Tatabánya SC",
+      "city": "Tatabánya",
+      "reference": null,
+      "colours": null
+    },
+    "2af370b8f6d6cdeaa783": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "SC Dimona",
+      "city": "Dimona",
+      "reference": null,
+      "colours": null
+    },
+    "327f99c5c5809cf6052b": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Ness Ziona",
+      "city": "Ness Ziona",
+      "reference": null,
+      "colours": null
+    },
+    "368e8b9785c7a0c13fde": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Tel Aviv Athletic",
+      "city": "Tel Aviv",
+      "reference": null,
+      "colours": null
+    },
+    "36c6a8b7ab1bce010b4b": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Hadera Athletic",
+      "city": "Hadera",
+      "reference": null,
+      "colours": null
+    },
+    "3885d0379dc98b90b794": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Nof HaGalil Athletic",
+      "city": "Nof HaGalil",
+      "reference": null,
+      "colours": null
+    },
+    "57750fc36260b3a8576f": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Kafr Qasim FC",
+      "city": "Kafr Qasim",
+      "reference": null,
+      "colours": null
+    },
+    "704f878150d682a42e82": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "AC Ra'anana",
+      "city": "Ra'anana",
+      "reference": null,
+      "colours": null
+    },
+    "7198c07fc2a78a8ffcd4": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Shefa-'Amr Athletic",
+      "city": "Shefa-'Amr",
+      "reference": null,
+      "colours": null
+    },
+    "7bd6d797b0184580100e": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Petah Tikva Athletic",
+      "city": "Petah Tikva",
+      "reference": null,
+      "colours": null
+    },
+    "83bc204881761db28803": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "FC Ramat Gan",
+      "city": "Ramat Gan",
+      "reference": null,
+      "colours": null
+    },
+    "9932de8d4c1eb3cd6b13": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Umm al-Fahm",
+      "city": "Umm al-Fahm",
+      "reference": null,
+      "colours": null
+    },
+    "9af06a4c07e38c442761": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Afula SC",
+      "city": "Afula",
+      "reference": null,
+      "colours": null
+    },
+    "9cfb39b0bc4040303f71": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "AC Dimona",
+      "city": "Dimona",
+      "reference": null,
+      "colours": null
+    },
+    "b345e9237ab9101c4203": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Nazareth FC",
+      "city": "Nazareth",
+      "reference": null,
+      "colours": null
+    },
+    "b59e6e56d94fb156ed23": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "United Ra'anana",
+      "city": "Ra'anana",
+      "reference": null,
+      "colours": null
+    },
+    "dad38bae067af59e5821": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Kafr Qasim Athletic",
+      "city": "Kafr Qasim",
+      "reference": null,
+      "colours": null
+    },
+    "f9d4b7216a04b7a3ebd5": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "SC Lod",
+      "city": "Lod",
+      "reference": null,
+      "colours": null
+    },
+    "fb59367c55595a35a9bc": {
+      "country": "Israel",
+      "tier_at_origin": 3,
+      "adapted": "Tiberias SC",
+      "city": "Tiberias",
+      "reference": null,
+      "colours": null
+    },
+    "014ffb344bd2cc74bf13": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "Kyzylorda SC North",
+      "city": "Kyzylorda",
+      "reference": null,
+      "colours": null
+    },
+    "04f72beeca626c266e1d": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "United Kyzylorda North",
+      "city": "Kyzylorda",
+      "reference": null,
+      "colours": null
+    },
+    "0a1cc0b25ace7c115897": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "Almaty FC North",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "262d0ab9091ff7b66d5d": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "SC Almaty North",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "29baae81d9b1aa83fe6d": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "Almaty SC North",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "2f7ecece59b1e16cee81": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "United Almaty North",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "3ee481e9ce433fac8832": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "AC Kyzylorda North",
+      "city": "Kyzylorda",
+      "reference": null,
+      "colours": null
+    },
+    "42fbc57ec75a91bfa589": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "Kyzylorda Athletic North",
+      "city": "Kyzylorda",
+      "reference": null,
+      "colours": null
+    },
+    "5390ecd10b0e87ff711f": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Almaty North",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "5517ce4319a523ba87b9": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "Almaty Athletic North",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "6cc2f43afb58b4661655": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "AC Almaty South",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "77a2cd2b80eedea42930": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Kyzylorda North",
+      "city": "Kyzylorda",
+      "reference": null,
+      "colours": null
+    },
+    "79afd4d9f26c0a1b186e": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "SC Almaty South",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "ac248ea0a7cdfde5c9ad": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "FC Almaty South",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "bfdd6ddd70fe14c0c7e4": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "FC Kyzylorda North",
+      "city": "Kyzylorda",
+      "reference": null,
+      "colours": null
+    },
+    "c63e5c0884ab72c39c5f": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "Almaty FC South",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "d94c39c6f95285c2aa27": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "United Kyzylorda South",
+      "city": "Kyzylorda",
+      "reference": null,
+      "colours": null
+    },
+    "df43f642f0d07ed5522d": {
+      "country": "Kazakhstan",
+      "tier_at_origin": 3,
+      "adapted": "Almaty SC South",
+      "city": "Almaty",
+      "reference": null,
+      "colours": null
+    },
+    "00e420ca4e36fd0b5bd1": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Malisheva SC",
+      "city": "Malisheva",
+      "reference": null,
+      "colours": null
+    },
+    "0a623a043d562359f7dd": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Prishtina SC Central",
+      "city": "Prishtina",
+      "reference": null,
+      "colours": null
+    },
+    "0db8711c5d317c41f18f": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Klina SC",
+      "city": "Klina",
+      "reference": null,
+      "colours": null
+    },
+    "12c9d45f63fdb2f1ee3b": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "FC Malisheva",
+      "city": "Malisheva",
+      "reference": null,
+      "colours": null
+    },
+    "15e4b5685f9b50cf5dbc": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "AC Klina",
+      "city": "Klina",
+      "reference": null,
+      "colours": null
+    },
+    "18dcfe68f2159f96b97f": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Gjilan",
+      "city": "Gjilan",
+      "reference": null,
+      "colours": null
+    },
+    "1e6301e4f6e2aae0ab91": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Klina",
+      "city": "Klina",
+      "reference": null,
+      "colours": null
+    },
+    "267b1bcb2ce18b41f56c": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Suva Reka FC Central",
+      "city": "Suva Reka",
+      "reference": null,
+      "colours": null
+    },
+    "26b025bbf97eef1f89b2": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Suva Reka SC Central",
+      "city": "Suva Reka",
+      "reference": null,
+      "colours": null
+    },
+    "4ed54c3983559844a969": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Prishtina Central",
+      "city": "Prishtina",
+      "reference": null,
+      "colours": null
+    },
+    "6c0cc41c9cc69a7b162a": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "United Prishtina Central",
+      "city": "Prishtina",
+      "reference": null,
+      "colours": null
+    },
+    "71d3f957691f5c6793d9": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "FC Mitrovica",
+      "city": "Mitrovica",
+      "reference": null,
+      "colours": null
+    },
+    "755fec3d074716534acf": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Prishtina Athletic Central",
+      "city": "Prishtina",
+      "reference": null,
+      "colours": null
+    },
+    "9ebdd8a0e929c79f3ba3": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Malisheva",
+      "city": "Malisheva",
+      "reference": null,
+      "colours": null
+    },
+    "9f5d7e1f229dc68bb2c4": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "Gjilan Athletic",
+      "city": "Gjilan",
+      "reference": null,
+      "colours": null
+    },
+    "a876e28cf5dcd0aeb396": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "United Malisheva",
+      "city": "Malisheva",
+      "reference": null,
+      "colours": null
+    },
+    "e77a7e4a22ee25195167": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "AC Malisheva Central",
+      "city": "Malisheva",
+      "reference": null,
+      "colours": null
+    },
+    "ec6760438a83ad0ab79d": {
+      "country": "Kosovo",
+      "tier_at_origin": 3,
+      "adapted": "United Gjilan",
+      "city": "Gjilan",
+      "reference": null,
+      "colours": null
+    },
+    "00f7694d311374e42187": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "FC Liepāja",
+      "city": "Liepāja",
+      "reference": null,
+      "colours": null
+    },
+    "10c71be294ae570dc9d0": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "Ventspils SC",
+      "city": "Ventspils",
+      "reference": null,
+      "colours": null
+    },
+    "132cebd0cf83093f467a": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "SC Liepāja",
+      "city": "Liepāja",
+      "reference": null,
+      "colours": null
+    },
+    "13626e18719ae578e31c": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "FC Riga",
+      "city": "Riga",
+      "reference": null,
+      "colours": null
+    },
+    "172b794dac05a0e7144c": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Liepāja Central",
+      "city": "Liepāja",
+      "reference": null,
+      "colours": null
+    },
+    "29c7428723ee6f6534ac": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "Tukums Athletic",
+      "city": "Tukums",
+      "reference": null,
+      "colours": null
+    },
+    "3759fc5b19ceea7efd2a": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "Jūrmala FC",
+      "city": "Jūrmala",
+      "reference": null,
+      "colours": null
+    },
+    "5e5193a0715510991ea6": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "FC Liepāja Central",
+      "city": "Liepāja",
+      "reference": null,
+      "colours": null
+    },
+    "79264cfa4bdf2eed8f74": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "AC Liepāja Central",
+      "city": "Liepāja",
+      "reference": null,
+      "colours": null
+    },
+    "81fae64635f28c84597f": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "United Daugavpils",
+      "city": "Daugavpils",
+      "reference": null,
+      "colours": null
+    },
+    "88b86b9a8458ea12fd43": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "Liepāja FC Central",
+      "city": "Liepāja",
+      "reference": null,
+      "colours": null
+    },
+    "8c198a894d953911569b": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "AC Jūrmala",
+      "city": "Jūrmala",
+      "reference": null,
+      "colours": null
+    },
+    "9897eb374376111ed9a4": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "Liepāja Athletic Central",
+      "city": "Liepāja",
+      "reference": null,
+      "colours": null
+    },
+    "a0d1fbffac2f82df3378": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "SC Jelgava",
+      "city": "Jelgava",
+      "reference": null,
+      "colours": null
+    },
+    "bc9b53a0a3a97148400c": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "Jūrmala SC",
+      "city": "Jūrmala",
+      "reference": null,
+      "colours": null
+    },
+    "cae7e3b1a28fcbbb0b39": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Daugavpils",
+      "city": "Daugavpils",
+      "reference": null,
+      "colours": null
+    },
+    "cc1d94191ea35bb9e2d3": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "Daugavpils Athletic",
+      "city": "Daugavpils",
+      "reference": null,
+      "colours": null
+    },
+    "e4b1b0efda364e7ae33f": {
+      "country": "Latvia",
+      "tier_at_origin": 3,
+      "adapted": "SC Riga Central",
+      "city": "Riga",
+      "reference": null,
+      "colours": null
+    },
+    "0656e6f34adcc17fe16f": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "Vaduz FC",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "09a5fcf806a7d3ece34b": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "FC Vaduz",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "0c3eb3276c2a9d331593": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "Vaduz Athletic",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "27bb0e553cbab9a66e67": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "Sporting Vaduz",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "2dc0db8d2211180566a0": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "United Vaduz",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "3792d6da3e2a3726961a": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "AC Vaduz",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "3b51e5d1c987b57af3ad": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "Vaduz SC",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "47195fc5c729e541cd72": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "Sporting Vaduz Central",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "4c67eabc4cfd20a2fe05": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "Vaduz SC Central",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "54c0190a7d3f40fc39ac": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "AC Vaduz Central",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "599fea7421d79352145d": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "United Vaduz Central",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "91f86dbb2abd6d6a5768": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "Vaduz FC Central",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "a61c8f48f73dfc2aecdd": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "FC Vaduz Central",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "acda330d77838e556b37": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "Vaduz Athletic Central",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "c0c2bb6e06d3e5c261ee": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "SC Vaduz Central",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "cf2511c2f3a733945f2e": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "AC Vaduz North",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "d077a7899c3e203f540f": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "SC Vaduz North",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "fddf05a9e89ebc63a083": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 2,
+      "adapted": "Vaduz FC North",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "198a1ac89c1d15704faf": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "FC Vaduz North",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "1c8cd0da5b0150bc3939": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "Vaduz SC North",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "20b1a4a3adfceabac275": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Vaduz North",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "2c4449fd827cf3e26246": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "United Vaduz North",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "2c5918a58c52bc428e81": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "Vaduz Athletic North",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "365818923ea0731f9e76": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "AC Vaduz South",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "49c8a0659eb6138ecbe4": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Vaduz South",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "5cd25a7d2a68a7ba1efd": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "United Vaduz South",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "8279e4acad2268467cfd": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "Vaduz SC South",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "94f6005012a75f104367": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "FC Vaduz South",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "a8f06ad33a6bd8781d7d": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "Vaduz FC South",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "c9a243cc69a12873bbe1": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "Vaduz Athletic South",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "cd414b915d17b2e9602b": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "SC Vaduz South",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "df33067b3c39a6b416d9": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "Vaduz FC East",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "e994a3c137f81c95634b": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "SC Vaduz East",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "f117d6ed84cc8e33c222": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Vaduz East",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "f24c0b56cd51358fed18": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "United Vaduz East",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "f999678f4c998a428982": {
+      "country": "Liechtenstein",
+      "tier_at_origin": 3,
+      "adapted": "Vaduz Athletic East",
+      "city": "Vaduz",
+      "reference": null,
+      "colours": null
+    },
+    "08928e0d339d8f6491ce": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Vilnius",
+      "city": "Vilnius",
+      "reference": null,
+      "colours": null
+    },
+    "0a0e4b57a3f1ca6b8bf4": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "SC Marijampolė",
+      "city": "Marijampolė",
+      "reference": null,
+      "colours": null
+    },
+    "3ccff21e0521e5861fbb": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "Kaunas Athletic Central",
+      "city": "Kaunas",
+      "reference": null,
+      "colours": null
+    },
+    "41b7e47f0b233158de87": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "Mažeikiai Athletic",
+      "city": "Mažeikiai",
+      "reference": null,
+      "colours": null
+    },
+    "57f668b750afd881d7c2": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "FC Alytus",
+      "city": "Alytus",
+      "reference": null,
+      "colours": null
+    },
+    "7c40a9aa19eeb09fd9c0": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "Galinė FC",
+      "city": "Galinė",
+      "reference": null,
+      "colours": null
+    },
+    "7dfbebe2e281aab93866": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "AC Marijampolė",
+      "city": "Marijampolė",
+      "reference": null,
+      "colours": null
+    },
+    "7ea3f84aaf71cd4075a5": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "AC Alytus",
+      "city": "Alytus",
+      "reference": null,
+      "colours": null
+    },
+    "927992225db2d251760e": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "AC Kaunas Central",
+      "city": "Kaunas",
+      "reference": null,
+      "colours": null
+    },
+    "9bd49fcb3ad0d3bc2d70": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "Šiauliai FC",
+      "city": "Šiauliai",
+      "reference": null,
+      "colours": null
+    },
+    "a869143dd2e868688d59": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "United Mažeikiai",
+      "city": "Mažeikiai",
+      "reference": null,
+      "colours": null
+    },
+    "b734bb478a944f0dc3b9": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "Marijampolė SC",
+      "city": "Marijampolė",
+      "reference": null,
+      "colours": null
+    },
+    "c0d0f534166f6ce3d817": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "Telšiai SC",
+      "city": "Telšiai",
+      "reference": null,
+      "colours": null
+    },
+    "c1c2192c24894080950f": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "Galinė SC",
+      "city": "Galinė",
+      "reference": null,
+      "colours": null
+    },
+    "e373a10f78a65acefcb5": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "Galinė Athletic",
+      "city": "Galinė",
+      "reference": null,
+      "colours": null
+    },
+    "e3998c4c5d1df765e414": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "Mažeikiai SC",
+      "city": "Mažeikiai",
+      "reference": null,
+      "colours": null
+    },
+    "e9dae171490f946e34a5": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "United Galinė",
+      "city": "Galinė",
+      "reference": null,
+      "colours": null
+    },
+    "ece7c23552d49ad03555": {
+      "country": "Lithuania",
+      "tier_at_origin": 3,
+      "adapted": "FC Kaunas Central",
+      "city": "Kaunas",
+      "reference": null,
+      "colours": null
+    },
+    "00184d8667b09abf3d72": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "United Hostert",
+      "city": "Hostert",
+      "reference": null,
+      "colours": null
+    },
+    "05e1bcf9e4055698d01e": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "SC Rosport",
+      "city": "Rosport",
+      "reference": null,
+      "colours": null
+    },
+    "0c35406cbae2e7b13c4f": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "Niederkorn SC",
+      "city": "Niederkorn",
+      "reference": null,
+      "colours": null
+    },
+    "132a13cb668048e9e70b": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "Strassen FC",
+      "city": "Strassen",
+      "reference": null,
+      "colours": null
+    },
+    "21fb254d9b541bc75488": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Mondercange",
+      "city": "Mondercange",
+      "reference": null,
+      "colours": null
+    },
+    "32acb838dcb45587b37c": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "FC Grevenmacher",
+      "city": "Grevenmacher",
+      "reference": null,
+      "colours": null
+    },
+    "3e5ed4e310789948469a": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "Bascharage FC",
+      "city": "Bascharage",
+      "reference": null,
+      "colours": null
+    },
+    "55715b91f10b1034f25f": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "SC Pétange",
+      "city": "Pétange",
+      "reference": null,
+      "colours": null
+    },
+    "5ccf59eaafab85445382": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "AC Wiltz",
+      "city": "Wiltz",
+      "reference": null,
+      "colours": null
+    },
+    "7b589a066612279f3a89": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "United Dudelange",
+      "city": "Dudelange",
+      "reference": null,
+      "colours": null
+    },
+    "7c0f43ef1fedc32fa01d": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "Ettelbruck Athletic",
+      "city": "Ettelbruck",
+      "reference": null,
+      "colours": null
+    },
+    "8de7d37bac31107d3ec1": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "Niederkorn FC",
+      "city": "Niederkorn",
+      "reference": null,
+      "colours": null
+    },
+    "938a9281a97fb49e968e": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "SC Rodange",
+      "city": "Rodange",
+      "reference": null,
+      "colours": null
+    },
+    "9747a18d47efe55fb20f": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Rumelange",
+      "city": "Rumelange",
+      "reference": null,
+      "colours": null
+    },
+    "9f95938a5b5d21cb4cf3": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "AC Dudelange",
+      "city": "Dudelange",
+      "reference": null,
+      "colours": null
+    },
+    "c11f88b1fbcb6d4edd71": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "SC Niederkorn",
+      "city": "Niederkorn",
+      "reference": null,
+      "colours": null
+    },
+    "c1f735c038cbf539c096": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "SC Mondorf-les-Bains",
+      "city": "Mondorf-les-Bains",
+      "reference": null,
+      "colours": null
+    },
+    "c8786f965140cab5a346": {
+      "country": "Luxembourg",
+      "tier_at_origin": 3,
+      "adapted": "United Grevenmacher",
+      "city": "Grevenmacher",
+      "reference": null,
+      "colours": null
+    },
+    "0198a752fce5b41fa906": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "AC Żurrieq",
+      "city": "Żurrieq",
+      "reference": null,
+      "colours": null
+    },
+    "0d4ac3ab33c718d0a1f4": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Valletta",
+      "city": "Valletta",
+      "reference": null,
+      "colours": null
+    },
+    "2bbc92f3430e0602ace2": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "Naxxar SC",
+      "city": "Naxxar",
+      "reference": null,
+      "colours": null
+    },
+    "2e88ab1d58b106db000a": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Naxxar",
+      "city": "Naxxar",
+      "reference": null,
+      "colours": null
+    },
+    "44c81e6125d891d302e5": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "SC Marsaxlokk",
+      "city": "Marsaxlokk",
+      "reference": null,
+      "colours": null
+    },
+    "4ace343f4b6b46ac455b": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "FC Żurrieq",
+      "city": "Żurrieq",
+      "reference": null,
+      "colours": null
+    },
+    "65599e1a9ad086682699": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "United Valletta",
+      "city": "Valletta",
+      "reference": null,
+      "colours": null
+    },
+    "68a9ec87985cc7803297": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "Naxxar Athletic",
+      "city": "Naxxar",
+      "reference": null,
+      "colours": null
+    },
+    "8124fbd69b7d50fe2627": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "United Naxxar",
+      "city": "Naxxar",
+      "reference": null,
+      "colours": null
+    },
+    "9feb7e24c15879ad6aa5": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "Marsaxlokk Athletic",
+      "city": "Marsaxlokk",
+      "reference": null,
+      "colours": null
+    },
+    "afb837028c511f84a7f2": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "AC Marsa",
+      "city": "Marsa",
+      "reference": null,
+      "colours": null
+    },
+    "b5653d7f5c8fbc9c1757": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "Sliema Athletic",
+      "city": "Sliema",
+      "reference": null,
+      "colours": null
+    },
+    "c5cae3cfb8e1005f308a": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "Naxxar Athletic Central",
+      "city": "Naxxar",
+      "reference": null,
+      "colours": null
+    },
+    "dafad3d21455a7b9a5f1": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "FC Marsaxlokk",
+      "city": "Marsaxlokk",
+      "reference": null,
+      "colours": null
+    },
+    "e22ef20d172c072df3be": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Marsaxlokk Central",
+      "city": "Marsaxlokk",
+      "reference": null,
+      "colours": null
+    },
+    "e5146a863fb3edc0d522": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "United Żabbar",
+      "city": "Żabbar",
+      "reference": null,
+      "colours": null
+    },
+    "ec84db902644504e50dc": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "AC St. Julian's",
+      "city": "St. Julian's",
+      "reference": null,
+      "colours": null
+    },
+    "f2f96f0b03b50d074aa4": {
+      "country": "Malta",
+      "tier_at_origin": 3,
+      "adapted": "Naxxar FC Central",
+      "city": "Naxxar",
+      "reference": null,
+      "colours": null
+    },
+    "0afed8de83a5bdc0d6f5": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "AC Chișinău Central",
+      "city": "Chișinău",
+      "reference": null,
+      "colours": null
+    },
+    "215ac191da1fe89db054": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "Sărata-Galbenă Athletic",
+      "city": "Sărata-Galbenă",
+      "reference": null,
+      "colours": null
+    },
+    "22840de3649d8d9f2d0f": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "FC Tiraspol",
+      "city": "Tiraspol",
+      "reference": null,
+      "colours": null
+    },
+    "25c67a3d180176c08f41": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Chișinău Central",
+      "city": "Chișinău",
+      "reference": null,
+      "colours": null
+    },
+    "3ec5ee54a3305b4314f4": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "Tiraspol SC North",
+      "city": "Tiraspol",
+      "reference": null,
+      "colours": null
+    },
+    "4e967ee766c4fd7a6db6": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "Chișinău Athletic North",
+      "city": "Chișinău",
+      "reference": null,
+      "colours": null
+    },
+    "5ac66ee74562244be7e7": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "Tiraspol Athletic North",
+      "city": "Tiraspol",
+      "reference": null,
+      "colours": null
+    },
+    "67406ff015078539e183": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "FC Tiraspol North",
+      "city": "Tiraspol",
+      "reference": null,
+      "colours": null
+    },
+    "8f84161a1a3cdd09acf7": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "AC Chișinău North",
+      "city": "Chișinău",
+      "reference": null,
+      "colours": null
+    },
+    "8fe345ef8095f58f857c": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "Sărata-Galbenă Athletic Central",
+      "city": "Sărata-Galbenă",
+      "reference": null,
+      "colours": null
+    },
+    "a935666699aab008303c": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "United Chișinău North",
+      "city": "Chișinău",
+      "reference": null,
+      "colours": null
+    },
+    "aaea760fe3cf67846914": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "FC Chișinău North",
+      "city": "Chișinău",
+      "reference": null,
+      "colours": null
+    },
+    "ac4ae9811376b5ec8347": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "SC Tiraspol North",
+      "city": "Tiraspol",
+      "reference": null,
+      "colours": null
+    },
+    "adc21e541a9283dcc0ca": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "Sărata-Galbenă SC Central",
+      "city": "Sărata-Galbenă",
+      "reference": null,
+      "colours": null
+    },
+    "ba10c8682e95ad2c959f": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "SC Chișinău North",
+      "city": "Chișinău",
+      "reference": null,
+      "colours": null
+    },
+    "cb4d1deb03c54ef21b55": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "Chișinău FC North",
+      "city": "Chișinău",
+      "reference": null,
+      "colours": null
+    },
+    "d8f2a2163e569ff69cf0": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "United Tiraspol North",
+      "city": "Tiraspol",
+      "reference": null,
+      "colours": null
+    },
+    "db3e4acdd928b3f14286": {
+      "country": "Moldova",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Sărata-Galbenă Central",
+      "city": "Sărata-Galbenă",
+      "reference": null,
+      "colours": null
+    },
+    "04afca91ed1d0d8a4a2a": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "SK Bar Central",
+      "city": "Bar",
+      "reference": null,
+      "colours": null
+    },
+    "193103915eacc553c039": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "NK Podgorica North",
+      "city": "Podgorica",
+      "reference": null,
+      "colours": null
+    },
+    "25f18b0de4d6026eb680": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Bar Central",
+      "city": "Bar",
+      "reference": null,
+      "colours": null
+    },
+    "34928d58832c892d6261": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FK Bar Central",
+      "city": "Bar",
+      "reference": null,
+      "colours": null
+    },
+    "5d040b82e84d6820e104": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "NK Bar Central",
+      "city": "Bar",
+      "reference": null,
+      "colours": null
+    },
+    "7a83ddc6aea2bd4d117d": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Bar Central",
+      "city": "Bar",
+      "reference": null,
+      "colours": null
+    },
+    "96c1a5131aa26aab04b6": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Plav Central",
+      "city": "Plav",
+      "reference": null,
+      "colours": null
+    },
+    "a576278e56a04e7ced3f": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Plav Central",
+      "city": "Plav",
+      "reference": null,
+      "colours": null
+    },
+    "a90d27c898e1ea17db5e": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Podgorica North",
+      "city": "Podgorica",
+      "reference": null,
+      "colours": null
+    },
+    "aa43cbaac98c9efcf8ac": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Podgorica North",
+      "city": "Podgorica",
+      "reference": null,
+      "colours": null
+    },
+    "aa7e481a826dce089bcb": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Podgorica North",
+      "city": "Podgorica",
+      "reference": null,
+      "colours": null
+    },
+    "c43b3c291ed0e355acea": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Bar Central",
+      "city": "Bar",
+      "reference": null,
+      "colours": null
+    },
+    "ca5127ceb2d97f02f744": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Plav Central",
+      "city": "Plav",
+      "reference": null,
+      "colours": null
+    },
+    "cccda96c2c2702e3caf8": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Podgorica North",
+      "city": "Podgorica",
+      "reference": null,
+      "colours": null
+    },
+    "da2c00bafd6a12aa811a": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Plav Central",
+      "city": "Plav",
+      "reference": null,
+      "colours": null
+    },
+    "e6395a322e620decf739": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "NK Podgorica South",
+      "city": "Podgorica",
+      "reference": null,
+      "colours": null
+    },
+    "f2e3b2d79eccf9b4893f": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Podgorica South",
+      "city": "Podgorica",
+      "reference": null,
+      "colours": null
+    },
+    "f3f5c588c8cba933b368": {
+      "country": "Montenegro",
+      "tier_at_origin": 3,
+      "adapted": "FK Plav Central",
+      "city": "Plav",
+      "reference": null,
+      "colours": null
+    },
+    "0342b7a4e8349978a4ff": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "Volendam SC",
+      "city": "Volendam",
+      "reference": null,
+      "colours": null
+    },
+    "07a2eea80816d85db32b": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "FC Almelo",
+      "city": "Almelo",
+      "reference": null,
+      "colours": null
+    },
+    "1703d435aa7e20fe9617": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Waalwijk",
+      "city": "Waalwijk",
+      "reference": null,
+      "colours": null
+    },
+    "1d798dde46ba0ade2d5a": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "United Schiedam",
+      "city": "Schiedam",
+      "reference": null,
+      "colours": null
+    },
+    "5fdc96224714fb820aae": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "AC 's-Hertogenbosch",
+      "city": "'s-Hertogenbosch",
+      "reference": null,
+      "colours": null
+    },
+    "6be1d30a7299201d3671": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "AC Almere",
+      "city": "Almere",
+      "reference": null,
+      "colours": null
+    },
+    "73c4cc2ee6c6c78e4c33": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "United Rotterdam",
+      "city": "Rotterdam",
+      "reference": null,
+      "colours": null
+    },
+    "74ad72cfe227ad5d335f": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "Waalwijk Athletic",
+      "city": "Waalwijk",
+      "reference": null,
+      "colours": null
+    },
+    "85f6cea561a6cec0b81e": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "Sporting 's-Hertogenbosch",
+      "city": "'s-Hertogenbosch",
+      "reference": null,
+      "colours": null
+    },
+    "95414225ef4fbcec0d65": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Enschede",
+      "city": "Enschede",
+      "reference": null,
+      "colours": null
+    },
+    "9590bb4c9156588053e6": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "Leeuwarden SC",
+      "city": "Leeuwarden",
+      "reference": null,
+      "colours": null
+    },
+    "96812bfbd72e0c32732c": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "Deventer FC",
+      "city": "Deventer",
+      "reference": null,
+      "colours": null
+    },
+    "9e0e94c6d4ced41e115f": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "Rotterdam Athletic",
+      "city": "Rotterdam",
+      "reference": null,
+      "colours": null
+    },
+    "c46e71912d55a1f89188": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "SC Zwolle",
+      "city": "Zwolle",
+      "reference": null,
+      "colours": null
+    },
+    "c7a0ec26b019285e9f98": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "United Enschede",
+      "city": "Enschede",
+      "reference": null,
+      "colours": null
+    },
+    "d4c3073b10da17009514": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "Eindhoven FC",
+      "city": "Eindhoven",
+      "reference": null,
+      "colours": null
+    },
+    "da5b3e022c65c16e3d47": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "AC Venlo",
+      "city": "Venlo",
+      "reference": null,
+      "colours": null
+    },
+    "eda59c46f8df3e8d0677": {
+      "country": "Netherlands",
+      "tier_at_origin": 3,
+      "adapted": "United Oss",
+      "city": "Oss",
+      "reference": null,
+      "colours": null
+    },
+    "041b376d6aebf6c698bc": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Kavadarci",
+      "city": "Kavadarci",
+      "reference": null,
+      "colours": null
+    },
+    "10ecaed425fe9aa58735": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Skopje North",
+      "city": "Skopje",
+      "reference": null,
+      "colours": null
+    },
+    "2a0f74ac746034dfd9e0": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Kavadarci",
+      "city": "Kavadarci",
+      "reference": null,
+      "colours": null
+    },
+    "3885d1756d7d484a0f56": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "SK Strumica",
+      "city": "Strumica",
+      "reference": null,
+      "colours": null
+    },
+    "4931217d87a9daa83a11": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Kavadarci",
+      "city": "Kavadarci",
+      "reference": null,
+      "colours": null
+    },
+    "514a5f136da54d088050": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Ohrid",
+      "city": "Ohrid",
+      "reference": null,
+      "colours": null
+    },
+    "54fc0144b7f535e706ab": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Ohrid",
+      "city": "Ohrid",
+      "reference": null,
+      "colours": null
+    },
+    "597db0b1c39bfa5d55b2": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "SK Kratovo",
+      "city": "Kratovo",
+      "reference": null,
+      "colours": null
+    },
+    "5aa5dca6faa2c6e6a7e5": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Struga",
+      "city": "Struga",
+      "reference": null,
+      "colours": null
+    },
+    "6ad617ff4efad646d4b5": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Gostivar",
+      "city": "Gostivar",
+      "reference": null,
+      "colours": null
+    },
+    "76d5668d806fcd279e0e": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Struga",
+      "city": "Struga",
+      "reference": null,
+      "colours": null
+    },
+    "8b4163138eccd0f76c5c": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dobri Dol",
+      "city": "Dobri Dol",
+      "reference": null,
+      "colours": null
+    },
+    "99388507c8c8ca0adfaa": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Skopje North",
+      "city": "Skopje",
+      "reference": null,
+      "colours": null
+    },
+    "ccacdf8c8f48d0e2e04a": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Strumica",
+      "city": "Strumica",
+      "reference": null,
+      "colours": null
+    },
+    "ddbb39b785ef4ba0343b": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "NK Kratovo",
+      "city": "Kratovo",
+      "reference": null,
+      "colours": null
+    },
+    "efbc855c4a3636232e25": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Kavadarci",
+      "city": "Kavadarci",
+      "reference": null,
+      "colours": null
+    },
+    "f274cc68b5b00bdff257": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "FK Ohrid",
+      "city": "Ohrid",
+      "reference": null,
+      "colours": null
+    },
+    "f5b1a8d65ffb09fc8bcd": {
+      "country": "North Macedonia",
+      "tier_at_origin": 3,
+      "adapted": "NK Strumica",
+      "city": "Strumica",
+      "reference": null,
+      "colours": null
+    },
+    "03730b91ce7f910a5253": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "SC Portadown",
+      "city": "Portadown",
+      "reference": null,
+      "colours": null
+    },
+    "08843d79bd8c3e6484fa": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "SC Ballymena",
+      "city": "Ballymena",
+      "reference": null,
+      "colours": null
+    },
+    "107c607b315f3d61654e": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Dungannon FC",
+      "city": "Dungannon",
+      "reference": null,
+      "colours": null
+    },
+    "259ca41d34448fedd27b": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Ballyskeagh",
+      "city": "Ballyskeagh",
+      "reference": null,
+      "colours": null
+    },
+    "2da3edb09c87b2950fc0": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "FC Derry",
+      "city": "Derry",
+      "reference": null,
+      "colours": null
+    },
+    "486dc08b5ebb7f458260": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Newry FC",
+      "city": "Newry",
+      "reference": null,
+      "colours": null
+    },
+    "49b8bacfda1e0207db92": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "FC Newry",
+      "city": "Newry",
+      "reference": null,
+      "colours": null
+    },
+    "5fdbd32e4c56ea962fa7": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "United Derry",
+      "city": "Derry",
+      "reference": null,
+      "colours": null
+    },
+    "68c0f488fcb4ba633361": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "FC Ballinamallard",
+      "city": "Ballinamallard",
+      "reference": null,
+      "colours": null
+    },
+    "6ce5674f2471ba88a1ac": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "SC Derry",
+      "city": "Derry",
+      "reference": null,
+      "colours": null
+    },
+    "8d68a0dbeeab24ed1db5": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Ballinamallard FC",
+      "city": "Ballinamallard",
+      "reference": null,
+      "colours": null
+    },
+    "931d1105fa9227f5734b": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Bangor",
+      "city": "Bangor",
+      "reference": null,
+      "colours": null
+    },
+    "a3ae635ce142836dd3cf": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Ballymena SC",
+      "city": "Ballymena",
+      "reference": null,
+      "colours": null
+    },
+    "b81864421d016d8faae3": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "AC Newry",
+      "city": "Newry",
+      "reference": null,
+      "colours": null
+    },
+    "d41306bb909441b6303e": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Ballyskeagh FC",
+      "city": "Ballyskeagh",
+      "reference": null,
+      "colours": null
+    },
+    "d5620301448208cc234d": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "AC Portadown",
+      "city": "Portadown",
+      "reference": null,
+      "colours": null
+    },
+    "ddd4d2328e56a1abecaf": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Newry SC",
+      "city": "Newry",
+      "reference": null,
+      "colours": null
+    },
+    "f4ea9f4ad3d3292aae2b": {
+      "country": "Northern Ireland",
+      "tier_at_origin": 3,
+      "adapted": "AC Loughgall",
+      "city": "Loughgall",
+      "reference": null,
+      "colours": null
+    },
+    "02f20c53daf3204b8b01": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Longford FC",
+      "city": "Longford",
+      "reference": null,
+      "colours": null
+    },
+    "081bda42fde8375ec20a": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Galway FC",
+      "city": "Galway",
+      "reference": null,
+      "colours": null
+    },
+    "13c13c05e546f4de8801": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Longford",
+      "city": "Longford",
+      "reference": null,
+      "colours": null
+    },
+    "15318398b6dca1d04419": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "FC Cabinteely",
+      "city": "Cabinteely",
+      "reference": null,
+      "colours": null
+    },
+    "17141c0e368c92e03b50": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "United Longford",
+      "city": "Longford",
+      "reference": null,
+      "colours": null
+    },
+    "2d62f583a93d2e1295c7": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Cork FC",
+      "city": "Cork",
+      "reference": null,
+      "colours": null
+    },
+    "365317dbad0cce6c6e96": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Drogheda FC",
+      "city": "Drogheda",
+      "reference": null,
+      "colours": null
+    },
+    "3e54dfec3cb30b1c8d53": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Waterford SC",
+      "city": "Waterford",
+      "reference": null,
+      "colours": null
+    },
+    "4cd1adb88eaf87ce826e": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "SC Sligo",
+      "city": "Sligo",
+      "reference": null,
+      "colours": null
+    },
+    "5ef68f0366763f214695": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Waterford",
+      "city": "Waterford",
+      "reference": null,
+      "colours": null
+    },
+    "723e9890eaa5e4d08667": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Dublin FC Central",
+      "city": "Dublin",
+      "reference": null,
+      "colours": null
+    },
+    "96cfd3e71027710217d4": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Cabinteely Athletic",
+      "city": "Cabinteely",
+      "reference": null,
+      "colours": null
+    },
+    "9f80558e4053c1bf35de": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Cork Athletic",
+      "city": "Cork",
+      "reference": null,
+      "colours": null
+    },
+    "acb4a1cfeff79379a849": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Ballybofey Athletic",
+      "city": "Ballybofey",
+      "reference": null,
+      "colours": null
+    },
+    "bcbb8a755b02bc8414ef": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "United Galway",
+      "city": "Galway",
+      "reference": null,
+      "colours": null
+    },
+    "d31f834378fdab7dac19": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Cabinteely",
+      "city": "Cabinteely",
+      "reference": null,
+      "colours": null
+    },
+    "d7ca286fb7c6a2f68787": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "Dublin SC Central",
+      "city": "Dublin",
+      "reference": null,
+      "colours": null
+    },
+    "f83bd9f280a1382e0314": {
+      "country": "Republic of Ireland",
+      "tier_at_origin": 3,
+      "adapted": "AC Dundalk",
+      "city": "Dundalk",
+      "reference": null,
+      "colours": null
+    },
+    "4a81e3cb2751f43f2edd": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "San Marino FC",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "5ba8055a1f8d20362ee3": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "San Marino SC",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "5d19bfaf9b292af6cd16": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "San Marino Athletic",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "66d74e7d2e449cff6116": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "United City of San Marino",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "78d349ba3fdcbe595a8f": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "United San Marino",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "91623c5f54eed82a225b": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "City of San Marino Athletic",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "982ba6ce97775f5c7f75": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "SC City of San Marino",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "c765953ae4b3630f0889": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "SC San Marino",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "d5a03c3c23be1b6b70be": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "City of San Marino SC",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "d97f6c8315a92f38c0a4": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "City of San Marino FC",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "dc0fa993457d6015389e": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "San Marino FC Central",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "deedb9b3220f09049e8b": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "San Marino SC Central",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "e523bc4185a6b0d7c6d9": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "SC City of San Marino Central",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "edb0632888c44790372d": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "FC San Marino Central",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "eea6410ee9aec12a4b8b": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "United San Marino Central",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "f6ddfc2976ce8c7011d1": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "AC City of San Marino Central",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "f6f9499b66bef7e07548": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "Sporting San Marino Central",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "f91b41aa0e35c41bb7f0": {
+      "country": "San Marino",
+      "tier_at_origin": 2,
+      "adapted": "AC San Marino Central",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "0f84d5b7c96c6b6ef0e3": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "San Marino Athletic Central",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "11bd4701d6309d46a836": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "SC San Marino Central",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "28198b5123a78e1b53aa": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "SC San Marino North",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "2b0dab2929188f72a01f": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "AC San Marino North",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "4081928905d94f31cee0": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "City of San Marino FC Central",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "41b8fafcfb29ae30a50f": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "City of San Marino SC Central",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "434e46a1563d19b90fb1": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "Sporting City of San Marino Central",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "52d9c938739a526d46b4": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "FC San Marino North",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "5cf9776f04cdae09fe57": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "San Marino Athletic North",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "7d483400b493878e66c4": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "FC City of San Marino Central",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "9181dc6b2062d9e7c17c": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "United City of San Marino Central",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "9d325e045e1ae41c3062": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "City of San Marino Athletic Central",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "ac9109cfa2a78fffa06e": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "San Marino FC North",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "be3d1bb55fd53b54a6bc": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "Sporting San Marino North",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "c0eed6bd4bb0309688fd": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "Sporting City of San Marino North",
+      "city": "City of San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "c355f766e64f26bd8857": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "United San Marino North",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "ddbe3b2e1aa0baf710c9": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "San Marino SC North",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "fc96198ba5c3b1e9fb85": {
+      "country": "San Marino",
+      "tier_at_origin": 3,
+      "adapted": "San Marino FC South",
+      "city": "San Marino",
+      "reference": null,
+      "colours": null
+    },
+    "16229b00d997729c5e7e": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FK Čačak",
+      "city": "Čačak",
+      "reference": null,
+      "colours": null
+    },
+    "1fbccdd631f1fa64aacc": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Ub",
+      "city": "Ub",
+      "reference": null,
+      "colours": null
+    },
+    "3165e5df11857291a14e": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Ivanjica",
+      "city": "Ivanjica",
+      "reference": null,
+      "colours": null
+    },
+    "388db4b6140e73cd1f98": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Bečej",
+      "city": "Bečej",
+      "reference": null,
+      "colours": null
+    },
+    "3ff697d74a81cc6ffbce": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Belgrade Central",
+      "city": "Belgrade",
+      "reference": null,
+      "colours": null
+    },
+    "66418f9eea2be89f5d8b": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Niš",
+      "city": "Niš",
+      "reference": null,
+      "colours": null
+    },
+    "6c075020cbc09387606f": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FK Bečej",
+      "city": "Bečej",
+      "reference": null,
+      "colours": null
+    },
+    "970dc09460c4cdb7978d": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Bačka Topola",
+      "city": "Bačka Topola",
+      "reference": null,
+      "colours": null
+    },
+    "a56140d8ebddd5755f89": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "SK Užice",
+      "city": "Užice",
+      "reference": null,
+      "colours": null
+    },
+    "a584ba0f955fad9f49ed": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Odžaci",
+      "city": "Odžaci",
+      "reference": null,
+      "colours": null
+    },
+    "c1b1ad5abaa98009aa2d": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "NK Novi Sad",
+      "city": "Novi Sad",
+      "reference": null,
+      "colours": null
+    },
+    "c4f33ffb394c95ad1706": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Čačak",
+      "city": "Čačak",
+      "reference": null,
+      "colours": null
+    },
+    "c72f4b7b750fe80849a5": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Ivanjica",
+      "city": "Ivanjica",
+      "reference": null,
+      "colours": null
+    },
+    "c970060df61da60d0908": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Bečej",
+      "city": "Bečej",
+      "reference": null,
+      "colours": null
+    },
+    "ccd737d9241b2e46094a": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "SK Novi Sad",
+      "city": "Novi Sad",
+      "reference": null,
+      "colours": null
+    },
+    "de85c1c069987d3ce344": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Novi Sad",
+      "city": "Novi Sad",
+      "reference": null,
+      "colours": null
+    },
+    "f7b613b7d67a636e7f8a": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Pančevo",
+      "city": "Pančevo",
+      "reference": null,
+      "colours": null
+    },
+    "fbc72e3e5430944c0678": {
+      "country": "Serbia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Bačka Topola",
+      "city": "Bačka Topola",
+      "reference": null,
+      "colours": null
+    },
+    "042d422672c295ce226a": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Trnava",
+      "city": "Trnava",
+      "reference": null,
+      "colours": null
+    },
+    "21a59b725a583d207835": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Žiar nad Hronom",
+      "city": "Žiar nad Hronom",
+      "reference": null,
+      "colours": null
+    },
+    "24c339b4a901033bfeca": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Skalica",
+      "city": "Skalica",
+      "reference": null,
+      "colours": null
+    },
+    "2976f5e79f0a81d748a1": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "SK Poprad",
+      "city": "Poprad",
+      "reference": null,
+      "colours": null
+    },
+    "380dcad5f56de7760218": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Trnava",
+      "city": "Trnava",
+      "reference": null,
+      "colours": null
+    },
+    "3dd2b1c8eb9d8476e264": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "SK Humenné",
+      "city": "Humenné",
+      "reference": null,
+      "colours": null
+    },
+    "4284fe681573a0a41dd5": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FK Komárno",
+      "city": "Komárno",
+      "reference": null,
+      "colours": null
+    },
+    "4498c786d821c45977a1": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Žiar nad Hronom",
+      "city": "Žiar nad Hronom",
+      "reference": null,
+      "colours": null
+    },
+    "4b62207d2f3a937925f1": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Podbrezová",
+      "city": "Podbrezová",
+      "reference": null,
+      "colours": null
+    },
+    "517c4ba038e2a5f58a5b": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "NK Prešov",
+      "city": "Prešov",
+      "reference": null,
+      "colours": null
+    },
+    "78307e0b81d7ac5fd7ef": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Považská Bystrica",
+      "city": "Považská Bystrica",
+      "reference": null,
+      "colours": null
+    },
+    "8fa46b0015cbbe4507ff": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "SK Košice",
+      "city": "Košice",
+      "reference": null,
+      "colours": null
+    },
+    "b31ca700fda07ba3373d": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FK Žiar nad Hronom",
+      "city": "Žiar nad Hronom",
+      "reference": null,
+      "colours": null
+    },
+    "c2713c2419cc10a4e25f": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Podbrezová",
+      "city": "Podbrezová",
+      "reference": null,
+      "colours": null
+    },
+    "c8d4304c496cf384ebce": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Podbrezová",
+      "city": "Podbrezová",
+      "reference": null,
+      "colours": null
+    },
+    "cb0ae22b6099a53e67d6": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Trnava",
+      "city": "Trnava",
+      "reference": null,
+      "colours": null
+    },
+    "e09ac216c3996fc0719e": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Komárno",
+      "city": "Komárno",
+      "reference": null,
+      "colours": null
+    },
+    "e30d55c2273fb2b0962b": {
+      "country": "Slovakia",
+      "tier_at_origin": 3,
+      "adapted": "NK Humenné",
+      "city": "Humenné",
+      "reference": null,
+      "colours": null
+    },
+    "171416dc42a53786f4fc": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Ajdovščina",
+      "city": "Ajdovščina",
+      "reference": null,
+      "colours": null
+    },
+    "2bea037e0c0415bb03d3": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Ljubljana Central",
+      "city": "Ljubljana",
+      "reference": null,
+      "colours": null
+    },
+    "2cb93d1e99de7208dbf4": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Ljubljana Central",
+      "city": "Ljubljana",
+      "reference": null,
+      "colours": null
+    },
+    "43434990b07c4fd7226f": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "SK Murska Sobota",
+      "city": "Murska Sobota",
+      "reference": null,
+      "colours": null
+    },
+    "4f4e039a0619533df22f": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Ljubljana Central",
+      "city": "Ljubljana",
+      "reference": null,
+      "colours": null
+    },
+    "5bbb9ba74e754aa91db9": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FK Krško",
+      "city": "Krško",
+      "reference": null,
+      "colours": null
+    },
+    "6696b0475980dc88ea2b": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Rogaška Slatina",
+      "city": "Rogaška Slatina",
+      "reference": null,
+      "colours": null
+    },
+    "66c225143d808c4ab964": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Krško",
+      "city": "Krško",
+      "reference": null,
+      "colours": null
+    },
+    "730eb39b11d57481400b": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Krško",
+      "city": "Krško",
+      "reference": null,
+      "colours": null
+    },
+    "85b9c5de9365e9ce382e": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FK Ljubljana Central",
+      "city": "Ljubljana",
+      "reference": null,
+      "colours": null
+    },
+    "906fc704b4fc38a104c1": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Slovenska Bistrica",
+      "city": "Slovenska Bistrica",
+      "reference": null,
+      "colours": null
+    },
+    "943710d401e8b0763ac2": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Lendava",
+      "city": "Lendava",
+      "reference": null,
+      "colours": null
+    },
+    "9680f26f28f4bbe39f50": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "SK Ajdovščina",
+      "city": "Ajdovščina",
+      "reference": null,
+      "colours": null
+    },
+    "ab72ffdee36ce00a7f13": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "SK Ljubljana Central",
+      "city": "Ljubljana",
+      "reference": null,
+      "colours": null
+    },
+    "aedf398ee66a20c8ee5c": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Slovenska Bistrica",
+      "city": "Slovenska Bistrica",
+      "reference": null,
+      "colours": null
+    },
+    "b75a47003bdf67fe997e": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FK Slovenska Bistrica",
+      "city": "Slovenska Bistrica",
+      "reference": null,
+      "colours": null
+    },
+    "baa0316c3d9b826c7d38": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Ljubljana Central",
+      "city": "Ljubljana",
+      "reference": null,
+      "colours": null
+    },
+    "ca4405858392e3d118cf": {
+      "country": "Slovenia",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Ljubljana Central",
+      "city": "Ljubljana",
+      "reference": null,
+      "colours": null
+    },
+    "08c17f9d513a455066c0": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Bern",
+      "city": "Bern",
+      "reference": null,
+      "colours": null
+    },
+    "1bf1e18dd50a17e8a19d": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Chiasso",
+      "city": "Chiasso",
+      "reference": null,
+      "colours": null
+    },
+    "1c7835d17dfb9f34b0fe": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "SC Wil",
+      "city": "Wil",
+      "reference": null,
+      "colours": null
+    },
+    "1e7d4b00cb5c510c588b": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "FC Bern",
+      "city": "Bern",
+      "reference": null,
+      "colours": null
+    },
+    "35dc95105e29c838ad2f": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "FC Neuchâtel",
+      "city": "Neuchâtel",
+      "reference": null,
+      "colours": null
+    },
+    "6f9c60315bd07bde9b40": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "SC Aarau",
+      "city": "Aarau",
+      "reference": null,
+      "colours": null
+    },
+    "71b5ffbe528c388c5d87": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "United Neuchâtel",
+      "city": "Neuchâtel",
+      "reference": null,
+      "colours": null
+    },
+    "73b6d2f0a22581c796ec": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "SC Winterthur",
+      "city": "Winterthur",
+      "reference": null,
+      "colours": null
+    },
+    "7d3112cd51135856f175": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Basel",
+      "city": "Basel",
+      "reference": null,
+      "colours": null
+    },
+    "8868f4ffc5a4677fb949": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "Basel Athletic",
+      "city": "Basel",
+      "reference": null,
+      "colours": null
+    },
+    "8a7e8e9562398ce50a8f": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Aarau",
+      "city": "Aarau",
+      "reference": null,
+      "colours": null
+    },
+    "94a0b1d4c100601d2694": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "Kriens SC",
+      "city": "Kriens",
+      "reference": null,
+      "colours": null
+    },
+    "9e251f3d688f29352797": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Vevey",
+      "city": "Vevey",
+      "reference": null,
+      "colours": null
+    },
+    "af2fe85d69ece8952308": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Le Mont-sur-Lausanne",
+      "city": "Le Mont-sur-Lausanne",
+      "reference": null,
+      "colours": null
+    },
+    "d693d13236e52789e80d": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "AC Bern",
+      "city": "Bern",
+      "reference": null,
+      "colours": null
+    },
+    "e4de14ed064107939171": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Yverdon-les-Bains",
+      "city": "Yverdon-les-Bains",
+      "reference": null,
+      "colours": null
+    },
+    "f35ed14f0323a5b57736": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "Bern Athletic",
+      "city": "Bern",
+      "reference": null,
+      "colours": null
+    },
+    "f43ca286bee2b263a869": {
+      "country": "Switzerland",
+      "tier_at_origin": 3,
+      "adapted": "United Biel/Bienne",
+      "city": "Biel/Bienne",
+      "reference": null,
+      "colours": null
+    },
+    "02d78cebebd490dfdca8": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FC Rivne",
+      "city": "Rivne",
+      "reference": null,
+      "colours": null
+    },
+    "0c0670dab9ed23a49b8f": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Mynai",
+      "city": "Mynai",
+      "reference": null,
+      "colours": null
+    },
+    "0fb7b99041461572121c": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FK Lutsk",
+      "city": "Lutsk",
+      "reference": null,
+      "colours": null
+    },
+    "17ee99f3ac67fa1ecfd8": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FK Lviv",
+      "city": "Lviv",
+      "reference": null,
+      "colours": null
+    },
+    "28b73963bd54ac38dfab": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Mynai",
+      "city": "Mynai",
+      "reference": null,
+      "colours": null
+    },
+    "304c58d55c9c14db3b9e": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "NK Donetsk",
+      "city": "Donetsk",
+      "reference": null,
+      "colours": null
+    },
+    "30e968c3f78c717e5293": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Mynai",
+      "city": "Mynai",
+      "reference": null,
+      "colours": null
+    },
+    "39590b55683cd4eaf782": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FC Spartak Kyiv Central",
+      "city": "Kyiv",
+      "reference": null,
+      "colours": null
+    },
+    "3db2f0defed23a246c04": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FC Dynamo Zhytomyr",
+      "city": "Zhytomyr",
+      "reference": null,
+      "colours": null
+    },
+    "47a33b28ccd9f5db8302": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "SK Lutsk",
+      "city": "Lutsk",
+      "reference": null,
+      "colours": null
+    },
+    "510a7d6c3bff76512b04": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Kryvyi Rih",
+      "city": "Kryvyi Rih",
+      "reference": null,
+      "colours": null
+    },
+    "791a197127a661f3bd62": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "SK Kyiv Central",
+      "city": "Kyiv",
+      "reference": null,
+      "colours": null
+    },
+    "80137b44432d117683e8": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FC Lokomotiv Cherkasy",
+      "city": "Cherkasy",
+      "reference": null,
+      "colours": null
+    },
+    "868d5e6876374ff437dd": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FK Lviv Central",
+      "city": "Lviv",
+      "reference": null,
+      "colours": null
+    },
+    "a300cd908f231e3b97db": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "NK Lutsk",
+      "city": "Lutsk",
+      "reference": null,
+      "colours": null
+    },
+    "ccd12479e266a0321759": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "SK Zhytomyr",
+      "city": "Zhytomyr",
+      "reference": null,
+      "colours": null
+    },
+    "ed1f77ba50cb1eec00fa": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "NK Rivne",
+      "city": "Rivne",
+      "reference": null,
+      "colours": null
+    },
+    "f54a97777db468912fb8": {
+      "country": "Ukraine",
+      "tier_at_origin": 3,
+      "adapted": "FC Olimpik Kropyvnytskyi",
+      "city": "Kropyvnytskyi",
+      "reference": null,
+      "colours": null
+    },
+    "272a93f37cfb1c70afa4": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "Cwmbrân FC",
+      "city": "Cwmbrân",
+      "reference": null,
+      "colours": null
+    },
+    "2a29573ace53007f5b45": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "AC Haverfordwest",
+      "city": "Haverfordwest",
+      "reference": null,
+      "colours": null
+    },
+    "2e3e84e3c99617576b0a": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "Briton Ferry FC",
+      "city": "Briton Ferry",
+      "reference": null,
+      "colours": null
+    },
+    "38019b3adc2f1cbfa009": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "AC Port Talbot",
+      "city": "Port Talbot",
+      "reference": null,
+      "colours": null
+    },
+    "44ae8f327b96f7ec33ba": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "AC Caersws",
+      "city": "Caersws",
+      "reference": null,
+      "colours": null
+    },
+    "472e15e2e80b0dc4f9ad": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "AC Newport",
+      "city": "Newport",
+      "reference": null,
+      "colours": null
+    },
+    "6fdc6b38082b9fc6832a": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "FC Newport",
+      "city": "Newport",
+      "reference": null,
+      "colours": null
+    },
+    "7706a30a2d16fc672d5b": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "AC Cwmbrân",
+      "city": "Cwmbrân",
+      "reference": null,
+      "colours": null
+    },
+    "81da61810cc37784355f": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "SC Newport",
+      "city": "Newport",
+      "reference": null,
+      "colours": null
+    },
+    "86e5a5c3fa9b00cb4ce7": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "Cwmbrân SC",
+      "city": "Cwmbrân",
+      "reference": null,
+      "colours": null
+    },
+    "8a94c88478c0bba16896": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "Porthmadog SC",
+      "city": "Porthmadog",
+      "reference": null,
+      "colours": null
+    },
+    "9adf42ff7f8d7aaa3df4": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "Cardiff Athletic",
+      "city": "Cardiff",
+      "reference": null,
+      "colours": null
+    },
+    "b3e7e4abd808ae6fa4b0": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "Cardiff FC",
+      "city": "Cardiff",
+      "reference": null,
+      "colours": null
+    },
+    "bd0abf15991dcd8703e8": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "Sporting Swansea",
+      "city": "Swansea",
+      "reference": null,
+      "colours": null
+    },
+    "d54767e1760a5b7ff540": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "SC Swansea",
+      "city": "Swansea",
+      "reference": null,
+      "colours": null
+    },
+    "db3e0621536bfbda4e06": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "SC Rhyl",
+      "city": "Rhyl",
+      "reference": null,
+      "colours": null
+    },
+    "e913e598de9befa251fd": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "FC Caersws",
+      "city": "Caersws",
+      "reference": null,
+      "colours": null
+    },
+    "f3c95d55bec2630ea028": {
+      "country": "Wales",
+      "tier_at_origin": 3,
+      "adapted": "United Swansea",
+      "city": "Swansea",
       "reference": null,
       "colours": null
     }

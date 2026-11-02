@@ -36,4 +36,4 @@ class PlayerCreationTests(unittest.TestCase):
         self.assertEqual(c.save_path.read_bytes(),before)
     def test_england_starts_in_fourth_division_without_changing_nationality(self):
         c=self.world();self.assertTrue(c.configure_new_player('Marco Costa','Portugal','England'))
-        self.assertEqual((c.league_key,c.nationality),('England|4','Portugal'))
+        self.assertEqual((c.league_key,c.nationality),('England|2','Portugal'))

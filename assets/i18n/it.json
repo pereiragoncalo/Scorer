@@ -313,5 +313,12 @@
   "I DO NOT AGREE": "NON ACCONSENTO",
   "Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. I AGREE continues with automatic usage reporting; I DO NOT AGREE closes the game.": "Scorer World invia contatori di utilizzo a stats.clemir.com: aperture e chiusure, carriere create e caricate, allenamenti, partite, gol ed errori di salvataggio/caricamento. Non includono nomi, file di carriera o identificativi del dispositivo. I contatori in attesa scadono dopo 7 giorni; i totali giornalieri sul server dopo 90 giorni. Cloudflare elabora dati di connessione, inclusi indirizzi IP. La condivisione pubblica dei record è separata e facoltativa. ACCONSENTO continua con l’invio automatico; NON ACCONSENTO chiude il gioco.",
   "SETTINGS": "IMPOSTAZIONI",
-  "No published records in this division yet.": "Non ci sono ancora record pubblicati in questa divisione."
+  "No published records in this division yet.": "Non ci sono ancora record pubblicati in questa divisione.",
+  "FREE AGENT": "SVINCOLATO",
+  "Your club left Division 2. You are free to sign for another club.": "Il tuo club è retrocesso dalla seconda divisione. Sei libero di firmare per un altro club.",
+  "Lower divisions were retired. You are now free to sign for a club.": "Le divisioni inferiori sono state rimosse. Sei libero di firmare per un club.",
+  "Sign for a club to continue your career.": "Firma per un club per continuare la carriera.",
+  "RESERVE CLUBS": "CLUB DI RISERVA",
+  "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "Due divisioni. Tre club salgono e scendono; le retrocessioni dalla seconda usano una riserva a rotazione di 10 club.",
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "Scegli Nuova partita o Carica partita. Dai un nome al giocatore e scegli il primo contratto. World suggerisce il paese del telefono; in alternativa puoi iniziare nella quarta divisione inglese."
 }

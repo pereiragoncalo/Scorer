@@ -313,5 +313,12 @@
   "I DO NOT AGREE": "NÃO CONCORDO",
   "Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. I AGREE continues with automatic usage reporting; I DO NOT AGREE closes the game.": "O Scorer World envia contagens de utilização para stats.clemir.com: aberturas e fechos, carreiras criadas e carregadas, treino, jogos, golos e falhas ao guardar/carregar. Não incluem nomes, ficheiros de carreira nem identificadores do dispositivo. As contagens pendentes expiram após 7 dias; os totais diários do servidor após 90 dias. A Cloudflare processa dados de ligação, incluindo endereços IP. A partilha pública de recordes é separada e opcional. CONCORDO continua com o envio automático; NÃO CONCORDO fecha o jogo.",
   "SETTINGS": "DEFINIÇÕES",
-  "No published records in this division yet.": "Ainda não há recordes publicados nesta divisão."
+  "No published records in this division yet.": "Ainda não há recordes publicados nesta divisão.",
+  "FREE AGENT": "JOGADOR LIVRE",
+  "Your club left Division 2. You are free to sign for another club.": "O teu clube desceu da 2.ª divisão. Estás livre para assinar por outro clube.",
+  "Lower divisions were retired. You are now free to sign for a club.": "Os escalões inferiores foram retirados. Estás livre para assinar por um clube.",
+  "Sign for a club to continue your career.": "Assina por um clube para continuar a carreira.",
+  "RESERVE CLUBS": "CLUBES DE RESERVA",
+  "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "Duas divisões. Sobem e descem três clubes; as descidas da 2.ª usam uma reserva rotativa de 10 clubes.",
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "Escolhe Novo jogo ou Carregar jogo. Dá um nome ao jogador e escolhe o primeiro contrato. O World sugere o país do telemóvel, com a 2.ª divisão inglesa como alternativa."
 }

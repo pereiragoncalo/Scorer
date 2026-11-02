@@ -28,7 +28,7 @@ def load_registry(path):
 def csv_rows(path):
     with gzip.open(path,'rt',encoding='utf-8',newline='') as f:return list(csv.DictReader(f))
 
-def build(players_path,clubs_path,manifest_path,previous_path):
+def build(players_path,clubs_path,manifest_path,previous_path,layout="two-divisions"):
     registry,lookups=load_registry(manifest_path)
     clubs_by_team=collections.defaultdict(list)
     for c in csv_rows(clubs_path):
@@ -51,7 +51,10 @@ def build(players_path,clubs_path,manifest_path,previous_path):
     with tempfile.TemporaryDirectory() as folder,patch.dict(os.environ,STRIKER_SAVE_DIR=folder):
         career=CareerMode(access,autoload=False,save_slot='world')
         for (country,tier),division in registry.items():
-            league=career.leagues[f'{country}|{tier}'];slots=sorted(league.clubs,key=lambda club:slot_order[club.uid]);all_teams=division['teams']
+            if layout=='two-divisions' and tier>3:continue
+            league=career.leagues[f'{country}|{tier}']
+            slots=career.reserve_clubs(country) if layout=='two-divisions' and tier==3 else league.clubs
+            slots=sorted(slots,key=lambda club:slot_order[club.uid]);all_teams=division['teams']
             teams=sorted(all_teams,key=lambda t:priorities.get((country,t['identity']),100000))[:len(slots)]
             taken=set();chosen={}
             # Keep a reference on its UID only when it really belongs to this tier.
@@ -65,7 +68,7 @@ def build(players_path,clubs_path,manifest_path,previous_path):
                     if not remaining:raise ValueError(f'{country}/{tier}: insufficient real clubs; no fabricated filler permitted')
                     chosen[club.uid]=remaining.pop(0)
             omitted+= [dict(country=country,tier=tier,club=t['name'],wiki_path=t['wiki_path']) for t in all_teams if t not in teams]
-            pack['leagues'][league.key]=LEAGUES[country][tier-1]
+            if layout!='two-divisions' or tier<=2:pack['leagues'][league.key]=LEAGUES[country][tier-1]
             for club in slots:
                 team=chosen[club.uid];identity=(country,team['identity'])
                 if identity in seen:raise ValueError('Repeated club identity: '+str(identity))
@@ -85,10 +88,10 @@ def build(players_path,clubs_path,manifest_path,previous_path):
         career.preview_names(pack)
     text=json.dumps(pack,ensure_ascii=False,indent=2)+'\n'
     if len(text.encode())>262144:raise ValueError('Formatted pack exceeds 256KiB')
-    report=dict(selection='Within each verified division prefer real references already present anywhere in the country catalogue, then source table order. Keep correct UID references where possible. Never use another division to fill slots.',reference='Europe2026-27; Brazil/Argentina2026',club_entries=len(pack['clubs']),player_aliases=len(pack['players']),league_aliases=len(pack['leagues']),total_aliases=sum(len(pack[k]) for k in ('clubs','players','leagues')),real_player_names=sum(len(a['real_player_names']) for a in assignments),changed_club_aliases=sum(pack['clubs'].get(k)!=v for k,v in previous['clubs'].items()),assignments=assignments,not_represented_due_to_game_capacity=omitted,player_reference_date='2026-07-06; membership correction is not a November squad update',input_sha256={Path(p).name:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in (players_path,clubs_path,manifest_path,previous_path)})
+    report=dict(layout=layout,selection='Within each verified division prefer real references already present anywhere in the country catalogue, then source table order. Keep correct UID references where possible. Never use another division to fill slots.',reference='Europe2026-27; Brazil/Argentina2026',club_entries=len(pack['clubs']),player_aliases=len(pack['players']),league_aliases=len(pack['leagues']),total_aliases=sum(len(pack[k]) for k in ('clubs','players','leagues')),real_player_names=sum(len(a['real_player_names']) for a in assignments),changed_club_aliases=sum(pack['clubs'].get(k)!=v for k,v in previous['clubs'].items()),assignments=assignments,not_represented_due_to_game_capacity=omitted,player_reference_date='2026-07-06; membership correction is not a November squad update',input_sha256={Path(p).name:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in (players_path,clubs_path,manifest_path,previous_path)})
     return pack,report
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--players',type=Path,required=True);p.add_argument('--clubs',type=Path,required=True);p.add_argument('--manifest',type=Path,default=ROOT/'docs/data/real_divisions_2026.json');p.add_argument('--previous',type=Path,default=ROOT/'docs/data/name-packs/Scorer-World-Real-Names-Europe-Brazil-Argentina-2026-07.json');p.add_argument('--output',type=Path,required=True);a=p.parse_args()
-    pack,report=build(a.players,a.clubs,a.manifest,a.previous);a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(pack,ensure_ascii=False,indent=2)+'\n');a.output.with_suffix('.provenance.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(report['club_entries'],'clubs;',report['player_aliases'],'player aliases;',report['real_player_names'],'sourced players;',report['changed_club_aliases'],'changed club labels')
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--players',type=Path,required=True);p.add_argument('--clubs',type=Path,required=True);p.add_argument('--manifest',type=Path,default=ROOT/'docs/data/real_divisions_2026.json');p.add_argument('--previous',type=Path,default=ROOT/'docs/data/name-packs/Scorer-World-Real-Names-Europe-Brazil-Argentina-2026-07.json');p.add_argument('--layout',choices=('historical','two-divisions'),default='two-divisions');p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    pack,report=build(a.players,a.clubs,a.manifest,a.previous,a.layout);a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(pack,ensure_ascii=False,indent=2)+'\n');a.output.with_suffix('.provenance.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(report['club_entries'],'clubs;',report['player_aliases'],'player aliases;',report['real_player_names'],'sourced players;',report['changed_club_aliases'],'changed club labels')
 if __name__=='__main__':main()

@@ -15,7 +15,7 @@ class StandingZoneTests(unittest.TestCase):
             z=table_zones(tier,12,{1,2},simplified=True)
             self.assertFalse(z.playoff);self.assertFalse(z.provisional)
             self.assertEqual(z.promotion,(1,2,3) if tier==2 else ())
-            self.assertEqual(z.relegation,(10,11,12) if tier==1 else ())
+            self.assertEqual(z.relegation,(10,11,12))
         archived=table_zones(4,12,{1,2},simplified=True)
         self.assertTrue(archived.archived);self.assertFalse(any(archived.at(p) for p in range(1,13)))
     def test_ranges_do_not_overlap_or_mutate_active_tiers(self):

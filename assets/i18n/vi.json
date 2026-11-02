@@ -313,5 +313,12 @@
   "I DO NOT AGREE": "TÔI KHÔNG ĐỒNG Ý",
   "Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. I AGREE continues with automatic usage reporting; I DO NOT AGREE closes the game.": "Scorer World gửi số lượt sử dụng tới stats.clemir.com: mở và đóng ứng dụng, tạo và tải sự nghiệp, luyện tập, trận đấu, bàn thắng và lỗi lưu/tải. Không bao gồm tên, tệp sự nghiệp hoặc mã nhận dạng thiết bị. Số đếm chờ gửi hết hạn sau 7 ngày; tổng số hằng ngày trên máy chủ sau 90 ngày. Cloudflare xử lý dữ liệu kết nối, bao gồm địa chỉ IP. Chia sẻ kỷ lục công khai là tính năng riêng và tùy chọn. TÔI ĐỒNG Ý tiếp tục với việc gửi tự động; TÔI KHÔNG ĐỒNG Ý đóng trò chơi.",
   "SETTINGS": "CÀI ĐẶT",
-  "No published records in this division yet.": "Chưa có kỷ lục công khai trong hạng đấu này."
+  "No published records in this division yet.": "Chưa có kỷ lục công khai trong hạng đấu này.",
+  "FREE AGENT": "CẦU THỦ TỰ DO",
+  "Your club left Division 2. You are free to sign for another club.": "Câu lạc bộ của bạn đã xuống khỏi hạng 2. Bạn có thể tự do ký với câu lạc bộ khác.",
+  "Lower divisions were retired. You are now free to sign for a club.": "Các hạng đấu thấp hơn đã bị loại bỏ. Bạn có thể tự do ký với câu lạc bộ khác.",
+  "Sign for a club to continue your career.": "Ký với một câu lạc bộ để tiếp tục sự nghiệp.",
+  "RESERVE CLUBS": "CÂU LẠC BỘ DỰ BỊ",
+  "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "Hai hạng đấu, mỗi mùa ba đội lên và xuống hạng. Các đội rời hạng 2 luân phiên với danh sách 10 câu lạc bộ dự bị.",
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "Chọn Trò chơi mới hoặc Tải trò chơi. Đặt tên cầu thủ và chọn hợp đồng đầu tiên. World gợi ý quốc gia theo điện thoại; bạn cũng có thể bắt đầu ở hạng 2 Anh."
 }

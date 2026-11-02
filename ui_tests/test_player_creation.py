@@ -30,7 +30,7 @@ class PlayerCreationUITests(unittest.TestCase):
             self.assertEqual(g.view,'profile');f=g._menu.body;self.assertEqual(f.draft['nationality'],'Japan')
             f.name.text='Nguyễn Minh';g._menu._build();settle();f=g._menu.body
             self.assertEqual(f.name.text,'Nguyễn Minh');f.choose_country('country');g._country_popup.dismiss();settle();self.assertEqual(f.draft['country'],'England')
-            f.submit();self.assertEqual(g.career.league_key,'England|4');self.assertEqual(g.career.nationality,'Japan')
+            f.submit();self.assertEqual(g.career.league_key,'England|2');self.assertEqual(g.career.nationality,'Japan')
     def test_world_profile_and_country_controls_fit_phone_sizes(self):
         old=Window.size;density=Metrics.density
         try:

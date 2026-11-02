@@ -37,11 +37,12 @@ class SimplifiedDomesticTests(unittest.TestCase):
         self.assertEqual(c.league_key, 'Yemen|2')
         for country in ('Yemen', 'United States', 'Japan', 'New Zealand'):
             self.assertEqual([l.tier for l in c.domestic_leagues(country)], [1, 2])
-            self.assertNotIn(country+'|3', c.leagues)
+            self.assertFalse(c.is_league_playable(country+'|3'))
+            self.assertEqual(len(c.reserve_clubs(country)),10)
         for country in ('Brazil', 'Argentina', 'Mexico'):
-            self.assertEqual(division_depth(country, EUROPE_PYRAMID_DEPTH), 4)
-        self.assertEqual(division_depth('England', EUROPE_PYRAMID_DEPTH), 5)
-        self.assertEqual(division_depth('Portugal', EUROPE_PYRAMID_DEPTH), 4)
+            self.assertEqual(division_depth(country, EUROPE_PYRAMID_DEPTH), 2)
+        self.assertEqual(division_depth('England', EUROPE_PYRAMID_DEPTH), 2)
+        self.assertEqual(division_depth('Portugal', EUROPE_PYRAMID_DEPTH), 2)
 
     def test_exact_three_ranked_clubs_move_with_identities_and_sizes_preserved(self):
         c = self.career()
@@ -79,11 +80,11 @@ class SimplifiedDomesticTests(unittest.TestCase):
             for index,club in enumerate(league.table()):club.points=100000-index*1000
         c.club_name = lower.table()[1].name
         uid = c.club.uid
-        before = {x.uid for x in upper.clubs + lower.clubs}
+        before = {x.uid for l in c.leagues.values() for x in l.clubs}
         c._finish_season()
         self.assertEqual(c.league_key, 'Yemen|1')
         self.assertEqual(c.club.uid, uid)
-        self.assertEqual(before, {x.uid for x in upper.clubs + lower.clubs})
+        self.assertEqual(before, {x.uid for l in c.leagues.values() for x in l.clubs})
         self.assertTrue(c.save())
         restored = CareerMode(Access(), save_slot='world')
         self.assertEqual(restored.club.uid, uid)
@@ -92,31 +93,17 @@ class SimplifiedDomesticTests(unittest.TestCase):
             self.assertEqual({x.uid for x in c.leagues[key].clubs},
                              {x.uid for x in restored.leagues[key].clubs})
 
-    def test_historical_tier_four_save_survives_then_migrates_at_season_boundary(self):
-        c = self.career()
-        c._build_world({'Yemen': 4})
-        c.league_key = c.free_start_key = 'Yemen|4'
-        c.club_name = c.current_league.clubs[0].name
-        uid = c.club.uid
-        self.assertTrue(c.save())
-        restored = CareerMode(Access(), save_slot='world')
-        self.assertEqual((restored.league_key, restored.club.uid), ('Yemen|4', uid))
-        self.assertEqual([x.tier for x in restored.domestic_leagues('Yemen')], [1, 2])
-        self.assertFalse(restored.is_league_playable('Yemen|3'))
-        self.assertTrue(restored.is_league_playable('Yemen|4'))
-        all_ids = {x.uid for l in restored.leagues.values() for x in l.clubs}
-        restored._finish_season()
-        self.assertEqual((restored.league_key, restored.club.uid), ('Yemen|2', uid))
-        self.assertFalse(restored.is_league_playable('Yemen|4'))
-        self.assertEqual(all_ids, {x.uid for l in restored.leagues.values() for x in l.clubs})
-        self.assertTrue(restored.save())
-        again = CareerMode(Access(), save_slot='world')
-        self.assertEqual((again.league_key, again.club.uid), ('Yemen|2', uid))
+    def test_historical_lower_division_contract_becomes_free_without_losing_history(self):
+        c=self.career();c._build_world({'Yemen':4});c.league_key='Yemen|4';c.club_name=c.current_league.clubs[0].name;uid=c.club.uid;c.goals=9;c.save()
+        restored=CareerMode(Access(),save_slot='world')
+        self.assertTrue(restored.free_agent);self.assertEqual(restored.league_key,'Yemen|2');self.assertEqual(restored.released_club['uid'],uid);self.assertEqual(restored.goals,9)
+        self.assertFalse(restored.is_league_playable('Yemen|4'));self.assertEqual(len(restored.agent_offers),5)
+        self.assertTrue(restored.save());again=CareerMode(Access(),save_slot='world');self.assertTrue(again.free_agent);self.assertEqual(again.goals,9)
 
     def test_zone_boundaries_no_playoffs_or_third_tier(self):
         for tier, pos, expected in ((2, 3, 'Promotion'), (2, 4, ''),
                                     (1, 9, ''), (1, 10, 'Relegation'),
-                                    (2, 12, ''), (1, 1, ''), (3, 1, '')):
+                                    (2, 12, 'Relegation'), (1, 1, ''), (3, 1, '')):
             self.assertEqual(standing_zone(tier, pos, 12), expected)
 
     def test_older_world_save_preserves_aliases_for_unvisited_archived_divisions(self):

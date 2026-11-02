@@ -15,7 +15,7 @@ with zipfile.ZipFile(artifact) as z:
         assert r['WORLD_LISTING_READY'] is False
         names=tar.getnames()
         assert not any(n.endswith("privacy_requests.pyc") or n.endswith("privacy_requests.py") for n in names), "Removed client workflow bundled"
-        for required in ('online_safety','career_transfer','career_documents','defensive_difficulty','world_competitions','season_transitions'):
+        for required in ('online_safety','career_transfer','career_documents','defensive_difficulty','world_competitions','season_transitions','two_divisions'):
             assert any(n.endswith('/'+required+'.pyc') or n==required+'.pyc' for n in names)
         code=module('anonymous_stats');assert 'APP_STATS_MANDATORY' in code.co_names
 print('Compiled edition/channel/public metadata/safety/transfer modules verified:',product,channel)

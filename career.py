@@ -716,7 +716,9 @@ class WorldLeague:
 
 
 
-class CareerMode:
+from two_divisions import TwoDivisionCareer
+
+class CareerMode(TwoDivisionCareer):
     """Carreira persistente e simulação leve do futebol mundial."""
 
 
@@ -781,7 +783,9 @@ class CareerMode:
         self.international_status: dict[str, str] = {}
         self.offers: list[str] = []
         self.agent_offers: list[tuple[str, str]] = []
+        self.free_agent=False;self.released_club=None;self.relegation_pools={};self._needs_two_division_backup=False
         self._build_world()
+        if self.world_unlocked:self._ensure_reserves()
         self.choose_start_country(self.suggested_country)
 
         self._migrate_legacy_save()
@@ -855,15 +859,12 @@ class CareerMode:
         if not self.world_unlocked:
             return league_key == self.free_start_key
         league = self.leagues.get(league_key)
-        return bool(league and (not uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH)
-                                or league.tier <= 2 or league_key == self.league_key))
+        return bool(league and league.tier in (1,2))
 
     def domestic_leagues(self, country=None):
-        """Active divisions only; archived legacy tiers are not new destinations."""
         return [league for league in self.leagues.values()
-                if (country is None or league.country == country)
-                and (not self.world_unlocked or not uses_simplified_model(league.country, EUROPE_PYRAMID_DEPTH)
-                     or league.tier <= 2)]
+                if (country is None or league.country==country)
+                and (not self.world_unlocked or league.tier in (1,2))]
 
 
     @property
@@ -895,7 +896,7 @@ class CareerMode:
 
     @property
     def transfer_window_open(self) -> bool:
-        return self.current_date.month in (1, 2, 7, 8)
+        return self.free_agent or self.current_date.month in (1, 2, 7, 8)
 
 
     @property
@@ -1081,6 +1082,7 @@ class CareerMode:
 
 
     def next_match(self) -> Optional[tuple[str, CareerClub, CareerClub]]:
+        if self.free_agent:return None
         if self.world_unlocked and self.club:
             self._ensure_competitions()
             for _ in range(200):
@@ -1093,7 +1095,9 @@ class CareerMode:
                     self.called_up=national
                     return ('world|'+key+'|'+f['id'],self._competition_club(home),self._competition_club(away))
                 if ended:
-                    self._finish_season();self._ensure_competitions();continue
+                    self._finish_season()
+                    if self.free_agent:self.save();return None
+                    self._ensure_competitions();continue
                 for home,away in self.current_league.pairings():
                     if self.club_name in (home.name,away.name):return 'league',home,away
                 raise ValueError('No personal league fixture')
@@ -1257,10 +1261,13 @@ class CareerMode:
         return sorted(entries, key=lambda entry: str(entry.get('date', '')))
 
 
-    def _build_world(self, legacy_depths=None) -> None:
+    def _build_world(self, legacy_depths=None, legacy_layout=False) -> None:
         for country in WORLD_COUNTRIES:
             depth = (division_depth(country, EUROPE_PYRAMID_DEPTH) if self.world_unlocked
                      else EUROPE_PYRAMID_DEPTH.get(country, 1))
+            if self.world_unlocked:
+                historical=EUROPE_PYRAMID_DEPTH.get(country,4 if country in ('Brazil','Argentina','Mexico') else 2)
+                depth=(legacy_depths or {}).get(country,historical) if legacy_layout else max(3,historical,depth)
             depth = max(depth, (legacy_depths or {}).get(country, 0))
             for tier in range(1, depth + 1):
                 if f'{country}|{tier}' in self.leagues:
@@ -1323,7 +1330,7 @@ class CareerMode:
         if not self.world_unlocked and country != 'England':
             return False
         tiers = [league.tier for league in self.domestic_leagues(country)]
-        tier = 4 if country == 'England' else max(tiers)
+        tier = 2 if self.world_unlocked else 4 if country == 'England' else max(tiers)
         self.free_start_key = self.league_key = f"{country}|{tier}"
         if not self.world_unlocked:
             self.current_league.name = 'Scorer League'
@@ -1812,6 +1819,8 @@ class CareerMode:
     def generate_agent_offers(
         self, guaranteed: bool = False
     ) -> list[tuple[str, str]]:
+        if self.free_agent:
+            result=self._free_agent_offers();self.save();return result
         if not self.transfer_window_open:
             self.agent_offers.clear()
             self.message = (
@@ -1896,13 +1905,15 @@ class CareerMode:
         if not self.is_league_playable(league_key):
             self.message = 'That league requires Scorer World.'
             return
-        if (club_name, league_key) not in self.agent_offers:
+        if (club_name, league_key) not in self.agent_offers or not any(c.name==club_name for c in self.leagues[league_key].clubs):
             return
         self.activate_world_country(self.leagues[league_key].country)
+        new_season_contract=self.free_agent and self.week==0 and self.world_competitions is None
         self.club_name = club_name
         self.league_key = league_key
+        self.free_agent=False
         self.agent_offers.clear()
-        self.cup_active = False
+        self.cup_active = new_season_contract
         self.message = f"Transfer completed to {club_name}."
         self.save()
 
@@ -1920,14 +1931,24 @@ class CareerMode:
             self.national_cup_winners[country]=cup.teams[cup.champion]['name']
         self.qualification_snapshot={'season':self.season+1,'entries':book.entrants_for_next_season(self.leagues)}
         winners={k:cup.champion for k,cup in book.tournaments.items()}
+        reserve_drops={country:[c.uid for c in self.leagues[country+'|2'].table()[-3:]] for country in WORLD_COUNTRIES}
         moves=[]
         for country in WORLD_COUNTRIES:
             moves.extend(exchange_pyramid(self.domestic_leagues(country),country,winners,uses_simplified_model(country,EUROPE_PYRAMID_DEPTH)))
-        if uses_simplified_model(league.country,EUROPE_PYRAMID_DEPTH) and old_tier>2:
-            lower=self.leagues[league.country+'|2'];displaced=lower.table()[-1]
-            lower.clubs.remove(displaced);league.clubs.remove(club);lower.clubs.append(club);league.clubs.append(displaced)
-            club.tier,club.league=2,lower.name;displaced.tier,displaced.league=old_tier,league.name
-        self.league_key=league.country+'|'+str(club.tier)
+        from two_divisions import rotate_reserve,RELEGATED_MESSAGE
+        for country in WORLD_COUNTRIES:
+            lower=self.leagues[country+'|2'];archive=self.leagues[country+'|3']
+            queue=self.relegation_pools[country]
+            # T1 arrivals cannot be relegated twice at the same rollover.
+            eligible=reserve_drops[country]
+            original=list(lower.clubs)
+            selected=[next(c for c in original if c.uid==uid) for uid in eligible]
+            # Supply the frozen drop order, independent of new T1 arrivals' points.
+            queue,reserve_moves=rotate_reserve(lower,archive,queue,selected)
+            self.relegation_pools[country]=queue;moves.extend(reserve_moves)
+        self._repair_qualifiers()
+        released=club.tier>2
+        if not released:self.league_key=league.country+'|'+str(club.tier)
         champions={k:cup.teams[cup.champion] for k,cup in book.tournaments.items() if cup.kind!='qualifying' and not k.startswith('domestic:')}
         self.competition_archive=(self.competition_archive+[{'season':self.season,'winners':champions,'movements':moves,'domestic_winners':dict(self.national_cup_winners)}])[-5:]
         self.world_membership={k:[c.uid for c in l.clubs] for k,l in self.leagues.items()}
@@ -1939,8 +1960,9 @@ class CareerMode:
         self.international_status={}
         for l in self.leagues.values():
             random.Random(f'{self.world_seed}:{self.season}:{l.key}').shuffle(l.clubs);l.schedule_version=2;l.round_index=0;l.scorer_goals.clear()
-            for c in l.clubs:c.played=c.wins=c.draws=c.losses=c.goals_for=c.goals_against=c.points=0
+            for c in l.clubs:c.played=c.won=c.drawn=c.lost=c.goals_for=c.goals_against=c.points=0
         self.matches=self.goals=self.missed_chances=0;self.form_goals.clear()
+        if released:self._release_contract(RELEGATED_MESSAGE,club)
 
     def _finish_season(self) -> None:
         if self.world_unlocked:
@@ -2035,8 +2057,20 @@ class CareerMode:
     def save(self) -> bool:
         if self._save_slot == 'world' and not self.world_unlocked:
             return False
-        if not self.club_name:
+        if not self.club_name and not self.free_agent:
             return True
+        if self.world_unlocked and self._needs_two_division_backup and self.save_path.exists():
+            backup=self.save_path.with_suffix('.two-divisions-backup.json')
+            if not backup.exists():
+                temporary=None
+                try:
+                    with tempfile.NamedTemporaryFile(dir=backup.parent,prefix='.two-divisions-',delete=False) as output:
+                        temporary=Path(output.name);output.write(self.save_path.read_bytes());output.flush();os.fsync(output.fileno())
+                    os.replace(temporary,backup)
+                except OSError:
+                    if temporary is not None:temporary.unlink(missing_ok=True)
+                    return False
+            self._needs_two_division_backup=False
         league = self.current_league
         archived_depths = {}
         if self.world_unlocked:
@@ -2046,7 +2080,10 @@ class CareerMode:
         data = {
             "save_version": self.SAVE_VERSION,
             "edition": self.product_mode,
-            "domestic_model_version": 1,
+            "domestic_model_version": 2 if self.world_unlocked else 1,
+            "relegation_pools": self.relegation_pools if self.world_unlocked else {},
+            "free_agent": self.free_agent,
+            "released_club": self.released_club,
             "legacy_domestic_depths": archived_depths,
             "free_start_key": self.free_start_key,
             "display_aliases": self.display_aliases if self.world_unlocked else {},
@@ -2160,7 +2197,7 @@ class CareerMode:
                               for key, value in self.__dict__.items()}
         if candidate._load_saved_state():
             self.__dict__.update(candidate.__dict__)
-            return bool(self.club_name)
+            return bool(self.club_name) or self.free_agent
         return False
 
     def _load_saved_state(self, document=None) -> bool:
@@ -2197,33 +2234,19 @@ class CareerMode:
                 self.world_seed=int(active.get('world_seed',self.world_seed));self.season=int(active.get('season',self.season))
                 self.leagues={};self._build_world()
                 self.world_competitions=None;self.qualification_snapshot=None;self.world_membership=None;self.world_run_in=False
-                saved_states = active.get('world_state', {})
-                if not isinstance(saved_states, dict):
-                    raise ValueError('Invalid saved World state')
-                model_version = active.get('domestic_model_version')
-                if model_version is None:
-                    # Older worldwide name packs can reference unvisited tiers.
-                    # Keep those objects as an archive, never as new destinations.
-                    legacy_depths = {country: 4 for country in WORLD_COUNTRIES
-                                     if uses_simplified_model(country, EUROPE_PYRAMID_DEPTH)}
-                elif type(model_version) is int and model_version == 1:
-                    legacy_depths = active.get('legacy_domestic_depths', {})
-                    if (not isinstance(legacy_depths, dict) or
-                            any(country not in WORLD_COUNTRIES or
-                                not uses_simplified_model(country, EUROPE_PYRAMID_DEPTH) or
-                                type(depth) is not int or depth not in (3, 4)
-                                for country, depth in legacy_depths.items())):
-                        raise ValueError('Invalid archived domestic divisions')
-                    legacy_depths = dict(legacy_depths)
-                else:
-                    raise ValueError('Unsupported domestic model')
-                for saved_key in [active.get('league_key', '')] + list(saved_states):
-                    country, sep, tier_text = str(saved_key).partition('|')
-                    if (sep and country in WORLD_COUNTRIES and
-                            uses_simplified_model(country, EUROPE_PYRAMID_DEPTH) and tier_text in ('3', '4')):
-                        legacy_depths[country] = max(legacy_depths.get(country, 0), int(tier_text))
-                if legacy_depths:
-                    self._build_world(legacy_depths)
+                saved_states=active.get('world_state',{})
+                if not isinstance(saved_states,dict):raise ValueError('Invalid saved World state')
+                model_version=active.get('domestic_model_version')
+                if model_version is not None and (type(model_version)is not int or model_version not in (1,2)):raise ValueError('Unsupported domestic model')
+                saved_depths=active.get('legacy_domestic_depths',{})
+                if not isinstance(saved_depths,dict) or any(c not in WORLD_COUNTRIES or type(d)is not int or d not in (3,4,5) for c,d in saved_depths.items()):raise ValueError('Invalid archived domestic divisions')
+                depths={c:EUROPE_PYRAMID_DEPTH.get(c,4 if c in ('Brazil','Argentina','Mexico') or model_version is None else 2) for c in WORLD_COUNTRIES}
+                if model_version==2:depths={c:max(3,d) for c,d in depths.items()}
+                for c,d in saved_depths.items():depths[c]=max(depths[c],d)
+                for saved_key in [active.get('league_key','')]+list(saved_states):
+                    c,sep,t=str(saved_key).partition('|')
+                    if sep and c in WORLD_COUNTRIES and t in ('3','4','5'):depths[c]=max(depths[c],int(t))
+                self.leagues={};self._build_world(depths,legacy_layout=True);self.relegation_pools={}
             membership=active.get('world_membership')
             if membership is not None and self.world_unlocked:
                 if not isinstance(membership,dict) or set(membership)!=set(self.leagues):raise ValueError('Invalid World membership')
@@ -2244,7 +2267,7 @@ class CareerMode:
             legacy_active = (self.world_unlocked and active.get('edition') == 'WORLD'
                              and saved_country in WORLD_COUNTRIES
                              and uses_simplified_model(saved_country, EUROPE_PYRAMID_DEPTH)
-                             and saved_tier in ('3', '4') and key_for_access in self.leagues)
+                             and saved_tier in ('3', '4','5') and key_for_access in self.leagues)
             if (active.get('edition') == 'WORLD' and not self.world_unlocked) or (not self.is_league_playable(key_for_access) and not legacy_active):
                 self._locked_world_career = active
                 self.message = (
@@ -2284,6 +2307,10 @@ class CareerMode:
             self.morale_ad_week = int(data.get("morale_ad_week", -1))
             self.morale_ad_token = str(data.get("morale_ad_token", ""))[:80]
             self.club_name = data.get("club_name", "")
+            self.free_agent=data.get('free_agent',False)
+            if type(self.free_agent)is not bool:raise ValueError('Invalid contract state')
+            self.released_club=data.get('released_club')
+            if self.released_club is not None and (not isinstance(self.released_club,dict) or set(self.released_club)!={'uid','name','country','season'} or any(not isinstance(self.released_club[x],str) for x in ('uid','name','country')) or type(self.released_club['season'])is not int):raise ValueError('Invalid release history')
             self.league_key = key
             self.matches = int(data.get("matches", 0))
             self.goals = int(data.get("goals", 0))
@@ -2330,6 +2357,7 @@ class CareerMode:
                 if isinstance(value, (list, tuple)) and len(value) == 2
                 and str(value[1]) in self.leagues
                 and self.is_league_playable(str(value[1]))
+                and any(c.name==str(value[0]) for c in self.leagues[str(value[1])].clubs)
             ][:5]
             self.last_offer_week = int(data.get("last_offer_week", -99))
             schedule_version = int(data.get("schedule_version", 1))
@@ -2448,10 +2476,12 @@ class CareerMode:
                         if seen.intersection(ids):raise ValueError('Club qualified twice in Europe')
                         seen.update(ids)
                 self.qualification_snapshot=snapshot
+            if self.world_unlocked:self._restore_two_divisions(data)
 
             # Mantém todos os outros campeonatos na mesma semana da carreira
             # depois de fechar e voltar a abrir o jogo.
             for other_key, other_league in self.leagues.items():
+                if self.world_unlocked and other_league.tier>2:continue
                 if other_key == self.league_key or (self.world_unlocked and (other_league.country not in self._active_world_countries or other_key in data.get('world_state', {}))):
                     continue
                 target_round = min(league.round_index, other_league.total_rounds)

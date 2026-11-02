@@ -313,5 +313,12 @@
   "I DO NOT AGREE": "同意しない",
   "Scorer World sends usage counters to stats.clemir.com: app openings and closes, careers created and loaded, training, matches, goals and save/load failures. No names, career files or device IDs are included. Pending counters expire after 7 days; server daily totals after 90 days. Cloudflare processes connection data, including IP addresses. Public record sharing is separate and optional. I AGREE continues with automatic usage reporting; I DO NOT AGREE closes the game.": "Scorer Worldはstats.clemir.comに、アプリの起動と終了、キャリアの作成と読み込み、練習、試合、ゴール、保存と読み込みの失敗の回数を送信します。名前、キャリアファイル、端末識別子は含みません。未送信の回数は7日後、サーバーの日別合計は90日後に削除されます。CloudflareはIPアドレスなどの接続情報を処理します。公開記録の共有は別の任意機能です。同意するで自動送信を有効にして続行し、同意しないでゲームを終了します。",
   "SETTINGS": "設定",
-  "No published records in this division yet.": "このディビジョンにはまだ公開された記録がありません。"
+  "No published records in this division yet.": "このディビジョンにはまだ公開された記録がありません。",
+  "FREE AGENT": "フリー選手",
+  "Your club left Division 2. You are free to sign for another club.": "所属クラブが2部から降格しました。他のクラブと自由に契約できます。",
+  "Lower divisions were retired. You are now free to sign for a club.": "下位リーグが廃止されました。クラブと自由に契約できます。",
+  "Sign for a club to continue your career.": "キャリアを続けるにはクラブと契約してください。",
+  "RESERVE CLUBS": "待機クラブ",
+  "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "2つのディビジョンで各3クラブが昇降格します。2部からの降格は10クラブの待機枠と順番に入れ替わります。",
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "新しいゲームかロードを選び、選手名と最初の契約を決めましょう。端末の国が候補になりますが、イングランド2部から始めることもできます。"
 }

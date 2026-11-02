@@ -12,7 +12,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view real-names-divisions-2026 >/dev/null 2>&1; then
-            gh release create real-names-divisions-2026 --target "$GITHUB_SHA" --title 'Corrected real names by division — Europe 2026/27, Brazil and Argentina 2026' --notes 'Corrected division mapping for 494 unique real clubs. Europe 2026/27; Brazil and Argentina 2026. Existing game capacities apply; player source remains July 2026. Download the uncompressed JSON asset and reimport in Names Editor. Compatible with World 0.9.3; no new APK. This supersedes the older July names packs.'
+          if ! gh release view real-names-two-divisions-2026 >/dev/null 2>&1; then
+            gh release create real-names-two-divisions-2026 --target "$GITHUB_SHA" --title 'Two divisions and ten reserves — real names 2026' --notes 'Names pack for World 0.9.4:352 real clubs across the first two divisions plus10 reserve clubs per supported country. Portugal, England, Spain, Germany, Italy, France, Brazil and Argentina. European membership2026/27; Brazil/Argentina2026; player snapshot July2026. Install World0.9.4, then import this uncompressed JSON in Names Editor. Existing active-club aliases are retained.'
           fi
-          gh release upload real-names-divisions-2026 docs/data/name-packs/Scorer-World-Real-Names-Divisions-2026.json --clobber
+          gh release upload real-names-two-divisions-2026 docs/data/name-packs/Scorer-World-Real-Names-Two-Divisions-2026.json --clobber

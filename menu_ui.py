@@ -423,7 +423,7 @@ class CareerMenu(BoxLayout):
     def _upgrade(self):
         card = self.card('DISCOVER SCORER WORLD')
         card.label('SCORER World is a separate application, with its own installation and career. Opening this page does not charge you.')
-        card.label('World includes worldwide leagues, promotions and transfers, local-country starting contracts and England Division 4.')
+        card.label('World includes worldwide leagues, promotions and transfers, local-country starting contracts and England Division 2.')
         card.label('Play without ads and use the local editor to change club, league and player display names or import your own JSON names file.')
         card.label('Your Free career stays in SCORER Free. World starts a separate career; no automatic transfer or conversion.')
         from world_promotion import listing_url
@@ -456,7 +456,9 @@ class CareerMenu(BoxLayout):
             if league.country == self.game.world_country:
                 grid.add_widget(self._button(self.game.i18n.league(c,league), 'world_league', key))
         card.add_widget(grid)
-        card.label('Simplified format: 2 divisions; 3 promoted and 3 relegated. No playoffs.' if uses_simplified_model(self.game.world_country, EUROPE_PYRAMID_DEPTH) else 'Game format: ranked promotion and relegation; playoffs are decided by fixtures.', muted=True)
+        card.label('Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.',muted=True)
+        card.label('RESERVE CLUBS')
+        for club in c.reserve_clubs(self.game.world_country):card.label(c.display_club(club),localize=False)
 
     def _editor(self):
         if not self.game.career.world_unlocked:
@@ -467,12 +469,14 @@ class CareerMenu(BoxLayout):
 
     def _agent(self):
         c = self.game.career
-        card = self.card('Your agent')
+        card = self.card('FREE AGENT' if c.free_agent else 'Your agent')
         card.label(c.display_text(c.message))
+        if c.free_agent:card.label('Sign for a club to continue your career.')
         card.label('Transfer window open' if c.transfer_window_open else 'Window closed · Jul/Aug and Jan/Feb', muted=True)
         for club, key in c.agent_offers:
             card.add_widget(self._button(c.display_text(f'{club}\n{c.leagues[key].name}', c.leagues[key].country), 'transfer', (club, key)))
         card.add_widget(self._button('FIND OFFERS', 'agent_refresh'))
+        if c.free_agent:card.add_widget(TouchButton('EXIT',self.game._request_exit))
 
     def _competition_team_name(self,team):
         if team['uid'].startswith('nation:'):return self.game.i18n.country(team['country'])

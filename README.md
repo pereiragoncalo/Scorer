@@ -1,3 +1,11 @@
+## Scorer World 0.9.4 — two divisions everywhere
+
+[Download World0.9.4 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9.4/Scorer-World-0.9.4.apk) · [Download updated names JSON](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-two-divisions-2026/Scorer-World-Real-Names-Two-Divisions-2026.json)
+
+All212 countries have two playable divisions. Three clubs move between them each season. The bottom three in Division2 exchange with the front of a10-club reserve queue; relegated clubs go to the back, preserving the pool size and preventing an immediate return. A player whose club leaves Division2 becomes a free agent, with5 valid offers and signing outside normal transfer windows. World → Country shows the two leagues and10 reserve names.
+
+Existing saves, UIDs, names and history are retained. A legacy career below Division2 moves to free-agent status without resetting personal progress. The first migrated write keeps a `.two-divisions-backup.json` copy. Old league objects remain hidden only for compatibility; no new playable destinations or league simulation below tier2. Save and Exit, install over World QA and Load Game; reimport the updated names file if wanted. [Rules and verification](docs/RELEASE_0.9.4.md). DEBUG QA; public launch remains1.0.
+
 ## Corrected real names by division
 
 [Download JSON — Europe2026/27, Brazil/Argentina2026](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-divisions-2026/Scorer-World-Real-Names-Divisions-2026.json). All494 selected club slots checked against their real division; no duplicate real teams. Reimport in Names Editor; World0.9.3 remains compatible, with no APK update. Existing game capacities and simulated movement are preserved. [Reference/validation](docs/data/name-packs/README.md).

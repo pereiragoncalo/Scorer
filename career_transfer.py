@@ -3,7 +3,7 @@ import copy,json
 MAX_BYTES=8*1024*1024
 
 def export_career(career):
-    if not career.club_name or career.save() is False:raise ValueError('No saved career to export.')
+    if (not career.club_name and not career.free_agent) or career.save() is False:raise ValueError('No saved career to export.')
     data=json.loads(career.save_path.read_text(encoding='utf8'))
     # Do not export a historical career of another edition hidden in the envelope.
     data['locked_world_career']=None
@@ -26,7 +26,7 @@ def validated_import(career,text):
             if isinstance(item,dict):stack.extend((v,depth+1) for v in item.values())
             elif isinstance(item,list):stack.extend((v,depth+1) for v in item)
         candidate=object.__new__(type(career));candidate.__dict__={k:(v if k=='entitlements' else copy.deepcopy(v)) for k,v in career.__dict__.items()}
-        if not candidate._load_saved_state(json.dumps(save,ensure_ascii=False)) or not candidate.club_name:raise ValueError()
+        if not candidate._load_saved_state(json.dumps(save,ensure_ascii=False)) or (not candidate.club_name and not candidate.free_agent):raise ValueError()
         return candidate
     except (ValueError,TypeError,KeyError,RecursionError,OverflowError,AttributeError) as e:raise ValueError('Invalid or incompatible career document.') from e
 

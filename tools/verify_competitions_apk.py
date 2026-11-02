@@ -9,7 +9,7 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
             obj=types.ModuleType(name);obj.__file__=str(Path.cwd()/(name+'.py'));sys.modules[name]=obj
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
-        module('season_transitions');rules=module('domestic_rules');career=module('career');competitions=module('world_competitions')
+        module('two_divisions');module('season_transitions');rules=module('domestic_rules');career=module('career');competitions=module('world_competitions')
         import edition
         assert edition.WORLD_BUILD and not edition.WORLD_PREVIEW
         with tempfile.TemporaryDirectory() as directory:
@@ -18,4 +18,17 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             c.save();d=career.CareerMode(edition.entitlement_provider(),save_slot='world');assert d.world_competitions.to_dict()==c.world_competitions.to_dict()
             b=competitions.CompetitionBook(2026,71,c.leagues);b.complete();assert len(b.tournaments['world_cup'].fixtures)==104
             assert all(v.champion for v in b.tournaments.values());competitions.CompetitionBook.from_dict(b.to_dict())
+            assert len(c.domestic_leagues())==2*len(career.WORLD_COUNTRIES)
+            assert all(len(c.reserve_clubs(country))==10 for country in career.WORLD_COUNTRIES)
+            uid=c.club.uid;before=list(c.relegation_pools[c.current_league.country]);c.club.points=-100000
+            c.current_league.round_index=c.current_league.total_rounds;c.week=45;c.world_competitions.complete()
+            assert c.next_match() is None;assert c.free_agent and c.released_club['uid']==uid and len(c.agent_offers)==5
+            assert c.relegation_pools[c.current_league.country][:7]==before[3:]
+            assert uid in c.relegation_pools[c.current_league.country]
+            assert c.save();d=career.CareerMode(edition.entitlement_provider(),save_slot='world');assert d.free_agent and d.relegation_pools==c.relegation_pools
+            transfer=module('career_transfer');assert transfer.validated_import(d,transfer.export_career(d)).free_agent
+            d.week=12;name,key=d.agent_offers[0];d.accept_transfer(name,key);assert not d.free_agent and d.club.name==name and d.club.tier in (1,2)
+
 print('Actual APK bytecode: World fixtures/qualifying/brackets and career save/reload verified; no network sent')
+
+print('Actual APK: two divisions, ten-club FIFO reserves, relegation release, free-agent export/reload/signing verified')

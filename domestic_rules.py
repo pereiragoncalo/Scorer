@@ -12,13 +12,11 @@ PRIORITY_AMERICAS = frozenset({'Brazil', 'Argentina', 'Mexico'})
 
 
 def uses_simplified_model(country, european_depths):
-    return country not in european_depths and country not in PRIORITY_AMERICAS
+    return True  # Owner: every World country now uses the same two-tier model.
 
 
 def division_depth(country, european_depths):
-    if country in european_depths:
-        return european_depths[country]
-    return 4 if country in PRIORITY_AMERICAS else 2
+    return 2
 
 
 def standing_zone(tier, position, team_count):
@@ -27,7 +25,7 @@ def standing_zone(tier, position, team_count):
         return ''
     if tier == 2 and position <= 3:
         return 'Promotion'
-    if tier == 1 and position > team_count - 3:
+    if tier in (1,2) and position > team_count - 3:
         return 'Relegation'
     return ''
 
@@ -86,7 +84,7 @@ def table_zones(tier,team_count,active_tiers,*,simplified,country=""):
     if tier+1 in active_tiers:
         next_direct,next_playoff=promotion_format(country,tier+1,simplified)
         down=next_direct+bool(next_playoff)
-    else:down=0
+    else:down=3 if simplified and tier==2 else 0
     playoff=tuple(p for p in places if p<=team_count-down) if up else ()
     return TableZones(tuple(range(1,up+1)),playoff,
                       tuple(range(team_count-down+1,team_count+1)) if down else (),provisional=False)

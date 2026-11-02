@@ -8,7 +8,7 @@ from kivy.metrics import dp, sp
 from menu_ui import MenuTile, BoundedLabel, Card, CompactTable, MenuLogo
 
 HELP_PAGES = (
-    ('YOUR CAREER', 'Choose New Game or Load Game. Pick a player name and a first contract. Free starts in Scorer League with no country selection. SCORER World is a separate application and career, with local-country contracts and England Division 4 as an option.'),
+    ('YOUR CAREER', 'Choose New Game or Load Game. Pick a player name and a first contract. Free starts in Scorer League with no country selection. SCORER World is a separate application and career, with local-country contracts and England Division 2 as an option.'),
     ('TRAIN, THEN PLAY', 'Complete the three-shot weekly training to unlock Play. A session can be resumed and cannot be repeated that week. Energy and morale influence your opportunities. Progress saves automatically.'),
     ('TAKE YOUR CHANCE', 'Tap inside the goal to aim and shoot, or use the shoot control with the moving aim. Watch power and the time-to-shoot countdown. Opponent strength changes chance quantity and difficulty. Continue at half-time and full-time.'),
     ('PRIVACY & WORLD', 'Scorer and Scorer World are free and ad-free, with separate careers and no in-app purchases. Usage counts are automatic, as explained in Privacy. Public season records require adult-managed access, accepted community rules and separate sharing permission. Career export and import are in Privacy.'),
@@ -16,7 +16,7 @@ HELP_PAGES = (
 
 
 WORLD_HELP_PAGES = (
- ('YOUR CAREER','Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 4 as another option.'),
+ ('YOUR CAREER','Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.'),
  ('TRAIN, THEN PLAY','Complete the three-shot weekly training to unlock Play. You can resume an unfinished session, but only one session is available each career week. Energy and morale affect your chances. Progress saves automatically.'),
  ('TAKE YOUR CHANCE','Tap the goal to aim and shoot. Watch the moving aim, power and shot timer. Opponent strength changes the number and difficulty of chances. Continue at half-time and full-time.'),
  ('WORLD & NAMES','World has no ads. Use the names editor to rename clubs, leagues and players or import a JSON names file. Changes stay on this device and do not alter statistics.'),
