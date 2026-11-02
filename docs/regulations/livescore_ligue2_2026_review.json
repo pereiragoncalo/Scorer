@@ -1,0 +1,158 @@
+{
+  "retrieved_utc": "2026-11-02T11:18:00.319299+00:00",
+  "competition": "France Ligue 2",
+  "season_context": "2026-27; fixtures on source dated October/November2026",
+  "source_url": "https://www.livescores.com/football/france/ligue-2/",
+  "source_relation": "Legacy site explicitly linked by livescore.com browser-compatibility notice",
+  "primary_url": "https://www.livescore.com/en/football/france/ligue-2/",
+  "html_sha256": "5626c5ada024f6dfefa5587ed271da69d75e5124e8d222442a2bdf8b0f4a0568",
+  "team_count": 18,
+  "table": [
+    {
+      "position": 1,
+      "team": "Saint-Etienne",
+      "zone": "Promotion",
+      "played": 11,
+      "points": 25
+    },
+    {
+      "position": 2,
+      "team": "Montpellier",
+      "zone": "Promotion",
+      "played": 11,
+      "points": 24
+    },
+    {
+      "position": 3,
+      "team": "Pau",
+      "zone": "Promotion play-off",
+      "played": 11,
+      "points": 20
+    },
+    {
+      "position": 4,
+      "team": "Nancy",
+      "zone": "Promotion play-off",
+      "played": 10,
+      "points": 19
+    },
+    {
+      "position": 5,
+      "team": "Reims",
+      "zone": "Promotion play-off",
+      "played": 10,
+      "points": 18
+    },
+    {
+      "position": 6,
+      "team": "Red Star",
+      "zone": "",
+      "played": 10,
+      "points": 17
+    },
+    {
+      "position": 7,
+      "team": "FC Annecy",
+      "zone": "",
+      "played": 11,
+      "points": 16
+    },
+    {
+      "position": 8,
+      "team": "Dijon",
+      "zone": "",
+      "played": 11,
+      "points": 15
+    },
+    {
+      "position": 9,
+      "team": "Guingamp",
+      "zone": "",
+      "played": 11,
+      "points": 14
+    },
+    {
+      "position": 10,
+      "team": "Metz",
+      "zone": "",
+      "played": 11,
+      "points": 14
+    },
+    {
+      "position": 11,
+      "team": "Rodez",
+      "zone": "",
+      "played": 11,
+      "points": 13
+    },
+    {
+      "position": 12,
+      "team": "Dunkerque",
+      "zone": "",
+      "played": 11,
+      "points": 12
+    },
+    {
+      "position": 13,
+      "team": "Sochaux",
+      "zone": "",
+      "played": 10,
+      "points": 11
+    },
+    {
+      "position": 14,
+      "team": "Boulogne",
+      "zone": "",
+      "played": 11,
+      "points": 10
+    },
+    {
+      "position": 15,
+      "team": "Nantes",
+      "zone": "",
+      "played": 11,
+      "points": 9
+    },
+    {
+      "position": 16,
+      "team": "Laval",
+      "zone": "Relegation play-off",
+      "played": 11,
+      "points": 9
+    },
+    {
+      "position": 17,
+      "team": "Clermont Foot 63",
+      "zone": "Relegation",
+      "played": 11,
+      "points": 8
+    },
+    {
+      "position": 18,
+      "team": "Grenoble",
+      "zone": "Relegation",
+      "played": 11,
+      "points": 8
+    }
+  ],
+  "zones": {
+    "direct_promotion": [
+      1,
+      2
+    ],
+    "promotion_playoff": [
+      3,
+      4,
+      5
+    ],
+    "relegation_playoff": [
+      16
+    ],
+    "direct_relegation": [
+      17,
+      18
+    ]
+  },
+  "limitations": "Table zones establish positions only; playoff opponents, legs, tiebreakers and eligibility need official regulation verification. App generic3/3 rules are unchanged.",
+  "matches_existing_reference_team_set": true
+}

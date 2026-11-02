@@ -1,3 +1,7 @@
+## Ligue 2 follow-up: LiveScore complete table available
+
+The LiveScore overview links to its compatible legacy site, which returns the complete18-team table in public HTML: [France Ligue2](https://www.livescores.com/football/france/ligue-2/). [Extracted facts and source hash](livescore_ligue2_2026_review.json). This closes the missing French club-table source noted below. The18-club set matches the existing2026-27 reference manifest. Positions1–2: promotion;3–5: promotion playoff;16: relegation playoff;17–18: relegation. Exact playoff formats still require official regulation verification. The app remains on generic3/3 movement; research is not an implemented game correction.
+
 # Zerozero and domestic-data review — 2026-11-02
 
 ## Successful retry
