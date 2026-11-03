@@ -320,5 +320,11 @@
   "Sign for a club to continue your career.": "선수 생활을 계속하려면 팀과 계약하세요.",
   "RESERVE CLUBS": "예비 팀",
   "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "두 개의 디비전에서 세 팀씩 승격 및 강등됩니다. 2부 강등 팀은 예비 10개 팀과 순환 교체됩니다.",
-  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "새 게임 또는 게임 불러오기를 선택하세요. 선수 이름을 정하고 첫 계약을 선택하세요. 휴대전화의 국가를 추천하며 잉글랜드 2부에서 시작할 수도 있습니다."
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "새 게임 또는 게임 불러오기를 선택하세요. 선수 이름을 정하고 첫 계약을 선택하세요. 휴대전화의 국가를 추천하며 잉글랜드 2부에서 시작할 수도 있습니다.",
+  "PO: Playoff {places}": "PO: 플레이오프 {places}",
+  "Playoff results decide promotion or relegation.": "플레이오프 결과에 따라 승격 또는 강등이 결정됩니다.",
+  "Selection pending": "소집 대기",
+  "Called up": "소집됨",
+  "Not selected": "소집되지 않음",
+  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "승격과 강등은 대회 규정을 따릅니다. 2부 리그 이탈 팀은 10개 예비 구단에서 순환하여 대체됩니다."
 }

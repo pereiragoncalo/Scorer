@@ -314,7 +314,7 @@ class CareerMenu(BoxLayout):
         c=self.game.career
         if not c.world_unlocked:return None
         return table_zones(league.tier,len(league.clubs),{l.tier for l in c.domestic_leagues(league.country)},
-                           simplified=uses_simplified_model(league.country,EUROPE_PYRAMID_DEPTH),country=league.country)
+                           simplified=uses_simplified_model(league.country,EUROPE_PYRAMID_DEPTH),country=league.country,league=league)
 
     def _standing_position(self,league,position):
         zones=self._table_zones(league)
@@ -456,7 +456,7 @@ class CareerMenu(BoxLayout):
             if league.country == self.game.world_country:
                 grid.add_widget(self._button(self.game.i18n.league(c,league), 'world_league', key))
         card.add_widget(grid)
-        card.label('Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.',muted=True)
+        card.label('Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.',muted=True)
         card.label('RESERVE CLUBS')
         for club in c.reserve_clubs(self.game.world_country):card.label(c.display_club(club),localize=False)
 
@@ -1080,13 +1080,13 @@ class StandingsRulesDialog(ModalView):
         else:
             for field,source,empty in (
                 ('promotion','P: Promotion {places}','P: No promotion'),
-                ('playoff','PO: Promotion playoff {places}','PO: No playoffs'),
+                ('playoff','PO: Playoff {places}','PO: No playoffs'),
                 ('relegation','R: Relegation {places}','R: No relegation')):
                 places=getattr(zones,field)
-                text=localizer.tr(source,places=f'{places[0]}-{places[-1]}') if places else localizer.tr(empty)
+                text=localizer.tr(source,places=', '.join(map(str,places))) if places else localizer.tr(empty)
                 self.body.add_widget(FlowLabel(text=text,font_size=sp(14),color=ZONE_COLOURS[field] if places else MUTED))
             if zones.playoff:
-                self.body.add_widget(FlowLabel(text='Playoff promotion is decided by knockout fixtures.',font_size=sp(13)))
+                self.body.add_widget(FlowLabel(text='Playoff results decide promotion or relegation.',font_size=sp(13)))
             if zones.provisional:
                 self.body.add_widget(FlowLabel(text='Country-specific regulations are still being implemented.',font_size=sp(13),color=MUTED))
         self.back=MenuTile('BACK',self.dismiss);self.panel.add_widget(self.back)

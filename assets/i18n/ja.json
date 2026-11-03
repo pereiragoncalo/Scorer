@@ -320,5 +320,11 @@
   "Sign for a club to continue your career.": "キャリアを続けるにはクラブと契約してください。",
   "RESERVE CLUBS": "待機クラブ",
   "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "2つのディビジョンで各3クラブが昇降格します。2部からの降格は10クラブの待機枠と順番に入れ替わります。",
-  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "新しいゲームかロードを選び、選手名と最初の契約を決めましょう。端末の国が候補になりますが、イングランド2部から始めることもできます。"
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "新しいゲームかロードを選び、選手名と最初の契約を決めましょう。端末の国が候補になりますが、イングランド2部から始めることもできます。",
+  "PO: Playoff {places}": "PO: プレーオフ {places}",
+  "Playoff results decide promotion or relegation.": "プレーオフの結果で昇格または降格が決まります。",
+  "Selection pending": "招集未定",
+  "Called up": "招集済み",
+  "Not selected": "招集なし",
+  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "昇格と降格は大会規則に従います。2部からの退出には10クラブの交代制予備枠を使用します。"
 }

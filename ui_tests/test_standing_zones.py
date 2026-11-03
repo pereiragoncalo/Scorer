@@ -20,8 +20,8 @@ class StandingZoneUITests(unittest.TestCase):
             Window.size=(1280,640)
             with patch('edition.WORLD_BUILD',True),isolated_game() as g:
                 self.world(g);g.career.club_name=g.career.current_league.table()[8].name;g.career.save();rng=g.career.rng.getstate();save=g.career.save_path.read_bytes();identity=g.career.league_key
-                t=self.table(g);self.assertEqual([r[0] for r in t.rows[:8]],['1 P','2 P','3 P',4,5,6,7,8])
-                self.assertEqual(t.zones.relegation,(16,17,18))
+                t=self.table(g);self.assertEqual(len(t.zones.promotion),2);self.assertEqual(len([p for p in t.zones.playoff if p<10]),1)
+                self.assertEqual(t.zones.relegation,(17,18));self.assertIn(16,t.zones.playoff)
                 hero=next(w for row in t.lines.children for w in row.children if isinstance(w,Label) and w.text==g.career.display_text(g.career.club_name))
                 self.assertNotEqual(tuple(hero.color),GREEN)
                 for row in t.lines.children:
@@ -29,12 +29,12 @@ class StandingZoneUITests(unittest.TestCase):
                         label=next(w for w in row.children if isinstance(w,Label) and w.text.endswith((' P',' PO',' R')))
                         self.assertEqual(tuple(label.color),ZONE_COLOURS[row.standing_zone])
                 t.show_rules();settle();p=t.rules_popup;texts={w.text for w in p.walk() if isinstance(w,Label)}
-                self.assertIn(g.i18n.tr('PO: No playoffs'),texts)
-                self.assertIn(g.i18n.tr('R: Relegation {places}',places='16-18'),texts);p.dismiss();settle()
-                t=self.table(g,'Portugal|2');self.assertEqual([r[0] for r in t.rows[-3:]],['16 R','17 R','18 R']);t.move(t.pages-1);settle()
+                self.assertTrue(any('PO:' in text for text in texts))
+                self.assertIn(g.i18n.tr('R: Relegation {places}',places='17, 18'),texts);p.dismiss();settle()
+                t=self.table(g,'Portugal|2');self.assertEqual([r[0] for r in t.rows[-3:]],['16 PO','17 R','18 R']);t.move(t.pages-1);settle()
                 self.assertIn('relegation',{r.standing_zone for r in t.lines.children})
                 t.toggle_detail();settle();self.assertIn('relegation',{r.standing_zone for r in t.lines.children})
-                t=self.table(g,'Portugal|1');self.assertFalse(t.zones.promotion);self.assertFalse(t.zones.playoff)
+                t=self.table(g,'Portugal|1');self.assertFalse(t.zones.promotion);self.assertEqual(t.zones.playoff,(16,))
                 self.assertEqual(g.career.rng.getstate(),rng);self.assertEqual(g.career.save_path.read_bytes(),save);self.assertEqual(g.career.league_key,identity)
         finally:Window.size=old
     def test_simplified_model_marks_both_divisions_and_explicit_no_playoffs(self):

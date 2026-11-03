@@ -1,0 +1,3915 @@
+{
+  "schema": 1,
+  "retrieved": "2026-11-02",
+  "review_updated": "2026-11-03",
+  "requested_scope": "Real domestic formats in all212 game countries, including groups/phases; maximum two playable tiers.",
+  "distinct_retrieved_article_count": 608,
+  "countries_with_candidates": 212,
+  "country_models_fully_implemented": 0,
+  "countries": [
+    {
+      "country": "Albania",
+      "candidates": [
+        {
+          "title": "Kategoria Superiore",
+          "revision": 1372640428,
+          "url": "https://en.wikipedia.org/wiki/Kategoria_Superiore",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Kategoria Superiore U-21",
+          "revision": 1295282047,
+          "url": "https://en.wikipedia.org/wiki/Kategoria_Superiore_U-21",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Kategoria e Parë",
+          "revision": 1369171649,
+          "url": "https://en.wikipedia.org/wiki/Kategoria_e_Par%C3%AB",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Andorra",
+      "candidates": [
+        {
+          "title": "Primera Divisió",
+          "revision": 1373774974,
+          "url": "https://en.wikipedia.org/wiki/Primera_Divisi%C3%B3",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Armenia",
+      "candidates": [
+        {
+          "title": "Armenian Premier League",
+          "revision": 1383259445,
+          "url": "https://en.wikipedia.org/wiki/Armenian_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Armenian First League",
+          "revision": 1382044172,
+          "url": "https://en.wikipedia.org/wiki/Armenian_First_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Austria",
+      "candidates": [
+        {
+          "title": "Austrian Football Bundesliga",
+          "revision": 1381052204,
+          "url": "https://en.wikipedia.org/wiki/Austrian_Football_Bundesliga",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Azerbaijan",
+      "candidates": [
+        {
+          "title": "Azerbaijan Premier League",
+          "revision": 1378352739,
+          "url": "https://en.wikipedia.org/wiki/Azerbaijan_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Belarus",
+      "candidates": [
+        {
+          "title": "Belarusian Premier League",
+          "revision": 1369358405,
+          "url": "https://en.wikipedia.org/wiki/Belarusian_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Belarusian First League",
+          "revision": 1369358420,
+          "url": "https://en.wikipedia.org/wiki/Belarusian_First_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Belgium",
+      "candidates": [
+        {
+          "title": "Belgian Pro League",
+          "revision": 1376034374,
+          "url": "https://en.wikipedia.org/wiki/Belgian_Pro_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Challenger Pro League",
+          "revision": 1369439464,
+          "url": "https://en.wikipedia.org/wiki/Challenger_Pro_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Bosnia and Herzegovina",
+      "candidates": [
+        {
+          "title": "First League of Bosnia and Herzegovina",
+          "revision": 1369444000,
+          "url": "https://en.wikipedia.org/wiki/First_League_of_Bosnia_and_Herzegovina",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Bulgaria",
+      "candidates": [
+        {
+          "title": "First Professional Football League (Bulgaria)",
+          "revision": 1383097964,
+          "url": "https://en.wikipedia.org/wiki/First_Professional_Football_League_%28Bulgaria%29",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Second Professional Football League (Bulgaria)",
+          "revision": 1364247051,
+          "url": "https://en.wikipedia.org/wiki/Second_Professional_Football_League_%28Bulgaria%29",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Croatia",
+      "candidates": [
+        {
+          "title": "HNL",
+          "revision": 1283284779,
+          "url": "https://en.wikipedia.org/wiki/HNL",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Cyprus",
+      "candidates": [
+        {
+          "title": "KTFF Süper Lig",
+          "revision": 1363228147,
+          "url": "https://en.wikipedia.org/wiki/KTFF_S%C3%BCper_Lig",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Czechia",
+      "candidates": [
+        {
+          "title": "Czech First League",
+          "revision": 1379892945,
+          "url": "https://en.wikipedia.org/wiki/Czech_First_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Czech National Football League",
+          "revision": 1369874200,
+          "url": "https://en.wikipedia.org/wiki/Czech_National_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Denmark",
+      "candidates": [
+        {
+          "title": "Danish Superliga",
+          "revision": 1381009651,
+          "url": "https://en.wikipedia.org/wiki/Danish_Superliga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Danish 1st Division",
+          "revision": 1381724353,
+          "url": "https://en.wikipedia.org/wiki/Danish_1st_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "England",
+      "candidates": [
+        {
+          "title": "Premier League",
+          "revision": 1383013832,
+          "url": "https://en.wikipedia.org/wiki/Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "EFL Championship",
+          "revision": 1381054114,
+          "url": "https://en.wikipedia.org/wiki/EFL_Championship",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Estonia",
+      "candidates": [
+        {
+          "title": "Meistriliiga",
+          "revision": 1380049335,
+          "url": "https://en.wikipedia.org/wiki/Meistriliiga",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Faroe Islands",
+      "candidates": [
+        {
+          "title": "Faroe Islands Premier League",
+          "revision": 1383045111,
+          "url": "https://en.wikipedia.org/wiki/Faroe_Islands_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "1. deild",
+          "revision": 1356377092,
+          "url": "https://en.wikipedia.org/wiki/1._deild",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Finland",
+      "candidates": [
+        {
+          "title": "Veikkausliiga",
+          "revision": 1378162286,
+          "url": "https://en.wikipedia.org/wiki/Veikkausliiga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Ykkösliiga",
+          "revision": 1383268084,
+          "url": "https://en.wikipedia.org/wiki/Ykk%C3%B6sliiga",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "France",
+      "candidates": [
+        {
+          "title": "Ligue 1",
+          "revision": 1383244255,
+          "url": "https://en.wikipedia.org/wiki/Ligue_1",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Georgia",
+      "candidates": [
+        {
+          "title": "Erovnuli Liga",
+          "revision": 1370681907,
+          "url": "https://en.wikipedia.org/wiki/Erovnuli_Liga",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Germany",
+      "candidates": [
+        {
+          "title": "Under 19 Bundesliga",
+          "revision": 1294525113,
+          "url": "https://en.wikipedia.org/wiki/Under_19_Bundesliga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Under 17 Bundesliga",
+          "revision": 1239664498,
+          "url": "https://en.wikipedia.org/wiki/Under_17_Bundesliga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Bundesliga",
+          "revision": 1382696289,
+          "url": "https://en.wikipedia.org/wiki/Bundesliga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "2. Bundesliga",
+          "revision": 1376798648,
+          "url": "https://en.wikipedia.org/wiki/2._Bundesliga",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Gibraltar",
+      "candidates": [
+        {
+          "title": "Gibraltar Premier Division",
+          "revision": 1371539033,
+          "url": "https://en.wikipedia.org/wiki/Gibraltar_Premier_Division",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Gibraltar Football League",
+          "revision": 1373225111,
+          "url": "https://en.wikipedia.org/wiki/Gibraltar_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Greece",
+      "candidates": [
+        {
+          "title": "Super League Greece",
+          "revision": 1383352621,
+          "url": "https://en.wikipedia.org/wiki/Super_League_Greece",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Hungary",
+      "candidates": [
+        {
+          "title": "Nemzeti Bajnokság I",
+          "revision": 1373705488,
+          "url": "https://en.wikipedia.org/wiki/Nemzeti_Bajnoks%C3%A1g_I",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Nemzeti Bajnokság II",
+          "revision": 1382448562,
+          "url": "https://en.wikipedia.org/wiki/Nemzeti_Bajnoks%C3%A1g_II",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Iceland",
+      "candidates": [
+        {
+          "title": "Besta deild karla",
+          "revision": 1381832975,
+          "url": "https://en.wikipedia.org/wiki/Besta_deild_karla",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Israel",
+      "candidates": [
+        {
+          "title": "Israeli Premier League",
+          "revision": 1376531793,
+          "url": "https://en.wikipedia.org/wiki/Israeli_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga Leumit",
+          "revision": 1371430748,
+          "url": "https://en.wikipedia.org/wiki/Liga_Leumit",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Italy",
+      "candidates": [
+        {
+          "title": "Serie A",
+          "revision": 1382942253,
+          "url": "https://en.wikipedia.org/wiki/Serie_A",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Serie B",
+          "revision": 1380384660,
+          "url": "https://en.wikipedia.org/wiki/Serie_B",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Kazakhstan",
+      "candidates": [
+        {
+          "title": "Kazakhstan Premier League",
+          "revision": 1382031574,
+          "url": "https://en.wikipedia.org/wiki/Kazakhstan_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Kosovo",
+      "candidates": [
+        {
+          "title": "Football Superleague of Kosovo",
+          "revision": 1374366427,
+          "url": "https://en.wikipedia.org/wiki/Football_Superleague_of_Kosovo",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Latvia",
+      "candidates": [
+        {
+          "title": "Latvian Higher League",
+          "revision": 1381073714,
+          "url": "https://en.wikipedia.org/wiki/Latvian_Higher_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Liechtenstein",
+      "candidates": [
+        {
+          "title": "Football in Liechtenstein",
+          "revision": 1381146559,
+          "url": "https://en.wikipedia.org/wiki/Football_in_Liechtenstein",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Lithuania",
+      "candidates": [
+        {
+          "title": "Toplyga",
+          "revision": 1377671496,
+          "url": "https://en.wikipedia.org/wiki/Toplyga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "I Lyga",
+          "revision": 1373002691,
+          "url": "https://en.wikipedia.org/wiki/I_Lyga",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Luxembourg",
+      "candidates": [
+        {
+          "title": "Luxembourg National Division",
+          "revision": 1382359786,
+          "url": "https://en.wikipedia.org/wiki/Luxembourg_National_Division",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Luxembourg Division of Honour",
+          "revision": 1377636346,
+          "url": "https://en.wikipedia.org/wiki/Luxembourg_Division_of_Honour",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Malta",
+      "candidates": [
+        {
+          "title": "Maltese Premier League",
+          "revision": 1381234470,
+          "url": "https://en.wikipedia.org/wiki/Maltese_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Moldova",
+      "candidates": [
+        {
+          "title": "Moldovan Liga",
+          "revision": 1379376735,
+          "url": "https://en.wikipedia.org/wiki/Moldovan_Liga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Moldovan Liga 1",
+          "revision": 1373695520,
+          "url": "https://en.wikipedia.org/wiki/Moldovan_Liga_1",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Montenegro",
+      "candidates": [
+        {
+          "title": "Montenegrin Republic League",
+          "revision": 1350645705,
+          "url": "https://en.wikipedia.org/wiki/Montenegrin_Republic_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Netherlands",
+      "candidates": [
+        {
+          "title": "Fox Sports Eredivisie",
+          "revision": 1241180013,
+          "url": "https://en.wikipedia.org/wiki/Fox_Sports_Eredivisie",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "ESPN (Netherlands)",
+          "revision": 1382295936,
+          "url": "https://en.wikipedia.org/wiki/ESPN_%28Netherlands%29",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Eredivisie",
+          "revision": 1382092483,
+          "url": "https://en.wikipedia.org/wiki/Eredivisie",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Eerste Divisie",
+          "revision": 1382094822,
+          "url": "https://en.wikipedia.org/wiki/Eerste_Divisie",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "North Macedonia",
+      "candidates": [
+        {
+          "title": "Macedonian First Football League",
+          "revision": 1375722131,
+          "url": "https://en.wikipedia.org/wiki/Macedonian_First_Football_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Macedonian Second Football League",
+          "revision": 1375722617,
+          "url": "https://en.wikipedia.org/wiki/Macedonian_Second_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Northern Ireland",
+      "candidates": [
+        {
+          "title": "NIFL Premiership",
+          "revision": 1381015680,
+          "url": "https://en.wikipedia.org/wiki/NIFL_Premiership",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "NIFL Championship",
+          "revision": 1376854438,
+          "url": "https://en.wikipedia.org/wiki/NIFL_Championship",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Norway",
+      "candidates": [
+        {
+          "title": "Kniksen Award",
+          "revision": 1365448314,
+          "url": "https://en.wikipedia.org/wiki/Kniksen_Award",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Eliteserien",
+          "revision": 1383240033,
+          "url": "https://en.wikipedia.org/wiki/Eliteserien",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Norwegian First Division",
+          "revision": 1374470412,
+          "url": "https://en.wikipedia.org/wiki/Norwegian_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Poland",
+      "candidates": [
+        {
+          "title": "Młoda Ekstraklasa",
+          "revision": 1374807749,
+          "url": "https://en.wikipedia.org/wiki/M%C5%82oda_Ekstraklasa",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Ekstraklasa Awards",
+          "revision": 1381962039,
+          "url": "https://en.wikipedia.org/wiki/Ekstraklasa_Awards",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Ekstraklasa",
+          "revision": 1382889915,
+          "url": "https://en.wikipedia.org/wiki/Ekstraklasa",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "I liga",
+          "revision": 1374807437,
+          "url": "https://en.wikipedia.org/wiki/I_liga",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Portugal",
+      "candidates": [
+        {
+          "title": "Primeira Liga",
+          "revision": 1379436793,
+          "url": "https://en.wikipedia.org/wiki/Primeira_Liga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Segunda Divisão",
+          "revision": 1374814474,
+          "url": "https://en.wikipedia.org/wiki/Segunda_Divis%C3%A3o",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Republic of Ireland",
+      "candidates": [
+        {
+          "title": "League of Ireland Premier Division",
+          "revision": 1383062273,
+          "url": "https://en.wikipedia.org/wiki/League_of_Ireland_Premier_Division",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "League of Ireland First Division",
+          "revision": 1382317232,
+          "url": "https://en.wikipedia.org/wiki/League_of_Ireland_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Romania",
+      "candidates": [
+        {
+          "title": "Liga I",
+          "revision": 1382319951,
+          "url": "https://en.wikipedia.org/wiki/Liga_I",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga II",
+          "revision": 1381697571,
+          "url": "https://en.wikipedia.org/wiki/Liga_II",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Russia",
+      "candidates": [
+        {
+          "title": "Russian Premier League",
+          "revision": 1380364916,
+          "url": "https://en.wikipedia.org/wiki/Russian_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Russian First League",
+          "revision": 1382306771,
+          "url": "https://en.wikipedia.org/wiki/Russian_First_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "San Marino",
+      "candidates": [
+        {
+          "title": "Campionato Sammarinese",
+          "revision": 1382982056,
+          "url": "https://en.wikipedia.org/wiki/Campionato_Sammarinese",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Scotland",
+      "candidates": [
+        {
+          "title": "Scottish Premiership",
+          "revision": 1383338841,
+          "url": "https://en.wikipedia.org/wiki/Scottish_Premiership",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Scottish Championship",
+          "revision": 1362017407,
+          "url": "https://en.wikipedia.org/wiki/Scottish_Championship",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Serbia",
+      "candidates": [
+        {
+          "title": "Serbian SuperLiga",
+          "revision": 1383197627,
+          "url": "https://en.wikipedia.org/wiki/Serbian_SuperLiga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Serbian First League",
+          "revision": 1377334634,
+          "url": "https://en.wikipedia.org/wiki/Serbian_First_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Slovakia",
+      "candidates": [
+        {
+          "title": "Slovak First Football League",
+          "revision": 1380693905,
+          "url": "https://en.wikipedia.org/wiki/Slovak_First_Football_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "2. Liga (Slovakia)",
+          "revision": 1375901057,
+          "url": "https://en.wikipedia.org/wiki/2._Liga_%28Slovakia%29",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Slovenia",
+      "candidates": [
+        {
+          "title": "Slovenian PrvaLiga",
+          "revision": 1376817660,
+          "url": "https://en.wikipedia.org/wiki/Slovenian_PrvaLiga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Slovenian Second League",
+          "revision": 1375538860,
+          "url": "https://en.wikipedia.org/wiki/Slovenian_Second_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Spain",
+      "candidates": [
+        {
+          "title": "La Liga",
+          "revision": 1383015595,
+          "url": "https://en.wikipedia.org/wiki/La_Liga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Segunda División",
+          "revision": 1382378422,
+          "url": "https://en.wikipedia.org/wiki/Segunda_Divisi%C3%B3n",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Sweden",
+      "candidates": [
+        {
+          "title": "Allsvenskan",
+          "revision": 1379910619,
+          "url": "https://en.wikipedia.org/wiki/Allsvenskan",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Superettan",
+          "revision": 1383071681,
+          "url": "https://en.wikipedia.org/wiki/Superettan",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Switzerland",
+      "candidates": [
+        {
+          "title": "Swiss Super League",
+          "revision": 1379699431,
+          "url": "https://en.wikipedia.org/wiki/Swiss_Super_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Turkey",
+      "candidates": [
+        {
+          "title": "Süper Lig",
+          "revision": 1383131548,
+          "url": "https://en.wikipedia.org/wiki/S%C3%BCper_Lig",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "TFF 1. Lig",
+          "revision": 1376132851,
+          "url": "https://en.wikipedia.org/wiki/TFF_1._Lig",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Ukraine",
+      "candidates": [
+        {
+          "title": "Ukrainian Premier League",
+          "revision": 1376136789,
+          "url": "https://en.wikipedia.org/wiki/Ukrainian_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Wales",
+      "candidates": [
+        {
+          "title": "Welsh League Cup",
+          "revision": 1376432057,
+          "url": "https://en.wikipedia.org/wiki/Welsh_League_Cup",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Cymru Premier Golden Boot",
+          "revision": 1349742972,
+          "url": "https://en.wikipedia.org/wiki/Cymru_Premier_Golden_Boot",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Argentina",
+      "candidates": [
+        {
+          "title": "AFA Liga Profesional de Fútbol",
+          "revision": 1375101255,
+          "url": "https://en.wikipedia.org/wiki/AFA_Liga_Profesional_de_F%C3%BAtbol",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Bolivia",
+      "candidates": [
+        {
+          "title": "FBF División Profesional",
+          "revision": 1369442110,
+          "url": "https://en.wikipedia.org/wiki/FBF_Divisi%C3%B3n_Profesional",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Brazil",
+      "candidates": [
+        {
+          "title": "Campeonato Brasileiro Série A",
+          "revision": 1382896065,
+          "url": "https://en.wikipedia.org/wiki/Campeonato_Brasileiro_S%C3%A9rie_A",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Chile",
+      "candidates": [
+        {
+          "title": "Liga de Primera",
+          "revision": 1373683289,
+          "url": "https://en.wikipedia.org/wiki/Liga_de_Primera",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Campeonato Nacional Primera B",
+          "revision": 1375639831,
+          "url": "https://en.wikipedia.org/wiki/Campeonato_Nacional_Primera_B",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Colombia",
+      "candidates": [
+        {
+          "title": "Liga DIMAYOR",
+          "revision": 1381263318,
+          "url": "https://en.wikipedia.org/wiki/Liga_DIMAYOR",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Superliga Colombiana",
+          "revision": 1369487189,
+          "url": "https://en.wikipedia.org/wiki/Superliga_Colombiana",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Categoría Primera B",
+          "revision": 1375722851,
+          "url": "https://en.wikipedia.org/wiki/Categor%C3%ADa_Primera_B",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Ecuador",
+      "candidates": [
+        {
+          "title": "LigaPro Serie A",
+          "revision": 1370748683,
+          "url": "https://en.wikipedia.org/wiki/LigaPro_Serie_A",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Ecuadorian Serie B",
+          "revision": 1369791341,
+          "url": "https://en.wikipedia.org/wiki/Ecuadorian_Serie_B",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Paraguay",
+      "candidates": [
+        {
+          "title": "APF División de Honor",
+          "revision": 1383091731,
+          "url": "https://en.wikipedia.org/wiki/APF_Divisi%C3%B3n_de_Honor",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "APF División Intermedia",
+          "revision": 1383243751,
+          "url": "https://en.wikipedia.org/wiki/APF_Divisi%C3%B3n_Intermedia",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Peru",
+      "candidates": [
+        {
+          "title": "Primera División Femenina (Peru)",
+          "revision": 1381083947,
+          "url": "https://en.wikipedia.org/wiki/Primera_Divisi%C3%B3n_Femenina_%28Peru%29",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga 1 (Peru)",
+          "revision": 1376002199,
+          "url": "https://en.wikipedia.org/wiki/Liga_1_%28Peru%29",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga 2 (Peru)",
+          "revision": 1376713735,
+          "url": "https://en.wikipedia.org/wiki/Liga_2_%28Peru%29",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga de Ascenso Femenina (Perú)",
+          "revision": 1379176065,
+          "url": "https://en.wikipedia.org/wiki/Liga_de_Ascenso_Femenina_%28Per%C3%BA%29",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Uruguay",
+      "candidates": [
+        {
+          "title": "Liga AUF Uruguaya",
+          "revision": 1378174895,
+          "url": "https://en.wikipedia.org/wiki/Liga_AUF_Uruguaya",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Uruguayan Segunda División",
+          "revision": 1378771387,
+          "url": "https://en.wikipedia.org/wiki/Uruguayan_Segunda_Divisi%C3%B3n",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Venezuela",
+      "candidates": [
+        {
+          "title": "Liga FUTVE",
+          "revision": 1378058212,
+          "url": "https://en.wikipedia.org/wiki/Liga_FUTVE",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga FUTVE 2",
+          "revision": 1376429643,
+          "url": "https://en.wikipedia.org/wiki/Liga_FUTVE_2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Anguilla",
+      "candidates": [
+        {
+          "title": "AFA Senior Male League",
+          "revision": 1378436625,
+          "url": "https://en.wikipedia.org/wiki/AFA_Senior_Male_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Antigua and Barbuda",
+      "candidates": [
+        {
+          "title": "Antigua and Barbuda Premier Division",
+          "revision": 1378443492,
+          "url": "https://en.wikipedia.org/wiki/Antigua_and_Barbuda_Premier_Division",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Antigua and Barbuda First Division",
+          "revision": 1369181272,
+          "url": "https://en.wikipedia.org/wiki/Antigua_and_Barbuda_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Aruba",
+      "candidates": [
+        {
+          "title": "Aruban Division di Honor",
+          "revision": 1382936255,
+          "url": "https://en.wikipedia.org/wiki/Aruban_Division_di_Honor",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Aruban Division Uno",
+          "revision": 1380725965,
+          "url": "https://en.wikipedia.org/wiki/Aruban_Division_Uno",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Bahamas",
+      "candidates": [
+        {
+          "title": "BFA Senior League",
+          "revision": 1377441491,
+          "url": "https://en.wikipedia.org/wiki/BFA_Senior_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Barbados",
+      "candidates": [
+        {
+          "title": "Barbados Premier League",
+          "revision": 1374034668,
+          "url": "https://en.wikipedia.org/wiki/Barbados_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Barbados Division One",
+          "revision": 1372862428,
+          "url": "https://en.wikipedia.org/wiki/Barbados_Division_One",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Belize",
+      "candidates": [
+        {
+          "title": "Premier League of Belize",
+          "revision": 1382988078,
+          "url": "https://en.wikipedia.org/wiki/Premier_League_of_Belize",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Bermuda",
+      "candidates": [
+        {
+          "title": "Bermudian Premier Division",
+          "revision": 1362044311,
+          "url": "https://en.wikipedia.org/wiki/Bermudian_Premier_Division",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Bermuda First Division",
+          "revision": 1356631037,
+          "url": "https://en.wikipedia.org/wiki/Bermuda_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "British Virgin Islands",
+      "candidates": [
+        {
+          "title": "BVIFA National Football League",
+          "revision": 1377323719,
+          "url": "https://en.wikipedia.org/wiki/BVIFA_National_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Canada",
+      "candidates": [
+        {
+          "title": "Major League Soccer",
+          "revision": 1383349089,
+          "url": "https://en.wikipedia.org/wiki/Major_League_Soccer",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Canadian Premier League",
+          "revision": 1383361481,
+          "url": "https://en.wikipedia.org/wiki/Canadian_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Cayman Islands",
+      "candidates": [
+        {
+          "title": "Cayman Islands Premier League",
+          "revision": 1380496045,
+          "url": "https://en.wikipedia.org/wiki/Cayman_Islands_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Cayman Islands First Division",
+          "revision": 1356631038,
+          "url": "https://en.wikipedia.org/wiki/Cayman_Islands_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Costa Rica",
+      "candidates": [
+        {
+          "title": "Liga FPD",
+          "revision": 1369507949,
+          "url": "https://en.wikipedia.org/wiki/Liga_FPD",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Segunda División de Costa Rica",
+          "revision": 1369507981,
+          "url": "https://en.wikipedia.org/wiki/Segunda_Divisi%C3%B3n_de_Costa_Rica",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Cuba",
+      "candidates": [
+        {
+          "title": "Liga Nacional de Cuba",
+          "revision": 1361326420,
+          "url": "https://en.wikipedia.org/wiki/Liga_Nacional_de_Cuba",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Curacao",
+      "candidates": [
+        {
+          "title": "Curaçao Promé Divishon",
+          "revision": 1382995486,
+          "url": "https://en.wikipedia.org/wiki/Cura%C3%A7ao_Prom%C3%A9_Divishon",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Dominica",
+      "candidates": [
+        {
+          "title": "Dominica Premier League",
+          "revision": 1376322862,
+          "url": "https://en.wikipedia.org/wiki/Dominica_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Dominican Republic",
+      "candidates": [
+        {
+          "title": "Liga Dominicana de Fútbol",
+          "revision": 1371346504,
+          "url": "https://en.wikipedia.org/wiki/Liga_Dominicana_de_F%C3%BAtbol",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "El Salvador",
+      "candidates": [
+        {
+          "title": "Primera División de El Salvador",
+          "revision": 1382711444,
+          "url": "https://en.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_El_Salvador",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Primera División Under-17 (El Salvador)",
+          "revision": 1369793068,
+          "url": "https://en.wikipedia.org/wiki/Primera_Divisi%C3%B3n_Under-17_%28El_Salvador%29",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Segunda División de El Salvador",
+          "revision": 1374479657,
+          "url": "https://en.wikipedia.org/wiki/Segunda_Divisi%C3%B3n_de_El_Salvador",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Grenada",
+      "candidates": [
+        {
+          "title": "GFA Premier League",
+          "revision": 1379228578,
+          "url": "https://en.wikipedia.org/wiki/GFA_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "GFA First Division",
+          "revision": 1356631045,
+          "url": "https://en.wikipedia.org/wiki/GFA_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Guatemala",
+      "candidates": [
+        {
+          "title": "Liga Bantrab",
+          "revision": 1377420106,
+          "url": "https://en.wikipedia.org/wiki/Liga_Bantrab",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga Primera División",
+          "revision": 1371051921,
+          "url": "https://en.wikipedia.org/wiki/Liga_Primera_Divisi%C3%B3n",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Guyana",
+      "candidates": [
+        {
+          "title": "GFF National Super League",
+          "revision": 1371052621,
+          "url": "https://en.wikipedia.org/wiki/GFF_National_Super_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "GFF Elite League",
+          "revision": 1383216845,
+          "url": "https://en.wikipedia.org/wiki/GFF_Elite_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Haiti",
+      "candidates": [
+        {
+          "title": "Ligue Haïtienne",
+          "revision": 1356632460,
+          "url": "https://en.wikipedia.org/wiki/Ligue_Ha%C3%AFtienne",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Honduras",
+      "candidates": [
+        {
+          "title": "Honduran Liga Nacional Reserves",
+          "revision": 1371390186,
+          "url": "https://en.wikipedia.org/wiki/Honduran_Liga_Nacional_Reserves",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga Nacional de Fútbol de Honduras",
+          "revision": 1372405672,
+          "url": "https://en.wikipedia.org/wiki/Liga_Nacional_de_F%C3%BAtbol_de_Honduras",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Jamaica",
+      "candidates": [
+        {
+          "title": "Jamaica Premier League",
+          "revision": 1371925801,
+          "url": "https://en.wikipedia.org/wiki/Jamaica_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "JFF Championship",
+          "revision": 1356631056,
+          "url": "https://en.wikipedia.org/wiki/JFF_Championship",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Mexico",
+      "candidates": [
+        {
+          "title": "Liga MX",
+          "revision": 1383153070,
+          "url": "https://en.wikipedia.org/wiki/Liga_MX",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga de Expansión MX",
+          "revision": 1383160272,
+          "url": "https://en.wikipedia.org/wiki/Liga_de_Expansi%C3%B3n_MX",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga Premier de México",
+          "revision": 1383147598,
+          "url": "https://en.wikipedia.org/wiki/Liga_Premier_de_M%C3%A9xico",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Montserrat",
+      "candidates": [
+        {
+          "title": "Montserrat Championship",
+          "revision": 1362714343,
+          "url": "https://en.wikipedia.org/wiki/Montserrat_Championship",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Nicaragua",
+      "candidates": [
+        {
+          "title": "Liga Primera",
+          "revision": 1381829696,
+          "url": "https://en.wikipedia.org/wiki/Liga_Primera",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga Ascenso",
+          "revision": 1374295988,
+          "url": "https://en.wikipedia.org/wiki/Liga_Ascenso",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Panama",
+      "candidates": [
+        {
+          "title": "Liga LPF",
+          "revision": 1374571023,
+          "url": "https://en.wikipedia.org/wiki/Liga_LPF",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Liga Prom",
+          "revision": 1374571032,
+          "url": "https://en.wikipedia.org/wiki/Liga_Prom",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Puerto Rico",
+      "candidates": [
+        {
+          "title": "Liga Puerto Rico Pro",
+          "revision": 1383298167,
+          "url": "https://en.wikipedia.org/wiki/Liga_Puerto_Rico_Pro",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Saint Kitts and Nevis",
+      "candidates": [
+        {
+          "title": "SKNFA Premier League",
+          "revision": 1376653714,
+          "url": "https://en.wikipedia.org/wiki/SKNFA_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "SKNFA Division 1",
+          "revision": 1383267523,
+          "url": "https://en.wikipedia.org/wiki/SKNFA_Division_1",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Saint Lucia",
+      "candidates": [
+        {
+          "title": "SLFA First Division",
+          "revision": 1376001657,
+          "url": "https://en.wikipedia.org/wiki/SLFA_First_Division",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Saint Lucia SemiPro Football League",
+          "revision": 1367910323,
+          "url": "https://en.wikipedia.org/wiki/Saint_Lucia_SemiPro_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Saint Vincent and the Grenadines",
+      "candidates": [
+        {
+          "title": "SVGFF First Division",
+          "revision": 1376003575,
+          "url": "https://en.wikipedia.org/wiki/SVGFF_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Suriname",
+      "candidates": [
+        {
+          "title": "Suriname Major League",
+          "revision": 1376006155,
+          "url": "https://en.wikipedia.org/wiki/Suriname_Major_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "SVB Eerste Divisie",
+          "revision": 1376005996,
+          "url": "https://en.wikipedia.org/wiki/SVB_Eerste_Divisie",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "SVB Lidbondentoernooi",
+          "revision": 1376006031,
+          "url": "https://en.wikipedia.org/wiki/SVB_Lidbondentoernooi",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Trinidad and Tobago",
+      "candidates": [
+        {
+          "title": "TT Premier Football League",
+          "revision": 1376552660,
+          "url": "https://en.wikipedia.org/wiki/TT_Premier_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Turks and Caicos Islands",
+      "candidates": [
+        {
+          "title": "Provo Premier League",
+          "revision": 1362074497,
+          "url": "https://en.wikipedia.org/wiki/Provo_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "United States",
+      "candidates": [
+        {
+          "title": "Major League Soccer",
+          "revision": 1383349089,
+          "url": "https://en.wikipedia.org/wiki/Major_League_Soccer",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "USL Championship",
+          "revision": 1382894644,
+          "url": "https://en.wikipedia.org/wiki/USL_Championship",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "US Virgin Islands",
+      "candidates": [
+        {
+          "title": "USVISF Premier League",
+          "revision": 1382944904,
+          "url": "https://en.wikipedia.org/wiki/USVISF_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Afghanistan",
+      "candidates": [
+        {
+          "title": "Afghan Premier League",
+          "revision": 1383216336,
+          "url": "https://en.wikipedia.org/wiki/Afghan_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Afghanistan Champions League",
+          "revision": 1381542971,
+          "url": "https://en.wikipedia.org/wiki/Afghanistan_Champions_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Australia",
+      "candidates": [
+        {
+          "title": "A-League Men",
+          "revision": 1382100172,
+          "url": "https://en.wikipedia.org/wiki/A-League_Men",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Bahrain",
+      "candidates": [
+        {
+          "title": "Bahraini Premier League",
+          "revision": 1376708008,
+          "url": "https://en.wikipedia.org/wiki/Bahraini_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Bahraini Second Division",
+          "revision": 1369355261,
+          "url": "https://en.wikipedia.org/wiki/Bahraini_Second_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Bangladesh",
+      "candidates": [
+        {
+          "title": "Bangladesh Football League",
+          "revision": 1379384919,
+          "url": "https://en.wikipedia.org/wiki/Bangladesh_Football_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Bangladesh Championship League",
+          "revision": 1382981448,
+          "url": "https://en.wikipedia.org/wiki/Bangladesh_Championship_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Bhutan",
+      "candidates": [
+        {
+          "title": "Bhutan Premier League",
+          "revision": 1369441471,
+          "url": "https://en.wikipedia.org/wiki/Bhutan_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Brunei",
+      "candidates": [
+        {
+          "title": "Brunei Super League",
+          "revision": 1383209380,
+          "url": "https://en.wikipedia.org/wiki/Brunei_Super_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Cambodia",
+      "candidates": [
+        {
+          "title": "Cambodian Premier League",
+          "revision": 1380197594,
+          "url": "https://en.wikipedia.org/wiki/Cambodian_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Cambodian League 2",
+          "revision": 1369458862,
+          "url": "https://en.wikipedia.org/wiki/Cambodian_League_2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "China",
+      "candidates": [
+        {
+          "title": "Chinese Super League",
+          "revision": 1381564124,
+          "url": "https://en.wikipedia.org/wiki/Chinese_Super_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "China League One",
+          "revision": 1369485433,
+          "url": "https://en.wikipedia.org/wiki/China_League_One",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Chinese Taipei",
+      "candidates": [
+        {
+          "title": "Taiwan Football Premier League",
+          "revision": 1379513722,
+          "url": "https://en.wikipedia.org/wiki/Taiwan_Football_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Taiwan Second Division Football League",
+          "revision": 1380913373,
+          "url": "https://en.wikipedia.org/wiki/Taiwan_Second_Division_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Guam",
+      "candidates": [
+        {
+          "title": "Guam Soccer League",
+          "revision": 1382089847,
+          "url": "https://en.wikipedia.org/wiki/Guam_Soccer_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Hong Kong",
+      "candidates": [
+        {
+          "title": "Hong Kong Premier League",
+          "revision": 1381396969,
+          "url": "https://en.wikipedia.org/wiki/Hong_Kong_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Hong Kong First Division League",
+          "revision": 1373611852,
+          "url": "https://en.wikipedia.org/wiki/Hong_Kong_First_Division_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "India",
+      "candidates": [
+        {
+          "title": "Indian Super League",
+          "revision": 1382824743,
+          "url": "https://en.wikipedia.org/wiki/Indian_Super_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Indian Football League",
+          "revision": 1383143592,
+          "url": "https://en.wikipedia.org/wiki/Indian_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Indonesia",
+      "candidates": [
+        {
+          "title": "Super League (Indonesia)",
+          "revision": 1381822584,
+          "url": "https://en.wikipedia.org/wiki/Super_League_%28Indonesia%29",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Championship (Indonesia)",
+          "revision": 1380866217,
+          "url": "https://en.wikipedia.org/wiki/Championship_%28Indonesia%29",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Iran",
+      "candidates": [
+        {
+          "title": "Persian Gulf Pro League",
+          "revision": 1382970957,
+          "url": "https://en.wikipedia.org/wiki/Persian_Gulf_Pro_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Azadegan League",
+          "revision": 1382971391,
+          "url": "https://en.wikipedia.org/wiki/Azadegan_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Iraq",
+      "candidates": [
+        {
+          "title": "Iraq Stars League",
+          "revision": 1381548984,
+          "url": "https://en.wikipedia.org/wiki/Iraq_Stars_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Iraqi Premier Division League",
+          "revision": 1359460350,
+          "url": "https://en.wikipedia.org/wiki/Iraqi_Premier_Division_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Japan",
+      "candidates": [
+        {
+          "title": "J1 League",
+          "revision": 1378728761,
+          "url": "https://en.wikipedia.org/wiki/J1_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "J2 League",
+          "revision": 1380976452,
+          "url": "https://en.wikipedia.org/wiki/J2_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Jordan",
+      "candidates": [
+        {
+          "title": "Jordanian Pro League",
+          "revision": 1380918880,
+          "url": "https://en.wikipedia.org/wiki/Jordanian_Pro_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Jordanian First Division League",
+          "revision": 1372083996,
+          "url": "https://en.wikipedia.org/wiki/Jordanian_First_Division_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Kuwait",
+      "candidates": [
+        {
+          "title": "Kuwait Premier League",
+          "revision": 1372856685,
+          "url": "https://en.wikipedia.org/wiki/Kuwait_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Kuwaiti Division One",
+          "revision": 1377882621,
+          "url": "https://en.wikipedia.org/wiki/Kuwaiti_Division_One",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Kyrgyzstan",
+      "candidates": [
+        {
+          "title": "Kyrgyz Higher League",
+          "revision": 1379352655,
+          "url": "https://en.wikipedia.org/wiki/Kyrgyz_Higher_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Kyrgyz First League",
+          "revision": 1382113363,
+          "url": "https://en.wikipedia.org/wiki/Kyrgyz_First_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Laos",
+      "candidates": [
+        {
+          "title": "Lao League 1",
+          "revision": 1380028818,
+          "url": "https://en.wikipedia.org/wiki/Lao_League_1",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Lebanon",
+      "candidates": [
+        {
+          "title": "Lebanese Premier League",
+          "revision": 1381784928,
+          "url": "https://en.wikipedia.org/wiki/Lebanese_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Lebanese Second Division",
+          "revision": 1375024753,
+          "url": "https://en.wikipedia.org/wiki/Lebanese_Second_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Macau",
+      "candidates": [
+        {
+          "title": "Liga de Elite",
+          "revision": 1378736818,
+          "url": "https://en.wikipedia.org/wiki/Liga_de_Elite",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "2ª Divisão de Macau",
+          "revision": 1363122274,
+          "url": "https://en.wikipedia.org/wiki/2%C2%AA_Divis%C3%A3o_de_Macau",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Malaysia",
+      "candidates": [
+        {
+          "title": "Astro SuperSport",
+          "revision": 1380675334,
+          "url": "https://en.wikipedia.org/wiki/Astro_SuperSport",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Malaysia Premier League",
+          "revision": 1380546166,
+          "url": "https://en.wikipedia.org/wiki/Malaysia_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Malaysia A1 Semi-Pro League",
+          "revision": 1382339160,
+          "url": "https://en.wikipedia.org/wiki/Malaysia_A1_Semi-Pro_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Maldives",
+      "candidates": [
+        {
+          "title": "Dhivehi Premier League",
+          "revision": 1383065450,
+          "url": "https://en.wikipedia.org/wiki/Dhivehi_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Maldivian Second Division Football Tournament",
+          "revision": 1373313264,
+          "url": "https://en.wikipedia.org/wiki/Maldivian_Second_Division_Football_Tournament",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Mongolia",
+      "candidates": [
+        {
+          "title": "Mongolian Premier League",
+          "revision": 1377483886,
+          "url": "https://en.wikipedia.org/wiki/Mongolian_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Mongolian First League",
+          "revision": 1374353375,
+          "url": "https://en.wikipedia.org/wiki/Mongolian_First_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Myanmar",
+      "candidates": [
+        {
+          "title": "M League",
+          "revision": 1382523678,
+          "url": "https://en.wikipedia.org/wiki/M_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Nepal",
+      "candidates": [
+        {
+          "title": "Martyr's Memorial A-Division League",
+          "revision": 1361317564,
+          "url": "https://en.wikipedia.org/wiki/Martyr%27s_Memorial_A-Division_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Martyr's Memorial B-Division League",
+          "revision": 1357901881,
+          "url": "https://en.wikipedia.org/wiki/Martyr%27s_Memorial_B-Division_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "North Korea",
+      "candidates": [
+        {
+          "title": "DPR Korea Premier Football League",
+          "revision": 1369789091,
+          "url": "https://en.wikipedia.org/wiki/DPR_Korea_Premier_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Northern Mariana Islands",
+      "candidates": [
+        {
+          "title": "Marianas Soccer League 1",
+          "revision": 1382951648,
+          "url": "https://en.wikipedia.org/wiki/Marianas_Soccer_League_1",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Oman",
+      "candidates": [
+        {
+          "title": "Oman Professional League",
+          "revision": 1378119239,
+          "url": "https://en.wikipedia.org/wiki/Oman_Professional_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Oman First Division League",
+          "revision": 1378116182,
+          "url": "https://en.wikipedia.org/wiki/Oman_First_Division_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Pakistan",
+      "candidates": [
+        {
+          "title": "Pakistan Premier League",
+          "revision": 1374474258,
+          "url": "https://en.wikipedia.org/wiki/Pakistan_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "PFF League",
+          "revision": 1374474280,
+          "url": "https://en.wikipedia.org/wiki/PFF_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Palestine",
+      "candidates": [
+        {
+          "title": "West Bank Premier League",
+          "revision": 1374474855,
+          "url": "https://en.wikipedia.org/wiki/West_Bank_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Gaza Strip Premier League",
+          "revision": 1374474846,
+          "url": "https://en.wikipedia.org/wiki/Gaza_Strip_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Philippines",
+      "candidates": [
+        {
+          "title": "Philippines Football League",
+          "revision": 1382633136,
+          "url": "https://en.wikipedia.org/wiki/Philippines_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Qatar",
+      "candidates": [
+        {
+          "title": "Qatar Stars League",
+          "revision": 1379394360,
+          "url": "https://en.wikipedia.org/wiki/Qatar_Stars_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Qatar Stars League 2",
+          "revision": 1379701601,
+          "url": "https://en.wikipedia.org/wiki/Qatar_Stars_League_2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Saudi Arabia",
+      "candidates": [
+        {
+          "title": "Saudi Pro League",
+          "revision": 1382465357,
+          "url": "https://en.wikipedia.org/wiki/Saudi_Pro_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Saudi First Division League",
+          "revision": 1379272769,
+          "url": "https://en.wikipedia.org/wiki/Saudi_First_Division_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Singapore",
+      "candidates": [
+        {
+          "title": "Singapore Premier League",
+          "revision": 1382961920,
+          "url": "https://en.wikipedia.org/wiki/Singapore_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "South Korea",
+      "candidates": [
+        {
+          "title": "K League 1",
+          "revision": 1381895081,
+          "url": "https://en.wikipedia.org/wiki/K_League_1",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "K League 2",
+          "revision": 1372093628,
+          "url": "https://en.wikipedia.org/wiki/K_League_2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Sri Lanka",
+      "candidates": [
+        {
+          "title": "Sri Lanka Super League",
+          "revision": 1375999942,
+          "url": "https://en.wikipedia.org/wiki/Sri_Lanka_Super_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Sri Lanka Champions League",
+          "revision": 1375999906,
+          "url": "https://en.wikipedia.org/wiki/Sri_Lanka_Champions_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Syria",
+      "candidates": [
+        {
+          "title": "Syrian Premier League",
+          "revision": 1380880012,
+          "url": "https://en.wikipedia.org/wiki/Syrian_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Syrian First Division",
+          "revision": 1381757448,
+          "url": "https://en.wikipedia.org/wiki/Syrian_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Tajikistan",
+      "candidates": [
+        {
+          "title": "Tajikistan Higher League",
+          "revision": 1376098564,
+          "url": "https://en.wikipedia.org/wiki/Tajikistan_Higher_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Tajikistan First League",
+          "revision": 1376098703,
+          "url": "https://en.wikipedia.org/wiki/Tajikistan_First_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Thailand",
+      "candidates": [
+        {
+          "title": "Thai League 1",
+          "revision": 1380552353,
+          "url": "https://en.wikipedia.org/wiki/Thai_League_1",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Thai League 2",
+          "revision": 1376105720,
+          "url": "https://en.wikipedia.org/wiki/Thai_League_2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Timor-Leste",
+      "candidates": [
+        {
+          "title": "Liga Futebol Timor-Leste",
+          "revision": 1376111723,
+          "url": "https://en.wikipedia.org/wiki/Liga_Futebol_Timor-Leste",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Turkmenistan",
+      "candidates": [
+        {
+          "title": "Ýokary Liga",
+          "revision": 1378995404,
+          "url": "https://en.wikipedia.org/wiki/%C3%9Dokary_Liga",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Turkmenistan First League",
+          "revision": 1376135628,
+          "url": "https://en.wikipedia.org/wiki/Turkmenistan_First_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "United Arab Emirates",
+      "candidates": [
+        {
+          "title": "UAE Pro League",
+          "revision": 1380977454,
+          "url": "https://en.wikipedia.org/wiki/UAE_Pro_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "UAE First Division League",
+          "revision": 1378760316,
+          "url": "https://en.wikipedia.org/wiki/UAE_First_Division_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Uzbekistan",
+      "candidates": [
+        {
+          "title": "Uzbekistan Super League",
+          "revision": 1379373003,
+          "url": "https://en.wikipedia.org/wiki/Uzbekistan_Super_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Uzbekistan Pro League",
+          "revision": 1376723260,
+          "url": "https://en.wikipedia.org/wiki/Uzbekistan_Pro_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Vietnam",
+      "candidates": [
+        {
+          "title": "V.League 1",
+          "revision": 1381461004,
+          "url": "https://en.wikipedia.org/wiki/V.League_1",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "V.League 2",
+          "revision": 1380512481,
+          "url": "https://en.wikipedia.org/wiki/V.League_2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Yemen",
+      "candidates": [
+        {
+          "title": "Yemeni League",
+          "revision": 1376432444,
+          "url": "https://en.wikipedia.org/wiki/Yemeni_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Yemeni Second Division",
+          "revision": 1357901909,
+          "url": "https://en.wikipedia.org/wiki/Yemeni_Second_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Algeria",
+      "candidates": [
+        {
+          "title": "Algerian Ligue Professionnelle 1",
+          "revision": 1382802186,
+          "url": "https://en.wikipedia.org/wiki/Algerian_Ligue_Professionnelle_1",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Angola",
+      "candidates": [
+        {
+          "title": "Girabola",
+          "revision": 1381668766,
+          "url": "https://en.wikipedia.org/wiki/Girabola",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Segundona",
+          "revision": 1369180185,
+          "url": "https://en.wikipedia.org/wiki/Segundona",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Benin",
+      "candidates": [
+        {
+          "title": "Benin Premier League",
+          "revision": 1369440770,
+          "url": "https://en.wikipedia.org/wiki/Benin_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Botswana",
+      "candidates": [
+        {
+          "title": "Botswana Premier League",
+          "revision": 1369444871,
+          "url": "https://en.wikipedia.org/wiki/Botswana_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Bechuanaland Union African Soccer League",
+          "revision": 1356313090,
+          "url": "https://en.wikipedia.org/wiki/Bechuanaland_Union_African_Soccer_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Botswana First Division North",
+          "revision": 1369444907,
+          "url": "https://en.wikipedia.org/wiki/Botswana_First_Division_North",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Botswana First Division South",
+          "revision": 1369444933,
+          "url": "https://en.wikipedia.org/wiki/Botswana_First_Division_South",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Burkina Faso",
+      "candidates": [
+        {
+          "title": "Burkinabé Premier League",
+          "revision": 1382981303,
+          "url": "https://en.wikipedia.org/wiki/Burkinab%C3%A9_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Burundi",
+      "candidates": [
+        {
+          "title": "Burundi Ligue A",
+          "revision": 1383354096,
+          "url": "https://en.wikipedia.org/wiki/Burundi_Ligue_A",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Cameroon",
+      "candidates": [
+        {
+          "title": "Elite One",
+          "revision": 1377322484,
+          "url": "https://en.wikipedia.org/wiki/Elite_One",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Elite Two",
+          "revision": 1375971077,
+          "url": "https://en.wikipedia.org/wiki/Elite_Two",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Cape Verde",
+      "candidates": [
+        {
+          "title": "Cape Verdean Football Championship",
+          "revision": 1382230015,
+          "url": "https://en.wikipedia.org/wiki/Cape_Verdean_Football_Championship",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Central African Republic",
+      "candidates": [
+        {
+          "title": "Central African Republic League",
+          "revision": 1381568051,
+          "url": "https://en.wikipedia.org/wiki/Central_African_Republic_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Chad",
+      "candidates": [
+        {
+          "title": "Chad Premier League",
+          "revision": 1374343028,
+          "url": "https://en.wikipedia.org/wiki/Chad_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Comoros",
+      "candidates": [
+        {
+          "title": "Comoros Premier League",
+          "revision": 1375183280,
+          "url": "https://en.wikipedia.org/wiki/Comoros_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Congo",
+      "candidates": [
+        {
+          "title": "Congo Ligue 1",
+          "revision": 1375188810,
+          "url": "https://en.wikipedia.org/wiki/Congo_Ligue_1",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "DR Congo",
+      "candidates": [
+        {
+          "title": "Linafoot",
+          "revision": 1374013690,
+          "url": "https://en.wikipedia.org/wiki/Linafoot",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Linafoot Ligue 2",
+          "revision": 1369505386,
+          "url": "https://en.wikipedia.org/wiki/Linafoot_Ligue_2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Djibouti",
+      "candidates": [
+        {
+          "title": "Djibouti Premier League",
+          "revision": 1369637998,
+          "url": "https://en.wikipedia.org/wiki/Djibouti_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Djibouti Division 2",
+          "revision": 1369638041,
+          "url": "https://en.wikipedia.org/wiki/Djibouti_Division_2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Egypt",
+      "candidates": [
+        {
+          "title": "Egyptian Premier League",
+          "revision": 1383060549,
+          "url": "https://en.wikipedia.org/wiki/Egyptian_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Egyptian Second Division A",
+          "revision": 1369791957,
+          "url": "https://en.wikipedia.org/wiki/Egyptian_Second_Division_A",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Equatorial Guinea",
+      "candidates": [
+        {
+          "title": "Equatoguinean Primera División",
+          "revision": 1377241967,
+          "url": "https://en.wikipedia.org/wiki/Equatoguinean_Primera_Divisi%C3%B3n",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Eritrea",
+      "candidates": [
+        {
+          "title": "Eritrean Premier League",
+          "revision": 1373296173,
+          "url": "https://en.wikipedia.org/wiki/Eritrean_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Eswatini",
+      "candidates": [
+        {
+          "title": "Premier League of Eswatini",
+          "revision": 1358494703,
+          "url": "https://en.wikipedia.org/wiki/Premier_League_of_Eswatini",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Eswatini National First Division",
+          "revision": 1357894722,
+          "url": "https://en.wikipedia.org/wiki/Eswatini_National_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Ethiopia",
+      "candidates": [
+        {
+          "title": "Ethiopian Premier League",
+          "revision": 1381583320,
+          "url": "https://en.wikipedia.org/wiki/Ethiopian_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Gabon",
+      "candidates": [
+        {
+          "title": "National Foot 1",
+          "revision": 1373489056,
+          "url": "https://en.wikipedia.org/wiki/National_Foot_1",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Gambia",
+      "candidates": [
+        {
+          "title": "GFA League First Division",
+          "revision": 1376110783,
+          "url": "https://en.wikipedia.org/wiki/GFA_League_First_Division",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "GFA League Second Division",
+          "revision": 1376110779,
+          "url": "https://en.wikipedia.org/wiki/GFA_League_Second_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Ghana",
+      "candidates": [
+        {
+          "title": "Ghana Premier League",
+          "revision": 1374690044,
+          "url": "https://en.wikipedia.org/wiki/Ghana_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Division One League",
+          "revision": 1379428298,
+          "url": "https://en.wikipedia.org/wiki/Division_One_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Guinea",
+      "candidates": [
+        {
+          "title": "Papua New Guinea Premier Soccer League",
+          "revision": 1381387904,
+          "url": "https://en.wikipedia.org/wiki/Papua_New_Guinea_Premier_Soccer_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Bougainville Premier League",
+          "revision": 1361859253,
+          "url": "https://en.wikipedia.org/wiki/Bougainville_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Guinée Championnat National",
+          "revision": 1374862985,
+          "url": "https://en.wikipedia.org/wiki/Guin%C3%A9e_Championnat_National",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Campeonato Nacional da Guiné-Bissau",
+          "revision": 1374356194,
+          "url": "https://en.wikipedia.org/wiki/Campeonato_Nacional_da_Guin%C3%A9-Bissau",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Equatoguinean Primera División",
+          "revision": 1377241967,
+          "url": "https://en.wikipedia.org/wiki/Equatoguinean_Primera_Divisi%C3%B3n",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Arawa FA B-League",
+          "revision": 1370225826,
+          "url": "https://en.wikipedia.org/wiki/Arawa_FA_B-League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Guinea-Bissau",
+      "candidates": [
+        {
+          "title": "Campeonato Nacional da Guiné-Bissau",
+          "revision": 1374356194,
+          "url": "https://en.wikipedia.org/wiki/Campeonato_Nacional_da_Guin%C3%A9-Bissau",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Ivory Coast",
+      "candidates": [
+        {
+          "title": "Ligue 1 (Ivory Coast)",
+          "revision": 1372427090,
+          "url": "https://en.wikipedia.org/wiki/Ligue_1_%28Ivory_Coast%29",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Ligue 2 (Ivory Coast)",
+          "revision": 1369630505,
+          "url": "https://en.wikipedia.org/wiki/Ligue_2_%28Ivory_Coast%29",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Kenya",
+      "candidates": [
+        {
+          "title": "Kenyan Premier League",
+          "revision": 1374876330,
+          "url": "https://en.wikipedia.org/wiki/Kenyan_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Kenyan National Super League",
+          "revision": 1372092742,
+          "url": "https://en.wikipedia.org/wiki/Kenyan_National_Super_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Lesotho",
+      "candidates": [
+        {
+          "title": "Lesotho Premier League",
+          "revision": 1381005095,
+          "url": "https://en.wikipedia.org/wiki/Lesotho_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Lesotho A–Division",
+          "revision": 1372864770,
+          "url": "https://en.wikipedia.org/wiki/Lesotho_A%E2%80%93Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Liberia",
+      "candidates": [
+        {
+          "title": "Liberian Second Division",
+          "revision": 1372867538,
+          "url": "https://en.wikipedia.org/wiki/Liberian_Second_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Libya",
+      "candidates": [
+        {
+          "title": "Libyan Premier League",
+          "revision": 1379861201,
+          "url": "https://en.wikipedia.org/wiki/Libyan_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Libyan Second Division",
+          "revision": 1372998106,
+          "url": "https://en.wikipedia.org/wiki/Libyan_Second_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Madagascar",
+      "candidates": [
+        {
+          "title": "Malagasy Pro League",
+          "revision": 1378927367,
+          "url": "https://en.wikipedia.org/wiki/Malagasy_Pro_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Malawi",
+      "candidates": [
+        {
+          "title": "Super League of Malawi",
+          "revision": 1373089375,
+          "url": "https://en.wikipedia.org/wiki/Super_League_of_Malawi",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Airtel Top 8 Malawi",
+          "revision": 1377496839,
+          "url": "https://en.wikipedia.org/wiki/Airtel_Top_8_Malawi",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Mali",
+      "candidates": [
+        {
+          "title": "Malian Première Division",
+          "revision": 1375300008,
+          "url": "https://en.wikipedia.org/wiki/Malian_Premi%C3%A8re_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Mauritania",
+      "candidates": [
+        {
+          "title": "Super D1",
+          "revision": 1381640737,
+          "url": "https://en.wikipedia.org/wiki/Super_D1",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Mauritius",
+      "candidates": [
+        {
+          "title": "Mauritian Premier League",
+          "revision": 1373317514,
+          "url": "https://en.wikipedia.org/wiki/Mauritian_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Morocco",
+      "candidates": [
+        {
+          "title": "Botola Pro",
+          "revision": 1379826873,
+          "url": "https://en.wikipedia.org/wiki/Botola_Pro",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Botola Pro D2",
+          "revision": 1374032895,
+          "url": "https://en.wikipedia.org/wiki/Botola_Pro_D2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Mozambique",
+      "candidates": [
+        {
+          "title": "Moçambola",
+          "revision": 1374033695,
+          "url": "https://en.wikipedia.org/wiki/Mo%C3%A7ambola",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Campeonato Nacional de Futebol da Segunda Divisão",
+          "revision": 1356563621,
+          "url": "https://en.wikipedia.org/wiki/Campeonato_Nacional_de_Futebol_da_Segunda_Divis%C3%A3o",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Namibia",
+      "candidates": [
+        {
+          "title": "Namibia Premier League",
+          "revision": 1379570900,
+          "url": "https://en.wikipedia.org/wiki/Namibia_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Namibia First Division",
+          "revision": 1356563630,
+          "url": "https://en.wikipedia.org/wiki/Namibia_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Niger",
+      "candidates": [
+        {
+          "title": "Super Ligue (Niger)",
+          "revision": 1375556275,
+          "url": "https://en.wikipedia.org/wiki/Super_Ligue_%28Niger%29",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Nigeria",
+      "candidates": [
+        {
+          "title": "Nigeria Premier Football League",
+          "revision": 1380229263,
+          "url": "https://en.wikipedia.org/wiki/Nigeria_Premier_Football_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Nigeria National League",
+          "revision": 1379912097,
+          "url": "https://en.wikipedia.org/wiki/Nigeria_National_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Rwanda",
+      "candidates": [
+        {
+          "title": "Rwanda Premier League",
+          "revision": 1381146793,
+          "url": "https://en.wikipedia.org/wiki/Rwanda_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Sao Tome and Principe",
+      "candidates": [
+        {
+          "title": "São Tomé and Príncipe Championship",
+          "revision": 1375306303,
+          "url": "https://en.wikipedia.org/wiki/S%C3%A3o_Tom%C3%A9_and_Pr%C3%ADncipe_Championship",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Senegal",
+      "candidates": [
+        {
+          "title": "Ligue 1 (Senegal)",
+          "revision": 1375535042,
+          "url": "https://en.wikipedia.org/wiki/Ligue_1_%28Senegal%29",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Seychelles",
+      "candidates": [
+        {
+          "title": "Seychelles Premier League",
+          "revision": 1381337219,
+          "url": "https://en.wikipedia.org/wiki/Seychelles_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Sierra Leone",
+      "candidates": [
+        {
+          "title": "Sierra Leone National Premier League",
+          "revision": 1381233572,
+          "url": "https://en.wikipedia.org/wiki/Sierra_Leone_National_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Sierra Leone National First Division",
+          "revision": 1169810057,
+          "url": "https://en.wikipedia.org/wiki/Sierra_Leone_National_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Somalia",
+      "candidates": [
+        {
+          "title": "Somali First Division",
+          "revision": 1377110970,
+          "url": "https://en.wikipedia.org/wiki/Somali_First_Division",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Somali Division One Football League",
+          "revision": 1380645409,
+          "url": "https://en.wikipedia.org/wiki/Somali_Division_One_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "South Africa",
+      "candidates": [
+        {
+          "title": "South African Premiership",
+          "revision": 1375997780,
+          "url": "https://en.wikipedia.org/wiki/South_African_Premiership",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "National First Division",
+          "revision": 1375629345,
+          "url": "https://en.wikipedia.org/wiki/National_First_Division",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "South Sudan",
+      "candidates": [
+        {
+          "title": "South Sudan National League",
+          "revision": 1375630749,
+          "url": "https://en.wikipedia.org/wiki/South_Sudan_National_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "South Sudan Premier League",
+          "revision": 1375675509,
+          "url": "https://en.wikipedia.org/wiki/South_Sudan_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Sudan",
+      "candidates": [
+        {
+          "title": "Sudan Premier League",
+          "revision": 1381234088,
+          "url": "https://en.wikipedia.org/wiki/Sudan_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "South Sudan National League",
+          "revision": 1375630749,
+          "url": "https://en.wikipedia.org/wiki/South_Sudan_National_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "South Sudan Premier League",
+          "revision": 1375675509,
+          "url": "https://en.wikipedia.org/wiki/South_Sudan_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Tanzania",
+      "candidates": [
+        {
+          "title": "Tanzanian Premier League",
+          "revision": 1376101524,
+          "url": "https://en.wikipedia.org/wiki/Tanzanian_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Zanzibar Premier League",
+          "revision": 1380607165,
+          "url": "https://en.wikipedia.org/wiki/Zanzibar_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Tanzanian Championship League",
+          "revision": 1376101390,
+          "url": "https://en.wikipedia.org/wiki/Tanzanian_Championship_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Togo",
+      "candidates": [
+        {
+          "title": "Togolese Championnat National",
+          "revision": 1376112451,
+          "url": "https://en.wikipedia.org/wiki/Togolese_Championnat_National",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Tunisia",
+      "candidates": [
+        {
+          "title": "Tunisian Ligue Professionnelle 1",
+          "revision": 1382697363,
+          "url": "https://en.wikipedia.org/wiki/Tunisian_Ligue_Professionnelle_1",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Tunisian Ligue Professionnelle 2",
+          "revision": 1380991549,
+          "url": "https://en.wikipedia.org/wiki/Tunisian_Ligue_Professionnelle_2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Uganda",
+      "candidates": [
+        {
+          "title": "Uganda Premier League",
+          "revision": 1381233956,
+          "url": "https://en.wikipedia.org/wiki/Uganda_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "FUFA Big League",
+          "revision": 1376136082,
+          "url": "https://en.wikipedia.org/wiki/FUFA_Big_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Zambia",
+      "candidates": [
+        {
+          "title": "Zambia Super League",
+          "revision": 1380614202,
+          "url": "https://en.wikipedia.org/wiki/Zambia_Super_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Zambia National League",
+          "revision": 1376432956,
+          "url": "https://en.wikipedia.org/wiki/Zambia_National_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Zimbabwe",
+      "candidates": [
+        {
+          "title": "Zimbabwe Premier Soccer League",
+          "revision": 1376433221,
+          "url": "https://en.wikipedia.org/wiki/Zimbabwe_Premier_Soccer_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Zimbabwe Division One",
+          "revision": 1376433247,
+          "url": "https://en.wikipedia.org/wiki/Zimbabwe_Division_One",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "American Samoa",
+      "candidates": [
+        {
+          "title": "FFAS Senior League",
+          "revision": 1382952557,
+          "url": "https://en.wikipedia.org/wiki/FFAS_Senior_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Cook Islands",
+      "candidates": [
+        {
+          "title": "Cook Islands Round Cup",
+          "revision": 1382595868,
+          "url": "https://en.wikipedia.org/wiki/Cook_Islands_Round_Cup",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Fiji",
+      "candidates": [
+        {
+          "title": "Fiji Premier League",
+          "revision": 1370507971,
+          "url": "https://en.wikipedia.org/wiki/Fiji_Premier_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "New Caledonia",
+      "candidates": [
+        {
+          "title": "New Caledonia Super Ligue",
+          "revision": 1356316698,
+          "url": "https://en.wikipedia.org/wiki/New_Caledonia_Super_Ligue",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "New Zealand",
+      "candidates": [
+        {
+          "title": "New Zealand Football Championship",
+          "revision": 1374059004,
+          "url": "https://en.wikipedia.org/wiki/New_Zealand_Football_Championship",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "New Zealand National League",
+          "revision": 1382292105,
+          "url": "https://en.wikipedia.org/wiki/New_Zealand_National_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "New Zealand football league system",
+          "revision": 1354028084,
+          "url": "https://en.wikipedia.org/wiki/New_Zealand_football_league_system",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": true,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Papua New Guinea",
+      "candidates": [
+        {
+          "title": "Papua New Guinea Premier Soccer League",
+          "revision": 1381387904,
+          "url": "https://en.wikipedia.org/wiki/Papua_New_Guinea_Premier_Soccer_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Bougainville Premier League",
+          "revision": 1361859253,
+          "url": "https://en.wikipedia.org/wiki/Bougainville_Premier_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Arawa FA B-League",
+          "revision": 1370225826,
+          "url": "https://en.wikipedia.org/wiki/Arawa_FA_B-League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Samoa",
+      "candidates": [
+        {
+          "title": "Samoa National League",
+          "revision": 1379566351,
+          "url": "https://en.wikipedia.org/wiki/Samoa_National_League",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "FFAS Senior League",
+          "revision": 1382952557,
+          "url": "https://en.wikipedia.org/wiki/FFAS_Senior_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Solomon Islands",
+      "candidates": [
+        {
+          "title": "Solomon Islands S-League",
+          "revision": 1383239080,
+          "url": "https://en.wikipedia.org/wiki/Solomon_Islands_S-League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Tahiti",
+      "candidates": [
+        {
+          "title": "Tahiti Ligue 1",
+          "revision": 1383170355,
+          "url": "https://en.wikipedia.org/wiki/Tahiti_Ligue_1",
+          "role": "candidate_source_only"
+        },
+        {
+          "title": "Tahiti Ligue 2",
+          "revision": 1328707464,
+          "url": "https://en.wikipedia.org/wiki/Tahiti_Ligue_2",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Tonga",
+      "candidates": [
+        {
+          "title": "Tonga Major League",
+          "revision": 1356316731,
+          "url": "https://en.wikipedia.org/wiki/Tonga_Major_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    },
+    {
+      "country": "Vanuatu",
+      "candidates": [
+        {
+          "title": "Port Vila Football League",
+          "revision": 1376428363,
+          "url": "https://en.wikipedia.org/wiki/Port_Vila_Football_League",
+          "role": "candidate_source_only"
+        }
+      ],
+      "access_profile_configured": false,
+      "full_real_country_format_implemented": false,
+      "status": "requires_individual_format_review_and_integration"
+    }
+  ]
+}

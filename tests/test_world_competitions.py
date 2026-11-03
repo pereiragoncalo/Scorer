@@ -31,7 +31,7 @@ class TournamentTests(unittest.TestCase):
         self.assertIsNotNone(first[1]['penalties']);self.assertEqual(first[0]['winner'],first[1]['winner'])
     def test_qualified_nations_have_actual_results_and_world_cup_has_bronze(self):
         with tempfile.TemporaryDirectory() as t,patch.dict(os.environ,STRIKER_SAVE_DIR=t):
-            c=CareerMode(Access(),autoload=False);book=CompetitionBook(2026,17,c.leagues)
+            c=CareerMode(Access(),autoload=False);book=CompetitionBook(2025,17,c.leagues)
             self.assertNotIn('world_cup',book.tournaments);book.complete();cup=book.tournaments['world_cup']
             self.assertEqual(len(cup.teams),48);self.assertEqual(len(cup.fixtures),104)
             for path in book.qualification_paths:
@@ -67,7 +67,8 @@ class CareerCompetitionTests(unittest.TestCase):
         before=c.matches,c.goals;c._finish_world_fixture('world|friendly|'+f['id'],c._competition_club(book.nations[other]),c._competition_club(book.nations[actor]),2,0,(1,2))
         self.assertEqual((c.matches,c.goals),before);self.assertEqual((c.international_caps,c.international_goals),(1,2))
     def test_season_honours_moves_qualifies_and_roundtrips_global_memberships(self):
-        c=self.career();c._ensure_competitions();uid=c.club.uid;c.club.points=999
+        c=self.career();from domestic_playoffs import eligible_table
+        c.club_name=eligible_table(c.current_league)[0].name;c._ensure_competitions();uid=c.club.uid;c.club.points=999
         c._finish_season();self.assertEqual(c.season,2027);self.assertEqual(c.league_key,'Portugal|1');self.assertEqual(c.club.uid,uid)
         self.assertTrue(c.competition_archive[-1]['winners']);self.assertTrue(c.competition_archive[-1]['movements'])
         self.assertEqual(c.qualification_snapshot['season'],2027);self.assertEqual(len(c.qualification_snapshot['entries']['ucl']),36)
@@ -87,13 +88,17 @@ class CareerCompetitionTests(unittest.TestCase):
         c.next_match();self.assertIsNotNone(c.world_competitions)
         restored=validated_import(c,json.dumps(doc));self.assertIsNone(restored.world_competitions)
 
-    def test_third_place_promotes_directly_without_a_playoff_and_reloads(self):
-        c=self.career();league=c.current_league;c.club_name=league.clubs[2].name;uid=c.club.uid
-        for i,team in enumerate(league.clubs):team.points=100000-i*1000
-        league.round_index=league.total_rounds;c.week=45;c._ensure_competitions();c.world_competitions.complete()
-        c.next_match();self.assertEqual(c.season,2027);self.assertEqual(c.league_key,'Portugal|1');self.assertEqual(c.club.uid,uid)
-        self.assertTrue(c.save());d=CareerMode(Access(),save_slot='world');self.assertEqual(d.club.uid,uid);self.assertEqual(d.relegation_pools,c.relegation_pools)
-        self.assertFalse(any(k.startswith('playoff:') for k in (d.world_competitions.tournaments if d.world_competitions else {})))
+    def test_third_place_requires_actual_playoff_and_reloads(self):
+        from domestic_playoffs import eligible_table
+        c=self.career();league=c.current_league;ranked=eligible_table(league);c.club_name=ranked[2].name;uid=c.club.uid
+        for i,team in enumerate(ranked):team.points=100000-i*1000
+        league.round_index=league.total_rounds;c.week=45;c._ensure_competitions()
+        f=c.next_match()
+        for _ in range(24):
+            if f[0].startswith('world|playoff:Portugal:2|'):break
+            score=(2,0) if f[1].uid==uid else (0,2);c.finish_match(f[1],f[2],0,0,competition=f[0],forced_score=score);f=c.next_match()
+        self.assertEqual(c.season,2026);self.assertEqual(c.club.uid,uid);self.assertTrue(f[0].startswith('world|playoff:Portugal:2|'))
+        c.save();d=CareerMode(Access(),save_slot='world');self.assertEqual(d.next_match()[0],f[0]);self.assertEqual(d.club.uid,uid)
 
     def test_transferred_country_cup_simulates_past_dates_without_personal_credit(self):
         c=self.career();c._ensure_competitions();c.week=20;c.league_key='Argentina|1';c.club_name=c.current_league.clubs[0].name

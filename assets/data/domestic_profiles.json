@@ -1,0 +1,370 @@
+{
+  "version": 1,
+  "profiles": {
+    "Portugal": {
+      "direct": 2,
+      "shape": "cross",
+      "places": [
+        3
+      ],
+      "upper": [
+        -3
+      ],
+      "reserve_direct": 2,
+      "reserve_shape": "cross",
+      "reserve_places": [
+        -3
+      ]
+    },
+    "Germany": {
+      "direct": 2,
+      "shape": "cross",
+      "places": [
+        3
+      ],
+      "upper": [
+        -3
+      ],
+      "reserve_direct": 2,
+      "reserve_shape": "cross",
+      "reserve_places": [
+        -3
+      ]
+    },
+    "France": {
+      "direct": 2,
+      "shape": "french",
+      "places": [
+        3,
+        4,
+        5
+      ],
+      "upper": [
+        -3
+      ],
+      "reserve_direct": 2,
+      "reserve_shape": "cross",
+      "reserve_places": [
+        -3
+      ]
+    },
+    "England": {
+      "direct": 2,
+      "shape": "six",
+      "places": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "upper": [],
+      "reserve_direct": 3,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Spain": {
+      "direct": 2,
+      "shape": "four_two",
+      "places": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "upper": [],
+      "reserve_direct": 4,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Italy": {
+      "direct": 2,
+      "shape": "italian",
+      "places": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "upper": [],
+      "reserve_direct": 3,
+      "reserve_shape": "playout",
+      "reserve_places": [
+        -5,
+        -4
+      ]
+    },
+    "Brazil": {
+      "direct": 2,
+      "shape": "parallel",
+      "places": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "upper": [],
+      "reserve_direct": 4,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Argentina": {
+      "direct": 0,
+      "shape": "argentine",
+      "places": [],
+      "upper": [],
+      "reserve_direct": 4,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Scotland": {
+      "direct": 1,
+      "shape": "scottish",
+      "places": [
+        2,
+        3,
+        4
+      ],
+      "upper": [
+        -2
+      ],
+      "reserve_direct": 1,
+      "reserve_shape": "cross",
+      "reserve_places": [
+        -2
+      ]
+    },
+    "Norway": {
+      "direct": 2,
+      "shape": "norwegian",
+      "places": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "upper": [
+        -3
+      ],
+      "reserve_direct": 2,
+      "reserve_shape": "cross",
+      "reserve_places": [
+        -3
+      ]
+    },
+    "Sweden": {
+      "direct": 2,
+      "shape": "parallel_cross",
+      "places": [
+        3,
+        4
+      ],
+      "upper": [
+        -4,
+        -3
+      ],
+      "reserve_direct": 2,
+      "reserve_shape": "parallel_cross",
+      "reserve_places": [
+        -4,
+        -3
+      ]
+    },
+    "Finland": {
+      "direct": 1,
+      "shape": "cross",
+      "places": [
+        2
+      ],
+      "upper": [
+        -2
+      ],
+      "reserve_direct": 1,
+      "reserve_shape": "cross",
+      "reserve_places": [
+        -2
+      ]
+    },
+    "Republic of Ireland": {
+      "direct": 1,
+      "shape": "four_two_cross",
+      "places": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "upper": [
+        -2
+      ],
+      "reserve_direct": 1,
+      "reserve_shape": "cross",
+      "reserve_places": [
+        -2
+      ]
+    },
+    "Northern Ireland": {
+      "direct": 1,
+      "shape": "cross",
+      "places": [
+        2
+      ],
+      "upper": [
+        -2
+      ],
+      "reserve_direct": 1,
+      "reserve_shape": "cross",
+      "reserve_places": [
+        -2
+      ]
+    },
+    "Switzerland": {
+      "direct": 1,
+      "shape": "cross",
+      "places": [
+        2
+      ],
+      "upper": [
+        -2
+      ],
+      "reserve_direct": 1,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Czechia": {
+      "direct": 1,
+      "shape": "parallel_cross",
+      "places": [
+        2,
+        3
+      ],
+      "upper": [
+        -3,
+        -2
+      ],
+      "reserve_direct": 2,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Turkey": {
+      "direct": 2,
+      "shape": "turkish",
+      "places": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "upper": [],
+      "reserve_direct": 4,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Belgium": {
+      "direct": 1,
+      "shape": "four_two",
+      "places": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "upper": [],
+      "reserve_direct": 2,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Japan": {
+      "direct": 2,
+      "shape": "four_single",
+      "places": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "upper": [],
+      "reserve_direct": 3,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Estonia": {
+      "direct": 1,
+      "shape": "cross",
+      "places": [
+        2
+      ],
+      "upper": [
+        -2
+      ],
+      "reserve_direct": 2,
+      "reserve_shape": "cross",
+      "reserve_places": [
+        -3
+      ]
+    },
+    "Austria": {
+      "direct": 1,
+      "shape": "",
+      "places": [],
+      "upper": [],
+      "reserve_direct": 2,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "United States": {
+      "direct": 0,
+      "shape": "",
+      "places": [],
+      "upper": [],
+      "reserve_direct": 0,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Canada": {
+      "direct": 0,
+      "shape": "",
+      "places": [],
+      "upper": [],
+      "reserve_direct": 0,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Australia": {
+      "direct": 0,
+      "shape": "",
+      "places": [],
+      "upper": [],
+      "reserve_direct": 0,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "New Zealand": {
+      "direct": 0,
+      "shape": "",
+      "places": [],
+      "upper": [],
+      "reserve_direct": 0,
+      "reserve_shape": "",
+      "reserve_places": []
+    },
+    "Mexico": {
+      "direct": 0,
+      "shape": "",
+      "places": [],
+      "upper": [],
+      "reserve_direct": 0,
+      "reserve_shape": "",
+      "reserve_places": []
+    }
+  },
+  "ineligible_for_first_division": [
+    "9e19e6a3f14749644d5c",
+    "d9b5361477f978f1e161",
+    "f27a8d5d873af11c5df0"
+  ]
+}

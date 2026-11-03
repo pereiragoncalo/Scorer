@@ -30,7 +30,7 @@ class TwoDivisionTests(unittest.TestCase):
     def test_full_rollover_drops_second_division_hero_and_rotates_all_countries(self):
         c=self.career();hero=c.club;uid=hero.uid;queue=list(c.relegation_pools['Portugal']);hero.points=-100000;c.goals=12;c.matches=30
         initial={country:(len(c.leagues[country+'|1'].clubs),len(c.leagues[country+'|2'].clubs)) for country in WORLD_COUNTRIES}
-        c._finish_season();self.assertTrue(c.free_agent);self.assertEqual(c.released_club['uid'],uid);self.assertEqual(len(c.agent_offers),5);self.assertIn(uid,c.relegation_pools['Portugal']);self.assertEqual(c.relegation_pools['Portugal'][:7],queue[3:]);self.assertEqual(c.season,2027)
+        c._finish_season();self.assertTrue(c.free_agent);self.assertEqual(c.released_club['uid'],uid);self.assertEqual(len(c.agent_offers),5);self.assertIn(uid,c.relegation_pools['Portugal']);remaining=[uid for uid in queue if uid in c.relegation_pools['Portugal']];self.assertEqual(c.relegation_pools['Portugal'][:len(remaining)],remaining);self.assertEqual(c.season,2027)
         for country in WORLD_COUNTRIES:
             self.assertEqual((len(c.leagues[country+'|1'].clubs),len(c.leagues[country+'|2'].clubs)),initial[country]);self.assertEqual(len(c.relegation_pools[country]),10)
         self.assertTrue(all((club.played,club.won,club.drawn,club.lost,club.points)==(0,0,0,0,0) for l in c.leagues.values() for club in l.clubs))

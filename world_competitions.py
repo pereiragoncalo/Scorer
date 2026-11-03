@@ -52,10 +52,12 @@ def fixture_day(cup):
     return 2 if cup.national else 1
 
 
-def simulate_score(seed, home, away):
+def simulate_score(seed, home, away, neutral=False):
     rng=rng_for(seed)
     from career import realistic_goal_means,poisson_goal
     a,b=realistic_goal_means(home['rating'],away['rating'])
+    if neutral:
+        ra,rb=realistic_goal_means(away['rating'],home['rating']);a,b=(a+rb)/2,(b+ra)/2
     return [poisson_goal(rng,a),poisson_goal(rng,b)]
 
 
@@ -179,17 +181,20 @@ class Tournament:
             self.champion=winners[0];self.stage='Completed';self.active=[]
         else:self._knockout(winners)
 
-    def advance(self,week,protected=()):
+    def advance(self,week,protected=(),selector=None,progress_callback=None,until=None):
         protected=set(protected)
+        def is_protected(f):return selector(f) if selector else bool(protected.intersection((f['home'],f['away'])))
+        def due(f):return f['week']<=week and (until is None or not f.get('date') or f['date']<=until)
         while not self.champion:
             active=[f for f in self.fixtures if f['id'] in self.active]
             for f in active:
-                if f['score'] is None and f['week']<=week and not protected.intersection((f['home'],f['away'])):
-                    self.record(f,simulate_score(f'{self.seed}:{f["id"]}',self.teams[f['home']],self.teams[f['away']]))
-            pending=[f for f in active if f['score'] is None and f['week']<=week and protected.intersection((f['home'],f['away']))]
+                if f['score'] is None and due(f) and not is_protected(f):
+                    self.record(f,simulate_score(f'{self.seed}:{f["id"]}',self.teams[f['home']],self.teams[f['away']],neutral=f.get('neutral',False)))
+            pending=[f for f in active if f['score'] is None and due(f) and is_protected(f)]
             if pending:return min(pending,key=lambda f:(f['week'],f['id']))
             if any(f['score'] is None for f in active):return None
             self._progress()
+            if progress_callback:progress_callback()
         return None
 
     def finish(self):
@@ -200,6 +205,9 @@ class Tournament:
 
     @classmethod
     def from_dict(cls,data):
+        if isinstance(data,dict) and data.get('kind')=='promotion':
+            from promotion_playoffs import PlayoffTournament
+            return PlayoffTournament.from_dict(data)
         if not isinstance(data,dict) or len(data.get('teams',{}))>128 or len(data.get('fixtures',[]))>1200:
             raise ValueError('Invalid tournament save')
         required={'key','title','seed','teams','kind','national','qualifiers','best_thirds','knockout_legs','regional_last16','groups','fixtures','active','stage','champion','direct','stage_number','last_week','slots','qualified','weeks','start_week'}
@@ -212,12 +220,17 @@ class Tournament:
         for uid,t in obj.teams.items():
             if not isinstance(uid,str) or len(uid)>100 or not isinstance(t,dict) or t.get('uid')!=uid or not isinstance(t.get('name'),str) or not 1<=len(t['name'])<=100 or type(t.get('rating')) not in (int,float) or not math.isfinite(t['rating']) or not 0<=t['rating']<=100:raise ValueError('Invalid competition team')
         for f in obj.fixtures:
-            if not isinstance(f,dict) or set(f)!={'id','home','away','week','stage','group','tie','leg','score','winner','penalties'}:raise ValueError('Invalid fixture fields')
+            if not isinstance(f,dict) or set(f)-{'extra_time','date','neutral'}!={'id','home','away','week','stage','group','tie','leg','score','winner','penalties'}:raise ValueError('Invalid fixture fields')
             if not isinstance(f['id'],str) or not 1<=len(f['id'])<=150 or f['group'] is not None and (type(f['group'])is not int or not 0<=f['group']<len(obj.groups)):raise ValueError('Invalid fixture group')
             ids.append(f['id'])
             if f['home'] not in obj.teams or f['away'] not in obj.teams or f['home']==f['away'] or type(f['week']) is not int or not 0<=f['week']<=200:raise ValueError('Invalid tournament fixture')
-            for field in ('score','penalties'):
-                score=f[field]
+            if 'neutral' in f and type(f['neutral'])is not bool:raise ValueError('Invalid neutral venue')
+            if 'date' in f:
+                from datetime import date
+                if not isinstance(f['date'],str) or len(f['date'])!=10:raise ValueError('Invalid fixture date')
+                date.fromisoformat(f['date'])
+            for field in ('score','penalties','extra_time'):
+                score=f.get(field)
                 if score is not None and (not isinstance(score,list) or len(score)!=2 or any(type(x)is not int or not 0<=x<=99 for x in score)):raise ValueError('Invalid saved result')
             if f['winner'] is not None and f['winner'] not in (f['home'],f['away']):raise ValueError('Invalid winner')
         if len(set(ids))!=len(ids) or not set(obj.active)<=set(ids) or len(set(obj.active))!=len(obj.active):raise ValueError('Invalid active fixtures')
@@ -235,7 +248,8 @@ class Tournament:
 class CompetitionBook:
     def __init__(self,season,seed,leagues,entrants=None,cup_winners=None,title_holders=None):
         from career import EUROPE_COUNTRIES,SOUTH_AMERICA_COUNTRIES,NORTH_AMERICA_COUNTRIES,ASIA_COUNTRIES,AFRICA_COUNTRIES,OCEANIA_COUNTRIES,WORLD_COUNTRIES
-        self.season,self.seed=season,seed;self.tournaments={};self.friendlies={};self.qualification_paths=[]
+        self.season,self.seed=season,seed;self.tournaments={};self.friendlies={};self.qualification_paths=[];self.callups={}
+        self.national_membership={k:copy.deepcopy(v) for k,v in (entrants or {}).items() if k.startswith('nations_')}
         self.nations={}
         strength={'Spain':92,'Argentina':92,'France':91,'England':90,'Brazil':90,'Portugal':89,'Germany':88,'Netherlands':88,'Italy':86,'Uruguay':86,'Colombia':85,'Belgium':85,'Croatia':84,'Japan':83,'Morocco':84,'Senegal':82,'Mexico':80,'United States':80,'Iran':80,'South Korea':79,'Australia':78,'New Zealand':73}
         for country in WORLD_COUNTRIES:
@@ -285,20 +299,20 @@ class CompetitionBook:
         european=sorted((t for t in self.nations.values() if t['country'] in EUROPE_COUNTRIES),key=lambda t:(-t['rating'],t['uid']))
         for index,letter in enumerate('ABCD'):
             key='nations_'+letter.lower();teams=(entrants or {}).get(key) or european[index*16:(index+1)*16]
-            if len(teams)<4:continue
+            if len(teams)<4 or season%2:continue
             groups=4 if len(teams)>=8 else 2
             self.tournaments[key]=Tournament(key,'UEFA Nations League '+letter,teams,f'{seed}:{season}',groups=groups,rounds=6,qualifiers=1,national=True,start_week=2,group_legs=2,knockout_legs=1)
         national_events=[]
-        if season%4==2:
+        if (season+1)%4==2:
             regions=[(EUROPE_COUNTRIES,16),(AFRICA_COUNTRIES,9),(ASIA_COUNTRIES,8),(NORTH_AMERICA_COUNTRIES,6),(SOUTH_AMERICA_COUNTRIES,6),(OCEANIA_COUNTRIES,1)]
             national_events.append(('world_cup','FIFA World Cup',regions,12,8,2))
         for key,title,countries,size,groups,thirds,active in [
-            ('euro','European Championship',EUROPE_COUNTRIES,24,6,4,season%4==0),
-            ('afcon','Africa Cup of Nations',AFRICA_COUNTRIES,24,6,4,season%2==1),
-            ('asian','AFC Asian Cup',ASIA_COUNTRIES,24,6,4,season%4==3),
-            ('gold','Concacaf Gold Cup',NORTH_AMERICA_COUNTRIES,16,4,0,season%2==1),
-            ('copa','Copa America',SOUTH_AMERICA_COUNTRIES+NORTH_AMERICA_COUNTRIES,16,4,0,season%4==0),
-            ('ofc_nations','OFC Nations Cup',OCEANIA_COUNTRIES,8,2,0,season%4==0)]:
+            ('euro','European Championship',EUROPE_COUNTRIES,24,6,4,(season+1)%4==0),
+            ('afcon','Africa Cup of Nations',AFRICA_COUNTRIES,24,6,4,(season+1)%2==1),
+            ('asian','AFC Asian Cup',ASIA_COUNTRIES,24,6,4,(season+1)%4==3),
+            ('gold','Concacaf Gold Cup',NORTH_AMERICA_COUNTRIES,16,4,0,(season+1)%2==1),
+            ('copa','Copa America',SOUTH_AMERICA_COUNTRIES+NORTH_AMERICA_COUNTRIES,16,4,0,(season+1)%4==0),
+            ('ofc_nations','OFC Nations Cup',OCEANIA_COUNTRIES,8,2,0,(season+1)%4==0)]:
             if active:national_events.append((key,title,[(countries,size)],groups,thirds,0))
         for key,title,regions,groups,thirds,wildcards in national_events:
             path={'key':key,'title':title,'groups':groups,'thirds':thirds,'wildcards':wildcards,'qualifiers':[],'created':False}
@@ -308,6 +322,8 @@ class CompetitionBook:
                 self.tournaments[qkey]=Tournament(qkey,title+' qualifying',pool,f'{seed}:{season}',kind='qualifying',groups=min(slots,max(1,math.ceil(len(pool)/4))),rounds=0,national=True,slots=slots,start_week=1)
                 path['qualifiers'].append(qkey)
             self.qualification_paths.append(path)
+        from international_calendar import schedule_book
+        schedule_book(self)
 
     def _create_finals(self):
         changed=False
@@ -321,6 +337,9 @@ class CompetitionBook:
             selected.extend(t for row,t in rest[:path['wildcards']])
             self.tournaments[path['key']]=Tournament(path['key'],path['title'],selected,f'{self.seed}:{self.season}',groups=path['groups'],rounds=3,qualifiers=2,best_thirds=path['thirds'],national=True,knockout_legs=1,start_week=last+3)
             path['created']=True;changed=True
+        if changed:
+            from international_calendar import schedule_book
+            schedule_book(self)
         return changed
 
     def add_domestic(self,country,leagues,weeks,*,legacy_round=0,exclude=''):
@@ -355,38 +374,39 @@ class CompetitionBook:
             down=[upper.teams[r['uid']] for r in bottoms[:len(up)]]
             out[upper.key].update(t['uid'] for t in down);incoming[lower.key].extend(down)
             out[lower.key].update(t['uid'] for t in up);incoming[upper.key].extend(up)
+        if not cups:result.update(copy.deepcopy(self.national_membership))
         result.update({c.key:[t for t in fields[c.key] if t['uid'] not in out[c.key]]+incoming[c.key] for c in cups})
         return result
 
     def complete(self):
+        from international_calendar import schedule_book
         while True:
-            for cup in list(self.tournaments.values()):cup.finish()
+            for cup in list(self.tournaments.values()):cup.advance(200,progress_callback=lambda:schedule_book(self))
             if not self._create_finals():break
 
 
     def next_fixture(self,week,club_uid,nationality,eligible):
-        pending=[]
+        from international_calendar import match_date,selected,prepare_friendlies,schedule_book
+        from datetime import date,timedelta
+        until=(date(self.season,7,12)+timedelta(weeks=week,days=4)).isoformat()
+        pending=[];actor='nation:'+nationality
+        prepare_friendlies(self,nationality)
         for cup in list(self.tournaments.values()):
-            actor='nation:'+nationality if cup.national else club_uid
-            protected=[actor] if actor in cup.teams and (eligible or not cup.national) else []
-            fixture=cup.advance(week,protected)
-            if fixture:pending.append((fixture['week'],fixture_day(cup),cup.key,fixture))
+            if cup.national:
+                def selector(f,cup=cup):
+                    return actor in (f['home'],f['away']) and selected(self,nationality,match_date(self.season,cup,f),eligible,week)
+                fixture=cup.advance(week,selector=selector,progress_callback=lambda:schedule_book(self),until=until)
+            else:fixture=cup.advance(week,[club_uid])
+            if fixture:pending.append((match_date(self.season,cup,fixture).isoformat(),cup.key,fixture))
         if self._create_finals():return self.next_fixture(week,club_uid,nationality,eligible)
+        for f in self.friendlies.values():
+            if f['score'] is not None or f['week']>week or (f.get('date') and f['date']>until) or actor not in (f['home'],f['away']):continue
+            if selected(self,nationality,match_date(self.season,None,f),eligible,week):pending.append((match_date(self.season,None,f).isoformat(),'friendly',f))
+            else:f['score']=simulate_score(f'{self.seed}:{f["id"]}',self.nations[f['home']],self.nations[f['away']])
         if pending:
-            _,day,key,f=min(pending,key=lambda x:(x[0],x[1],x[2],x[3]['id']))
-            cup=self.tournaments[key]
-            return key,f,cup.teams[f['home']],cup.teams[f['away']],cup.national
-        already_scheduled=any(c.national and any(f['week']==week and 'nation:'+nationality in (f['home'],f['away']) for f in c.fixtures) for c in self.tournaments.values())
-        if eligible and not already_scheduled and week in (6,10,14,18,22,26,30,34):
-            key=f'friendly:{nationality}:{week}'
-            if key not in self.friendlies:
-                opponents=[t for t in self.nations.values() if t['country']!=nationality]
-                opponent=rng_for(self.seed,self.season,key).choice(opponents)
-                home=self.nations['nation:'+nationality];away=opponent
-                if (week//4)%2:home,away=away,home
-                self.friendlies[key]={'id':key,'home':home['uid'],'away':away['uid'],'week':week,'stage':'International friendly','score':None}
-            f=self.friendlies[key]
-            if f['score'] is None:return 'friendly',f,self.nations[f['home']],self.nations[f['away']],True
+            _,key,f=min(pending,key=lambda item:(item[0],item[1],item[2]['id']))
+            cup=self.tournaments.get(key);teams=cup.teams if cup else self.nations
+            return key,f,teams[f['home']],teams[f['away']],cup.national if cup else True
         return None
 
     def record(self,key,fixture_id,score):
@@ -396,21 +416,28 @@ class CompetitionBook:
             if len(score)!=2 or any(type(x)is not int or not 0<=x<=99 for x in score):raise ValueError('Invalid score')
             f['score']=list(score);return f
         cup=self.tournaments[key];f=next(f for f in cup.fixtures if f['id']==fixture_id)
-        cup.record(f,score);cup.advance(f['week'],(f['home'],f['away']))
+        from international_calendar import schedule_book
+        cup.record(f,score);cup.advance(f['week'],(f['home'],f['away']),progress_callback=lambda:schedule_book(self))
+        schedule_book(self)
         return f
 
     def to_dict(self):
         return {'version':MODEL_VERSION,'season':self.season,'seed':self.seed,'nations':copy.deepcopy(self.nations),
-                'friendlies':copy.deepcopy(self.friendlies),'qualification_paths':copy.deepcopy(self.qualification_paths),'tournaments':{k:v.to_dict() for k,v in self.tournaments.items()}}
+                'friendlies':copy.deepcopy(self.friendlies),**({'callups':copy.deepcopy(self.callups)} if self.callups else {}),**({'national_membership':copy.deepcopy(self.national_membership)} if self.national_membership else {}),'qualification_paths':copy.deepcopy(self.qualification_paths),'tournaments':{k:v.to_dict() for k,v in self.tournaments.items()}}
 
     @classmethod
     def from_dict(cls,data):
         if not isinstance(data,dict) or data.get('version')!=MODEL_VERSION or len(data.get('tournaments',{}))>512 or len(data.get('friendlies',{}))>64:raise ValueError('Invalid competition book')
-        obj=object.__new__(cls);obj.season=int(data['season']);obj.seed=int(data['seed']);obj.nations=copy.deepcopy(data['nations']);obj.friendlies=copy.deepcopy(data['friendlies']);obj.qualification_paths=copy.deepcopy(data['qualification_paths'])
+        obj=object.__new__(cls);obj.national_membership=copy.deepcopy(data.get('national_membership',{}));obj.callups=copy.deepcopy(data.get('callups',{}));obj.season=int(data['season']);obj.seed=int(data['seed']);obj.nations=copy.deepcopy(data['nations']);obj.friendlies=copy.deepcopy(data['friendlies']);obj.qualification_paths=copy.deepcopy(data['qualification_paths'])
+        if not isinstance(obj.callups,dict) or len(obj.callups)>32 or any(not isinstance(k,str) or len(k)>150 or type(v)is not bool for k,v in obj.callups.items()):raise ValueError('Invalid call-up decisions')
         if not isinstance(obj.nations,dict) or len(obj.nations)>220:raise ValueError('Invalid nations')
         for uid,t in obj.nations.items():
             if not isinstance(t,dict) or uid!='nation:'+str(t.get('country','')) or t.get('uid')!=uid or not isinstance(t.get('name'),str) or not 1<=len(t['name'])<=100 or type(t.get('rating'))not in (int,float) or not math.isfinite(t['rating']) or not 0<=t['rating']<=100:raise ValueError('Invalid nation')
+        if not isinstance(obj.national_membership,dict) or len(obj.national_membership)>4 or any(k not in ('nations_a','nations_b','nations_c','nations_d') or not isinstance(v,list) or len(v)>16 or any(not isinstance(t,dict) or t.get('uid') not in obj.nations or t!=obj.nations[t['uid']] for t in v) for k,v in obj.national_membership.items()):raise ValueError('Invalid Nations League membership')
         obj.tournaments={k:Tournament.from_dict(v) for k,v in data['tournaments'].items()}
+        from datetime import date
+        for f in [f for cup in obj.tournaments.values() for f in cup.fixtures]+list(obj.friendlies.values()):
+            if f.get('date') and (date.fromisoformat(f['date'])-date(obj.season,7,12)).days//7!=f['week']:raise ValueError('Fixture date and season week disagree')
         if len(obj.qualification_paths)>8 or any(not isinstance(p,dict) or not set(p.get('qualifiers',[]))<=set(obj.tournaments) for p in obj.qualification_paths):raise ValueError('Invalid qualification path')
         for k,cup in obj.tournaments.items():
             if k!=cup.key:raise ValueError('Competition key mismatch')

@@ -1123,8 +1123,10 @@ class CareerMode(TwoDivisionCareer):
 
     @property
     def national_team_eligible(self):
-        return bool(self.world_unlocked and self.club and self.club.tier==1 and self.matches>=5
-                    and sum(self.form_goals[-5:])>=4 and self.morale>=13 and self.nationality in WORLD_COUNTRIES)
+        if not (self.world_unlocked and self.club and self.club.tier==1 and self.nationality in WORLD_COUNTRIES):return False
+        goals=self.current_league.scorer_goals.get(self.player_name,0)
+        # Competition rank: ties at third qualify; zero-goal opening tables do not.
+        return goals>0 and sum(value>goals for name,value in self.current_league.scorer_goals.items() if name!=self.player_name)<3
 
     def _ensure_competitions(self):
         if self.world_competitions is None:
@@ -1141,29 +1143,36 @@ class CareerMode(TwoDivisionCareer):
             new=key not in self.world_competitions.tournaments
             cup=self.world_competitions.add_domestic(self.current_league.country,self.leagues,self.cup_weeks)
             if new:cup.advance(max(0,self.week-1))
+        from international_calendar import prepare_friendlies
+        prepare_friendlies(self.world_competitions,self.nationality)
         self._refresh_competition_status()
 
     def _prepare_world_run_in(self):
         if self.world_run_in:return
-        from season_transitions import promotion_format
-        from world_competitions import Tournament
-        for league in self.leagues.values():
-            if uses_simplified_model(league.country,EUROPE_PYRAMID_DEPTH) and league.tier>2:continue
+        from domestic_playoffs import build_tournament
+        for league in self.domestic_leagues():
             while league.round_index<league.total_rounds:
                 rng=random.Random(f'{self.world_seed}:{self.season}:{league.key}:{league.round_index}')
                 for home,away in league.pairings():league.simulate_fixture(home,away,rng)
                 league.round_index+=1
+        start=max(self.week+1,max(l.total_rounds for l in self.domestic_leagues())+1)
         for country in WORLD_COUNTRIES:
-            pyramid=self.domestic_leagues(country)
-            for lower in pyramid:
-                if lower.tier-1 not in {l.tier for l in pyramid}:continue
-                direct,positions=promotion_format(country,lower.tier,uses_simplified_model(country,EUROPE_PYRAMID_DEPTH))
-                if not positions:continue
-                field=[lower.table()[i-1] for i in positions]
-                teams=[{'uid':c.uid,'name':c.name,'country':c.country,'rating':c.rating,'tier':c.tier} for c in field]
-                key=f'playoff:{country}:{lower.tier}'
-                self.world_competitions.tournaments[key]=Tournament(key,country+' Promotion playoff',teams,f'{self.world_seed}:{self.season}',kind='knockout',knockout_legs=1 if country=='England' and lower.tier==5 else 2,start_week=self.week+1,seeded=True)
+            upper,lower=self.leagues[country+'|1'],self.leagues[country+'|2']
+            for reserve in (False,True):
+                cup=build_tournament(country,upper,lower,f'{self.world_seed}:{self.season}',start,reserve=reserve,queue=self.reserve_clubs(country))
+                if cup:self.world_competitions.tournaments[cup.key]=cup
         self.world_run_in=True
+
+    def world_fixture_goal_means(self,token,home,away):
+        means=realistic_goal_means(home.rating,away.rating)
+        if self.world_competitions and token.startswith('world|'):
+            _,key,fixture_id=token.split('|',2)
+            cup=self.world_competitions.tournaments.get(key)
+            fixture=next((f for f in cup.fixtures if f['id']==fixture_id),None) if cup else None
+            if fixture and fixture.get('neutral'):
+                reverse=realistic_goal_means(away.rating,home.rating)
+                return ((means[0]+reverse[1])/2,(means[1]+reverse[0])/2)
+        return means
 
     def _finish_world_fixture(self,token,home,away,player_goals,player_misses,score):
         from world_competitions import fixture_day
@@ -1176,10 +1185,11 @@ class CareerMode(TwoDivisionCareer):
         actor='nation:'+self.nationality if national else self.club.uid
         if actor not in (home.uid,away.uid):raise ValueError('Player does not participate in this fixture')
         if score is None:
-            means=realistic_goal_means(home.rating,away.rating)
+            means=self.world_fixture_goal_means(token,home,away)
             score=tuple(poisson_goal(self.rng,max(.05,m-.35))+ (player_goals if (home if i==0 else away).uid==actor else 0) for i,m in enumerate(means))
         if player_goals<0 or player_misses<0 or score[0 if home.uid==actor else 1]<player_goals:raise ValueError('Personal goals exceed the team score')
         f=self.world_competitions.record(key,fixture_id,score)
+        score=tuple(f['score'])
         title='International friendly' if key=='friendly' else self.world_competitions.tournaments[key].title
         if national:
             self.international_caps+=1;self.international_goals+=player_goals;self.called_up=False
@@ -1187,10 +1197,12 @@ class CareerMode(TwoDivisionCareer):
             self.matches+=1;self.goals+=player_goals;self.missed_chances+=player_misses
             self.form_goals=(self.form_goals+[player_goals])[-8:]
         self._update_attributes(player_goals,player_misses)
-        decision='' if not f.get('penalties') else f" (pen. {f['penalties'][0]}-{f['penalties'][1]})"
+        decision=' (aet)' if f.get('extra_time') is not None else ''
+        decision+= '' if not f.get('penalties') else f" (pen. {f['penalties'][0]}-{f['penalties'][1]})"
         self.last_result=f'{home.name} {score[0]}-{score[1]} {away.name}{decision}'
         self.message=self.last_result
-        self.fixture_history.append({'date':(date(self.season,7,12)+timedelta(weeks=f['week'],days=(2 if cup is None else fixture_day(cup)))).isoformat(),'competition':title,'country':self.current_league.country,
+        from international_calendar import match_date
+        self.fixture_history.append({'date':match_date(self.season,cup,f).isoformat(),'competition':title,'country':self.current_league.country,
                                      'home':home.name,'away':away.name,'home_uid':home.uid,'away_uid':away.uid,'status':f'{score[0]}-{score[1]}{decision}','played':True})
         self.fixture_history=self.fixture_history[-128:]
         if key.startswith('domestic:'):
@@ -1252,12 +1264,18 @@ class CareerMode(TwoDivisionCareer):
             future_week += 1
         if self.world_unlocked and self.club:
             from world_competitions import fixture_day
+            from international_calendar import match_date,selection_label
             self._ensure_competitions()
             for cup in self.world_competitions.tournaments.values():
                 actor='nation:'+self.nationality if cup.national else self.club.uid
                 for f in cup.fixtures:
                     if f['score'] is not None or actor not in (f['home'],f['away']):continue
-                    entries.append({'date':(start+timedelta(weeks=f['week'],days=fixture_day(cup))).isoformat(),'competition':cup.title,'country':self.current_league.country,'home':cup.teams[f['home']]['name'],'away':cup.teams[f['away']]['name'],'home_uid':f['home'],'away_uid':f['away'],'status':f['stage'],'played':False})
+                    entries.append({'date':match_date(self.season,cup,f).isoformat(),'competition':cup.title,'country':self.current_league.country,'home':cup.teams[f['home']]['name'],'away':cup.teams[f['away']]['name'],'home_uid':f['home'],'away_uid':f['away'],'status':f['stage']+' · '+selection_label(self.world_competitions,self.nationality,match_date(self.season,cup,f)) if cup.national else f['stage'],'played':False})
+            from international_calendar import match_date
+            actor='nation:'+self.nationality
+            for f in self.world_competitions.friendlies.values():
+                if f['score'] is None and actor in (f['home'],f['away']):
+                    entries.append({'date':match_date(self.season,None,f).isoformat(),'competition':'International friendly','country':self.nationality,'home':self.world_competitions.nations[f['home']]['name'],'away':self.world_competitions.nations[f['away']]['name'],'home_uid':f['home'],'away_uid':f['away'],'status':selection_label(self.world_competitions,self.nationality,match_date(self.season,None,f)),'played':False})
         return sorted(entries, key=lambda entry: str(entry.get('date', '')))
 
 
@@ -1815,7 +1833,10 @@ class CareerMode(TwoDivisionCareer):
             self._refresh_competition_status()
 
     def _check_national_team(self):
-        if self.world_unlocked:self.called_up=bool(self.national_team_eligible and self.week in (6,10,14,18,22,26,30,34))
+        if self.world_unlocked:
+            self._ensure_competitions()
+            from international_calendar import window_key
+            self.called_up=bool(self.world_competitions.callups.get(self.nationality+':'+window_key(self.season,self.current_date),False))
         else:
             club=self.club;self.called_up=bool(club and club.tier==1 and self.matches>=5 and sum(self.form_goals[-5:])>=4 and self.morale>=13 and self.week%4==0)
         if self.called_up:self.message='You have been called up to the national team!'
@@ -1934,21 +1955,26 @@ class CareerMode(TwoDivisionCareer):
             cup=book.add_domestic(country,self.leagues,self.cup_weeks);cup.finish()
             self.national_cup_winners[country]=cup.teams[cup.champion]['name']
         self.qualification_snapshot={'season':self.season+1,'entries':book.entrants_for_next_season(self.leagues)}
-        winners={k:cup.champion for k,cup in book.tournaments.items()}
-        reserve_drops={country:[c.uid for c in self.leagues[country+'|2'].table()[-3:]] for country in WORLD_COUNTRIES}
-        moves=[]
-        for country in WORLD_COUNTRIES:
-            moves.extend(exchange_pyramid(self.domestic_leagues(country),country,winners,uses_simplified_model(country,EUROPE_PYRAMID_DEPTH)))
+        from domestic_playoffs import movements,reserve_movements
         from two_divisions import rotate_reserve,RELEGATED_MESSAGE
+        # Freeze both boundaries from final tables before any club changes division.
+        boundaries={}
         for country in WORLD_COUNTRIES:
-            lower=self.leagues[country+'|2'];archive=self.leagues[country+'|3']
-            queue=self.relegation_pools[country]
-            # T1 arrivals cannot be relegated twice at the same rollover.
-            eligible=reserve_drops[country]
-            original=list(lower.clubs)
-            selected=[next(c for c in original if c.uid==uid) for uid in eligible]
-            # Supply the frozen drop order, independent of new T1 arrivals' points.
-            queue,reserve_moves=rotate_reserve(lower,archive,queue,selected)
+            upper,lower=self.leagues[country+'|1'],self.leagues[country+'|2']
+            up,down=movements(upper,lower,book)
+            reserve_down,reserve_up=reserve_movements(lower,self.reserve_clubs(country),book)
+            boundaries[country]=(up,down,reserve_down,reserve_up)
+        moves=[]
+        for country,(up,down,reserve_down,reserve_up) in boundaries.items():
+            upper,lower=self.leagues[country+'|1'],self.leagues[country+'|2']
+            up_ids={c.uid for c in up};down_ids={c.uid for c in down}
+            upper.clubs=[c for c in upper.clubs if c.uid not in down_ids]+up
+            lower.clubs=[c for c in lower.clubs if c.uid not in up_ids]+down
+            for source,target,clubs in ((lower,upper,up),(upper,lower,down)):
+                moves.extend({'uid':c.uid,'from':source.key,'to':target.key} for c in clubs)
+            for target_league in (upper,lower):
+                for c in target_league.clubs:c.tier,c.league=target_league.tier,target_league.name
+            queue,reserve_moves=rotate_reserve(lower,self.leagues[country+'|3'],self.relegation_pools[country],reserve_down,reserve_up)
             self.relegation_pools[country]=queue;moves.extend(reserve_moves)
         self._repair_qualifiers()
         released=club.tier>2

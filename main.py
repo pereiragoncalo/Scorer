@@ -841,7 +841,7 @@ class StrikerGame(Widget):
         self.match_goal_event_index = 0
         player_home = self._player_match_is_home()
         if self.match_is_cup or self.match_is_international or self.match_competition.startswith('world|'):
-            home_mean, away_mean = realistic_goal_means(self.match_home.rating, self.match_away.rating)
+            home_mean, away_mean = self.career.world_fixture_goal_means(self.match_competition,self.match_home,self.match_away)
         else:
             home_mean, away_mean = self.career.fixture_goal_means(self.match_home, self.match_away)
         # Reserve the expected personal contribution from the team budget,

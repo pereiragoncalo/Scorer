@@ -320,5 +320,11 @@
   "Sign for a club to continue your career.": "签约俱乐部以继续职业生涯。",
   "RESERVE CLUBS": "候补俱乐部",
   "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "仅有两个级别，每季各升降三队。第二级降级队与10支候补俱乐部轮流替换。",
-  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "选择新游戏或载入游戏，为球员命名并选择第一份合同。World会推荐手机设置的国家，也可选择从英格兰第四级别起步。"
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "选择新游戏或载入游戏，为球员命名并选择第一份合同。World会推荐手机设置的国家，也可选择从英格兰第四级别起步。",
+  "PO: Playoff {places}": "PO: 附加赛 {places}",
+  "Playoff results decide promotion or relegation.": "附加赛结果决定升级或降级。",
+  "Selection pending": "等待征召",
+  "Called up": "已征召",
+  "Not selected": "未征召",
+  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "升降级遵循赛事规则。离开第二级联赛的球队由10家俱乐部组成的轮换预备池补充。"
 }

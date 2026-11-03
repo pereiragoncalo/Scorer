@@ -7,20 +7,21 @@ RELEGATED_MESSAGE='Your club left Division 2. You are free to sign for another c
 LEGACY_RELEASE_MESSAGE='Lower divisions were retired. You are now free to sign for a club.'
 
 
-def rotate_reserve(lower,archive,queue,down=None):
+def rotate_reserve(lower,archive,queue,down=None,up=None):
     """Validate then exchange bottom three with the oldest three reserve clubs."""
     if lower.tier!=2 or archive.tier!=3 or lower.country!=archive.country:raise ValueError('Invalid reserve boundary')
     all_clubs=lower.clubs+archive.clubs;by_id={c.uid:c for c in all_clubs}
     if len(by_id)!=len(all_clubs) or len(queue)!=POOL_SIZE or len(set(queue))!=POOL_SIZE:raise ValueError('Invalid reserve identities')
     if not set(queue)<={c.uid for c in archive.clubs}:raise ValueError('Reserve club is not in the archive')
     down=list(down) if down is not None else lower.table()[-MOVEMENT:]
-    if len(down)!=MOVEMENT or len({c.uid for c in down})!=MOVEMENT or any(c not in lower.clubs for c in down):raise ValueError('Invalid reserve relegation')
-    up=[by_id[uid] for uid in queue[:MOVEMENT]]
+    if len({c.uid for c in down})!=len(down) or any(c not in lower.clubs for c in down):raise ValueError('Invalid reserve relegation')
+    up=list(up) if up is not None else [by_id[uid] for uid in queue[:len(down)]]
+    if len(up)!=len(down) or len({c.uid for c in up})!=len(up) or any(c.uid not in queue for c in up):raise ValueError('Invalid reserve promotions')
     lower.clubs=[c for c in lower.clubs if c not in down]+up
     archive.clubs=[c for c in archive.clubs if c not in up]+down
     for league in (lower,archive):
         for club in league.clubs:club.tier,club.league=league.tier,league.name
-    return queue[MOVEMENT:]+[c.uid for c in down],[{'uid':c.uid,'from':source.key,'to':target.key} for source,target,clubs in ((lower,archive,down),(archive,lower,up)) for c in clubs]
+    return [uid for uid in queue if uid not in {c.uid for c in up}]+[c.uid for c in down],[{'uid':c.uid,'from':source.key,'to':target.key} for source,target,clubs in ((lower,archive,down),(archive,lower,up)) for c in clubs]
 
 
 class TwoDivisionCareer:

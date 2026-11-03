@@ -78,7 +78,8 @@ class SeasonRecordTests(unittest.TestCase):
         import os,edition
         with tempfile.TemporaryDirectory() as t,patch.dict(os.environ,STRIKER_SAVE_DIR=t),patch('edition.WORLD_BUILD',True):
             c=CareerMode(edition.entitlement_provider(),autoload=False,starter_country='Portugal',save_slot='world')
-            c.accept_starting_offer(c.offers[0]);old=c.current_league.tier
+            c.accept_starting_offer(c.offers[0]);from domestic_playoffs import eligible_table
+            c.club_name=eligible_table(c.current_league)[0].name;old=c.current_league.tier
             c.club.points=999;c.goals=37;c.matches=40;c._finish_season()
             record=c.completed_records[0]
             self.assertEqual((record['country'],record['division'],record['edition'],record['goals']),('Portugal',old,'world',37))

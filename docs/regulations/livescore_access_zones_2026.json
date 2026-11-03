@@ -1,0 +1,4426 @@
+{
+  "retrieved": "2026-11-02",
+  "note": "Table zone labels are facts, not a verification of every tie rule or group phase. Empty tables remain unresolved. Only public compatible pages used; no disallowed LiveScore API requests.",
+  "tables": {
+    "Portugal-T1": {
+      "url": "https://www.livescores.com/football/portugal/primeira-liga/",
+      "sha256": "ac570a47842747f8bf2c5e2028889ec8f9debce78756f30ecd2d4c0c2c9dbea8",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "FC Porto",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 2,
+          "team": "Benfica",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 3,
+          "team": "Sporting CP",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "Santa Clara",
+          "zone": "Europa League qualification"
+        },
+        {
+          "rank": 5,
+          "team": "Arouca",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 6,
+          "team": "Academico Viseu",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "SC Braga",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Gil Vicente",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Moreirense",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Alverca",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Famalicao",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "CF Estrela da Amadora",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Vitoria de Guimaraes",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Maritimo",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Nacional",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Rio Ave",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 17,
+          "team": "Casa Pia AC",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Estoril",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Portugal-T2": {
+      "url": "https://www.livescores.com/football/portugal/segunda-liga/",
+      "sha256": "03f0ee4172d8e7f29c29ff1e82f00e5729245fd10b7eee4a6fe25783e7c14c7a",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Sporting CP B",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Lusitania Lourosa",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Benfica B",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Penafiel",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "Farense",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Academica",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Tondela",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Uniao de Leiria",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Vizela",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "AVS Futebol SAD",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Portimonense",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Torreense",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Leixoes",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Amarante FC",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Chaves",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "FC Porto B",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 17,
+          "team": "Felgueiras 1932",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Feirense",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "England-T1": {
+      "url": "https://www.livescores.com/football/england/premier-league/",
+      "sha256": "a1b3266eef3a69ae3f74d85043ca42fb57a113fc633b8794c1cd3ccdcc0fdc09",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Arsenal",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 2,
+          "team": "Manchester City",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 3,
+          "team": "Brighton",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 4,
+          "team": "Chelsea",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 5,
+          "team": "Liverpool",
+          "zone": "Europa League"
+        },
+        {
+          "rank": 6,
+          "team": "Brentford",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "AFC Bournemouth",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Tottenham Hotspur",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Aston Villa",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Hull City",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Leeds United",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Newcastle United",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Ipswich Town",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Everton",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Fulham",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Coventry City",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Manchester United",
+          "zone": ""
+        },
+        {
+          "rank": 18,
+          "team": "Crystal Palace",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 19,
+          "team": "Nottingham Forest",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 20,
+          "team": "Sunderland",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "England-T2": {
+      "url": "https://www.livescores.com/football/england/championship/",
+      "sha256": "aed5284fc3eb4cf9048c995c5a47bc83be5b5aef2a7e7adbd19b870ac825ae14",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Middlesbrough",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Swansea City",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Wolves",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "West Bromwich Albion",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Southampton",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Birmingham City",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Stoke City",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 8,
+          "team": "West Ham United",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 9,
+          "team": "QPR",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Sheffield United",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Portsmouth",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Millwall",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Blackburn Rovers",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Bristol City",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Norwich City",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Lincoln City",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Cardiff City",
+          "zone": ""
+        },
+        {
+          "rank": 18,
+          "team": "Wrexham",
+          "zone": ""
+        },
+        {
+          "rank": 19,
+          "team": "Bolton Wanderers",
+          "zone": ""
+        },
+        {
+          "rank": 20,
+          "team": "Charlton Athletic",
+          "zone": ""
+        },
+        {
+          "rank": 21,
+          "team": "Watford",
+          "zone": ""
+        },
+        {
+          "rank": 22,
+          "team": "Burnley",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 23,
+          "team": "Derby County",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 24,
+          "team": "Preston North End",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Spain-T1": {
+      "url": "https://www.livescores.com/football/spain/laliga/",
+      "sha256": "01e83c271fd2742996cd1d587570404dc360c61daec0b9b2855d0ac716c58aae",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Barcelona",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 2,
+          "team": "Atletico Madrid",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 3,
+          "team": "Real Madrid",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 4,
+          "team": "Real Betis",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 5,
+          "team": "Real Sociedad",
+          "zone": "Europa League"
+        },
+        {
+          "rank": 6,
+          "team": "Sevilla",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 7,
+          "team": "Athletic Club",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Villarreal",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Celta Vigo",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Deportivo Alaves",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Rayo Vallecano",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Getafe",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Deportivo A Coruna",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Espanyol",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Osasuna",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Racing Santander",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Elche",
+          "zone": ""
+        },
+        {
+          "rank": 18,
+          "team": "Levante",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 19,
+          "team": "Valencia",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 20,
+          "team": "Malaga",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Spain-T2": {
+      "url": "https://www.livescores.com/football/spain/laliga-2/",
+      "sha256": "92f854900b798cfb095dc9d996fce4cc0646ee1798a47d724d9af1e4166b4610",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Castellon",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Almeria",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Eibar",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Granada",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Sporting Gijon",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Girona",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Burgos CF",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Mallorca",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Real Oviedo",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Sabadell",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Cordoba",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Tenerife",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "CD Eldense",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Las Palmas",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Celta Vigo B",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Real Valladolid",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Leganes",
+          "zone": ""
+        },
+        {
+          "rank": 18,
+          "team": "Real Sociedad B",
+          "zone": ""
+        },
+        {
+          "rank": 19,
+          "team": "Cadiz",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 20,
+          "team": "FC Andorra",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 21,
+          "team": "Albacete",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 22,
+          "team": "AD Ceuta FC",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Germany-T1": {
+      "url": "https://www.livescores.com/football/germany/bundesliga/",
+      "sha256": "b9a804de398a003ecd8ff38845234c971762e0ed67ecc8b3b545ee1bddb3471c",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Bayern Munich",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 2,
+          "team": "Borussia Dortmund",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 3,
+          "team": "Freiburg",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 4,
+          "team": "RB Leipzig",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 5,
+          "team": "Werder Bremen",
+          "zone": "Europa League"
+        },
+        {
+          "rank": 6,
+          "team": "Bayer Leverkusen",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 7,
+          "team": "Elversberg",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Eintracht Frankfurt",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Mainz 05",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Augsburg",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "VfB Stuttgart",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Hoffenheim",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "FC Cologne",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Paderborn",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Hamburger SV",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Union Berlin",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 17,
+          "team": "Schalke 04",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Borussia M&#x27;gladbach",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Germany-T2": {
+      "url": "https://www.livescores.com/football/germany/2-bundesliga/",
+      "sha256": "0d280075c28a54645456911c4743eac76837a3133f04f64c65c461531714a1e5",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Hertha Berlin",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "1. FC Nuremberg",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Wolfsburg",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Kaiserslautern",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "Magdeburg",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "FC Heidenheim",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Arminia Bielefeld",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "St. Pauli",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Greuther Furth",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "VfL Osnabrück",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "VfL Bochum",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Hannover 96",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Karlsruher SC",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Energie Cottbus",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Eintracht Braunschweig",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Darmstadt",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 17,
+          "team": "Holstein Kiel",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Dynamo Dresden",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "France-T1": {
+      "url": "https://www.livescores.com/football/france/ligue-1/",
+      "sha256": "d092829e8d172f9c4c6ff1f2e68873b97eb581a45f28e8829b459994db730a51",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Paris Saint-Germain",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 2,
+          "team": "Lille",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 3,
+          "team": "Lyon",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 4,
+          "team": "Paris FC",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 5,
+          "team": "Rennes",
+          "zone": "Europa League"
+        },
+        {
+          "rank": 6,
+          "team": "Marseille",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 7,
+          "team": "AS Monaco",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Nice",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Lens",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Lorient",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Toulouse",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Strasbourg",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Auxerre",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Brest",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Angers",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Troyes",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 17,
+          "team": "Le Mans",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Le Havre",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "France-T2": {
+      "url": "https://www.livescores.com/football/france/ligue-2/",
+      "sha256": "5626c5ada024f6dfefa5587ed271da69d75e5124e8d222442a2bdf8b0f4a0568",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Saint-Etienne",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Montpellier",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Pau",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Nancy",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Reims",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Red Star",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "FC Annecy",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Dijon",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Guingamp",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Metz",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Rodez",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Dunkerque",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Sochaux",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Boulogne",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Nantes",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Laval",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 17,
+          "team": "Clermont Foot 63",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Grenoble",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Italy-T1": {
+      "url": "https://www.livescores.com/football/italy/serie-a/",
+      "sha256": "afd5040e825722087fea97e55c89f75455619209d4261d6855f9ec40624113e5",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Lazio",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 2,
+          "team": "Inter",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 3,
+          "team": "AS Roma",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 4,
+          "team": "Como 1907",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 5,
+          "team": "AC Milan",
+          "zone": "Europa League"
+        },
+        {
+          "rank": 6,
+          "team": "Frosinone",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 7,
+          "team": "Juventus",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Napoli",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Bologna",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Torino",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Genoa",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Cagliari",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Atalanta",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Lecce",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Sassuolo",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Monza",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Fiorentina",
+          "zone": ""
+        },
+        {
+          "rank": 18,
+          "team": "Parma",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 19,
+          "team": "Udinese",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 20,
+          "team": "Venezia",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Italy-T2": {
+      "url": "https://www.livescores.com/football/italy/serie-b/",
+      "sha256": "853692f2d037effb73df9c89eb200e57446eb656e459df8b05fd57f8e7a72781",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Palermo",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Modena",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Ascoli",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Mantova",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Hellas Verona",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Avellino",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Benevento",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Pisa",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 9,
+          "team": "Sudtirol",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Calcio Padova",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Cremonese",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Cesena FC",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "S.S. Arezzo",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Virtus Entella",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Carrarese",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Juve Stabia",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 17,
+          "team": "L.R. Vicenza",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 18,
+          "team": "Empoli",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 19,
+          "team": "Sampdoria",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 20,
+          "team": "Catanzaro",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Brazil-T1": {
+      "url": "https://www.livescores.com/football/brazil/serie-a/",
+      "sha256": "96e7e6c5866d5ad9da068f9b113535517b19e6e1d1cf4c3543350e7e3293cb15",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Flamengo",
+          "zone": "Copa Libertadores"
+        },
+        {
+          "rank": 2,
+          "team": "Palmeiras",
+          "zone": "Copa Libertadores"
+        },
+        {
+          "rank": 3,
+          "team": "Cruzeiro",
+          "zone": "Copa Libertadores"
+        },
+        {
+          "rank": 4,
+          "team": "Fluminense",
+          "zone": "Copa Libertadores"
+        },
+        {
+          "rank": 5,
+          "team": "Athletico Paranaense",
+          "zone": "Copa Libertadores qualification"
+        },
+        {
+          "rank": 6,
+          "team": "Bahia",
+          "zone": "Copa Sudamericana"
+        },
+        {
+          "rank": 7,
+          "team": "Atletico MG",
+          "zone": "Copa Sudamericana"
+        },
+        {
+          "rank": 8,
+          "team": "Santos FC",
+          "zone": "Copa Sudamericana"
+        },
+        {
+          "rank": 9,
+          "team": "RB Bragantino",
+          "zone": "Copa Sudamericana"
+        },
+        {
+          "rank": 10,
+          "team": "Sao Paulo",
+          "zone": "Copa Sudamericana"
+        },
+        {
+          "rank": 11,
+          "team": "Coritiba",
+          "zone": "Copa Sudamericana"
+        },
+        {
+          "rank": 12,
+          "team": "Botafogo FR",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Vasco da Gama",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Vitoria",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Gremio",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Mirassol",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Corinthians",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Internacional",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 19,
+          "team": "Remo",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 20,
+          "team": "Chapecoense AF",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Brazil-T2": {
+      "url": "https://www.livescores.com/football/brazil/serie-b/",
+      "sha256": "13ddae7e0bc3b991984f797c4709673980da53d6f29bfb58a8d13a5d8533802c",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Novorizontino",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Juventude",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Vila Nova",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Criciuma",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Fortaleza",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "CRB",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Sport Recife",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Atletico GO",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Goias",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Sao Bernardo",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Operario Ferroviario",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Botafogo SP",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Cuiaba",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Nautico",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Athletic Club",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Ceara",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Avai FC",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Londrina EC",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 19,
+          "team": "America MG",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 20,
+          "team": "Ponte Preta",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Argentina-T1": {
+      "url": "https://www.livescores.com/football/argentina/primera-division/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Argentina-T2": {
+      "url": "https://www.livescores.com/football/argentina/primera-nacional/",
+      "sha256": "ab1a26389ed1c3b3f1dc199b45cbb4a0a3860857885b2c42c965dbf00dbdd4e7",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Godoy Cruz",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Ferro Carril Oeste",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Deportivo Moron",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Deportivo Madryn",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Club Atletico Colon",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Almirante Brown",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Ciudad de Bolivar",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Club Atletico Estudiantes",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 9,
+          "team": "CA Chaco For Ever",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Los Andes",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "San Telmo",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Club Atletico Mitre",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Racing de Cordoba",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "CA Defensores de Belgrano",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Central Norte",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "All Boys",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Acassuso",
+          "zone": ""
+        },
+        {
+          "rank": 18,
+          "team": "CA San Miguel",
+          "zone": ""
+        },
+        {
+          "rank": 1,
+          "team": "Tristan Suarez",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Atlanta",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Temperley",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "CA Gimnasia de Jujuy",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "CA Ferrocarril Midland",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Deportivo Maipu",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Colegiales",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Gimnasia y Tiro",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 9,
+          "team": "San Martin San Juan",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "San Martin de Tucuman",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Atletico Rafaela",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Agropecuario",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Quilmes",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Almagro",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Chacarita Juniors",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Patronato de Parana",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Nueva Chicago",
+          "zone": ""
+        },
+        {
+          "rank": 18,
+          "team": "Atletico Guemes",
+          "zone": ""
+        }
+      ]
+    },
+    "Scotland-T1": {
+      "url": "https://www.livescores.com/football/scotland/premiership/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Scotland-T2": {
+      "url": "https://www.livescores.com/football/scotland/championship/",
+      "sha256": "cd8db9c03d85f256a94eeea1cd7e2dd6eb282fc3b0e65be8736216c3497087cf",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Partick Thistle",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Raith Rovers",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Dunfermline Athletic",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Stenhousemuir",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Livingston",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Inverness CT",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Ayr United",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Arbroath",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Greenock Morton",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "Queen&#x27;s Park",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Netherlands-T1": {
+      "url": "https://www.livescores.com/football/netherlands/eredivisie/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Netherlands-T2": {
+      "url": "https://www.livescores.com/football/netherlands/eerste-divisie/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Norway-T1": {
+      "url": "https://www.livescores.com/football/norway/eliteserien/",
+      "sha256": "5558ceabefa8ba9057606c6b73b6eade7111fc29a303ce10f0ca2c8f970ee119",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Viking",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 2,
+          "team": "Bodoe/Glimt",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 3,
+          "team": "Molde",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "Rosenborg",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 5,
+          "team": "Lillestroem",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Tromsoe",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Brann",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Vaalerenga",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Sarpsborg 08",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "KFUM Oslo",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Fredrikstad",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Sandefjord",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "HamKam",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Aalesund",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 15,
+          "team": "Kristiansund BK",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 16,
+          "team": "IK Start",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Norway-T2": {
+      "url": "https://www.livescores.com/football/norway/1-division/",
+      "sha256": "7582471a5d80017bd1729f6126f20e1cde2c78bce8c857946b1b54cac07f8199",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "FK Haugesund",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Stroemsgodset",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Kongsvinger",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Stabaek",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Odds Ballklubb",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Bryne",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Ranheim",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Egersund",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Hoedd",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Stroemmen",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Lyn",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Sogndal",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Sandnes",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Moss",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 15,
+          "team": "Aasane",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 16,
+          "team": "Raufoss",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Sweden-T1": {
+      "url": "https://www.livescores.com/football/sweden/allsvenskan/",
+      "sha256": "8cfad6e4063fc603bca4742061f329c0a9cf960593f793e25a0c1883d9a8123c",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Hammarby IF",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 2,
+          "team": "Sirius",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 3,
+          "team": "Djurgaarden",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "BK Haecken",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "Elfsborg",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Vasteraas SK",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Malmo FF",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "AIK",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "IFK Gothenburg",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "GAIS",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Brommapojkarna",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Mjaellby",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Kalmar FF",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Degerfors",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 15,
+          "team": "Oergryte",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 16,
+          "team": "Halmstads BK",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Sweden-T2": {
+      "url": "https://www.livescores.com/football/sweden/superettan/",
+      "sha256": "212312f0bd085a12a012f05e1df05c4ecdc080f897bba50f8e653e93aad0d7f1",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "IFK Norrkoeping",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Falkenbergs FF",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Varbergs BoIS FC",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Oestersunds FK",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "IK Oddevold",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Landskrona BoIS",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Oesters IF",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "United IK Nordic",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Sandvikens IF",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Vaernamo",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Helsingborgs IF",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Ljungskile",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Orebro SK",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 14,
+          "team": "Norrby",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 15,
+          "team": "IK Brage",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 16,
+          "team": "GIF Sundsvall",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Finland-T1": {
+      "url": "https://www.livescores.com/football/finland/veikkausliiga/",
+      "sha256": "59a7141068c85de822a78b77e9d6d01e48f1cba44574579f7c074d8c5b81eb5e",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "KuPS",
+          "zone": "Championship play-off (additional spot(s) for UEFA Champions League qualification)"
+        },
+        {
+          "rank": 2,
+          "team": "FC Inter Turku",
+          "zone": "Championship play-off gives UEFA Conference League qualification"
+        },
+        {
+          "rank": 3,
+          "team": "HJK Helsinki",
+          "zone": "Championship play-off gives UEFA Conference League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "IF Gnistan",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 5,
+          "team": "AC Oulu",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 6,
+          "team": "VPS",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 7,
+          "team": "FC Lahti",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 8,
+          "team": "TPS",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 9,
+          "team": "Ilves",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "SJK-J",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 11,
+          "team": "FF Jaro",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "IFK Mariehamn",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Finland-T2": {
+      "url": "https://www.livescores.com/football/finland/ykkosliiga/",
+      "sha256": "d7d2d50bead7120900f7d2e82726a8e1eb5f686c19ecb2fafe86dcff6394ba6a",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "FC KTP",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "PK-35 Helsinki",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "FC Haka J",
+          "zone": ""
+        },
+        {
+          "rank": 4,
+          "team": "JIPPO",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "JaePS",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "EIF",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Mikkelin Palloilijat",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Klubi 04",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "KaPa Kapylan Pallo",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "SJK Akatemia",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Switzerland-T1": {
+      "url": "https://www.livescores.com/football/switzerland/super-league/",
+      "sha256": "f267c73339ba03dc31d9a26aeeabf0e8f6dd25fd0686674e4af882b25a065e06",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Lugano",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 2,
+          "team": "Young Boys",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Sion",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 4,
+          "team": "FC Zurich",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 5,
+          "team": "St. Gallen",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Servette",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Basel",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Luzern",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 9,
+          "team": "Thun",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "FC Vaduz",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 11,
+          "team": "Grasshopper",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "Lausanne",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Switzerland-T2": {
+      "url": "https://www.livescores.com/football/switzerland/challenge-league/",
+      "sha256": "f9a58cba21d6507c4b18a40b1b01a9ac294046f203a438531eec6e5f703663f3",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "FC Stade Lausanne-Ouchy",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Winterthur",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Yverdon",
+          "zone": ""
+        },
+        {
+          "rank": 4,
+          "team": "Kriens",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "Xamax",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Aarau",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Etoile Carouge",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "FC Rapperswil-Jona",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "FC Wil 1900",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Stade Nyonnais",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Turkey-T1": {
+      "url": "https://www.livescores.com/football/turkey/super-lig/",
+      "sha256": "8e46525ca3e50b14c00300387ef726f66c79012873dd9e3d6438c73337b54da5",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Galatasaray",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 2,
+          "team": "Amed Sportif",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 3,
+          "team": "Trabzonspor",
+          "zone": "Europa League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "Beşiktaş",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 5,
+          "team": "Kasımpaşa",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Fenerbahçe",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Corum FK",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Kocaelispor",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Goztepe",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "İstanbul Başakşehir",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Erzurumspor FK",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Alanyaspor",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Rizespor",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Konyaspor",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Gaziantep FK",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Gençlerbirliği",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 17,
+          "team": "Samsunspor",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Eyupspor",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Turkey-T2": {
+      "url": "https://www.livescores.com/football/turkey/1st-lig/",
+      "sha256": "6de821eb384651342d90ae6a6425e4f619162cd5dc96a13cf2f614095c158c6f",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Bursaspor",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Kayserispor",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Igdir FK",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Mardin Buyuksehir Basakspor",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Batman Petrolspor",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Keciorengucu",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Antalyaspor",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Muglaspor",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Bodrum FK",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Fatih Karagumruk",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Sariyer",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Esenler Erokspor",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Van Spor Kulubu",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Bandirmaspor",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Umraniyespor",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Pendikspor",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Manisa FK",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Sivasspor",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 19,
+          "team": "Istanbulspor",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 20,
+          "team": "Boluspor",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Ireland-T1": {
+      "url": "https://www.livescores.com/football/ireland/premier-division/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Ireland-T2": {
+      "url": "https://www.livescores.com/football/ireland/1st-division/",
+      "sha256": "af2a368ac0b6d69710505a3a4a3a040e4842e59dd4986bda0fd4f12ef768690a",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Drogheda United",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Bray Wanderers",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "UCD",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Longford Town",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Galway United FC",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Cobh Ramblers",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Cabinteely",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Shamrock Rovers II",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Athlone Town",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Wexford FC",
+          "zone": ""
+        }
+      ]
+    },
+    "Northern Ireland-T1": {
+      "url": "https://www.livescores.com/football/northern-ireland/premiership/",
+      "sha256": "fbdf392ed554e3349be408093e13cde67688faf02ff2e49015630441fbdf9d6b",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Coleraine",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 2,
+          "team": "Linfield",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Larne",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Glentoran",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Cliftonville",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Carrick Rangers",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Crusaders",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Ballymena United",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 9,
+          "team": "Dungannon Swifts",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "Limavady",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 11,
+          "team": "Bangor",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "Portadown",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Northern Ireland-T2": {
+      "url": "https://www.livescores.com/football/northern-ireland/championship/",
+      "sha256": "2ea59cd26e9954d08b617d25d5e03e26c16c94aa3e9801c2ff849bad4a5da550",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Annagh United",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 2,
+          "team": "Glenavon",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Newington FC",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Institute",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Ballinamallard United",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Queen&#x27;s University",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Newry City AFC",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Warrenpoint Town",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 9,
+          "team": "Ards",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "Loughgall",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 11,
+          "team": "Harland &amp; Wolff Welders FC",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "Moyola Park",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 13,
+          "team": "Rathfriland Rangers",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 14,
+          "team": "Dundela",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 15,
+          "team": "Strabane Athletic",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 16,
+          "team": "Armagh",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Wales-T1": {
+      "url": "https://www.livescores.com/football/wales/premier-league/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Poland-T1": {
+      "url": "https://www.livescores.com/football/poland/ekstraklasa/",
+      "sha256": "a315d31c45b932ed5c6e15dca7246c307d3a508eee8124baeca3f69a263b5eec",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Lech Poznan",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 2,
+          "team": "Gornik Zabrze",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 3,
+          "team": "Legia Warszawa",
+          "zone": "Europa League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "Pogon Szczecin",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 5,
+          "team": "GKS Katowice",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Piast Gliwice",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Wisla Krakow",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Zaglebie Lubin",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Jagiellonia Bialystok",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Korona Kielce",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Motor Lublin",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Wisla Plock",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Cracovia",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Widzew Lodz",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Slask Wroclaw",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Wieczysta Krakow",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 17,
+          "team": "Radomiak Radom",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Rakow Czestochowa",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Poland-T2": {
+      "url": "https://www.livescores.com/football/poland/1-liga/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Czech Republic-T1": {
+      "url": "https://www.livescores.com/football/czech-republic/1st-league/",
+      "sha256": "b7a6d38a90ebade1d0a5d3c75d1ab3fc4ba3d7d1fd1c0604090dee2c291c13a5",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Slavia Prague",
+          "zone": "Championship play-off (additional spot(s) for UEFA Champions League)"
+        },
+        {
+          "rank": 2,
+          "team": "Mlada Boleslav",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 3,
+          "team": "SK Sigma Olomouc",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Sparta Prague",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Slovan Liberec",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Teplice",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Jablonec",
+          "zone": "Next stage"
+        },
+        {
+          "rank": 8,
+          "team": "FC Zbrojovka Brno",
+          "zone": "Next stage"
+        },
+        {
+          "rank": 9,
+          "team": "Viktoria Plzen",
+          "zone": "Next stage"
+        },
+        {
+          "rank": 10,
+          "team": "Bohemians 1905",
+          "zone": "Next stage"
+        },
+        {
+          "rank": 11,
+          "team": "Hradec Kralove",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "Pardubice",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 13,
+          "team": "Banik Ostrava",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 14,
+          "team": "SK Lisen",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 15,
+          "team": "Slovacko",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 16,
+          "team": "FC Zlin",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Czech Republic-T2": {
+      "url": "https://www.livescores.com/football/czech-republic/2nd-league/",
+      "sha256": "957db4572fa780ab4921d3cc0c50848aac3c96fb83814cf86bf29b042859102b",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Karvina",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Dukla Praha",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Vysocina Jihlava",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "FC Vlasim",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "Pribram",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Usti nad Labem",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Slavia Prague B",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "FK Arsenal Ceska Lipa",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Banik Ostrava B",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Opava",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "FK MAS Taborsko",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "SK Kladno",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Zizkov",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "SK Hanacka Slavia Kromeriz",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "SK Prostejov",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 16,
+          "team": "Trinec",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Romania-T1": {
+      "url": "https://www.livescores.com/football/romania/liga-1/",
+      "sha256": "b6672413caa86d884b584f351898c0b06a795176ff9dd95ed57f190fd880abf0",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Dinamo Bucuresti",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 2,
+          "team": "CS Universitatea Craiova",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 3,
+          "team": "FC Rapid 1923",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Petrolul Ploiesti",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Universitatea Cluj",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 6,
+          "team": "FCSB",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 7,
+          "team": "FCV Farul Constanta",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Corvinul Hunedoara",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 9,
+          "team": "CFR Cluj",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "UTA Arad",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 11,
+          "team": "Sepsi OSK",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "Botosani",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 13,
+          "team": "Otelul Galati",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 14,
+          "team": "ACS Champions FC Arges",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 15,
+          "team": "FC Voluntari",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 16,
+          "team": "Miercurea Ciuc",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Romania-T2": {
+      "url": "https://www.livescores.com/football/romania/liga-2/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Bulgaria-T1": {
+      "url": "https://www.livescores.com/football/bulgaria/parva-liga/",
+      "sha256": "d5b9136642123c1a466050e04bd1d96a5bf715f3fc9fb484432546248bda97d9",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Levski Sofia",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 2,
+          "team": "PFC CSKA Sofia",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Ludogorets Razgrad",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 4,
+          "team": "CSKA 1948 Sofia",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Botev Plovdiv",
+          "zone": "Europa Conference League qualification play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Arda Kardzhali",
+          "zone": "Europa Conference League qualification play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Slavia Sofia",
+          "zone": "Europa Conference League qualification play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Spartak Varna",
+          "zone": "Europa Conference League qualification play-off"
+        },
+        {
+          "rank": 9,
+          "team": "Dunav Ruse",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "Botev Vratsa",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 11,
+          "team": "Lokomotiv Plovdiv",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "PFC Lokomotiv Sofia 1929",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 13,
+          "team": "Cherno More Varna",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 14,
+          "team": "Septemvri Sofia",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Bulgaria-T2": {
+      "url": "https://www.livescores.com/football/bulgaria/vtorra-liga/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Serbia-T1": {
+      "url": "https://www.livescores.com/football/serbia/super-liga/",
+      "sha256": "8c2bad9be1e60f171fdfdd9f26519904909309343f9978a55630521a0726c674",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "FK Crvena Zvezda",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 2,
+          "team": "Vojvodina",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Zeleznicar Pancevo",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 4,
+          "team": "FK Radnicki 1923",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 5,
+          "team": "FK IMT Beograd",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Cukaricki",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Mladost Lucani",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Partizan Beograd",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 9,
+          "team": "FK Radnik Surdulica",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "Novi Pazar",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 11,
+          "team": "OFK Beograd",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "Macva Sabac",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 13,
+          "team": "Radnicki Nis",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 14,
+          "team": "FK Zemun",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Serbia-T2": {
+      "url": "https://www.livescores.com/football/serbia/prva-liga/",
+      "sha256": "b47defeda199ebcaca60c0d6a932054daa5a95998333e11e54ff4699a057c058",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "TSC Backa Topola",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 2,
+          "team": "FK Borac Cacak",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Javor",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "OFK Vrsac",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "FK Smederevo 1924",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "FK Dubocica",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Napredak",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Proleter 023",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 9,
+          "team": "Loznica",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "FK Spartak Subotica",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 11,
+          "team": "Vozdovac",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "FK Metalac",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 13,
+          "team": "Jedinstvo Ub",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 14,
+          "team": "Teleoptik",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 15,
+          "team": "FK Graficar",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 16,
+          "team": "OFK Bor",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Croatia-T1": {
+      "url": "https://www.livescores.com/football/croatia/1-hnl/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Croatia-T2": {
+      "url": "https://www.livescores.com/football/croatia/2-hnl/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Hungary-T1": {
+      "url": "https://www.livescores.com/football/hungary/nb-i/",
+      "sha256": "dff5cbc66168d02362eb68b343d6f29f74e322ed02c5577a2c1a1b9b406817ce",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Gyori ETO",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 2,
+          "team": "Puskas FC Academy",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 3,
+          "team": "Ferencvaros",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "Debrecen",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "Ujpest",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Paksi SE",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Vasas Budapest",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Zalaegerszeg",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Budapest Honved",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "MTK Budapest",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Kisvarda FC",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "Nyiregyhaza Spartacus FC",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Hungary-T2": {
+      "url": "https://www.livescores.com/football/hungary/nb-ii/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Slovakia-T1": {
+      "url": "https://www.livescores.com/football/slovakia/super-liga/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Slovakia-T2": {
+      "url": "https://www.livescores.com/football/slovakia/2-liga/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Slovenia-T1": {
+      "url": "https://www.livescores.com/football/slovenia/prva-liga/",
+      "sha256": "33837ffa787fa7b11329e1b934fd5e204152d3fe52b230f39a98770f28aae3b7",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Koper",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 2,
+          "team": "Maribor",
+          "zone": ""
+        },
+        {
+          "rank": 3,
+          "team": "Olimpija Ljubljana",
+          "zone": ""
+        },
+        {
+          "rank": 4,
+          "team": "NK Celje",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "NK Bravo",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Nafta",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Aluminij",
+          "zone": "Europa League qualification"
+        },
+        {
+          "rank": 8,
+          "team": "Nk Brinje Grosuplje",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Mura",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "Radomlje",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Slovenia-T2": {
+      "url": "https://www.livescores.com/football/slovenia/2-division/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Latvia-T1": {
+      "url": "https://www.livescores.com/football/latvia/virsliga/",
+      "sha256": "266f02128d57c93b17868f4f0925ad71d215a26c6d4daea68e495a84ecc31adc",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "RFS",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 2,
+          "team": "Riga FC",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 3,
+          "team": "FK Auda",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "BFC Daugavpils",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "FK Liepaja",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "SK Super Nova",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "FK Jelgava",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Grobina",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "FK Tukums 2000",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "Ogre United",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Latvia-T2": {
+      "url": "https://www.livescores.com/football/latvia/1-liga/",
+      "sha256": "6b5fee6c8e54ce0029925965ced617ff65c59009097e0f6c8b6592b153cb6f14",
+      "rows": []
+    },
+    "Lithuania-T1": {
+      "url": "https://www.livescores.com/football/lithuania/a-lyga/",
+      "sha256": "7c6617298422ba37382a1700f2e113527ad8df7ee7ca8bc22cdeccb026e750a0",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "FK Kauno Zalgiris",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 2,
+          "team": "Suduva",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 3,
+          "team": "Zalgiris Vilnius",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "FK Transinvest",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 5,
+          "team": "Banga Gargzdai",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Dziugas Telsiai",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "FK Panevezys",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Hegelmann Litauen",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "FA Siauliai",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Lithuania-T2": {
+      "url": "https://www.livescores.com/football/lithuania/1-lyga/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Estonia-T1": {
+      "url": "https://www.livescores.com/football/estonia/meistriliiga/",
+      "sha256": "678f92b2d5f122b29517ba71d680b8cc8e674fa908dc97415553bcb450a650e2",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "FCI Levadia",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 2,
+          "team": "Paide Linnameeskond",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 3,
+          "team": "Flora Tallinn",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "Nomme Kalju FC",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "Tammeka",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Harju Jalgpallikool",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Nomme United",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Parnu JK Vaprus",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "FC Kuressaare",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "Narva Trans",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Estonia-T2": {
+      "url": "https://www.livescores.com/football/estonia/esiliiga/",
+      "sha256": "ace5a5a05d702d79f6b734b6bcc93c82b3d2712ba7f9ac405e1e05c6130b201e",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Tartu JK Welco",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Viimsi JK",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "FCI Levadia U21",
+          "zone": ""
+        },
+        {
+          "rank": 4,
+          "team": "Flora Tallinn U21",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "FC Elva",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Talinna Kalev",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Nomme United U21",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Maardu Linnameeskond",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 9,
+          "team": "FC Tallinn",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 10,
+          "team": "Nomme Kalju U21",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Iceland-T1": {
+      "url": "https://www.livescores.com/football/iceland/besta-deildin/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Iceland-T2": {
+      "url": "https://www.livescores.com/football/iceland/1-division/",
+      "sha256": "0738e1d53e03cdde4e379859b024fb665340ccc62ac4ed215101772e5d81327b",
+      "rows": []
+    },
+    "Japan-T1": {
+      "url": "https://www.livescores.com/football/japan/j-league/",
+      "sha256": "749983d7de18f5241e84fa7a7fd9acfcf827153a88ccfcf13e6494b6a543f71e",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "FC Tokyo",
+          "zone": "AFC Champions League"
+        },
+        {
+          "rank": 2,
+          "team": "Sanfrecce Hiroshima",
+          "zone": "AFC Champions League"
+        },
+        {
+          "rank": 3,
+          "team": "Machida Zelvia",
+          "zone": ""
+        },
+        {
+          "rank": 4,
+          "team": "Kashiwa Reysol",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "Vissel Kobe",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Kashima Antlers",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Kawasaki Frontale",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Yokohama F.Marinos",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Urawa Red Diamonds",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Fagiano Okayama FC",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Nagoya Grampus Eight",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Cerezo Osaka",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Shimizu S-Pulse",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Kyoto Sanga FC",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "V-Varen Nagasaki",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Gamba Osaka",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Tokyo Verdy",
+          "zone": ""
+        },
+        {
+          "rank": 18,
+          "team": "JEF United Chiba",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 19,
+          "team": "Mito Hollyhock",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 20,
+          "team": "Avispa Fukuoka",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Japan-T2": {
+      "url": "https://www.livescores.com/football/japan/j-league-2/",
+      "sha256": "3ddbc34640876bde56c985f5fb8d9b5025e26bc7cee900a958d4d5d173afac6b",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Vegalta Sendai",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Albirex Niigata",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Kataller Toyama",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Yokohama FC",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Omiya Ardija",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Tegevajaro Miyazaki",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Shonan Bellmare",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Iwaki FC",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Consadole Sapporo",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Oita Trinita",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Jubilo Iwata",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Blaublitz Akita",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Sagan Tosu",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Tokushima Vortis",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Fujieda MYFC",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Montedio Yamagata",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Vanraure Hachinohe",
+          "zone": ""
+        },
+        {
+          "rank": 18,
+          "team": "Tochigi City FC",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 19,
+          "team": "FC Imabari",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 20,
+          "team": "Ventforet Kofu",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "South Korea-T1": {
+      "url": "https://www.livescores.com/football/korea-republic/k-league-1/",
+      "sha256": "bc997686e7931a75e111227443a78e6a4de8f8c9069a72b9226b87adc69927b8",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "FC Seoul",
+          "zone": "Championship play-off (additional spot(s) for AFC Champions League)"
+        },
+        {
+          "rank": 2,
+          "team": "Ulsan Hyundai",
+          "zone": "Championship play-off (additional spot(s) for AFC Champions League qualification)"
+        },
+        {
+          "rank": 3,
+          "team": "Daejeon Citizen",
+          "zone": "Championship play-off (additional spot(s) for AFC Champions League)"
+        },
+        {
+          "rank": 4,
+          "team": "Jeonbuk FC",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Gangwon FC",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Incheon United",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Jeju United",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 8,
+          "team": "FC Anyang",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 9,
+          "team": "Pohang Steelers",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "Gimcheon Sangmu",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 11,
+          "team": "Bucheon FC 1995",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "Gwangju FC",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "South Korea-T2": {
+      "url": "https://www.livescores.com/football/korea-republic/k-league-2/",
+      "sha256": "9d9cb095a5ec4b66ba79f124fb235418ea39d422eebd58ceb2dcb06ee1aaf4e8",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Suwon Bluewings",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "Suwon FC",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 3,
+          "team": "Seoul E-Land FC",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Daegu FC",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Busan I&#x27;Park",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "Hwaseong",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 7,
+          "team": "Chungnam Asan FC",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Gimpo FC",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Gyeongnam FC",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Paju Citizens",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Yongin FC",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "Cheongju FC",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Seongnam FC",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Cheonan City",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "Jeonnam Dragons",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Ansan Greeners",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Gimhae",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Belgium-T1": {
+      "url": "https://www.livescores.com/football/belgium/belgian-pro-league-2025/",
+      "sha256": "467114b6111649e0fa30ea7e7420ad4284bd6f5f3e03a3b8c244b83e38a5a64e",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Club Brugge",
+          "zone": "Champions League"
+        },
+        {
+          "rank": 2,
+          "team": "Union St.Gilloise",
+          "zone": "Champions League qualification"
+        },
+        {
+          "rank": 3,
+          "team": "Gent",
+          "zone": "Europa League qualification"
+        },
+        {
+          "rank": 4,
+          "team": "Sporting Charleroi",
+          "zone": "Europa Conference League qualification"
+        },
+        {
+          "rank": 5,
+          "team": "Anderlecht",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Genk",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Lommel",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Westerlo",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Standard Liege",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Zulte Waregem",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Royal Antwerp",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "SK Beveren",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Oud-Heverlee Leuven",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "KV Mechelen",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "St.Truiden",
+          "zone": ""
+        },
+        {
+          "rank": 16,
+          "team": "Raal La Louviere",
+          "zone": ""
+        },
+        {
+          "rank": 17,
+          "team": "Cercle Brugge",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 18,
+          "team": "Kortrijk",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Belgium-T2": {
+      "url": "https://www.livescores.com/football/belgium/challenger-pro-league/",
+      "sha256": "4243f0338839c8ef55f401c307e352703b93f8a4fa58a9f3e396d22b181e504b",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Beerschot",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "FCV Dender EH",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 3,
+          "team": "Eupen",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Sporting Hasselt",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 5,
+          "team": "Virton",
+          "zone": "Promotion play-off"
+        },
+        {
+          "rank": 6,
+          "team": "KSC Lokeren",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "Patro Eisden",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "Francs Borains",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Gent U23",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "Club NXT",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "Jong Genk",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "K Lierse S.K.",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "RFC Seraing",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "FC Liege",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 15,
+          "team": "RSCA Futures",
+          "zone": "Relegation"
+        }
+      ]
+    },
+    "Austria-T1": {
+      "url": "https://www.livescores.com/football/austria/bundesliga/",
+      "sha256": "589d779e3748fcf978031122fd5fb82497fdde9eea5a811729e72b78ea86c018",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "Rapid Wien",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 2,
+          "team": "FC Salzburg",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 3,
+          "team": "LASK",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 4,
+          "team": "Sturm Graz",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 5,
+          "team": "TSV Hartberg",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 6,
+          "team": "SV Ried",
+          "zone": "Championship play-off"
+        },
+        {
+          "rank": 7,
+          "team": "WSG Tirol",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 8,
+          "team": "Grazer AK",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 9,
+          "team": "SCR Altach",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 10,
+          "team": "Austria Lustenau",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 11,
+          "team": "Austria Wien",
+          "zone": "Relegation play-off"
+        },
+        {
+          "rank": 12,
+          "team": "Wolfsberger AC",
+          "zone": "Relegation play-off"
+        }
+      ]
+    },
+    "Austria-T2": {
+      "url": "https://www.livescores.com/football/austria/2-liga/",
+      "sha256": "17d87962bd79cca564f75a5e02b3eb7943dd03dd719732e44513906e4f592428",
+      "rows": [
+        {
+          "rank": 1,
+          "team": "BW Linz",
+          "zone": "Promotion"
+        },
+        {
+          "rank": 2,
+          "team": "First Vienna FC",
+          "zone": ""
+        },
+        {
+          "rank": 3,
+          "team": "Young Violets",
+          "zone": ""
+        },
+        {
+          "rank": 4,
+          "team": "SV Austria Salzburg",
+          "zone": ""
+        },
+        {
+          "rank": 5,
+          "team": "FC Admira Wacker Modling",
+          "zone": ""
+        },
+        {
+          "rank": 6,
+          "team": "Amstetten",
+          "zone": ""
+        },
+        {
+          "rank": 7,
+          "team": "FC Liefering",
+          "zone": ""
+        },
+        {
+          "rank": 8,
+          "team": "SW Bregenz",
+          "zone": ""
+        },
+        {
+          "rank": 9,
+          "team": "Floridsdorfer AC",
+          "zone": ""
+        },
+        {
+          "rank": 10,
+          "team": "FC Wacker Innsbruck",
+          "zone": ""
+        },
+        {
+          "rank": 11,
+          "team": "SKN St. Poelten",
+          "zone": ""
+        },
+        {
+          "rank": 12,
+          "team": "ASK Voitsberg",
+          "zone": ""
+        },
+        {
+          "rank": 13,
+          "team": "Sturm Graz II",
+          "zone": ""
+        },
+        {
+          "rank": 14,
+          "team": "Kapfenberger SV",
+          "zone": ""
+        },
+        {
+          "rank": 15,
+          "team": "FC Hertha Wels",
+          "zone": "Relegation"
+        },
+        {
+          "rank": 16,
+          "team": "SK Rapid Wien II",
+          "zone": "Relegation"
+        }
+      ]
+    }
+  }
+}

@@ -70,7 +70,7 @@ class TableZones:
         return ''
 
 
-def table_zones(tier,team_count,active_tiers,*,simplified,country=""):
+def table_zones(tier,team_count,active_tiers,*,simplified,country="",league=None):
     """Match existing 3-up / simulated4–7 /2-down career eligibility.
 
     The owner's two-tier fallback instead uses3-up/3-down and no playoffs.
@@ -78,6 +78,24 @@ def table_zones(tier,team_count,active_tiers,*,simplified,country=""):
     """
     if tier not in active_tiers:return TableZones(archived=simplified and tier>2)
     if team_count<6:return TableZones()
+    if simplified and country:
+        from domestic_playoffs import profile,eligible_table,direct_up
+        p=profile(country);direct=p['direct'];shape=p['shape']
+        extra=2 if shape in ('parallel','argentine') else 1 if shape else 0
+        if tier==1:
+            n=direct if p['upper'] else direct+extra
+            return TableZones(playoff=tuple(sorted(team_count+i+1 for i in p['upper'])),relegation=tuple(range(team_count-n+1,team_count+1)) if n else ())
+        table=eligible_table(league) if league else None
+        positions=tuple(p['places']) if shape!='argentine' else tuple(range(1,min(16,team_count-p['reserve_direct'])+1))
+        if league and shape=='italian' and len(direct_up(league))==3:direct=3;positions=()
+        promotion=tuple(range(1,direct+1))
+        if table:
+            original={c.uid:i+1 for i,c in enumerate(league.table())}
+            promotion=tuple(original[c.uid] for c in table[:direct])
+            positions=tuple(original[table[i-1].uid] for i in positions if i<=len(table))
+        down=p['reserve_direct'];reserve_po=tuple(team_count+i+1 for i in p['reserve_places'])
+        if league and p['reserve_shape']=='playout' and league.table()[-5].points-league.table()[-4].points>4:down+=1;reserve_po=()
+        return TableZones(promotion,tuple(sorted(positions+reserve_po)),tuple(range(team_count-down+1,team_count+1)) if down else ())
     from season_transitions import promotion_format
     direct,places=promotion_format(country,tier,simplified)
     up=direct if tier-1 in active_tiers else 0

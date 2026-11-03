@@ -1645,3 +1645,31 @@ Owner requested closing launch point1. Integrated/reviewed existing competition 
   in RELEASE_0.9.5_artifacts.json. Annual patterns/away kits, real palettes for
   unsupported countries and researched national competition formats are not
   claimed complete by this release. Public version remains 1.0.
+
+## 2026-11-03 — redone0.9.6playoff/call-up iteration
+
+- Implemented persistent access brackets, conditional standings zones, neutral
+  finals, aggregate/extra-time/rank/shootout decisions and variable reserve
+  movement. French ladder, Championship six-team field, Brazil independent ties,
+  Italian points thresholds and B-team exclusions have behavioural coverage.
+- Replaced the national selection gate with positive-goal competition rank1–3 in
+  any current first division, independent of morale/form and club country.
+  Window selections persist; caps/goals remain separate from club counters.
+- Pinned FIFA April2026PDF window ranges2025–2030 and known final ranges. Fixed
+  Friday national games preempting Thursday club games, and Nations League
+  membership being discarded during a season without that tournament.
+- Core suite:266passed. Final native SDL/Kivy suite:124passed. Final targeted
+  backend delivery:46passed; native playoff/zone/relegation delivery:10passed.
+  Syntax checks passed. This is390unique host tests, not physical-phone testing.
+- Earlier verification exposed a country-variable shadow during rollover and
+  stale three-up expectations. Fixed the variable and made promotion-test heroes
+  explicitly eligible instead of accidentally choosing Portuguese B clubs. Added
+  a native test that the actual match AI calls the neutral-venue goal-budget
+  helper; a backend-only neutral test did not establish that wiring.
+- Final APK verification records exact bytecode/data, actual compiled French
+  playoff progression and call-up gate, upgrade certificate,118ELF16KB and release
+  payload checks in RELEASE_0.9.6_artifacts.json. No server change or Play upload.
+- Owner expanded scope to real formats in every country. Research now indexes
+  candidates for212countries across608retrieved articles. Full group/split/period
+  models and real capacities remain OPEN;0.9.6is an access/calendar iteration,
+  not a completed worldwide real-format release. See RELEASE_0.9.6.md.

@@ -320,5 +320,11 @@
   "Sign for a club to continue your career.": "Ký với một câu lạc bộ để tiếp tục sự nghiệp.",
   "RESERVE CLUBS": "CÂU LẠC BỘ DỰ BỊ",
   "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "Hai hạng đấu, mỗi mùa ba đội lên và xuống hạng. Các đội rời hạng 2 luân phiên với danh sách 10 câu lạc bộ dự bị.",
-  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "Chọn Trò chơi mới hoặc Tải trò chơi. Đặt tên cầu thủ và chọn hợp đồng đầu tiên. World gợi ý quốc gia theo điện thoại; bạn cũng có thể bắt đầu ở hạng 2 Anh."
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "Chọn Trò chơi mới hoặc Tải trò chơi. Đặt tên cầu thủ và chọn hợp đồng đầu tiên. World gợi ý quốc gia theo điện thoại; bạn cũng có thể bắt đầu ở hạng 2 Anh.",
+  "PO: Playoff {places}": "PO: Playoff {places}",
+  "Playoff results decide promotion or relegation.": "Kết quả playoff quyết định thăng hạng hoặc xuống hạng.",
+  "Selection pending": "Chờ triệu tập",
+  "Called up": "Đã triệu tập",
+  "Not selected": "Không được triệu tập",
+  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "Thăng hạng và xuống hạng theo luật giải đấu. Các đội rời hạng hai được thay từ nhóm dự bị luân phiên gồm 10 câu lạc bộ."
 }

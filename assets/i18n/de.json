@@ -320,5 +320,11 @@
   "Sign for a club to continue your career.": "Unterschreibe bei einem Verein, um deine Karriere fortzusetzen.",
   "RESERVE CLUBS": "RESERVEVEREINE",
   "Two divisions. Three clubs go up and down; Division 2 relegations use a rotating reserve of 10 clubs.": "Zwei Ligen. Drei Vereine steigen auf und ab; Absteiger aus Liga 2 werden durch einen rotierenden Pool von 10 Vereinen ersetzt.",
-  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "Wähle Neues Spiel oder Spiel laden. Benenne deinen Spieler und wähle den ersten Vertrag. World schlägt das Land deines Telefons vor; alternativ kannst du in Englands vierter Liga starten."
+  "Choose New Game or Load Game. Name your player and select a first contract. World suggests your phone’s country, with England Division 2 as another option.": "Wähle Neues Spiel oder Spiel laden. Benenne deinen Spieler und wähle den ersten Vertrag. World schlägt das Land deines Telefons vor; alternativ kannst du in Englands vierter Liga starten.",
+  "PO: Playoff {places}": "PO: Playoff {places}",
+  "Playoff results decide promotion or relegation.": "Die Playoff-Ergebnisse entscheiden über Aufstieg oder Abstieg.",
+  "Selection pending": "Nominierung ausstehend",
+  "Called up": "Nominiert",
+  "Not selected": "Nicht nominiert",
+  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "Aufstieg und Abstieg folgen den Wettbewerbsregeln. Abgänge aus der zweiten Liga werden aus einer rotierenden Reserve von 10 Vereinen ersetzt."
 }

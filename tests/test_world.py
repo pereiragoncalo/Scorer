@@ -103,7 +103,8 @@ class WorldTests(unittest.TestCase):
         free.accept_starting_offer(free.offers[0]);free.club.points=999
         free._finish_season()
         self.assertEqual(free.league_key,'Portugal|4')
-        c=self.world();club=c.club;uid=club.uid;old_key=c.league_key
+        c=self.world();from domestic_playoffs import eligible_table
+        c.club_name=eligible_table(c.current_league)[0].name;club=c.club;uid=club.uid;old_key=c.league_key
         c.apply_names({'version':1,'clubs':{uid:'Promotion Alias'}})
         c.club.points=999;c._finish_season()
         self.assertEqual(c.league_key,'Portugal|1')
