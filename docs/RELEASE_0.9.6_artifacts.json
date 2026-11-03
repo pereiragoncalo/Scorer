@@ -106,5 +106,9 @@
   "physical_android_tested": false,
   "production_signed": false,
   "play_uploaded": false,
-  "live_server_updated": false
+  "live_server_updated": false,
+  "download_url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.6/Scorer-World-0.9.6.apk",
+  "delivery": "GitHub prerelease attachment; exact tested APK reassembled from checksummed transfer parts",
+  "delivery_workflow": "https://github.com/pereiragoncalo/Scorer/actions/runs/41693874115",
+  "public_download_sha256_verified": true
 }

@@ -1673,3 +1673,11 @@ Owner requested closing launch point1. Integrated/reviewed existing competition 
   candidates for212countries across608retrieved articles. Full group/split/period
   models and real capacities remain OPEN;0.9.6is an access/calendar iteration,
   not a completed worldwide real-format release. See RELEASE_0.9.6.md.
+
+- Distribution follow-up: direct large Git pushes timed out (HTTP408). Source
+  commits were pushed successfully. The exact tested APK was transferred as
+  checksummed parts through the GitHub API, reassembled and hash-checked in
+  Actions run41693874115, then published as the single uncompressed APK attachment
+  in prereleaseqa-0.9.6. Public download independently verified74105187bytes and
+  SHA256`646cbcc046db50b2bb8dde880c06ae5931e1dccbcace435b2bb4f6ca2e766886`.
+  No binary rebuild or alteration occurred during transfer.
