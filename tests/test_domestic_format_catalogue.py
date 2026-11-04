@@ -159,6 +159,48 @@ class DomesticFormatCatalogueTests(unittest.TestCase):
             if source['title'] in expected:
                 self.assertEqual(source['countries'], expected[source['title']])
 
+    def test_ghana_four_playing_groups_have_three_promotion_zones(self):
+        d = self.definition('Ghana', 2)
+        self.assertEqual(d['teams'], 48)
+        regular = d['phases'][0]
+        self.assertEqual(regular['group_sizes'], [8, 8, 16, 16])
+        self.assertEqual(regular['legs'], [4, 4, 2, 2])
+        self.assertEqual(d['regular_games_per_club'], [28, 30])
+        self.assertIn('not one from each subzone', d['movement']['direct_promotion'])
+        self.assertEqual(d['movement']['relegation']['baseline'], {'Zone1': 3, 'Zone2': 2, 'Zone3': 2})
+        self.assertTrue(d['movement']['relegation']['additional'])
+        premier = self.definition('Ghana')['ranking_rules']
+        self.assertNotEqual(premier['interim_order'], premier['final_order'])
+        self.assertEqual(premier['final_order'][1], 'head_to_head_points')
+
+    def test_south_african_survival_is_three_clubs_not_a_two_team_tie(self):
+        for tier in (1, 2):
+            d = self.definition('South Africa', tier)
+            self.assertEqual(d['regular_games_per_club'], [30])
+            cross = next(p for p in d['phases'] if p['kind'] == 'external_playoff')
+            self.assertEqual(cross['entrants'], ['tier1:15', 'tier2:2', 'tier2:3'])
+            self.assertNotIn('legs', cross)  # separate detailed competition rules not yet verified
+            self.assertIn('psl:handbook-2025-12-02', d['source_ids'])
+
+    def test_unknown_group_rules_cannot_silently_change_the_field(self):
+        d = copy.deepcopy(self.definition('Nigeria', 2))
+        phase = d['phases'][0]
+        self.assertEqual(d['definition_status'], 'partially_defined')
+        self.assertNotIn('regular_games_per_club', d)
+        phase['proposed_group_sizes'] = [9, 9, 9, 9]
+        self.assertTrue(any('cardinalities' in e for e in module.validate_definition(d, self.sources)))
+        d = copy.deepcopy(self.definition('Czechia'))
+        phase = next(p for p in d['phases'] if p['kind'] == 'qualified_round_robin')
+        phase['selection']['rank_range'] = [1, 8]
+        self.assertTrue(any('rank count' in e for e in module.validate_definition(d, self.sources)))
+
+    def test_transitional_schedule_is_not_the_old_generic_league(self):
+        d = self.definition('Mongolia')
+        self.assertEqual(d['season_scope'], 'one_off_transition')
+        self.assertEqual(d['teams'], 9)
+        self.assertEqual(d['regular_games_per_club'], [14, 16])
+        self.assertEqual(self.definition('Cyprus', 2)['regular_games_per_club'], [29])
+
     def test_false_identities_cannot_be_current_candidates(self):
         for s in self.sources.values():
             if 'femenina' in s['title'].lower() or s['title'] == 'New Zealand Football Championship':

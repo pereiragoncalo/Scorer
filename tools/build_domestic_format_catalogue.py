@@ -34,7 +34,12 @@ def validate_definition(definition,sources):
             sizes=phase.get('group_sizes',[]);legs=phase.get('legs')
             expected=phase.get('participants') if kind=='qualified_round_robin' else n
             if type(expected)is not int or not 2<=expected<=n or not sizes or any(type(s)is not int or s<2 for s in sizes) or sum(sizes)!=expected:fail(key+' groups do not cover the league');continue
-            if kind=='qualified_round_robin' and not phase.get('selection'):fail(key+' qualified groups need an explicit selection')
+            if kind=='qualified_round_robin':
+                selection=phase.get('selection')
+                if not selection:fail(key+' qualified groups need an explicit selection')
+                elif isinstance(selection,dict) and 'rank_range' in selection:
+                    ranks=selection['rank_range']
+                    if not isinstance(ranks,list) or len(ranks)!=2 or any(type(v)is not int for v in ranks) or not 1<=ranks[0]<=ranks[1]<=n or ranks[1]-ranks[0]+1!=expected:fail(key+' selected rank count differs from qualified participants')
             legs_list=legs if isinstance(legs,list) else [legs]*len(sizes)
             if len(legs_list)!=len(sizes) or any(type(value)is not int or not 1<=value<=4 for value in legs_list):fail(key+' invalid number of legs');continue
             points=phase.get('points');point_rules=points if isinstance(points,list) else [points]*len(sizes)
@@ -78,6 +83,10 @@ def validate_definition(definition,sources):
             if not outputs or any(not refs or any(ref not in available for ref in refs) for refs in outputs.values()):fail(key+' graph outputs must reference resolved matches')
         elif kind=='pending_review':
             if not phase.get('topics') or not phase.get('reason'):fail(key+' pending review needs topics and a reason')
+            for group_key in ('group_sizes','proposed_group_sizes'):
+                if group_key in phase:
+                    sizes=phase[group_key]
+                    if not isinstance(sizes,list) or not sizes or any(type(v)is not int or v<2 for v in sizes) or sum(sizes)!=n:fail(key+' pending group cardinalities do not cover the field')
         elif kind=='external_playoff':
             if not phase.get('entrants') or not phase.get('purpose'):fail(key+' external playoff needs entrants and purpose')
         else:fail(key+' unsupported phase kind')

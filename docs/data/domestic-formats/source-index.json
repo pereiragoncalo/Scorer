@@ -18320,6 +18320,140 @@
       "current_titles": [],
       "competition_titles": [],
       "relegation_titles": []
+    },
+    {
+      "id": "wiki:1365277013",
+      "title": "2025–26 Cypriot Second Division",
+      "url": "https://en.wikipedia.org/w/index.php?oldid=1365277013",
+      "revision": 1365277013,
+      "revision_timestamp": "2026-07-21T10:57:48Z",
+      "sha256": "9d39752b2d2d8f4d7cf9ff4277037f18ca939ee81f97c5d24f48cdcff2d539a4",
+      "kind": "supplementary_article",
+      "countries": [],
+      "tier_candidate": null,
+      "excluded_from_current_identities": true,
+      "exclusion_reason": "supplementary_evidence_not_identity_candidate",
+      "team_count_text": "",
+      "season_text": "",
+      "current_titles": [],
+      "competition_titles": [],
+      "relegation_titles": []
+    },
+    {
+      "id": "wiki:1383629489",
+      "title": "2026–27 Nigeria National League",
+      "url": "https://en.wikipedia.org/w/index.php?oldid=1383629489",
+      "revision": 1383629489,
+      "revision_timestamp": "2026-11-03T20:16:43Z",
+      "sha256": "a8727bcc6bedb521b73818e6069c7d9cc34c5e70073e6009fd633ed6e199a697",
+      "kind": "supplementary_article",
+      "countries": [],
+      "tier_candidate": null,
+      "excluded_from_current_identities": true,
+      "exclusion_reason": "supplementary_evidence_not_identity_candidate",
+      "team_count_text": "",
+      "season_text": "",
+      "current_titles": [],
+      "competition_titles": [],
+      "relegation_titles": []
+    },
+    {
+      "id": "psl:handbook-2025-12-02",
+      "title": "NSL Handbook approved 2 December 2025",
+      "url": "https://images.supersport.com/content/NSL-Handbook_as_Adopted_and_Approved_on_2-December-2025.pdf",
+      "sha256": "365fb92f7753672f137c2511b8ec50d3a446a5496082902565a2400486bf44c1",
+      "kind": "primary_regulations",
+      "countries": [
+        "South Africa"
+      ],
+      "tier_candidate": null,
+      "excluded_from_current_identities": true,
+      "exclusion_reason": "primary_evidence_not_identity_candidate",
+      "retrieved": "2026-11-04"
+    },
+    {
+      "id": "sportsration:nnl-proposed-groups-2026-27",
+      "title": "NNL proposed groups 2026/27 — SportsRation",
+      "url": "https://sportsration.com/nnl-releases-proposed-groupings-for-2026-27-season/",
+      "sha256": "a56556c9d21e422d5b706b69bee4c10028178142168a369e1bce83ab72fc2189",
+      "kind": "media_report",
+      "countries": [
+        "Nigeria"
+      ],
+      "tier_candidate": null,
+      "excluded_from_current_identities": true,
+      "exclusion_reason": "proposed_structure_evidence_not_identity_candidate",
+      "retrieved": "2026-11-04"
+    },
+    {
+      "id": "gfa:premier-regulations-2025",
+      "title": "GFA Premier League Regulations approved 1 July 2025",
+      "url": "https://cdn.ghanafa.org/2019/12/GFA-PREMIER-LEAGUE-REGULATIONS-Final-Approved-on-July-1-2025.pdf",
+      "sha256": "d70533f41d917faf158d92dda5dbde9cd5b6da5078d3096750b28a482106375a",
+      "kind": "primary_regulations",
+      "countries": [
+        "Ghana"
+      ],
+      "tier_candidate": null,
+      "excluded_from_current_identities": true,
+      "exclusion_reason": "primary_evidence_not_identity_candidate",
+      "retrieved": "2026-11-04"
+    },
+    {
+      "id": "gfa:dol-regulations-2025",
+      "title": "GFA Division One Regulations approved 1 July 2025",
+      "url": "https://cdn.ghanafa.org/2020/01/GFA-DIVISION-ONE-LEAGUE-REGULATIONS-2025-approved-July-1-2025.pdf",
+      "sha256": "7e28a403838e91c9b9a3864a663d5150c439a207fcdc6fdcb81068d795456369",
+      "kind": "primary_regulations",
+      "countries": [
+        "Ghana"
+      ],
+      "tier_candidate": null,
+      "excluded_from_current_identities": true,
+      "exclusion_reason": "primary_evidence_not_identity_candidate",
+      "retrieved": "2026-11-04"
+    },
+    {
+      "id": "gfa:dol-dates-2026",
+      "title": "GFA Division One 2026/27 season dates and groups",
+      "url": "https://www.ghanafa.org/2026-27-division-one-league-season-dates-announced",
+      "sha256": "c76e5d843309b3180c5c858232662a8fd0e508bd1fd374a000a94552107f52f3",
+      "kind": "primary_announcement",
+      "countries": [
+        "Ghana"
+      ],
+      "tier_candidate": null,
+      "excluded_from_current_identities": true,
+      "exclusion_reason": "primary_evidence_not_identity_candidate",
+      "retrieved": "2026-11-04"
+    },
+    {
+      "id": "gfa:zone1-fixtures-2026",
+      "title": "GFA Zone One 2026/27 fixtures announcement",
+      "url": "https://www.ghanafa.org/fixtures-released-for-2026-27-division-one-league-zone-one",
+      "sha256": "0a92ee1c91a99231bb759ffc69ffe85e9c28e977923ea75e2105bf1263b501b2",
+      "kind": "primary_announcement",
+      "countries": [
+        "Ghana"
+      ],
+      "tier_candidate": null,
+      "excluded_from_current_identities": true,
+      "exclusion_reason": "primary_evidence_not_identity_candidate",
+      "retrieved": "2026-11-04"
+    },
+    {
+      "id": "gfa:zone1a-fixture-chart-2026",
+      "title": "GFA Zone 1A 2026/27 official fixture chart",
+      "url": "https://cdn.ghanafa.org/2026/08/z1A-fixtures-2.png",
+      "sha256": "508f9dcca4261638e522f7014f95246088e8952f4dce234df554b2a51b377ce5",
+      "kind": "primary_fixture_chart",
+      "countries": [
+        "Ghana"
+      ],
+      "tier_candidate": null,
+      "excluded_from_current_identities": true,
+      "exclusion_reason": "primary_evidence_not_identity_candidate",
+      "retrieved": "2026-11-04"
     }
   ]
 }
