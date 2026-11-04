@@ -1,0 +1,438 @@
+{
+  "method": "Paired exact targets bypass aim/timer. Corners are an idealised upper-skill stress test, not human conversion or a scoring guarantee. No count uploads or user career writes.",
+  "rows": [
+    {
+      "tier": 5,
+      "strategy": "uniform",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 16,
+        "SAVED!": 9
+      },
+      "conversion": 0.64
+    },
+    {
+      "tier": 5,
+      "strategy": "uniform",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 5,
+        "SAVED!": 11,
+        "MISS!": 9
+      },
+      "conversion": 0.2
+    },
+    {
+      "tier": 5,
+      "strategy": "corners",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 5,
+      "strategy": "corners",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 5,
+      "strategy": "low_corners",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 5,
+      "strategy": "low_corners",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 5,
+      "strategy": "placed",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 24,
+        "SAVED!": 1
+      },
+      "conversion": 0.96
+    },
+    {
+      "tier": 5,
+      "strategy": "placed",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 20,
+        "SAVED!": 4,
+        "MISS!": 1
+      },
+      "conversion": 0.8
+    },
+    {
+      "tier": 4,
+      "strategy": "uniform",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 15,
+        "SAVED!": 10
+      },
+      "conversion": 0.6
+    },
+    {
+      "tier": 4,
+      "strategy": "uniform",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 5,
+        "SAVED!": 11,
+        "MISS!": 9
+      },
+      "conversion": 0.2
+    },
+    {
+      "tier": 4,
+      "strategy": "corners",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 4,
+      "strategy": "corners",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 4,
+      "strategy": "low_corners",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 4,
+      "strategy": "low_corners",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 24,
+        "SAVED!": 1
+      },
+      "conversion": 0.96
+    },
+    {
+      "tier": 4,
+      "strategy": "placed",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 24,
+        "SAVED!": 1
+      },
+      "conversion": 0.96
+    },
+    {
+      "tier": 4,
+      "strategy": "placed",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 19,
+        "SAVED!": 5,
+        "MISS!": 1
+      },
+      "conversion": 0.76
+    },
+    {
+      "tier": 3,
+      "strategy": "uniform",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 12,
+        "SAVED!": 13
+      },
+      "conversion": 0.48
+    },
+    {
+      "tier": 3,
+      "strategy": "uniform",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 5,
+        "SAVED!": 11,
+        "MISS!": 9
+      },
+      "conversion": 0.2
+    },
+    {
+      "tier": 3,
+      "strategy": "corners",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 3,
+      "strategy": "corners",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 3,
+      "strategy": "low_corners",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 3,
+      "strategy": "low_corners",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 24,
+        "SAVED!": 1
+      },
+      "conversion": 0.96
+    },
+    {
+      "tier": 3,
+      "strategy": "placed",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 24,
+        "SAVED!": 1
+      },
+      "conversion": 0.96
+    },
+    {
+      "tier": 3,
+      "strategy": "placed",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 19,
+        "SAVED!": 5,
+        "MISS!": 1
+      },
+      "conversion": 0.76
+    },
+    {
+      "tier": 2,
+      "strategy": "uniform",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 11,
+        "SAVED!": 14
+      },
+      "conversion": 0.44
+    },
+    {
+      "tier": 2,
+      "strategy": "uniform",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "SAVED!": 13,
+        "GOAL!": 3,
+        "MISS!": 9
+      },
+      "conversion": 0.12
+    },
+    {
+      "tier": 2,
+      "strategy": "corners",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 2,
+      "strategy": "corners",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 2,
+      "strategy": "low_corners",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 2,
+      "strategy": "low_corners",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 2,
+      "strategy": "placed",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 24,
+        "SAVED!": 1
+      },
+      "conversion": 0.96
+    },
+    {
+      "tier": 2,
+      "strategy": "placed",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 18,
+        "SAVED!": 6,
+        "MISS!": 1
+      },
+      "conversion": 0.72
+    },
+    {
+      "tier": 1,
+      "strategy": "uniform",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 8,
+        "SAVED!": 17
+      },
+      "conversion": 0.32
+    },
+    {
+      "tier": 1,
+      "strategy": "uniform",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "SAVED!": 12,
+        "GOAL!": 3,
+        "MISS!": 10
+      },
+      "conversion": 0.12
+    },
+    {
+      "tier": 1,
+      "strategy": "corners",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 1,
+      "strategy": "corners",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 1,
+      "strategy": "low_corners",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 25
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 1,
+      "strategy": "low_corners",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 23,
+        "SAVED!": 2
+      },
+      "conversion": 0.92
+    },
+    {
+      "tier": 1,
+      "strategy": "placed",
+      "chance": "easy",
+      "samples": 25,
+      "outcomes": {
+        "GOAL!": 22,
+        "SAVED!": 3
+      },
+      "conversion": 0.88
+    },
+    {
+      "tier": 1,
+      "strategy": "placed",
+      "chance": "hard",
+      "samples": 25,
+      "outcomes": {
+        "SAVED!": 8,
+        "GOAL!": 16,
+        "MISS!": 1
+      },
+      "conversion": 0.64
+    }
+  ]
+}

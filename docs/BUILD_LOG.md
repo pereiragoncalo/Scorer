@@ -1857,3 +1857,23 @@ source matches commit7fd0e42; API36/code1026912/arm64,118ELF16KB, ZIP alignment,
 existing upgrade certificate, original TTF/licence bytes and compiled four-goal/
 summary/competition/publishing checks passed. Public APK/preview byte checks are
 recorded in the release download evidence. No physical Android validation.
+
+## 2026-11-04 — World 0.9.13 fair finishing and training/coach feedback
+
+Owner asked to remove scoreboard badges, ease finishing, stop keeper arm stretching,
+keep aim scorable, improve practice information/remove practice opponents and add
+coach feedback. Source 2fabe132965363a2ef7a6da74eab0e101b89ebcf stages only these
+changes; unrelated badge implementation cleanup/mode state WIP remains unstaged.
+
+Final clean-source core: 340 passed (130.793 s); native: 153 passed (170.571 s).
+A targeted 7-test repeat confirms compact 800x360 training and fair finishing;
+its viewport setup was corrected to restore Window.size and avoid test-order
+coupling. Earlier runs caught a training attribute typo, old shot-time assertions
+and excess small-window content. Fixed before final verification.
+
+Built World 0.9.13/code1026913 arm64 DEBUG APK with existing upgrade certificate,
+API36/min26. Android candidate, exact compiled source/data, actual competition
+load/rollover, rehearsal payload and publishing-module checks all passed. All118
+ELF files and ZIP layout retain16KB alignment. No physical handset, production
+signing, Play upload or live server changes. Runtime evidence:
+/workspace/striker-runtime/0913; metadata/limits in RELEASE_0.9.13.md and artifactJSON.
