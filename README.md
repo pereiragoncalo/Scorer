@@ -1,3 +1,23 @@
+## Scorer World 0.9.13 — fairer finishing, training and coach feedback
+
+[Download World 0.9.13 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.13/Scorer-World-0.9.13.apk) ·
+[Training preview](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.13/0.9.13-training-pt.png) ·
+[Coach preview](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.13/0.9.13-coach-pt.png)
+
+Scoreboard badges removed. Aim stays within the goal, hard chances allow more
+time and slower aim, and keeper arms retain a fixed length for drawing/collisions.
+Training is player versus keeper only, with session plan, saved shots/goals,
+progress and readiness. Requested coach meetings include actual recent club form
+and three feedback paragraphs adapted to the situation and coach's personality.
+Nine languages and existing careers retained.
+
+493 host tests passed (340 core +153 native Kivy). Exact compiled APK source,
+existing QA upgrade certificate, API36/arm64 and16KB alignment verified.
+Desktop previews are illustrative native Kivy renders; physical Android
+validation remains outstanding. DEBUG QA; public launch remains1.0.
+[Scope](docs/RELEASE_0.9.13.md) · [APK evidence](docs/RELEASE_0.9.13_artifacts.json) ·
+[Public download check](docs/RELEASE_0.9.13_download.json).
+
 ## Scorer World 0.9.12 — folded newspaper and complete goal reporting
 
 [Download World 0.9.12 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.12/Scorer-World-0.9.12.apk) ·

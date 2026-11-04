@@ -1,0 +1,26 @@
+{
+  "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.13/Scorer-World-0.9.13.apk",
+  "status": 200,
+  "bytes": 107333547,
+  "sha256": "17d2d9617ac2b2810737b022b963fd284dd4f7ffb76818323c1c424c7aa1a104",
+  "content_disposition": "attachment; filename=Scorer-World-0.9.13.apk",
+  "verified_utc": "2026-11-04",
+  "workflow_run": 41869386481,
+  "source_commit": "2fabe132965363a2ef7a6da74eab0e101b89ebcf",
+  "previews": [
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.13/0.9.13-training-pt.png",
+      "status": 200,
+      "bytes": 593609,
+      "sha256": "7a6481909ae33119cd6e411c092e43d6b5f732fcb39575a90ea54a230b5a7277",
+      "content_disposition": "attachment; filename=0.9.13-training-pt.png"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.13/0.9.13-coach-pt.png",
+      "status": 200,
+      "bytes": 752429,
+      "sha256": "eac4fc7b3dacd0d4ba7fba1982f92e064e9466bfcb4620b5d3ecc08ffec6e7e9",
+      "content_disposition": "attachment; filename=0.9.13-coach-pt.png"
+    }
+  ]
+}

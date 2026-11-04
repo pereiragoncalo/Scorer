@@ -1877,3 +1877,8 @@ load/rollover, rehearsal payload and publishing-module checks all passed. All118
 ELF files and ZIP layout retain16KB alignment. No physical handset, production
 signing, Play upload or live server changes. Runtime evidence:
 /workspace/striker-runtime/0913; metadata/limits in RELEASE_0.9.13.md and artifactJSON.
+
+Delivery: workflow41869386481 succeeded. Public APK and both Portuguese preview
+attachments returned HTTP200 with Content-Disposition attachment and exact local
+SHA256/byte matches. APK107333547B, SHA25617d2d9617ac2b2810737b022b963fd284dd4f7ffb76818323c1c424c7aa1a104.
+Temporary qa-upload-0.9.13 transfer branch removed after public verification.
