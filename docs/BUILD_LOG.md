@@ -1949,3 +1949,39 @@ headers and exact local SHA256/size matches. Delivery run41878748227; public-byt
 verification is recorded independently of delayed run-status reporting. Download
 proof is RELEASE_0.9.15_download.json. Temporary qa-upload-0.9.15 branch removed
 after the attachment checks; no APK or career changes during delivery.
+
+## 2026-11-04 — World0.9.16 penalties, clear chances and one-screen UI
+
+Source5847d481f6abf2c93bdda15e7ee3fe81db268bc0. More clear chances (.35elite,
+.65medium, .73–.90low pressure), one-clear/three-total limits retained. Penalties
+preselected at18% when chances exist, replacing a slot, announced in the notice;
+11m origin and no outfield players. AI reservation includes .65 modeled penalty
+conversion and single-slot overlap; team baseline/physical scoring are unchanged.
+
+Newspaper is one leaf with measured full/concise reports and all recorded goal
+minutes, no scrolling/leaf controls. Coach uses a dedicated no-scroll portrait/
+feedback/completion screen, with full or concise three-paragraph text. Notice
+paragraph justified. Root handles first delivered splash touch before child layout.
+Name is the player button; World's three header actions align to season panel.
+Hub-only viewport rebuild fixes stale initial compact layout while preserving
+profile input widgets/drafts. Identity row corrected from36dp to52dp after full
+geometry checks. Caption measurement prevents photo-caption/story overlap.
+
+Core353 passed in120.699s. Native165 passed in191.306s (518 total). Final targeted
+22 screen/penalty/coach/paper tests passed in49.968s; layout8 in32.117s; final
+hub-resize/profile-draft test1 in1.782s; locale/font10 in2.023s. The final change
+restricting structural resize rebuild to the hub was verified by the final
+profile-draft smoke; other screens retain normal size bindings. Initial runs
+caught stale elite/PLAYER/leaf assumptions, caption fit, header callback and the
+undersized name button. All observed64 goal minutes fit on320×240 and640×360;
+min6sp occurs in the tiny/high-score stress case, not a general readability claim.
+
+Final World0.9.16/code1026916 arm64 DEBUG APK107353911B,
+SHA256a7e54615f514c6393006f80d58c2ba4fbfa6e24dd05c97863294122a320a7d12.
+API36/min26, same upgrade certificate,118ELF/ZIP16KB and ad-free payload verified.
+Exact compiled changed modules plus all9catalogue bytes verified. Compiled smoke
+also checks elite clear chances, penalty budget and concise minute conservation.
+The five Portuguese previews are native desktop Kivy at1280×591/density1.4 with
+synthetic stats/fixture; no handset validation. OS/native-loading first-touch
+behaviour remains a device check. No production signing/Play/server changes.
+Unrelated root badge-helper/mode WIP remains unstaged/excluded.
