@@ -34,14 +34,14 @@ jobs:
               with urllib.request.urlopen(base + name, timeout=60) as response:
                   return response.read()
           manifest = json.loads(read('manifest.json'))
-          expected = '17d2d9617ac2b2810737b022b963fd284dd4f7ffb76818323c1c424c7aa1a104'
-          assert manifest['version'] == '0.9.13'
-          assert manifest['filename'] == 'Scorer-World-0.9.13.apk'
-          assert manifest['sha256'] == expected and manifest['bytes'] == 107333547
+          expected = '5d9cd7422ea4662203db1df1a6fba6d72287e980f3b117731bcc3d4d477a1770'
+          assert manifest['version'] == '0.9.14'
+          assert manifest['filename'] == 'Scorer-World-0.9.14.apk'
+          assert manifest['sha256'] == expected and manifest['bytes'] == 107335455
           assert 1 <= len(manifest['parts']) <= 16
           digest = hashlib.sha256()
           total = 0
-          with open('Scorer-World-0.9.13.apk', 'wb') as output:
+          with open('Scorer-World-0.9.14.apk', 'wb') as output:
               for index, part in enumerate(manifest['parts']):
                   assert part['name'] == f'apk.part.{index:02d}'
                   content = read(part['name'])
@@ -50,8 +50,8 @@ jobs:
                   output.write(content)
                   digest.update(content)
                   total += len(content)
-          assert total == 107333547 and digest.hexdigest() == expected
-          metadata = json.loads(pathlib.Path('docs/RELEASE_0.9.13_artifacts.json').read_text())
+          assert total == 107335455 and digest.hexdigest() == expected
+          metadata = json.loads(pathlib.Path('docs/RELEASE_0.9.14_artifacts.json').read_text())
           assert metadata['sha256'] == expected and metadata['bytes'] == total
           source = metadata['source_commit']
           assert re.fullmatch('[0-9a-f]{40}', source)
@@ -64,10 +64,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SOURCE_COMMIT: ${{ steps.download.outputs.source_commit }}
         run: |
-          if ! gh release view qa-0.9.13 >/dev/null 2>&1; then
-            gh release create qa-0.9.13 --target "$SOURCE_COMMIT" --prerelease --title "Scorer World 0.9.13 QA - fairer finishing and richer training and coach feedback" --notes-file docs/RELEASE_0.9.13.md
+          if ! gh release view qa-0.9.14 >/dev/null 2>&1; then
+            gh release create qa-0.9.14 --target "$SOURCE_COMMIT" --prerelease --title "Scorer World 0.9.14 QA - goal headlines, wide aim and mandatory pre-match training" --notes-file docs/RELEASE_0.9.14.md
           fi
-          gh release upload qa-0.9.13 Scorer-World-0.9.13.apk docs/RELEASE_0.9.13_artifacts.json docs/screenshots/0.9.13-training-pt.png docs/screenshots/0.9.13-coach-pt.png --clobber
+          gh release upload qa-0.9.14 Scorer-World-0.9.14.apk docs/RELEASE_0.9.14_artifacts.json docs/screenshots/0.9.14-goal-headline-pt.png --clobber
 
   names:
     if: ${{ inputs.deliver_names }}

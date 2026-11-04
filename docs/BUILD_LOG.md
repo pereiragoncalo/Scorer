@@ -1882,3 +1882,28 @@ Delivery: workflow41869386481 succeeded. Public APK and both Portuguese preview
 attachments returned HTTP200 with Content-Disposition attachment and exact local
 SHA256/byte matches. APK107333547B, SHA25617d2d9617ac2b2810737b022b963fd284dd4f7ffb76818323c1c424c7aa1a104.
 Temporary qa-upload-0.9.13 transfer branch removed after public verification.
+
+## 2026-11-04 — World0.9.14 every goal, wide aim and per-match training
+
+Source6abc1876235913a2581181822707aaa0bd7e3694. Every personal goal gets a
+headline and article mention; ordinary goals are not falsely called decisive.
+Aim now sweeps both posts and slightly beyond. World same-week fixtures exposed
+that the weekly training flag stayed valid after cup/national matches; every
+completed appearance now consumes the session. Completion requires three saved
+shots and rewards use saved goals. Old gate-less completed sessions reset once;
+partial sessions retain progress. Source/clean archive excludes unrelated WIP.
+
+Final core345 passed in121.386s; native154 passed in163.778s, total499. Targeted
+four core gate tests and seven native finishing/Play tests passed. Core covers
+World same-week club/cup and national consumption/reload, incomplete sessions,
+authoritative goal credit and migration. Native covers actual Play throughout
+partial training/reload plus 28,800 aim positions crossing both posts. Initial
+existing340/153 suites also passed; new core fixture setup corrected its legacy
+save-slot argument before final full runs.
+
+World0.9.14/code1026914 DEBUG arm64 APK built and verified: exact compiled source,
+actual three-shot/same-week national gate/headline-after-defeat, competitions,
+upgrade certificate, API36/min26,118 ELF/ZIP16KB, ad-free rehearsal payload.
+Portuguese newspaper screenshot is desktop Kivy with a synthetic recorded goal,
+1280x591/density1.4, one paper leaf. No physical Android, production signing,
+Play upload or live-server changes. Evidence /workspace/striker-runtime/0914.
