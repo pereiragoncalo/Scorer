@@ -1,4 +1,4 @@
-name: Deliver verified World 0.9.6 APK
+name: Deliver verified World 0.9.7 APK
 on:
   workflow_dispatch:
     inputs:
@@ -28,14 +28,14 @@ jobs:
               with urllib.request.urlopen(base + name, timeout=60) as response:
                   return response.read()
           manifest = json.loads(read('manifest.json'))
-          expected = '646cbcc046db50b2bb8dde880c06ae5931e1dccbcace435b2bb4f6ca2e766886'
-          assert manifest['version'] == '0.9.6'
-          assert manifest['filename'] == 'Scorer-World-0.9.6.apk'
-          assert manifest['sha256'] == expected and manifest['bytes'] == 74105187
+          expected = '155ca243f68245f3c0d8c1b2bda59a4fc8ed26580920c70c0d1e52c8263c2991'
+          assert manifest['version'] == '0.9.7'
+          assert manifest['filename'] == 'Scorer-World-0.9.7.apk'
+          assert manifest['sha256'] == expected and manifest['bytes'] == 74118391
           assert 1 <= len(manifest['parts']) <= 16
           digest = hashlib.sha256()
           total = 0
-          with open('Scorer-World-0.9.6.apk', 'wb') as output:
+          with open('Scorer-World-0.9.7.apk', 'wb') as output:
               for index, part in enumerate(manifest['parts']):
                   assert part['name'] == f'apk.part.{index:02d}'
                   content = read(part['name'])
@@ -44,8 +44,8 @@ jobs:
                   output.write(content)
                   digest.update(content)
                   total += len(content)
-          assert total == 74105187 and digest.hexdigest() == expected
-          metadata = json.loads(pathlib.Path('docs/RELEASE_0.9.6_artifacts.json').read_text())
+          assert total == 74118391 and digest.hexdigest() == expected
+          metadata = json.loads(pathlib.Path('docs/RELEASE_0.9.7_artifacts.json').read_text())
           assert metadata['sha256'] == expected and metadata['bytes'] == total
           source = metadata['source_commit']
           assert re.fullmatch('[0-9a-f]{40}', source)
@@ -58,7 +58,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SOURCE_COMMIT: ${{ steps.download.outputs.source_commit }}
         run: |
-          if ! gh release view qa-0.9.6 >/dev/null 2>&1; then
-            gh release create qa-0.9.6 --target "$SOURCE_COMMIT" --prerelease --title "Scorer World 0.9.6 QA - playoffs and call-ups" --notes-file docs/RELEASE_0.9.6.md
+          if ! gh release view qa-0.9.7 >/dev/null 2>&1; then
+            gh release create qa-0.9.7 --target "$SOURCE_COMMIT" --prerelease --title "Scorer World 0.9.7 QA - domestic schedules and splits" --notes-file docs/RELEASE_0.9.7.md
           fi
-          gh release upload qa-0.9.6 Scorer-World-0.9.6.apk docs/RELEASE_0.9.6_artifacts.json --clobber
+          gh release upload qa-0.9.7 Scorer-World-0.9.7.apk docs/RELEASE_0.9.7_artifacts.json --clobber
