@@ -24,15 +24,31 @@ jobs:
         id: download
         env:
           TRANSFER_COMMIT: ${{ inputs.transfer_commit }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           python3 - <<'PY'
-          import hashlib, json, os, pathlib, re, urllib.request
+          import base64, hashlib, json, os, pathlib, re, subprocess, urllib.request
           commit = os.environ['TRANSFER_COMMIT']
           assert re.fullmatch('[0-9a-f]{40}', commit)
           base = 'https://raw.githubusercontent.com/' + os.environ['GITHUB_REPOSITORY'] + '/' + commit + '/'
           def read(name):
               with urllib.request.urlopen(base + name, timeout=60) as response:
                   return response.read()
+          def read_part(part):
+              # Large raw downloads can stall. Fetch the same immutable blob
+              # through GitHub's authenticated API, keeping all digest checks.
+              assert re.fullmatch('[0-9a-f]{40}', part['blob'])
+              endpoint = 'repos/' + os.environ['GITHUB_REPOSITORY'] + '/git/blobs/' + part['blob']
+              for attempt in range(3):
+                  try:
+                      payload = subprocess.check_output(['gh', 'api', '--method', 'GET', endpoint], timeout=60)
+                      blob = json.loads(payload)
+                      assert blob['encoding'] == 'base64' and blob['size'] == part['bytes']
+                      return base64.b64decode(blob['content'])
+                  except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+                      if attempt == 2:
+                          raise
+                      print('Retrying verified transfer part:', part['name'], flush=True)
           manifest = json.loads(read('manifest.json'))
           expected = '5d9cd7422ea4662203db1df1a6fba6d72287e980f3b117731bcc3d4d477a1770'
           assert manifest['version'] == '0.9.14'
@@ -44,7 +60,7 @@ jobs:
           with open('Scorer-World-0.9.14.apk', 'wb') as output:
               for index, part in enumerate(manifest['parts']):
                   assert part['name'] == f'apk.part.{index:02d}'
-                  content = read(part['name'])
+                  content = read_part(part)
                   assert len(content) == part['bytes'] <= 8 * 1024 * 1024
                   assert hashlib.sha256(content).hexdigest() == part['sha256']
                   output.write(content)
