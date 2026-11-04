@@ -1801,3 +1801,7 @@ are checked against the reviewed registry. Players remain the July2026 snapshot;
 missing source squads stay fictional. No app/UID/physics change or APK rebuild.
 Six dedicated generation/import tests passed; related regression checks follow.
 Related regressions:5 division-pack and8 two-division tests also passed,19 total.
+Published uncompressed JSON attachments through the conditional names-delivery
+job; six dedicated tests also passed in GitHub Actions. Both public downloads
+returned HTTP200 with attachment disposition and exact checked bytes/SHA256.
+See docs/data/name-packs/current-downloads.json. No APK rebuilt or game changed.

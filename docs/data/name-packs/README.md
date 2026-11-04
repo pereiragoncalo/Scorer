@@ -1,3 +1,14 @@
+## World0.9.10: current capacities and compatible JSON
+
+- [Download complete current-layout JSON](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-0.9.10/Scorer-World-Real-Names-0.9.10.json):378 club names, including26 added slots. Use for careers started with the new0.9.7+ capacities.
+- [Download compatible JSON](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-0.9.10/Scorer-World-Real-Names-Compatible.json):352 club names. Works in old and current layouts; additional new slots keep fictional names.
+
+Both are uncompressed JSON attachments, covering Portugal, England, Spain,
+Germany, Italy, France, Brazil and Argentina. Player reference remains July2026;
+these are not current November rosters. Import through Editor > Import names.
+No APK update or career reset. [Selection, limits and source evidence](REAL_NAMES_0.9.10.md) ·
+[Import validation](current-validation.json) · [Public download verification](current-downloads.json).
+
 ## World 0.9.4: two divisions and ten reserves
 
 [Download the JSON for the two-division model](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-two-divisions-2026/Scorer-World-Real-Names-Two-Divisions-2026.json). Install World0.9.4 first.272 real active-club names plus80 real reserve-club names:10 per supported country,352 unique clubs total.16 active league names and2283 player aliases. The eight supported real-name countries remain Portugal, England, Spain, Germany, Italy, France, Brazil and Argentina; other game countries use the existing fictional local names.

@@ -2,6 +2,8 @@
 
 [Download World 0.9.10 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.10/Scorer-World-0.9.10.apk)
 
+[Download real-name editor JSON files](docs/data/name-packs/README.md): current and legacy-compatible variants for eight countries, including Brazil and Argentina. No APK update needed.
+
 Ordinary weeks have no meeting. Only a drought or an actual key match prompts
 the coach and blocks training/play until reviewed. Newspaper opens SCORER DAILY:
 factual last-match coverage, recorded goal minutes, conditional player mentions
