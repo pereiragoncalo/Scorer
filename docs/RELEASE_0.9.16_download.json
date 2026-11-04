@@ -1,0 +1,47 @@
+{
+  "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.16/Scorer-World-0.9.16.apk",
+  "status": 200,
+  "bytes": 107353911,
+  "sha256": "a7e54615f514c6393006f80d58c2ba4fbfa6e24dd05c97863294122a320a7d12",
+  "content_disposition": "attachment; filename=Scorer-World-0.9.16.apk",
+  "verified_utc": "2026-11-04",
+  "workflow_run": 41924917321,
+  "source_commit": "5847d481f6abf2c93bdda15e7ee3fe81db268bc0",
+  "previews": [
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.16/0.9.16-menu-pt.png",
+      "status": 200,
+      "bytes": 340937,
+      "sha256": "85a52264b7c30ca2e588f3696acc8ebf1477ed45478d813ec04f4ffd2cff2441",
+      "content_disposition": "attachment; filename=0.9.16-menu-pt.png"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.16/0.9.16-newspaper-pt.png",
+      "status": 200,
+      "bytes": 71787,
+      "sha256": "51898438917f777e690f4eb86246c502f95b8fe3d81ce98d26105ea0a7d5704e",
+      "content_disposition": "attachment; filename=0.9.16-newspaper-pt.png"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.16/0.9.16-coach-pt.png",
+      "status": 200,
+      "bytes": 374203,
+      "sha256": "3052be6e103e29bca729803d949e57150d8914c686123c944de837a030681fd6",
+      "content_disposition": "attachment; filename=0.9.16-coach-pt.png"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.16/0.9.16-penalty-pt.png",
+      "status": 200,
+      "bytes": 76418,
+      "sha256": "dfcf48c67d81ddcc0eedc2e5bc8afaa1954bd4091dd90042a9e8cade51854784",
+      "content_disposition": "attachment; filename=0.9.16-penalty-pt.png"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.16/0.9.16-notice-pt.png",
+      "status": 200,
+      "bytes": 773286,
+      "sha256": "970f3b3c3e4b45aea0f0dd383fd976fd5a438761113ee81c9b58821db312f328",
+      "content_disposition": "attachment; filename=0.9.16-notice-pt.png"
+    }
+  ]
+}

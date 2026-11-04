@@ -1,3 +1,24 @@
+## Scorer World0.9.16 — more duels, penalties and one-screen reading
+
+[Download World0.9.16 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.16/Scorer-World-0.9.16.apk) ·
+[Menu preview](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.16/0.9.16-menu-pt.png) ·
+[Penalty preview](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.16/0.9.16-penalty-pt.png)
+
+More one-on-one opportunities, including against elite teams. Penalties are
+announced before playing the chance and replace existing slots. Newspaper and
+coach fit one screen with concise fallbacks; all observed goal minutes and three
+feedback parts are retained. Notice text is justified. Root splash touch handling
+works before child layout. The player name is the button, with three aligned
+World header actions; viewport rebuild preserves profile typing.
+
+518 host tests passed (353 core +165 native Kivy), with final targeted viewport/
+locale checks. Exact compiled gameplay/UI/coach source and all nine catalogues,
+penalty budget, existing QA certificate and16KB alignment verified. Previews are
+desktop Kivy with synthetic fixtures. Physical Android first-touch/reading checks
+remain outstanding. DEBUG QA; public launch remains1.0.
+[Scope](docs/RELEASE_0.9.16.md) · [APK evidence](docs/RELEASE_0.9.16_artifacts.json) ·
+[Public download check](docs/RELEASE_0.9.16_download.json).
+
 ## Scorer World0.9.15 — post-match newspaper/coach flow and player trophies
 
 [Download World0.9.15 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.15/Scorer-World-0.9.15.apk) ·

@@ -1985,3 +1985,8 @@ The five Portuguese previews are native desktop Kivy at1280×591/density1.4 with
 synthetic stats/fixture; no handset validation. OS/native-loading first-touch
 behaviour remains a device check. No production signing/Play/server changes.
 Unrelated root badge-helper/mode WIP remains unstaged/excluded.
+
+Delivery: run41924917321 completed successfully. The public APK and all5previews
+returned HTTP200 with attachment headers and exact local SHA256/size matches;
+proof in RELEASE_0.9.16_download.json. Temporary qa-upload-0.9.16 transfer branch
+removed after these checks. No APK changes during delivery.
