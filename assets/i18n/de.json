@@ -392,5 +392,21 @@
   "First goal: {first}. Last goal: {last}.": "Erstes Tor: {first}. Letztes Tor: {last}.",
   "{player}: {goals} goals.": "{player}: {goals} Tore.",
   "{player}: a crucial goal.": "{player}: ein wichtiges Tor.",
-  "{player}: {games} games without a goal.": "{player}: {games} Spiele ohne Tor."
+  "{player}: {games} games without a goal.": "{player}: {games} Spiele ohne Tor.",
+  "{minute}' — {team} opened the scoring ({score}).": "{minute}' — {team} eröffnete den Torreigen ({score}).",
+  "{minute}' — {team} equalised ({score}).": "{minute}' — {team} glich aus ({score}).",
+  "{minute}' — {team} pulled a goal back ({score}).": "{minute}' — {team} verkürzte den Rückstand ({score}).",
+  "{minute}' — {team} regained the lead ({score}).": "{minute}' — {team} ging erneut in Führung ({score}).",
+  "{minute}' — {team} went ahead ({score}).": "{minute}' — {team} ging in Führung ({score}).",
+  "{minute}' — {team} extended the lead ({score}).": "{minute}' — {team} baute die Führung aus ({score}).",
+  "{team}: {goals} goals; individual times were not recorded.": "{team}: {goals} Tore; die einzelnen Spielminuten wurden nicht aufgezeichnet.",
+  "{team} won the penalty shootout after the match score finished level.": "{team} gewann das Elfmeterschießen nach dem Unentschieden im Spiel.",
+  "Neither side broke the deadlock; the match ended without a goal.": "Kein Team durchbrach die Torlosigkeit; das Spiel endete ohne Treffer.",
+  "A late equaliser settled the match at {score}.": "Ein später Ausgleich stellte den Endstand von {score} her.",
+  "The exchange of goals left the teams level at full time.": "Nach dem Torreigen stand am Ende ein Unentschieden.",
+  "{winner} recovered from a deficit to secure the win.": "{winner} drehte einen Rückstand und sicherte sich den Sieg.",
+  "{winner} closed the match with a {margin}-goal advantage.": "{winner} beendete das Spiel mit {margin} Toren Vorsprung.",
+  "MATCH SUMMARY": "SPIELZUSAMMENFASSUNG",
+  "{team}: one goal; its time was not recorded.": "{team}: ein Tor; die Minute wurde nicht aufgezeichnet.",
+  "{winner} secured a narrow one-goal win.": "{winner} sicherte sich einen knappen Sieg mit einem Tor Vorsprung."
 }

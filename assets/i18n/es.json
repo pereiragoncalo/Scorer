@@ -392,5 +392,21 @@
   "First goal: {first}. Last goal: {last}.": "Primer gol: {first}. Último gol: {last}.",
   "{player}: {goals} goals.": "{player}: {goals} goles.",
   "{player}: a crucial goal.": "{player}: un gol crucial.",
-  "{player}: {games} games without a goal.": "{player}: {games} partidos sin marcar."
+  "{player}: {games} games without a goal.": "{player}: {games} partidos sin marcar.",
+  "{minute}' — {team} opened the scoring ({score}).": "{minute}' — {team} abrió el marcador ({score}).",
+  "{minute}' — {team} equalised ({score}).": "{minute}' — {team} empató ({score}).",
+  "{minute}' — {team} pulled a goal back ({score}).": "{minute}' — {team} recortó distancias ({score}).",
+  "{minute}' — {team} regained the lead ({score}).": "{minute}' — {team} recuperó la ventaja ({score}).",
+  "{minute}' — {team} went ahead ({score}).": "{minute}' — {team} se adelantó ({score}).",
+  "{minute}' — {team} extended the lead ({score}).": "{minute}' — {team} amplió la ventaja ({score}).",
+  "{team}: {goals} goals; individual times were not recorded.": "{team}: {goals} goles; no se registraron los minutos individuales.",
+  "{team} won the penalty shootout after the match score finished level.": "{team} ganó la tanda de penaltis tras el empate en el partido.",
+  "Neither side broke the deadlock; the match ended without a goal.": "Ningún equipo rompió el empate; el encuentro terminó sin goles.",
+  "A late equaliser settled the match at {score}.": "Un empate tardío fijó el resultado en {score}.",
+  "The exchange of goals left the teams level at full time.": "El intercambio de goles dejó a los equipos igualados al final.",
+  "{winner} recovered from a deficit to secure the win.": "{winner} remontó una desventaja y logró la victoria.",
+  "{winner} closed the match with a {margin}-goal advantage.": "{winner} cerró el encuentro con una ventaja de {margin} goles.",
+  "MATCH SUMMARY": "RESUMEN DEL PARTIDO",
+  "{team}: one goal; its time was not recorded.": "{team}: un gol; no se registró el minuto.",
+  "{winner} secured a narrow one-goal win.": "{winner} logró una victoria por la mínima."
 }

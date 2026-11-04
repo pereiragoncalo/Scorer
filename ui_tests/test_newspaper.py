@@ -22,7 +22,8 @@ class NewspaperUI(unittest.TestCase):
             g._activate_ui('newspaper');g.draw();settle();paper=g._menu.body
             self.assertIsInstance(paper,NewspaperScreen);self.assertTrue(paper.article['mentions_player'])
             texts=[w.text for w in paper.walk() if isinstance(w,Label)]
-            self.assertTrue(any(c.player_name in t for t in texts));self.assertTrue(any('2-1' in t or '1-2' in t for t in texts))
+            printed=''.join(part['text'] for page in paper.pages for part in page)
+            self.assertIn(''.join(c.player_name.split()),''.join(printed.split()));self.assertTrue(any('2-1' in t or '1-2' in t for t in texts))
             self.assertEqual(paper.photo.source,PHOTOS[0]);self.assertLessEqual(paper.photo.width,240)
             g._activate_ui('hub');self.assertEqual(g.view,'hub')
 
@@ -56,7 +57,8 @@ class NewspaperUI(unittest.TestCase):
         with isolated_game() as g:
             g.career.accept_starting_offer(g.career.offers[0]);g._activate_ui('newspaper');g.draw();settle()
             self.assertFalse(any(isinstance(w,Image) for w in g._menu.body.walk()))
-            self.assertTrue(any('first match report' in w.text for w in g._menu.body.walk() if isinstance(w,Label)))
+            printed=''.join(part['text'] for page in g._menu.body.pages for part in page)
+            self.assertIn('firstmatchreport',''.join(printed.split()))
 
     def test_actual_goal_minutes_enter_report_once_and_ai_minutes_use_event_time(self):
         with isolated_game(saved=True) as g:
@@ -85,7 +87,9 @@ class NewspaperUI(unittest.TestCase):
                     self.assertFalse(any(isinstance(w,ScrollView) for w in p.walk()))
                     self.assertTrue(p.layout_fits,(lang,p.body.y,p.y,p.body.text,p.headline.text))
                     self.assertGreaterEqual(p.body_font_size,12)
-                    self.assertIn(c.player_name,p.body.text)
+                    self.assertIn(c.player_name,p.story_text)
+                    printed=''.join(part['text'] for page in p.pages for part in page)
+                    self.assertEqual(''.join(printed.split()),''.join(p.story_text.split()))
                     for label in (p.headline,p.score,p.body,p.dateline):
                         self.assertFalse(label.shorten)
                         self.assertGreaterEqual(label.y,p.y-1,(lang,label.text))
@@ -93,3 +97,51 @@ class NewspaperUI(unittest.TestCase):
                         required=text_height(str(label.text),round(label.width),label.font_name,round(label.font_size,2),label.bold)
                         self.assertLessEqual(required,label.height+1,(lang,label.text))
         finally:Window.size=old
+
+
+    def test_folded_window_embedded_photo_and_custom_fonts(self):
+        old=Window.size
+        try:
+            Window.size=(1280,720)
+            with isolated_game() as g:
+                c=self.played(g,2,0);g.size=(1280,720);g._activate_ui('newspaper');g.draw();settle();p=g._menu.body
+                x,y,w,h=p.sheet_bounds
+                self.assertGreater(x,p.x);self.assertGreater(y,p.y);self.assertLess(w,p.width);self.assertLess(h,p.height)
+                self.assertIn('ScorerPressDisplay',p.masthead.font_name)
+                self.assertTrue(all('ScorerPressPixel' in part['font'] for page in p.pages for part in page))
+                self.assertLess(p.photo.right,p.fragments[0].x)
+                self.assertTrue(p.layout_fits)
+        finally:Window.size=old
+
+    def test_all_four_goals_and_summary_survive_flow_and_leaf_turns(self):
+        old=Window.size
+        try:
+            Window.size=(320,240)
+            with isolated_game() as g:
+                c=self.played(g);g.size=(320,240);r=c.press_state['report'];r['score']=[3,1];r['status']='3-1'
+                r['events']=[dict(minute=m,half=1 if m<46 else 2,side=s) for m,s in ((32,'home'),(51,'away'),(67,'home'),(90,'home'))]
+                g._activate_ui('newspaper');g.draw();settle();p=g._menu.body
+                self.assertEqual(len(p.article['goals']),4)
+                printed=''.join(part['text'] for page in p.pages for part in page)
+                self.assertEqual(''.join(printed.split()),''.join(p.story_text.split()))
+                for event in p.article['goals']:self.assertIn("".join(event['text'].split()),''.join(printed.split()))
+                self.assertIn(''.join(p.article['summary'].split()),''.join(printed.split()))
+                self.assertTrue(p.layout_fits)
+                if len(p.pages)>1:
+                    p.turn(1);settle();self.assertEqual(p.page,1);self.assertTrue(p.layout_fits)
+        finally:Window.size=old
+
+
+    def test_example_four_goal_report_fits_original_phone_proportions(self):
+        from kivy.metrics import Metrics
+        old=Window.size;density=Metrics.density
+        try:
+            Metrics.density=1.4;Window.size=(1280,591)
+            with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+                c=self.played(g);g.size=(1280,591);g.i18n.choose('pt');r=c.press_state['report']
+                c.display_aliases['clubs'][r['home_uid']]='Ponte Preta';c.display_aliases['clubs'][r['away_uid']]='Londrina'
+                r['score']=[3,1];r['status']='3-1';r['negative_run']=6;r['goals']=0;r['standout']=False
+                r['events']=[dict(minute=m,half=1 if m<46 else 2,side=s) for m,s in ((32,'home'),(51,'away'),(67,'home'),(90,'home'))]
+                g._activate_ui('newspaper');g.draw();settle();p=g._menu.body
+                self.assertEqual(len(p.pages),1);self.assertTrue(p.layout_fits);self.assertEqual(len(p.article['goals']),4)
+        finally:Metrics.density=density;Window.size=old

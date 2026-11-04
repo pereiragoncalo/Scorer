@@ -8,7 +8,7 @@ for artifact in sys.argv[1:]:
     m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
     actual=marshal.loads(t.extractfile(m).read()[16:]);source=Path(name+'.py').read_text()
     assert any(actual==compile(source,actual.co_filename,'exec',optimize=n) for n in (0,1,2)),name+' differs from reviewed source'
-   for relative in tuple('assets/coaches/coach_'+str(i).zfill(2)+'.png' for i in range(1,11))+tuple('assets/newspaper/match_'+str(i)+'.png' for i in range(1,6))+('assets/fonts/LiberationSerif-Regular.ttf','assets/fonts/Liberation.license','assets/data/world_clubs.json','assets/data/club_kits.json','assets/data/domestic_profiles.json','assets/data/international_calendar.json','assets/data/domestic_formats.json'):
+   for relative in tuple('assets/coaches/coach_'+str(i).zfill(2)+'.png' for i in range(1,11))+tuple('assets/newspaper/match_'+str(i)+'.png' for i in range(1,6))+('assets/fonts/ScorerPressPixel.ttf','assets/fonts/ScorerPressDisplay.ttf','assets/fonts/OFL-ScorerPress.license','assets/fonts/LiberationSerif-Regular.ttf','assets/fonts/Liberation.license','assets/data/world_clubs.json','assets/data/club_kits.json','assets/data/domestic_profiles.json','assets/data/international_calendar.json','assets/data/domestic_formats.json'):
     member=next(m for m in t if m.name==relative or m.name.endswith('/'+relative))
     assert t.extractfile(member).read()==Path(relative).read_bytes(),relative+' differs from reviewed data'
  print('Exact compiled World source matches reviewed modules:',Path(artifact).name)

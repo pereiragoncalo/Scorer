@@ -392,5 +392,21 @@
   "First goal: {first}. Last goal: {last}.": "Primeiro golo: {first}. Último golo: {last}.",
   "{player}: {goals} goals.": "{player}: {goals} golos.",
   "{player}: a crucial goal.": "{player}: um golo crucial.",
-  "{player}: {games} games without a goal.": "{player}: {games} jogos sem marcar."
+  "{player}: {games} games without a goal.": "{player}: {games} jogos sem marcar.",
+  "{minute}' — {team} opened the scoring ({score}).": "{minute}' — {team} abriu o marcador ({score}).",
+  "{minute}' — {team} equalised ({score}).": "{minute}' — {team} empatou ({score}).",
+  "{minute}' — {team} pulled a goal back ({score}).": "{minute}' — {team} reduziu a desvantagem ({score}).",
+  "{minute}' — {team} regained the lead ({score}).": "{minute}' — {team} recuperou a vantagem ({score}).",
+  "{minute}' — {team} went ahead ({score}).": "{minute}' — {team} passou para a frente ({score}).",
+  "{minute}' — {team} extended the lead ({score}).": "{minute}' — {team} ampliou a vantagem ({score}).",
+  "{team}: {goals} goals; individual times were not recorded.": "{team}: {goals} golos; os minutos individuais não ficaram registados.",
+  "{team} won the penalty shootout after the match score finished level.": "{team} venceu no desempate por penáltis, após a igualdade no jogo.",
+  "Neither side broke the deadlock; the match ended without a goal.": "Nenhuma equipa desfez o nulo; o encontro terminou sem golos.",
+  "A late equaliser settled the match at {score}.": "Um golo tardio fixou a igualdade em {score}.",
+  "The exchange of goals left the teams level at full time.": "A troca de golos deixou as equipas empatadas no final.",
+  "{winner} recovered from a deficit to secure the win.": "{winner} recuperou de uma desvantagem e garantiu a vitória.",
+  "{winner} closed the match with a {margin}-goal advantage.": "{winner} fechou o encontro com uma vantagem de {margin} golos.",
+  "MATCH SUMMARY": "RESUMO DO JOGO",
+  "{team}: one goal; its time was not recorded.": "{team}: um golo; o minuto não ficou registado.",
+  "{winner} secured a narrow one-goal win.": "{winner} garantiu uma vitória pela margem mínima."
 }

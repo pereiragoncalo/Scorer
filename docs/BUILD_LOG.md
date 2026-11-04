@@ -1831,3 +1831,22 @@ all passed and the APK was rebuilt from a fresh staging directory. Actual compil
 source matches commit4f372ba; API36/code1026911/arm64,118ELF16KB, ZIP alignment,
 existing upgrade certificate, all ten portrait bytes and compiled appearance/save/
 competition/publishing checks passed. Public attachment evidence follows.
+
+## 2026-11-04 — 0.9.12 folded newspaper and full goal reporting
+
+Rebuilt the reader as an inset, folded-paper window on a dark background with
+shadows, crease, reverse-sheet print and paper grain. Added original display and
+pixel news fonts with source/OFL licensing. Photo participates in actual text
+flow beside/below it and across columns. Long reports can turn leaves without
+scrolling, truncation or omitted words; typical four-goal phone report fits one
+leaf. Capture screenshots use the real desktop Kivy main loop and were visually
+inspected at1280×720 and1280×591/density1.4; they are illustrative host renders.
+
+All recorded goals now get minute/team/running-score narrative, plus a factual
+comeback/draw/margin/penalty summary. Unknown historic clocks remain explicitly
+unknown and use team totals. No invented scorers or changed personal-mention
+criteria. No model/UID/physics changes. Core340 passed; font, article and locale
+targets passed after singular-wording cleanup. Initial full native runs exposed
+tests that assumed an unbroken player name/empty-message phrase in one label.
+Updated them to inspect the complete flowed text across leaves. Final full native
+and actual APK evidence follow. Unrelated root WIP remains excluded.

@@ -392,5 +392,21 @@
   "First goal: {first}. Last goal: {last}.": "첫 골: {first}분. 마지막 골: {last}분.",
   "{player}: {goals} goals.": "{player}: {goals}골.",
   "{player}: a crucial goal.": "{player}: 중요한 골.",
-  "{player}: {games} games without a goal.": "{player}: {games}경기 연속 무득점."
+  "{player}: {games} games without a goal.": "{player}: {games}경기 연속 무득점.",
+  "{minute}' — {team} opened the scoring ({score}).": "{minute}' — {team}, 선제골 ({score}).",
+  "{minute}' — {team} equalised ({score}).": "{minute}' — {team}, 동점골 ({score}).",
+  "{minute}' — {team} pulled a goal back ({score}).": "{minute}' — {team}, 추격골 ({score}).",
+  "{minute}' — {team} regained the lead ({score}).": "{minute}' — {team}, 다시 리드 ({score}).",
+  "{minute}' — {team} went ahead ({score}).": "{minute}' — {team}, 리드 확보 ({score}).",
+  "{minute}' — {team} extended the lead ({score}).": "{minute}' — {team}, 격차 확대 ({score}).",
+  "{team}: {goals} goals; individual times were not recorded.": "{team}: {goals}골. 개별 득점 시간은 기록되지 않았다.",
+  "{team} won the penalty shootout after the match score finished level.": "{team}, 동점 경기 후 승부차기에서 승리했다.",
+  "Neither side broke the deadlock; the match ended without a goal.": "어느 팀도 균형을 깨지 못해 무득점으로 끝났다.",
+  "A late equaliser settled the match at {score}.": "막판 동점골로 최종 점수는 {score}가 되었다.",
+  "The exchange of goals left the teams level at full time.": "골을 주고받은 두 팀은 결국 무승부로 마쳤다.",
+  "{winner} recovered from a deficit to secure the win.": "{winner}, 뒤지던 경기를 뒤집고 승리를 거뒀다.",
+  "{winner} closed the match with a {margin}-goal advantage.": "{winner}, {margin}골 차로 경기를 마무리했다.",
+  "MATCH SUMMARY": "경기 요약",
+  "{team}: one goal; its time was not recorded.": "{team}: 1골. 득점 시간은 기록되지 않았다.",
+  "{winner} secured a narrow one-goal win.": "{winner}, 한 골 차의 접전 끝에 승리했다."
 }

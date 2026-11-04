@@ -392,5 +392,21 @@
   "First goal: {first}. Last goal: {last}.": "先制点：{first}分。最後の得点：{last}分。",
   "{player}: {goals} goals.": "{player}：{goals}ゴール。",
   "{player}: a crucial goal.": "{player}：重要なゴール。",
-  "{player}: {games} games without a goal.": "{player}：{games}試合連続無得点。"
+  "{player}: {games} games without a goal.": "{player}：{games}試合連続無得点。",
+  "{minute}' — {team} opened the scoring ({score}).": "{minute}' — {team}が先制（{score}）。",
+  "{minute}' — {team} equalised ({score}).": "{minute}' — {team}が同点（{score}）。",
+  "{minute}' — {team} pulled a goal back ({score}).": "{minute}' — {team}が点差を縮める（{score}）。",
+  "{minute}' — {team} regained the lead ({score}).": "{minute}' — {team}が再びリード（{score}）。",
+  "{minute}' — {team} went ahead ({score}).": "{minute}' — {team}が勝ち越し（{score}）。",
+  "{minute}' — {team} extended the lead ({score}).": "{minute}' — {team}がリードを広げる（{score}）。",
+  "{team}: {goals} goals; individual times were not recorded.": "{team}：{goals}ゴール。個別の得点時間は記録されていない。",
+  "{team} won the penalty shootout after the match score finished level.": "{team}が、試合の引き分け後にPK戦で勝利した。",
+  "Neither side broke the deadlock; the match ended without a goal.": "どちらも均衡を破れず、試合は無得点で終わった。",
+  "A late equaliser settled the match at {score}.": "終盤の同点弾で最終スコアは{score}となった。",
+  "The exchange of goals left the teams level at full time.": "得点を奪い合った両チームは、最後まで同点だった。",
+  "{winner} recovered from a deficit to secure the win.": "{winner}がビハインドを覆して勝利を収めた。",
+  "{winner} closed the match with a {margin}-goal advantage.": "{winner}が{margin}点差で試合を終えた。",
+  "MATCH SUMMARY": "試合のまとめ",
+  "{team}: one goal; its time was not recorded.": "{team}：1ゴール。得点時間は記録されていない。",
+  "{winner} secured a narrow one-goal win.": "{winner}が1点差の僅差で勝利した。"
 }

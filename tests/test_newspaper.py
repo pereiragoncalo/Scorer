@@ -76,7 +76,7 @@ class NewspaperTests(unittest.TestCase):
         self.assertEqual(clean_events(events,[1,1]),events)
         self.assertEqual(clean_events(events,[2,1]),[])
         r=self.report()['report'];r['events']=events;a=self.render(r)
-        text=' '.join(a['paragraphs']);self.assertIn('Away opened the scoring in minute 45+1',text);self.assertIn('Home in minute 89',text)
+        text=' '.join(a['paragraphs']);self.assertIn("45+1'",text);self.assertIn('Away opened the scoring',text);self.assertIn("89'",text);self.assertIn('Home equalised',text)
         self.assertNotIn('PLAYER UNIQUE',text)
 
     def test_unobserved_extra_time_goals_are_not_invented_in_chronology(self):
@@ -84,3 +84,24 @@ class NewspaperTests(unittest.TestCase):
         events=[dict(minute=88,half=2,side='home')]
         self.assertEqual(clean_events(events,[2,0]),[])
         self.assertEqual(clean_events([dict(minute=999,half=2,side='home')],[1,0]),[])
+
+
+    def test_every_goal_is_reported_with_its_correct_changing_score(self):
+        from newspaper import goal_ledger
+        r=self.report(score=(3,1))['report']
+        r['events']=[dict(minute=m,half=1 if m<46 else 2,side=s) for m,s in ((32,'home'),(51,'away'),(67,'home'),(90,'home'))]
+        a=self.render(r);self.assertEqual(len(a['goals']),4)
+        self.assertEqual([g['score'] for g in a['goals']],[[1,0],[1,1],[2,1],[3,1]])
+        for minute in ('32','51','67','90'):self.assertTrue(any(g['minute']==minute for g in a['goals']))
+        self.assertIn('regained the lead',a['goals'][2]['text']);self.assertIn('extended the lead',a['goals'][3]['text'])
+
+    def test_summary_recognises_comeback_and_late_equaliser(self):
+        r=self.report(score=(1,2))['report'];r['events']=[dict(minute=m,half=2,side=s) for m,s in ((50,'home'),(60,'away'),(89,'away'))]
+        self.assertIn('recovered from a deficit',self.render(r)['summary'])
+        r['score']=[1,1];r['events']=r['events'][:2];r['events'][-1]['minute']=89
+        self.assertIn('late equaliser',self.render(r)['summary'])
+
+    def test_missing_historic_minutes_use_totals_without_fabricated_events(self):
+        a=self.render(self.report(score=(3,1))['report'])
+        self.assertEqual(len(a['goals']),2);self.assertTrue(all(g['minute'] is None for g in a['goals']))
+        self.assertIn('3 goals',' '.join(g['text'] for g in a['goals']))

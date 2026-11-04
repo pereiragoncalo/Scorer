@@ -392,5 +392,21 @@
   "First goal: {first}. Last goal: {last}.": "First goal: {first}. Last goal: {last}.",
   "{player}: {goals} goals.": "{player}: {goals} goals.",
   "{player}: a crucial goal.": "{player}: a crucial goal.",
-  "{player}: {games} games without a goal.": "{player}: {games} games without a goal."
+  "{player}: {games} games without a goal.": "{player}: {games} games without a goal.",
+  "{minute}' — {team} opened the scoring ({score}).": "{minute}' — {team} opened the scoring ({score}).",
+  "{minute}' — {team} equalised ({score}).": "{minute}' — {team} equalised ({score}).",
+  "{minute}' — {team} pulled a goal back ({score}).": "{minute}' — {team} pulled a goal back ({score}).",
+  "{minute}' — {team} regained the lead ({score}).": "{minute}' — {team} regained the lead ({score}).",
+  "{minute}' — {team} went ahead ({score}).": "{minute}' — {team} went ahead ({score}).",
+  "{minute}' — {team} extended the lead ({score}).": "{minute}' — {team} extended the lead ({score}).",
+  "{team}: {goals} goals; individual times were not recorded.": "{team}: {goals} goals; individual times were not recorded.",
+  "{team} won the penalty shootout after the match score finished level.": "{team} won the penalty shootout after the match score finished level.",
+  "Neither side broke the deadlock; the match ended without a goal.": "Neither side broke the deadlock; the match ended without a goal.",
+  "A late equaliser settled the match at {score}.": "A late equaliser settled the match at {score}.",
+  "The exchange of goals left the teams level at full time.": "The exchange of goals left the teams level at full time.",
+  "{winner} recovered from a deficit to secure the win.": "{winner} recovered from a deficit to secure the win.",
+  "{winner} closed the match with a {margin}-goal advantage.": "{winner} closed the match with a {margin}-goal advantage.",
+  "MATCH SUMMARY": "MATCH SUMMARY",
+  "{team}: one goal; its time was not recorded.": "{team}: one goal; its time was not recorded.",
+  "{winner} secured a narrow one-goal win.": "{winner} secured a narrow one-goal win."
 }

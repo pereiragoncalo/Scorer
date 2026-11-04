@@ -392,5 +392,21 @@
   "First goal: {first}. Last goal: {last}.": "Primo gol: {first}. Ultimo gol: {last}.",
   "{player}: {goals} goals.": "{player}: {goals} gol.",
   "{player}: a crucial goal.": "{player}: un gol cruciale.",
-  "{player}: {games} games without a goal.": "{player}: {games} partite senza gol."
+  "{player}: {games} games without a goal.": "{player}: {games} partite senza gol.",
+  "{minute}' — {team} opened the scoring ({score}).": "{minute}' — {team} ha aperto le marcature ({score}).",
+  "{minute}' — {team} equalised ({score}).": "{minute}' — {team} ha pareggiato ({score}).",
+  "{minute}' — {team} pulled a goal back ({score}).": "{minute}' — {team} ha accorciato le distanze ({score}).",
+  "{minute}' — {team} regained the lead ({score}).": "{minute}' — {team} è tornata in vantaggio ({score}).",
+  "{minute}' — {team} went ahead ({score}).": "{minute}' — {team} è passata in vantaggio ({score}).",
+  "{minute}' — {team} extended the lead ({score}).": "{minute}' — {team} ha allungato ({score}).",
+  "{team}: {goals} goals; individual times were not recorded.": "{team}: {goals} gol; i singoli minuti non sono stati registrati.",
+  "{team} won the penalty shootout after the match score finished level.": "{team} ha vinto ai rigori dopo il pareggio nella partita.",
+  "Neither side broke the deadlock; the match ended without a goal.": "Nessuna squadra ha sbloccato il risultato; la partita è finita senza gol.",
+  "A late equaliser settled the match at {score}.": "Un pareggio nel finale ha fissato il risultato sul {score}.",
+  "The exchange of goals left the teams level at full time.": "Lo scambio di gol ha lasciato le squadre in parità alla fine.",
+  "{winner} recovered from a deficit to secure the win.": "{winner} ha rimontato uno svantaggio conquistando la vittoria.",
+  "{winner} closed the match with a {margin}-goal advantage.": "{winner} ha chiuso la partita con {margin} gol di vantaggio.",
+  "MATCH SUMMARY": "SINTESI DELLA PARTITA",
+  "{team}: one goal; its time was not recorded.": "{team}: un gol; il minuto non è stato registrato.",
+  "{winner} secured a narrow one-goal win.": "{winner} ha conquistato una vittoria di misura."
 }

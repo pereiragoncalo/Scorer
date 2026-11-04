@@ -1,0 +1,3 @@
+
+# Preserve the verbatim formatting of the bundled OFL text.
+assets/fonts/OFL-ScorerPress.license -whitespace

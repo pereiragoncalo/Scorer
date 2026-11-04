@@ -392,5 +392,21 @@
   "First goal: {first}. Last goal: {last}.": "Bàn đầu: phút {first}. Bàn cuối: phút {last}.",
   "{player}: {goals} goals.": "{player}: {goals} bàn.",
   "{player}: a crucial goal.": "{player}: bàn thắng quan trọng.",
-  "{player}: {games} games without a goal.": "{player}: {games} trận không ghi bàn."
+  "{player}: {games} games without a goal.": "{player}: {games} trận không ghi bàn.",
+  "{minute}' — {team} opened the scoring ({score}).": "{minute}' — {team} mở tỉ số ({score}).",
+  "{minute}' — {team} equalised ({score}).": "{minute}' — {team} gỡ hòa ({score}).",
+  "{minute}' — {team} pulled a goal back ({score}).": "{minute}' — {team} rút ngắn cách biệt ({score}).",
+  "{minute}' — {team} regained the lead ({score}).": "{minute}' — {team} giành lại lợi thế ({score}).",
+  "{minute}' — {team} went ahead ({score}).": "{minute}' — {team} vượt lên ({score}).",
+  "{minute}' — {team} extended the lead ({score}).": "{minute}' — {team} nới rộng cách biệt ({score}).",
+  "{team}: {goals} goals; individual times were not recorded.": "{team}: {goals} bàn; thời điểm từng bàn không được ghi lại.",
+  "{team} won the penalty shootout after the match score finished level.": "{team} thắng loạt luân lưu sau khi trận đấu kết thúc hòa.",
+  "Neither side broke the deadlock; the match ended without a goal.": "Không bên nào phá được thế bế tắc; trận đấu kết thúc không bàn thắng.",
+  "A late equaliser settled the match at {score}.": "Bàn gỡ muộn ấn định tỉ số {score}.",
+  "The exchange of goals left the teams level at full time.": "Hai đội trao đổi bàn thắng và kết thúc với tỉ số hòa.",
+  "{winner} recovered from a deficit to secure the win.": "{winner} lội ngược dòng để giành chiến thắng.",
+  "{winner} closed the match with a {margin}-goal advantage.": "{winner} khép lại trận đấu với cách biệt {margin} bàn.",
+  "MATCH SUMMARY": "TÓM TẮT TRẬN ĐẤU",
+  "{team}: one goal; its time was not recorded.": "{team}: một bàn; thời điểm không được ghi lại.",
+  "{winner} secured a narrow one-goal win.": "{winner} giành chiến thắng sát nút một bàn."
 }

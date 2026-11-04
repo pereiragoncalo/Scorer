@@ -392,5 +392,21 @@
   "First goal: {first}. Last goal: {last}.": "首球：第{first}分钟。末球：第{last}分钟。",
   "{player}: {goals} goals.": "{player}：{goals}球。",
   "{player}: a crucial goal.": "{player}：关键进球。",
-  "{player}: {games} games without a goal.": "{player}：连续{games}场未进球。"
+  "{player}: {games} games without a goal.": "{player}：连续{games}场未进球。",
+  "{minute}' — {team} opened the scoring ({score}).": "{minute}' — {team}首开记录（{score}）。",
+  "{minute}' — {team} equalised ({score}).": "{minute}' — {team}扳平比分（{score}）。",
+  "{minute}' — {team} pulled a goal back ({score}).": "{minute}' — {team}追回一球（{score}）。",
+  "{minute}' — {team} regained the lead ({score}).": "{minute}' — {team}重新领先（{score}）。",
+  "{minute}' — {team} went ahead ({score}).": "{minute}' — {team}取得领先（{score}）。",
+  "{minute}' — {team} extended the lead ({score}).": "{minute}' — {team}扩大领先（{score}）。",
+  "{team}: {goals} goals; individual times were not recorded.": "{team}：{goals}球，未记录各球的具体时间。",
+  "{team} won the penalty shootout after the match score finished level.": "{team}在本场战平后赢得点球大战。",
+  "Neither side broke the deadlock; the match ended without a goal.": "双方均未打破僵局，比赛互交白卷。",
+  "A late equaliser settled the match at {score}.": "最后阶段的扳平球将比分定格为{score}。",
+  "The exchange of goals left the teams level at full time.": "双方互有进球，最终战成平局。",
+  "{winner} recovered from a deficit to secure the win.": "{winner}从落后中逆转并取得胜利。",
+  "{winner} closed the match with a {margin}-goal advantage.": "{winner}以{margin}球优势结束比赛。",
+  "MATCH SUMMARY": "比赛摘要",
+  "{team}: one goal; its time was not recorded.": "{team}：一球，未记录进球时间。",
+  "{winner} secured a narrow one-goal win.": "{winner}以一球优势险胜。"
 }

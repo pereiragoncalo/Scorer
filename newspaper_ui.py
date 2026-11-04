@@ -1,43 +1,68 @@
-"""A measured, single-page sports newspaper. No scrolling, cropping or ellipses."""
+"""Folded broadsheet in a dark reading window, with real text flow and leaf turns."""
 from functools import lru_cache
 from kivy.clock import Clock
 from kivy.core.text import Label as CoreLabel
-from kivy.graphics import Color,Rectangle
+from kivy.graphics import Color,Rectangle,Line,Triangle
 from kivy.metrics import dp,sp
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from menu_ui import MenuTile
-from newspaper import article,current_report,brief_article
+from newspaper import article,current_report
 
-INK=(.10,.09,.075,1)
-MUTED=(.34,.30,.25,1)
+INK=(.12,.105,.078,1)
+MUTED=(.36,.30,.21,1)
+PIXEL='assets/fonts/ScorerPressPixel.ttf'
+DISPLAY='assets/fonts/ScorerPressDisplay.ttf'
 
 
-@lru_cache(maxsize=512)
+def press_font(loc,text,title=False):
+    fallback=loc.font(text)
+    if 'Noto' in str(fallback):return fallback
+    return DISPLAY if title else PIXEL
+
+
+@lru_cache(maxsize=768)
 def text_height(text,width,font,size,bold=False):
-    label=CoreLabel(text=text,text_size=(max(1,width),None),font_name=font,font_size=size,bold=bold,line_height=1.0)
-    label.refresh()
-    return label.texture.size[1]
+    label=CoreLabel(text=text,text_size=(max(1,int(width)),None),font_name=font,font_size=size,bold=bold,line_height=1.0)
+    label.refresh();return label.texture.size[1]
+
+
+@lru_cache(maxsize=768)
+def take_text(text,width,height,font,size):
+    """Wrap with Kivy's actual font metrics; retain every non-whitespace character."""
+    if not text or width<=0 or height<=0:return '',text,0
+    label=CoreLabel(text=text,text_size=(int(width),None),font_name=font,font_size=size,line_height=1.0)
+    label.refresh();lines=[];records=[];used=0
+    for line in label._cached_lines:
+        if used+line.h>height-1:break
+        lines.append(''.join(w.text for w in line.words));records.append(line);used+=line.h
+    if len(lines)>1 and not records[-1].is_last_line and records[-2].is_last_line:
+        lines.pop()
+    while lines and not lines[-1].strip():lines.pop()
+    if not lines:return '',text,0
+    output='\n'.join(lines).rstrip();count=sum(not c.isspace() for c in output)
+    found=0;index=0
+    while index<len(text) and found<count:
+        if not text[index].isspace():found+=1
+        index+=1
+    return output,text[index:].lstrip(),text_height(output,width,font,size)
 
 
 class NewspaperScreen(FloatLayout):
     def __init__(self,menu):
-        super().__init__()
-        self.menu=menu;self.loc=menu.game.i18n;self.scroll=None
-        with self.canvas.before:
-            Color(.96,.935,.875,1);self.paper=Rectangle(pos=self.pos,size=self.size)
+        super().__init__();self.menu=menu;self.loc=menu.game.i18n;self.scroll=None;self.page=0;self.pages=[];self.fragments=[]
         self.back=MenuTile('BACK',lambda:menu.action('hub'));self.back.size_hint=(None,None);self.add_widget(self.back)
-        self.masthead=self.label('SCORER DAILY',font='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',bold=True)
-        self.dateline=self.label('',color=MUTED)
-        self.headline=self.label('',bold=True)
-        self.score=self.label('',bold=True)
-        self.body=self.label('')
-        self.caption=self.label(self.loc.tr('Match illustration'),color=MUTED)
-        c=menu.game.career;self.report=current_report(c)
-        self.photo=None
+        self.previous=MenuTile('PREVIOUS',lambda:self.turn(-1));self.previous.size_hint=(None,None)
+        self.following=MenuTile('NEXT',lambda:self.turn(1));self.following.size_hint=(None,None)
+        self.counter=self.label('',(.84,.84,.76,1))
+        self.masthead=self.label('SCORER DAILY',INK,DISPLAY);self.masthead.halign='center'
+        self.dateline=self.label('',MUTED);self.headline=self.label('',INK);self.score=self.label('',INK)
+        self.caption=self.label(self.loc.tr('Match illustration'),MUTED)
+        self.photo=None;c=menu.game.career;self.report=current_report(c)
         if self.report is None:
-            self.body.text=self.loc.tr('Your first match report will appear here after you play.')
+            self.story_text=self.loc.tr('Your first match report will appear here after you play.')
+            self.full_headline=self.loc.tr('MATCH REPORT');self.date_text='';self.score_text=''
         else:
             r=self.report
             def team(entry,side):
@@ -47,107 +72,146 @@ class NewspaperScreen(FloatLayout):
                 return c.display_club(club) if club else c.display_text(entry.get(side,''),entry.get('country'))
             competition=self.loc.competition(c,r['competition'],r['country'])
             self.article=article(r,self.loc.tr,team,c.player_name,competition)
-            self.short_headline=team(r,'home')+' · '+team(r,'away')
-            self.full_text='\n\n'.join(self.article['paragraphs'][1:])
-            self.brief_text=brief_article(r,self.loc.tr,c.player_name)
-            self.dateline.text=r['date']+' · '+str(competition)
-            self.headline.text=self.article['headline'];self.headline.font_name=self.loc.font(self.headline.text);self.dateline.font_name=self.loc.font(self.dateline.text);self.score.text=self.loc.tr(r['status'])
+            pieces=[self.article['lead']]
+            if self.article['goals']:pieces.append(' '.join(e['text'] for e in self.article['goals']))
+            pieces.append(self.loc.tr('MATCH SUMMARY')+': '+self.article['summary'])
+            if self.article['mention']:pieces.append(self.article['mention'])
+            self.story_text='\n\n'.join(pieces)
+            self.compact_story_text='\n\n'.join(pieces[1:])
+            self.full_headline=self.article['headline'];self.date_text=r['date']+'  /  '+str(competition);self.score_text=self.loc.tr(r['status'])
             self.photo=Image(source=self.article['photo'],size_hint=(None,None),fit_mode='contain');self.add_widget(self.photo)
+        self.full_story_text=self.story_text
         self._layout_trigger=Clock.create_trigger(self._layout,0)
-        self.bind(pos=self._layout_trigger,size=self._layout_trigger)
-        self._layout_trigger()
+        self.bind(pos=self._layout_trigger,size=self._layout_trigger);self._layout_trigger()
 
-    def label(self,text,bold=False,color=INK,font=None):
-        w=Label(text=text,color=color,bold=bold,font_name=font or self.loc.font(text),size_hint=(None,None),halign='left',valign='top',shorten=False)
-        self.add_widget(w);return w
+    def label(self,text,color=INK,font=None):
+        label=Label(text=text,color=color,font_name=font or press_font(self.loc,text),size_hint=(None,None),halign='left',valign='top',shorten=False)
+        self.add_widget(label);return label
 
-    def measure(self,w,text,width,size):
-        return text_height(str(text),int(width),w.font_name,round(sp(size),2),w.bold)
-
-    def place(self,w,text,x,top,width,size):
-        height=self.measure(w,text,width,size)
-        w.text=text;w.font_size=sp(size);w.pos=(x,top-height);w.size=(width,height);w.text_size=(width,height)
+    def place(self,label,text,x,top,width,size,font=None):
+        label.font_name=font or press_font(self.loc,text)
+        height=text_height(str(text),int(width),label.font_name,sp(size))
+        label.text=text;label.font_size=sp(size);label.pos=(x,top-height);label.size=(width,height);label.text_size=(int(width),height)
         return height
 
+    def triangle(self,points,color):
+        Color(*color);Triangle(points=points)
+
+    def _draw_paper(self,x,y,w,h):
+        self.canvas.before.clear()
+        with self.canvas.before:
+            Color(.025,.045,.052,1);Rectangle(pos=self.pos,size=self.size)
+            for i in range(8):
+                Color(.12,.18,.18,.035);Line(points=[self.x,self.y+self.height*i/8,self.right,self.y+self.height*i/8+dp(20)],width=1)
+            for off,alpha in ((dp(14),.18),(dp(8),.22),(dp(3),.35)):
+                Color(0,0,0,alpha);Rectangle(pos=(x+off,y-off),size=(w,h))
+            # The rear half is folded behind the front sheet, visible on the
+            # right and above it. Shadows/crease show thickness without an image.
+            self.triangle([x+w-dp(34),y+dp(6),x+w+dp(58),y+dp(25),x+w+dp(45),y+h-dp(24)],(.48,.43,.33,1))
+            self.triangle([x+w-dp(34),y+dp(6),x+w+dp(45),y+h-dp(24),x+w-dp(40),y+h+dp(12)],(.72,.67,.54,1))
+            Color(.88,.84,.73,1);Rectangle(pos=(x,y),size=(w,h))
+            Color(.96,.92,.81,.55);Rectangle(pos=(x,y+h-dp(3)),size=(w,dp(3)))
+            # Subtle printed paper grain and a horizontal fold, all procedural.
+            import random
+            grain=random.Random(912)
+            for i in range(260):
+                gx=x+grain.random()*w;gy=y+grain.random()*h
+                Color(.25,.20,.12,.035);Line(points=[gx,gy,gx+dp(grain.uniform(1,5)),gy+dp(.4)],width=.55)
+            # Faint type on the folded reverse makes the turned-back half visible.
+            for i in range(8):
+                yy=y+h*.2+i*h*.075
+                Color(.27,.23,.16,.24);Line(points=[x+w+dp(4),yy,x+w+dp(33),yy+dp(3)],width=1)
+            Color(.35,.29,.19,.13);Line(points=[x+dp(2),y+h*.46,x+w-dp(2),y+h*.46-dp(2)],width=1)
+            Color(.98,.94,.83,.35);Line(points=[x+dp(2),y+h*.46+dp(2),x+w-dp(2),y+h*.46],width=1)
+            # Folded-back upper corner and inner edge.
+            fold=min(dp(25),w*.05)
+            self.triangle([x+w-fold,y+h,x+w,y+h-fold,x+w,y+h],(.23,.25,.21,1))
+            self.triangle([x+w-fold,y+h,x+w,y+h-fold,x+w-fold+dp(3),y+h-fold+dp(3)],(.69,.62,.47,1))
+            Color(.27,.23,.16,.3);Line(rectangle=(x+dp(3),y+dp(3),w-dp(6),h-dp(6)),width=.7)
+
+    def turn(self,step):
+        self.page=max(0,min(len(self.pages)-1,self.page+step));self._layout_trigger()
+
+    def _regions(self,left,top,width,height,size,first):
+        gap=dp(16);columns=2 if width>=dp(630) else 1
+        col=(width-gap)/2 if columns==2 else width
+        regions=[]
+        photo_width=min(dp(200),col*.43) if first and self.photo else 0
+        photo_height=photo_width*2/3
+        band=min(height*.54,photo_height+dp(18))
+        if photo_width and band>=dp(30):
+            regions.append((left+photo_width+dp(10),top,col-photo_width-dp(10),band))
+            if height-band-dp(8)>0:regions.append((left,top-band-dp(8),col,height-band-dp(8)))
+        else:regions.append((left,top,col,height))
+        if columns==2:regions.append((left+col+gap,top,col,height))
+        return regions,photo_width,min(photo_height,max(dp(20),band-dp(14)))
+
+    def _flow(self,text,left,top,width,height,size,first=True):
+        font=press_font(self.loc,self.story_text);regions,pw,ph=self._regions(left,top,width,height,size,first)
+        parts=[];remaining=text
+        for x,t,w,h in regions:
+            out,remaining,used=take_text(remaining,int(w),int(h),font,sp(size))
+            if out:parts.append(dict(text=out,x=x,top=t,width=w,height=used,font=font,size=size))
+        return parts,remaining,pw,ph
+
     def _layout(self,*_):
-        self.paper.pos,self.paper.size=self.pos,self.size
-        pad=dp(6);gap=dp(5);left=self.x+pad;right=self.right-pad;width=max(dp(1),self.width-2*pad)
-        top=self.top-pad;self.back.pos=(right-dp(88),top-dp(48));self.back.size=(dp(88),dp(48))
-        self.place(self.masthead,'SCORER DAILY',left,top-dp(8),max(dp(1),width-dp(96)),20 if width>=dp(360) else 16)
-        top-=dp(52)
-        self.layout_fits=True
-        if self.report is None:
-            self.place(self.body,self.body.text,left,top,width,16);return
-        self.headline.text=self.article['headline']
-        date_h=self.place(self.dateline,self.dateline.text,left,top,width,10)
-        top-=date_h+gap
-        height=max(dp(1),top-(self.y+pad))
-        font=self.loc.font(self.full_text)
-        self.body.font_name=font if 'NotoSansCJK' in str(font) else 'assets/fonts/LiberationSerif-Regular.ttf'
-        # Try generous type first, then a concise edition. All text remains
-        # present in the chosen edition; no hidden lines or text truncation.
-        chosen=None
-        for concise,text in ((False,self.full_text),(True,self.brief_text)):
-            for size in (18,17,16,15,14,13,12):
-                heading=size+3
-                for photo_width in (min(dp(210),width*.28),min(dp(120),width*.23),min(dp(60),width*.17)):
-                    if width>=dp(520):
-                        text_width=width-photo_width-gap*2
-                        hh=self.measure(self.headline,self.headline.text,text_width,heading)
-                        sh=self.measure(self.score,self.score.text,text_width,13)
-                        bh=self.measure(self.body,text,text_width,size)
-                        required=hh+sh+bh+gap*2
-                        fits=required<=height and photo_width*2/3+dp(18)<=height
-                        mode='columns'
-                    else:
-                        text_width=width-photo_width-gap
-                        hh=self.measure(self.headline,self.headline.text,text_width,heading)
-                        sh=self.measure(self.score,self.score.text,text_width,12)
-                        band=max(hh+sh+gap,photo_width*2/3)
-                        bh=self.measure(self.body,text,width,size)
-                        required=band+gap+bh
-                        fits=required<=height
-                        mode='stack'
-                    if fits:
-                        chosen=(concise,text,size,heading,photo_width,mode,text_width,hh,sh,bh);break
-                if chosen:break
-            if chosen:break
-        if chosen is None:
-            # Extreme user aliases/font scaling get more usable width by
-            # reducing only the illustration, never hiding article text.
-            text=self.brief_text.rsplit('\n',1)[-1] if self.article['mentions_player'] else self.brief_text
-            self.headline.text=self.short_headline
-            size=12;heading=12;photo_width=dp(40);mode='fullwidth';text_width=width
-            hh=self.measure(self.headline,self.headline.text,text_width,heading);sh=self.measure(self.score,self.score.text,text_width,12);bh=self.measure(self.body,text,width,size)
-            chosen=(True,text,size,heading,photo_width,mode,text_width,hh,sh,bh)
-        concise,text,size,heading,pw,mode,tw,hh,sh,bh=chosen
-        self.concise=concise;self.body_font_size=size
-        self.photo.size=(pw,pw*2/3)
-        if mode=='fullwidth':
-            h=self.place(self.headline,self.headline.text,left,top,width,heading)
-            bar_top=self.top-pad
-            self.photo.pos=(right-dp(88)-gap-pw,bar_top-dp(8)-self.photo.height)
-            self.place(self.masthead,'SCORER DAILY',left,bar_top-dp(8),dp(94),14)
-            score_x=left+dp(98)
-            self.place(self.score,self.score.text,score_x,bar_top-dp(8),max(dp(32),self.photo.x-gap-score_x),10)
-            self.place(self.body,text,left,top-h-gap,width,size)
-            self.caption.opacity=0;self.caption.size=(0,0)
-            bottom=self.body.y
-        elif mode=='columns':
-            self.caption.opacity=1
-            self.photo.pos=(left,top-self.photo.height)
-            tx=left+pw+gap*2
-            h=self.place(self.headline,self.headline.text,tx,top,tw,heading)
-            s=self.place(self.score,self.score.text,tx,top-h-gap,tw,13)
-            self.place(self.body,text,tx,top-h-s-gap*2,tw,size)
-            self.place(self.caption,self.caption.text,left,self.photo.y-gap,pw,9)
-            bottom=min(self.body.y,self.caption.y)
+        small=self.width<dp(500) or self.height<dp(310)
+        dense=self.height<dp(450)
+        margin=dp(10) if small else max(dp(36),self.width*.075)
+        pw=self.width-2*margin-dp(20);px=self.x+margin;py=self.y+(dp(10) if small else dp(28));ph=self.height-(dp(70) if small else dp(105))
+        self.sheet_bounds=(px,py,pw,ph);self._draw_paper(px,py,pw,ph)
+        self.back.pos=(self.right-dp(100),self.top-dp(54 if small else 64));self.back.size=(dp(90),dp(48))
+        inset=dp(10) if small else dp(14) if dense else dp(20);left=px+inset;top=py+ph-inset;width=pw-2*inset
+        mh=self.place(self.masthead,'SCORER DAILY',left,top,width,18 if small else 28 if dense else 42,DISPLAY)
+        top-=mh+dp(4)
+        date=self.date_text
+        if small and text_height(date,int(width),press_font(self.loc,date),sp(9))>dp(20):date=self.report['date'] if self.report else ''
+        dh=self.place(self.dateline,date,left,top,width,9 if small else 10);top-=dh+dp(5)
+        title=self.full_headline;title_size=14 if small else 18 if dense else 28
+        if text_height(title,int(width),press_font(self.loc,title,True),sp(title_size))>ph*.25:
+            title=self.loc.tr('MATCH REPORT');title_size=14
+        self.story_text=self.compact_story_text if self.report is not None and dense and title==self.full_headline and date==self.date_text else self.full_story_text
+        hh=self.place(self.headline,title,left,top,width,title_size,press_font(self.loc,title,True));top-=hh+dp(4)
+        sh=self.place(self.score,self.score_text,left,top,width,11 if small else 13);top-=sh+dp(9)
+        self.rules=(left,top+dp(4),width)
+        with self.canvas.before:
+            Color(*INK);Line(points=[left,top+dp(4),left+width,top+dp(4)],width=1)
+            Line(points=[left,py+ph-inset-mh-dp(1),left+width,py+ph-inset-mh-dp(1)],width=1.2)
+        height=max(dp(18),top-(py+inset));self.layout_fits=True
+        if width>=dp(630):
+            with self.canvas.before:
+                Color(.25,.20,.14,.20);Line(points=[left+width/2,top,left+width/2,py+inset],width=.6)
+        selected=None
+        for size in ((22,20,18,17,16,15,14,13,12) if not small else (15,14,13,12)):
+            parts,remaining,imgw,imgh=self._flow(self.story_text,left,top,width,height,size)
+            if not remaining:selected=(size,parts,imgw,imgh);break
+        if selected is None:
+            size=12;parts,remaining,imgw,imgh=self._flow(self.story_text,left,top,width,height,size)
+        else:size,parts,imgw,imgh=selected;remaining=''
+        pages=[parts]
+        while remaining:
+            more,rest,_,_=self._flow(remaining,left,top,width,height,size,False)
+            if rest==remaining:break
+            pages.append(more);remaining=rest
+        self.pages=pages;self.page=min(self.page,len(pages)-1);self.body_font_size=size
+        for label in self.fragments:self.remove_widget(label)
+        self.fragments=[]
+        for part in pages[self.page]:
+            label=self.label(part['text'],INK,part['font']);self.place(label,part['text'],part['x'],part['top'],part['width'],size,part['font']);self.fragments.append(label)
+            self.layout_fits=self.layout_fits and label.y>=py+inset-1
+        self.body=self.fragments[0] if self.fragments else self.label('')
+        if self.photo:
+            self.photo.opacity=1 if self.page==0 else 0;self.photo.size=(imgw,imgh);self.photo.pos=(left,top-imgh)
+            self.caption.opacity=1 if self.page==0 and not small else 0
+            self.place(self.caption,self.caption.text,left,self.photo.y-dp(3),max(1,imgw),8)
+        if len(pages)>1:
+            for widget in (self.previous,self.following):
+                if widget.parent is None:self.add_widget(widget)
+            self.previous.pos=(self.x+dp(10),self.top-dp(54));self.previous.size=(dp(72),dp(48));self.previous.disabled=self.page==0
+            self.following.pos=(self.x+dp(90),self.top-dp(54));self.following.size=(dp(72),dp(48));self.following.disabled=self.page==len(pages)-1
+            self.place(self.counter,f'{self.page+1}/{len(pages)}',self.x+dp(170),self.top-dp(18),dp(48),10);self.counter.opacity=1
         else:
-            self.photo.pos=(right-pw,top-self.photo.height)
-            h=self.place(self.headline,self.headline.text,left,top,tw,heading)
-            s=self.place(self.score,self.score.text,left,top-h-gap,tw,12)
-            band=max(h+s+gap,self.photo.height)
-            self.place(self.body,text,left,top-band-gap,width,size)
-            self.caption.opacity=0;self.caption.size=(0,0)
-            bottom=self.body.y
-        self.layout_fits=bottom>=self.y+pad-1
+            for widget in (self.previous,self.following):
+                if widget.parent:self.remove_widget(widget)
+            self.counter.opacity=0
+        self.layout_fits=self.layout_fits and not remaining

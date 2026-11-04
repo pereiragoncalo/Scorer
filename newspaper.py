@@ -76,16 +76,10 @@ def article(report,tr,team,player,competition):
     else:
         body.append(tr('The sides finished level on the match scoreboard.'))
     events=report.get('events',[])
-    def minute(event):
-        boundary=45 if event['half']==1 else 90
-        n=event['minute']
-        return str(n) if n<=boundary else f'{boundary}+{n-boundary}'
-    if events:
-        first=events[0]
-        body.append(tr('{team} opened the scoring in minute {minute}.',team=h if first['side']=='home' else a,minute=minute(first)))
-        if len(events)>1:
-            last=events[-1]
-            body.append(tr('The final goal came for {team} in minute {minute}.',team=h if last['side']=='home' else a,minute=minute(last)))
+    ledger=goal_ledger(report,tr,team)
+    if ledger:body.append(' '.join(g['text'] for g in ledger))
+    summary=match_summary(report,tr,team)
+    body.append(summary)
     mention=''
     club=h if report['actor_uid']==report['home_uid'] else a
     if report['standout']:
@@ -93,7 +87,7 @@ def article(report,tr,team,player,competition):
     elif report['negative_run']>=3:
         mention=tr('{player} endured another difficult outing: {games} consecutive appearances without a goal despite shooting chances.',player=player,games=report['negative_run'])
     if mention:body.append(mention)
-    return dict(headline=headline,paragraphs=body,photo=PHOTOS[report['photo']],mentions_player=bool(mention))
+    return dict(headline=headline,paragraphs=body,photo=PHOTOS[report['photo']],mentions_player=bool(mention),goals=ledger,summary=summary,lead=body[0],mention=mention)
 
 
 def current_report(career):
@@ -129,3 +123,56 @@ def brief_article(report,tr,player):
     elif report['negative_run']>=3:
         lead+='\n'+tr('{player}: {games} games without a goal.',player=player,games=report['negative_run'])
     return lead
+
+
+def clock(event):
+    boundary=45 if event['half']==1 else 90
+    n=event['minute']
+    return str(n) if n<=boundary else f'{boundary}+{n-boundary}'
+
+
+def goal_ledger(report,tr,team):
+    events=clean_events(report.get('events'),report['score'])
+    result=[];score=[0,0];led=[False,False]
+    for event in events:
+        side=0 if event['side']=='home' else 1
+        score[side]+=1
+        if sum(score)==1:key="{minute}' — {team} opened the scoring ({score})."
+        elif score[0]==score[1]:key="{minute}' — {team} equalised ({score})."
+        elif score[side]<score[1-side]:key="{minute}' — {team} pulled a goal back ({score})."
+        elif score[side]-score[1-side]==1:
+            key="{minute}' — {team} regained the lead ({score})." if led[side] else "{minute}' — {team} went ahead ({score})."
+        else:key="{minute}' — {team} extended the lead ({score})."
+        if score[side]>score[1-side]:led[side]=True
+        text=tr(key,minute=clock(event),team=team(report,event['side']),score=f'{score[0]}-{score[1]}')
+        result.append(dict(text=text,minute=clock(event),side=event['side'],score=list(score)))
+    if not result and sum(report['score']):
+        # Older fixtures lack individual times; still account for every goal
+        # by team totals without fabricating scorers or minute/order evidence.
+        for side,n in zip(('home','away'),report['score']):
+            if n:
+                text=tr('{team}: one goal; its time was not recorded.',team=team(report,side)) if n==1 else tr('{team}: {goals} goals; individual times were not recorded.',team=team(report,side),goals=n)
+                result.append(dict(text=text,side=side,score=None,minute=None))
+    return result
+
+
+def match_summary(report,tr,team):
+    import re
+    h,a=report['score'];events=clean_events(report.get('events'),report['score'])
+    pens=re.search(r'pen\.\s*(\d+)-(\d+)',report['status'])
+    if pens:
+        winner='home' if int(pens[1])>int(pens[2]) else 'away'
+        return tr('{team} won the penalty shootout after the match score finished level.',team=team(report,winner))
+    if h==a:
+        if h==0:return tr('Neither side broke the deadlock; the match ended without a goal.')
+        if events and events[-1]['half']==2 and events[-1]['minute']>=80:
+            return tr('A late equaliser settled the match at {score}.',score=f'{h}-{a}')
+        return tr('The exchange of goals left the teams level at full time.')
+    win=0 if h>a else 1;running=[0,0];trailed=False
+    for event in events:
+        running[0 if event['side']=='home' else 1]+=1
+        trailed=trailed or running[win]<running[1-win]
+    winner=team(report,'home' if win==0 else 'away')
+    if trailed:return tr('{winner} recovered from a deficit to secure the win.',winner=winner)
+    if abs(h-a)==1:return tr('{winner} secured a narrow one-goal win.',winner=winner)
+    return tr('{winner} closed the match with a {margin}-goal advantage.',winner=winner,margin=abs(h-a))
