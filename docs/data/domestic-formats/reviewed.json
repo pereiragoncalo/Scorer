@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed_on": "2026-11-03",
+  "reviewed_on": "2026-11-04",
   "definitions": [
     {
       "id": "Portugal:1:primeira-liga",
@@ -2293,11 +2293,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -2340,11 +2340,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -2387,11 +2387,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -2434,11 +2434,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -2603,7 +2603,8 @@
       "definition_status": "structure_reviewed",
       "runtime_status": "not_integrated",
       "source_ids": [
-        "wiki:1379910619"
+        "wiki:1379910619",
+        "wiki:1383628424"
       ],
       "phases": [
         {
@@ -2620,21 +2621,34 @@
           ]
         },
         {
-          "id": "access_review",
+          "id": "promotion_ladder",
           "kind": "external_playoff",
           "entrants": [
-            "season_finishing_positions"
+            "tier2:3 vs tier2:4",
+            "winner vs tier1:14"
           ],
-          "purpose": "promotion_relegation"
+          "purpose": "promotion_relegation",
+          "legs": 2,
+          "decision": "unresolved",
+          "notes": [
+            "Both the lower-tier eliminator and cross-tier final have two legs."
+          ]
         }
       ],
-      "movement": {},
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ],
+        "relegation_playoff": [
+          14
+        ]
+      },
       "unresolved": [
-        "Review season-specific promotion/relegation and playoff eligibility in primary rules",
-        "Full tie-breaker, reserve-team and licence clauses"
+        "Official current-season home order, tie decisions and licence conditions"
       ],
       "notes": [
-        "This definition reviews the regular-season structure only; access rules are explicitly still open."
+        "Do not reuse the former direct tier2:3 vs tier1:14 route without the new3v4 eliminator."
       ],
       "regular_games_per_club": [
         30
@@ -2650,7 +2664,8 @@
       "definition_status": "structure_reviewed",
       "runtime_status": "not_integrated",
       "source_ids": [
-        "wiki:1383071681"
+        "wiki:1383071681",
+        "wiki:1383512263"
       ],
       "phases": [
         {
@@ -2667,21 +2682,55 @@
           ]
         },
         {
-          "id": "access_review",
+          "id": "promotion_ladder",
           "kind": "external_playoff",
           "entrants": [
-            "season_finishing_positions"
+            "tier2:3 vs tier2:4",
+            "winner vs tier1:14"
           ],
-          "purpose": "promotion_relegation"
+          "purpose": "promotion_relegation",
+          "legs": 2,
+          "decision": "unresolved",
+          "notes": [
+            "Both the lower-tier eliminator and cross-tier final have two legs."
+          ]
+        },
+        {
+          "id": "survival",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier2:13",
+            "tier2:14",
+            "tier3:two_group_runners_up"
+          ],
+          "purpose": "relegation",
+          "legs": 2,
+          "decision": "unresolved"
         }
       ],
-      "movement": {},
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ],
+        "direct_promotion": [
+          1,
+          2
+        ],
+        "promotion_playoff": [
+          3,
+          4
+        ],
+        "relegation_playoff": [
+          13,
+          14
+        ]
+      },
       "unresolved": [
-        "Review season-specific promotion/relegation and playoff eligibility in primary rules",
-        "Full tie-breaker, reserve-team and licence clauses"
+        "Official current-season home order, tie decisions and licence conditions"
       ],
       "notes": [
-        "This definition reviews the regular-season structure only; access rules are explicitly still open."
+        "Do not reuse the former direct tier2:3 vs tier1:14 route without the new3v4 eliminator."
       ],
       "regular_games_per_club": [
         30
@@ -2715,11 +2764,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -2762,11 +2811,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -2809,11 +2858,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -2856,11 +2905,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -2903,11 +2952,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -2950,11 +2999,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -2997,11 +3046,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -3044,11 +3093,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -3091,11 +3140,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -3138,11 +3187,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -3185,11 +3234,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -3232,11 +3281,11 @@
         },
         {
           "id": "access_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "season_finishing_positions"
+          "kind": "pending_review",
+          "topics": [
+            "promotion_relegation"
           ],
-          "purpose": "promotion_relegation"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -3497,11 +3546,11 @@
       "phases": [
         {
           "id": "format_review",
-          "kind": "external_playoff",
-          "entrants": [
-            "14_current_clubs"
+          "kind": "pending_review",
+          "topics": [
+            "regular_structure"
           ],
-          "purpose": "full_competition_format_review"
+          "reason": "Current-season regulations not yet sufficiently verified; this is not a confirmed playoff."
         }
       ],
       "movement": {},
@@ -3928,6 +3977,4267 @@
       "regular_games_per_club": [
         38
       ]
+    },
+    {
+      "id": "China:1:chinese-super-league",
+      "country": "China",
+      "tier": 1,
+      "league": "Chinese Super League",
+      "season": "2026",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1381564124",
+        "wiki:1382087997"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ]
+      },
+      "unresolved": [
+        "Official licensing/replacement clauses and complete table tie rules"
+      ],
+      "notes": [
+        "Double round robin; no championship playoff."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "China:2:china-league-one",
+      "country": "China",
+      "tier": 2,
+      "league": "China League One",
+      "season": "2026",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1369485433",
+        "wiki:1382974897"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ],
+        "direct_promotion": [
+          1,
+          2
+        ]
+      },
+      "unresolved": [
+        "Official licensing/replacement clauses and complete table tie rules"
+      ],
+      "notes": [
+        "Double round robin; no championship playoff."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Thailand:1:thai-league-1",
+      "country": "Thailand",
+      "tier": 1,
+      "league": "Thai League 1",
+      "season": "2026–27",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1380552353",
+        "wiki:1383408998"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          14,
+          15,
+          16
+        ]
+      },
+      "unresolved": [
+        "Current-season licence exceptions",
+        "Complete table ranking tie rules"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Thailand:2:thai-league-2",
+      "country": "Thailand",
+      "tier": 2,
+      "league": "Thai League 2",
+      "season": "2026–27",
+      "teams": 18,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1376105720",
+        "wiki:1383374380"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            18
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            34
+          ]
+        },
+        {
+          "id": "promotion",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier2:3",
+            "tier2:4",
+            "tier2:5",
+            "tier2:6"
+          ],
+          "purpose": "third promotion place",
+          "notes": [
+            "Semifinals and final; current leg counts and tie decisions need official confirmation."
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          16,
+          17,
+          18
+        ],
+        "direct_promotion": [
+          1,
+          2
+        ],
+        "promotion_playoff": [
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "unresolved": [
+        "Official current-season playoff leg/tie rules",
+        "Complete table ranking tie rules"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        34
+      ]
+    },
+    {
+      "id": "Saudi Arabia:1:saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 1,
+      "league": "Saudi Pro League",
+      "season": "2026–27",
+      "teams": 18,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382465357",
+        "wiki:1383124217"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            18
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            34
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          16,
+          17,
+          18
+        ]
+      },
+      "unresolved": [
+        "Official current-season licence exceptions",
+        "Complete table-ranking tie rules"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        34
+      ]
+    },
+    {
+      "id": "Saudi Arabia:2:saudi-first-division-league",
+      "country": "Saudi Arabia",
+      "tier": 2,
+      "league": "Saudi First Division League",
+      "season": "2026–27",
+      "teams": 18,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1379272769"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            18
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            34
+          ]
+        },
+        {
+          "id": "promotion",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier2:3 vs tier2:6",
+            "tier2:4 vs tier2:5",
+            "semifinal_winners"
+          ],
+          "purpose": "third promotion place",
+          "notes": [
+            "Single-match final at the higher-ranked club; semifinal leg count and tie decision remain to be confirmed."
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          16,
+          17,
+          18
+        ],
+        "direct_promotion": [
+          1,
+          2
+        ],
+        "promotion_playoff": [
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "unresolved": [
+        "Official current-season playoff semifinal legs and tie procedures",
+        "Complete table-ranking tie rules"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        34
+      ]
+    },
+    {
+      "id": "Cyprus:1:cypriot-first-division",
+      "country": "Cyprus",
+      "tier": 1,
+      "league": "Cypriot First Division",
+      "season": "2026–27",
+      "teams": 14,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1379166515",
+        "wiki:1383250397"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            14
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            26
+          ]
+        },
+        {
+          "id": "split",
+          "kind": "split_round_robin",
+          "group_sizes": [
+            6,
+            8
+          ],
+          "legs": [
+            2,
+            1
+          ],
+          "points": "carry",
+          "intergroup_games": 0,
+          "games_per_club": [
+            7,
+            10
+          ],
+          "rank_ranges": [
+            [
+              1,
+              6
+            ],
+            [
+              7,
+              14
+            ]
+          ],
+          "upper_groups_finish_above_lower_groups": true
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          12,
+          13,
+          14
+        ]
+      },
+      "unresolved": [
+        "Current-season complete tie and licence clauses"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        33,
+        36
+      ]
+    },
+    {
+      "id": "Israel:1:israeli-premier-league",
+      "country": "Israel",
+      "tier": 1,
+      "league": "Israeli Premier League",
+      "season": "2026–27",
+      "teams": 14,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1376531793",
+        "wiki:1383495264"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            14
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            26
+          ]
+        },
+        {
+          "id": "split",
+          "kind": "split_round_robin",
+          "group_sizes": [
+            6,
+            8
+          ],
+          "legs": [
+            2,
+            1
+          ],
+          "points": "carry",
+          "intergroup_games": 0,
+          "games_per_club": [
+            7,
+            10
+          ],
+          "rank_ranges": [
+            [
+              1,
+              6
+            ],
+            [
+              7,
+              14
+            ]
+          ],
+          "upper_groups_finish_above_lower_groups": true
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          13,
+          14
+        ]
+      },
+      "unresolved": [
+        "Official point carry and full tie/licence clauses require current-season confirmation"
+      ],
+      "notes": [
+        "Six-club championship double round; eight-club survival single round."
+      ],
+      "regular_games_per_club": [
+        33,
+        36
+      ]
+    },
+    {
+      "id": "Estonia:1:meistriliiga",
+      "country": "Estonia",
+      "tier": 1,
+      "league": "Meistriliiga",
+      "season": "2026",
+      "teams": 10,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1380049335"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10
+          ],
+          "legs": 4,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            36
+          ]
+        },
+        {
+          "id": "survival",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:9",
+            "tier2:second_eligible_non_reserve"
+          ],
+          "purpose": "promotion_relegation",
+          "legs": 2,
+          "decision": "unresolved"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          10
+        ],
+        "relegation_playoff": [
+          9
+        ]
+      },
+      "unresolved": [
+        "Official tie decisions and eligible-club replacement cascade"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        36
+      ]
+    },
+    {
+      "id": "Estonia:2:esiliiga",
+      "country": "Estonia",
+      "tier": 2,
+      "league": "Esiliiga",
+      "season": "2026",
+      "teams": 10,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1379536590"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10
+          ],
+          "legs": 4,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            36
+          ]
+        },
+        {
+          "id": "promotion",
+          "kind": "external_playoff",
+          "entrants": [
+            "second_eligible_non_reserve",
+            "tier1:9"
+          ],
+          "purpose": "promotion_relegation",
+          "legs": 2,
+          "decision": "unresolved"
+        },
+        {
+          "id": "survival",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier2:8",
+            "tier3:3"
+          ],
+          "purpose": "promotion_relegation",
+          "legs": 2,
+          "decision": "unresolved"
+        }
+      ],
+      "movement": {
+        "direct_promotion": "highest eligible non-reserve club",
+        "excluded_from_tier1": "reserve teams",
+        "direct_relegation": [
+          9,
+          10
+        ],
+        "relegation_playoff": [
+          8
+        ]
+      },
+      "unresolved": [
+        "Official current-season tie decisions and licensing eligibility cascade"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        36
+      ]
+    },
+    {
+      "id": "Latvia:1:latvian-higher-league",
+      "country": "Latvia",
+      "tier": 1,
+      "league": "Latvian Higher League",
+      "season": "2026",
+      "teams": 10,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1381073714"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10
+          ],
+          "legs": 4,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            36
+          ]
+        },
+        {
+          "id": "survival",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:9",
+            "tier2:runner_up"
+          ],
+          "purpose": "promotion_relegation",
+          "legs": 2,
+          "decision": "unresolved"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          10
+        ],
+        "relegation_playoff": [
+          9
+        ]
+      },
+      "unresolved": [
+        "Current-season licence and reserve eligibility",
+        "Official playoff tie and table-ranking procedures"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        36
+      ]
+    },
+    {
+      "id": "Georgia:2:erovnuli-liga-2",
+      "country": "Georgia",
+      "tier": 2,
+      "league": "Erovnuli Liga 2",
+      "season": "2026",
+      "teams": 10,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382910184"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10
+          ],
+          "legs": 4,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            36
+          ]
+        },
+        {
+          "id": "promotion_a",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier2:2",
+            "tier1:9"
+          ],
+          "purpose": "promotion_relegation",
+          "legs": 2,
+          "decision": "unresolved"
+        },
+        {
+          "id": "promotion_b",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier2:3",
+            "tier1:8"
+          ],
+          "purpose": "promotion_relegation",
+          "legs": 2,
+          "decision": "unresolved"
+        }
+      ],
+      "movement": {
+        "direct_promotion": [
+          1
+        ],
+        "promotion_playoff": [
+          2,
+          3
+        ],
+        "direct_relegation": [
+          10
+        ]
+      },
+      "unresolved": [
+        "Current-season lower-tier access and any additional survival playoff",
+        "Official tie decisions and licence clauses"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        36
+      ]
+    },
+    {
+      "id": "Greece:2:super-league-greece-2",
+      "country": "Greece",
+      "tier": 2,
+      "league": "Super League Greece 2",
+      "season": "2026–27",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383547926"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        }
+      ],
+      "movement": {
+        "direct_promotion": [
+          1,
+          2
+        ],
+        "direct_relegation": [
+          13,
+          14,
+          15,
+          16
+        ],
+        "excluded_from_tier1": "B teams"
+      },
+      "unresolved": [
+        "Exact B-team replacement cascade and licence conditions",
+        "Complete current-season ranking tie rules"
+      ],
+      "notes": [
+        "2026/27 unified group replaces older regional groups and promotion/relegation splits."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Algeria:1:algerian-ligue-professionnelle-1",
+      "country": "Algeria",
+      "tier": 1,
+      "league": "Algerian Ligue Professionnelle 1",
+      "season": "2026–27",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382802186",
+        "wiki:1383568301"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          14,
+          15,
+          16
+        ]
+      },
+      "unresolved": [
+        "Official current-season tie and licence clauses",
+        "Second-tier group access/third promotion playoff"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Morocco:1:botola-pro",
+      "country": "Morocco",
+      "tier": 1,
+      "league": "Botola Pro",
+      "season": "2026–27",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1379826873",
+        "wiki:1383480684",
+        "wiki:1382488602",
+        "frmf:competition-rules-2025"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        },
+        {
+          "id": "survival",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:13",
+            "tier1:14",
+            "tier2:3",
+            "tier2:4"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ],
+        "relegation_playoff": [
+          13,
+          14
+        ]
+      },
+      "unresolved": [
+        "Season-specific LNFP/FRMF circular required for exact cross-tier pairings, legs and tie decision (general regulation article15 delegates these details)",
+        "Secondary source cites article53.2 for ranking but the retrieved primary PDF article53 concerns homologation; ranking citation needs correction",
+        "Official current-season licence and vacancy clauses"
+      ],
+      "notes": [
+        "Current second-tier table includes promotion playoff places3/4 and relegation playoff places13/14; generic older no-playoff summaries are insufficient."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Tunisia:1:tunisian-ligue-professionnelle-1",
+      "country": "Tunisia",
+      "tier": 1,
+      "league": "Tunisian Ligue Professionnelle 1",
+      "season": "2026–27",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382697363",
+        "wiki:1382702221"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          14,
+          15,
+          16
+        ]
+      },
+      "unresolved": [
+        "Official licence clauses and multi-club tie reapplication"
+      ],
+      "notes": [
+        "Published ranking order: head-to-head points, head-to-head goal difference, overall goal difference, goals scored, fair play, deciding match."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Tunisia:2:tunisian-ligue-professionnelle-2",
+      "country": "Tunisia",
+      "tier": 2,
+      "league": "Tunisian Ligue Professionnelle 2",
+      "season": "2026–27",
+      "teams": 28,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383389629"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            14,
+            14
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            26
+          ]
+        },
+        {
+          "id": "third_promotion",
+          "kind": "knockout",
+          "field": 4,
+          "rounds": [
+            {
+              "ties": 2,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        },
+        {
+          "id": "honorary_title",
+          "kind": "knockout",
+          "field": 2,
+          "rounds": [
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        }
+      ],
+      "movement": {
+        "direct_promotion": "winner of each group",
+        "promotion_playoff": "runners-up and third placed clubs from both groups",
+        "direct_relegation": "bottom two of each group"
+      },
+      "unresolved": [
+        "Cross-group semifinal pairing and tie decisions",
+        "Title-decider tie rules and licensing"
+      ],
+      "notes": [
+        "Group winners are already promoted before the neutral title match. Promotion semifinals at better-ranked club; promotion final neutral."
+      ],
+      "regular_games_per_club": [
+        26
+      ]
+    },
+    {
+      "id": "Ethiopia:1:ethiopian-premier-league",
+      "country": "Ethiopia",
+      "tier": 1,
+      "league": "Ethiopian Premier League",
+      "season": "2025–26",
+      "teams": 20,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1381583320"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            20
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            38
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          18,
+          19,
+          20
+        ]
+      },
+      "unresolved": [
+        "2026/27 season-specific changes still need confirmation",
+        "Complete ranking and licence rules"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        38
+      ]
+    },
+    {
+      "id": "Kenya:1:kenyan-premier-league",
+      "country": "Kenya",
+      "tier": 1,
+      "league": "Kenyan Premier League",
+      "season": "2026–27",
+      "teams": 18,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1374876330"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            18
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            34
+          ]
+        },
+        {
+          "id": "cross_tier",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:16",
+            "tier2:3"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          17,
+          18
+        ],
+        "relegation_playoff": [
+          16
+        ]
+      },
+      "unresolved": [
+        "Current-season playoff legs/tie rules and licence conditions",
+        "Neutral rank-deciding match procedure"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        34
+      ]
+    },
+    {
+      "id": "Kenya:2:kenyan-national-super-league",
+      "country": "Kenya",
+      "tier": 2,
+      "league": "Kenyan National Super League",
+      "season": "2025–26",
+      "teams": 20,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1372092742"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            20
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            38
+          ]
+        },
+        {
+          "id": "cross_tier",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:16",
+            "tier2:3"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          19,
+          20
+        ],
+        "direct_promotion": [
+          1,
+          2
+        ],
+        "promotion_playoff": [
+          3
+        ]
+      },
+      "unresolved": [
+        "Current-season playoff legs/tie rules and licence conditions",
+        "2026/27 second-tier field confirmation"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        38
+      ]
+    },
+    {
+      "id": "Tanzania:1:tanzanian-premier-league",
+      "country": "Tanzania",
+      "tier": 1,
+      "league": "Tanzanian Premier League",
+      "season": "2025–26",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1376101524"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        },
+        {
+          "id": "cross_tier",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:13",
+            "tier1:14",
+            "tier2:3",
+            "tier2:4"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ],
+        "relegation_playoff": [
+          13,
+          14
+        ]
+      },
+      "unresolved": [
+        "2026/27 changes require confirmation",
+        "Exact cross-tier bracket/legs/tie rules and licence conditions"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Tanzania:2:tanzanian-championship-league",
+      "country": "Tanzania",
+      "tier": 2,
+      "league": "Tanzanian Championship League",
+      "season": "2025–26",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1376101390"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        },
+        {
+          "id": "cross_tier",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:13",
+            "tier1:14",
+            "tier2:3",
+            "tier2:4"
+          ],
+          "purpose": "promotion_relegation"
+        },
+        {
+          "id": "lower_survival",
+          "kind": "external_playoff",
+          "entrants": [
+            "lower_table_clubs",
+            "lower_tier_representatives"
+          ],
+          "purpose": "relegation",
+          "notes": [
+            "Source description of the lower survival field is ambiguous; do not invent entrants or a bracket."
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ],
+        "direct_promotion": [
+          1,
+          2
+        ],
+        "promotion_playoff": [
+          3,
+          4
+        ]
+      },
+      "unresolved": [
+        "2026/27 changes require confirmation",
+        "Exact cross-tier bracket/legs/tie rules",
+        "Lower survival entrants and licence rules"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Canada:1:canadian-premier-league",
+      "country": "Canada",
+      "tier": 1,
+      "league": "Canadian Premier League",
+      "season": "2026",
+      "teams": 8,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383460308",
+        "cpl:2026-playoffs"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            8
+          ],
+          "legs": 4,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            28
+          ]
+        },
+        {
+          "id": "championship",
+          "kind": "knockout",
+          "field": 4,
+          "rounds": [
+            {
+              "ties": 2,
+              "byes": 0,
+              "legs": 2,
+              "decision": "extra_time_penalties"
+            },
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "extra_time_penalties"
+            }
+          ],
+          "qualifiers": 1
+        }
+      ],
+      "movement": {
+        "promotion_relegation": "closed competition; no automatic exchange with League1 competitions"
+      },
+      "unresolved": [
+        "Official 2026 full ranking/licensing and continental berth duplication cascade"
+      ],
+      "notes": [
+        "Four-team2026 postseason replaces the five-team2023–25 format.",
+        "Semifinals1v4 and2v3, higher seed hosts return leg, no away goals; final hosted by higher surviving seed.",
+        "CPL Shield for regular-season winner; North Star Cup for playoff champion. MLS Canadian clubs belong to the cross-border MLS, not a second Canadian domestic tier."
+      ],
+      "regular_games_per_club": [
+        28
+      ]
+    },
+    {
+      "id": "Botswana:1:botswana-premier-league",
+      "country": "Botswana",
+      "tier": 1,
+      "league": "Botswana Premier League",
+      "season": "2026–27",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1369444871"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "Confirm current-season exceptions and complete ranking/licence clauses",
+        "Current-season relegation and regional access counts"
+      ],
+      "notes": [
+        "Evidence is for the regular structure; older cited seasons must be rechecked before runtime integration."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Zimbabwe:1:zimbabwe-premier-soccer-league",
+      "country": "Zimbabwe",
+      "tier": 1,
+      "league": "Zimbabwe Premier Soccer League",
+      "season": "2026",
+      "teams": 18,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1376433221"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            18
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            34
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          15,
+          16,
+          17,
+          18
+        ]
+      },
+      "unresolved": [
+        "Confirm current-season exceptions and complete ranking/licence clauses"
+      ],
+      "notes": [
+        "Evidence is for the regular structure; older cited seasons must be rechecked before runtime integration."
+      ],
+      "regular_games_per_club": [
+        34
+      ]
+    },
+    {
+      "id": "Malawi:1:super-league-of-malawi",
+      "country": "Malawi",
+      "tier": 1,
+      "league": "Super League of Malawi",
+      "season": "2026",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1373089375"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          14,
+          15,
+          16
+        ]
+      },
+      "unresolved": [
+        "Confirm current-season exceptions and complete ranking/licence clauses"
+      ],
+      "notes": [
+        "Evidence is for the regular structure; older cited seasons must be rechecked before runtime integration."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Lesotho:1:lesotho-premier-league",
+      "country": "Lesotho",
+      "tier": 1,
+      "league": "Lesotho Premier League",
+      "season": "2026–27",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1381005095"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "Confirm current-season exceptions and complete ranking/licence clauses",
+        "Current-season relegation and regional access counts"
+      ],
+      "notes": [
+        "Evidence is for the regular structure; older cited seasons must be rechecked before runtime integration."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Burundi:1:burundi-ligue-a",
+      "country": "Burundi",
+      "tier": 1,
+      "league": "Burundi Ligue A",
+      "season": "2024–25",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383354096"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "Confirm current-season exceptions and complete ranking/licence clauses",
+        "Current-season relegation and regional access counts"
+      ],
+      "notes": [
+        "Evidence is for the regular structure; older cited seasons must be rechecked before runtime integration."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Singapore:1:singapore-premier-league",
+      "country": "Singapore",
+      "tier": 1,
+      "league": "Singapore Premier League",
+      "season": "2026–27",
+      "teams": 8,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382961920",
+        "wiki:1383207042"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            8
+          ],
+          "legs": 4,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            28
+          ]
+        }
+      ],
+      "movement": {
+        "promotion_relegation": "closed by invitation; no automatic promotion/relegation"
+      },
+      "unresolved": [
+        "Club invitation/licensing and continental eligibility exceptions",
+        "Complete current-season ranking tie rules"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        28
+      ]
+    },
+    {
+      "id": "Vietnam:1:v-league-1",
+      "country": "Vietnam",
+      "tier": 1,
+      "league": "V.League 1",
+      "season": "2026–27",
+      "teams": 14,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1381461004",
+        "wiki:1383603107"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            14
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            26
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          13,
+          14
+        ]
+      },
+      "unresolved": [
+        "Official licence/vacancy clauses and full ranking tie rules"
+      ],
+      "notes": [
+        "2026/27 has two direct exchanges; do not retain the previous1.5-place playoff."
+      ],
+      "regular_games_per_club": [
+        26
+      ]
+    },
+    {
+      "id": "Vietnam:2:v-league-2",
+      "country": "Vietnam",
+      "tier": 2,
+      "league": "V.League 2",
+      "season": "2026–27",
+      "teams": 14,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1380512481",
+        "wiki:1383302448"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            14
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            26
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          13,
+          14
+        ],
+        "direct_promotion": [
+          1,
+          2
+        ]
+      },
+      "unresolved": [
+        "Official licence/vacancy clauses and full ranking tie rules"
+      ],
+      "notes": [
+        "2026/27 has two direct exchanges; do not retain the previous1.5-place playoff."
+      ],
+      "regular_games_per_club": [
+        26
+      ]
+    },
+    {
+      "id": "Indonesia:1:super-league",
+      "country": "Indonesia",
+      "tier": 1,
+      "league": "Super League",
+      "season": "2026–27",
+      "teams": 18,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1381822584",
+        "wiki:1383590944"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            18
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            34
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          16,
+          17,
+          18
+        ]
+      },
+      "unresolved": [
+        "Complete official multi-club head-to-head reapplication and licensing"
+      ],
+      "notes": [
+        "No championship series in the current format; the2023/24 playoff was historical."
+      ],
+      "regular_games_per_club": [
+        34
+      ]
+    },
+    {
+      "id": "Indonesia:2:championship",
+      "country": "Indonesia",
+      "tier": 2,
+      "league": "Championship",
+      "season": "2026–27",
+      "teams": 20,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1380866217",
+        "wiki:1383383279"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10,
+            10
+          ],
+          "legs": 3,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            27
+          ]
+        },
+        {
+          "id": "promotion",
+          "kind": "knockout",
+          "field": 2,
+          "rounds": [
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "extra_time_penalties"
+            }
+          ],
+          "qualifiers": 1
+        },
+        {
+          "id": "survival",
+          "kind": "knockout",
+          "field": 2,
+          "rounds": [
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "extra_time_penalties"
+            }
+          ],
+          "qualifiers": 1
+        }
+      ],
+      "movement": {
+        "direct_promotion": "winner of each group",
+        "promotion_playoff": "runner-up of each group",
+        "direct_relegation": "last club of each group",
+        "relegation_playoff": "ninth club of each group; loser relegated"
+      },
+      "unresolved": [
+        "Current-season honorary champions match if any",
+        "Geographic membership, ranking tie rules and licence clauses"
+      ],
+      "notes": [
+        "Two regional groups of10;27 regular games per club, not a20-club national double round robin.",
+        "Both cross-group promotion and survival playoffs are single matches at neutral venues, extra time then penalties."
+      ],
+      "regular_games_per_club": [
+        27
+      ]
+    },
+    {
+      "id": "South Korea:1:k-league-1",
+      "country": "South Korea",
+      "tier": 1,
+      "league": "K League 1",
+      "season": "2026",
+      "teams": 12,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1381895081",
+        "wiki:1383357895",
+        "wiki:1383357810"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            12
+          ],
+          "legs": 3,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            33
+          ]
+        },
+        {
+          "id": "split",
+          "kind": "split_round_robin",
+          "group_sizes": [
+            6,
+            6
+          ],
+          "legs": 1,
+          "points": "carry",
+          "intergroup_games": 0,
+          "games_per_club": [
+            5
+          ],
+          "rank_ranges": [
+            [
+              1,
+              6
+            ],
+            [
+              7,
+              12
+            ]
+          ],
+          "upper_groups_finish_above_lower_groups": true
+        },
+        {
+          "id": "conditional_survival",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:12_unless_Gimcheon",
+            "tier2:promotion_final_loser"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "standard_direct_relegation": 0,
+        "next_season_teams": 14,
+        "conditional_relegation_playoff": "12th unless Gimcheon Sangmu"
+      },
+      "unresolved": [
+        "Official Gimcheon mandatory movement/identity and club eligibility exception",
+        "Conditional cross-tier legs and tie decision",
+        "Rules after the2027 expansion must not repeat the transitional2026 access model"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        38
+      ]
+    },
+    {
+      "id": "South Korea:2:k-league-2",
+      "country": "South Korea",
+      "tier": 2,
+      "league": "K League 2",
+      "season": "2026",
+      "teams": 17,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1372093628",
+        "wiki:1383357810"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            17
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            32
+          ]
+        },
+        {
+          "id": "promotion",
+          "kind": "knockout",
+          "field": 4,
+          "rounds": [
+            {
+              "ties": 2,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        },
+        {
+          "id": "conditional_promotion",
+          "kind": "external_playoff",
+          "entrants": [
+            "promotion_final_loser",
+            "tier1:12_unless_Gimcheon"
+          ],
+          "purpose": "promotion_relegation"
+        },
+        {
+          "id": "survival",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier2:17",
+            "K3:champion"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "direct_promotion": [
+          1,
+          2
+        ],
+        "promotion_playoff": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "promotion_final_winner": "promoted directly",
+        "relegation_playoff": [
+          17
+        ],
+        "next_season_teams": "15 or16 depending on conditional cross-tier outcome"
+      },
+      "unresolved": [
+        "Official promotion semifinal order, venue and tie rules",
+        "Conditional cross-tier and lower-tier playoff legs/tie rules",
+        "Gimcheon eligibility exception and2027 continuation rules"
+      ],
+      "notes": [
+        "Odd field:34 rounds,32 games per club with two byes.",
+        "Do not confuse32 matches with34 played games or use former13-team triple round robin."
+      ],
+      "regular_games_per_club": [
+        32
+      ]
+    },
+    {
+      "id": "Colombia:1:liga-dimayor",
+      "country": "Colombia",
+      "tier": 1,
+      "league": "Liga DIMAYOR",
+      "season": "2026",
+      "teams": 20,
+      "definition_status": "partially_defined",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383518880"
+      ],
+      "phases": [
+        {
+          "id": "apertura_regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            20
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            19
+          ]
+        },
+        {
+          "id": "apertura_championship",
+          "kind": "external_playoff",
+          "entrants": [
+            "apertura_regular:1–8"
+          ],
+          "purpose": "Apertura championship",
+          "notes": [
+            "2026 World Cup calendar replaces the usual semifinal groups with an eight-club knockout."
+          ]
+        },
+        {
+          "id": "finalizacion_regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            20
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            19
+          ]
+        },
+        {
+          "id": "finalizacion_semifinal_groups",
+          "kind": "qualified_round_robin",
+          "group_sizes": [
+            4,
+            4
+          ],
+          "legs": 2,
+          "points": "unresolved",
+          "intergroup_games": 0,
+          "games_per_club": [
+            6
+          ],
+          "participants": 8,
+          "selection": {
+            "from": "finalizacion_regular",
+            "qualify": "top8",
+            "allocation": "draw"
+          }
+        },
+        {
+          "id": "finalizacion_final",
+          "kind": "external_playoff",
+          "entrants": [
+            "semifinal_group_A:winner",
+            "semifinal_group_B:winner"
+          ],
+          "purpose": "Finalizacion championship"
+        }
+      ],
+      "movement": {
+        "relegation": {
+          "count": 2,
+          "basis": "three_season_first_stage_points_per_game",
+          "seasons": [
+            2024,
+            2025,
+            2026
+          ]
+        }
+      },
+      "unresolved": [
+        "Official knockout/final legs and tie procedures",
+        "Semifinal draw/seed and initial-point rules",
+        "Newly promoted club averaging denominator and tie decisions"
+      ],
+      "notes": [
+        "Two independently crowned tournaments with different2026 second-stage formats.",
+        "Every club has38 first-stage matches over the year; only qualifiers play additional championship fixtures."
+      ]
+    },
+    {
+      "id": "Peru:1:liga-1",
+      "country": "Peru",
+      "tier": 1,
+      "league": "Liga 1",
+      "season": "2026",
+      "teams": 18,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1376002199",
+        "wiki:1383479879"
+      ],
+      "phases": [
+        {
+          "id": "apertura",
+          "kind": "round_robin",
+          "group_sizes": [
+            18
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            17
+          ]
+        },
+        {
+          "id": "clausura",
+          "kind": "round_robin",
+          "group_sizes": [
+            18
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            17
+          ]
+        },
+        {
+          "id": "conditional_championship",
+          "kind": "external_playoff",
+          "entrants": [
+            "apertura:winner",
+            "clausura:winner",
+            "eligible_annual_aggregate_clubs"
+          ],
+          "purpose": "league championship",
+          "notes": [
+            "Winning both tournaments gives the championship directly; exact aggregate-table participation/eligibility conditions remain open."
+          ]
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "Official aggregate-table playoff access conditions and bracket/tie procedure",
+        "Current-season relegation count and tie/licence rules"
+      ],
+      "notes": [
+        "34 regular games; do not duplicate the annual34-game total within each short tournament."
+      ],
+      "regular_games_per_club": [
+        34
+      ]
+    },
+    {
+      "id": "Peru:2:liga-2",
+      "country": "Peru",
+      "tier": 2,
+      "league": "Liga 2",
+      "season": "2026",
+      "teams": 18,
+      "definition_status": "partially_defined",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383214366"
+      ],
+      "phases": [
+        {
+          "id": "regional",
+          "kind": "round_robin",
+          "group_sizes": [
+            9,
+            9
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            16
+          ]
+        },
+        {
+          "id": "championship_groups",
+          "kind": "qualified_round_robin",
+          "group_sizes": [
+            4,
+            4,
+            4
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            6
+          ],
+          "participants": 12,
+          "selection": {
+            "from": "regional",
+            "qualify": "top6 of each regional group",
+            "allocation": "current-season draw"
+          },
+          "starting_points": {
+            "base": 0,
+            "awards": [
+              {
+                "points": 2,
+                "clubs": "both regional winners and best regional runner-up"
+              },
+              {
+                "points": 1,
+                "clubs": "other regional runner-up and both regional third-placed clubs"
+              }
+            ]
+          }
+        },
+        {
+          "id": "survival",
+          "kind": "pending_review",
+          "topics": [
+            "two triangular relegation groups",
+            "regional ninth-placed clubs start with minus1 point",
+            "regional withdrawal handling"
+          ],
+          "reason": "Survival legs/count and allocation require official confirmation; source records the regional groups and bonus/penalty changes."
+        },
+        {
+          "id": "promotion",
+          "kind": "bracket_graph",
+          "seeds": [
+            "qualifier_1",
+            "qualifier_2",
+            "qualifier_3",
+            "qualifier_4"
+          ],
+          "matches": [
+            {
+              "id": "semifinal_a",
+              "inputs": [
+                "seed:qualifier_1",
+                "seed:qualifier_4"
+              ],
+              "legs": 2,
+              "decision": "unresolved"
+            },
+            {
+              "id": "semifinal_b",
+              "inputs": [
+                "seed:qualifier_2",
+                "seed:qualifier_3"
+              ],
+              "legs": 2,
+              "decision": "unresolved"
+            },
+            {
+              "id": "final",
+              "inputs": [
+                "winner:semifinal_a",
+                "winner:semifinal_b"
+              ],
+              "legs": 2,
+              "decision": "unresolved"
+            },
+            {
+              "id": "repechage",
+              "inputs": [
+                "loser:semifinal_a",
+                "loser:semifinal_b"
+              ],
+              "legs": 2,
+              "decision": "unresolved"
+            },
+            {
+              "id": "runner_up_playoff",
+              "inputs": [
+                "loser:final",
+                "winner:repechage"
+              ],
+              "legs": 1,
+              "decision": "penalties",
+              "host": "loser:final"
+            }
+          ],
+          "outputs": {
+            "promotion": [
+              "winner:final",
+              "winner:runner_up_playoff"
+            ],
+            "champion": [
+              "winner:final"
+            ]
+          },
+          "unresolved": [
+            "Semifinal seed allocation shown symbolically; official pairing must be confirmed before scheduling."
+          ],
+          "selection": "three championship group winners plus best runner-up; exact semifinal pairings pending"
+        }
+      ],
+      "movement": {
+        "promotion": "champion and runner-up playoff winner",
+        "relegation": "current-season survival groups; count/ranking require confirmation"
+      },
+      "unresolved": [
+        "Semifinal pairing and two-legged tie decisions",
+        "Survival groups legs/relegation conditions and San Marcos withdrawal treatment",
+        "Cross-group runner-up ranking and bonus-point tie criteria"
+      ],
+      "notes": [
+        "Regional nine-club groups have18 rounds but16 played matches per club.",
+        "2026 championship phase has THREE groups of FOUR, not the older two groups of six.",
+        "Losing the championship final does not grant automatic promotion: its loser hosts the repechage winner in a separate single-match playoff, tied match goes to penalties."
+      ]
+    },
+    {
+      "id": "Ecuador:1:ligapro-serie-a",
+      "country": "Ecuador",
+      "tier": 1,
+      "league": "LigaPro Serie A",
+      "season": "2026",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383479898"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        },
+        {
+          "id": "split",
+          "kind": "split_round_robin",
+          "group_sizes": [
+            6,
+            4,
+            6
+          ],
+          "legs": 2,
+          "points": "carry",
+          "intergroup_games": 0,
+          "games_per_club": [
+            6,
+            10
+          ],
+          "rank_ranges": [
+            [
+              1,
+              6
+            ],
+            [
+              7,
+              10
+            ],
+            [
+              11,
+              16
+            ]
+          ],
+          "upper_groups_finish_above_lower_groups": true
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ]
+      },
+      "unresolved": [
+        "Official ranking/licence clauses and cross-group continental berth duplication"
+      ],
+      "notes": [
+        "Current-season four-club middle group has12 ordered home/away fixtures, six games per club; top/bottom hexagonals have10.",
+        "Full first-stage points carried. The first-stage winner no longer automatically receives a Libertadores group-stage place."
+      ],
+      "regular_games_per_club": [
+        36,
+        40
+      ]
+    },
+    {
+      "id": "Uruguay:1:liga-auf-uruguaya",
+      "country": "Uruguay",
+      "tier": 1,
+      "league": "Liga AUF Uruguaya",
+      "season": "2026",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383499341"
+      ],
+      "phases": [
+        {
+          "id": "apertura",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            15
+          ]
+        },
+        {
+          "id": "intermedio",
+          "kind": "round_robin",
+          "group_sizes": [
+            8,
+            8
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            7
+          ]
+        },
+        {
+          "id": "intermedio_final",
+          "kind": "knockout",
+          "field": 2,
+          "rounds": [
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        },
+        {
+          "id": "clausura",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            15
+          ]
+        },
+        {
+          "id": "conditional_championship",
+          "kind": "external_playoff",
+          "entrants": [
+            "apertura:winner",
+            "clausura:winner",
+            "annual_aggregate:winner"
+          ],
+          "purpose": "league championship",
+          "notes": [
+            "Apertura/Clausura winners play one semifinal; its winner plays annual leader over two legs.",
+            "Same club winning both short tournaments is champion directly. If annual leader wins the semifinal, no further final is played."
+          ]
+        }
+      ],
+      "movement": {
+        "relegation": {
+          "count": 3,
+          "basis": "two_season_points_per_game",
+          "seasons": [
+            2025,
+            2026
+          ]
+        }
+      },
+      "unresolved": [
+        "Official Intermedio group allocation and draw/tie rules",
+        "Championship semifinal/final tie and venue clauses",
+        "Newly promoted averaging denominator and relegation ties"
+      ],
+      "notes": [
+        "Annual aggregate includes Apertura, Clausura and Intermedio group games, but excludes the Intermedio final.",
+        "Intermedio winner earns a cup/continental route, not automatic entry to the league championship playoff."
+      ],
+      "regular_games_per_club": [
+        37
+      ]
+    },
+    {
+      "id": "Uruguay:2:segunda-divisi-n-profesional",
+      "country": "Uruguay",
+      "tier": 2,
+      "league": "Segunda División Profesional",
+      "season": "2026",
+      "teams": 14,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383294360"
+      ],
+      "phases": [
+        {
+          "id": "competencia",
+          "kind": "round_robin",
+          "group_sizes": [
+            7,
+            7
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            6
+          ]
+        },
+        {
+          "id": "competencia_final",
+          "kind": "knockout",
+          "field": 2,
+          "rounds": [
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        },
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            14
+          ],
+          "legs": 2,
+          "points": "carry",
+          "intergroup_games": 0,
+          "games_per_club": [
+            26
+          ]
+        },
+        {
+          "id": "promotion",
+          "kind": "knockout",
+          "field": 4,
+          "rounds": [
+            {
+              "ties": 2,
+              "byes": 0,
+              "legs": 2,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 2,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        },
+        {
+          "id": "survival",
+          "kind": "pending_review",
+          "topics": [
+            "2027 expansion",
+            "relegation/access approval"
+          ],
+          "reason": "October2026 proposal for one cross-tier survival tie remains pending higher-authority approval; do not enact it as a confirmed rule."
+        }
+      ],
+      "movement": {
+        "direct_promotion": [
+          1,
+          2
+        ],
+        "promotion_playoff": "Torneo Competencia winner plus regular-table ranks3–5; duplicate qualification fallback pending",
+        "next_season_teams": "proposed16, not confirmed"
+      },
+      "unresolved": [
+        "Competencia-winner duplicate access fallback",
+        "Final relegation approval and averaging rules",
+        "Playoff tie, seeding and venue clauses"
+      ],
+      "notes": [
+        "Six Competencia group games plus26 regular games; Competencia points carried into regular classification."
+      ],
+      "regular_games_per_club": [
+        32
+      ]
+    },
+    {
+      "id": "Jamaica:1:jamaica-premier-league",
+      "country": "Jamaica",
+      "tier": 1,
+      "league": "Jamaica Premier League",
+      "season": "2026–27",
+      "teams": 14,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1371925801",
+        "wiki:1381539497"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            14
+          ],
+          "legs": 3,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            39
+          ]
+        },
+        {
+          "id": "championship",
+          "kind": "knockout",
+          "field": 6,
+          "rounds": [
+            {
+              "ties": 2,
+              "byes": 2,
+              "legs": 2,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 2,
+              "byes": 0,
+              "legs": 2,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          13,
+          14
+        ]
+      },
+      "unresolved": [
+        "Current-season tie decisions, playoff seeding and final venue",
+        "Third-place match qualification implications and licensing"
+      ],
+      "notes": [
+        "Top two receive semifinal byes; ranks3–6 contest quarterfinals.",
+        "Quarterfinals/semifinals two legs; final and third-place match one leg."
+      ],
+      "regular_games_per_club": [
+        39
+      ]
+    },
+    {
+      "id": "Panama:1:liga-paname-a-de-f-tbol",
+      "country": "Panama",
+      "tier": 1,
+      "league": "Liga Panameña de Fútbol",
+      "season": "2026",
+      "teams": 12,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1374571023"
+      ],
+      "phases": [
+        {
+          "id": "apertura_regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            6,
+            6
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 6,
+          "games_per_club": [
+            16
+          ]
+        },
+        {
+          "id": "apertura_championship",
+          "kind": "knockout",
+          "field": 6,
+          "rounds": [
+            {
+              "ties": 2,
+              "byes": 2,
+              "legs": 1,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 2,
+              "byes": 0,
+              "legs": 2,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        },
+        {
+          "id": "clausura_regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            6,
+            6
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 6,
+          "games_per_club": [
+            16
+          ]
+        },
+        {
+          "id": "clausura_championship",
+          "kind": "knockout",
+          "field": 6,
+          "rounds": [
+            {
+              "ties": 2,
+              "byes": 2,
+              "legs": 1,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 2,
+              "byes": 0,
+              "legs": 2,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "Current-season relegation/access and licensing rules",
+        "Playoff tie procedures and any season-specific conference membership changes"
+      ],
+      "notes": [
+        "Each tournament:10 same-conference games plus6 cross-conference games.",
+        "Top three in each conference qualify. Preliminary2Evs3W and2Wvs3E; conference winners receive semifinal byes; neutral final."
+      ],
+      "regular_games_per_club": [
+        32
+      ]
+    },
+    {
+      "id": "Azerbaijan:1:azerbaijan-premier-league",
+      "country": "Azerbaijan",
+      "tier": 1,
+      "league": "Azerbaijan Premier League",
+      "season": "2026–27",
+      "teams": 12,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1378352739",
+        "wiki:1383428757"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            12
+          ],
+          "legs": 3,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            33
+          ]
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "Current-season relegation/playoff/licence clauses",
+        "Third-round home allocation and complete ranking tie procedure"
+      ],
+      "notes": [
+        "33 played matches; the article calls this double round robin in one sentence but explicitly specifies three meetings and33games."
+      ],
+      "regular_games_per_club": [
+        33
+      ]
+    },
+    {
+      "id": "Azerbaijan:2:azerbaijan-first-league",
+      "country": "Azerbaijan",
+      "tier": 2,
+      "league": "Azerbaijan First League",
+      "season": "2025–26",
+      "teams": 10,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1373680641"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10
+          ],
+          "legs": 3,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            27
+          ]
+        }
+      ],
+      "movement": {
+        "direct_promotion": [
+          1
+        ]
+      },
+      "unresolved": [
+        "2026/27 field and continuation rules",
+        "Lower-tier access and licence clauses",
+        "Full ranking/tie rules"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        27
+      ]
+    },
+    {
+      "id": "Belarus:1:belarusian-premier-league",
+      "country": "Belarus",
+      "tier": 1,
+      "league": "Belarusian Premier League",
+      "season": "2026",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1369358405",
+        "wiki:1383269903"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        },
+        {
+          "id": "survival",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:14",
+            "tier2:3"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ],
+        "relegation_playoff": [
+          14
+        ]
+      },
+      "unresolved": [
+        "Official playoff legs/tie decisions and licence clauses"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Lithuania:1:toplyga",
+      "country": "Lithuania",
+      "tier": 1,
+      "league": "Toplyga",
+      "season": "2026",
+      "teams": 10,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1377671496"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10
+          ],
+          "legs": 4,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            36
+          ]
+        },
+        {
+          "id": "survival",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:9",
+            "tier2:2_eligible"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          10
+        ],
+        "relegation_playoff": [
+          9
+        ]
+      },
+      "unresolved": [
+        "Official current-season playoff leg/tie and reserve eligibility rules",
+        "Licence and vacancy cascade may override sporting positions"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        36
+      ]
+    },
+    {
+      "id": "Russia:1:russian-premier-league",
+      "country": "Russia",
+      "tier": 1,
+      "league": "Russian Premier League",
+      "season": "2026–27",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383441048"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        },
+        {
+          "id": "survival_a",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:13",
+            "tier2:4_eligible"
+          ],
+          "purpose": "promotion_relegation",
+          "legs": 2,
+          "decision": "unresolved"
+        },
+        {
+          "id": "survival_b",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:14",
+            "tier2:3_eligible"
+          ],
+          "purpose": "promotion_relegation",
+          "legs": 2,
+          "decision": "unresolved"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ],
+        "relegation_playoff": [
+          13,
+          14
+        ],
+        "tier2_eligibility": "re-rank licensed clubs from original top6 only",
+        "if_one_playoff_entrant": "plays tier1:14; tier1:13 stays",
+        "if_no_playoff_entrant": "both tier1 clubs stay"
+      },
+      "unresolved": [
+        "Exact extra-time/penalty timing and full ranking tie rules",
+        "RFU vacancy discretion and licence adjudication"
+      ],
+      "notes": [
+        "Eligibility is filtered before assigning direct/promotional places; do not blindly use the original tier2 third/fourth clubs."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Luxembourg:1:national-division",
+      "country": "Luxembourg",
+      "tier": 1,
+      "league": "National Division",
+      "season": "2026–27",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383530189",
+        "wiki:1377636346"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        },
+        {
+          "id": "survival_a",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:13",
+            "tier2:4"
+          ],
+          "purpose": "promotion_relegation"
+        },
+        {
+          "id": "survival_b",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:14",
+            "tier2:3"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          15,
+          16
+        ],
+        "relegation_playoff": [
+          13,
+          14
+        ]
+      },
+      "unresolved": [
+        "Official current-season leg counts, venue and tie rules",
+        "Complete licence/ranking clauses"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Kazakhstan:1:kazakhstan-premier-league",
+      "country": "Kazakhstan",
+      "tier": 1,
+      "league": "Kazakhstan Premier League",
+      "season": "2026",
+      "teams": 16,
+      "definition_status": "partially_defined",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383560534"
+      ],
+      "phases": [
+        {
+          "id": "format_review",
+          "kind": "pending_review",
+          "topics": [
+            "current regular-season pairing/legs",
+            "end-of-season movement"
+          ],
+          "reason": "The16-club expansion is explicit; a full empty results matrix alone does not prove that both directions are scheduled."
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "Current-season relegation count and lower-tier access",
+        "Complete tie/licence clauses"
+      ],
+      "notes": [
+        "Do not apply the2025 one-down/three-up expansion repeatedly."
+      ]
+    },
+    {
+      "id": "United States:1:major-league-soccer",
+      "country": "United States",
+      "tier": 1,
+      "league": "Major League Soccer",
+      "season": "2026",
+      "teams": 30,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383349089",
+        "wiki:1383480331",
+        "wiki:1383545299"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "scheduled_league",
+          "group_sizes": [
+            15,
+            15
+          ],
+          "games_per_club": [
+            34
+          ],
+          "points": "reset",
+          "opponent_rules": {
+            "basis": "conference schedule;34 regular games per club",
+            "exact_pairs": "must be sourced from the current MLS fixture list"
+          }
+        },
+        {
+          "id": "championship",
+          "kind": "knockout",
+          "field": 18,
+          "rounds": [
+            {
+              "ties": 2,
+              "byes": 14,
+              "legs": 1,
+              "decision": "penalties"
+            },
+            {
+              "ties": 8,
+              "byes": 0,
+              "legs": 3,
+              "decision": "penalties",
+              "format": "best_of",
+              "wins_required": 2,
+              "scoring": "individual match wins; never aggregate goals"
+            },
+            {
+              "ties": 4,
+              "byes": 0,
+              "legs": 1,
+              "decision": "extra_time_penalties"
+            },
+            {
+              "ties": 2,
+              "byes": 0,
+              "legs": 1,
+              "decision": "extra_time_penalties"
+            },
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "extra_time_penalties"
+            }
+          ],
+          "qualifiers": 1,
+          "selection": "top9 of each conference; top7 each receive wildcard bye"
+        }
+      ],
+      "movement": {
+        "promotion_relegation": "closed league; no automatic exchange with USL"
+      },
+      "unresolved": [
+        "Current-season exact opponent/venue distribution and qualification tie clauses",
+        "Postseason home order and club eligibility clauses",
+        "2027 short transition season then2027/28 calendar must be modeled separately"
+      ],
+      "notes": [
+        "MLS includes27US and3Canadian clubs; the Canadian franchises do not become CPL clubs.",
+        "Wildcard8v9 in each conference, tied90minutes goes straight to penalties.",
+        "Round one is best-of-three MATCH WINS, with penalties for each drawn game, not three-leg aggregate.",
+        "Conference semifinals, conference finals and MLS Cup are single matches with extra time then penalties."
+      ],
+      "regular_games_per_club": [
+        34
+      ]
+    },
+    {
+      "id": "United States:2:usl-championship",
+      "country": "United States",
+      "tier": 2,
+      "league": "USL Championship",
+      "season": "2026",
+      "teams": 25,
+      "definition_status": "partially_defined",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382894644",
+        "wiki:1383462644"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "scheduled_league",
+          "group_sizes": [
+            25
+          ],
+          "games_per_club": [
+            30
+          ],
+          "points": "reset",
+          "opponent_rules": {
+            "basis": "two conferences; unbalanced30-game regular schedule",
+            "source_conflict": "five/six inter-conference claim needs official reconciliation with25 clubs"
+          }
+        },
+        {
+          "id": "championship",
+          "kind": "knockout",
+          "field": 16,
+          "rounds": [
+            {
+              "ties": 8,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 4,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 2,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        }
+      ],
+      "movement": {
+        "promotion_relegation": "no automatic exchange with MLS"
+      },
+      "unresolved": [
+        "Exact conference sizes and cross-conference pairings need official schedule reconciliation",
+        "Full2026 playoff venue and tie rules",
+        "Future USL promotion/relegation plans must not be applied prematurely"
+      ],
+      "notes": [
+        "Top8 per conference qualify for the championship bracket.",
+        "Four USL Cup group matches are a separate competition, not four additional league-table games."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
+    },
+    {
+      "id": "Australia:1:a-league-men",
+      "country": "Australia",
+      "tier": 1,
+      "league": "A-League Men",
+      "season": "2026–27",
+      "teams": 12,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382100172",
+        "wiki:1383293306"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "scheduled_league",
+          "group_sizes": [
+            12
+          ],
+          "games_per_club": [
+            26
+          ],
+          "points": "reset",
+          "opponent_rules": {
+            "basis": "unbalanced schedule; exact pair allocation requires current-season review"
+          }
+        },
+        {
+          "id": "championship",
+          "kind": "knockout",
+          "field": 6,
+          "rounds": [
+            {
+              "ties": 2,
+              "byes": 2,
+              "legs": 1,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 2,
+              "byes": 0,
+              "legs": 2,
+              "decision": "unresolved"
+            },
+            {
+              "ties": 1,
+              "byes": 0,
+              "legs": 1,
+              "decision": "unresolved"
+            }
+          ],
+          "qualifiers": 1
+        }
+      ],
+      "movement": {
+        "promotion_relegation": "closed A-League; no automatic exchange with national second tier"
+      },
+      "unresolved": [
+        "Exact2026/27 extra regular opponent allocation",
+        "Current finals seeding, venue and tie clauses",
+        "National second-tier competition field/format must be reviewed separately"
+      ],
+      "notes": [
+        "Premiers win the regular season; Champions win the finals.",
+        "Australian and New Zealand member clubs participate in the same A-League competition."
+      ],
+      "regular_games_per_club": [
+        26
+      ]
+    },
+    {
+      "id": "Cook Islands:1:rarotonga-round-cup",
+      "country": "Cook Islands",
+      "tier": 1,
+      "league": "Rarotonga Round Cup",
+      "season": "2026",
+      "teams": 6,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382603338"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            6
+          ],
+          "legs": 3,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            15
+          ]
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "Current-season access/relegation and OFC qualification rules",
+        "Ranking tie clauses and island eligibility"
+      ],
+      "notes": [
+        "Six Rarotonga clubs, triple round robin; separate knockout cup must not be merged into league scoring."
+      ],
+      "regular_games_per_club": [
+        15
+      ]
+    },
+    {
+      "id": "Tahiti:1:ligue-1",
+      "country": "Tahiti",
+      "tier": 1,
+      "league": "Ligue 1",
+      "season": "2026–27",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1383599400",
+        "wiki:1383170355"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            15
+          ]
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "Official2026/27 scoring confirmation and any final-stage/access rules",
+        "Current relegation count and Moorea eligibility",
+        "Full table-ranking tie rules"
+      ],
+      "notes": [
+        "Current-season article explicitly expands to16 clubs and15 single-round games; older ten-club playoff summaries are not silently reused."
+      ],
+      "regular_games_per_club": [
+        15
+      ],
+      "scoring": {
+        "win": 4,
+        "draw": 2,
+        "loss": 1,
+        "forfeit": 0,
+        "status": "general league rule; current-season confirmation pending"
+      }
+    },
+    {
+      "id": "Kosovo:1:football-superleague-of-kosovo",
+      "country": "Kosovo",
+      "tier": 1,
+      "league": "Football Superleague of Kosovo",
+      "season": "2026–27",
+      "teams": 10,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1374366427"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10
+          ],
+          "legs": 4,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            36
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          9,
+          10
+        ]
+      },
+      "unresolved": [
+        "Official2026/27 access/licensing changes and full tie rules"
+      ],
+      "notes": [
+        "36 games per club; no generic three-up/three-down assumption."
+      ],
+      "regular_games_per_club": [
+        36
+      ]
+    },
+    {
+      "id": "Bahrain:1:bahraini-premier-league",
+      "country": "Bahrain",
+      "tier": 1,
+      "league": "Bahraini Premier League",
+      "season": "2025–26",
+      "teams": 12,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1376708008"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            12
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            22
+          ]
+        },
+        {
+          "id": "cross_tier",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:9",
+            "tier1:10",
+            "tier2:3",
+            "tier2:4"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          11,
+          12
+        ],
+        "relegation_playoff": [
+          9,
+          10
+        ]
+      },
+      "unresolved": [
+        "2026/27 continuation and actual field confirmation",
+        "Cross-tier group/bracket, leg, venue and tie rules",
+        "Licence and table-ranking tie clauses"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        22
+      ]
+    },
+    {
+      "id": "Bahrain:2:bahraini-second-division",
+      "country": "Bahrain",
+      "tier": 2,
+      "league": "Bahraini Second Division",
+      "season": "2025–26",
+      "teams": 12,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1369355261"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            12
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            22
+          ]
+        },
+        {
+          "id": "cross_tier",
+          "kind": "external_playoff",
+          "entrants": [
+            "tier1:9",
+            "tier1:10",
+            "tier2:3",
+            "tier2:4"
+          ],
+          "purpose": "promotion_relegation"
+        }
+      ],
+      "movement": {
+        "direct_promotion": [
+          1,
+          2
+        ],
+        "promotion_playoff": [
+          3,
+          4
+        ]
+      },
+      "unresolved": [
+        "2026/27 continuation and actual field confirmation",
+        "Cross-tier group/bracket, leg, venue and tie rules",
+        "Licence and table-ranking tie clauses"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        22
+      ]
+    },
+    {
+      "id": "Iraq:1:iraq-stars-league",
+      "country": "Iraq",
+      "tier": 1,
+      "league": "Iraq Stars League",
+      "season": "2026–27",
+      "teams": 20,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1381548984",
+        "wiki:1383561308"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            20
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            38
+          ]
+        },
+        {
+          "id": "access_review",
+          "kind": "pending_review",
+          "topics": [
+            "current-season contraction and lower-tier access"
+          ],
+          "reason": "The generic historic cross-tier playoff route cannot be silently reused during the2026/27 contraction."
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          17,
+          18,
+          19,
+          20
+        ],
+        "next_season_teams": 18
+      },
+      "unresolved": [
+        "Official2026/27 contraction circular and any cross-tier playoff suppression",
+        "Second-tier survival movement and complete tie/licence clauses"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        38
+      ]
+    },
+    {
+      "id": "Iraq:2:iraqi-premier-division-league",
+      "country": "Iraq",
+      "tier": 2,
+      "league": "Iraqi Premier Division League",
+      "season": "2026–27",
+      "teams": 20,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1359460350"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            20
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            38
+          ]
+        },
+        {
+          "id": "access_review",
+          "kind": "pending_review",
+          "topics": [
+            "current-season contraction and lower-tier access"
+          ],
+          "reason": "The generic historic cross-tier playoff route cannot be silently reused during the2026/27 contraction."
+        }
+      ],
+      "movement": {
+        "direct_promotion": [
+          1,
+          2
+        ]
+      },
+      "unresolved": [
+        "Official2026/27 contraction circular and any cross-tier playoff suppression",
+        "Second-tier survival movement and complete tie/licence clauses"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        38
+      ]
+    },
+    {
+      "id": "Iran:1:persian-gulf-pro-league",
+      "country": "Iran",
+      "tier": 1,
+      "league": "Persian Gulf Pro League",
+      "season": "2026–27",
+      "teams": 18,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382970957",
+        "wiki:1383018212"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            18
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            34
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          17,
+          18
+        ]
+      },
+      "unresolved": [
+        "Official2026 expansion confirmation and full current-season ranking/licence clauses"
+      ],
+      "notes": [
+        "2026/27 narrative explicitly specifies18 teams and34 games; the historic16-club paragraph is stale."
+      ],
+      "regular_games_per_club": [
+        34
+      ]
+    },
+    {
+      "id": "Lebanon:1:lebanese-premier-league",
+      "country": "Lebanon",
+      "tier": 1,
+      "league": "Lebanese Premier League",
+      "season": "2026–27",
+      "teams": 12,
+      "definition_status": "partially_defined",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1381784928",
+        "wiki:1381784286"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            12
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            22
+          ]
+        },
+        {
+          "id": "split",
+          "kind": "split_round_robin",
+          "group_sizes": [
+            6,
+            6
+          ],
+          "legs": 2,
+          "points": "unresolved",
+          "intergroup_games": 0,
+          "games_per_club": [
+            10
+          ],
+          "rank_ranges": [
+            [
+              1,
+              6
+            ],
+            [
+              7,
+              12
+            ]
+          ],
+          "upper_groups_finish_above_lower_groups": true,
+          "confirmed_point_carry": "half of first-phase points; rounding pending"
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          11,
+          12
+        ]
+      },
+      "unresolved": [
+        "Official half-point rounding rule",
+        "Season article contradicts six-team split with stale four-team wording; verify final official phase rules",
+        "Full current-season tie/licence clauses"
+      ],
+      "notes": [
+        "The proposed2027 reduction to10 clubs was reversed in August2026; do not keep four relegation places."
+      ],
+      "regular_games_per_club": [
+        32
+      ]
+    },
+    {
+      "id": "Bhutan:1:bhutan-premier-league",
+      "country": "Bhutan",
+      "tier": 1,
+      "league": "Bhutan Premier League",
+      "season": "2025",
+      "teams": 10,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1369441471"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            18
+          ]
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "2026 season field and continuation must be verified",
+        "Qualifier/access format, relegation and full tie/licence clauses"
+      ],
+      "notes": [
+        "Last explicitly dated source season is2025; do not label this current-season complete."
+      ],
+      "regular_games_per_club": [
+        18
+      ]
+    },
+    {
+      "id": "Myanmar:1:m-league",
+      "country": "Myanmar",
+      "tier": 1,
+      "league": "M League",
+      "season": "2025–26",
+      "teams": 12,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382523678"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            12
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            22
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          11,
+          12
+        ]
+      },
+      "unresolved": [
+        "2026/27 field and continuation must be verified",
+        "Licensing/replacement cascade and neutral tie-decider clauses"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        22
+      ]
+    },
+    {
+      "id": "Bangladesh:1:bangladesh-football-league",
+      "country": "Bangladesh",
+      "tier": 1,
+      "league": "Bangladesh Football League",
+      "season": "2025–26",
+      "teams": 10,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1379384919"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            18
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          9,
+          10
+        ],
+        "tier2_promotion": "top2 subject to BFF club licence"
+      },
+      "unresolved": [
+        "Current2026/27 field and format must be verified; generic infobox says13 but dated format text says10 for2025/26",
+        "Full ranking and licence clauses"
+      ],
+      "notes": [
+        "Records the explicitly described2025/26 ten-club double round robin, not an inferred13-club2026/27 schedule."
+      ],
+      "regular_games_per_club": [
+        18
+      ]
+    },
+    {
+      "id": "British Virgin Islands:1:bvifa-national-football-league",
+      "country": "British Virgin Islands",
+      "tier": 1,
+      "league": "BVIFA National Football League",
+      "season": "2024–25",
+      "teams": 11,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1377323719"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            11
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            20
+          ]
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "2025/26 and2026/27 field/continuation confirmation",
+        "Access/licence and full ranking rules"
+      ],
+      "notes": [
+        "Top4 qualify for the following President’s Cup; that separate cup is not a league-title playoff."
+      ],
+      "regular_games_per_club": [
+        20
+      ]
+    },
+    {
+      "id": "Dominica:1:dominica-premier-league",
+      "country": "Dominica",
+      "tier": 1,
+      "league": "Dominica Premier League",
+      "season": "2026",
+      "teams": 10,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1376322862"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            10
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            18
+          ]
+        }
+      ],
+      "movement": {
+        "direct_relegation": [
+          10
+        ]
+      },
+      "unresolved": [
+        "Official season-specific movement/licence exceptions and full ranking tie rules"
+      ],
+      "notes": [],
+      "regular_games_per_club": [
+        18
+      ]
+    },
+    {
+      "id": "Malta:1:maltese-premier-league",
+      "country": "Malta",
+      "tier": 1,
+      "league": "Maltese Premier League",
+      "season": "2026–27",
+      "teams": 12,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1381234470",
+        "wiki:1383468225"
+      ],
+      "phases": [
+        {
+          "id": "opening_regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            12
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            11
+          ]
+        },
+        {
+          "id": "opening_split",
+          "kind": "split_round_robin",
+          "group_sizes": [
+            6,
+            6
+          ],
+          "legs": 1,
+          "points": "carry",
+          "intergroup_games": 0,
+          "games_per_club": [
+            5
+          ],
+          "rank_ranges": [
+            [
+              1,
+              6
+            ],
+            [
+              7,
+              12
+            ]
+          ],
+          "upper_groups_finish_above_lower_groups": true,
+          "selection_from": "opening_regular"
+        },
+        {
+          "id": "closing_regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            12
+          ],
+          "legs": 1,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            11
+          ]
+        },
+        {
+          "id": "closing_split",
+          "kind": "split_round_robin",
+          "group_sizes": [
+            6,
+            6
+          ],
+          "legs": 1,
+          "points": "carry",
+          "intergroup_games": 0,
+          "games_per_club": [
+            5
+          ],
+          "rank_ranges": [
+            [
+              1,
+              6
+            ],
+            [
+              7,
+              12
+            ]
+          ],
+          "upper_groups_finish_above_lower_groups": true,
+          "selection_from": "closing_regular"
+        },
+        {
+          "id": "season_resolution",
+          "kind": "pending_review",
+          "topics": [
+            "title and UEFA playoff scenarios",
+            "relegation based on both rounds"
+          ],
+          "reason": "Current regular structure is explicit but published secondary resolution/relegation paragraphs are incomplete or contradictory."
+        }
+      ],
+      "movement": {},
+      "unresolved": [
+        "Official championship scenarios when opening/closing top finishers differ",
+        "Actual relegation/playout criteria and cross-tier access",
+        "Full tie/licence clauses"
+      ],
+      "notes": [
+        "32 group games:11+5 in opening, points reset, then11+5 in closing.",
+        "No invented champion from the closing table or annual aggregate alone."
+      ],
+      "regular_games_per_club": [
+        32
+      ]
+    },
+    {
+      "id": "Gibraltar:1:gibraltar-football-league",
+      "country": "Gibraltar",
+      "tier": 1,
+      "league": "Gibraltar Football League",
+      "season": "2026–27",
+      "teams": 11,
+      "definition_status": "partially_defined",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1373225111",
+        "wiki:1383285257"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            11
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            20
+          ]
+        },
+        {
+          "id": "championship_group",
+          "kind": "qualified_round_robin",
+          "participants": 6,
+          "selection": {
+            "from": "regular",
+            "qualify": "top6"
+          },
+          "group_sizes": [
+            6
+          ],
+          "legs": 1,
+          "points": "unresolved",
+          "games_per_club": [
+            5
+          ]
+        },
+        {
+          "id": "challenge_and_europe",
+          "kind": "pending_review",
+          "topics": [
+            "five-team Challenge Group",
+            "conditional European playoff field"
+          ],
+          "reason": "Current season confirms Challenge Group returns, but exact legs, point carry and cup-dependent bracket need official verification."
+        }
+      ],
+      "movement": {
+        "promotion_relegation": "only senior tier; no separate senior second league"
+      },
+      "unresolved": [
+        "Full point carry/Challenge Group schedule",
+        "Rock Cup-dependent playoff eligibility and tie decisions"
+      ],
+      "notes": [
+        "Current2026/27 source explicitly says11 clubs and20 first-stage games; do not use stale twelve-club infobox capacity."
+      ]
+    },
+    {
+      "id": "San Marino:1:campionato-sammarinese",
+      "country": "San Marino",
+      "tier": 1,
+      "league": "Campionato Sammarinese",
+      "season": "2025–26",
+      "teams": 16,
+      "definition_status": "structure_reviewed",
+      "runtime_status": "not_integrated",
+      "source_ids": [
+        "wiki:1382982056",
+        "wiki:1365465144"
+      ],
+      "phases": [
+        {
+          "id": "regular",
+          "kind": "round_robin",
+          "group_sizes": [
+            16
+          ],
+          "legs": 2,
+          "points": "reset",
+          "intergroup_games": 0,
+          "games_per_club": [
+            30
+          ]
+        },
+        {
+          "id": "conference_league",
+          "kind": "external_playoff",
+          "entrants": [
+            "regular:2–11"
+          ],
+          "purpose": "UEFA_Conference_League_qualification"
+        }
+      ],
+      "movement": {
+        "promotion_relegation": "only senior tier; none"
+      },
+      "unresolved": [
+        "2026/27 field/continuation and academy eligibility",
+        "European playoff preliminary/byes/leg/tie details and cup duplication"
+      ],
+      "notes": [
+        "League first place is champion. The2nd–11th playoff awards a European berth, not the league title."
+      ],
+      "regular_games_per_club": [
+        30
+      ]
     }
   ],
   "no_domestic_league": {
@@ -3937,6 +8247,24 @@
       ],
       "reason": "No domestic men’s league. Clubs participate in the Swiss pyramid; the national cup remains separate.",
       "starting_pyramid": "Switzerland"
+    }
+  },
+  "no_competition_at_tier": {
+    "Gibraltar": {
+      "2": {
+        "source_ids": [
+          "wiki:1373225111"
+        ],
+        "reason": "The2019 merger created the only senior tier; the Intermediate League is an under23 competition, not a senior second division."
+      }
+    },
+    "San Marino": {
+      "2": {
+        "source_ids": [
+          "wiki:1382982056"
+        ],
+        "reason": "Campionato Sammarinese is explicitly the only league level; no promotion/relegation system exists."
+      }
     }
   }
 }

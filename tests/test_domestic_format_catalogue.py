@@ -1,5 +1,6 @@
 """Regression checks for real structures and honest research/runtime separation."""
 import copy
+import itertools
 import importlib.util
 import json
 from pathlib import Path
@@ -79,6 +80,84 @@ class DomesticFormatCatalogueTests(unittest.TestCase):
                 if division['status'] == 'needs_review':
                     self.assertEqual(division['definitions'], [])
         self.assertTrue(all(d['runtime_status'] == 'not_integrated' for d in self.definitions))
+
+    def test_peruvian_repechage_preserves_two_distinct_promoted_clubs(self):
+        graph = next(p for p in self.definition('Peru', 2)['phases'] if p['kind'] == 'bracket_graph')
+        self.assertEqual(len(graph['matches']), 5)
+        for outcomes in itertools.product((0, 1), repeat=len(graph['matches'])):
+            resolved = {'seed:' + seed: seed for seed in graph['seeds']}
+            for match, winner_index in zip(graph['matches'], outcomes):
+                clubs = [resolved[ref] for ref in match['inputs']]
+                self.assertNotEqual(*clubs)
+                resolved['winner:' + match['id']] = clubs[winner_index]
+                resolved['loser:' + match['id']] = clubs[1 - winner_index]
+            promoted = [resolved[ref] for ref in graph['outputs']['promotion']]
+            self.assertEqual(len(set(promoted)), 2)
+            self.assertIn(resolved['winner:final'], promoted)
+            # Losing the title final alone must never award the second place.
+            self.assertEqual(promoted[1], resolved['winner:runner_up_playoff'])
+        self.assertEqual(graph['matches'][-1]['host'], 'loser:final')
+        self.assertEqual(graph['matches'][-1]['decision'], 'penalties')
+
+    def test_graph_rejects_forward_references_and_repeated_inputs(self):
+        d = copy.deepcopy(self.definition('Peru', 2))
+        graph = next(p for p in d['phases'] if p['kind'] == 'bracket_graph')
+        graph['matches'][0]['inputs'][0] = 'winner:final'
+        self.assertTrue(any('forward' in e for e in module.validate_definition(d, self.sources)))
+        graph['matches'][0]['inputs'] = ['seed:qualifier_1', 'seed:qualifier_1']
+        self.assertTrue(any('repeated' in e for e in module.validate_definition(d, self.sources)))
+
+    def test_qualified_groups_do_not_add_games_to_eliminated_clubs(self):
+        d = copy.deepcopy(self.definition('Colombia'))
+        self.assertNotIn('regular_games_per_club', d)
+        d['regular_games_per_club'] = [44]
+        self.assertTrue(any('path-specific' in e for e in module.validate_definition(d, self.sources)))
+        d.pop('regular_games_per_club')
+        d['definition_status'] = 'structure_reviewed'
+        self.assertTrue(any('point carry' in e for e in module.validate_definition(d, self.sources)))
+
+    def test_current_transition_and_access_changes(self):
+        self.assertEqual(self.definition('South Korea', 2)['regular_games_per_club'], [32])
+        self.assertEqual(self.definition('Indonesia', 2)['regular_games_per_club'], [27])
+        self.assertEqual(self.definition('Uruguay')['regular_games_per_club'], [37])
+        self.assertEqual(self.definition('Uruguay', 2)['regular_games_per_club'], [32])
+        self.assertEqual(self.definition('Ecuador')['regular_games_per_club'], [36, 40])
+        cpl = next(p for p in self.definition('Canada')['phases'] if p['kind'] == 'knockout')
+        self.assertEqual(cpl['field'], 4)
+        self.assertEqual([r['legs'] for r in cpl['rounds']], [2, 1])
+        sweden = self.definition('Sweden', 2)
+        self.assertEqual(sweden['movement']['promotion_playoff'], [3, 4])
+
+    def test_mls_best_of_three_is_not_aggregate_or_three_required_legs(self):
+        d = copy.deepcopy(self.definition('United States'))
+        self.assertEqual(d['regular_games_per_club'], [34])
+        self.assertEqual(d['phases'][0]['kind'], 'scheduled_league')
+        p = next(p for p in d['phases'] if p['kind'] == 'knockout')
+        self.assertEqual(p['field'], 18)
+        self.assertEqual(p['rounds'][0]['byes'], 14)
+        self.assertEqual(p['rounds'][1]['format'], 'best_of')
+        self.assertEqual(p['rounds'][1]['wins_required'], 2)
+        self.assertEqual(p['rounds'][1]['decision'], 'penalties')
+        p['rounds'][1].pop('format')
+        self.assertTrue(any('tie rules' in e for e in module.validate_definition(d, self.sources)))
+
+    def test_only_senior_tiers_are_created(self):
+        for country in ('Gibraltar', 'San Marino'):
+            row = next(r for r in self.catalogue['countries'] if r['country'] == country)
+            tier2 = row['divisions'][1]
+            self.assertEqual(tier2['status'], 'not_applicable')
+            self.assertEqual(tier2['definitions'], [])
+            self.assertTrue(tier2['absence']['source_ids'])
+        self.assertEqual(self.definition('San Marino')['movement']['promotion_relegation'], 'only senior tier; none')
+
+    def test_source_geography_does_not_match_a_country_substring(self):
+        expected = {'Papua New Guinea Premier Soccer League': ['Papua New Guinea'],
+                    'Campeonato Nacional da Guiné-Bissau': ['Guinea-Bissau'],
+                    'South Sudan Premier League': ['South Sudan'],
+                    'FFAS Senior League': ['American Samoa']}
+        for source in self.sources.values():
+            if source['title'] in expected:
+                self.assertEqual(source['countries'], expected[source['title']])
 
     def test_false_identities_cannot_be_current_candidates(self):
         for s in self.sources.values():

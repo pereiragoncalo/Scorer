@@ -25,3 +25,15 @@ Northern Ireland's current official Championship PDF and announcement returned H
 Their contents are not claimed as independently verified. Current secondary references support the16-club30+7 schedule; detailed access/tie clauses remain unresolved. The Wales35/33/35 split is also checked against the BBC report included in the source index.
 
 Runtime integration needs variable team capacities, phase/group-specific tables and fixture generation, persistent phase transitions, rolling relegation averages, cross-tier eligibility and save/UID migration. Existing compact0.9.6 access profiles must not be labelled as these complete real formats. No APK/version change accompanies this research-only catalogue.
+
+## Extended phase models (4 November2026)
+
+`qualified_round_robin` records matches played by a subset of clubs, with explicit participant count and selection. Those matches must not inflate the universal season total for eliminated clubs. Bonus points are explicit in Peru’s championship phase. `scheduled_league` records sourced fixed match counts for unbalanced/conference schedules; it is not converted into a full round robin by arithmetic. MLS best-of-three rounds use individual match wins (two required, up to three games), with no aggregate score.
+
+`bracket_graph` supports winner/loser paths such as Peru’s separate title, repechage and second-promotion playoff. Inputs must refer to seeds or earlier matches. Exhaustive tests of all32 outcome paths verify that the four-club Peruvian graph produces two distinct promoted clubs. Exact unconfirmed semifinal seed allocation remains open before scheduling.
+
+`pending_review` is explicitly not a confirmed playoff. Half-point rounding can remain unresolved only in a partial definition. `no_competition_at_tier` records sourced absence of a separate senior second tier (Gibraltar, San Marino); it must not manufacture under23 competitions as Division2. Country-level absence remains separately recorded for Liechtenstein.
+
+The catalogue includes explicitly dated older-season structures where those are the last sufficient references; their unresolved list requires current-season confirmation. Counts of records/countries never mean that all current regulations or runtime integrations are complete. A blank result-grid template is not proof that every possible home/away pair will be played.
+
+Additional primary evidence retrieved: the CPL31March2026 announcement confirms four playoff clubs, two-legged semifinals1v4/2v3 and a single-match final at the higher seed. FRMF2025 competition regulations confirm the16-club maximum per professional division and delegate playoff details to a seasonal circular (article15). The secondary ranking citation to article53.2 does not match the retrieved primary PDF’s article53; it remains flagged rather than treated as verified.
