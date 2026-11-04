@@ -119,21 +119,26 @@ def build():
         for tier, absence in tiers.items():
             if country not in WORLD_COUNTRIES or tier not in ('1','2') or not absence.get('reason') or not absence.get('source_ids') or any(ref not in sources for ref in absence['source_ids']):raise ValueError('Unsourced tier absence claim')
             if any(d['country']==country and d['tier']==int(tier) for d in definitions):raise ValueError('An absent tier cannot also define leagues')
+    runtime_path=ROOT/'assets/data/domestic_formats.json'
+    runtime=json.loads(runtime_path.read_text())['countries'] if runtime_path.exists() else {}
+    integrated={d['definition_id'] for pair in runtime.values() for d in pair.values()}
     result=[]
     for country in WORLD_COUNTRIES:
         rows=[];absence=review.get('no_domestic_league',{}).get(country)
         for tier in (1,2):
             tier_absence=review.get('no_competition_at_tier',{}).get(country,{}).get(str(tier))
             defined=[copy.deepcopy(d) for d in definitions if d['country']==country and d['tier']==tier]
+            for d in defined:
+                if d['id'] in integrated:d['runtime_status']='regular_structure_integrated'
             candidates=[s['id'] for s in sources.values() if s['kind']=='league_article' and not s['excluded_from_current_identities'] and s['tier_candidate']==tier and country in s['countries']]
             if country=='Canada':candidates=[sid for sid in candidates if sources[sid]['title']!='Major League Soccer']
-            rows.append(dict(tier=tier,definitions=defined,source_candidates=sorted(candidates),status=('partially_defined' if any(d['definition_status']=='partially_defined' for d in defined) else 'structure_reviewed') if defined else 'not_applicable' if absence or tier_absence else 'needs_review',absence=tier_absence,runtime_status='unchanged'))
+            rows.append(dict(tier=tier,definitions=defined,source_candidates=sorted(candidates),status=('partially_defined' if any(d['definition_status']=='partially_defined' for d in defined) else 'structure_reviewed') if defined else 'not_applicable' if absence or tier_absence else 'needs_review',absence=tier_absence,runtime_status='regular_structure_integrated' if defined and all(d['id'] in integrated for d in defined) else 'unchanged'))
         result.append(dict(country=country,domestic_league='absent' if absence else 'present' if any(d['country']==country and d['tier']==1 for d in definitions) else 'under_review',absence=absence,divisions=rows,full_country_model_implemented=False))
-    return dict(schema=1,reviewed_on=review['reviewed_on'],purpose='Research definitions for real first/second-tier formats; not runtime fallback rules.',country_count=len(result),division_definitions=len(definitions),countries_with_definitions=len({d['country'] for d in definitions}),structures_reviewed=sum(d['definition_status']=='structure_reviewed' for d in definitions),partially_defined=sum(d['definition_status']=='partially_defined' for d in definitions),countries=result)
+    return dict(schema=1,reviewed_on=review['reviewed_on'],purpose='Research definitions for real first/second-tier formats; not runtime fallback rules.',country_count=len(result),regular_divisions_integrated=len(integrated),division_definitions=len(definitions),countries_with_definitions=len({d['country'] for d in definitions}),structures_reviewed=sum(d['definition_status']=='structure_reviewed' for d in definitions),partially_defined=sum(d['definition_status']=='partially_defined' for d in definitions),countries=result)
 
 
 def report(catalogue):
-    lines=['# Domestic format definitions','',f"Reviewed on {catalogue['reviewed_on']}. {catalogue['division_definitions']} records in {catalogue['countries_with_definitions']} countries: {catalogue['structures_reviewed']} regular structures reviewed and {catalogue['partially_defined']} partial definitions. All {catalogue['country_count']} game countries are indexed.",'','These definitions do not alter the released APK or saved careers. A sourced identity is not a reviewed format; a reviewed structure is not a full implemented country model.','', '| Country | Tier | Competition / season | Teams | Phases | Regular games | Status |','|---|---:|---|---:|---|---|---|']
+    lines=['# Domestic format definitions','',f"Reviewed on {catalogue['reviewed_on']}. {catalogue['division_definitions']} records in {catalogue['countries_with_definitions']} countries: {catalogue['structures_reviewed']} regular structures reviewed and {catalogue['partially_defined']} partial definitions. All {catalogue['country_count']} game countries are indexed.",'','QA0.9.7 uses the separate domestic_formats runtime asset for supported regular capacities/splits in new careers. Old careers retain their saved model. Access rules and complete country formats remain separate; no full-country certification is implied.','', '| Country | Tier | Competition / season | Teams | Phases | Regular games | Status |','|---|---:|---|---:|---|---|---|']
     pending=[]
     for row in catalogue['countries']:
         if row['domestic_league']=='absent':lines.append('| '+row['country']+' | — | No domestic league; clubs use the Swiss pyramid | — | — | — | Confirmed exception |');continue
@@ -143,7 +148,7 @@ def report(catalogue):
             if not division['definitions']:pending.append(row['country']+' / '+str(division['tier']));continue
             for d in division['definitions']:
                 phases=' → '.join(p['kind'] for p in d['phases']);games=', '.join(map(str,d.get('regular_games_per_club',[]))) or 'phase dependent'
-                lines.append(f"| {row['country']} | {division['tier']} | {d['league']} / {d['season']} | {d['teams']} | {phases} | {games} | {d['definition_status']} |")
+                lines.append(f"| {row['country']} | {division['tier']} | {d['league']} / {d['season']} | {d['teams']} | {phases} | {games} | {d['definition_status']} / {d['runtime_status']} |")
     lines+=['','## Outstanding division reviews','',', '.join(pending), '', 'Exact tie-breakers, club licensing/reserve eligibility and season-specific changes remain recorded in each definition’s unresolved list. No unknown league is assigned a generic 12-team or three-up rule.','']
     return '\n'.join(lines)
 

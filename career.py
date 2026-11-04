@@ -601,6 +601,8 @@ class WorldLeague:
     round_index: int = 0
     scorer_goals: dict[str, int] = field(default_factory=dict)
     schedule_version: int = 2
+    format_key: str = ""
+    format_groups: Optional[list] = None
 
 
     @property
@@ -610,6 +612,9 @@ class WorldLeague:
 
     @property
     def total_rounds(self) -> int:
+        if self.format_key:
+            from domestic_formats import total_rounds
+            return total_rounds(self)
         count = len(self.clubs)
         if count < 2:
             return 0
@@ -617,6 +622,9 @@ class WorldLeague:
 
 
     def table(self) -> list[CareerClub]:
+        if self.format_key:
+            from domestic_formats import table
+            return table(self)
         return sorted(
             self.clubs,
             key=lambda club: (
@@ -627,6 +635,9 @@ class WorldLeague:
 
 
     def pairings(self, round_number: Optional[int] = None) -> list[tuple[CareerClub, CareerClub]]:
+        if self.format_key:
+            from domestic_formats import pairings
+            return pairings(self,self.round_index if round_number is None else round_number)
         count = len(self.clubs)
         requested = self.round_index if round_number is None else round_number
         if count < 2 or requested < 0 or requested >= self.total_rounds:
@@ -659,6 +670,13 @@ class WorldLeague:
                 left, right = right, left
             matches.append((self.clubs[left], self.clubs[right]))
         return matches
+
+
+    def advance_round(self):
+        self.round_index += 1
+        if self.format_key:
+            from domestic_formats import prepare_split
+            prepare_split(self)
 
 
     def simulate_fixture(
@@ -726,7 +744,7 @@ class CareerMode(TwoDivisionCareer):
     LEGACY_SAVE_VERSION = 1
 
 
-    def __init__(self, entitlement_provider: Optional[EntitlementProvider] = None, *, autoload: bool = True, starter_country: str = "England", save_slot: str = "legacy") -> None:
+    def __init__(self, entitlement_provider: Optional[EntitlementProvider] = None, *, autoload: bool = True, starter_country: str = "England", save_slot: str = "legacy", domestic_formats: bool = True) -> None:
         if save_slot not in ("legacy", "free", "world"):
             raise ValueError("Unknown career slot")
         self._save_slot = save_slot
@@ -784,8 +802,12 @@ class CareerMode(TwoDivisionCareer):
         self.offers: list[str] = []
         self.agent_offers: list[tuple[str, str]] = []
         self.free_agent=False;self.released_club=None;self.relegation_pools={};self._needs_two_division_backup=False
+        self.domestic_format_version=1 if self.world_unlocked and domestic_formats else 0
         self._build_world()
-        if self.world_unlocked:self._ensure_reserves()
+        if self.world_unlocked:
+            self._ensure_reserves()
+            from domestic_formats import initialize_world
+            initialize_world(self)
         self.choose_start_country(self.suggested_country)
 
         self._migrate_legacy_save()
@@ -1086,7 +1108,8 @@ class CareerMode(TwoDivisionCareer):
         if self.world_unlocked and self.club:
             self._ensure_competitions()
             for _ in range(200):
-                ended=self.current_league.round_index>=self.current_league.total_rounds
+                from domestic_formats import player_finished
+                ended=self.current_league.round_index>=self.current_league.total_rounds or player_finished(self.current_league,self.club.uid)
                 if ended:self._prepare_world_run_in()
                 pending=self.world_competitions.next_fixture(200 if ended else self.week,self.club.uid,self.nationality,self.national_team_eligible)
                 if pending:
@@ -1154,7 +1177,7 @@ class CareerMode(TwoDivisionCareer):
             while league.round_index<league.total_rounds:
                 rng=random.Random(f'{self.world_seed}:{self.season}:{league.key}:{league.round_index}')
                 for home,away in league.pairings():league.simulate_fixture(home,away,rng)
-                league.round_index+=1
+                league.advance_round()
         start=max(self.week+1,max(l.total_rounds for l in self.domestic_leagues())+1)
         for country in WORLD_COUNTRIES:
             upper,lower=self.leagues[country+'|1'],self.leagues[country+'|2']
@@ -1260,6 +1283,11 @@ class CareerMode(TwoDivisionCareer):
                         "home": fixture[0].name, "away": fixture[1].name,
                         "status": f"Matchweek {future_round + 1}", "played": False,
                     })
+                elif self.current_league.format_key and self.current_league.format_groups is None:
+                    from domestic_formats import specification,phase_rounds
+                    phases=specification(self.current_league)['phases']
+                    if len(phases)==2 and future_round>=phase_rounds(phases[0]):
+                        entries.append({'date':(match_date+timedelta(days=4)).isoformat(),'competition':self.current_league.name,'home':'—','away':'—','status':'League phase','played':False,'pending':True})
                 future_round += 1
             future_week += 1
         if self.world_unlocked and self.club:
@@ -1372,7 +1400,7 @@ class CareerMode(TwoDivisionCareer):
                 rng = random.Random(f"{self.world_seed}:{self.season}:{league.key}:{league.round_index}")
                 for home, away in league.pairings():
                     league.simulate_fixture(home, away, rng)
-                league.round_index += 1
+                league.advance_round()
         self._active_world_countries.add(country)
 
     @property
@@ -1683,7 +1711,7 @@ class CareerMode(TwoDivisionCareer):
                                             player_club=self.club_name, player_goals=player_goals)
                 else:
                     league.simulate_fixture(fixture_home, fixture_away, self.rng)
-            league.round_index += 1
+            league.advance_round()
 
 
         self.week += 1
@@ -1824,7 +1852,7 @@ class CareerMode(TwoDivisionCareer):
             round_rng = random.Random(f'{self.world_seed}:{self.season}:{key}:{league.round_index}') if self.world_unlocked else self.rng
             for home, away in league.pairings():
                 league.simulate_fixture(home, away, round_rng)
-            league.round_index += 1
+            league.advance_round()
 
 
         if self.world_unlocked:
@@ -1989,7 +2017,7 @@ class CareerMode(TwoDivisionCareer):
         self.message=f'Season finished in position {position}. New season {self.season}/{str(self.season+1)[-2:]}.'
         self.international_status={}
         for l in self.leagues.values():
-            random.Random(f'{self.world_seed}:{self.season}:{l.key}').shuffle(l.clubs);l.schedule_version=2;l.round_index=0;l.scorer_goals.clear()
+            random.Random(f'{self.world_seed}:{self.season}:{l.key}').shuffle(l.clubs);l.schedule_version=2;l.round_index=0;l.scorer_goals.clear();l.format_groups=None
             for c in l.clubs:c.played=c.won=c.drawn=c.lost=c.goals_for=c.goals_against=c.points=0
         self.matches=self.goals=self.missed_chances=0;self.form_goals.clear()
         if released:self._release_contract(RELEGATED_MESSAGE,club)
@@ -2110,6 +2138,8 @@ class CareerMode(TwoDivisionCareer):
         data = {
             "save_version": self.SAVE_VERSION,
             "edition": self.product_mode,
+            "domestic_format_version": self.domestic_format_version if self.world_unlocked else 0,
+            "domestic_schedule": __import__("domestic_formats").state(league),
             "domestic_model_version": 2 if self.world_unlocked else 1,
             "relegation_pools": self.relegation_pools if self.world_unlocked else {},
             "free_agent": self.free_agent,
@@ -2118,7 +2148,7 @@ class CareerMode(TwoDivisionCareer):
             "free_start_key": self.free_start_key,
             "display_aliases": self.display_aliases if self.world_unlocked else {},
             "world_state": {k: {'clubs': [asdict(c) for c in v.clubs], 'round': v.round_index,
-                                 'scorers': v.scorer_goals, 'name': v.name, 'schedule': v.schedule_version}
+                                 'scorers': v.scorer_goals, 'name': v.name, 'schedule': v.schedule_version, 'domestic_schedule': __import__('domestic_formats').state(v)}
                             for k, v in self.leagues.items()
                             if self.world_unlocked and (v.country in self._active_world_countries or self.world_run_in) and k != self.league_key},
             "completed_records": self.completed_records,
@@ -2261,6 +2291,8 @@ class CareerMode(TwoDivisionCareer):
             if self._save_slot == "world" and active.get("edition") != "WORLD":
                 return False  # No automatic or file-based Free-to-World conversion.
             if self.world_unlocked and active.get('edition') == 'WORLD':
+                self.domestic_format_version=active.get('domestic_format_version',0)
+                if type(self.domestic_format_version)is not int or self.domestic_format_version not in (0,1):raise ValueError('Unsupported domestic formats')
                 self.world_seed=int(active.get('world_seed',self.world_seed));self.season=int(active.get('season',self.season))
                 self.leagues={};self._build_world()
                 self.world_competitions=None;self.qualification_snapshot=None;self.world_membership=None;self.world_run_in=False
@@ -2277,6 +2309,9 @@ class CareerMode(TwoDivisionCareer):
                     c,sep,t=str(saved_key).partition('|')
                     if sep and c in WORLD_COUNTRIES and t in ('3','4','5'):depths[c]=max(depths[c],int(t))
                 self.leagues={};self._build_world(depths,legacy_layout=True);self.relegation_pools={}
+                self._ensure_reserves()
+                from domestic_formats import initialize_world
+                initialize_world(self)
             membership=active.get('world_membership')
             if membership is not None and self.world_unlocked:
                 if not isinstance(membership,dict) or set(membership)!=set(self.leagues):raise ValueError('Invalid World membership')
@@ -2415,6 +2450,8 @@ class CareerMode(TwoDivisionCareer):
             for club in league.clubs:
                 ensure_club_uid(club)
             league.round_index = int(data.get("league_round", 0))
+            from domestic_formats import restore
+            restore(league,data.get("domestic_schedule"))
             if schedule_version == 1:
                 # Upgrade only if every completed fixture retains its opponent
                 # and venue. Never silently rewrite past home/away results.
@@ -2448,6 +2485,7 @@ class CareerMode(TwoDivisionCareer):
                     for club in other.clubs:
                         ensure_club_uid(club)
                     other.round_index = int(state['round'])
+                    restore(other,state.get('domestic_schedule'))
                     other.scorer_goals = {str(k): int(v) for k, v in state['scorers'].items()}
                     other.name = str(state.get('name', other.name))
                     other.schedule_version = int(state.get('schedule', 2))
@@ -2518,7 +2556,7 @@ class CareerMode(TwoDivisionCareer):
                 while other_league.round_index < target_round:
                     for home, away in other_league.pairings():
                         other_league.simulate_fixture(home, away, self.rng)
-                    other_league.round_index += 1
+                    other_league.advance_round()
             return True
         except (OSError, ValueError, TypeError, KeyError, AttributeError, OverflowError):
             # Keep both the original file and all pre-load state intact.

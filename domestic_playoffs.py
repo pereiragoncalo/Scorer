@@ -8,8 +8,17 @@ from promotion_playoffs import PlayoffTournament
 def catalogue():
     return json.loads((Path(__file__).resolve().parent/'assets/data/domestic_profiles.json').read_text())
 
-def profile(country):
-    return dict(catalogue()['profiles'].get(country,dict(direct=3,shape='',places=[],upper=[],reserve_direct=3,reserve_shape='',reserve_places=[])))
+def profile(country,runtime=False):
+    result=dict(catalogue()['profiles'].get(country,dict(direct=3,shape='',places=[],upper=[],reserve_direct=3,reserve_shape='',reserve_places=[])))
+    if runtime:
+        updates={
+            'Sweden':dict(direct=2,shape='swedish',places=[3,4],upper=[-3]),
+            'South Africa':dict(direct=1,shape='group_cross',places=[2,3],upper=[-2],reserve_direct=2,reserve_shape='',reserve_places=[]),
+            'China':dict(direct=2,shape='',places=[],upper=[],reserve_direct=2,reserve_shape='',reserve_places=[]),
+            'Vietnam':dict(direct=2,shape='',places=[],upper=[],reserve_direct=2,reserve_shape='',reserve_places=[]),
+        }
+        result.update(updates.get(country,{}))
+    return result
 
 def eligible_table(league):
     blocked=set(catalogue()['ineligible_for_first_division'])
@@ -23,7 +32,7 @@ def game(key,a,b,legs=2,decision='extra_pens',title=None,qualifies=False,neutral
     return dict(id=key,home=a,away=b,legs=legs,decision=decision,title=title,qualifies=qualifies,neutral=neutral,seed_second=seed_second)
 
 def build_tournament(country,upper,lower,seed,week,*,reserve=False,queue=None):
-    p=profile(country);shape=p['reserve_shape'] if reserve else p['shape'];plan=[]
+    p=profile(country,bool(lower.format_key));shape=p['reserve_shape'] if reserve else p['shape'];plan=[]
     if not shape:return None
     top=lower.table() if reserve else eligible_table(lower);high=upper.table() if not reserve else top
     if reserve:
@@ -43,7 +52,15 @@ def build_tournament(country,upper,lower,seed,week,*,reserve=False,queue=None):
             from world_competitions import rng_for
             if rng_for(seed,country,key,'venue').randrange(2):a,b=b,a
         return game(key,a,b)
-    if shape in ('cross','parallel_cross'):
+    if shape=='group_cross':
+        from world_competitions import Tournament
+        cup=Tournament('playoff:'+country+':2',country+' Promotion playoff',[team(c) for c in selected+challengers],str(seed),kind='qualifying',groups=1,group_legs=2,slots=1,start_week=week)
+        for fixture in cup.fixtures:fixture['week']=week+(fixture['week']-week)//2
+        cup.last_week=max(f['week'] for f in cup.fixtures)
+        return cup
+    if shape=='swedish':
+        plan=[[game('preliminary',uid(1),uid(0))],[cross('win:preliminary',challengers[0].uid)]]
+    elif shape in ('cross','parallel_cross'):
         if len(selected)!=len(challengers):raise ValueError('Invalid cross-division field')
         plan=[[cross(a.uid,b.uid,'final'+str(i)) for i,(a,b) in enumerate(zip(selected,reversed(challengers)))]]
     elif shape=='playout':
@@ -105,7 +122,7 @@ def build_tournament(country,upper,lower,seed,week,*,reserve=False,queue=None):
 
 
 def direct_up(lower):
-    p=profile(lower.country);n=p['direct']
+    p=profile(lower.country,bool(lower.format_key));n=p['direct']
     if p['shape']=='italian':
         t=eligible_table(lower)
         if t[2].points-t[3].points>14:n=3
@@ -114,7 +131,7 @@ def direct_up(lower):
 
 def movements(upper,lower,book):
     """Freeze and validate participants before moving either boundary."""
-    up=direct_up(lower);p=profile(lower.country);cup=book.tournaments.get('playoff:'+lower.country+':2')
+    up=direct_up(lower);p=profile(lower.country,bool(lower.format_key));cup=book.tournaments.get('playoff:'+lower.country+':2')
     if cup:
         if not cup.champion:raise ValueError('Unplayed promotion playoff')
         available={c.uid:c for c in upper.clubs+lower.clubs}
@@ -129,7 +146,7 @@ def movements(upper,lower,book):
 
 
 def reserve_movements(lower,queue,book):
-    p=profile(lower.country);n=p['reserve_direct'];down=lower.table()[-n:] if n else [];up=queue[:n]
+    p=profile(lower.country,bool(lower.format_key));n=p['reserve_direct'];down=lower.table()[-n:] if n else [];up=queue[:n]
     cup=book.tournaments.get('playoff:'+lower.country+':reserve')
     if cup:
         if not cup.champion:raise ValueError('Unplayed relegation playoff')

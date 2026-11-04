@@ -319,7 +319,14 @@ class CareerMenu(BoxLayout):
     def _standing_position(self,league,position):
         zones=self._table_zones(league)
         marker={'promotion':'P','playoff':'PO','relegation':'R'}.get(zones.at(position) if zones else '')
-        return f'{position} {marker}' if marker else position
+        suffix=''
+        if league.format_groups and len(league.format_groups)>1:
+            end=0
+            for group,ids in enumerate(league.format_groups):
+                end+=len(ids)
+                if position<=end:suffix=chr(65+group);break
+        value=f'{position}{suffix}' if suffix else position
+        return f'{value} {marker}' if marker else value
 
     def _compact_list(self):
         c = self.game.career
@@ -327,7 +334,9 @@ class CareerMenu(BoxLayout):
             rows = [(self._standing_position(c.current_league, i + 1), c.display_club(club), club.played, club.won, club.drawn, club.lost,
                      club.goals_for, club.goals_against, club.goal_difference, club.points)
                     for i, club in enumerate(c.current_league.table())]
-            return CompactTable(self.game.i18n.tr('STANDINGS') + ' · ' + self.game.i18n.league(c,c.current_league),
+            groups=c.current_league.format_groups
+            phase=' · '+self.game.i18n.tr('Group {number}',number='/'.join(chr(65+i) for i in range(len(groups)))) if groups and len(groups)>1 else ''
+            return CompactTable(self.game.i18n.tr('STANDINGS') + ' · ' + self.game.i18n.league(c,c.current_league)+phase,
                                 ('POS', 'CLUB', 'P', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'PTS'),
                                 rows, focus=c.display_text(c.club_name), summary=(0, 1, 2, 8, 9), detail=(0, 1, 3, 4, 5, 6, 7),title_localize=False,zones=self._table_zones(c.current_league))
         if self.game.view == 'scorers':

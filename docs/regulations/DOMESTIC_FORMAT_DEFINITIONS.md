@@ -2,157 +2,157 @@
 
 Reviewed on 2026-11-04. 144 records in 92 countries: 133 regular structures reviewed and 11 partial definitions. All 212 game countries are indexed.
 
-These definitions do not alter the released APK or saved careers. A sourced identity is not a reviewed format; a reviewed structure is not a full implemented country model.
+QA0.9.7 uses the separate domestic_formats runtime asset for supported regular capacities/splits in new careers. Old careers retain their saved model. Access rules and complete country formats remain separate; no full-country certification is implied.
 
 | Country | Tier | Competition / season | Teams | Phases | Regular games | Status |
 |---|---:|---|---:|---|---|---|
-| Austria | 1 | Austrian Bundesliga / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 32 | structure_reviewed |
-| Austria | 2 | 2. Liga / 2026–27 | 16 | round_robin | 30 | structure_reviewed |
-| Azerbaijan | 1 | Azerbaijan Premier League / 2026–27 | 12 | round_robin | 33 | structure_reviewed |
-| Azerbaijan | 2 | Azerbaijan First League / 2025–26 | 10 | round_robin | 27 | structure_reviewed |
-| Belarus | 1 | Belarusian Premier League / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Belgium | 1 | Belgian Pro League / 2026–27 | 18 | round_robin → pending_review | 34 | structure_reviewed |
-| Belgium | 2 | Challenger Pro League / 2026–27 | 15 | round_robin → pending_review | 28 | structure_reviewed |
-| Bulgaria | 1 | First Professional Football League / 2026–27 | 14 | pending_review | phase dependent | partially_defined |
-| Croatia | 1 | Croatian Football League / 2026–27 | 10 | round_robin → pending_review | 36 | structure_reviewed |
-| Croatia | 2 | First Football League (Croatia) / 2026–27 | 12 | round_robin → pending_review | 33 | structure_reviewed |
-| Cyprus | 1 | Cypriot First Division / 2026–27 | 14 | round_robin → split_round_robin | 33, 36 | structure_reviewed |
-| Cyprus | 2 | Cypriot Second Division / 2025–26 | 16 | round_robin → split_round_robin | 29 | structure_reviewed |
-| Czechia | 1 | Czech First League / 2026–27 | 16 | round_robin → qualified_round_robin → qualified_round_robin → external_playoff → external_playoff | phase dependent | structure_reviewed |
-| Czechia | 2 | Czech National Football League / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Denmark | 1 | Danish Superliga / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 32 | structure_reviewed |
-| Denmark | 2 | Danish 1st Division / 2026–27 | 12 | round_robin → split_round_robin | 32 | structure_reviewed |
-| England | 1 | Premier League / 2026–27 | 20 | round_robin | 38 | structure_reviewed |
-| England | 2 | EFL Championship / 2026–27 | 24 | round_robin → knockout | 46 | structure_reviewed |
-| Estonia | 1 | Meistriliiga / 2026 | 10 | round_robin → external_playoff | 36 | structure_reviewed |
-| Estonia | 2 | Esiliiga / 2026 | 10 | round_robin → external_playoff → external_playoff | 36 | structure_reviewed |
-| Finland | 1 | Veikkausliiga / 2026 | 12 | round_robin → split_round_robin → external_playoff | 27, 32 | structure_reviewed |
-| Finland | 2 | Ykkösliiga / 2026 | 10 | round_robin → round_robin → external_playoff → external_playoff | 27 | structure_reviewed |
-| France | 1 | Ligue 1 / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed |
-| France | 2 | Ligue 2 / 2026–27 | 18 | round_robin → external_playoff → external_playoff → external_playoff → external_playoff | 34 | structure_reviewed |
-| Georgia | 2 | Erovnuli Liga 2 / 2026 | 10 | round_robin → external_playoff → external_playoff | 36 | structure_reviewed |
-| Germany | 1 | Bundesliga / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed |
-| Germany | 2 | 2. Bundesliga / 2026–27 | 18 | round_robin → external_playoff → external_playoff | 34 | structure_reviewed |
-| Gibraltar | 1 | Gibraltar Football League / 2026–27 | 11 | round_robin → qualified_round_robin → pending_review | phase dependent | partially_defined |
+| Austria | 1 | Austrian Bundesliga / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 32 | structure_reviewed / regular_structure_integrated |
+| Austria | 2 | 2. Liga / 2026–27 | 16 | round_robin | 30 | structure_reviewed / regular_structure_integrated |
+| Azerbaijan | 1 | Azerbaijan Premier League / 2026–27 | 12 | round_robin | 33 | structure_reviewed / regular_structure_integrated |
+| Azerbaijan | 2 | Azerbaijan First League / 2025–26 | 10 | round_robin | 27 | structure_reviewed / regular_structure_integrated |
+| Belarus | 1 | Belarusian Premier League / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed / not_integrated |
+| Belgium | 1 | Belgian Pro League / 2026–27 | 18 | round_robin → pending_review | 34 | structure_reviewed / not_integrated |
+| Belgium | 2 | Challenger Pro League / 2026–27 | 15 | round_robin → pending_review | 28 | structure_reviewed / not_integrated |
+| Bulgaria | 1 | First Professional Football League / 2026–27 | 14 | pending_review | phase dependent | partially_defined / not_integrated |
+| Croatia | 1 | Croatian Football League / 2026–27 | 10 | round_robin → pending_review | 36 | structure_reviewed / regular_structure_integrated |
+| Croatia | 2 | First Football League (Croatia) / 2026–27 | 12 | round_robin → pending_review | 33 | structure_reviewed / regular_structure_integrated |
+| Cyprus | 1 | Cypriot First Division / 2026–27 | 14 | round_robin → split_round_robin | 33, 36 | structure_reviewed / regular_structure_integrated |
+| Cyprus | 2 | Cypriot Second Division / 2025–26 | 16 | round_robin → split_round_robin | 29 | structure_reviewed / regular_structure_integrated |
+| Czechia | 1 | Czech First League / 2026–27 | 16 | round_robin → qualified_round_robin → qualified_round_robin → external_playoff → external_playoff | phase dependent | structure_reviewed / not_integrated |
+| Czechia | 2 | Czech National Football League / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed / not_integrated |
+| Denmark | 1 | Danish Superliga / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 32 | structure_reviewed / regular_structure_integrated |
+| Denmark | 2 | Danish 1st Division / 2026–27 | 12 | round_robin → split_round_robin | 32 | structure_reviewed / regular_structure_integrated |
+| England | 1 | Premier League / 2026–27 | 20 | round_robin | 38 | structure_reviewed / regular_structure_integrated |
+| England | 2 | EFL Championship / 2026–27 | 24 | round_robin → knockout | 46 | structure_reviewed / regular_structure_integrated |
+| Estonia | 1 | Meistriliiga / 2026 | 10 | round_robin → external_playoff | 36 | structure_reviewed / regular_structure_integrated |
+| Estonia | 2 | Esiliiga / 2026 | 10 | round_robin → external_playoff → external_playoff | 36 | structure_reviewed / regular_structure_integrated |
+| Finland | 1 | Veikkausliiga / 2026 | 12 | round_robin → split_round_robin → external_playoff | 27, 32 | structure_reviewed / regular_structure_integrated |
+| Finland | 2 | Ykkösliiga / 2026 | 10 | round_robin → round_robin → external_playoff → external_playoff | 27 | structure_reviewed / regular_structure_integrated |
+| France | 1 | Ligue 1 / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed / regular_structure_integrated |
+| France | 2 | Ligue 2 / 2026–27 | 18 | round_robin → external_playoff → external_playoff → external_playoff → external_playoff | 34 | structure_reviewed / regular_structure_integrated |
+| Georgia | 2 | Erovnuli Liga 2 / 2026 | 10 | round_robin → external_playoff → external_playoff | 36 | structure_reviewed / not_integrated |
+| Germany | 1 | Bundesliga / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed / regular_structure_integrated |
+| Germany | 2 | 2. Bundesliga / 2026–27 | 18 | round_robin → external_playoff → external_playoff | 34 | structure_reviewed / regular_structure_integrated |
+| Gibraltar | 1 | Gibraltar Football League / 2026–27 | 11 | round_robin → qualified_round_robin → pending_review | phase dependent | partially_defined / not_integrated |
 | Gibraltar | 2 | No separate senior competition at this tier | — | — | — | Sourced exception |
-| Greece | 2 | Super League Greece 2 / 2026–27 | 16 | round_robin | 30 | structure_reviewed |
-| Hungary | 1 | Nemzeti Bajnokság I / 2026–27 | 12 | round_robin → pending_review | 33 | structure_reviewed |
-| Hungary | 2 | Nemzeti Bajnokság II / 2026–27 | 16 | round_robin → pending_review | 30 | structure_reviewed |
-| Israel | 1 | Israeli Premier League / 2026–27 | 14 | round_robin → split_round_robin | 33, 36 | structure_reviewed |
-| Italy | 1 | Serie A / 2026–27 | 20 | round_robin | 38 | structure_reviewed |
-| Italy | 2 | Serie B / 2026–27 | 20 | round_robin → knockout → external_playoff | 38 | structure_reviewed |
-| Kazakhstan | 1 | Kazakhstan Premier League / 2026 | 16 | pending_review | phase dependent | partially_defined |
-| Kosovo | 1 | Football Superleague of Kosovo / 2026–27 | 10 | round_robin | 36 | structure_reviewed |
-| Latvia | 1 | Latvian Higher League / 2026 | 10 | round_robin → external_playoff | 36 | structure_reviewed |
+| Greece | 2 | Super League Greece 2 / 2026–27 | 16 | round_robin | 30 | structure_reviewed / not_integrated |
+| Hungary | 1 | Nemzeti Bajnokság I / 2026–27 | 12 | round_robin → pending_review | 33 | structure_reviewed / regular_structure_integrated |
+| Hungary | 2 | Nemzeti Bajnokság II / 2026–27 | 16 | round_robin → pending_review | 30 | structure_reviewed / regular_structure_integrated |
+| Israel | 1 | Israeli Premier League / 2026–27 | 14 | round_robin → split_round_robin | 33, 36 | structure_reviewed / not_integrated |
+| Italy | 1 | Serie A / 2026–27 | 20 | round_robin | 38 | structure_reviewed / regular_structure_integrated |
+| Italy | 2 | Serie B / 2026–27 | 20 | round_robin → knockout → external_playoff | 38 | structure_reviewed / regular_structure_integrated |
+| Kazakhstan | 1 | Kazakhstan Premier League / 2026 | 16 | pending_review | phase dependent | partially_defined / not_integrated |
+| Kosovo | 1 | Football Superleague of Kosovo / 2026–27 | 10 | round_robin | 36 | structure_reviewed / not_integrated |
+| Latvia | 1 | Latvian Higher League / 2026 | 10 | round_robin → external_playoff | 36 | structure_reviewed / not_integrated |
 | Liechtenstein | — | No domestic league; clubs use the Swiss pyramid | — | — | — | Confirmed exception |
-| Lithuania | 1 | Toplyga / 2026 | 10 | round_robin → external_playoff | 36 | structure_reviewed |
-| Luxembourg | 1 | National Division / 2026–27 | 16 | round_robin → external_playoff → external_playoff | 30 | structure_reviewed |
-| Malta | 1 | Maltese Premier League / 2026–27 | 12 | round_robin → split_round_robin → round_robin → split_round_robin → pending_review | 32 | structure_reviewed |
-| Netherlands | 1 | Eredivisie / 2026–27 | 18 | round_robin → pending_review | 34 | structure_reviewed |
-| Netherlands | 2 | Eerste Divisie / 2026–27 | 20 | round_robin → pending_review | 38 | structure_reviewed |
-| Northern Ireland | 1 | NIFL Premiership / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 38 | structure_reviewed |
-| Northern Ireland | 2 | NIFL Championship / 2026–27 | 16 | round_robin → split_round_robin → external_playoff → external_playoff | 37 | structure_reviewed |
-| Norway | 1 | Eliteserien / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Norway | 2 | Norwegian First Division / 2026 | 16 | round_robin → external_playoff → external_playoff | 30 | structure_reviewed |
-| Poland | 1 | Ekstraklasa / 2026–27 | 18 | round_robin → pending_review | 34 | structure_reviewed |
-| Poland | 2 | I liga / 2026–27 | 18 | round_robin → pending_review | 34 | structure_reviewed |
-| Portugal | 1 | Primeira Liga / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed |
-| Portugal | 2 | Liga Portugal 2 / 2026–27 | 18 | round_robin → external_playoff → external_playoff | 34 | structure_reviewed |
-| Republic of Ireland | 1 | League of Ireland Premier Division / 2026 | 10 | round_robin → pending_review | 36 | structure_reviewed |
-| Republic of Ireland | 2 | League of Ireland First Division / 2026 | 10 | round_robin → pending_review | 36 | structure_reviewed |
-| Romania | 1 | Liga I / 2026–27 | 16 | round_robin → split_round_robin → external_playoff → external_playoff | 39, 40 | structure_reviewed |
-| Russia | 1 | Russian Premier League / 2026–27 | 16 | round_robin → external_playoff → external_playoff | 30 | structure_reviewed |
-| San Marino | 1 | Campionato Sammarinese / 2025–26 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
+| Lithuania | 1 | Toplyga / 2026 | 10 | round_robin → external_playoff | 36 | structure_reviewed / not_integrated |
+| Luxembourg | 1 | National Division / 2026–27 | 16 | round_robin → external_playoff → external_playoff | 30 | structure_reviewed / not_integrated |
+| Malta | 1 | Maltese Premier League / 2026–27 | 12 | round_robin → split_round_robin → round_robin → split_round_robin → pending_review | 32 | structure_reviewed / not_integrated |
+| Netherlands | 1 | Eredivisie / 2026–27 | 18 | round_robin → pending_review | 34 | structure_reviewed / regular_structure_integrated |
+| Netherlands | 2 | Eerste Divisie / 2026–27 | 20 | round_robin → pending_review | 38 | structure_reviewed / regular_structure_integrated |
+| Northern Ireland | 1 | NIFL Premiership / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 38 | structure_reviewed / regular_structure_integrated |
+| Northern Ireland | 2 | NIFL Championship / 2026–27 | 16 | round_robin → split_round_robin → external_playoff → external_playoff | 37 | structure_reviewed / regular_structure_integrated |
+| Norway | 1 | Eliteserien / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| Norway | 2 | Norwegian First Division / 2026 | 16 | round_robin → external_playoff → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| Poland | 1 | Ekstraklasa / 2026–27 | 18 | round_robin → pending_review | 34 | structure_reviewed / regular_structure_integrated |
+| Poland | 2 | I liga / 2026–27 | 18 | round_robin → pending_review | 34 | structure_reviewed / regular_structure_integrated |
+| Portugal | 1 | Primeira Liga / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed / regular_structure_integrated |
+| Portugal | 2 | Liga Portugal 2 / 2026–27 | 18 | round_robin → external_playoff → external_playoff | 34 | structure_reviewed / regular_structure_integrated |
+| Republic of Ireland | 1 | League of Ireland Premier Division / 2026 | 10 | round_robin → pending_review | 36 | structure_reviewed / regular_structure_integrated |
+| Republic of Ireland | 2 | League of Ireland First Division / 2026 | 10 | round_robin → pending_review | 36 | structure_reviewed / regular_structure_integrated |
+| Romania | 1 | Liga I / 2026–27 | 16 | round_robin → split_round_robin → external_playoff → external_playoff | 39, 40 | structure_reviewed / not_integrated |
+| Russia | 1 | Russian Premier League / 2026–27 | 16 | round_robin → external_playoff → external_playoff | 30 | structure_reviewed / not_integrated |
+| San Marino | 1 | Campionato Sammarinese / 2025–26 | 16 | round_robin → external_playoff | 30 | structure_reviewed / not_integrated |
 | San Marino | 2 | No separate senior competition at this tier | — | — | — | Sourced exception |
-| Scotland | 1 | Scottish Premiership / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 38 | structure_reviewed |
-| Scotland | 2 | Scottish Championship / 2026–27 | 10 | round_robin → external_playoff → external_playoff | 36 | structure_reviewed |
-| Slovakia | 1 | Slovak First Football League / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 32 | structure_reviewed |
-| Slovakia | 2 | 2. Liga / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Slovenia | 1 | Slovenian PrvaLiga / 2026–27 | 10 | round_robin → pending_review | 36 | structure_reviewed |
-| Slovenia | 2 | Slovenian Second League / 2026–27 | 16 | round_robin → pending_review | 30 | structure_reviewed |
-| Spain | 1 | La Liga / 2026–27 | 20 | round_robin | 38 | structure_reviewed |
-| Spain | 2 | Segunda División / 2026–27 | 22 | round_robin → knockout | 42 | structure_reviewed |
-| Sweden | 1 | Allsvenskan / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Sweden | 2 | Superettan / 2026 | 16 | round_robin → external_playoff → external_playoff | 30 | structure_reviewed |
-| Switzerland | 1 | Swiss Super League / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 38 | structure_reviewed |
-| Switzerland | 2 | Swiss Challenge League / 2026–27 | 10 | round_robin → external_playoff | 36 | structure_reviewed |
-| Turkey | 1 | Süper Lig / 2026–27 | 18 | round_robin → pending_review | 34 | structure_reviewed |
-| Turkey | 2 | TFF 1. Lig / 2026–27 | 20 | round_robin → pending_review | 38 | structure_reviewed |
-| Wales | 1 | Cymru Premier / 2026–27 | 16 | round_robin → split_round_robin → external_playoff → external_playoff | 33, 35 | structure_reviewed |
-| Wales | 2 | Cymru North / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Wales | 2 | Cymru South / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Argentina | 1 | Liga Profesional de Fútbol / 2026 | 30 | round_robin → knockout → round_robin → knockout | 32 | structure_reviewed |
-| Argentina | 2 | Primera Nacional / 2026 | 36 | round_robin → external_playoff → external_playoff | 36 | structure_reviewed |
-| Bolivia | 1 | FBF División Profesional / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Brazil | 1 | Campeonato Brasileiro Série A / 2026 | 20 | round_robin | 38 | structure_reviewed |
-| Brazil | 2 | Campeonato Brasileiro Série B / 2026 | 20 | round_robin → knockout | 38 | structure_reviewed |
-| Chile | 1 | Liga de Primera / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Chile | 2 | Liga de Ascenso / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Colombia | 1 | Liga DIMAYOR / 2026 | 20 | round_robin → external_playoff → round_robin → qualified_round_robin → external_playoff | phase dependent | partially_defined |
-| Ecuador | 1 | LigaPro Serie A / 2026 | 16 | round_robin → split_round_robin | 36, 40 | structure_reviewed |
-| Paraguay | 1 | Copa de Primera / 2026 | 12 | round_robin → round_robin | 44 | structure_reviewed |
-| Paraguay | 2 | APF División Intermedia / 2026 | 16 | round_robin | 30 | structure_reviewed |
-| Peru | 1 | Liga 1 / 2026 | 18 | round_robin → round_robin → external_playoff | 34 | structure_reviewed |
-| Peru | 2 | Liga 2 / 2026 | 18 | round_robin → qualified_round_robin → pending_review → bracket_graph | phase dependent | partially_defined |
-| Uruguay | 1 | Liga AUF Uruguaya / 2026 | 16 | round_robin → round_robin → knockout → round_robin → external_playoff | 37 | structure_reviewed |
-| Uruguay | 2 | Segunda División Profesional / 2026 | 14 | round_robin → knockout → round_robin → knockout → pending_review | 32 | structure_reviewed |
-| British Virgin Islands | 1 | BVIFA National Football League / 2024–25 | 11 | round_robin | 20 | structure_reviewed |
-| Canada | 1 | Canadian Premier League / 2026 | 8 | round_robin → knockout | 28 | structure_reviewed |
-| Dominica | 1 | Dominica Premier League / 2026 | 10 | round_robin | 18 | structure_reviewed |
-| Jamaica | 1 | Jamaica Premier League / 2026–27 | 14 | round_robin → knockout | 39 | structure_reviewed |
-| Panama | 1 | Liga Panameña de Fútbol / 2026 | 12 | round_robin → knockout → round_robin → knockout | 32 | structure_reviewed |
-| United States | 1 | Major League Soccer / 2026 | 30 | scheduled_league → knockout | 34 | structure_reviewed |
-| United States | 2 | USL Championship / 2026 | 25 | scheduled_league → knockout | 30 | partially_defined |
-| Australia | 1 | A-League Men / 2026–27 | 12 | scheduled_league → knockout | 26 | structure_reviewed |
-| Bahrain | 1 | Bahraini Premier League / 2025–26 | 12 | round_robin → external_playoff | 22 | structure_reviewed |
-| Bahrain | 2 | Bahraini Second Division / 2025–26 | 12 | round_robin → external_playoff | 22 | structure_reviewed |
-| Bangladesh | 1 | Bangladesh Football League / 2025–26 | 10 | round_robin | 18 | structure_reviewed |
-| Bhutan | 1 | Bhutan Premier League / 2025 | 10 | round_robin | 18 | structure_reviewed |
-| China | 1 | Chinese Super League / 2026 | 16 | round_robin | 30 | structure_reviewed |
-| China | 2 | China League One / 2026 | 16 | round_robin | 30 | structure_reviewed |
-| Indonesia | 1 | Super League / 2026–27 | 18 | round_robin | 34 | structure_reviewed |
-| Indonesia | 2 | Championship / 2026–27 | 20 | round_robin → knockout → knockout | 27 | structure_reviewed |
-| Iran | 1 | Persian Gulf Pro League / 2026–27 | 18 | round_robin | 34 | structure_reviewed |
-| Iraq | 1 | Iraq Stars League / 2026–27 | 20 | round_robin → pending_review | 38 | structure_reviewed |
-| Iraq | 2 | Iraqi Premier Division League / 2026–27 | 20 | round_robin → pending_review | 38 | structure_reviewed |
-| Japan | 1 | J1 League / 2026–27 | 20 | round_robin | 38 | structure_reviewed |
-| Japan | 2 | J2 League / 2026–27 | 20 | round_robin → knockout | 38 | structure_reviewed |
-| Lebanon | 1 | Lebanese Premier League / 2026–27 | 12 | round_robin → split_round_robin | 32 | partially_defined |
-| Mongolia | 1 | MFF Developmental League interim season / 2026 | 9 | round_robin → split_round_robin | 14, 16 | partially_defined |
-| Myanmar | 1 | M League / 2025–26 | 12 | round_robin | 22 | structure_reviewed |
-| Saudi Arabia | 1 | Saudi Pro League / 2026–27 | 18 | round_robin | 34 | structure_reviewed |
-| Saudi Arabia | 2 | Saudi First Division League / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed |
-| Singapore | 1 | Singapore Premier League / 2026–27 | 8 | round_robin | 28 | structure_reviewed |
-| South Korea | 1 | K League 1 / 2026 | 12 | round_robin → split_round_robin → external_playoff | 38 | structure_reviewed |
-| South Korea | 2 | K League 2 / 2026 | 17 | round_robin → knockout → external_playoff → external_playoff | 32 | structure_reviewed |
-| Sri Lanka | 1 | Sri Lanka Super League / 2026 | 10 | round_robin → pending_review | phase dependent | partially_defined |
-| Thailand | 1 | Thai League 1 / 2026–27 | 16 | round_robin | 30 | structure_reviewed |
-| Thailand | 2 | Thai League 2 / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed |
-| Vietnam | 1 | V.League 1 / 2026–27 | 14 | round_robin | 26 | structure_reviewed |
-| Vietnam | 2 | V.League 2 / 2026–27 | 14 | round_robin | 26 | structure_reviewed |
-| Algeria | 1 | Algerian Ligue Professionnelle 1 / 2026–27 | 16 | round_robin | 30 | structure_reviewed |
-| Algeria | 2 | Algerian League 2 / 2026–27 | 32 | pending_review | phase dependent | partially_defined |
-| Botswana | 1 | Botswana Premier League / 2026–27 | 16 | round_robin | 30 | structure_reviewed |
-| Burundi | 1 | Burundi Ligue A / 2024–25 | 16 | round_robin | 30 | structure_reviewed |
-| Ethiopia | 1 | Ethiopian Premier League / 2025–26 | 20 | round_robin | 38 | structure_reviewed |
-| Ghana | 1 | Ghana Premier League / 2026–27 | 18 | round_robin | 34 | structure_reviewed |
-| Ghana | 2 | Division One League / 2026–27 | 48 | round_robin → pending_review | 28, 30 | structure_reviewed |
-| Kenya | 1 | Kenyan Premier League / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed |
-| Kenya | 2 | Kenyan National Super League / 2025–26 | 20 | round_robin → external_playoff | 38 | structure_reviewed |
-| Lesotho | 1 | Lesotho Premier League / 2026–27 | 16 | round_robin | 30 | structure_reviewed |
-| Malawi | 1 | Super League of Malawi / 2026 | 16 | round_robin | 30 | structure_reviewed |
-| Morocco | 1 | Botola Pro / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Nigeria | 1 | Nigeria Premier Football League / 2026–27 | 20 | round_robin | 38 | structure_reviewed |
-| Nigeria | 2 | Nigeria National League / 2026–27 | 34 | pending_review → external_playoff | phase dependent | partially_defined |
-| South Africa | 1 | South African Premiership / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| South Africa | 2 | National First Division / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Tanzania | 1 | Tanzanian Premier League / 2025–26 | 16 | round_robin → external_playoff | 30 | structure_reviewed |
-| Tanzania | 2 | Tanzanian Championship League / 2025–26 | 16 | round_robin → external_playoff → external_playoff | 30 | structure_reviewed |
-| Tunisia | 1 | Tunisian Ligue Professionnelle 1 / 2026–27 | 16 | round_robin | 30 | structure_reviewed |
-| Tunisia | 2 | Tunisian Ligue Professionnelle 2 / 2026–27 | 28 | round_robin → knockout → knockout | 26 | structure_reviewed |
-| Zimbabwe | 1 | Zimbabwe Premier Soccer League / 2026 | 18 | round_robin | 34 | structure_reviewed |
-| Cook Islands | 1 | Rarotonga Round Cup / 2026 | 6 | round_robin | 15 | structure_reviewed |
-| Tahiti | 1 | Ligue 1 / 2026–27 | 16 | round_robin | 15 | structure_reviewed |
+| Scotland | 1 | Scottish Premiership / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 38 | structure_reviewed / regular_structure_integrated |
+| Scotland | 2 | Scottish Championship / 2026–27 | 10 | round_robin → external_playoff → external_playoff | 36 | structure_reviewed / regular_structure_integrated |
+| Slovakia | 1 | Slovak First Football League / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 32 | structure_reviewed / regular_structure_integrated |
+| Slovakia | 2 | 2. Liga / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| Slovenia | 1 | Slovenian PrvaLiga / 2026–27 | 10 | round_robin → pending_review | 36 | structure_reviewed / regular_structure_integrated |
+| Slovenia | 2 | Slovenian Second League / 2026–27 | 16 | round_robin → pending_review | 30 | structure_reviewed / regular_structure_integrated |
+| Spain | 1 | La Liga / 2026–27 | 20 | round_robin | 38 | structure_reviewed / regular_structure_integrated |
+| Spain | 2 | Segunda División / 2026–27 | 22 | round_robin → knockout | 42 | structure_reviewed / regular_structure_integrated |
+| Sweden | 1 | Allsvenskan / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| Sweden | 2 | Superettan / 2026 | 16 | round_robin → external_playoff → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| Switzerland | 1 | Swiss Super League / 2026–27 | 12 | round_robin → split_round_robin → external_playoff | 38 | structure_reviewed / regular_structure_integrated |
+| Switzerland | 2 | Swiss Challenge League / 2026–27 | 10 | round_robin → external_playoff | 36 | structure_reviewed / regular_structure_integrated |
+| Turkey | 1 | Süper Lig / 2026–27 | 18 | round_robin → pending_review | 34 | structure_reviewed / regular_structure_integrated |
+| Turkey | 2 | TFF 1. Lig / 2026–27 | 20 | round_robin → pending_review | 38 | structure_reviewed / regular_structure_integrated |
+| Wales | 1 | Cymru Premier / 2026–27 | 16 | round_robin → split_round_robin → external_playoff → external_playoff | 33, 35 | structure_reviewed / not_integrated |
+| Wales | 2 | Cymru North / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed / not_integrated |
+| Wales | 2 | Cymru South / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed / not_integrated |
+| Argentina | 1 | Liga Profesional de Fútbol / 2026 | 30 | round_robin → knockout → round_robin → knockout | 32 | structure_reviewed / not_integrated |
+| Argentina | 2 | Primera Nacional / 2026 | 36 | round_robin → external_playoff → external_playoff | 36 | structure_reviewed / not_integrated |
+| Bolivia | 1 | FBF División Profesional / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed / not_integrated |
+| Brazil | 1 | Campeonato Brasileiro Série A / 2026 | 20 | round_robin | 38 | structure_reviewed / regular_structure_integrated |
+| Brazil | 2 | Campeonato Brasileiro Série B / 2026 | 20 | round_robin → knockout | 38 | structure_reviewed / regular_structure_integrated |
+| Chile | 1 | Liga de Primera / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| Chile | 2 | Liga de Ascenso / 2026 | 16 | round_robin → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| Colombia | 1 | Liga DIMAYOR / 2026 | 20 | round_robin → external_playoff → round_robin → qualified_round_robin → external_playoff | phase dependent | partially_defined / not_integrated |
+| Ecuador | 1 | LigaPro Serie A / 2026 | 16 | round_robin → split_round_robin | 36, 40 | structure_reviewed / not_integrated |
+| Paraguay | 1 | Copa de Primera / 2026 | 12 | round_robin → round_robin | 44 | structure_reviewed / regular_structure_integrated |
+| Paraguay | 2 | APF División Intermedia / 2026 | 16 | round_robin | 30 | structure_reviewed / regular_structure_integrated |
+| Peru | 1 | Liga 1 / 2026 | 18 | round_robin → round_robin → external_playoff | 34 | structure_reviewed / not_integrated |
+| Peru | 2 | Liga 2 / 2026 | 18 | round_robin → qualified_round_robin → pending_review → bracket_graph | phase dependent | partially_defined / not_integrated |
+| Uruguay | 1 | Liga AUF Uruguaya / 2026 | 16 | round_robin → round_robin → knockout → round_robin → external_playoff | 37 | structure_reviewed / not_integrated |
+| Uruguay | 2 | Segunda División Profesional / 2026 | 14 | round_robin → knockout → round_robin → knockout → pending_review | 32 | structure_reviewed / not_integrated |
+| British Virgin Islands | 1 | BVIFA National Football League / 2024–25 | 11 | round_robin | 20 | structure_reviewed / not_integrated |
+| Canada | 1 | Canadian Premier League / 2026 | 8 | round_robin → knockout | 28 | structure_reviewed / not_integrated |
+| Dominica | 1 | Dominica Premier League / 2026 | 10 | round_robin | 18 | structure_reviewed / not_integrated |
+| Jamaica | 1 | Jamaica Premier League / 2026–27 | 14 | round_robin → knockout | 39 | structure_reviewed / not_integrated |
+| Panama | 1 | Liga Panameña de Fútbol / 2026 | 12 | round_robin → knockout → round_robin → knockout | 32 | structure_reviewed / not_integrated |
+| United States | 1 | Major League Soccer / 2026 | 30 | scheduled_league → knockout | 34 | structure_reviewed / not_integrated |
+| United States | 2 | USL Championship / 2026 | 25 | scheduled_league → knockout | 30 | partially_defined / not_integrated |
+| Australia | 1 | A-League Men / 2026–27 | 12 | scheduled_league → knockout | 26 | structure_reviewed / not_integrated |
+| Bahrain | 1 | Bahraini Premier League / 2025–26 | 12 | round_robin → external_playoff | 22 | structure_reviewed / regular_structure_integrated |
+| Bahrain | 2 | Bahraini Second Division / 2025–26 | 12 | round_robin → external_playoff | 22 | structure_reviewed / regular_structure_integrated |
+| Bangladesh | 1 | Bangladesh Football League / 2025–26 | 10 | round_robin | 18 | structure_reviewed / not_integrated |
+| Bhutan | 1 | Bhutan Premier League / 2025 | 10 | round_robin | 18 | structure_reviewed / not_integrated |
+| China | 1 | Chinese Super League / 2026 | 16 | round_robin | 30 | structure_reviewed / regular_structure_integrated |
+| China | 2 | China League One / 2026 | 16 | round_robin | 30 | structure_reviewed / regular_structure_integrated |
+| Indonesia | 1 | Super League / 2026–27 | 18 | round_robin | 34 | structure_reviewed / not_integrated |
+| Indonesia | 2 | Championship / 2026–27 | 20 | round_robin → knockout → knockout | 27 | structure_reviewed / not_integrated |
+| Iran | 1 | Persian Gulf Pro League / 2026–27 | 18 | round_robin | 34 | structure_reviewed / not_integrated |
+| Iraq | 1 | Iraq Stars League / 2026–27 | 20 | round_robin → pending_review | 38 | structure_reviewed / regular_structure_integrated |
+| Iraq | 2 | Iraqi Premier Division League / 2026–27 | 20 | round_robin → pending_review | 38 | structure_reviewed / regular_structure_integrated |
+| Japan | 1 | J1 League / 2026–27 | 20 | round_robin | 38 | structure_reviewed / regular_structure_integrated |
+| Japan | 2 | J2 League / 2026–27 | 20 | round_robin → knockout | 38 | structure_reviewed / regular_structure_integrated |
+| Lebanon | 1 | Lebanese Premier League / 2026–27 | 12 | round_robin → split_round_robin | 32 | partially_defined / not_integrated |
+| Mongolia | 1 | MFF Developmental League interim season / 2026 | 9 | round_robin → split_round_robin | 14, 16 | partially_defined / not_integrated |
+| Myanmar | 1 | M League / 2025–26 | 12 | round_robin | 22 | structure_reviewed / not_integrated |
+| Saudi Arabia | 1 | Saudi Pro League / 2026–27 | 18 | round_robin | 34 | structure_reviewed / regular_structure_integrated |
+| Saudi Arabia | 2 | Saudi First Division League / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed / regular_structure_integrated |
+| Singapore | 1 | Singapore Premier League / 2026–27 | 8 | round_robin | 28 | structure_reviewed / not_integrated |
+| South Korea | 1 | K League 1 / 2026 | 12 | round_robin → split_round_robin → external_playoff | 38 | structure_reviewed / not_integrated |
+| South Korea | 2 | K League 2 / 2026 | 17 | round_robin → knockout → external_playoff → external_playoff | 32 | structure_reviewed / not_integrated |
+| Sri Lanka | 1 | Sri Lanka Super League / 2026 | 10 | round_robin → pending_review | phase dependent | partially_defined / not_integrated |
+| Thailand | 1 | Thai League 1 / 2026–27 | 16 | round_robin | 30 | structure_reviewed / regular_structure_integrated |
+| Thailand | 2 | Thai League 2 / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed / regular_structure_integrated |
+| Vietnam | 1 | V.League 1 / 2026–27 | 14 | round_robin | 26 | structure_reviewed / regular_structure_integrated |
+| Vietnam | 2 | V.League 2 / 2026–27 | 14 | round_robin | 26 | structure_reviewed / regular_structure_integrated |
+| Algeria | 1 | Algerian Ligue Professionnelle 1 / 2026–27 | 16 | round_robin | 30 | structure_reviewed / not_integrated |
+| Algeria | 2 | Algerian League 2 / 2026–27 | 32 | pending_review | phase dependent | partially_defined / not_integrated |
+| Botswana | 1 | Botswana Premier League / 2026–27 | 16 | round_robin | 30 | structure_reviewed / not_integrated |
+| Burundi | 1 | Burundi Ligue A / 2024–25 | 16 | round_robin | 30 | structure_reviewed / not_integrated |
+| Ethiopia | 1 | Ethiopian Premier League / 2025–26 | 20 | round_robin | 38 | structure_reviewed / not_integrated |
+| Ghana | 1 | Ghana Premier League / 2026–27 | 18 | round_robin | 34 | structure_reviewed / not_integrated |
+| Ghana | 2 | Division One League / 2026–27 | 48 | round_robin → pending_review | 28, 30 | structure_reviewed / not_integrated |
+| Kenya | 1 | Kenyan Premier League / 2026–27 | 18 | round_robin → external_playoff | 34 | structure_reviewed / regular_structure_integrated |
+| Kenya | 2 | Kenyan National Super League / 2025–26 | 20 | round_robin → external_playoff | 38 | structure_reviewed / regular_structure_integrated |
+| Lesotho | 1 | Lesotho Premier League / 2026–27 | 16 | round_robin | 30 | structure_reviewed / not_integrated |
+| Malawi | 1 | Super League of Malawi / 2026 | 16 | round_robin | 30 | structure_reviewed / not_integrated |
+| Morocco | 1 | Botola Pro / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed / not_integrated |
+| Nigeria | 1 | Nigeria Premier Football League / 2026–27 | 20 | round_robin | 38 | structure_reviewed / not_integrated |
+| Nigeria | 2 | Nigeria National League / 2026–27 | 34 | pending_review → external_playoff | phase dependent | partially_defined / not_integrated |
+| South Africa | 1 | South African Premiership / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| South Africa | 2 | National First Division / 2026–27 | 16 | round_robin → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| Tanzania | 1 | Tanzanian Premier League / 2025–26 | 16 | round_robin → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| Tanzania | 2 | Tanzanian Championship League / 2025–26 | 16 | round_robin → external_playoff → external_playoff | 30 | structure_reviewed / regular_structure_integrated |
+| Tunisia | 1 | Tunisian Ligue Professionnelle 1 / 2026–27 | 16 | round_robin | 30 | structure_reviewed / not_integrated |
+| Tunisia | 2 | Tunisian Ligue Professionnelle 2 / 2026–27 | 28 | round_robin → knockout → knockout | 26 | structure_reviewed / not_integrated |
+| Zimbabwe | 1 | Zimbabwe Premier Soccer League / 2026 | 18 | round_robin | 34 | structure_reviewed / not_integrated |
+| Cook Islands | 1 | Rarotonga Round Cup / 2026 | 6 | round_robin | 15 | structure_reviewed / not_integrated |
+| Tahiti | 1 | Ligue 1 / 2026–27 | 16 | round_robin | 15 | structure_reviewed / not_integrated |
 
 ## Outstanding division reviews
 

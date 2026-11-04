@@ -50,7 +50,7 @@ class TwoDivisionTests(unittest.TestCase):
     def test_updated_name_pack_keeps_active_names_and_names_all_ten_reserves(self):
         from pathlib import Path
         root=Path(__file__).resolve().parents[1];old=json.loads((root/'docs/data/name-packs/Scorer-World-Real-Names-Divisions-2026.json').read_text());new=json.loads((root/'docs/data/name-packs/Scorer-World-Real-Names-Two-Divisions-2026.json').read_text())
-        c=self.career();c.apply_names(old);before=json.loads(c.save_path.read_text())['career'];c.apply_names(new);after=json.loads(c.save_path.read_text())['career']
+        c=CareerMode(Access(),autoload=False,starter_country='Portugal',save_slot='world',domestic_formats=False);c.accept_starting_offer(c.offers[0]);c.apply_names(old);before=json.loads(c.save_path.read_text())['career'];c.apply_names(new);after=json.loads(c.save_path.read_text())['career']
         self.assertEqual([k for k in before if before[k]!=after[k]],['display_aliases']);self.assertEqual(len(new['clubs']),352);self.assertEqual(len(new['leagues']),16)
         for country in ('Portugal','England','Spain','Germany','Italy','France','Brazil','Argentina'):
             for l in c.domestic_leagues(country):

@@ -49,7 +49,7 @@ def build(players_path,clubs_path,manifest_path,previous_path,layout="two-divisi
     from unittest.mock import patch
     access=type('WorldAccess',(),{'has_world_access':lambda _:True})()
     with tempfile.TemporaryDirectory() as folder,patch.dict(os.environ,STRIKER_SAVE_DIR=folder):
-        career=CareerMode(access,autoload=False,save_slot='world')
+        career=CareerMode(access,autoload=False,save_slot='world',domestic_formats=False)  # This historical pack pins the original UID slots.
         for (country,tier),division in registry.items():
             if layout=='two-divisions' and tier>3:continue
             league=career.leagues[f'{country}|{tier}']

@@ -194,7 +194,7 @@ def main():
     import os
     with tempfile.TemporaryDirectory() as temp:
         previous=os.environ.get('STRIKER_SAVE_DIR');os.environ['STRIKER_SAVE_DIR']=temp
-        try:career=CareerMode(Access(),autoload=False,save_slot='world')
+        try:career=CareerMode(Access(),autoload=False,save_slot='world',domestic_formats=False)
         finally:
             if previous is None:os.environ.pop('STRIKER_SAVE_DIR',None)
             else:os.environ['STRIKER_SAVE_DIR']=previous

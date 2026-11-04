@@ -47,3 +47,14 @@ Ghana’s final table uses head-to-head criteria while the interim table uses po
 South Africa’s primary rules4,7 and8 confirm16 clubs and30 home/away games per division, one direct exchange, two NFD demotions and a three-club promotion competition involving Premiership15th/NFD2nd/NFD3rd. Detailed promotion competition rules are separately promulgated under7.3.3, so no unverified two-legged elimination tie is supplied. Its table tie-breakers reapply the mini-table to clubs still tied after other clubs separate.
 
 The independently retrieved Nigerian grouping report is explicitly a proposal, not final approval. Proposed group sizes are validated for cardinality but are not scheduled as an approved round robin. The Mongolian2026 nine-club interim event is a one-off transition with8 initial games and5/4 winner/loser groups, not a permanent replacement of every future league season.
+
+## QA0.9.7 runtime boundary
+
+The owner paused further country expansion to request an APK update. The research
+baseline remains in reviewed.json; tools/build_runtime_domestic.py selects76
+executable regular/split definitions in38 countries into the separately packaged
+assets/data/domestic_formats.json. The generated catalogue overlays
+regular_structure_integrated only on these definitions. Full-country flags remain
+false because access/licence/tie clauses and complex formats are distinct work.
+Existing careers load with domestic_format_version0 and retain their original
+layout; new World careers use version1. See docs/RELEASE_0.9.7.md.

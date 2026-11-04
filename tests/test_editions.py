@@ -24,8 +24,8 @@ class EditionTests(unittest.TestCase):
             for product in ('free','world'):
                 root=prepare_edition(product,Path(temp)/product)
                 spec=configparser.ConfigParser(interpolation=None);spec.read(root/'buildozer.spec')
-                self.assertEqual(spec['app']['version'],'0.9.6')
-                self.assertEqual(spec['app']['android.numeric_version'],'1026906')
+                self.assertEqual(spec['app']['version'],'0.9.7')
+                self.assertEqual(spec['app']['android.numeric_version'],'1026907')
                 products[product]=spec['app']['package.domain']+'.'+spec['app']['package.name']
                 self.assertEqual(spec['app']['title'],'Scorer World' if product=='world' else 'Scorer')
                 expected_icon='assets/icon_world.png' if product=='world' else 'assets/icon.png'
@@ -35,7 +35,7 @@ class EditionTests(unittest.TestCase):
                     self.assertFalse((root/'assets/icon_world.png').exists())
                     self.assertFalse((root/'assets/menu_logo_world.png').exists())
                 else:self.assertEqual((root/'assets/menu_logo_world.png').read_bytes(),Path('assets/menu_logo_world.png').read_bytes())
-                for data_name in ('club_kits.json','domestic_profiles.json','international_calendar.json'):
+                for data_name in ('club_kits.json','domestic_profiles.json','international_calendar.json','domestic_formats.json'):
                     self.assertEqual((root/'assets/data'/data_name).read_bytes(),(Path('assets/data')/data_name).read_bytes())
                 self.assertFalse((root/'billing.py').exists())
                 self.assertFalse((root/'android/src/com/clemir/striker/billing').exists())

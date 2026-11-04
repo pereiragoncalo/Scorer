@@ -80,7 +80,7 @@ def table_zones(tier,team_count,active_tiers,*,simplified,country="",league=None
     if team_count<6:return TableZones()
     if simplified and country:
         from domestic_playoffs import profile,eligible_table,direct_up
-        p=profile(country);direct=p['direct'];shape=p['shape']
+        p=profile(country,bool(league and league.format_key));direct=p['direct'];shape=p['shape']
         extra=2 if shape in ('parallel','argentine') else 1 if shape else 0
         if tier==1:
             n=direct if p['upper'] else direct+extra

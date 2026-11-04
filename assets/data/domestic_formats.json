@@ -1,0 +1,2258 @@
+{
+  "version": 1,
+  "scope": "Regular league capacities and supported splits only; access models remain separately configured. Existing saves keep their original layout.",
+  "countries": {
+    "Austria": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              22
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              6,
+              6
+            ],
+            "legs": 2,
+            "points": "half_floor",
+            "intergroup_games": 0,
+            "games_per_club": [
+              10
+            ],
+            "rank_ranges": [
+              [
+                1,
+                6
+              ],
+              [
+                7,
+                12
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Austria:1:austrian-bundesliga",
+        "source_ids": [
+          "wiki:1381052204",
+          "wiki:1383249339"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Austria:2:2-liga",
+        "source_ids": [
+          "wiki:1380652255"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Azerbaijan": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 3,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              33
+            ]
+          }
+        ],
+        "definition_id": "Azerbaijan:1:azerbaijan-premier-league",
+        "source_ids": [
+          "wiki:1378352739",
+          "wiki:1383428757"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 10,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 3,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              27
+            ]
+          }
+        ],
+        "definition_id": "Azerbaijan:2:azerbaijan-first-league",
+        "source_ids": [
+          "wiki:1373680641"
+        ],
+        "season": "2025–26",
+        "full_country_rules": false
+      }
+    },
+    "Bahrain": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              22
+            ]
+          }
+        ],
+        "definition_id": "Bahrain:1:bahraini-premier-league",
+        "source_ids": [
+          "wiki:1376708008"
+        ],
+        "season": "2025–26",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              22
+            ]
+          }
+        ],
+        "definition_id": "Bahrain:2:bahraini-second-division",
+        "source_ids": [
+          "wiki:1369355261"
+        ],
+        "season": "2025–26",
+        "full_country_rules": false
+      }
+    },
+    "Brazil": {
+      "1": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Brazil:1:campeonato-brasileiro-s-rie-a",
+        "source_ids": [
+          "wiki:1382896065",
+          "wiki:1383585935"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Brazil:2:campeonato-brasileiro-s-rie-b",
+        "source_ids": [
+          "wiki:1383522903"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      }
+    },
+    "Chile": {
+      "1": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Chile:1:liga-de-primera",
+        "source_ids": [
+          "wiki:1383505720"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Chile:2:liga-de-ascenso",
+        "source_ids": [
+          "wiki:1382935886"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      }
+    },
+    "China": {
+      "1": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "China:1:chinese-super-league",
+        "source_ids": [
+          "wiki:1381564124",
+          "wiki:1382087997"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "China:2:china-league-one",
+        "source_ids": [
+          "wiki:1369485433",
+          "wiki:1382974897"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      }
+    },
+    "Croatia": {
+      "1": {
+        "teams": 10,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 4,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              36
+            ]
+          }
+        ],
+        "definition_id": "Croatia:1:croatian-football-league",
+        "source_ids": [
+          "wiki:1382086842"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 3,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              33
+            ]
+          }
+        ],
+        "definition_id": "Croatia:2:first-football-league-croatia",
+        "source_ids": [
+          "wiki:1375373021"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Cyprus": {
+      "1": {
+        "teams": 14,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              14
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              26
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              6,
+              8
+            ],
+            "legs": [
+              2,
+              1
+            ],
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              7,
+              10
+            ],
+            "rank_ranges": [
+              [
+                1,
+                6
+              ],
+              [
+                7,
+                14
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Cyprus:1:cypriot-first-division",
+        "source_ids": [
+          "wiki:1379166515",
+          "wiki:1383250397"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 1,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              15
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              8,
+              8
+            ],
+            "legs": 2,
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              14
+            ],
+            "rank_ranges": [
+              [
+                1,
+                8
+              ],
+              [
+                9,
+                16
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Cyprus:2:cypriot-second-division",
+        "source_ids": [
+          "wiki:1369633354",
+          "wiki:1365277013"
+        ],
+        "season": "2025–26",
+        "full_country_rules": false
+      }
+    },
+    "Denmark": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              22
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              6,
+              6
+            ],
+            "legs": 2,
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              10
+            ],
+            "rank_ranges": [
+              [
+                1,
+                6
+              ],
+              [
+                7,
+                12
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Denmark:1:danish-superliga",
+        "source_ids": [
+          "wiki:1381009651",
+          "wiki:1383573027"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              22
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              6,
+              6
+            ],
+            "legs": 2,
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              10
+            ],
+            "rank_ranges": [
+              [
+                1,
+                6
+              ],
+              [
+                7,
+                12
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Denmark:2:danish-1st-division",
+        "source_ids": [
+          "wiki:1381724353",
+          "wiki:1383250970"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "England": {
+      "1": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "England:1:premier-league",
+        "source_ids": [
+          "wiki:1383013832",
+          "wiki:1383544402"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 24,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              24
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              46
+            ]
+          }
+        ],
+        "definition_id": "England:2:efl-championship",
+        "source_ids": [
+          "wiki:1381054114",
+          "wiki:1383604495"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Estonia": {
+      "1": {
+        "teams": 10,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 4,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              36
+            ]
+          }
+        ],
+        "definition_id": "Estonia:1:meistriliiga",
+        "source_ids": [
+          "wiki:1380049335"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 10,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 4,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              36
+            ]
+          }
+        ],
+        "definition_id": "Estonia:2:esiliiga",
+        "source_ids": [
+          "wiki:1379536590"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      }
+    },
+    "Finland": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              22
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              6,
+              6
+            ],
+            "legs": [
+              2,
+              1
+            ],
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              5,
+              10
+            ],
+            "rank_ranges": [
+              [
+                1,
+                6
+              ],
+              [
+                7,
+                12
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Finland:1:veikkausliiga",
+        "source_ids": [
+          "wiki:1378162286",
+          "wiki:1383469231"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 10,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              18
+            ]
+          },
+          {
+            "id": "final_scheduled_leg",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 1,
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              9
+            ]
+          }
+        ],
+        "definition_id": "Finland:2:ykk-sliiga",
+        "source_ids": [
+          "wiki:1383268084",
+          "wiki:1381921536"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      }
+    },
+    "France": {
+      "1": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "France:1:ligue-1",
+        "source_ids": [
+          "wiki:1383244255",
+          "wiki:1383575541"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "France:2:ligue-2",
+        "source_ids": [
+          "wiki:1378915940",
+          "wiki:1383482608"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Germany": {
+      "1": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Germany:1:bundesliga",
+        "source_ids": [
+          "wiki:1382696289",
+          "wiki:1383443839"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Germany:2:2-bundesliga",
+        "source_ids": [
+          "wiki:1376798648",
+          "wiki:1383443889"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Hungary": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 3,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              33
+            ]
+          }
+        ],
+        "definition_id": "Hungary:1:nemzeti-bajnoks-g-i",
+        "source_ids": [
+          "wiki:1373705488"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Hungary:2:nemzeti-bajnoks-g-ii",
+        "source_ids": [
+          "wiki:1382448562"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Iraq": {
+      "1": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Iraq:1:iraq-stars-league",
+        "source_ids": [
+          "wiki:1381548984",
+          "wiki:1383561308"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Iraq:2:iraqi-premier-division-league",
+        "source_ids": [
+          "wiki:1359460350"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Italy": {
+      "1": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Italy:1:serie-a",
+        "source_ids": [
+          "wiki:1382942253",
+          "wiki:1383472819"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Italy:2:serie-b",
+        "source_ids": [
+          "wiki:1380384660",
+          "wiki:1383266663"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Japan": {
+      "1": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Japan:1:j1-league",
+        "source_ids": [
+          "wiki:1378728761",
+          "wiki:1383536610"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Japan:2:j2-league",
+        "source_ids": [
+          "wiki:1380976452",
+          "wiki:1383289793"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Kenya": {
+      "1": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Kenya:1:kenyan-premier-league",
+        "source_ids": [
+          "wiki:1374876330"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Kenya:2:kenyan-national-super-league",
+        "source_ids": [
+          "wiki:1372092742"
+        ],
+        "season": "2025–26",
+        "full_country_rules": false
+      }
+    },
+    "Netherlands": {
+      "1": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Netherlands:1:eredivisie",
+        "source_ids": [
+          "wiki:1382092483"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Netherlands:2:eerste-divisie",
+        "source_ids": [
+          "wiki:1382094822"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Northern Ireland": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 3,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              33
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              6,
+              6
+            ],
+            "legs": 1,
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              5
+            ],
+            "rank_ranges": [
+              [
+                1,
+                6
+              ],
+              [
+                7,
+                12
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Northern Ireland:1:nifl-premiership",
+        "source_ids": [
+          "wiki:1381015680",
+          "wiki:1383286782"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              8,
+              8
+            ],
+            "legs": 1,
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              7
+            ],
+            "rank_ranges": [
+              [
+                1,
+                8
+              ],
+              [
+                9,
+                16
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Northern Ireland:2:nifl-championship",
+        "source_ids": [
+          "wiki:1376854438",
+          "wiki:1383418820"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Norway": {
+      "1": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Norway:1:eliteserien",
+        "source_ids": [
+          "wiki:1383240033",
+          "wiki:1383392797"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Norway:2:norwegian-first-division",
+        "source_ids": [
+          "wiki:1374470412",
+          "wiki:1383544963"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      }
+    },
+    "Paraguay": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "apertura",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              22
+            ]
+          },
+          {
+            "id": "clausura",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              22
+            ]
+          }
+        ],
+        "definition_id": "Paraguay:1:copa-de-primera",
+        "source_ids": [
+          "wiki:1383325305",
+          "wiki:1383091731"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Paraguay:2:apf-divisi-n-intermedia",
+        "source_ids": [
+          "wiki:1382159893",
+          "wiki:1383243751"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      }
+    },
+    "Poland": {
+      "1": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Poland:1:ekstraklasa",
+        "source_ids": [
+          "wiki:1382889915"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Poland:2:i-liga",
+        "source_ids": [
+          "wiki:1374807437"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Portugal": {
+      "1": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Portugal:1:primeira-liga",
+        "source_ids": [
+          "wiki:1379436793",
+          "wiki:1383619186"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Portugal:2:liga-portugal-2",
+        "source_ids": [
+          "wiki:1376531660",
+          "wiki:1383470054"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Republic of Ireland": {
+      "1": {
+        "teams": 10,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 4,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              36
+            ]
+          }
+        ],
+        "definition_id": "Republic of Ireland:1:league-of-ireland-premier-division",
+        "source_ids": [
+          "wiki:1383062273"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 10,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 4,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              36
+            ]
+          }
+        ],
+        "definition_id": "Republic of Ireland:2:league-of-ireland-first-division",
+        "source_ids": [
+          "wiki:1382317232"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      }
+    },
+    "Saudi Arabia": {
+      "1": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Saudi Arabia:1:saudi-pro-league",
+        "source_ids": [
+          "wiki:1382465357",
+          "wiki:1383124217"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Saudi Arabia:2:saudi-first-division-league",
+        "source_ids": [
+          "wiki:1379272769"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Scotland": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 3,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              33
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              6,
+              6
+            ],
+            "legs": 1,
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              5
+            ],
+            "rank_ranges": [
+              [
+                1,
+                6
+              ],
+              [
+                7,
+                12
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Scotland:1:scottish-premiership",
+        "source_ids": [
+          "wiki:1383338841",
+          "wiki:1383589197"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 10,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 4,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              36
+            ]
+          }
+        ],
+        "definition_id": "Scotland:2:scottish-championship",
+        "source_ids": [
+          "wiki:1362017407"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Slovakia": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              22
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              6,
+              6
+            ],
+            "legs": 2,
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              10
+            ],
+            "rank_ranges": [
+              [
+                1,
+                6
+              ],
+              [
+                7,
+                12
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Slovakia:1:slovak-first-football-league",
+        "source_ids": [
+          "wiki:1380693905",
+          "wiki:1383258535"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Slovakia:2:2-liga",
+        "source_ids": [
+          "wiki:1375901057"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Slovenia": {
+      "1": {
+        "teams": 10,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 4,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              36
+            ]
+          }
+        ],
+        "definition_id": "Slovenia:1:slovenian-prvaliga",
+        "source_ids": [
+          "wiki:1376817660"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Slovenia:2:slovenian-second-league",
+        "source_ids": [
+          "wiki:1375538860"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "South Africa": {
+      "1": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "South Africa:1:south-african-premiership",
+        "source_ids": [
+          "psl:handbook-2025-12-02",
+          "wiki:1383487924"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "South Africa:2:national-first-division",
+        "source_ids": [
+          "psl:handbook-2025-12-02",
+          "wiki:1383487360"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Spain": {
+      "1": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Spain:1:la-liga",
+        "source_ids": [
+          "wiki:1383015595",
+          "wiki:1383575858"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 22,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              22
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              42
+            ]
+          }
+        ],
+        "definition_id": "Spain:2:segunda-divisi-n",
+        "source_ids": [
+          "wiki:1382378422"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Sweden": {
+      "1": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Sweden:1:allsvenskan",
+        "source_ids": [
+          "wiki:1379910619",
+          "wiki:1383628424"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Sweden:2:superettan",
+        "source_ids": [
+          "wiki:1383071681",
+          "wiki:1383512263"
+        ],
+        "season": "2026",
+        "full_country_rules": false
+      }
+    },
+    "Switzerland": {
+      "1": {
+        "teams": 12,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              12
+            ],
+            "legs": 3,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              33
+            ]
+          },
+          {
+            "id": "split",
+            "kind": "split_round_robin",
+            "group_sizes": [
+              6,
+              6
+            ],
+            "legs": 1,
+            "points": "carry",
+            "intergroup_games": 0,
+            "games_per_club": [
+              5
+            ],
+            "rank_ranges": [
+              [
+                1,
+                6
+              ],
+              [
+                7,
+                12
+              ]
+            ],
+            "upper_groups_finish_above_lower_groups": true
+          }
+        ],
+        "definition_id": "Switzerland:1:swiss-super-league",
+        "source_ids": [
+          "wiki:1379699431",
+          "wiki:1383197678"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 10,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              10
+            ],
+            "legs": 4,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              36
+            ]
+          }
+        ],
+        "definition_id": "Switzerland:2:swiss-challenge-league",
+        "source_ids": [
+          "wiki:1376010131"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Tanzania": {
+      "1": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Tanzania:1:tanzanian-premier-league",
+        "source_ids": [
+          "wiki:1376101524"
+        ],
+        "season": "2025–26",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Tanzania:2:tanzanian-championship-league",
+        "source_ids": [
+          "wiki:1376101390"
+        ],
+        "season": "2025–26",
+        "full_country_rules": false
+      }
+    },
+    "Thailand": {
+      "1": {
+        "teams": 16,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              16
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              30
+            ]
+          }
+        ],
+        "definition_id": "Thailand:1:thai-league-1",
+        "source_ids": [
+          "wiki:1380552353",
+          "wiki:1383408998"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Thailand:2:thai-league-2",
+        "source_ids": [
+          "wiki:1376105720",
+          "wiki:1383374380"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Turkey": {
+      "1": {
+        "teams": 18,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              18
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              34
+            ]
+          }
+        ],
+        "definition_id": "Turkey:1:s-per-lig",
+        "source_ids": [
+          "wiki:1383131548"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 20,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              20
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              38
+            ]
+          }
+        ],
+        "definition_id": "Turkey:2:tff-1-lig",
+        "source_ids": [
+          "wiki:1376132851"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    },
+    "Vietnam": {
+      "1": {
+        "teams": 14,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              14
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              26
+            ]
+          }
+        ],
+        "definition_id": "Vietnam:1:v-league-1",
+        "source_ids": [
+          "wiki:1381461004",
+          "wiki:1383603107"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      },
+      "2": {
+        "teams": 14,
+        "phases": [
+          {
+            "id": "regular",
+            "kind": "round_robin",
+            "group_sizes": [
+              14
+            ],
+            "legs": 2,
+            "points": "reset",
+            "intergroup_games": 0,
+            "games_per_club": [
+              26
+            ]
+          }
+        ],
+        "definition_id": "Vietnam:2:v-league-2",
+        "source_ids": [
+          "wiki:1380512481",
+          "wiki:1383302448"
+        ],
+        "season": "2026–27",
+        "full_country_rules": false
+      }
+    }
+  }
+}
