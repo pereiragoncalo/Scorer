@@ -26,4 +26,4 @@ class TwoDivisionUITests(unittest.TestCase):
     def test_play_at_completed_season_routes_released_player_to_agent(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
             c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True;c.club.points=-100000;c.week=45;c.last_training_week=45;c.current_league.round_index=c.current_league.total_rounds;c._ensure_competitions();c.world_competitions.complete()
-            g.view='hub';g.start_career_match();settle();self.assertEqual(g.view,'agent');self.assertTrue(c.free_agent);self.assertEqual(c.message,RELEGATED_MESSAGE);self.assertEqual(len(c.agent_offers),5)
+            c.attend_coach_meeting();g.view='hub';g.start_career_match();settle();self.assertEqual(g.view,'agent');self.assertTrue(c.free_agent);self.assertEqual(c.message,RELEGATED_MESSAGE);self.assertEqual(len(c.agent_offers),5)

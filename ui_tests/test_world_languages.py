@@ -127,7 +127,7 @@ class WorldLanguageTests(unittest.TestCase):
         for code in LANGUAGES:
             with self.subTest(language=code),patch('edition.WORLD_BUILD',True),patch('main.phone_locale_tag',return_value=code):
                 with isolated_game() as game:
-                    c=game.career;c.accept_starting_offer(c.offers[0]);c.last_training_week=c.week
+                    c=game.career;c.accept_starting_offer(c.offers[0]);c.last_training_week=c.week;c.attend_coach_meeting()
                     c.apply_names({'version':1,'clubs':{c.club.uid:'HELP'}})
                     game.start_career_match();game.draw();settle()
                     texts={key[0] for key in game._text_texture_cache}

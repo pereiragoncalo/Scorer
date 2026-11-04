@@ -19,6 +19,7 @@ responsivos sem ficheiros KV. A carreira é guardada automaticamente.
 
 from __future__ import annotations
 from match_moments import match_stakes, late_opportunity, chance_moment
+from coach import REQUIRED as COACH_REQUIRED
 
 
 import json
@@ -803,6 +804,10 @@ class StrikerGame(Widget):
     def start_career_match(self) -> None:
         self.ads.start()
         """Cria um jogo completo com relógio e oportunidades interativas."""
+        if self.career.free_agent:
+            self.view="agent";self.draw();return
+        if not self.career.coach_meeting_held:
+            self.career.message=COACH_REQUIRED;self.view='coach';self.draw();return
         if not self.career.trained_this_week:
             self.career.message = 'Complete this week’s training to unlock Play.'
             self.view = 'hub'
@@ -810,6 +815,8 @@ class StrikerGame(Widget):
             return
         scheduled=self.career.next_match()
         if self.career.free_agent:self.view='agent';self.draw();return
+        if not self.career.coach_meeting_held:
+            self.career.message=COACH_REQUIRED;self.view='coach';self.draw();return
         if not self.career.trained_this_week:
             self.career.message='Complete this week’s training to unlock Play.';self.view='hub';self.draw();return
         if scheduled is None:
@@ -1118,8 +1125,12 @@ class StrikerGame(Widget):
 
 
     def start_training(self) -> None:
+        if self.career.free_agent:
+            self.view="agent";self.draw();return
         if self.view == "shot" and self.shot_context == "training":
             return
+        if not self.career.coach_meeting_held:
+            self.career.message=COACH_REQUIRED;self.view="coach";self.draw();return
         if not self.career.begin_training():
             self.view = "training"
             self.draw()
@@ -3001,7 +3012,13 @@ class StrikerGame(Widget):
             self.view = "hub"
         elif action == "play":
             self.start_career_match()
+        elif action == 'coach':
+            self.view = 'coach' if self.career.club and not self.career.free_agent else 'agent'
+        elif action == 'coach_complete' and self.view == 'coach':
+            if self.career.attend_coach_meeting():self.view='hub'
         elif action == "training":
+            if not self.career.coach_meeting_held:
+                self.career.message=COACH_REQUIRED;self.view='coach';return
             self.ads.prepare_reward()
             self.training_completed = False
             self.training_summary = ""

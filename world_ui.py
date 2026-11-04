@@ -30,7 +30,7 @@ class CompactHub(BoxLayout):
         c = menu.game.career
         self.add_widget(MenuLogo(size_hint_y=None,height=dp(32)))
         actions = GridLayout(cols=4, spacing=dp(4))
-        entries = [('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
+        entries = [('COACH MEETING', 'coach'), ('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
                    ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
                    ('PLAYER', 'profile'), ('HELP', 'help')]
         if c.world_unlocked:entries.extend([('NAMES EDITOR','editor'),('WORLD LEAGUES','upgrade')])
@@ -38,7 +38,8 @@ class CompactHub(BoxLayout):
         for title, action in entries:
             button = MenuTile(title, lambda a=action: menu.action(a), accent=action == 'play')
             button.font_size = sp(12)
-            if action == 'play': button.disabled = not c.trained_this_week
+            if action == 'play': button.disabled = not c.trained_this_week or not c.coach_meeting_held
+            if action == 'training': button.disabled = not c.coach_meeting_held
             actions.add_widget(button)
         self.add_widget(actions)
         self.bind(size=lambda *_:setattr(actions,'cols',5 if c.world_unlocked and self.height<dp(290) else 4))

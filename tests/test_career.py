@@ -24,6 +24,7 @@ class CareerTests(unittest.TestCase):
     def signed(self):
         c = career.CareerMode()
         c.accept_starting_offer(c.offers[0])
+        c.attend_coach_meeting()
         return c
 
     def test_morale_slower_loss_and_larger_goal_reward(self):
@@ -423,6 +424,7 @@ class CareerTests(unittest.TestCase):
         home, away = restored.next_fixture()
         restored.finish_match(home, away, 0, 1, forced_score=(1, 0))
         self.assertFalse(restored.training_used_this_week)
+        restored.attend_coach_meeting()
         self.assertTrue(restored.begin_training())
         self.assertGreater(restored.complete_training(1), 0)
 
@@ -436,6 +438,7 @@ class CareerTests(unittest.TestCase):
         self.assertEqual(restored.training_shots_taken, 0)
         restored._finish_season()
         self.assertFalse(restored.training_used_this_week)
+        restored.attend_coach_meeting()
         self.assertTrue(restored.begin_training())
 
     def test_training_save_failures_preserve_reservation_and_rewards(self):

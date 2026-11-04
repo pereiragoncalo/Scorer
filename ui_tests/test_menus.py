@@ -31,6 +31,7 @@ def isolated_game(saved=False, corrupt=False):
         c = CareerMode()
         if saved:
             c.accept_starting_offer(c.offers[0])
+            c.attend_coach_meeting()
             c.goals = 17
             c.save()
         if corrupt:
@@ -74,7 +75,7 @@ class MenuTests(unittest.TestCase):
     def test_halftime_stops_after_added_time_and_resumes_at_45(self):
         with isolated_game(saved=True) as game:
             game.career.load()
-            game.career.last_training_week = game.career.week
+            game.career.last_training_week = game.career.week;game.career.attend_coach_meeting()
             game.start_career_match()
             game.match_first_stoppage, game.match_stoppage = 2, 3
             game.match_chance_minutes, game.match_goal_events = [], []
@@ -105,7 +106,7 @@ class MenuTests(unittest.TestCase):
     def test_events_cannot_skip_a_chance_or_halftime(self):
         with isolated_game(saved=True) as game:
             game.career.load()
-            game.career.last_training_week = game.career.week
+            game.career.last_training_week = game.career.week;game.career.attend_coach_meeting()
             game.start_career_match()
             game.match_first_stoppage = 2
             game.match_chance_minutes = [47, 50]
@@ -132,7 +133,7 @@ class MenuTests(unittest.TestCase):
     def test_player_goal_updates_and_flashes_immediately_only_once(self):
         with isolated_game(saved=True) as game:
             game.career.load()
-            game.career.last_training_week = game.career.week
+            game.career.last_training_week = game.career.week;game.career.attend_coach_meeting()
             game.start_career_match()
             game.shot_context, game.view = 'match', 'shot'
             game._prepare_next_shot()
@@ -153,7 +154,7 @@ class MenuTests(unittest.TestCase):
         self.addCleanup(setattr, Window, 'size', Window.size)
         with isolated_game(saved=True) as game:
             game.career.load()
-            game.career.last_training_week = game.career.week
+            game.career.last_training_week = game.career.week;game.career.attend_coach_meeting()
             game.start_career_match()
             for size, density in (((640, 360), 1), ((1280, 589), 1.64), ((2400, 1080), 3)):
                 Window.size, Metrics.density = size, density
@@ -236,7 +237,7 @@ class MenuTests(unittest.TestCase):
         Window.size = (960, 540)
         with isolated_game(saved=True) as game:
             game.career.load()
-            game.career.last_training_week = game.career.week
+            game.career.last_training_week = game.career.week;game.career.attend_coach_meeting()
             game.start_career_match()
             Clock.unschedule(game.update)
             game.match_chance_minutes = [10, 47, 65]
@@ -273,7 +274,7 @@ class MenuTests(unittest.TestCase):
         with isolated_game(saved=True) as game:
             game.size = Window.size
             game.career.load()
-            game.career.last_training_week = game.career.week
+            game.career.last_training_week = game.career.week;game.career.attend_coach_meeting()
             seen_easy, seen_no_easy = False, False
             types = set()
             from career import OpponentChanceProfile
@@ -400,7 +401,7 @@ class MenuTests(unittest.TestCase):
             from unittest.mock import Mock
             ads = Mock()
             game.ads = ads
-            game.career.last_training_week = game.career.week
+            game.career.last_training_week = game.career.week;game.career.attend_coach_meeting()
             game.start_career_match()
             game._activate_ui('match_continue')
             self.assertEqual(game.view, 'match')
@@ -596,7 +597,7 @@ class MenuTests(unittest.TestCase):
 
     def test_world_division_changes_the_actual_match_aim_speed(self):
         with patch('edition.WORLD_PREVIEW',True),isolated_game() as game:
-            c=game.career;c.accept_starting_offer(c.offers[0]);c.last_training_week=c.week;c.morale=16
+            c=game.career;c.accept_starting_offer(c.offers[0]);c.last_training_week=c.week;c.attend_coach_meeting();c.morale=16
             opponent=next(club for club in c.current_league.clubs if club.name!=c.club_name);opponent.rating=95
             speeds=[]
             with patch.object(c,'next_match',return_value=('league',c.club,opponent)):
@@ -608,7 +609,7 @@ class MenuTests(unittest.TestCase):
 
     def test_high_morale_elite_match_gets_three_hard_chances_and_reserved_goal_budget(self):
         with isolated_game(saved=True) as game:
-            game.career.load();c=game.career;c.morale=16;c.stamina=20;c.last_training_week=c.week
+            game.career.load();c=game.career;c.morale=16;c.stamina=20;c.last_training_week=c.week;c.attend_coach_meeting()
             opponent=next(club for club in c.current_league.clubs if club.name!=c.club_name)
             opponent.rating=95
             with patch.object(c,'next_match',return_value=('league',c.club,opponent)):
@@ -623,7 +624,7 @@ class MenuTests(unittest.TestCase):
         with isolated_game(saved=True) as game:
             game.career.load()
             c = game.career
-            c.last_training_week = c.week
+            c.last_training_week = c.week;c.attend_coach_meeting()
             c.stamina, c.morale = 20, 10
             player = c.club
             opponent = next(club for club in c.current_league.clubs if club.name != player.name)
@@ -654,6 +655,7 @@ class MenuTests(unittest.TestCase):
         with isolated_game() as game:
             game.career.accept_starting_offer(game.career.offers[0])
             for week in range(2):
+                game.career.attend_coach_meeting()
                 game.view = 'hub'
                 game.start_training()
                 for _ in range(3):
@@ -721,7 +723,7 @@ class MenuTests(unittest.TestCase):
         with isolated_game(saved=True) as game:
             game.career.load()
             c = game.career
-            c.last_training_week = c.week
+            c.last_training_week = c.week;c.attend_coach_meeting()
             player = c.club
             other = next(club for club in c.current_league.clubs if club.name != player.name)
             for at_home in (True, False):
@@ -740,7 +742,7 @@ class MenuTests(unittest.TestCase):
         with isolated_game(saved=True) as game:
             game.size=Window.size
             game.career.load();game.career.cup_active=False
-            game.career.last_training_week=game.career.week
+            game.career.last_training_week=game.career.week;game.career.attend_coach_meeting()
             fixture=game.career.next_match()
             expected=(fixture[1].name,fixture[2].name)
             game.view='calendar';game.draw();settle()
@@ -908,7 +910,7 @@ class MenuTests(unittest.TestCase):
                     self.assertLessEqual(row.right, table.right)
 
     def test_buttons_have_visible_press_depth(self):
-        self.game.career.last_training_week = self.game.career.week
+        self.game.career.last_training_week = self.game.career.week;self.game.career.attend_coach_meeting()
         self.game.view = 'hub'
         self.game.draw()
         settle()
@@ -975,6 +977,9 @@ class MenuTests(unittest.TestCase):
             game.career.week += 1
             game.draw()
             settle()
+            button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'START TRAINING')
+            self.assertTrue(button.disabled)
+            game.career.attend_coach_meeting();game.draw();settle()
             button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'START TRAINING')
             self.assertFalse(button.disabled)
 
@@ -1059,7 +1064,7 @@ class MenuTests(unittest.TestCase):
                     menu = self.game._menu
                     self.assertFalse(any(isinstance(w, ScrollView) for w in menu.walk()))
                     buttons = [w for w in menu.walk() if isinstance(w, TouchButton)]
-                    self.assertEqual(len(buttons), 10)
+                    self.assertEqual(len(buttons), 11)
                     self.assertFalse(any('WORLD' in button.text for button in buttons))
                     for button in buttons:
                         self.assertGreaterEqual(button.width, dp(48) - 1)

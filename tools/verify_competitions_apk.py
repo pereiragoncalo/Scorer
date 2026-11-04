@@ -9,13 +9,16 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
             obj=types.ModuleType(name);obj.__file__=str(Path.cwd()/(name+'.py'));sys.modules[name]=obj
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
-        moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
+        coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
         formats=module('domestic_formats');kits=module('club_kits');competitions=module('world_competitions');module('promotion_playoffs');access=module('domestic_playoffs');calendar=module('international_calendar');module('two_divisions');module('season_transitions');rules=module('domestic_rules');career=module('career');competitions=module('world_competitions')
         import edition
         assert edition.WORLD_BUILD and not edition.WORLD_PREVIEW
         with tempfile.TemporaryDirectory() as directory:
             os.environ['STRIKER_SAVE_DIR']=directory
             c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0]);c.next_match();assert c.world_competitions
+            assert not c.coach_meeting_held and not c.begin_training()
+            assert c.attend_coach_meeting() and c.coach_meeting_held and c.begin_training()
+            c.save();assert c.load() and c.coach_meeting_held
             assert c.domestic_format_version==1 and len(formats.catalogue())==38
             assert [len(l.clubs) for l in c.domestic_leagues('Spain')]==[20,22]
             assert [len(l.clubs) for l in c.domestic_leagues('Brazil')]==[20,20]

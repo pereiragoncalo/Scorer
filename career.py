@@ -1,6 +1,7 @@
 """Original Striker simulation and career, importable without Kivy."""
 from __future__ import annotations
 from match_moments import clean_moments
+from coach import CoachCareer, fresh_state, clean_state, REQUIRED as COACH_REQUIRED
 
 
 import json
@@ -737,7 +738,7 @@ class WorldLeague:
 
 from two_divisions import TwoDivisionCareer
 
-class CareerMode(TwoDivisionCareer):
+class CareerMode(CoachCareer, TwoDivisionCareer):
     """Carreira persistente e simulação leve do futebol mundial."""
 
 
@@ -786,6 +787,7 @@ class CareerMode(TwoDivisionCareer):
         self.world_run_in = False
         self.last_result = ""
         self.message = 'Choose the first contract of your career.'
+        self.coach_state = fresh_state()
         self.last_training_week = -1
         self.training_session_week = -1
         self.training_shots_taken = 0
@@ -1220,6 +1222,9 @@ class CareerMode(TwoDivisionCareer):
         else:
             self.matches+=1;self.goals+=player_goals;self.missed_chances+=player_misses
             self.form_goals=(self.form_goals+[player_goals])[-8:]
+        if not national:
+            own=0 if home.uid==actor else 1
+            self.record_coach_performance(player_goals,player_misses,moments,score[own]>=score[1-own])
         self._update_attributes(player_goals,player_misses)
         decision=' (aet)' if f.get('extra_time') is not None else ''
         decision+= '' if not f.get('penalties') else f" (pen. {f['penalties'][0]}-{f['penalties'][1]})"
@@ -1726,6 +1731,8 @@ class CareerMode(TwoDivisionCareer):
         self.form_goals = self.form_goals[-8:]
         if competition != "cup":
             league.scorer_goals[self.player_name] = previous_league_goals + player_goals
+        self.record_coach_performance(player_goals,player_misses,moments,
+            score[0 if home.name==self.club_name else 1]>=score[1 if home.name==self.club_name else 0])
         self._update_attributes(player_goals, player_misses)
 
 
@@ -1802,6 +1809,9 @@ class CareerMode(TwoDivisionCareer):
         if not self.club_name:
             self.message = 'Choose a club before training.'
             return False
+        if not self.coach_meeting_held:
+            self.message = COACH_REQUIRED
+            return False
         if self.trained_this_week:
             self.message = 'This week’s training session has been used. Come back next week.'
             return False
@@ -1818,7 +1828,7 @@ class CareerMode(TwoDivisionCareer):
         return True
 
     def record_training_shot(self, scored: bool) -> bool:
-        if self.training_session_week != self.week or self.trained_this_week or self.training_shots_taken >= 3:
+        if not self.coach_meeting_held or self.training_session_week != self.week or self.trained_this_week or self.training_shots_taken >= 3:
             return False
         previous = (self.training_shots_taken, self.training_session_goals)
         self.training_shots_taken += 1
@@ -1829,6 +1839,9 @@ class CareerMode(TwoDivisionCareer):
         return True
 
     def complete_training(self, goals: int) -> float:
+        if not self.coach_meeting_held:
+            self.message = COACH_REQUIRED
+            return 0.0
         if self.trained_this_week:
             self.message = 'This week’s training is already complete.'
             return 0.0
@@ -2176,6 +2189,7 @@ class CareerMode(TwoDivisionCareer):
             "world_seed": self.world_seed,
             "last_result": self.last_result,
             "message": self.message,
+            "coach_state": self.coach_state,
             "last_training_week": self.last_training_week,
             "training_session_week": self.training_session_week,
             "training_shots_taken": self.training_shots_taken,
@@ -2396,6 +2410,11 @@ class CareerMode(TwoDivisionCareer):
             self.training_session_goals = int(data.get("training_session_goals", 0))
             if not 0 <= self.training_session_goals <= self.training_shots_taken <= 3:
                 raise ValueError("Invalid saved training state")
+            self.coach_state = clean_state(data.get('coach_state'))
+            if 'coach_state' not in data:
+                # Adopt only known recent club form. Keep partial training
+                # intact; require the meeting before it resumes.
+                self.coach_state = fresh_state(self.club.uid if self.club else '', self.form_goals)
             migrated_cup_round = sum(
                 1 for cup_week in self.cup_weeks if cup_week < self.week
             )

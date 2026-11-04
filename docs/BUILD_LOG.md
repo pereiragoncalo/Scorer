@@ -1736,3 +1736,22 @@ The current dispatch initially could not create a release with its integration
 identity; release metadata was created using the configured owner CLI and the
 same workflow rerun successfully uploaded the checked APK. No credential or key
 was changed. Local direct upload remains unsupported by that CLI identity.
+
+## 2026-11-04 — 0.9.9 weekly coach meetings
+
+Added mandatory saved weekly coach meetings before training/play, including
+week jumps, new clubs/seasons and both hub layouts. Stable club personalities,
+three-game drought feedback spaced by appearances, decisive-performance and
+strong-form feedback; brief routine meetings otherwise. Store bounded optional
+coach state without changing physical gameplay, RNG or career identity.
+
+Initial core suite313 passed, with nine dedicated coach tests. Legacy migration
+was then tightened to retain training progress but require the meeting before
+resuming; dedicated coach and localisation tests passed. Initial native suite
+identified existing fixtures that skipped the new mandatory step, the extra
+hub action count and a test that searched the wrong button subclass. Updated
+those tests to use meetings and assert the new disabled state explicitly; the
+four dedicated native coach tests passed. A tenth core coach test verifies that
+national-team appearances do not alter club feedback. Final suite/APK evidence is recorded
+in RELEASE_0.9.9_artifacts.json. Window screenshot readback was black in this
+host; widget export also lacked complete text. Neither is device visual validation. Unrelated root WIP remains excluded.

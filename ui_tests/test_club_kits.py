@@ -11,7 +11,7 @@ class KitUITests(unittest.TestCase):
             self.assertEqual(g._match_outfield_kits()[0],expected)
             c.display_aliases['clubs'][c.club.uid]='My edited name'
             g.view='training';g.draw();settle();self.assertEqual(g._match_outfield_kits()[0],expected)
-            g.start_training();settle();self.assertEqual(g.view,'shot');self.assertEqual(g._match_outfield_kits()[0],expected)
+            c.attend_coach_meeting();g.start_training();settle();self.assertEqual(g.view,'shot');self.assertEqual(g._match_outfield_kits()[0],expected)
     def test_match_resolves_opponent_actual_uid_with_no_name_pack(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
             c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True;g.shot_context='match';g.match_is_international=False

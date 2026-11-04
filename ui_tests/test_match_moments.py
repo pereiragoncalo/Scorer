@@ -9,11 +9,11 @@ from test_menus import isolated_game, settle
 
 class MatchMomentUI(unittest.TestCase):
     def start(self,g):
-        g.career.load();g.career.last_training_week=g.career.week;g.start_career_match()
+        g.career.load();g.career.last_training_week=g.career.week;g.career.attend_coach_meeting();g.start_career_match()
 
     def test_timing_does_not_change_ai_goals_career_rng_or_easy_index(self):
         with isolated_game(saved=True) as g:
-            g.career.load();g.career.last_training_week=g.career.week
+            g.career.load();g.career.last_training_week=g.career.week;g.career.attend_coach_meeting()
             state=g.career.rng.getstate()
             with patch('main.late_opportunity',side_effect=lambda minutes,*a:list(minutes)):
                 g.start_career_match()
@@ -51,7 +51,7 @@ class MatchMomentUI(unittest.TestCase):
         try:
             Window.size=(320,240)
             with patch('edition.WORLD_BUILD',True),isolated_game(saved=True) as g:
-                g.career.accept_starting_offer(g.career.offers[0]);g.career.last_training_week=g.career.week;g.start_career_match()
+                g.career.accept_starting_offer(g.career.offers[0]);g.career.last_training_week=g.career.week;g.career.attend_coach_meeting();g.start_career_match()
                 g.size=(320,240);g.awaiting_chance=True;g.match_moment='equaliser'
                 for lang in ('en','pt','es','de','it','ko','ja','zh','vi'):
                     g.i18n.choose(lang);g.draw();settle()
