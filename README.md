@@ -1,3 +1,18 @@
+## Scorer World 0.9.9 — coach meetings and feedback
+
+[Download World 0.9.9 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.9/Scorer-World-0.9.9.apk)
+
+Meet the coach before each week's training and match. Club coaches have stable
+Encouraging, Demanding or Balanced approaches, with varied feedback on droughts,
+decisive performances and strong form; brief check-ins in ordinary weeks.
+Existing careers and training progress are retained.
+
+448 host tests passed (314 core +134 native Kivy). Actual compiled source,
+coach save/gates, competitions, upgrade certificate and16KB alignment verified.
+DEBUG QA; physical-device testing remains outstanding.
+[Scope](docs/RELEASE_0.9.9.md) · [APK evidence](docs/RELEASE_0.9.9_artifacts.json) ·
+[Public download check](docs/RELEASE_0.9.9_download.json).
+
 ## Scorer World 0.9.8 — decisive match moments
 
 [Download World 0.9.8 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.8/Scorer-World-0.9.8.apk)

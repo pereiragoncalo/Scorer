@@ -1755,3 +1755,10 @@ four dedicated native coach tests passed. A tenth core coach test verifies that
 national-team appearances do not alter club feedback. Final suite/APK evidence is recorded
 in RELEASE_0.9.9_artifacts.json. Window screenshot readback was black in this
 host; widget export also lacked complete text. Neither is device visual validation. Unrelated root WIP remains excluded.
+
+Final0.9.9 validation:314 core +134 native Kivy =448 passing. Actual APK compiled
+source matches commit e83a9da; API36/code1026909/arm64,118ELF16KB, ZIP alignment,
+existing upgrade certificate and compiled coach-gate/save, competition and
+publishing checks passed. Public download evidence records the actual bytes and
+hash. Temporary GitHub push HTTP500 errors were resolved using the same remote
+with HTTP/1.1; no credentials or signing keys changed.
