@@ -15,8 +15,8 @@ class NewspaperTests(unittest.TestCase):
     def render(self,r):
         return article(r,Localizer(False).tr,lambda e,side:e[side],'PLAYER UNIQUE','League')
 
-    def test_ordinary_appearance_never_mentions_player_even_with_an_ordinary_goal(self):
-        for goals,score in ((0,(0,1)),(1,(3,1)),(1,(1,1))):
+    def test_scoreless_ordinary_appearance_never_mentions_player(self):
+        for goals,score in ((0,(0,1)),(0,(3,1)),(0,(1,1))):
             r=self.report(goals=goals,score=score)['report'];a=self.render(r)
             self.assertFalse(a['mentions_player']);self.assertNotIn('PLAYER UNIQUE',' '.join(a['paragraphs']))
 
@@ -24,7 +24,7 @@ class NewspaperTests(unittest.TestCase):
         for kwargs in (dict(goals=2,score=(2,1)),dict(goals=1,score=(1,0)),dict(goals=1,score=(1,1),moments=[dict(kind='equaliser',minute=89,outcome='goal')]),dict(goals=2,score=(0,2),away=True)):
             a=self.render(self.report(**kwargs)['report']);self.assertTrue(a['mentions_player']);self.assertIn('PLAYER UNIQUE',' '.join(a['paragraphs']))
         lost=self.report(goals=1,score=(1,2),moments=[dict(kind='lead',minute=85,outcome='goal')])['report']
-        self.assertFalse(self.render(lost)['mentions_player'])
+        self.assertTrue(self.render(lost)['mentions_player'])
 
     def test_negative_mentions_start_at_three_actual_failed_appearances(self):
         state=fresh_state()
@@ -105,3 +105,16 @@ class NewspaperTests(unittest.TestCase):
         a=self.render(self.report(score=(3,1))['report'])
         self.assertEqual(len(a['goals']),2);self.assertTrue(all(g['minute'] is None for g in a['goals']))
         self.assertIn('3 goals',' '.join(g['text'] for g in a['goals']))
+
+    def test_every_recorded_goal_gets_headline_and_body_even_after_defeat_or_reload(self):
+        from newspaper import brief_article
+        for away in (False,True):
+            for score in ((1,1),(1,3),(3,1)):
+                r=self.report(goals=1,score=score,away=away)['report']
+                r['standout']=False # previous releases omitted ordinary goals
+                restored=clean_state(dict(fresh_state(),report=r))['report']
+                a=self.render(restored)
+                self.assertTrue(a['mentions_player']);self.assertIn('PLAYER UNIQUE',a['headline'])
+                self.assertIn('PLAYER UNIQUE',a['mention'])
+                self.assertNotIn('crucial',a['mention'])
+                self.assertIn('PLAYER UNIQUE',brief_article(restored,Localizer(False).tr,'PLAYER UNIQUE'))

@@ -1240,6 +1240,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.fixture_history=self.fixture_history[-128:]
         if key.startswith('domestic:'):
             self.cup_history=(self.cup_history+[f["stage"]+': '+self.last_result])[-8:]
+        self._consume_match_training()
         self._refresh_competition_status();self.save()
         return tuple(score)
 
@@ -1670,6 +1671,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             })
             self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,home.uid,(portugal_goals,opponent_goals),player_goals,player_misses,moments,report_events)
             self.fixture_history = self.fixture_history[-128:]
+            self._consume_match_training()
             self.save()
             return portugal_goals, opponent_goals
 
@@ -1763,6 +1765,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.fixture_history = self.fixture_history[-128:]
         if competition == "league":
             self._simulate_world_round()
+        self._consume_match_training()
         self._check_national_team()
         self._maybe_generate_transfer_offers()
         if competition == "league" and league.round_index >= league.total_rounds:
@@ -1822,7 +1825,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             self.message = COACH_REQUIRED
             return False
         if self.trained_this_week:
-            self.message = 'This week’s training session has been used. Come back next week.'
+            self.message = 'Training is complete. Play the next match to train again.'
             return False
         if self.training_session_week == self.week:
             self.message = 'Resume your weekly training session.'
@@ -1847,14 +1850,24 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             return False
         return True
 
+    def _consume_match_training(self):
+        """Each completed appearance consumes its practice, even within a week."""
+        self.last_training_week = -1
+        self.training_session_week = -1
+        self.training_shots_taken = self.training_session_goals = 0
+
     def complete_training(self, goals: int) -> float:
         if self.coach_meeting_required:
             self.message = COACH_REQUIRED
             return 0.0
         if self.trained_this_week:
-            self.message = 'This week’s training is already complete.'
+            self.message = 'Training is already complete for the next match.'
             return 0.0
-        goals = max(0, min(3, int(goals)))
+        if self.training_session_week != self.week or self.training_shots_taken != 3:
+            self.message = 'Complete three shots to unlock the next match.'
+            return 0.0
+        # Use persisted shots, never a caller-supplied score or an abandoned session.
+        goals = self.training_session_goals
         previous = (self.stamina, self.morale, self.last_training_week, self.training_session_week)
         self.stamina = clamp(self.stamina + 1.25 + goals * 0.25, 0.0, 20.0)
         self.morale = clamp(self.morale + max(0, goals - 1) * 0.20, 0.0, 20.0)
@@ -2202,6 +2215,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             "press_state": self.press_state,
             "coach_appearance": self.coach_appearance,
             "coach_state": self.coach_state,
+            "training_gate_version": 2,
             "last_training_week": self.last_training_week,
             "training_session_week": self.training_session_week,
             "training_shots_taken": self.training_shots_taken,
@@ -2422,6 +2436,8 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             self.training_session_goals = int(data.get("training_session_goals", 0))
             if not 0 <= self.training_session_goals <= self.training_shots_taken <= 3:
                 raise ValueError("Invalid saved training state")
+            if data.get('training_gate_version') != 2 and self.last_training_week == self.week:
+                self._consume_match_training()
             self.press_state = newspaper.clean_state(data.get('press_state'))
             self.coach_appearance = clean_appearance(data.get('coach_appearance'))
             self._select_coach_appearance()

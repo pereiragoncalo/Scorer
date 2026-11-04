@@ -21,6 +21,12 @@ class CareerTests(unittest.TestCase):
         self.env.start()
         self.addCleanup(self.env.stop)
 
+    def finish_training(self, c, goals):
+        self.assertTrue(c.begin_training())
+        while c.training_shots_taken < 3:
+            self.assertTrue(c.record_training_shot(c.training_shots_taken < goals))
+        return c.complete_training(goals)
+
     def signed(self):
         c = career.CareerMode()
         c.accept_starting_offer(c.offers[0])
@@ -216,7 +222,7 @@ class CareerTests(unittest.TestCase):
 
     def test_training_and_match_progress_survive_restart(self):
         c = self.signed()
-        c.complete_training(3)
+        self.finish_training(c,3)
         self.assertTrue(c.trained_this_week)
         home, away = c.next_fixture()
         c.finish_match(home, away, 1, 0, forced_score=(2, 1))
@@ -412,7 +418,7 @@ class CareerTests(unittest.TestCase):
     def test_training_once_per_career_week_persists_and_unlocks_after_match(self):
         c = self.signed()
         self.assertTrue(c.begin_training())
-        self.assertGreater(c.complete_training(2), 0)
+        self.assertGreater(self.finish_training(c,2), 0)
         stats = (c.stamina, c.morale)
         self.assertFalse(c.begin_training())
         self.assertEqual(c.complete_training(3), 0)
@@ -426,7 +432,7 @@ class CareerTests(unittest.TestCase):
         self.assertFalse(restored.training_used_this_week)
         restored.attend_coach_meeting()
         self.assertTrue(restored.begin_training())
-        self.assertGreater(restored.complete_training(1), 0)
+        self.assertGreater(self.finish_training(restored,1), 0)
 
     def test_training_reservation_survives_abandonment_and_new_season_resets(self):
         c = self.signed()
@@ -449,6 +455,7 @@ class CareerTests(unittest.TestCase):
         self.assertFalse(c.training_used_this_week)
         self.assertEqual(c.save_path.read_bytes(), before)
         self.assertTrue(c.begin_training())
+        for _ in range(3):self.assertTrue(c.record_training_shot(True))
         reserved = c.save_path.read_bytes()
         stats = (c.stamina, c.morale)
         with patch('career.os.replace', side_effect=OSError('disk full')):
@@ -460,7 +467,7 @@ class CareerTests(unittest.TestCase):
 
     def test_older_completed_training_without_reservation_field_stays_locked(self):
         c = self.signed()
-        c.complete_training(3)
+        self.finish_training(c,3)
         data = json.loads(c.save_path.read_text())
         data['career'].pop('training_session_week')
         c.save_path.write_text(json.dumps(data))

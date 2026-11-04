@@ -8,18 +8,18 @@ from kivy.uix.label import Label
 from kivy.core.window import Window
 
 class FairFinishing(unittest.TestCase):
-    def test_aim_stays_in_open_aperture_and_visits_both_sides_and_heights(self):
+    def test_aim_sweeps_both_posts_and_outside_while_height_stays_scorable(self):
         with isolated_game(saved=True) as g:
             if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0])
             for seed in range(12):
                 g.career.rng.seed(seed);g._randomize_aim_pattern();points=[]
                 for step in range(2400):
                     g.aim_phase=step*.025;g._apply_aim_pattern();points.append((g.aim_x,g.aim_z))
-                    self.assertLess(abs(g.aim_x)+g.ball.radius,g.goal_half_width)
+                    self.assertLessEqual(abs(g.aim_x),g.goal_half_width+.45)
                     self.assertGreater(g.aim_z,g.ball.radius)
                     self.assertLess(g.aim_z+g.ball.radius,g.goal_height)
-                self.assertLess(min(x for x,z in points),-1.8)
-                self.assertGreater(max(x for x,z in points),1.8)
+                self.assertLess(min(x for x,z in points),-g.goal_half_width)
+                self.assertGreater(max(x for x,z in points),g.goal_half_width)
                 self.assertLess(min(z for x,z in points),.65)
                 self.assertGreater(max(z for x,z in points),1.7)
 
@@ -76,3 +76,21 @@ class FairFinishing(unittest.TestCase):
                     result=loc.tr(text)
                     self.assertEqual(len(result.split('\n\n')),3)
                     if lang!='en':self.assertNotEqual(result,text)
+
+    def test_play_stays_locked_through_partial_training_and_reload(self):
+        from career import CareerMode
+        with isolated_game(saved=True) as g:
+            c=g.career
+            if c.club is None:c.accept_starting_offer(c.offers[0])
+            g._career_started=True
+            for taken in range(3):
+                g.start_career_match();self.assertEqual(g.view,'hub')
+                self.assertFalse(c.trained_this_week)
+                self.assertTrue(c.begin_training());self.assertTrue(c.record_training_shot(False))
+                c.save();self.assertTrue(c.load())
+            self.assertFalse(c.trained_this_week) # third shot still needs saved completion
+            c.complete_training(c.training_session_goals)
+            with patch.object(c,'next_match',return_value=('league',*c.next_fixture())):
+                g.start_career_match();self.assertIn(g.view,('match','shot'))
+            c._consume_match_training();c.save();self.assertTrue(c.load())
+            g.view='hub';g.start_career_match();self.assertEqual(g.view,'hub')

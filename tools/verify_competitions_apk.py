@@ -111,3 +111,22 @@ report=dict(home='Home',away='Away',home_uid='h',away_uid='a',actor_uid='h',scor
 story=news.article(report,Localizer(False).tr,lambda e,side:e[side],'Player','League')
 assert len(story['goals'])==4 and story['goals'][-1]['score']==[3,1]
 print('Actual APK: all four goals, changing score and match summary verified')
+with tempfile.TemporaryDirectory() as tmp:
+    os.environ['STRIKER_SAVE_DIR']=tmp
+    c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0])
+    assert not c.trained_this_week and c.complete_training(3)==0 and c.begin_training()
+    for shot in range(3):
+        assert not c.trained_this_week and c.complete_training(3)==0
+        assert c.record_training_shot(shot==0)
+    assert c.complete_training(3)>0 and c.trained_this_week
+    c._ensure_competitions();book=c.world_competitions;own='nation:'+c.nationality;other=next(n for n in book.nations if n!=own)
+    f=dict(id='friendly:training-gate',home=own,away=other,week=c.week,stage='International friendly',score=None)
+    book.friendlies[f['id']]=f;week=c.week
+    h=c._competition_club(book.nations[own]);a=c._competition_club(book.nations[other])
+    c.finish_match(h,a,1,0,competition='world|friendly|'+f['id'],forced_score=(1,3))
+    assert c.week==week and not c.trained_this_week and c.training_shots_taken==0
+    assert c.load() and not c.trained_this_week and c.complete_training(3)==0
+    story=news.article(c.press_state['report'],Localizer(False).tr,lambda e,side:e[side],c.player_name,'International friendly')
+    assert story['mentions_player'] and c.player_name in story['headline'] and c.player_name in story['mention']
+    assert 'crucial' not in story['mention']
+print('Actual APK: three persisted training shots required, same-week national match consumes training, every goal gets newspaper headline')

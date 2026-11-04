@@ -810,7 +810,7 @@ class StrikerGame(Widget):
         if self.career.coach_meeting_required:
             self.career.message=COACH_REQUIRED;self.view='coach';self.draw();return
         if not self.career.trained_this_week:
-            self.career.message = 'Complete this week’s training to unlock Play.'
+            self.career.message = 'Complete training to unlock Play.'
             self.view = 'hub'
             self.draw()
             return
@@ -819,7 +819,7 @@ class StrikerGame(Widget):
         if self.career.coach_meeting_required:
             self.career.message=COACH_REQUIRED;self.view='coach';self.draw();return
         if not self.career.trained_this_week:
-            self.career.message='Complete this week’s training to unlock Play.';self.view='hub';self.draw();return
+            self.career.message='Complete training to unlock Play.';self.view='hub';self.draw();return
         if scheduled is None:
             self.career.message='No scheduled match is available.';self.view='hub';return
         if not self.career.world_unlocked and self.career.called_up:
@@ -1296,7 +1296,7 @@ class StrikerGame(Widget):
         self.aim_vertical_offset = rng.uniform(0.0, math.tau)
         self.aim_center_x = rng.uniform(-0.34, 0.34)
         self.aim_center_z = rng.uniform(0.94, 1.38)
-        self.aim_amplitude_x = self.goal_half_width - 0.38
+        self.aim_amplitude_x = self.goal_half_width + 0.40
         self.aim_amplitude_z = rng.uniform(0.80, 1.05)
         self.aim_speed_pulse = rng.uniform(0.0, math.tau)
         self._apply_aim_pattern()
@@ -1304,13 +1304,9 @@ class StrikerGame(Widget):
 
     def _apply_aim_pattern(self) -> None:
         phase = self.aim_phase
-        horizontal = (
-            0.62 * math.sin(phase + self.aim_horizontal_offset)
-            + 0.26 * math.sin(
-                phase * self.aim_horizontal_mix + self.aim_vertical_offset
-            )
-            + 0.12 * math.cos(phase * 0.37 - self.aim_vertical_offset)
-        )
+        # A complete sweep reaches both posts on every cycle, rather than
+        # several mixed waves cancelling each other near the keeper.
+        horizontal = math.sin(phase + self.aim_horizontal_offset)
         vertical = (
             0.58 * math.sin(
                 phase * self.aim_vertical_ratio + self.aim_vertical_offset
@@ -1320,10 +1316,10 @@ class StrikerGame(Widget):
             )
             + 0.14 * math.cos(phase * 0.51 + self.aim_horizontal_offset)
         )
-        # Ball centre stays clear of the posts, crossbar and turf at impact.
+        # Sweep slightly beyond each post; keep vertical targets below the bar.
         margin = self.ball.radius + 0.09
         self.aim_x = clamp(self.aim_center_x + horizontal * self.aim_amplitude_x,
-                           -self.goal_half_width + margin, self.goal_half_width - margin)
+                           -self.goal_half_width - 0.45, self.goal_half_width + 0.45)
         self.aim_z = clamp(self.aim_center_z + vertical * self.aim_amplitude_z,
                            margin, self.goal_height - margin)
 

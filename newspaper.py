@@ -28,6 +28,7 @@ def clean_state(raw):
     if not integer(r.get('photo'),4) or not integer(r.get('negative_run')):return state
     if type(r.get('standout')) is not bool:return state
     state['report']={k:copy.deepcopy(r[k]) for k in (*fields,'score','goals','misses','photo','negative_run','standout')}
+    state['report']['standout']=r['goals']>0
     state['report']['events']=clean_events(r.get('events'),r['score'])
     return state
 
@@ -46,10 +47,7 @@ def make_report(state,entry,home,away,actor_uid,score,goals,misses,moments,event
     from match_moments import clean_moments
     state=copy.deepcopy(state)
     state['negative_run']=state['negative_run']+1 if goals==0 and misses>0 else 0
-    own=0 if home.uid==actor_uid else 1
-    not_lost=score[own]>=score[1-own]
-    decisive=any(e['outcome']=='goal' and e['kind'] in ('equaliser','lead') for e in clean_moments(moments))
-    standout=goals>=2 or (goals==1 and ((score[own]>score[1-own] and score[own]==1) or (decisive and not_lost)))
+    standout=goals>0
     report={k:str(entry.get(k,'')) for k in ('date','competition','country','status')}
     if not report['status'][:1].isdigit():report['status']=f'{score[0]}-{score[1]}'
     report.update(home=home.name,away=away.name,home_uid=home.uid,away_uid=away.uid,actor_uid=actor_uid,
@@ -70,6 +68,8 @@ def article(report,tr,team,player,competition):
         headline=tr('{winner} edge past {loser}',winner=winner,loser=loser)
     else:
         headline=tr('{winner} see off {loser}',winner=winner,loser=loser)
+    if report['goals']>0:
+        headline=tr('{player} on target as {home} and {away} finish {score}',player=player,home=h,away=a,score=f'{hs}-{aws}')
     body=[tr('{home} and {away} finished {score} in {competition}.',home=h,away=a,score=f'{hs}-{aws}',competition=competition)]
     if not draw:
         body.append(tr('A single goal separated the teams at full time.') if abs(hs-aws)==1 else tr('The final winning margin was {margin} goals.',margin=abs(hs-aws)))
@@ -82,8 +82,8 @@ def article(report,tr,team,player,competition):
     body.append(summary)
     mention=''
     club=h if report['actor_uid']==report['home_uid'] else a
-    if report['standout']:
-        mention=tr('{player} stood out with {goals} goals for {club}.',player=player,goals=report['goals'],club=club) if report['goals']>=2 else tr('{player} caught the eye with a crucial goal for {club}.',player=player,club=club)
+    if report['goals']>0:
+        mention=tr('{player} stood out with {goals} goals for {club}.',player=player,goals=report['goals'],club=club) if report['goals']>=2 else tr('{player} got on the scoresheet for {club}.',player=player,club=club)
     elif report['negative_run']>=3:
         mention=tr('{player} endured another difficult outing: {games} consecutive appearances without a goal despite shooting chances.',player=player,games=report['negative_run'])
     if mention:body.append(mention)
@@ -118,8 +118,8 @@ def brief_article(report,tr,player):
     else:
         h,a=report['score'];margin=abs(h-a)
         lead=tr('The sides finished level on the match scoreboard.') if not margin else tr('A single goal separated the teams at full time.') if margin==1 else tr('The final winning margin was {margin} goals.',margin=margin)
-    if report['standout']:
-        lead+='\n'+(tr('{player}: {goals} goals.',player=player,goals=report['goals']) if report['goals']>=2 else tr('{player}: a crucial goal.',player=player))
+    if report['goals']>0:
+        lead+='\n'+(tr('{player}: {goals} goals.',player=player,goals=report['goals']) if report['goals']>=2 else tr('{player}: one goal.',player=player))
     elif report['negative_run']>=3:
         lead+='\n'+tr('{player}: {games} games without a goal.',player=player,games=report['negative_run'])
     return lead

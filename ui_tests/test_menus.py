@@ -972,7 +972,7 @@ class MenuTests(unittest.TestCase):
             game.training_completed = False
             game.draw()
             settle()
-            button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'WEEKLY TRAINING USED')
+            button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'TRAINING COMPLETE')
             self.assertTrue(button.disabled)
             game.career.week += 1
             game.draw()

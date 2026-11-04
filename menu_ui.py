@@ -329,9 +329,9 @@ class CareerMenu(BoxLayout):
             card.label(f'Resume training · {c.training_shots_taken}/3 shots completed.')
             if not compact:card.label(c.message, muted=True)
         elif not used:
-            card.label('Complete three shots to unlock this week’s match.')
+            card.label('Complete three shots to unlock the next match.')
         else:
-            card.label('This week’s training session has been used.', muted=True)
+            card.label('Training is complete for the next match.', muted=True)
         if compact:
             card.label('One striker. One goalkeeper. Three finishes.', muted=True)
             card.label(g.i18n.tr('Completed shots: {shots}/3 · Goals: {goals}/3',
@@ -339,7 +339,7 @@ class CareerMenu(BoxLayout):
                        goals=c.training_session_goals if c.training_session_week == c.week else 0), heading=True)
             card.add_widget(ProgressBar(max=3, value=c.training_shots_taken if c.training_session_week == c.week else 0, size_hint_y=None, height=dp(14)))
             card.label(f'Energy: {c.stamina:.1f}/20  ·  Morale: {c.morale:.1f}/20', muted=True)
-            button = self._button('WEEKLY TRAINING USED' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
+            button = self._button('TRAINING COMPLETE' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
             button.disabled = used or c.coach_meeting_required
             card.add_widget(button)
             return
@@ -351,7 +351,7 @@ class CareerMenu(BoxLayout):
             ('PROGRESS', (g.i18n.tr('Completed shots: {shots}/3 · Goals: {goals}/3',
              shots=c.training_shots_taken if resumable or used else 0,
              goals=c.training_session_goals if c.training_session_week == c.week else 0),
-             'One session per week. Your progress is saved after each shot.'))):
+             'One session before every match. Your progress is saved after each shot.'))):
             panel = Card();panel.label(title, heading=True)
             for line in lines:panel.label(line, muted=True)
             plan.add_widget(panel)
@@ -359,8 +359,8 @@ class CareerMenu(BoxLayout):
         card.add_widget(ProgressBar(max=3, value=c.training_shots_taken if c.training_session_week == c.week else 0, size_hint_y=None, height=dp(14)))
         card.label('PLAYER READINESS', heading=True)
         card.label(f'Energy: {c.stamina:.1f}/20  ·  Morale: {c.morale:.1f}/20', muted=True)
-        card.label('Complete this session to unlock the match. Training goals help your chances this week.', muted=True)
-        button = self._button('WEEKLY TRAINING USED' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
+        card.label('Complete this session to unlock the match. Training goals help your chances in the next match.', muted=True)
+        button = self._button('TRAINING COMPLETE' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
         button.disabled = used or c.coach_meeting_required
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         actions.add_widget(button)
