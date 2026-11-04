@@ -1,3 +1,19 @@
+## Scorer World 0.9.7 — domestic schedules and split tables
+
+[Download World 0.9.7 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.7/Scorer-World-0.9.7.apk)
+
+New World careers use sourced regular capacities/splits in38 countries/76 divisions,
+including Spain20/22 and Brazil20/20. Split membership, points and different group
+endings persist. Save and Exit, install over the existing World QA app, and Load
+Game to keep your current career’s original model. Start New Game (with the normal
+confirmation/private backup) to use the new structures. No automatic career reset.
+
+[Scope and upgrade instructions](docs/RELEASE_0.9.7.md) ·
+[Verified APK](docs/RELEASE_0.9.7_artifacts.json) ·
+[Public download verification](docs/RELEASE_0.9.7_download.json).
+422host tests passed; actual compiled source/data, splits/legacy reload, upgrade
+certificate and118ELF16KB verified. DEBUG QA; public launch remains1.0.
+
 ## Scorer World 0.9.4 — two divisions everywhere
 
 [Download World0.9.4 APK](https://github.com/pereiragoncalo/Scorer/raw/refs/heads/beta-0.9.4/Scorer-World-0.9.4.apk) · [Download updated names JSON](https://github.com/pereiragoncalo/Scorer/releases/download/real-names-two-divisions-2026/Scorer-World-Real-Names-Two-Divisions-2026.json)
