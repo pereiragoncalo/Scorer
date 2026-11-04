@@ -326,5 +326,18 @@
   "Selection pending": "招集未定",
   "Called up": "招集済み",
   "Not selected": "招集なし",
-  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "昇格と降格は大会規則に従います。2部からの退出には10クラブの交代制予備枠を使用します。"
+  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "昇格と降格は大会規則に従います。2部からの退出には10クラブの交代制予備枠を使用します。",
+  "LATE EQUALISER": "終盤の同点チャンス",
+  "One goal would draw your team level. The match is still live.": "1点取れば同点です。試合はまだ続いています。",
+  "LATE CHANCE TO LEAD": "終盤の勝ち越しチャンス",
+  "The scores are level. Take the lead before the final whistle.": "同点です。試合終了前にリードを奪いましょう。",
+  "CUP FINAL": "カップ決勝",
+  "A chance on the biggest stage. The final is still in play.": "大舞台でのチャンスです。決勝はまだ続いています。",
+  "DERBY DAY": "ダービーの日",
+  "Local rivals, one chance to make your mark.": "地元のライバル相手に存在感を示すチャンスです。",
+  "SURVIVAL RUN-IN": "残留争い",
+  "Your club is close to the relegation line. Every point matters.": "所属クラブは降格圏の近くにいます。勝点の一つひとつが重要です。",
+  "Chance missed": "チャンスを逃した",
+  "LEAGUE PLAYOFF": "リーグプレーオフ",
+  "League places are at stake in this tie.": "この対戦には来季の所属リーグが懸かっています。"
 }

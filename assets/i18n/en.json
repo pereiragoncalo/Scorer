@@ -326,5 +326,18 @@
   "Selection pending": "Selection pending",
   "Called up": "Called up",
   "Not selected": "Not selected",
-  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs."
+  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.",
+  "LATE EQUALISER": "LATE EQUALISER",
+  "One goal would draw your team level. The match is still live.": "One goal would draw your team level. The match is still live.",
+  "LATE CHANCE TO LEAD": "LATE CHANCE TO LEAD",
+  "The scores are level. Take the lead before the final whistle.": "The scores are level. Take the lead before the final whistle.",
+  "CUP FINAL": "CUP FINAL",
+  "A chance on the biggest stage. The final is still in play.": "A chance on the biggest stage. The final is still in play.",
+  "DERBY DAY": "DERBY DAY",
+  "Local rivals, one chance to make your mark.": "Local rivals, one chance to make your mark.",
+  "SURVIVAL RUN-IN": "SURVIVAL RUN-IN",
+  "Your club is close to the relegation line. Every point matters.": "Your club is close to the relegation line. Every point matters.",
+  "Chance missed": "Chance missed",
+  "LEAGUE PLAYOFF": "LEAGUE PLAYOFF",
+  "League places are at stake in this tie.": "League places are at stake in this tie."
 }

@@ -1,5 +1,6 @@
 """Original Striker simulation and career, importable without Kivy."""
 from __future__ import annotations
+from match_moments import clean_moments
 
 
 import json
@@ -1197,7 +1198,7 @@ class CareerMode(TwoDivisionCareer):
                 return ((means[0]+reverse[1])/2,(means[1]+reverse[0])/2)
         return means
 
-    def _finish_world_fixture(self,token,home,away,player_goals,player_misses,score):
+    def _finish_world_fixture(self,token,home,away,player_goals,player_misses,score,moments=None):
         from world_competitions import fixture_day
         _,key,fixture_id=token.split('|',2)
         self._ensure_competitions()
@@ -1226,7 +1227,7 @@ class CareerMode(TwoDivisionCareer):
         self.message=self.last_result
         from international_calendar import match_date
         self.fixture_history.append({'date':match_date(self.season,cup,f).isoformat(),'competition':title,'country':self.current_league.country,
-                                     'home':home.name,'away':away.name,'home_uid':home.uid,'away_uid':away.uid,'status':f'{score[0]}-{score[1]}{decision}','played':True})
+                                     'home':home.name,'away':away.name,'home_uid':home.uid,'away_uid':away.uid,'status':f'{score[0]}-{score[1]}{decision}','played':True,'moments':clean_moments(moments)})
         self.fixture_history=self.fixture_history[-128:]
         if key.startswith('domestic:'):
             self.cup_history=(self.cup_history+[f["stage"]+': '+self.last_result])[-8:]
@@ -1630,9 +1631,10 @@ class CareerMode(TwoDivisionCareer):
         is_international: bool = False,
         forced_score: Optional[tuple[int, int]] = None,
         competition: str = "league",
+        moments=None,
     ) -> tuple[int, int]:
         if competition.startswith('world|'):
-            return self._finish_world_fixture(competition,home,away,player_goals,player_misses,forced_score)
+            return self._finish_world_fixture(competition,home,away,player_goals,player_misses,forced_score,moments)
         match_date = self.current_date+timedelta(days=4 if self.world_unlocked else 0)
         if is_international:
             if forced_score is None:
@@ -1651,6 +1653,7 @@ class CareerMode(TwoDivisionCareer):
                 "home": home.name,
                 "away": away.name,
                 "status": self.last_result,
+                "moments": clean_moments(moments),
                 "played": True,
             })
             self.fixture_history = self.fixture_history[-128:]
@@ -1738,6 +1741,7 @@ class CareerMode(TwoDivisionCareer):
             "home": home.name,
             "away": away.name,
             "status": f"{home_goals}-{away_goals}{decision}",
+            "moments": clean_moments(moments),
             "played": True,
         })
         self.fixture_history = self.fixture_history[-128:]
@@ -2411,6 +2415,8 @@ class CareerMode(TwoDivisionCareer):
                 if isinstance(value, dict)
             ][-128:]
             for entry in self.fixture_history:
+                if "moments" in entry:
+                    entry["moments"] = clean_moments(entry["moments"])
                 if key == FREE_LEAGUE_KEY and entry.get("competition") == "Liga Scorer":
                     entry["competition"] = "Scorer League"
                 status = entry.get("status")

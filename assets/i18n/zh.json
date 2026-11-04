@@ -326,5 +326,18 @@
   "Selection pending": "等待征召",
   "Called up": "已征召",
   "Not selected": "未征召",
-  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "升降级遵循赛事规则。离开第二级联赛的球队由10家俱乐部组成的轮换预备池补充。"
+  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "升降级遵循赛事规则。离开第二级联赛的球队由10家俱乐部组成的轮换预备池补充。",
+  "LATE EQUALISER": "最后阶段的扳平机会",
+  "One goal would draw your team level. The match is still live.": "再进一球即可扳平。比赛仍在进行。",
+  "LATE CHANCE TO LEAD": "最后阶段的领先机会",
+  "The scores are level. Take the lead before the final whistle.": "目前比分持平。争取在终场哨前取得领先。",
+  "CUP FINAL": "杯赛决赛",
+  "A chance on the biggest stage. The final is still in play.": "大舞台上的机会。决赛仍在进行。",
+  "DERBY DAY": "德比日",
+  "Local rivals, one chance to make your mark.": "面对同城对手，抓住机会展现自己。",
+  "SURVIVAL RUN-IN": "保级冲刺",
+  "Your club is close to the relegation line. Every point matters.": "你的俱乐部接近降级区。每一分都至关重要。",
+  "Chance missed": "错失机会",
+  "LEAGUE PLAYOFF": "联赛附加赛",
+  "League places are at stake in this tie.": "本轮对决关系到下赛季的联赛席位。"
 }

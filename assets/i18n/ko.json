@@ -326,5 +326,18 @@
   "Selection pending": "소집 대기",
   "Called up": "소집됨",
   "Not selected": "소집되지 않음",
-  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "승격과 강등은 대회 규정을 따릅니다. 2부 리그 이탈 팀은 10개 예비 구단에서 순환하여 대체됩니다."
+  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "승격과 강등은 대회 규정을 따릅니다. 2부 리그 이탈 팀은 10개 예비 구단에서 순환하여 대체됩니다.",
+  "LATE EQUALISER": "막판 동점 기회",
+  "One goal would draw your team level. The match is still live.": "한 골이면 동점입니다. 경기는 아직 진행 중입니다.",
+  "LATE CHANCE TO LEAD": "막판 리드 기회",
+  "The scores are level. Take the lead before the final whistle.": "동점 상황입니다. 종료 휘슬 전에 앞서 나가세요.",
+  "CUP FINAL": "컵 결승",
+  "A chance on the biggest stage. The final is still in play.": "큰 무대에서 찾아온 기회입니다. 결승전은 아직 진행 중입니다.",
+  "DERBY DAY": "더비의 날",
+  "Local rivals, one chance to make your mark.": "지역 라이벌전에서 존재감을 보여 줄 기회입니다.",
+  "SURVIVAL RUN-IN": "잔류 경쟁",
+  "Your club is close to the relegation line. Every point matters.": "소속팀이 강등권 가까이에 있습니다. 승점 하나하나가 중요합니다.",
+  "Chance missed": "기회를 놓쳤습니다",
+  "LEAGUE PLAYOFF": "리그 플레이오프",
+  "League places are at stake in this tie.": "이 대결에는 다음 시즌 리그 자리가 걸려 있습니다."
 }

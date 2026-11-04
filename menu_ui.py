@@ -1,3 +1,4 @@
+from match_moments import TEXT as MOMENT_TEXT, clean_moments
 """Responsive, touch-friendly career menus for the original Kivy game."""
 from career import EUROPE_PYRAMID_DEPTH, WORLD_COUNTRIES
 from domestic_rules import uses_simplified_model, table_zones
@@ -350,8 +351,14 @@ class CareerMenu(BoxLayout):
             if uid.startswith('nation:'):return self.game.i18n.country(uid[7:])
             if uid in clubs:return c.display_club(clubs[uid])
             return c.display_text(entry.get(side,''),entry.get('country'))
+        def status(entry):
+            text = self.game.i18n.tr(entry.get('status', ''))
+            for event in clean_moments(entry.get('moments')):
+                text += " · " + self.game.i18n.tr(MOMENT_TEXT[event['kind']][0])
+                text += " · " + str(event['minute']) + "' " + self.game.i18n.tr('GOAL!' if event['outcome']=='goal' else 'Chance missed')
+            return text
         rows = [(str(e.get('date', ''))[8:10] + '/' + str(e.get('date', ''))[5:7], team(e,'home')+' vs '+team(e,'away'),
-                 self.game.i18n.competition(c,e.get('competition', ''),e.get('country')), self.game.i18n.tr(e.get('status', ''))) for e in c.calendar_entries()]
+                 self.game.i18n.competition(c,e.get('competition', ''),e.get('country')), status(e)) for e in c.calendar_entries()]
         return CompactTable(f'FIXTURES · {c.season}/{str(c.season + 1)[-2:]}', ('DATE', 'MATCH', 'COMPETITION', 'STATUS'), rows,
                             summary=(0, 1, 2, 3))
 
@@ -593,7 +600,7 @@ class MatchNotice(BoxLayout):
         game = self.game
         self.width = min(game.width * 0.76, dp(460))
         self._fit_panel()
-        signature = (game.match_finished, game.match_halftime, game.match_summary, game.career.morale, game.career.stamina)
+        signature = (game.i18n.language, game.match_finished, game.match_halftime, game.match_summary, game.career.morale, game.career.stamina, getattr(game, "match_moment", ""), tuple((e["kind"],e["outcome"]) for e in getattr(game,"match_moments",[])))
         if signature == self.signature:
             return
         self.signature = signature
@@ -603,6 +610,16 @@ class MatchNotice(BoxLayout):
         detail = (f'Morale {game.career.morale:.1f}/20  ·  Energy {game.career.stamina:.1f}/20'
                   if game.match_finished else 'Ready for the second half?' if game.match_halftime else 'Line up your shot and make the difference.')
         self.body.add_widget(FlowLabel(text=detail, font_size=sp(13), halign='center'))
+        moment = getattr(game, 'match_moment', '')
+        if not game.match_finished and not game.match_halftime and moment in MOMENT_TEXT:
+            headline, context = MOMENT_TEXT[moment]
+            self.body.add_widget(FlowLabel(text=headline, font_size=sp(17), bold=True, color=GREEN, halign='center'))
+            self.body.add_widget(FlowLabel(text=context, font_size=sp(13), halign='center'))
+        elif game.match_finished and getattr(game, 'match_moments', []):
+            event = game.match_moments[0]
+            headline = MOMENT_TEXT[event['kind']][0]
+            outcome = 'GOAL!' if event['outcome'] == 'goal' else 'Chance missed'
+            self.body.add_widget(FlowLabel(text=game.i18n.tr(headline) + ' · ' + game.i18n.tr(outcome), font_size=sp(13), halign='center'))
         self.button.text = 'CONTINUE' if game.match_finished else 'SECOND HALF' if game.match_halftime else 'PLAY CHANCE'
 
     def proceed(self):

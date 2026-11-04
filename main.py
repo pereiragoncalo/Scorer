@@ -18,6 +18,7 @@ responsivos sem ficheiros KV. A carreira é guardada automaticamente.
 
 
 from __future__ import annotations
+from match_moments import match_stakes, late_opportunity, chance_moment
 
 
 import json
@@ -321,6 +322,9 @@ class StrikerGame(Widget):
         self.match_competition = "league"
         self.match_finished = False
         self.match_summary = ""
+        self.match_moment = ""
+        self.match_moments = []
+        self.match_stakes = {}
         self.awaiting_chance = False
         self.shot_time_limit = 0.0
         self.shot_time_left = 0.0
@@ -861,8 +865,16 @@ class StrikerGame(Widget):
             for _ in range(away_ai)
         ]
         self.match_goal_events = sorted(goal_events, key=lambda event: event[0])
+        self.match_stakes = match_stakes(self.career, self.match_competition, self.match_home, self.match_away)
+        self.match_chance_minutes = late_opportunity(
+            self.match_chance_minutes, self.match_first_stoppage, final_minute,
+            (self.career.world_seed, self.career.season, self.career.week,
+             self.match_competition, self.match_home.uid, self.match_away.uid),
+            bool(self.match_stakes['kind']))
         self.match_finished = False
         self.match_summary = ""
+        self.match_moment = ""
+        self.match_moments = []
         self.awaiting_chance = False
         self.view = "match"
         self.state = self.STATE_AIMING
@@ -898,7 +910,13 @@ class StrikerGame(Widget):
             self.match_home_score += 1
         else:
             self.match_away_score += 1
+        self._record_match_moment(True)
         self._flash_scoreboard()
+
+    def _record_match_moment(self, scored):
+        if self.match_moment and not self.match_moments:
+            minute = int(self.match_minute - (self.match_first_stoppage if self.match_half == 2 else 0))
+            self.match_moments.append({"kind": self.match_moment, "minute": minute, "outcome": "goal" if scored else "missed"})
 
     def _resume_second_half(self) -> None:
         if not self.match_halftime or self.match_finished:
@@ -930,6 +948,9 @@ class StrikerGame(Widget):
         if self.match_chance_index < len(self.match_chance_minutes):
             if self.match_minute >= self.match_chance_minutes[self.match_chance_index]:
                 self.awaiting_chance = True
+                minute = int(self.match_minute - (self.match_first_stoppage if self.match_half == 2 else 0))
+                self.match_moment = chance_moment(self.match_stakes, minute,
+                    self.match_home_score, self.match_away_score, self._player_match_is_home(), bool(self.match_moments))
                 self._play_chance_sound()
                 return
         if self.match_minute >= boundary:
@@ -950,6 +971,7 @@ class StrikerGame(Widget):
             self.match_is_international,
             (self.match_home_score, self.match_away_score),
             self.match_competition,
+            moments=self.match_moments,
         )
         self.match_finished = True
         if self.leaderboard.enabled and self.family.social:
@@ -1150,6 +1172,7 @@ class StrikerGame(Widget):
                 self._record_player_match_goal()
             else:
                 self.match_player_misses += 1
+                self._record_match_moment(False)
             self.view = "match"
             self.shot_context = "career"
             self._prepare_next_shot()

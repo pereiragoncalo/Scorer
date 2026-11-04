@@ -1709,3 +1709,20 @@ Owner requested closing launch point1. Integrated/reviewed existing competition 
   in prereleaseqa-0.9.6. Public download independently verified74105187bytes and
   SHA256`646cbcc046db50b2bb8dde880c06ae5931e1dccbcace435b2bb4f6ca2e766886`.
   No binary rebuild or alteration occurred during transfer.
+
+## 2026-11-04 — 0.9.8 decisive match moments
+
+Implemented live-score late opportunities, actual final/playoff context, thirteen
+UID-bound derby pairs and close direct-relegation run-in context. Retime only an
+existing final chance using independent RNG after AI events are sampled; never
+alter shot physics, chance counts/clear index or goal budgets. Persist one actual
+moment outcome in fixture history and render it in nine languages.
+
+Initial core suite:302 passed; additional survival-boundary test and targeted
+localisation suite passed. Native suite initially129/130: retained match notice
+did not refresh the headline when changing language. Added language to the
+notice signature; the four targeted integration tests passed. Final full native
+suite and APK evidence are recorded in RELEASE_0.9.8_artifacts.json. A repeated
+staging invocation correctly refused a non-empty output directory; the final
+build uses a fresh staging directory. Unrelated root badge/UI WIP is retained.
+No physical-device, production signing, Google Play or live-server validation.

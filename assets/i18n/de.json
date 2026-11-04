@@ -326,5 +326,18 @@
   "Selection pending": "Nominierung ausstehend",
   "Called up": "Nominiert",
   "Not selected": "Nicht nominiert",
-  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "Aufstieg und Abstieg folgen den Wettbewerbsregeln. Abgänge aus der zweiten Liga werden aus einer rotierenden Reserve von 10 Vereinen ersetzt."
+  "Promotion and relegation follow the competition rules. Division 2 departures use a rotating reserve of 10 clubs.": "Aufstieg und Abstieg folgen den Wettbewerbsregeln. Abgänge aus der zweiten Liga werden aus einer rotierenden Reserve von 10 Vereinen ersetzt.",
+  "LATE EQUALISER": "SPÄTE AUSGLEICHSCHANCE",
+  "One goal would draw your team level. The match is still live.": "Ein Tor würde ausgleichen. Das Spiel ist noch offen.",
+  "LATE CHANCE TO LEAD": "SPÄTE FÜHRUNGSCHANCE",
+  "The scores are level. Take the lead before the final whistle.": "Es steht unentschieden. Geh vor dem Schlusspfiff in Führung.",
+  "CUP FINAL": "POKALFINALE",
+  "A chance on the biggest stage. The final is still in play.": "Eine Chance auf der großen Bühne. Das Finale läuft noch.",
+  "DERBY DAY": "DERBYTAG",
+  "Local rivals, one chance to make your mark.": "Lokale Rivalen und eine Chance, ein Zeichen zu setzen.",
+  "SURVIVAL RUN-IN": "KAMPF UM DEN KLASSENERHALT",
+  "Your club is close to the relegation line. Every point matters.": "Dein Verein steht nahe an den Abstiegsplätzen. Jeder Punkt zählt.",
+  "Chance missed": "Chance vergeben",
+  "LEAGUE PLAYOFF": "LIGA-PLAYOFF",
+  "League places are at stake in this tie.": "In diesem Duell geht es um die Ligazugehörigkeit."
 }
