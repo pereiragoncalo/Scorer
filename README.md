@@ -1,3 +1,22 @@
+## Scorer World 0.9.14 — every goal in the headline, wide aim, training gate
+
+[Download World 0.9.14 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.14/Scorer-World-0.9.14.apk) ·
+[Newspaper preview](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.14/0.9.14-goal-headline-pt.png)
+
+Every personal goal earns a name headline and article mention, including a goal
+in a draw or defeat. Aim now sweeps both posts and slightly outside. Three saved
+practice shots are mandatory before each match; cup/national fixtures in the
+same week consume training too. Abandoned practice cannot unlock Play or grant
+completion rewards. Career, aliases and partial training remain compatible;
+old completed-training flags reset once on upgrade to close the reuse loophole.
+
+499 host tests passed (345 core +154 native Kivy). Actual APK compiled source,
+three-shot/same-week gate, goal headline, existing QA upgrade certificate, API36
+and16KB alignment verified. Preview is desktop Kivy; physical Android validation
+remains outstanding. DEBUG QA; public launch remains1.0.
+[Scope](docs/RELEASE_0.9.14.md) · [APK evidence](docs/RELEASE_0.9.14_artifacts.json) ·
+[Public download check](docs/RELEASE_0.9.14_download.json).
+
 ## Scorer World 0.9.13 — fairer finishing, training and coach feedback
 
 [Download World 0.9.13 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.13/Scorer-World-0.9.13.apk) ·

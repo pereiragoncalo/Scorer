@@ -1907,3 +1907,12 @@ upgrade certificate, API36/min26,118 ELF/ZIP16KB, ad-free rehearsal payload.
 Portuguese newspaper screenshot is desktop Kivy with a synthetic recorded goal,
 1280x591/density1.4, one paper leaf. No physical Android, production signing,
 Play upload or live-server changes. Evidence /workspace/striker-runtime/0914.
+
+Delivery: raw chunk downloads timed out twice in run41874249294. Updated the
+transfer step to read the same immutable Git blobs through the authenticated
+GitHub API with bounded retries, retaining all byte/hash checks; YAML/embedded
+Python parsed successfully. No APK changes. Workflow41874991893 succeeded in38s.
+Public APK and preview returned HTTP200, attachment headers and exact local
+size/SHA256 matches. APK107335455B,
+SHA2565d9cd7422ea4662203db1df1a6fba6d72287e980f3b117731bcc3d4d477a1770.
+Temporary qa-upload-0.9.14 branch removed after public verification.
