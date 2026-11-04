@@ -1782,3 +1782,9 @@ excluded from reviewed source and APK.
 Initial core324 and native139 passed. Added goal-clock/conservation checks after
 that run; final core/native and exact APK evidence follow in release metadata.
 No physical-device, production signing, Google Play or live-server validation.
+
+Final0.9.10 validation:326 core +140 native Kivy =466 passing. Actual APK compiled
+source matches commit df26ae8; API36/code1026910/arm64,118ELF16KB, ZIP alignment,
+existing upgrade certificate, bundled photo/font bytes and compiled conditional
+coach/newspaper/competition/save/publishing checks passed. Public download
+attachment bytes/hash were independently checked; see download evidence.

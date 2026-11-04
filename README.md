@@ -1,3 +1,19 @@
+## Scorer World 0.9.10 — newspaper and conditional coach meetings
+
+[Download World 0.9.10 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.10/Scorer-World-0.9.10.apk)
+
+Ordinary weeks have no meeting. Only a drought or an actual key match prompts
+the coach and blocks training/play until reviewed. Newspaper opens SCORER DAILY:
+factual last-match coverage, recorded goal minutes, conditional player mentions
+and five original rotating match photographs in a paper-style reader.
+Existing careers and training progress are retained; no reset required.
+
+466 host tests passed (326 core +140 native Kivy), including all nine languages.
+Actual compiled source, bundled photo/font bytes, upgrade certificate and16KB
+alignment verified. DEBUG QA; physical-device testing remains outstanding.
+[Scope](docs/RELEASE_0.9.10.md) · [APK evidence](docs/RELEASE_0.9.10_artifacts.json) ·
+[Public download check](docs/RELEASE_0.9.10_download.json).
+
 ## Scorer World 0.9.9 — coach meetings and feedback
 
 [Download World 0.9.9 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.9/Scorer-World-0.9.9.apk)
