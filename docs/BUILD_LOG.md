@@ -2010,3 +2010,7 @@ Exact compiled changed source/all9catalogues, API36/min26, existing DEBUG
 certificate, arm64,118ELF/ZIP16KB and ad-free payload verified. No physical phone,
 production signing, Play upload or live-server changes. Landscape geometry audit
 is not universal device/cutout/OS certification. Unrelated root WIP preserved.
+
+Delivery run41933942390 succeeded. Public APK and891-case report returned HTTP200
+with attachment headers and exact local byte/SHA256 matches. Proof recorded in
+RELEASE_0.9.17_download.json; temporary qa-upload-0.9.17 branch removed after checks.

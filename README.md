@@ -1,3 +1,22 @@
+## Scorer World0.9.17 — responsive layout audit and corrections
+
+[Download World0.9.17 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.17/Scorer-World-0.9.17.apk) ·
+[891-case layout report](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.17/responsive_0.9.17.json)
+
+27 views across11 resolution/density/text-scale configurations and Portuguese,
+German and Japanese:891 native layout cases, zero findings after corrections.
+Coach headings/status use actual font heights; navigation headers fit enlarged
+Back controls. Cases cover16:9,18.5:9,19.5:9,20:9, foldable/compact viewports and
+130% text. These are landscape desktop Kivy checks, not universal physical-device
+or cutout/OS certification. Android handset validation remains outstanding.
+
+520 host tests passed (353 core +167 native Kivy). Exact compiled source,
+existing QA certificate, API36/arm64 and16KB alignment verified. Gameplay,
+careers, single-screen news/coach and penalty rules retained. DEBUG QA;
+public launch remains1.0.
+[Scope](docs/RELEASE_0.9.17.md) · [APK evidence](docs/RELEASE_0.9.17_artifacts.json) ·
+[Public download check](docs/RELEASE_0.9.17_download.json).
+
 ## Scorer World0.9.16 — more duels, penalties and one-screen reading
 
 [Download World0.9.16 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.16/Scorer-World-0.9.16.apk) ·
