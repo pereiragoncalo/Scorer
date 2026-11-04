@@ -1916,3 +1916,30 @@ Public APK and preview returned HTTP200, attachment headers and exact local
 size/SHA256 matches. APK107335455B,
 SHA2565d9cd7422ea4662203db1df1a6fba6d72287e980f3b117731bcc3d4d477a1770.
 Temporary qa-upload-0.9.14 branch removed after public verification.
+
+## 2026-11-04 — World0.9.15 post-match flow and trophy cabinet
+
+Source95ba884d12d48b82883d82f64477da77ef01f12f adds persisted result→newspaper→
+requested coach→hub flow, removes hub news/coach buttons, shortens World's editor
+button and greys/guards Agent outside windows (free agents retain signing access).
+Observed participation/actual winners populate saved personal cup/league/national
+trophies and positive joint league Golden Boot. Optional honours state is bounded;
+no unverifiable old trophy reconstruction. Player cabinet scrolls independently
+with golden cup icons and fixed name/actions, tested down to320x240. Unrelated
+root badge-helper/mode WIP remains unstaged and excluded from the APK source.
+
+Core350 passed in130.323s; native158 in169.323s, total508. Targeted honours5 passed
+in2.984s; post-flow/menus18 passed in32.435s. Initial native expectations for old
+hub buttons, editor wording and direct return to hub were updated for the new
+sequence. Native checks include restart/back/save failure, optional meeting,
+agent-window controls, trophies/reload and profile bounds. Actual league/cup-final
+awards, Golden Boot, deduplication and transfer persistence are covered in core.
+
+Built World0.9.15/code1026915 DEBUG arm64 APK,107342435B,
+SHA256b2d2b2524c024abf8cbca4f87040beed098d2b625f8824e4cc598ec5a9475268.
+API36/min26, same upgrade certificate,118ELF/ZIP16KB alignment and ad-free payload
+verified. Exact compiled honours/gameplay/UI source and unchanged assets verified;
+actual compiled cup final awards/reloads a personal trophy and newspaper queue.
+Desktop Kivy preview uses synthetic awards, not an owner's save or handset capture.
+No physical Android, production signing, Play upload or live-server changes.
+Evidence /workspace/striker-runtime/0915 and RELEASE_0.9.15*.json/md.
