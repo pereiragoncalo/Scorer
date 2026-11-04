@@ -1,3 +1,19 @@
+## Scorer World 0.9.11 — single-page news, coach portraits, World editor
+
+[Download World 0.9.11 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.11/Scorer-World-0.9.11.apk)
+
+The newspaper fits one screen with measured full/concise text and no scrolling.
+Meetings show one of ten saved coach-at-desk portraits; changing clubs always
+changes the previous face. The editor now lives in World > Names Editor and is
+removed from the main menus. Existing careers and name packs remain compatible.
+
+480 host tests passed (336 core +144 native Kivy), followed by6 final newspaper
+checks. All nine languages and long CJK aliases tested down to320×240 with
+body type>=12sp. Actual compiled source/assets, upgrade certificate and16KB
+alignment verified. DEBUG QA; physical-device testing remains outstanding.
+[Scope](docs/RELEASE_0.9.11.md) · [APK evidence](docs/RELEASE_0.9.11_artifacts.json) ·
+[Public download check](docs/RELEASE_0.9.11_download.json).
+
 ## Scorer World 0.9.10 — newspaper and conditional coach meetings
 
 [Download World 0.9.10 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.10/Scorer-World-0.9.10.apk)

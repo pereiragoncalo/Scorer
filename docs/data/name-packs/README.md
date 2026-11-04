@@ -6,6 +6,7 @@
 Both are uncompressed JSON attachments, covering Portugal, England, Spain,
 Germany, Italy, France, Brazil and Argentina. Player reference remains July2026;
 these are not current November rosters. Import through Editor > Import names.
+In World0.9.11, open World > Names Editor > Import names file.
 No APK update or career reset. [Selection, limits and source evidence](REAL_NAMES_0.9.10.md) ·
 [Import validation](current-validation.json) · [Public download verification](current-downloads.json).
 

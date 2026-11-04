@@ -1824,3 +1824,10 @@ native and actual APK checks follow in release evidence. The first full native
 run passed143/144; one historical test still expected direct main-menu editor
 access. Updated it to assert absence in the hub and follow World > Names Editor. Original image hashes
 are documented in COACH_PORTRAITS.md; no physical Android validation claimed.
+
+Final0.9.11 checks:336 core +144 native Kivy =480 passing. A final conservative
+fractional-width measurement adjustment was rechecked by the6 newspaper UI tests;
+all passed and the APK was rebuilt from a fresh staging directory. Actual compiled
+source matches commit4f372ba; API36/code1026911/arm64,118ELF16KB, ZIP alignment,
+existing upgrade certificate, all ten portrait bytes and compiled appearance/save/
+competition/publishing checks passed. Public attachment evidence follows.
