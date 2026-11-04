@@ -52,7 +52,7 @@ def take_text(text,width,height,font,size):
 class NewspaperScreen(FloatLayout):
     def __init__(self,menu):
         super().__init__();self.menu=menu;self.loc=menu.game.i18n;self.scroll=None;self.page=0;self.pages=[];self.fragments=[]
-        self.back=MenuTile('BACK',lambda:menu.action('hub'));self.back.size_hint=(None,None);self.add_widget(self.back)
+        self.back=MenuTile('CONTINUE',lambda:menu.action('post_match_continue'));self.back.size_hint=(None,None);self.add_widget(self.back)
         self.previous=MenuTile('PREVIOUS',lambda:self.turn(-1));self.previous.size_hint=(None,None)
         self.following=MenuTile('NEXT',lambda:self.turn(1));self.following.size_hint=(None,None)
         self.counter=self.label('',(.84,.84,.76,1))

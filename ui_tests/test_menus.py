@@ -411,7 +411,7 @@ class MenuTests(unittest.TestCase):
             ads.match_completed.assert_called_once()
             ads.continue_after_match.assert_not_called()
             game._activate_ui('match_continue')
-            self.assertEqual(game.view, 'hub')
+            self.assertEqual(game.view, 'newspaper')
             ads.continue_after_match.assert_called_once()
 
     def test_morale_ad_reward_requires_sdk_record_and_is_applied_once(self):
@@ -673,6 +673,8 @@ class MenuTests(unittest.TestCase):
                 game._advance_after_shot()
                 game._finish_career_match()
                 self.assertEqual(game.career.week, week + 1)
+                game.view='match';game._activate_ui('match_continue');game._activate_ui('post_match_continue')
+                if game.view=='coach':game._activate_ui('coach_complete')
             self.assertEqual(game.career.goals, 0)
             self.assertEqual(game.career.matches, 2)
 
@@ -1064,7 +1066,7 @@ class MenuTests(unittest.TestCase):
                     menu = self.game._menu
                     self.assertFalse(any(isinstance(w, ScrollView) for w in menu.walk()))
                     buttons = [w for w in menu.walk() if isinstance(w, TouchButton)]
-                    self.assertEqual(len(buttons), 11)
+                    self.assertEqual(len(buttons), 10)
                     self.assertFalse(any('WORLD' in button.text for button in buttons))
                     for button in buttons:
                         self.assertGreaterEqual(button.width, dp(48) - 1)
@@ -1197,7 +1199,9 @@ class MenuTests(unittest.TestCase):
             self.assertIs(panel.parent, self.game)
         panel.button.dispatch('on_release')
         settle()
-        self.assertEqual(self.game.view, 'hub')
+        self.assertEqual(self.game.view, 'newspaper')
+        self.game._activate_ui('post_match_continue')
+        if self.game.view=='coach':self.game._activate_ui('coach_complete')
         self.game.match_finished = False
 
     def test_free_hides_paid_editor_and_world_actions(self):

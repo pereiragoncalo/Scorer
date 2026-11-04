@@ -452,5 +452,9 @@
   "Complete this session to unlock the match. Training goals help your chances in the next match.": "훈련을 완료하면 경기가 열립니다. 훈련 득점은 다음 경기 기회에 도움이 됩니다.",
   "Training is complete for the next match.": "다음 경기를 위한 훈련을 완료했습니다.",
   "Training is complete. Play the next match to train again.": "훈련을 완료했습니다. 다음 경기를 치른 후 다시 훈련하세요.",
-  "Training is already complete for the next match.": "다음 경기를 위한 훈련은 이미 완료했습니다."
+  "Training is already complete for the next match.": "다음 경기를 위한 훈련은 이미 완료했습니다.",
+  "TROPHIES": "트로피",
+  "No recorded trophies yet.": "아직 기록된 트로피가 없습니다.",
+  "EDITOR": "에디터",
+  "Golden Boot": "득점왕"
 }

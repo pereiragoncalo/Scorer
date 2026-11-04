@@ -1,5 +1,6 @@
 """Original Striker simulation and career, importable without Kivy."""
 from __future__ import annotations
+import honours
 from match_moments import clean_moments
 from coach import CoachCareer, fresh_state, clean_state, clean_appearance, REQUIRED as COACH_REQUIRED
 import newspaper
@@ -797,6 +798,8 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.training_session_goals = 0
         self.cup_active = True
         self.cup_round_index = 0
+        self.honours = honours.fresh()
+        self.post_match_stage = ""
         self.fixture_history: list[dict[str, object]] = []
         self.cup_history: list[str] = []
         self.national_cup_winners: dict[str, str] = {}
@@ -1240,6 +1243,9 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.fixture_history=self.fixture_history[-128:]
         if key.startswith('domestic:'):
             self.cup_history=(self.cup_history+[f["stage"]+': '+self.last_result])[-8:]
+        honours.participate(self,key,title,actor,home.name if home.uid==actor else away.name,self.nationality if national else self.current_league.country)
+        honours.collect(self,self.world_competitions)
+        self.post_match_stage='newspaper'
         self._consume_match_training()
         self._refresh_competition_status();self.save()
         return tuple(score)
@@ -1671,12 +1677,14 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             })
             self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,home.uid,(portugal_goals,opponent_goals),player_goals,player_misses,moments,report_events)
             self.fixture_history = self.fixture_history[-128:]
+            self.post_match_stage='newspaper'
             self._consume_match_training()
             self.save()
             return portugal_goals, opponent_goals
 
 
         league = self.current_league
+        honours.participate(self,'domestic:'+league.country if competition=='cup' else 'league:'+league.key,self.cup_name if competition=='cup' else league.name,self.club.uid,self.club.name,league.country)
         previous_league_goals = league.scorer_goals.get(self.player_name, 0)
         if forced_score is not None:
             score = forced_score
@@ -1722,6 +1730,9 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             )
             self.cup_history = self.cup_history[-8:]
             self.cup_round_index += 1
+            if player_won and self.cup_round_index >= len(CUP_ROUNDS):
+                row=next(r for r in self.honours['campaigns'] if r['season']==self.season and r['competition']=='domestic:'+league.country and r['team_uid']==self.club.uid)
+                honours.award(self,row)
         else:
             for fixture_home, fixture_away in league.pairings():
                 if {fixture_home.name, fixture_away.name} == {home.name, away.name}:
@@ -1765,6 +1776,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.fixture_history = self.fixture_history[-128:]
         if competition == "league":
             self._simulate_world_round()
+        self.post_match_stage='newspaper'
         self._consume_match_training()
         self._check_national_team()
         self._maybe_generate_transfer_offers()
@@ -2016,6 +2028,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         from season_transitions import exchange_pyramid
         self._ensure_competitions();self._prepare_world_run_in();book=self.world_competitions;book.complete()
         self.completed_records=keep_best(self.completed_records,completed_snapshot(self))
+        honours.collect_season(self,book)
         league=self.current_league;club=self.club;old_tier=club.tier
         position=next(i+1 for i,c in enumerate(league.table()) if c.uid==club.uid)
         # Simulate unvisited national cups as real knockout fixtures, storing only winners.
@@ -2068,6 +2081,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         from season_records import completed_snapshot,keep_best
         self.completed_records=keep_best(self.completed_records,completed_snapshot(self))
         league = self.current_league
+        honours.collect_season(self)
         table = league.table()
         position = next(
             (index + 1 for index, club in enumerate(table) if club.name == self.club_name),
@@ -2212,6 +2226,8 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             "world_seed": self.world_seed,
             "last_result": self.last_result,
             "message": self.message,
+            "post_match_stage": self.post_match_stage,
+            "honours": self.honours,
             "press_state": self.press_state,
             "coach_appearance": self.coach_appearance,
             "coach_state": self.coach_state,
@@ -2438,6 +2454,9 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
                 raise ValueError("Invalid saved training state")
             if data.get('training_gate_version') != 2 and self.last_training_week == self.week:
                 self._consume_match_training()
+            self.honours = honours.clean(data.get('honours'))
+            self.post_match_stage = data.get('post_match_stage','')
+            if self.post_match_stage not in ('','newspaper','coach'):self.post_match_stage=''
             self.press_state = newspaper.clean_state(data.get('press_state'))
             self.coach_appearance = clean_appearance(data.get('coach_appearance'))
             self._select_coach_appearance()

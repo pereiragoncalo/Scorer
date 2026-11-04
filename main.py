@@ -803,6 +803,8 @@ class StrikerGame(Widget):
     # Ciclo de jogo
     # ------------------------------------------------------------------
     def start_career_match(self) -> None:
+        if self.career.post_match_stage=='newspaper':
+            self.view='newspaper';self.draw();return
         self.ads.start()
         """Cria um jogo completo com relógio e oportunidades interativas."""
         if self.career.free_agent:
@@ -1136,6 +1138,8 @@ class StrikerGame(Widget):
 
 
     def start_training(self) -> None:
+        if self.career.post_match_stage=='newspaper':
+            self.view='newspaper';self.draw();return
         if self.career.free_agent:
             self.view="agent";self.draw();return
         if self.view == "shot" and self.shot_context == "training":
@@ -2768,6 +2772,11 @@ class StrikerGame(Widget):
         if self.view in ('splash','data_notice'):
             if self.view=='data_notice' and key==27:self._request_exit()
             return True
+        if key==27 and self.view=='newspaper':
+            self._activate_ui('post_match_continue');return True
+        if key==27 and self.view=='coach' and (self.career.coach_meeting_required or self.career.post_match_stage):return True
+        if key==27 and self.view=='match' and self.match_finished:
+            self._activate_ui('match_continue');return True
         if key == 27 and self.view=='editor':
             self.view='world';self.draw();return True
         if key == 27:  # ESC
@@ -3034,8 +3043,12 @@ class StrikerGame(Widget):
             if self._career_started:
                 self.ads.start()
             self.view = "hub"
-        elif action == "hub":
-            self.view = "hub"
+        elif action in ('hub','post_match_continue'):
+            if self.view=='newspaper' and self.career.post_match_stage=='newspaper':
+                self.career.post_match_stage='coach' if self.career.coach_meeting_required else ''
+                if self.career.save() is False:
+                    self.career.post_match_stage='newspaper';return
+            self.view='coach' if self.career.coach_meeting_required or self.career.post_match_stage=='coach' else 'hub'
         elif action == "play":
             self.start_career_match()
         elif action == 'newspaper':
@@ -3043,7 +3056,10 @@ class StrikerGame(Widget):
         elif action == 'coach':
             self.view = 'coach' if self.career.coach_meeting_required else 'hub'
         elif action == 'coach_complete' and self.view == 'coach':
-            if self.career.attend_coach_meeting():self.view='hub'
+            if self.career.attend_coach_meeting():
+                self.career.post_match_stage=''
+                if self.career.save() is False:self.career.post_match_stage='coach'
+                else:self.view='hub'
         elif action == "training":
             if self.career.coach_meeting_required:
                 self.career.message=COACH_REQUIRED;self.view='coach';return
@@ -3065,10 +3081,12 @@ class StrikerGame(Widget):
         elif action == "calendar":
             self.view = "calendar"
         elif action == "agent":
+            if not self.career.transfer_window_open:return
             if not self.career.agent_offers:
                 self.career.generate_agent_offers()
             self.view = "agent"
         elif action == "agent_refresh":
+            if not self.career.transfer_window_open:return
             self.career.generate_agent_offers()
         elif action == "transfer" and isinstance(value, tuple):
             club_name, league_key = value
@@ -3168,7 +3186,7 @@ class StrikerGame(Widget):
         elif action == "ad_privacy_options" and self.view == 'privacy':
             self.ads.privacy_options()
         elif action == "match_continue" and self.match_finished and self.view == "match":
-            self.view = "hub"
+            self.view = "newspaper"
             self.ads.continue_after_match()
 
 
@@ -3177,6 +3195,9 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     @localized_call
     def draw(self) -> None:
+        if self.view=='hub':
+            if self.career.post_match_stage:self.view=self.career.post_match_stage
+            elif self.career.coach_meeting_required:self.view='coach'
         if self.career.free_agent and self.view in ('hub','training','shot'):
             self.view='agent'
         # Keep touch grabs and the widget tree stable while a notice is visible.

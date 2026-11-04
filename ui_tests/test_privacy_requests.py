@@ -32,8 +32,8 @@ class LaunchNoticeUI(unittest.TestCase):
         import edition
         with patch('edition.WORLD_BUILD',True),isolated_game(saved=True) as g:
             g.view='hub';g.draw();settle()
-            self.assertFalse(any(isinstance(w,Button) and w.text=='NAMES EDITOR' for w in g.walk()))
+            self.assertFalse(any(isinstance(w,Button) and w.text=='EDITOR' for w in g.walk()))
             g._activate_ui('upgrade');g.draw();settle();self.assertEqual(g.view,'world')
-            editor=next(w for w in g.walk() if isinstance(w,Button) and w.text=='NAMES EDITOR')
+            editor=next(w for w in g.walk() if isinstance(w,Button) and w.text=='EDITOR')
             editor.trigger_action(duration=0);settle();self.assertEqual(g.view,'editor')
             self.assertTrue(any(isinstance(w,Button) and w.text=='IMPORT NAMES FILE' for w in g.walk()))

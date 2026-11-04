@@ -30,17 +30,17 @@ class CompactHub(BoxLayout):
         c = menu.game.career
         self.add_widget(MenuLogo(size_hint_y=None,height=dp(32)))
         actions = GridLayout(cols=4, spacing=dp(4))
-        entries = [('NEWSPAPER', 'newspaper'), ('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
+        entries = [('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
                    ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
                    ('PLAYER', 'profile'), ('HELP', 'help')]
         if c.world_unlocked:entries.extend([('WORLD LEAGUES','upgrade')])
-        if c.coach_meeting_required:entries.insert(0,('COACH MEETING','coach'))
         entries.append(('EXIT', 'exit'))
         for title, action in entries:
             button = MenuTile(title, lambda a=action: menu.action(a), accent=action == 'play')
             button.font_size = sp(12)
             if action == 'play': button.disabled = not c.trained_this_week or c.coach_meeting_required
             if action == 'training': button.disabled = c.coach_meeting_required
+            if action == 'agent':button.disabled=not c.transfer_window_open
             actions.add_widget(button)
         self.add_widget(actions)
         self.bind(size=lambda *_:setattr(actions,'cols',5 if c.world_unlocked and self.height<dp(290) else 4))
@@ -59,7 +59,7 @@ class WorldBrowser(BoxLayout):
                                 cursor_color=(.3,1,.7,1), padding=[dp(10),dp(12)])
         search_row=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6))
         search_row.add_widget(self.search)
-        editor=MenuTile('NAMES EDITOR',lambda:menu.action('editor'));editor.size_hint_x=None;editor.width=dp(112)
+        editor=MenuTile('EDITOR',lambda:menu.action('editor'));editor.size_hint_x=None;editor.width=dp(112)
         search_row.add_widget(editor);self.add_widget(search_row)
         self.grid = GridLayout(cols=3, spacing=dp(6))
         self.add_widget(self.grid)

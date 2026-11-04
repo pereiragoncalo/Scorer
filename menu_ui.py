@@ -3,7 +3,7 @@ from match_moments import TEXT as MOMENT_TEXT, clean_moments
 from career import EUROPE_PYRAMID_DEPTH, WORLD_COUNTRIES
 from coach import STYLES as COACH_STYLES, conversation_text, REQUIRED as COACH_REQUIRED
 from domestic_rules import uses_simplified_model, table_zones
-from kivy.graphics import Color, RoundedRectangle, Rectangle, Line
+from kivy.graphics import Color, RoundedRectangle, Rectangle, Line, Triangle
 from kivy.core.image import Image as CoreImage
 from kivy.metrics import dp, sp, Metrics
 from kivy.uix.boxlayout import BoxLayout
@@ -954,14 +954,13 @@ class MainDashboard(BoxLayout):
         self.hero.add_widget(self.season)
         self.add_widget(self.hero)
         self.actions = GridLayout(cols=5, spacing=dp(6), size_hint_y=None, height=dp(52))
-        for title, action in [('NEWSPAPER', 'newspaper'), ('STANDINGS', 'standings'),
+        for title, action in [('STANDINGS', 'standings'),
                               ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent')]:
             button = MenuTile(title, lambda name=action: menu.action(name))
+            if action=='agent':button.disabled=not c.transfer_window_open
             self.actions.add_widget(button)
             if action == 'scorers':
                 self.markers = button
-        if c.coach_meeting_required:
-            self.actions.add_widget(MenuTile('COACH MEETING', lambda: menu.action('coach'), accent=True))
         self.markers.bind(pos=self._align_play, size=self._align_play)
         self.footer.bind(pos=self._align_play, size=self._align_play)
         self.add_widget(self.actions)
@@ -1046,9 +1045,38 @@ class PlayerScreen(FloatLayout):
         message = menu.game.career.message
         error = message if message.startswith(MENU_ERROR_PREFIXES) else ''
         self.helper = BoundedLabel(text=error,color=(1,.65,.45,1),font_size=sp(14),size_hint_y=None,height=dp(40))
-        if error and not self.world_creation:self.panel.add_widget(self.helper)
+        if error and not self.world_creation:self.title_label.text=error
         if self.world_creation and error:
             self.title_label.text=error;self.title_label.font_size=sp(11)
+        self.trophy_scroll = None
+        if existing:
+            self.trophy_scroll = ScrollView(do_scroll_x=False, size_hint_y=None, height=dp(120))
+            cabinet = BoxLayout(orientation='vertical', size_hint_y=None, spacing=dp(6))
+            cabinet.bind(minimum_height=cabinet.setter('height'))
+            cabinet.add_widget(FlowLabel(text='TROPHIES',bold=True,color=GREEN))
+            trophies=menu.game.career.honours['trophies']
+            if not trophies:cabinet.add_widget(FlowLabel(text='No recorded trophies yet.',color=MUTED))
+            for trophy in reversed(trophies):
+                row=BoxLayout(size_hint_y=None,spacing=dp(8))
+                icon=Widget(size_hint=(None,None),size=(dp(38),dp(42)))
+                def draw_cup(widget,*_):
+                    widget.canvas.clear()
+                    with widget.canvas:
+                        Color(1,.77,.24,1)
+                        x,y=widget.x,widget.y;w,h=widget.width,widget.height
+                        Line(points=[x+w*.15,y+h*.8,x+w*.15,y+h*.55,x+w*.35,y+h*.48],width=dp(2))
+                        Line(points=[x+w*.85,y+h*.8,x+w*.85,y+h*.55,x+w*.65,y+h*.48],width=dp(2))
+                        Triangle(points=[x+w*.25,y+h*.86,x+w*.75,y+h*.86,x+w*.5,y+h*.38])
+                        Rectangle(pos=(x+w*.45,y+h*.2),size=(w*.1,h*.3))
+                        Rectangle(pos=(x+w*.25,y+h*.12),size=(w*.5,h*.1))
+                icon.bind(pos=draw_cup,size=draw_cup);draw_cup(icon)
+                title=menu.game.i18n.tr('Golden Boot') if trophy['competition'].startswith('scorer:') else menu.game.i18n.competition(menu.game.career,trophy['title'],trophy['country'])
+                team=menu.game.career.display_aliases.get('clubs',{}).get(trophy['team_uid'],trophy['team'])
+                label=FlowLabel(text=f"{trophy['season']} · {title}\n{team}",localize=False,font_size=sp(14))
+                row.add_widget(icon);row.add_widget(label)
+                label.bind(height=lambda widget,height,parent=row:setattr(parent,'height',max(dp(44),height)))
+                row.height=max(dp(44),label.height);cabinet.add_widget(row)
+            self.trophy_scroll.add_widget(cabinet);self.panel.add_widget(self.trophy_scroll)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         actions.add_widget(MenuTile('CANCEL', lambda: menu.action('cancel_profile')))
         self.actions=actions
@@ -1088,12 +1116,16 @@ class PlayerScreen(FloatLayout):
         popup.open()
 
     def _fit(self, *_):
-        compact = self.height < dp(310) if self.world_creation else self.height < dp(250)
+        compact = self.height < dp(310) if self.world_creation else self.height < dp(360)
         if self.world_creation:
             self.title_label.height=dp(24 if compact else 28)
             self.name.height=self.choices.height=self.actions.height=dp(48 if compact else 52)
             self.helper.height=0 if compact else dp(36)
             self.helper.opacity=0 if compact else 1
+        if self.trophy_scroll is not None:
+            self.trophy_scroll.height=max(dp(32),min(dp(150),self.height-dp(190)))
+            self.name.height=self.actions.height=dp(48 if compact else 52)
+            self.title_label.height=dp(24 if compact else 28)
         self.panel.padding = dp(8 if compact and self.world_creation else 10 if compact else 14)
         self.panel.spacing = dp(4 if compact and self.world_creation else 6 if compact else 8)
         self.panel.size = (min(self.width - dp(24), dp(420)), min(self.height - dp(16), self.panel.minimum_height))

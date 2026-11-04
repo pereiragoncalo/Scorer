@@ -452,5 +452,9 @@
   "Complete this session to unlock the match. Training goals help your chances in the next match.": "完成训练即可解锁比赛。训练进球有助于下一场比赛的机会。",
   "Training is complete for the next match.": "下一场比赛的训练已完成。",
   "Training is complete. Play the next match to train again.": "训练已完成。踢完下一场比赛后可再次训练。",
-  "Training is already complete for the next match.": "下一场比赛的训练已经完成。"
+  "Training is already complete for the next match.": "下一场比赛的训练已经完成。",
+  "TROPHIES": "奖杯",
+  "No recorded trophies yet.": "尚无已记录的奖杯。",
+  "EDITOR": "编辑器",
+  "Golden Boot": "金靴奖"
 }

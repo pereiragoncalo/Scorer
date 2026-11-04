@@ -452,5 +452,9 @@
   "Complete this session to unlock the match. Training goals help your chances in the next match.": "Conclui a sessão para desbloquear o jogo. Os golos no treino ajudam as tuas oportunidades no próximo jogo.",
   "Training is complete for the next match.": "O treino para o próximo jogo está concluído.",
   "Training is complete. Play the next match to train again.": "O treino está concluído. Joga a próxima partida para voltar a treinar.",
-  "Training is already complete for the next match.": "O treino para o próximo jogo já está concluído."
+  "Training is already complete for the next match.": "O treino para o próximo jogo já está concluído.",
+  "TROPHIES": "TROFÉUS",
+  "No recorded trophies yet.": "Ainda sem troféus registados.",
+  "EDITOR": "EDITOR",
+  "Golden Boot": "Bota de Ouro"
 }

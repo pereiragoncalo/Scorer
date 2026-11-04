@@ -16,7 +16,7 @@ class WorldEditorNavigationTests(unittest.TestCase):
                     original=c.club.uid,c.league_key
                     self.assertNotIn('NAMES EDITOR',{w.text for w in g.walk() if isinstance(w,TouchButton)})
                     g._activate_ui('upgrade');g.draw();settle();self.assertEqual(g.view,'world')
-                    editor=next(w for w in g.walk() if isinstance(w,MenuTile) and w.text=='NAMES EDITOR')
+                    editor=next(w for w in g.walk() if isinstance(w,MenuTile) and w.text=='EDITOR')
                     self.assertGreaterEqual(editor.height,48);editor.dispatch('on_release');settle();self.assertEqual(g.view,'editor')
                     back=next(w for w in g.walk() if isinstance(w,TouchButton) and w.text=='BACK');back.dispatch('on_release');settle()
                     self.assertEqual(g.view,'world');self.assertEqual((c.club.uid,c.league_key),original)

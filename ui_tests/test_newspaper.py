@@ -18,7 +18,7 @@ class NewspaperUI(unittest.TestCase):
     def test_button_opens_real_last_score_paper_photo_and_back(self):
         with isolated_game() as g:
             c=self.played(g,2,0);g.view='hub';g.draw();settle()
-            buttons={w.text:w for w in g.walk() if isinstance(w,MenuTile)};self.assertIn('NEWSPAPER',buttons)
+            self.assertEqual(g.view,'newspaper')
             g._activate_ui('newspaper');g.draw();settle();paper=g._menu.body
             self.assertIsInstance(paper,NewspaperScreen);self.assertTrue(paper.article['mentions_player'])
             texts=[w.text for w in paper.walk() if isinstance(w,Label)]

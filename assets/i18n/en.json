@@ -452,5 +452,9 @@
   "Complete this session to unlock the match. Training goals help your chances in the next match.": "Complete this session to unlock the match. Training goals help your chances in the next match.",
   "Training is complete for the next match.": "Training is complete for the next match.",
   "Training is complete. Play the next match to train again.": "Training is complete. Play the next match to train again.",
-  "Training is already complete for the next match.": "Training is already complete for the next match."
+  "Training is already complete for the next match.": "Training is already complete for the next match.",
+  "TROPHIES": "TROPHIES",
+  "No recorded trophies yet.": "No recorded trophies yet.",
+  "EDITOR": "EDITOR",
+  "Golden Boot": "Golden Boot"
 }

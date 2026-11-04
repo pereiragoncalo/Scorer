@@ -452,5 +452,9 @@
   "Complete this session to unlock the match. Training goals help your chances in the next match.": "練習を完了すると試合に進めます。練習でのゴールは次の試合のチャンスに役立ちます。",
   "Training is complete for the next match.": "次の試合に向けた練習は完了しました。",
   "Training is complete. Play the next match to train again.": "練習は完了しました。次の試合を終えると再び練習できます。",
-  "Training is already complete for the next match.": "次の試合に向けた練習は既に完了しました。"
+  "Training is already complete for the next match.": "次の試合に向けた練習は既に完了しました。",
+  "TROPHIES": "トロフィー",
+  "No recorded trophies yet.": "記録されたトロフィーはまだありません。",
+  "EDITOR": "エディター",
+  "Golden Boot": "得点王"
 }

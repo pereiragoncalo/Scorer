@@ -10,7 +10,7 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             obj=types.ModuleType(name);obj.__file__=str(Path.cwd()/(name+'.py'));sys.modules[name]=obj
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
         news=module('newspaper');coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
-        formats=module('domestic_formats');kits=module('club_kits');competitions=module('world_competitions');module('promotion_playoffs');access=module('domestic_playoffs');calendar=module('international_calendar');module('two_divisions');module('season_transitions');rules=module('domestic_rules');career=module('career');competitions=module('world_competitions')
+        formats=module('domestic_formats');kits=module('club_kits');competitions=module('world_competitions');module('promotion_playoffs');access=module('domestic_playoffs');calendar=module('international_calendar');module('two_divisions');module('season_transitions');rules=module('domestic_rules');hon=module('honours');career=module('career');competitions=module('world_competitions')
         import edition
         assert edition.WORLD_BUILD and not edition.WORLD_PREVIEW
         with tempfile.TemporaryDirectory() as directory:
@@ -130,3 +130,16 @@ with tempfile.TemporaryDirectory() as tmp:
     assert story['mentions_player'] and c.player_name in story['headline'] and c.player_name in story['mention']
     assert 'crucial' not in story['mention']
 print('Actual APK: three persisted training shots required, same-week national match consumes training, every goal gets newspaper headline')
+
+c._ensure_competitions();book=c.world_competitions;own=c.club
+other=next(team for team in c.current_league.clubs if team.uid!=own.uid)
+rows=[dict(uid=team.uid,name=team.name,country=team.country,rating=team.rating,tier=team.tier) for team in (own,other)]
+cup=competitions.Tournament('qa:honours','QA trophy',rows,'qa-trophy',kind='knockout',start_week=c.week)
+book.tournaments[cup.key]=cup;f=cup.fixtures[0];f['week']=c.week
+h=c._competition_club(cup.teams[f['home']]);a=c._competition_club(cup.teams[f['away']])
+score=(1,0) if h.uid==own.uid else (0,1)
+c.finish_match(h,a,0,0,competition='world|'+cup.key+'|'+f['id'],forced_score=score)
+assert any(t['competition']==cup.key and t['team_uid']==own.uid for t in c.honours['trophies'])
+assert c.post_match_stage=='newspaper'
+state=c.honours;assert c.load() and c.honours==state and c.post_match_stage=='newspaper'
+print('Actual APK: observed cup-final participation awards a saved personal trophy and persists the newspaper queue')

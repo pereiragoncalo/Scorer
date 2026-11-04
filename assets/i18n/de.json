@@ -452,5 +452,9 @@
   "Complete this session to unlock the match. Training goals help your chances in the next match.": "Schließe das Training ab, um das Spiel freizuschalten. Trainingstore helfen deinen Chancen im nächsten Spiel.",
   "Training is complete for the next match.": "Das Training für das nächste Spiel ist abgeschlossen.",
   "Training is complete. Play the next match to train again.": "Das Training ist abgeschlossen. Nach dem nächsten Spiel kannst du wieder trainieren.",
-  "Training is already complete for the next match.": "Das Training für das nächste Spiel ist bereits abgeschlossen."
+  "Training is already complete for the next match.": "Das Training für das nächste Spiel ist bereits abgeschlossen.",
+  "TROPHIES": "TROPHÄEN",
+  "No recorded trophies yet.": "Noch keine erfassten Trophäen.",
+  "EDITOR": "EDITOR",
+  "Golden Boot": "Torjägerkanone"
 }

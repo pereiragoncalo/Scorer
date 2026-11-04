@@ -26,16 +26,17 @@ class CoachUI(unittest.TestCase):
             g.start_career_match();self.assertEqual(g.view,'hub') # training still required
             g.start_training();self.assertEqual(g.view,'shot');self.assertEqual(g.shot_context,'training')
 
-    def test_both_hubs_show_meeting_and_disable_training_and_play(self):
+    def test_both_hubs_hide_meeting_and_show_requested_meeting_automatically(self):
         old=Window.size
         try:
             for size in ((320,240),(960,540)):
                 Window.size=size
                 with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-                    c=self.sign(g);g.size=size;g.draw();settle()
+                    c=self.sign(g,requested=False);g.size=size;g.draw();settle()
                     buttons={w.text:w for w in g.walk() if isinstance(w,MenuTile)}
-                    self.assertIn('COACH MEETING',buttons);self.assertTrue(buttons['TRAINING'].disabled);self.assertTrue(buttons['PLAY'].disabled)
-                    g._activate_ui('coach');g._activate_ui('coach_complete');g.draw();settle()
+                    self.assertNotIn('COACH MEETING',buttons);self.assertNotIn('NEWSPAPER',buttons)
+                    c.record_coach_performance(0,1,[],False,key_match=True);g.draw();settle();self.assertEqual(g.view,'coach')
+                    g._activate_ui('coach_complete');g.draw();settle()
                     buttons={w.text:w for w in g.walk() if isinstance(w,MenuTile)}
                     self.assertFalse(buttons['TRAINING'].disabled);self.assertTrue(buttons['PLAY'].disabled)
         finally:Window.size=old
