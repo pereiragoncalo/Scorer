@@ -978,7 +978,7 @@ class MenuTests(unittest.TestCase):
             game.draw()
             settle()
             button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'START TRAINING')
-            self.assertTrue(button.disabled)
+            self.assertFalse(button.disabled)
             game.career.attend_coach_meeting();game.draw();settle()
             button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'START TRAINING')
             self.assertFalse(button.disabled)

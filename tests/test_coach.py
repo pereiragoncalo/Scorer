@@ -14,7 +14,7 @@ class CoachTests(unittest.TestCase):
         c=CareerMode(autoload=False);c.accept_starting_offer(c.offers[0]);return c
 
     def test_required_before_training_no_read_or_backdoor_unlock(self):
-        c=self.signed();state=c.rng.getstate();before=(c.morale,c.stamina,c.training_session_week)
+        c=self.signed();c.record_coach_performance(0,1,[],False,key_match=True);state=c.rng.getstate();before=(c.morale,c.stamina,c.training_session_week)
         self.assertFalse(c.coach_meeting_held);self.assertFalse(c.begin_training());self.assertFalse(c.record_training_shot(True));self.assertEqual(c.complete_training(3),0)
         first=c.coach_conversation();self.assertEqual(first,c.coach_conversation());self.assertFalse(c.coach_meeting_held)
         self.assertEqual((c.morale,c.stamina,c.training_session_week),before);self.assertEqual(c.rng.getstate(),state)
@@ -24,8 +24,8 @@ class CoachTests(unittest.TestCase):
         self.assertEqual(c.rng.getstate(),state)
 
     def test_week_season_and_transfer_require_a_new_meeting(self):
-        c=self.signed();c.attend_coach_meeting();style=c.coach_conversation()['style']
-        c.week+=1;self.assertFalse(c.coach_meeting_held);self.assertFalse(c.begin_training());c.attend_coach_meeting()
+        c=self.signed();c.record_coach_performance(0,1,[],False,key_match=True);c.attend_coach_meeting();style=c.coach_conversation()['style']
+        c.week+=1;self.assertFalse(c.coach_meeting_required);self.assertTrue(c.begin_training());c.record_coach_performance(0,1,[],False,key_match=True);c.attend_coach_meeting()
         self.assertEqual(c.coach_conversation()['style'],style)
         c.season+=1;self.assertFalse(c.coach_meeting_held);c.attend_coach_meeting()
         c.club_name=next(cl.name for cl in c.current_league.clubs if cl.uid!=c.club.uid)
@@ -43,7 +43,7 @@ class CoachTests(unittest.TestCase):
     def test_big_match_feedback_uses_real_personal_performance_and_is_not_repeated(self):
         c=self.signed();event=dict(kind='final',minute=20,outcome='goal')
         c.record_coach_performance(0,3,[event],True)
-        self.assertEqual(c.coach_conversation()['kind'],'routine')
+        self.assertEqual(c.coach_conversation()['kind'],'key_match')
         c.record_coach_performance(2,0,[event],True);c.week+=1
         self.assertEqual(c.coach_conversation()['kind'],'decisive')
         c.record_coach_performance(0,1,[],False) # same week's second fixture cannot erase it
@@ -56,7 +56,7 @@ class CoachTests(unittest.TestCase):
     def test_strong_form_and_three_personalities_offer_different_responses(self):
         c=self.signed()
         for goals in (2,1,2):c.record_coach_performance(goals,0,[],True)
-        self.assertEqual(c.coach_conversation()['kind'],'form')
+        self.assertFalse(c.coach_meeting_required)
         uids={style_for(str(i)):str(i) for i in range(50)};self.assertEqual(set(uids),{0,1,2})
         responses=set()
         for style,uid in uids.items():
@@ -66,9 +66,9 @@ class CoachTests(unittest.TestCase):
         self.assertNotEqual(conversation_text(dict(kind='drought',style=0,variant=0)),conversation_text(dict(kind='drought',style=0,variant=1)))
 
     def test_save_failure_rolls_back_and_retry_cannot_farm_attributes(self):
-        c=self.signed();before=copy.deepcopy(c.coach_state);disk=c.save_path.read_bytes();stats=c.morale,c.stamina,c.rng.getstate()
+        c=self.signed();c.record_coach_performance(0,1,[],False,key_match=True);before=copy.deepcopy(c.coach_state);disk=c.save_path.read_bytes();stats=c.morale,c.stamina,c.rng.getstate()
         with patch('career.os.replace',side_effect=OSError('disk full')):self.assertFalse(c.attend_coach_meeting())
-        self.assertEqual(c.coach_state,before);self.assertEqual(c.save_path.read_bytes(),disk);self.assertFalse(c.coach_meeting_held)
+        self.assertEqual(c.coach_state,before);self.assertEqual(c.save_path.read_bytes(),disk);self.assertTrue(c.coach_meeting_required)
         self.assertTrue(c.attend_coach_meeting());self.assertTrue(c.attend_coach_meeting());self.assertEqual((c.morale,c.stamina,c.rng.getstate()),stats)
 
     def test_legacy_partial_training_keeps_progress_then_requires_next_meeting(self):
@@ -98,3 +98,17 @@ class CoachTests(unittest.TestCase):
         c.world_competitions.friendlies[f['id']]=f;book=c.world_competitions
         c.finish_match(c._competition_club(book.nations[f['home']]),c._competition_club(book.nations[f['away']]),2,0,True,(1,2),'world|friendly|'+f['id'])
         self.assertEqual(c.coach_state,before)
+
+
+    def test_no_meeting_in_ordinary_weeks_or_after_a_missed_late_chance(self):
+        c=self.signed();self.assertFalse(c.coach_meeting_required);self.assertTrue(c.begin_training())
+        c.week+=1;c.record_coach_performance(0,1,[dict(kind='lead',minute=88,outcome='missed')],True)
+        self.assertFalse(c.coach_meeting_required)
+        c.record_coach_performance(0,1,[],False,key_match=True)
+        self.assertTrue(c.coach_meeting_required);self.assertEqual(c.coach_conversation()['kind'],'key_match')
+
+    def test_another_key_game_same_week_requires_its_own_review(self):
+        c=self.signed();c.record_coach_performance(0,1,[],False,key_match=True);c.attend_coach_meeting()
+        self.assertFalse(c.coach_meeting_required)
+        c.record_coach_performance(0,1,[],False,key_match=True)
+        self.assertTrue(c.coach_meeting_required);c.attend_coach_meeting();self.assertFalse(c.coach_meeting_required)

@@ -22,13 +22,18 @@ FEEDBACK = {
         ('You made your chances count in an important match. Keep preparing with the same care.',
          'An impressive performance under pressure. Enjoy it, then turn your attention to the next match.'),
     ),
+    'key_match': (
+        ('That was an important match. Let us learn from it and prepare the next one with confidence.',),
+        ('An important match deserves an honest review. Keep your focus and work on what needs improving.',),
+        ('Let us review that key match calmly, then take the lessons into training.',),
+    ),
     'form': (
         ('Your recent scoring form has been excellent. Keep believing in your ability.',),
         ('You are scoring regularly. Keep your focus and keep demanding more from yourself.',),
         ('Your recent finishing has been strong. Keep the same preparation and consistency.',),
     ),
 }
-REQUIRED = 'Meet your coach before training or playing this week.'
+REQUIRED = 'Your coach has requested a meeting before training or playing.'
 
 
 def number(value, maximum=1_000_000_000):
@@ -42,7 +47,7 @@ def fresh_state(uid='', recent=()):
         if g:break
         drought += 1
     return dict(version=1, club=uid, games=len(goals), drought=drought, recent=goals,
-                feedback_game=0, feedback_kind='', latest_decisive=False, meeting=None)
+                feedback_game=0, feedback_kind='', latest_decisive=False, pending_key=False, meeting=None)
 
 
 def clean_state(raw):
@@ -61,9 +66,10 @@ def clean_state(raw):
     if not isinstance(recent,list) or len(recent)>8 or not all(number(g,100) for g in recent):
         return state
     kind=raw.get('feedback_kind','')
-    if kind not in ('','drought','decisive','form') or type(raw.get('latest_decisive')) is not bool:
+    if kind not in ('','drought','decisive','key_match','form') or type(raw.get('latest_decisive')) is not bool:
         return state
     state.update({k:raw[k] for k in ('games','drought','feedback_game','recent','feedback_kind','latest_decisive')})
+    state['pending_key']=raw.get('pending_key',state['latest_decisive']) is True
     m=raw.get('meeting')
     if (isinstance(m,dict) and isinstance(m.get('key'),str) and len(m['key'])<=160 and m['key'].isprintable()
             and m.get('kind') in ('routine',*FEEDBACK) and number(m.get('style'),2) and number(m.get('variant'),1)):
@@ -77,16 +83,14 @@ def style_for(uid):
 
 def conversation(state, key, uid):
     existing=state.get('meeting')
-    if existing and existing['key']==key:
+    if existing and existing['key']==key and not meeting_due(state):
         return dict(existing)
     kind='routine'
     if state['games']>state['feedback_game']:
-        if state['latest_decisive']:
-            kind='decisive'
+        if state['pending_key'] or state['latest_decisive']:
+            kind='decisive' if state['latest_decisive'] else 'key_match'
         elif state['drought']>=3 and (state['feedback_kind']!='drought' or state['games']-state['feedback_game']>=3):
             kind='drought'
-        elif len(state['recent'])>=3 and sum(state['recent'][-3:])>=5:
-            kind='form'
     style=style_for(uid)
     options=ROUTINE if kind=='routine' else FEEDBACK[kind][style]
     index=int(hashlib.sha256((key+':'+kind+':'+str(state['games'])).encode()).hexdigest()[:8],16)%len(options)
@@ -97,6 +101,11 @@ def conversation_text(meeting):
     if meeting['kind']=='routine':return ROUTINE[meeting['variant']%len(ROUTINE)]
     options=FEEDBACK[meeting['kind']][meeting['style']]
     return options[meeting['variant']%len(options)]
+
+
+def meeting_due(state):
+    return state['games']>state['feedback_game'] and (state['pending_key'] or state['latest_decisive'] or
+        (state['drought']>=3 and (state['feedback_kind']!='drought' or state['games']-state['feedback_game']>=3)))
 
 
 class CoachCareer:
@@ -113,6 +122,10 @@ class CoachCareer:
         m=self._current_coach_state()['meeting']
         return bool(self.club and not self.free_agent and m and m['key']==self.coach_key)
 
+    @property
+    def coach_meeting_required(self):
+        return bool(self.club and not self.free_agent and meeting_due(self._current_coach_state()))
+
     def coach_conversation(self):
         return conversation(self._current_coach_state(),self.coach_key,self.club.uid if self.club else '')
 
@@ -120,14 +133,15 @@ class CoachCareer:
         if not self.club or self.free_agent:
             self.message='Choose a club before meeting your coach.'
             return False
-        if self.coach_meeting_held:return True
+        if not self.coach_meeting_required:return True
         previous=self.coach_state
         state=copy.deepcopy(self._current_coach_state())
         meeting=self.coach_conversation()
         state['meeting']=meeting
         if meeting['kind']!='routine':
             state['feedback_game']=state['games'];state['feedback_kind']=meeting['kind']
-            if meeting['kind']=='decisive':state['latest_decisive']=False
+            if meeting['kind'] in ('decisive','key_match'):
+                state['latest_decisive']=False;state['pending_key']=False
         self.coach_state=state
         if self.save() is False:
             self.coach_state=previous
@@ -136,13 +150,17 @@ class CoachCareer:
         self.message='Coach meeting complete. You can train now.'
         return True
 
-    def record_coach_performance(self,goals,misses,moments,not_lost):
+    def record_coach_performance(self,goals,misses,moments,not_lost,key_match=False):
         from match_moments import clean_moments
         state=copy.deepcopy(self._current_coach_state())
         state['games']+=1
         state['drought']=state['drought']+1 if goals==0 else 0
         state['recent']=(state['recent']+[goals])[-8:]
+        events=clean_moments(moments)
+        key_match=key_match or any(e['kind'] in ('final','playoff','derby','survival') or
+            (e['kind'] in ('equaliser','lead') and e['outcome']=='goal' and not_lost) for e in events)
+        state['pending_key']=state['pending_key'] or key_match
         state['latest_decisive']=state['latest_decisive'] or any(
-            goals>=2 or (e['kind'] in ('equaliser','lead') and e['outcome']=='goal' and goals>=1 and not_lost)
-            for e in clean_moments(moments))
+            (goals>=2 and key_match) or (e['kind'] in ('equaliser','lead') and e['outcome']=='goal' and goals>=1 and not_lost)
+            for e in events) or (key_match and goals>=2)
         self.coach_state=state

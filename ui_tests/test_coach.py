@@ -10,8 +10,10 @@ from test_menus import isolated_game,settle
 
 
 class CoachUI(unittest.TestCase):
-    def sign(self,g):
-        c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True;g.view='hub';g.draw();settle();return c
+    def sign(self,g,requested=True):
+        c=g.career;c.accept_starting_offer(c.offers[0])
+        if requested:c.record_coach_performance(0,1,[],False,key_match=True)
+        g._career_started=True;g.view='hub';g.draw();settle();return c
 
     def test_direct_actions_and_back_cannot_skip_meeting_then_training_unlocks(self):
         with isolated_game() as g:
@@ -64,7 +66,17 @@ class CoachUI(unittest.TestCase):
             c=self.sign(g);c.attend_coach_meeting();c.last_training_week=c.week
             def next_week():
                 c.week+=1
+                c.record_coach_performance(0,1,[],False,key_match=True)
                 return ('league',*c.next_fixture())
             with patch.object(c,'next_match',side_effect=next_week):g.start_career_match()
             self.assertEqual(g.view,'coach');self.assertFalse(c.coach_meeting_held)
             c.attend_coach_meeting();self.assertFalse(c.trained_this_week)
+
+
+    def test_ordinary_week_has_no_meeting_button_and_training_is_available(self):
+        with isolated_game() as g:
+            c=self.sign(g,requested=False)
+            buttons={w.text:w for w in g.walk() if isinstance(w,MenuTile)}
+            self.assertNotIn('COACH MEETING',buttons);self.assertFalse(buttons['TRAINING'].disabled)
+            g._activate_ui('coach');self.assertEqual(g.view,'hub')
+            g.start_training();self.assertEqual(g.view,'shot')

@@ -9,16 +9,25 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
             obj=types.ModuleType(name);obj.__file__=str(Path.cwd()/(name+'.py'));sys.modules[name]=obj
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
-        coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
+        news=module('newspaper');coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
         formats=module('domestic_formats');kits=module('club_kits');competitions=module('world_competitions');module('promotion_playoffs');access=module('domestic_playoffs');calendar=module('international_calendar');module('two_divisions');module('season_transitions');rules=module('domestic_rules');career=module('career');competitions=module('world_competitions')
         import edition
         assert edition.WORLD_BUILD and not edition.WORLD_PREVIEW
         with tempfile.TemporaryDirectory() as directory:
             os.environ['STRIKER_SAVE_DIR']=directory
             c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0]);c.next_match();assert c.world_competitions
-            assert not c.coach_meeting_held and not c.begin_training()
-            assert c.attend_coach_meeting() and c.coach_meeting_held and c.begin_training()
-            c.save();assert c.load() and c.coach_meeting_held
+            assert not c.coach_meeting_required and c.begin_training()
+            c.record_coach_performance(0,1,[],False,key_match=True)
+            assert c.coach_meeting_required and not c.begin_training()
+            assert c.attend_coach_meeting() and not c.coach_meeting_required and c.begin_training()
+            c.save();assert c.load() and not c.coach_meeting_required
+            for photo in news.PHOTOS:assert Path(photo).is_file()
+            home,away=c.next_fixture()
+            press=news.make_report(news.fresh_state(),dict(date='2026-11-04',competition='League',country=c.current_league.country,status='1-1'),home,away,home.uid,(1,1),0,1,[])
+            assert news.clean_state(press)==press and press['report']['photo']==0
+            from localization import Localizer
+            story=news.article(press['report'],Localizer(False).tr,lambda e,side:e[side],c.player_name,'League')
+            assert not story['mentions_player'] and '1-1' in story['paragraphs'][0]
             assert c.domestic_format_version==1 and len(formats.catalogue())==38
             assert [len(l.clubs) for l in c.domestic_leagues('Spain')]==[20,22]
             assert [len(l.clubs) for l in c.domestic_leagues('Brazil')]==[20,20]
@@ -90,3 +99,5 @@ print('Actual APK: 352 built-in club colour palettes resolve without real-name i
 print('Actual APK: persisted French playoff ladder, top-three foreign-league call-up criterion and FIFA window dates verified')
 
 print('Actual APK: 38-country capacities, Austrian split/half-points/reload and legacy layout preservation verified')
+
+print('Actual APK: conditional coach requests and offline newspaper report/photo data verified')

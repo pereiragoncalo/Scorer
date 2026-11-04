@@ -325,6 +325,7 @@ class StrikerGame(Widget):
         self.match_summary = ""
         self.match_moment = ""
         self.match_moments = []
+        self.match_report_events = []
         self.match_stakes = {}
         self.awaiting_chance = False
         self.shot_time_limit = 0.0
@@ -806,7 +807,7 @@ class StrikerGame(Widget):
         """Cria um jogo completo com relógio e oportunidades interativas."""
         if self.career.free_agent:
             self.view="agent";self.draw();return
-        if not self.career.coach_meeting_held:
+        if self.career.coach_meeting_required:
             self.career.message=COACH_REQUIRED;self.view='coach';self.draw();return
         if not self.career.trained_this_week:
             self.career.message = 'Complete this week’s training to unlock Play.'
@@ -815,7 +816,7 @@ class StrikerGame(Widget):
             return
         scheduled=self.career.next_match()
         if self.career.free_agent:self.view='agent';self.draw();return
-        if not self.career.coach_meeting_held:
+        if self.career.coach_meeting_required:
             self.career.message=COACH_REQUIRED;self.view='coach';self.draw();return
         if not self.career.trained_this_week:
             self.career.message='Complete this week’s training to unlock Play.';self.view='hub';self.draw();return
@@ -882,6 +883,7 @@ class StrikerGame(Widget):
         self.match_summary = ""
         self.match_moment = ""
         self.match_moments = []
+        self.match_report_events = []
         self.awaiting_chance = False
         self.view = "match"
         self.state = self.STATE_AIMING
@@ -917,8 +919,14 @@ class StrikerGame(Widget):
             self.match_home_score += 1
         else:
             self.match_away_score += 1
+        self._record_report_goal("home" if self._player_match_is_home() else "away", self.match_minute)
         self._record_match_moment(True)
         self._flash_scoreboard()
+
+    def _record_report_goal(self, side, timeline_minute):
+        half = 1 if timeline_minute <= 45 + self.match_first_stoppage else 2
+        minute = int(timeline_minute - (self.match_first_stoppage if half == 2 else 0))
+        self.match_report_events.append({'minute': minute, 'half': half, 'side': side})
 
     def _record_match_moment(self, scored):
         if self.match_moment and not self.match_moments:
@@ -951,6 +959,7 @@ class StrikerGame(Widget):
                 self.match_away_score += 1
             self._flash_scoreboard()
             self._play_ai_goal_sound()
+            self._record_report_goal(side, event_minute)
             self.match_goal_event_index += 1
         if self.match_chance_index < len(self.match_chance_minutes):
             if self.match_minute >= self.match_chance_minutes[self.match_chance_index]:
@@ -979,6 +988,8 @@ class StrikerGame(Widget):
             (self.match_home_score, self.match_away_score),
             self.match_competition,
             moments=self.match_moments,
+            coach_context=self.match_stakes.get("kind", ""),
+            report_events=self.match_report_events,
         )
         self.match_finished = True
         if self.leaderboard.enabled and self.family.social:
@@ -1129,7 +1140,7 @@ class StrikerGame(Widget):
             self.view="agent";self.draw();return
         if self.view == "shot" and self.shot_context == "training":
             return
-        if not self.career.coach_meeting_held:
+        if self.career.coach_meeting_required:
             self.career.message=COACH_REQUIRED;self.view="coach";self.draw();return
         if not self.career.begin_training():
             self.view = "training"
@@ -3012,12 +3023,14 @@ class StrikerGame(Widget):
             self.view = "hub"
         elif action == "play":
             self.start_career_match()
+        elif action == 'newspaper':
+            self.view='newspaper'
         elif action == 'coach':
-            self.view = 'coach' if self.career.club and not self.career.free_agent else 'agent'
+            self.view = 'coach' if self.career.coach_meeting_required else 'hub'
         elif action == 'coach_complete' and self.view == 'coach':
             if self.career.attend_coach_meeting():self.view='hub'
         elif action == "training":
-            if not self.career.coach_meeting_held:
+            if self.career.coach_meeting_required:
                 self.career.message=COACH_REQUIRED;self.view='coach';return
             self.ads.prepare_reward()
             self.training_completed = False

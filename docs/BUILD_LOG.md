@@ -1762,3 +1762,23 @@ existing upgrade certificate and compiled coach-gate/save, competition and
 publishing checks passed. Public download evidence records the actual bytes and
 hash. Temporary GitHub push HTTP500 errors were resolved using the same remote
 with HTTP/1.1; no credentials or signing keys changed.
+
+## 2026-11-04 — 0.9.10 conditional coach meetings and newspaper
+
+Owner correction: remove routine weekly meetings; only droughts and actual key
+matches create requests. Only a pending request blocks training/play. Preserve
+coach personalities and save-before-unlock. Added key-match reviews after poor
+performances and same-week repeated key fixtures; ordinary strong form and
+missed late chances no longer force meetings.
+
+Added offline SCORER DAILY with a paper layout, serif text, factual result-based
+headlines, observed/conserved goal chronology, conditional personal mentions,
+negative-performance streak and five original generated rotating photographs.
+Assets/provenance/font licence are documented in NEWSPAPER_ASSETS.md. The latest
+report/rotation persist; legacy history gets score-only reporting. No invented
+player statistics, quotes, events or photo attribution. Existing root WIP stays
+excluded from reviewed source and APK.
+
+Initial core324 and native139 passed. Added goal-clock/conservation checks after
+that run; final core/native and exact APK evidence follow in release metadata.
+No physical-device, production signing, Google Play or live-server validation.
