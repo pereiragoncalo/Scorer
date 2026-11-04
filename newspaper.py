@@ -176,3 +176,20 @@ def match_summary(report,tr,team):
     if trailed:return tr('{winner} recovered from a deficit to secure the win.',winner=winner)
     if abs(h-a)==1:return tr('{winner} secured a narrow one-goal win.',winner=winner)
     return tr('{winner} closed the match with a {margin}-goal advantage.',winner=winner,margin=abs(h-a))
+
+
+def single_page_story(report,tr,player):
+    """Concise edition keeps every observed goal minute, result and player verdict."""
+    lines=[];events=clean_events(report.get('events'),report['score'])
+    if events:
+        for side,key in (('home','Home goals: {minutes}'),('away','Away goals: {minutes}')):
+            times=' '.join(clock(e)+"'" for e in events if e['side']==side)
+            if times:lines.append(tr(key,minutes=times))
+    elif sum(report['score']):lines.append(tr('Goal times unavailable.'))
+    margin=abs(report['score'][0]-report['score'][1])
+    lines.append(tr('Winning margin: {margin}.',margin=margin) if margin else tr('The sides finished level on the match scoreboard.'))
+    if report['goals']:
+        lines.append(tr('{player}: one goal.',player=player) if report['goals']==1 else tr('{player}: {goals} goals.',player=player,goals=report['goals']))
+    elif report['negative_run']>=3:
+        lines.append(tr('{player}: {games} games without a goal.',player=player,games=report['negative_run']))
+    return '\n'.join(lines)

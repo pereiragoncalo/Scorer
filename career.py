@@ -527,11 +527,14 @@ def realistic_goal_means(home_rating: float, away_rating: float) -> tuple[float,
     return total * home_share, total * (1.0 - home_share)
 
 
-def expected_highlight_goals(chances: int, clear_probability: float) -> float:
+def expected_highlight_goals(chances: int, clear_probability: float, penalty_probability: float = 0.0) -> float:
     if chances <= 0:
         return 0.0
+    penalty = clamp(penalty_probability, 0.0, 1.0)
+    clear = clamp(clear_probability, 0.0, 1.0) * (1.0-penalty if chances==1 else 1.0)
     return (chances * HARD_CHANCE_CONVERSION
-            + clamp(clear_probability, 0.0, 1.0) * (CLEAR_CHANCE_CONVERSION - HARD_CHANCE_CONVERSION))
+            + clear * (CLEAR_CHANCE_CONVERSION - HARD_CHANCE_CONVERSION)
+            + penalty * (0.65 - HARD_CHANCE_CONVERSION))
 
 
 def ensure_club_uid(club):
@@ -1581,15 +1584,15 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         if quality >= 0.88 or (played >= 5 and rank_strength >= 0.85):
             pressure = max(0.80, pressure)
         if pressure >= 0.72:
-            return OpponentChanceProfile(pressure, 1, 0.0)
+            return OpponentChanceProfile(pressure, 1, 0.35)
         if pressure >= 0.50:
-            return OpponentChanceProfile(pressure, 2, 0.15)
-        return OpponentChanceProfile(pressure, 3, 0.60 * (1.0 - pressure / 0.72))
+            return OpponentChanceProfile(pressure, 2, 0.65)
+        return OpponentChanceProfile(pressure, 3, 0.90 - 0.25 * pressure / 0.72)
 
     def chance_count(self, opponent: Optional[CareerClub] = None) -> int:
         factor = clamp((self.stamina + self.morale) / 40.0, 0.05, 1.0)
         profile = self.opponent_chance_profile(opponent)
-        # Morale floors supersede opponent quantity caps, never its ban on clear chances.
+        # Morale floors supersede opponent quantity caps, without changing their quality mix.
         # Boundary values are strict: 10 has no morale floor, 15 still has a floor of two.
         trained = self.trained_this_week
         training_goals = self.training_session_goals if trained and self.training_session_week == self.week else 0

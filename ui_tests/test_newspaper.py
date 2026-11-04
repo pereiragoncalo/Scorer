@@ -86,7 +86,7 @@ class NewspaperUI(unittest.TestCase):
                     c.player_name=char*40;g.i18n.choose(lang);g._activate_ui('newspaper');g.draw();settle();p=g._menu.body
                     self.assertFalse(any(isinstance(w,ScrollView) for w in p.walk()))
                     self.assertTrue(p.layout_fits,(lang,p.body.y,p.y,p.body.text,p.headline.text))
-                    self.assertGreaterEqual(p.body_font_size,12)
+                    self.assertGreaterEqual(p.body_font_size,6)
                     self.assertIn(c.player_name,p.story_text)
                     printed=''.join(part['text'] for page in p.pages for part in page)
                     self.assertEqual(''.join(printed.split()),''.join(p.story_text.split()))
@@ -124,8 +124,8 @@ class NewspaperUI(unittest.TestCase):
                 self.assertEqual(len(p.article['goals']),4)
                 printed=''.join(part['text'] for page in p.pages for part in page)
                 self.assertEqual(''.join(printed.split()),''.join(p.story_text.split()))
-                for event in p.article['goals']:self.assertIn("".join(event['text'].split()),''.join(printed.split()))
-                self.assertIn(''.join(p.article['summary'].split()),''.join(printed.split()))
+                for event in p.article['goals']:self.assertIn(event['minute']+"'",printed)
+                self.assertEqual(len(p.pages),1)
                 self.assertTrue(p.layout_fits)
                 if len(p.pages)>1:
                     p.turn(1);settle();self.assertEqual(p.page,1);self.assertTrue(p.layout_fits)

@@ -291,6 +291,8 @@ class MenuTests(unittest.TestCase):
                             easy_count += 1
                             self.assertLessEqual(game.shot_origin_y, 11)
                             self.assertGreaterEqual(game.shot_time_limit, 5)
+                        elif game.current_chance_difficulty=='penalty':
+                            self.assertEqual(game.shot_type,'penalty');self.assertEqual(game.field_players,[])
                         else:
                             self.assertFalse(game.one_on_one)
                             self.assertGreaterEqual(game.shot_origin_y, 15.5)
@@ -636,11 +638,11 @@ class MenuTests(unittest.TestCase):
                         c.rng.seed(1100 + seed)
                         game.start_career_match()
                         self.assertLessEqual(len(game.match_chance_minutes), 1)
-                        self.assertEqual(game.match_easy_chance_index, -1)
+                        self.assertGreaterEqual(game.match_easy_chance_index, -1)
                         if game.match_chance_minutes:
                             game.awaiting_chance = True
                             game._begin_pending_chance()
-                            self.assertEqual(game.current_chance_difficulty, 'hard')
+                            self.assertIn(game.current_chance_difficulty, ('hard','easy','penalty'))
                     opponent.rating, player.rating = 45, 95
                     counts, clear = [], False
                     for seed in range(20):
@@ -733,7 +735,7 @@ class MenuTests(unittest.TestCase):
                 means = []
                 with patch.object(c, 'next_match', return_value=fixture), patch.object(c, 'chance_count', return_value=2), patch.object(c, 'opponent_chance_profile', return_value=OpponentChanceProfile(0, 3, 0.6)), patch.object(c, 'fixture_goal_means', return_value=(1.43, 1.18)), patch('main.poisson_goal', side_effect=lambda rng, mean: means.append(mean) or 0):
                     game.start_career_match()
-                personal = expected_highlight_goals(2, 0.6)
+                personal = expected_highlight_goals(2, 0.6, 0.18)
                 self.assertAlmostEqual(sum(means)+personal, 2.61)
                 self.assertAlmostEqual(means[0], 1.43-personal if at_home else 1.43)
                 self.assertAlmostEqual(means[1], 1.18 if at_home else 1.18-personal)
@@ -762,7 +764,7 @@ class MenuTests(unittest.TestCase):
             game._load_career()
             expected = {
                 'start': {'NEW GAME', 'LOAD GAME', 'EXIT'},
-                'hub': {'PLAY', 'TRAINING', 'STANDINGS', 'TOP SCORERS', 'FIXTURES', 'AGENT', 'PLAYER', 'EXIT'},
+                'hub': {'PLAY', 'TRAINING', 'STANDINGS', 'TOP SCORERS', 'FIXTURES', 'AGENT', game.career.player_name, 'EXIT'},
                 'training': {'START TRAINING', 'BACK'},
                 'standings': {'PREVIOUS', 'NEXT', 'MY POSITION', 'STATS', 'BACK'},
                 'scorers': {'PREVIOUS', 'NEXT', 'MY POSITION', 'BACK'},

@@ -456,5 +456,18 @@
   "TROPHIES": "奖杯",
   "No recorded trophies yet.": "尚无已记录的奖杯。",
   "EDITOR": "编辑器",
-  "Golden Boot": "金靴奖"
+  "Golden Boot": "金靴奖",
+  "Keep calm. Practise low and high finishes.": "保持冷静，练习低射和高射。",
+  "Build on that performance. Keep varying your finishes.": "延续这次表现，继续尝试不同的射门方式。",
+  "Review your chances. Work on your timing in training.": "回顾机会，在训练中改善射门时机。",
+  "I believe in you. Take it one chance at a time.": "我相信你，一次专注于一个机会。",
+  "Keep your focus. I expect a disciplined response.": "保持专注，我期待有纪律的回应。",
+  "Prepare consistently and put the lessons into practice.": "坚持准备，把所学付诸实践。",
+  "You have been chosen to take the penalty.": "你被选中主罚点球。",
+  "ONE ON ONE": "单刀",
+  "Home goals: {minutes}": "主队进球：{minutes}",
+  "Away goals: {minutes}": "客队进球：{minutes}",
+  "Goal times unavailable.": "无进球时间记录。",
+  "Winning margin: {margin}.": "最终分差：{margin}。",
+  "Illustration": "插图"
 }

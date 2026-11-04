@@ -143,3 +143,10 @@ assert any(t['competition']==cup.key and t['team_uid']==own.uid for t in c.honou
 assert c.post_match_stage=='newspaper'
 state=c.honours;assert c.load() and c.honours==state and c.post_match_stage=='newspaper'
 print('Actual APK: observed cup-final participation awards a saved personal trophy and persists the newspaper queue')
+strong=career.CareerClub('Penalty opponent','France','Test',1,95)
+assert c.opponent_chance_profile(strong).clear_chance_probability==.35
+assert abs(career.expected_highlight_goals(3,.6,.18)-.867)<1e-9
+report=dict(score=[2,1],events=[dict(minute=32,half=1,side='home'),dict(minute=51,half=2,side='away'),dict(minute=90,half=2,side='home')],goals=1,negative_run=0)
+compact=news.single_page_story(report,Localizer(False).tr,'Alex')
+assert all(minute in compact for minute in ("32'","51'","90'")) and 'Alex: one goal.' in compact
+print('Actual APK: clear chances remain possible against elite opponents, penalty contribution is reserved, concise story preserves every goal minute')

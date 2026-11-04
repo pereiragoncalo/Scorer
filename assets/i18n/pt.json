@@ -456,5 +456,18 @@
   "TROPHIES": "TROFÉUS",
   "No recorded trophies yet.": "Ainda sem troféus registados.",
   "EDITOR": "EDITOR",
-  "Golden Boot": "Bota de Ouro"
+  "Golden Boot": "Bota de Ouro",
+  "Keep calm. Practise low and high finishes.": "Mantém a calma. Treina remates rasteiros e altos.",
+  "Build on that performance. Keep varying your finishes.": "Aproveita essa exibição. Continua a variar a finalização.",
+  "Review your chances. Work on your timing in training.": "Revê as oportunidades. Trabalha o momento do remate no treino.",
+  "I believe in you. Take it one chance at a time.": "Confio em ti. Concentra-te numa oportunidade de cada vez.",
+  "Keep your focus. I expect a disciplined response.": "Mantém o foco. Espero uma resposta disciplinada.",
+  "Prepare consistently and put the lessons into practice.": "Prepara-te com consistência e aplica o que aprendeste.",
+  "You have been chosen to take the penalty.": "Foste escolhido para bater o penálti.",
+  "ONE ON ONE": "UM CONTRA UM",
+  "Home goals: {minutes}": "Golos da casa: {minutes}",
+  "Away goals: {minutes}": "Golos de fora: {minutes}",
+  "Goal times unavailable.": "Minutos dos golos indisponíveis.",
+  "Winning margin: {margin}.": "Vantagem final: {margin}.",
+  "Illustration": "Ilustração"
 }

@@ -456,5 +456,18 @@
   "TROPHIES": "TROFEI",
   "No recorded trophies yet.": "Nessun trofeo registrato.",
   "EDITOR": "EDITOR",
-  "Golden Boot": "Scarpa d’Oro"
+  "Golden Boot": "Scarpa d’Oro",
+  "Keep calm. Practise low and high finishes.": "Mantieni la calma. Allena conclusioni basse e alte.",
+  "Build on that performance. Keep varying your finishes.": "Riparti da questa prestazione. Varia le tue conclusioni.",
+  "Review your chances. Work on your timing in training.": "Rivedi le occasioni. Lavora sul tempo del tiro in allenamento.",
+  "I believe in you. Take it one chance at a time.": "Credo in te. Concentrati su un’occasione alla volta.",
+  "Keep your focus. I expect a disciplined response.": "Resta concentrato. Mi aspetto una risposta disciplinata.",
+  "Prepare consistently and put the lessons into practice.": "Preparati con costanza e applica ciò che hai imparato.",
+  "You have been chosen to take the penalty.": "Sei stato scelto per calciare il rigore.",
+  "ONE ON ONE": "UNO CONTRO UNO",
+  "Home goals: {minutes}": "Gol in casa: {minutes}",
+  "Away goals: {minutes}": "Gol in trasferta: {minutes}",
+  "Goal times unavailable.": "Minuti dei gol non disponibili.",
+  "Winning margin: {margin}.": "Vantaggio finale: {margin}.",
+  "Illustration": "Illustrazione"
 }

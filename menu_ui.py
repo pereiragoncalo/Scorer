@@ -137,7 +137,7 @@ class CareerMenu(BoxLayout):
     def sync(self):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
-        signature = (self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
+        signature = (tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required, str(c.coach_state), str(c.press_state),
@@ -167,6 +167,9 @@ class CareerMenu(BoxLayout):
         if self.game.view=='newspaper':
             from newspaper_ui import NewspaperScreen
             self.padding=self.spacing=0;self.scroll=None;self.body=NewspaperScreen(self);self.add_widget(self.body);return
+        if self.game.view=='coach':
+            from coach_ui import CoachScreen
+            self.padding=self.spacing=0;self.scroll=None;self.body=CoachScreen(self);self.add_widget(self.body);return
         if self.game.view=='data_notice':
             self.padding=dp(16);self.spacing=dp(10);self.scroll=None;self.body=LaunchNotice(self);self.add_widget(self.body);return
         if self.game.view == 'language' and not edition.is_world():
@@ -217,22 +220,17 @@ class CareerMenu(BoxLayout):
             header.height = dp(52)
             brand.add_widget(BrandMark())
         header.add_widget(brand)
+        self.hub_header_actions = None
         if self.game.view == 'hub':
-            profile = MenuTile('PLAYER', lambda: self.action('profile'))
-            profile.size_hint_x, profile.width = None, dp(88)
-            header.add_widget(profile)
-        if self.game.view == 'hub':
-            header_actions = [('HELP', 'help')]
-            if edition.is_world():header_actions.append(('WORLD', 'upgrade'))
-            for title, action in header_actions:
-                button = MenuTile(title, lambda a=action: self.action(a))
-                button.size_hint_x, button.width = None, dp(76)
-                header.add_widget(button)
+            group=self.hub_header_actions=BoxLayout(size_hint_x=None,width=dp(250),spacing=dp(6))
+            for title, action in ([('HELP','help'),('WORLD','upgrade'),('EXIT','exit')] if edition.is_world() else [('HELP','help'),('EXIT','exit')]):
+                group.add_widget(MenuTile(title,lambda a=action:self.action(a)))
+            header.add_widget(group)
         if self.game.view not in ('hub', 'offers'):
             back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view in ('world_country','editor') else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
-        if self.game.view in ('hub', 'offers'):
+        if self.game.view == 'offers':
             exit_button = TouchButton('EXIT', self.game._request_exit)
             exit_button.size_hint_x, exit_button.width = None, dp(76)
             header.add_widget(exit_button)
@@ -607,7 +605,7 @@ class LaunchNotice(BoxLayout):
         super().__init__(orientation='vertical',spacing=dp(10))
         from online_safety import NOTICE_TEXT
         self.add_widget(BoundedLabel(text='BEFORE YOU PLAY',font_size=sp(21),bold=True,size_hint_y=None,height=dp(38)))
-        scroll=ScrollView(do_scroll_x=False);message=FlowLabel(text=NOTICE_TEXT,font_size=sp(15));scroll.add_widget(message);self.add_widget(scroll)
+        scroll=ScrollView(do_scroll_x=False);message=FlowLabel(text=NOTICE_TEXT,font_size=sp(15),halign='justify');scroll.add_widget(message);self.add_widget(scroll)
         if menu.game._safety_notice:self.add_widget(FlowLabel(text=menu.game._safety_notice))
         buttons=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(10))
         buttons.add_widget(MenuTile('I DO NOT AGREE',lambda:menu.action('notice_exit')))
@@ -654,7 +652,7 @@ class MatchNotice(BoxLayout):
         game = self.game
         self.width = min(game.width * 0.76, dp(460))
         self._fit_panel()
-        signature = (game.i18n.language, game.match_finished, game.match_halftime, game.match_summary, game.career.morale, game.career.stamina, getattr(game, "match_moment", ""), tuple((e["kind"],e["outcome"]) for e in getattr(game,"match_moments",[])))
+        signature = (game.i18n.language, game.match_finished, game.match_halftime, game.match_summary, game.career.morale, game.career.stamina, getattr(game, "match_moment", ""), game.match_chance_index, game.match_penalty_chance_index, tuple((e["kind"],e["outcome"]) for e in getattr(game,"match_moments",[])))
         if signature == self.signature:
             return
         self.signature = signature
@@ -664,6 +662,13 @@ class MatchNotice(BoxLayout):
         detail = (f'Morale {game.career.morale:.1f}/20  ·  Energy {game.career.stamina:.1f}/20'
                   if game.match_finished else 'Ready for the second half?' if game.match_halftime else 'Line up your shot and make the difference.')
         self.body.add_widget(FlowLabel(text=detail, font_size=sp(13), halign='center'))
+        if not game.match_finished and not game.match_halftime:
+            index=game.match_chance_index
+            if index==game.match_penalty_chance_index:
+                self.body.add_widget(FlowLabel(text='PENALTY',bold=True,color=GREEN,halign='center'))
+                self.body.add_widget(FlowLabel(text='You have been chosen to take the penalty.',font_size=sp(14),halign='center'))
+            elif index==game.match_easy_chance_index:
+                self.body.add_widget(FlowLabel(text='ONE ON ONE',bold=True,color=GREEN,halign='center'))
         moment = getattr(game, 'match_moment', '')
         if not game.match_finished and not game.match_halftime and moment in MOMENT_TEXT:
             headline, context = MOMENT_TEXT[moment]
@@ -907,8 +912,10 @@ class MainDashboard(BoxLayout):
         super().__init__(orientation='vertical', spacing=dp(6))
         self.menu = menu
         c = menu.game.career
-        self.identity = BoxLayout(size_hint_y=None, height=dp(36), spacing=dp(12), padding=[dp(10), 0])
-        self.identity.add_widget(BoundedLabel(text=c.player_name, localize=False, font_size=sp(18), bold=True, color=GREEN))
+        self.identity = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(12), padding=[dp(10), 0])
+        self.player_button=MenuTile(c.player_name,lambda:menu.action('profile'),localize=False,accent=True)
+        self.player_button.size_hint_y=1;self.player_button.max_lines=2;self.player_button.shorten=True
+        self.identity.add_widget(self.player_button)
         self.identity.add_widget(BoundedLabel(text=c.display_text(c.club_name), localize=False, font_size=sp(14), halign='center'))
         self.identity.add_widget(BoundedLabel(text=f'Energy {c.stamina:.1f}/20 · Morale {c.morale:.1f}/20',
                                              color=MUTED, font_size=sp(11), halign='right'))
@@ -952,6 +959,10 @@ class MainDashboard(BoxLayout):
         self.season.add_widget(BoundedLabel(localize=False,text=menu.game.i18n.league(c,c.current_league),
                                            color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
         self.hero.add_widget(self.season)
+        if menu.hub_header_actions is not None:
+            group=menu.hub_header_actions
+            def align_header(*_):group.width=self.season.width
+            self.season.bind(width=align_header);align_header()
         self.add_widget(self.hero)
         self.actions = GridLayout(cols=5, spacing=dp(6), size_hint_y=None, height=dp(52))
         for title, action in [('STANDINGS', 'standings'),
@@ -973,7 +984,7 @@ class MainDashboard(BoxLayout):
     def _arrange(self, *_):
         tiny = self.height < dp(215)
         portrait = self.width < dp(480) and self.height > dp(400)
-        self.identity.height = dp(24 if tiny else 36)
+        self.identity.height = dp(52)
         if tiny:
             if self.hero.parent is self:
                 self.remove_widget(self.hero)

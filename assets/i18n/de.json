@@ -456,5 +456,18 @@
   "TROPHIES": "TROPHÄEN",
   "No recorded trophies yet.": "Noch keine erfassten Trophäen.",
   "EDITOR": "EDITOR",
-  "Golden Boot": "Torjägerkanone"
+  "Golden Boot": "Torjägerkanone",
+  "Keep calm. Practise low and high finishes.": "Bleib ruhig. Übe flache und hohe Abschlüsse.",
+  "Build on that performance. Keep varying your finishes.": "Baue auf diese Leistung auf. Variiere deine Abschlüsse.",
+  "Review your chances. Work on your timing in training.": "Analysiere deine Chancen. Arbeite im Training am Timing.",
+  "I believe in you. Take it one chance at a time.": "Ich glaube an dich. Konzentriere dich auf jede einzelne Chance.",
+  "Keep your focus. I expect a disciplined response.": "Bleib konzentriert. Ich erwarte eine disziplinierte Antwort.",
+  "Prepare consistently and put the lessons into practice.": "Bereite dich konstant vor und setze das Gelernte um.",
+  "You have been chosen to take the penalty.": "Du wurdest als Elfmeterschütze ausgewählt.",
+  "ONE ON ONE": "EINS GEGEN EINS",
+  "Home goals: {minutes}": "Heimtore: {minutes}",
+  "Away goals: {minutes}": "Auswärtstore: {minutes}",
+  "Goal times unavailable.": "Torzeiten nicht verfügbar.",
+  "Winning margin: {margin}.": "Siegvorsprung: {margin}.",
+  "Illustration": "Illustration"
 }

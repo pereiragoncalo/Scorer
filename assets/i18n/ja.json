@@ -84,7 +84,7 @@
   "TAP TO START": "タップして開始",
   "TAP TO CONTINUE": "タップして続ける",
   "Tap the goal to aim and shoot.": "ゴールをタップして狙い、シュートしよう。",
-  "PENALTY": "ペナルティ",
+  "PENALTY": "ペナルティーキック",
   "FREE KICK": "フリーキック",
   "HEADER": "ヘディング",
   "KICK": "シュート",
@@ -456,5 +456,18 @@
   "TROPHIES": "トロフィー",
   "No recorded trophies yet.": "記録されたトロフィーはまだありません。",
   "EDITOR": "エディター",
-  "Golden Boot": "得点王"
+  "Golden Boot": "得点王",
+  "Keep calm. Practise low and high finishes.": "落ち着いて低いシュートと高いシュートを練習しよう。",
+  "Build on that performance. Keep varying your finishes.": "この活躍を生かして、様々な決め方を続けよう。",
+  "Review your chances. Work on your timing in training.": "チャンスを振り返り、練習で打つタイミングを磨こう。",
+  "I believe in you. Take it one chance at a time.": "君を信じている。一つずつチャンスに集中しよう。",
+  "Keep your focus. I expect a disciplined response.": "集中を保とう。規律ある対応を期待している。",
+  "Prepare consistently and put the lessons into practice.": "着実に準備し、学んだことを実践しよう。",
+  "You have been chosen to take the penalty.": "ペナルティーキックのキッカーに選ばれました。",
+  "ONE ON ONE": "１対１",
+  "Home goals: {minutes}": "ホームの得点: {minutes}",
+  "Away goals: {minutes}": "アウェーの得点: {minutes}",
+  "Goal times unavailable.": "得点時刻の記録なし。",
+  "Winning margin: {margin}.": "最終点差: {margin}。",
+  "Illustration": "挿絵"
 }

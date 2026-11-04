@@ -456,5 +456,18 @@
   "TROPHIES": "TROPHIES",
   "No recorded trophies yet.": "No recorded trophies yet.",
   "EDITOR": "EDITOR",
-  "Golden Boot": "Golden Boot"
+  "Golden Boot": "Golden Boot",
+  "Keep calm. Practise low and high finishes.": "Keep calm. Practise low and high finishes.",
+  "Build on that performance. Keep varying your finishes.": "Build on that performance. Keep varying your finishes.",
+  "Review your chances. Work on your timing in training.": "Review your chances. Work on your timing in training.",
+  "I believe in you. Take it one chance at a time.": "I believe in you. Take it one chance at a time.",
+  "Keep your focus. I expect a disciplined response.": "Keep your focus. I expect a disciplined response.",
+  "Prepare consistently and put the lessons into practice.": "Prepare consistently and put the lessons into practice.",
+  "You have been chosen to take the penalty.": "You have been chosen to take the penalty.",
+  "ONE ON ONE": "ONE ON ONE",
+  "Home goals: {minutes}": "Home goals: {minutes}",
+  "Away goals: {minutes}": "Away goals: {minutes}",
+  "Goal times unavailable.": "Goal times unavailable.",
+  "Winning margin: {margin}.": "Winning margin: {margin}.",
+  "Illustration": "Illustration"
 }

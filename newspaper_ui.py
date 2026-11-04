@@ -8,7 +8,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from menu_ui import MenuTile
-from newspaper import article,current_report
+from newspaper import single_page_story, article,current_report
 
 INK=(.12,.105,.078,1)
 MUTED=(.36,.30,.21,1)
@@ -58,7 +58,7 @@ class NewspaperScreen(FloatLayout):
         self.counter=self.label('',(.84,.84,.76,1))
         self.masthead=self.label('SCORER DAILY',INK,DISPLAY);self.masthead.halign='center'
         self.dateline=self.label('',MUTED);self.headline=self.label('',INK);self.score=self.label('',INK)
-        self.caption=self.label(self.loc.tr('Match illustration'),MUTED)
+        self.caption=self.label(self.loc.tr('Illustration'),MUTED)
         self.photo=None;c=menu.game.career;self.report=current_report(c)
         if self.report is None:
             self.story_text=self.loc.tr('Your first match report will appear here after you play.')
@@ -72,6 +72,9 @@ class NewspaperScreen(FloatLayout):
                 return c.display_club(club) if club else c.display_text(entry.get(side,''),entry.get('country'))
             competition=self.loc.competition(c,r['competition'],r['country'])
             self.article=article(r,self.loc.tr,team,c.player_name,competition)
+            limit=8 if self.loc.language in ('ko','ja','zh') else 14
+            short=lambda text:text if len(text)<=limit else text[:limit-3]+'...'
+            self.fixture_text=short(team(r,'home'))+'  '+str(r['status'])+'  '+short(team(r,'away'))
             pieces=[self.article['lead']]
             if self.article['goals']:pieces.append(' '.join(e['text'] for e in self.article['goals']))
             pieces.append(self.loc.tr('MATCH SUMMARY')+': '+self.article['summary'])
@@ -80,6 +83,7 @@ class NewspaperScreen(FloatLayout):
             self.compact_story_text='\n\n'.join(pieces[1:])
             self.full_headline=self.article['headline'];self.date_text=r['date']+'  /  '+str(competition);self.score_text=self.loc.tr(r['status'])
             self.photo=Image(source=self.article['photo'],size_hint=(None,None),fit_mode='contain');self.add_widget(self.photo)
+        self.short_story_text=single_page_story(self.report,self.loc.tr,c.player_name) if self.report else self.story_text
         self.full_story_text=self.story_text
         self._layout_trigger=Clock.create_trigger(self._layout,0)
         self.bind(pos=self._layout_trigger,size=self._layout_trigger);self._layout_trigger()
@@ -132,19 +136,26 @@ class NewspaperScreen(FloatLayout):
     def turn(self,step):
         self.page=max(0,min(len(self.pages)-1,self.page+step));self._layout_trigger()
 
+    def _caption_height(self,width):
+        if width<=0 or self.width<dp(500) or self.height<dp(310):return 0
+        height=text_height(self.caption.text,int(width),press_font(self.loc,self.caption.text),sp(8))
+        return height if height<=dp(16) else 0
+
     def _regions(self,left,top,width,height,size,first):
         gap=dp(16);columns=2 if width>=dp(630) else 1
         col=(width-gap)/2 if columns==2 else width
         regions=[]
-        photo_width=min(dp(200),col*.43) if first and self.photo else 0
+        available_photo_height=max(0,min(height*.48,height-dp(24))-dp(8))
+        photo_width=max(dp(40),min(dp(200),col*.43,available_photo_height*1.5)) if first and self.photo and available_photo_height>=dp(16) else 0
         photo_height=photo_width*2/3
-        band=min(height*.54,photo_height+dp(18))
-        if photo_width and band>=dp(30):
+        caption_height=self._caption_height(photo_width)
+        band=photo_height+(caption_height+dp(6) if caption_height else dp(8)) if photo_width else 0
+        if photo_width:
             regions.append((left+photo_width+dp(10),top,col-photo_width-dp(10),band))
-            if height-band-dp(8)>0:regions.append((left,top-band-dp(8),col,height-band-dp(8)))
+            if height-band-dp(6)>0:regions.append((left,top-band-dp(6),col,height-band-dp(6)))
         else:regions.append((left,top,col,height))
         if columns==2:regions.append((left+col+gap,top,col,height))
-        return regions,photo_width,min(photo_height,max(dp(20),band-dp(14)))
+        return regions,photo_width,photo_height
 
     def _flow(self,text,left,top,width,height,size,first=True):
         font=press_font(self.loc,self.story_text);regions,pw,ph=self._regions(left,top,width,height,size,first)
@@ -162,17 +173,20 @@ class NewspaperScreen(FloatLayout):
         self.sheet_bounds=(px,py,pw,ph);self._draw_paper(px,py,pw,ph)
         self.back.pos=(self.right-dp(100),self.top-dp(54 if small else 64));self.back.size=(dp(90),dp(48))
         inset=dp(10) if small else dp(14) if dense else dp(20);left=px+inset;top=py+ph-inset;width=pw-2*inset
-        mh=self.place(self.masthead,'SCORER DAILY',left,top,width,18 if small else 28 if dense else 42,DISPLAY)
-        top-=mh+dp(4)
-        date=self.date_text
+        mh=self.place(self.masthead,'SCORER DAILY',left,top,width,14 if small else 28 if dense else 42,DISPLAY)
+        top-=mh+dp(2 if small else 4)
+        date=self.report['date'] if small and self.report else self.date_text
         if small and text_height(date,int(width),press_font(self.loc,date),sp(9))>dp(20):date=self.report['date'] if self.report else ''
-        dh=self.place(self.dateline,date,left,top,width,9 if small else 10);top-=dh+dp(5)
+        dh=self.place(self.dateline,date,left,top,width,9 if small else 10);top-=dh+dp(2 if small else 5)
         title=self.full_headline;title_size=14 if small else 18 if dense else 28
-        if text_height(title,int(width),press_font(self.loc,title,True),sp(title_size))>ph*.25:
-            title=self.loc.tr('MATCH REPORT');title_size=14
+        if small or text_height(title,int(width),press_font(self.loc,title,True),sp(title_size))>ph*.25:
+            player=self.menu.game.career.player_name.split()[0]
+            limit=7 if self.loc.language in ('ko','ja','zh') else 18
+            player=player if len(player)<=limit else player[:limit-3]+'...'
+            title=(self.loc.tr('{player}: one goal.',player=player) if self.report and self.report['goals']==1 else self.loc.tr('{player}: {goals} goals.',player=player,goals=self.report['goals']) if self.report and self.report['goals'] else self.loc.tr('MATCH REPORT'));title_size=14
         self.story_text=self.compact_story_text if self.report is not None and dense and title==self.full_headline and date==self.date_text else self.full_story_text
-        hh=self.place(self.headline,title,left,top,width,title_size,press_font(self.loc,title,True));top-=hh+dp(4)
-        sh=self.place(self.score,self.score_text,left,top,width,11 if small else 13);top-=sh+dp(9)
+        hh=self.place(self.headline,title,left,top,width,title_size,press_font(self.loc,title,True));top-=hh+dp(2 if small else 4)
+        sh=self.place(self.score,self.fixture_text if small and self.report else self.score_text,left,top,width,9 if small else 13);top-=sh+dp(4 if small else 9)
         self.rules=(left,top+dp(4),width)
         with self.canvas.before:
             Color(*INK);Line(points=[left,top+dp(4),left+width,top+dp(4)],width=1)
@@ -186,13 +200,19 @@ class NewspaperScreen(FloatLayout):
             parts,remaining,imgw,imgh=self._flow(self.story_text,left,top,width,height,size)
             if not remaining:selected=(size,parts,imgw,imgh);break
         if selected is None:
-            size=12;parts,remaining,imgw,imgh=self._flow(self.story_text,left,top,width,height,size)
-        else:size,parts,imgw,imgh=selected;remaining=''
+            self.story_text=self.short_story_text
+            for size in (14,13,12,11,10,9,8,7,6):
+                parts,remaining,imgw,imgh=self._flow(self.story_text,left,top,width,height,size)
+                if not remaining:selected=(size,parts,imgw,imgh);break
+        if selected is None:
+            # Extremely small windows/high scorelines prioritise the complete
+            # concise report over its decorative photograph.
+            for size in (12,11,10,9,8,7,6):
+                parts,remaining,imgw,imgh=self._flow(self.story_text,left,top,width,height,size,False)
+                if not remaining:selected=(size,parts,imgw,imgh);break
+        if selected is not None:
+            size,parts,imgw,imgh=selected;remaining=''
         pages=[parts]
-        while remaining:
-            more,rest,_,_=self._flow(remaining,left,top,width,height,size,False)
-            if rest==remaining:break
-            pages.append(more);remaining=rest
         self.pages=pages;self.page=min(self.page,len(pages)-1);self.body_font_size=size
         for label in self.fragments:self.remove_widget(label)
         self.fragments=[]
@@ -201,8 +221,8 @@ class NewspaperScreen(FloatLayout):
             self.layout_fits=self.layout_fits and label.y>=py+inset-1
         self.body=self.fragments[0] if self.fragments else self.label('')
         if self.photo:
-            self.photo.opacity=1 if self.page==0 else 0;self.photo.size=(imgw,imgh);self.photo.pos=(left,top-imgh)
-            self.caption.opacity=1 if self.page==0 and not small else 0
+            self.photo.opacity=1 if imgw>0 else 0;self.photo.size=(imgw,imgh);self.photo.pos=(left,top-imgh)
+            self.caption.opacity=1 if self._caption_height(imgw)>0 else 0
             self.place(self.caption,self.caption.text,left,self.photo.y-dp(3),max(1,imgw),8)
         if len(pages)>1:
             for widget in (self.previous,self.following):
