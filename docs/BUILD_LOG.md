@@ -1943,3 +1943,9 @@ actual compiled cup final awards/reloads a personal trophy and newspaper queue.
 Desktop Kivy preview uses synthetic awards, not an owner's save or handset capture.
 No physical Android, production signing, Play upload or live-server changes.
 Evidence /workspace/striker-runtime/0915 and RELEASE_0.9.15*.json/md.
+
+Delivery: public APK and Portuguese trophy preview returned HTTP200 with attachment
+headers and exact local SHA256/size matches. Delivery run41878748227; public-byte
+verification is recorded independently of delayed run-status reporting. Download
+proof is RELEASE_0.9.15_download.json. Temporary qa-upload-0.9.15 branch removed
+after the attachment checks; no APK or career changes during delivery.

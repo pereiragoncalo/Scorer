@@ -1,3 +1,23 @@
+## Scorer World0.9.15 — post-match newspaper/coach flow and player trophies
+
+[Download World0.9.15 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.15/Scorer-World-0.9.15.apk) ·
+[Player trophy preview](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.15/0.9.15-trophies-pt.png)
+
+Full-time Continue opens the newspaper, then a requested coach meeting, then the
+career menu. That queue survives reload; newspaper/coach hub buttons are removed.
+Player shows saved league/cup/national trophies and Golden Boot awards from
+observed campaigns in this version onward. Earlier unrecorded personal titles
+are not invented from AI winner archives. The World button reads EDITOR. Agent
+is grey outside transfer windows, with the existing free-agent exception.
+
+508 host tests passed (350 core +158 native Kivy). Actual compiled honours/cup
+award and newspaper queue/reload verified, with exact gameplay/UI source, existing
+QA certificate, API36/arm64 and16KB alignment. Preview is desktop Kivy with
+synthetic awards. Physical Android validation remains outstanding. DEBUG QA;
+public launch remains1.0.
+[Scope](docs/RELEASE_0.9.15.md) · [APK evidence](docs/RELEASE_0.9.15_artifacts.json) ·
+[Public download check](docs/RELEASE_0.9.15_download.json).
+
 ## Scorer World 0.9.14 — every goal in the headline, wide aim, training gate
 
 [Download World 0.9.14 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.14/Scorer-World-0.9.14.apk) ·
