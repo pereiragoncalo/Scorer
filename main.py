@@ -1019,8 +1019,8 @@ class StrikerGame(Widget):
             self.shot_time_limit = max(3.0, self.shot_time_limit - 0.20)
             self.current_aim_speed += 0.10
         if self.current_chance_difficulty == "hard":
-            self.shot_time_limit = max(2.7, self.shot_time_limit * 0.60)
-            self.current_aim_speed *= 1.55
+            self.shot_time_limit = max(2.7, self.shot_time_limit * 0.78)
+            self.current_aim_speed *= 1.18
         self.shot_time_left = self.shot_time_limit
         self._prepare_next_shot()
 
@@ -1296,8 +1296,8 @@ class StrikerGame(Widget):
         self.aim_vertical_offset = rng.uniform(0.0, math.tau)
         self.aim_center_x = rng.uniform(-0.34, 0.34)
         self.aim_center_z = rng.uniform(0.94, 1.38)
-        self.aim_amplitude_x = self.goal_half_width + rng.uniform(0.30, 0.82)
-        self.aim_amplitude_z = rng.uniform(1.22, 1.58)
+        self.aim_amplitude_x = self.goal_half_width - 0.38
+        self.aim_amplitude_z = rng.uniform(0.80, 1.05)
         self.aim_speed_pulse = rng.uniform(0.0, math.tau)
         self._apply_aim_pattern()
 
@@ -1320,8 +1320,12 @@ class StrikerGame(Widget):
             )
             + 0.14 * math.cos(phase * 0.51 + self.aim_horizontal_offset)
         )
-        self.aim_x = self.aim_center_x + horizontal * self.aim_amplitude_x
-        self.aim_z = self.aim_center_z + vertical * self.aim_amplitude_z
+        # Ball centre stays clear of the posts, crossbar and turf at impact.
+        margin = self.ball.radius + 0.09
+        self.aim_x = clamp(self.aim_center_x + horizontal * self.aim_amplitude_x,
+                           -self.goal_half_width + margin, self.goal_half_width - margin)
+        self.aim_z = clamp(self.aim_center_z + vertical * self.aim_amplitude_z,
+                           margin, self.goal_height - margin)
 
 
     def _update_aim(self, dt: float) -> None:
@@ -1368,7 +1372,7 @@ class StrikerGame(Widget):
                 screen_x, _ = self.project(self.shot_origin_x, self.shot_origin_y, 0)
                 if not self.x + self.width * 0.08 <= screen_x <= self.right - self.width * 0.08:
                     self.shot_origin_x = -abs(self.shot_origin_x)
-                if rng.random() < 0.20:
+                if not practice and rng.random() < 0.20:
                     self.shot_type = "free_kick"
             self.ball.reset(self.shot_origin_x, self.shot_origin_y, HEADER_BALL_HEIGHT if self.shot_type == "header" else None)
             self.player_kick_progress = 0.0
@@ -1448,6 +1452,9 @@ class StrikerGame(Widget):
 
     def _generate_field_players(self) -> None:
         """Cria equipas variáveis, com no máximo cinco jogadores de cada lado."""
+        if self.shot_context == "training":
+            self.field_players = []
+            return
         defenders = (
             (-8.7, 3.0),
             (-5.5, 5.1),
@@ -2266,7 +2273,7 @@ class StrikerGame(Widget):
             0.89 - ready_crouch - 0.29 * dive - 0.10 * landing * dive
         )
         jump_boost=self._defensive_profile().jump_boost
-        center_z += self.goalkeeper_scale * flight * (0.34 + (0.85+jump_boost) * high)
+        center_z += self.goalkeeper_scale * flight * (0.42 + (0.85+jump_boost) * high)
         center_z -= self.goalkeeper_scale*.20*low*dive
 
 
@@ -2339,6 +2346,16 @@ class StrikerGame(Widget):
                 trail_x - self.goalkeeper_dive_sign * 0.18 * self.goalkeeper_scale * smooth,
                 trail_z + 0.10 * self.goalkeeper_scale * flight,
             )
+        # Use the same bounded skeleton for drawing AND collision volumes.
+        # A save may rotate/extend an arm, never stretch it towards the ball.
+        for side in ('l', 'r'):
+            shoulder = pose['shoulder_' + side]
+            hand = pose['hand_' + side]
+            dx, dz = hand[0] - shoulder[0], hand[1] - shoulder[1]
+            distance = max(1e-9, math.hypot(dx, dz))
+            length = 0.68 * self.goalkeeper_scale
+            pose['hand_' + side] = (shoulder[0] + dx / distance * length,
+                                     shoulder[1] + dz / distance * length)
         return pose
 
 
@@ -3972,9 +3989,8 @@ class StrikerGame(Widget):
         for club, score, row in ((self.match_home, self.match_home_score, 0.73),
                                  (self.match_away, self.match_away_score, 0.27)):
             cy = y + height * row
-            self._draw_club_badge(club.name, x + dp(12), cy, dp(15), display_name=self.career.display_club(club), club=club)
-            self._draw_text(self.career.display_club(club), x + dp(24), cy, dp(11),
-                            (0.94, 0.98, 0.97, 1), max_width=teams_width - dp(50), localize=False)
+            self._draw_text(self.career.display_club(club), x + dp(10), cy, dp(11),
+                            (0.94, 0.98, 0.97, 1), max_width=teams_width - dp(38), localize=False)
             self._draw_text(str(score), x + teams_width - dp(14), cy, dp(14),
                             (0.36, 1.0, 0.66, 1), "center", max_width=dp(24))
         clock_x = x + teams_width + (width - teams_width) / 2

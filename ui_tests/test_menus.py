@@ -299,7 +299,7 @@ class MenuTests(unittest.TestCase):
                             self.assertTrue(game.x <= sx <= game.right)
                             self.assertTrue(game.y <= sy <= game.top)
                             self.assertGreaterEqual(len(game.field_players), 4)
-                            self.assertLessEqual(game.shot_time_limit, 3.7)
+                            self.assertLessEqual(game.shot_time_limit, 5.2)
                     self.assertLessEqual(easy_count, 1)
                     seen_easy |= easy_count == 1
                     seen_no_easy |= easy_count == 0

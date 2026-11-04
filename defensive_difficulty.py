@@ -21,5 +21,5 @@ def defensive_profile(tier=4,international=False):
     tier=1 if international else max(1,min(5,int(tier)))
     level=(5-tier)/4
     return DefensiveProfile(level,.17-.05*level,.32-.07*level,.24-.12*level,
-        2.8+1.1*level,13+6*level,.28+.05*level,4.4+1.0*level,
+        2.5+1.0*level,11+5*level,.28+.05*level,4.0+.9*level,
         .36+.16*level,.50-.28*level,5 if tier<=2 else 4)

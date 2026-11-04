@@ -97,10 +97,15 @@ def conversation(state, key, uid):
     return dict(key=key,kind=kind,style=style,variant=index)
 
 
+ADVICE = ('In training, alternate low shots and shots across the goalkeeper. Watch the target, stay composed and choose your moment rather than rushing the finish.', 'Take that confidence into training. Practise different finishes so you have more than one answer when the next important chance arrives.', 'Think about the chances you had: when did you rush, and when could you have waited? Use this week’s practice to improve the timing of your next finish.')
+FOLLOW_UP = ('I am backing you. We will work through this together; focus on one good decision at a time.', 'I expect concentration in every exercise. Show me a controlled finish and carry that discipline into the next match.', 'Keep your preparation consistent. Judge the next opportunity on its own merits and take the lesson forward.')
+
 def conversation_text(meeting):
-    if meeting['kind']=='routine':return ROUTINE[meeting['variant']%len(ROUTINE)]
-    options=FEEDBACK[meeting['kind']][meeting['style']]
-    return options[meeting['variant']%len(options)]
+    kind = meeting['kind']
+    if kind == 'routine':return ROUTINE[meeting['variant']%len(ROUTINE)]
+    options = FEEDBACK[kind][meeting['style']]
+    advice = ADVICE[0 if kind == 'drought' else 1 if kind in ('decisive','form') else 2]
+    return '\n\n'.join((options[meeting['variant']%len(options)], advice, FOLLOW_UP[meeting['style']]))
 
 
 def meeting_due(state):

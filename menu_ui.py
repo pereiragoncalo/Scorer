@@ -8,6 +8,7 @@ from kivy.core.image import Image as CoreImage
 from kivy.metrics import dp, sp, Metrics
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
+from kivy.uix.progressbar import ProgressBar
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
@@ -299,6 +300,10 @@ class CareerMenu(BoxLayout):
         meeting = c.coach_conversation()
         card = self.card('COACH MEETING')
         card.label(COACH_STYLES[meeting['style']], muted=True)
+        recent = c._current_coach_state()['recent']
+        if recent:
+            card.label(self.game.i18n.tr('Recent club form: {goals} goals in {games} appearances.',
+                       goals=sum(recent), games=len(recent)), muted=True)
         row=BoxLayout(spacing=dp(12),size_hint_y=None)
         portrait=Image(source=c.coach_portrait,fit_mode='contain',size_hint=(None,None))
         feedback=FlowLabel(text=conversation_text(meeting),font_size=sp(15))
@@ -314,6 +319,7 @@ class CareerMenu(BoxLayout):
     def _training(self):
         g, c = self.game, self.game.career
         used = c.trained_this_week
+        compact = g.height < dp(480)
         resumable = c.training_session_week == c.week and not used
         card = self.card('Finishing practice')
         card.spacing = dp(4)
@@ -321,12 +327,39 @@ class CareerMenu(BoxLayout):
             card.label(f'Training complete · {g.training_goals}/3 goals', heading=True)
         elif resumable:
             card.label(f'Resume training · {c.training_shots_taken}/3 shots completed.')
-            card.label(c.message, muted=True)
+            if not compact:card.label(c.message, muted=True)
         elif not used:
             card.label('Complete three shots to unlock this week’s match.')
         else:
             card.label('This week’s training session has been used.', muted=True)
+        if compact:
+            card.label('One striker. One goalkeeper. Three finishes.', muted=True)
+            card.label(g.i18n.tr('Completed shots: {shots}/3 · Goals: {goals}/3',
+                       shots=c.training_shots_taken if c.training_session_week == c.week else 0,
+                       goals=c.training_session_goals if c.training_session_week == c.week else 0), heading=True)
+            card.add_widget(ProgressBar(max=3, value=c.training_shots_taken if c.training_session_week == c.week else 0, size_hint_y=None, height=dp(14)))
+            card.label(f'Energy: {c.stamina:.1f}/20  ·  Morale: {c.morale:.1f}/20', muted=True)
+            button = self._button('WEEKLY TRAINING USED' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
+            button.disabled = used or c.coach_meeting_required
+            card.add_widget(button)
+            return
+        plan = GridLayout(cols=2 if self.width >= dp(600) else 1, spacing=dp(10), size_hint_y=None)
+        plan.bind(minimum_height=plan.setter('height'), width=lambda widget, width: setattr(widget, 'cols', 2 if width >= dp(600) else 1))
+        for title, lines in (
+            ('SESSION PLAN', ('One striker. One goalkeeper. Three finishes.',
+             'Alternate low and high finishes. Time your shot as the target moves inside the goal.')),
+            ('PROGRESS', (g.i18n.tr('Completed shots: {shots}/3 · Goals: {goals}/3',
+             shots=c.training_shots_taken if resumable or used else 0,
+             goals=c.training_session_goals if c.training_session_week == c.week else 0),
+             'One session per week. Your progress is saved after each shot.'))):
+            panel = Card();panel.label(title, heading=True)
+            for line in lines:panel.label(line, muted=True)
+            plan.add_widget(panel)
+        card.add_widget(plan)
+        card.add_widget(ProgressBar(max=3, value=c.training_shots_taken if c.training_session_week == c.week else 0, size_hint_y=None, height=dp(14)))
+        card.label('PLAYER READINESS', heading=True)
         card.label(f'Energy: {c.stamina:.1f}/20  ·  Morale: {c.morale:.1f}/20', muted=True)
+        card.label('Complete this session to unlock the match. Training goals help your chances this week.', muted=True)
         button = self._button('WEEKLY TRAINING USED' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
         button.disabled = used or c.coach_meeting_required
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
