@@ -1,3 +1,23 @@
+## Scorer World 0.9.12 — folded newspaper and complete goal reporting
+
+[Download World 0.9.12 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.12/Scorer-World-0.9.12.apk) ·
+[Preview](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.12/0.9.12-newspaper-pt.png)
+
+The paper sits in a dark reading window with a folded reverse, shadows and grain.
+Original Scorer Press display/pixel fonts give the title and story a retro game
+identity. Text wraps beside/below the embedded photo and into columns. Every
+recorded goal includes its minute and changing score, followed by a brief factual
+summary. Long reports turn leaves without scrolling or deleting words.
+
+487 host tests passed (340 core +147 native Kivy). A real Kivy preview at the
+owner's phone proportions fits the four-goal example on one sheet. The preview
+uses an illustrative test fixture, not the owner's actual goal chronology or a
+physical Android screenshot. Existing careers/name packs remain compatible.
+Actual compiled source/fonts, upgrade certificate and16KB alignment verified.
+DEBUG QA; physical Android validation remains outstanding.
+[Scope](docs/RELEASE_0.9.12.md) · [APK evidence](docs/RELEASE_0.9.12_artifacts.json) ·
+[Public download check](docs/RELEASE_0.9.12_download.json).
+
 ## Scorer World 0.9.11 — single-page news, coach portraits, World editor
 
 [Download World 0.9.11 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.11/Scorer-World-0.9.11.apk)

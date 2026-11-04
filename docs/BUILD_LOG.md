@@ -1850,3 +1850,10 @@ targets passed after singular-wording cleanup. Initial full native runs exposed
 tests that assumed an unbroken player name/empty-message phrase in one label.
 Updated them to inspect the complete flowed text across leaves. Final full native
 and actual APK evidence follow. Unrelated root WIP remains excluded.
+
+Final0.9.12 validation:340 core +147 native Kivy =487 passing. After the last
+compact-header adjustment all9 newspaper UI tests also passed. Actual compiled
+source matches commit7fd0e42; API36/code1026912/arm64,118ELF16KB, ZIP alignment,
+existing upgrade certificate, original TTF/licence bytes and compiled four-goal/
+summary/competition/publishing checks passed. Public APK/preview byte checks are
+recorded in the release download evidence. No physical Android validation.
