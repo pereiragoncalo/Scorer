@@ -1990,3 +1990,23 @@ Delivery: run41924917321 completed successfully. The public APK and all5previews
 returned HTTP200 with attachment headers and exact local SHA256/size matches;
 proof in RELEASE_0.9.16_download.json. Temporary qa-upload-0.9.16 transfer branch
 removed after these checks. No APK changes during delivery.
+
+## 2026-11-04 — World0.9.17 responsive audit and corrections
+
+Owner requested confirmation that all screens fit phone sizes. Ran a native
+Kivy audit of27 views ×11 pixel/density/text-scale configurations ×3languages
+(pt/de/ja):891 cases.0.9.16 flagged16 cases: coach fixed-height font clipping
+and German Back controls above the viewport with130% text. Source
+c1b341e48dc8c2474c6f2bce15344381d226f578 measures coach header/status heights and
+fits non-hub headers to content. The corrected891-case report has zero findings,
+stored in docs/data/responsive_0.9.17.json; reusable tool in tools/audit_responsive.py.
+The diagnostic's initial parent traversal was corrected to handle Window's
+self-parent cycle before collecting the complete before/after audit.
+
+Core353 passed in138.111s; native167 in215.668s (520 tests). No gameplay or save
+schema changes. Final APK107354451B,
+SHA25607baf14165aca89b8d15095600c6787291881e5c5f48b1002eab5bdae9936deb.
+Exact compiled changed source/all9catalogues, API36/min26, existing DEBUG
+certificate, arm64,118ELF/ZIP16KB and ad-free payload verified. No physical phone,
+production signing, Play upload or live-server changes. Landscape geometry audit
+is not universal device/cutout/OS certification. Unrelated root WIP preserved.
