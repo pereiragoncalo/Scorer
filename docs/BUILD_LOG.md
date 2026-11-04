@@ -1726,3 +1726,13 @@ suite and APK evidence are recorded in RELEASE_0.9.8_artifacts.json. A repeated
 staging invocation correctly refused a non-empty output directory; the final
 build uses a fresh staging directory. Unrelated root badge/UI WIP is retained.
 No physical-device, production signing, Google Play or live-server validation.
+
+Final0.9.8 validation:304 core +130 native Kivy =434 passing. Actual APK compiled
+source matches commit6cc2436; API36/code1026908/arm64,118ELF16KB, ZIP alignment,
+existing upgrade certificate and compiled competition/save/publishing checks pass.
+Public attachment SHA256/bytes independently verified; see download evidence.
+The initial delivery dispatch used the preceding branch revision and was cancelled.
+The current dispatch initially could not create a release with its integration
+identity; release metadata was created using the configured owner CLI and the
+same workflow rerun successfully uploaded the checked APK. No credential or key
+was changed. Local direct upload remains unsupported by that CLI identity.

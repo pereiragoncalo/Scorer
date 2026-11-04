@@ -1,3 +1,18 @@
+## Scorer World 0.9.8 — decisive match moments
+
+[Download World 0.9.8 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.8/Scorer-World-0.9.8.apk)
+
+Late chances to equalise or lead, actual finals/playoffs, curated derbies and
+close survival run-ins now have visible context. One actual featured chance
+is retained in Fixtures history. Existing careers receive the feature without
+a reset; chance caps, shot difficulty and AI goal budgets are unchanged.
+
+434 host tests passed (304 core +130 native Kivy). The built APK's compiled
+source, upgrade certificate and 16KB alignment were verified. DEBUG QA;
+physical-device testing remains outstanding. [Scope](docs/RELEASE_0.9.8.md) ·
+[APK evidence](docs/RELEASE_0.9.8_artifacts.json) ·
+[Public download check](docs/RELEASE_0.9.8_download.json).
+
 ## Scorer World 0.9.7 — domestic schedules and split tables
 
 [Download World 0.9.7 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.7/Scorer-World-0.9.7.apk)
