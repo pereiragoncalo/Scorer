@@ -234,6 +234,8 @@ class CareerMenu(BoxLayout):
             exit_button = TouchButton('EXIT', self.game._request_exit)
             exit_button.size_hint_x, exit_button.width = None, dp(76)
             header.add_widget(exit_button)
+        if self.game.view!='hub':
+            header.bind(minimum_height=lambda row,height:setattr(row,'height',max(dp(52),height)))
         self.add_widget(header)
         if self.game.view == 'hub':
             self.scroll = None

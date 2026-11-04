@@ -41,24 +41,33 @@ class CoachScreen(FloatLayout):
         self.add_widget(label);return label
     def place(self,label,x,y,w,h,size):
         label.pos=(x,y);label.size=(w,h);label.text_size=(w,h);label.font_size=sp(size)
+    def measured_height(self,label,width,size,minimum):
+        if not label.text:return 0
+        measure=CoreLabel(text=label.text,text_size=(max(1,int(width)),None),font_name=label.font_name,font_size=sp(size))
+        measure.refresh()
+        return max(dp(minimum),measure.texture.size[1]+dp(2))
     def fit(self,*_):
         compact=self.height<dp(330);margin=dp(8 if compact else 16);x=self.x+margin;w=max(1,self.width-2*margin)
         self.panel.pos=(x,self.y+margin);self.panel.size=(w,max(1,self.height-2*margin))
         left=x+margin;right=x+w-margin;top=self.top-2*margin
         header_top=top
         if compact:
-            self.place(self.title,left,top-dp(22),right-left-dp(70),dp(22),15);top-=dp(25)
+            title_h=self.measured_height(self.title,right-left-dp(70),15,22)
+            self.place(self.title,left,top-title_h,right-left-dp(70),title_h,15);top-=title_h+dp(3)
             self.style.text=self.style_text+(' · '+self.recent.text if self.recent.text else '')
-            self.place(self.style,left,top-dp(26),right-left-dp(70),dp(26),10);top-=dp(29)
+            style_h=self.measured_height(self.style,right-left-dp(70),10,26)
+            self.place(self.style,left,top-style_h,right-left-dp(70),style_h,10);top-=style_h+dp(3)
             self.recent.opacity=0
         else:
             self.style.text=self.style_text;self.recent.opacity=1
-            self.place(self.title,left,top-dp(26),right-left,dp(26),21);top-=dp(29)
-            self.place(self.style,left,top-dp(17),right-left,dp(17),14);top-=dp(19)
-            rh=dp(16) if self.recent.text else 0
+            title_h=self.measured_height(self.title,right-left,21,26)
+            self.place(self.title,left,top-title_h,right-left,title_h,21);top-=title_h+dp(3)
+            style_h=self.measured_height(self.style,right-left,14,17)
+            self.place(self.style,left,top-style_h,right-left,style_h,14);top-=style_h+dp(2)
+            rh=self.measured_height(self.recent,right-left,12,16)
             self.place(self.recent,left,top-rh,right-left,rh,12);top-=rh+dp(6)
         self.finish.size=(min(dp(320),right-left),dp(48 if compact else 52));self.finish.pos=(right-self.finish.width,self.y+2*margin)
-        eh=dp(24) if self.error.text else 0
+        eh=self.measured_height(self.error,right-left,11,24)
         self.place(self.error,left,self.finish.top+dp(4),right-left,eh,11)
         bottom=self.finish.top+dp(8)+eh;th=max(dp(20),top-bottom)
         if compact:
