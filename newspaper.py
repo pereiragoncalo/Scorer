@@ -109,3 +109,23 @@ def current_report(career):
         r.update(actor_uid='',score=[int(n) for n in match.groups()],goals=0,misses=0,photo=0,negative_run=0,standout=False)
         return r
     return None
+
+
+def brief_article(report,tr,player):
+    """A concise edition for small displays, with the same personal-mention rules."""
+    events=report.get('events',[])
+    def clock(e):
+        boundary=45 if e['half']==1 else 90
+        return str(e['minute']) if e['minute']<=boundary else f"{boundary}+{e['minute']-boundary}"
+    if len(events)==1:
+        lead=tr('Goal: {minute}.',minute=clock(events[0]))
+    elif events:
+        lead=tr('First goal: {first}. Last goal: {last}.',first=clock(events[0]),last=clock(events[-1]))
+    else:
+        h,a=report['score'];margin=abs(h-a)
+        lead=tr('The sides finished level on the match scoreboard.') if not margin else tr('A single goal separated the teams at full time.') if margin==1 else tr('The final winning margin was {margin} goals.',margin=margin)
+    if report['standout']:
+        lead+='\n'+(tr('{player}: {goals} goals.',player=player,goals=report['goals']) if report['goals']>=2 else tr('{player}: a crucial goal.',player=player))
+    elif report['negative_run']>=3:
+        lead+='\n'+tr('{player}: {games} games without a goal.',player=player,games=report['negative_run'])
+    return lead

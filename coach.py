@@ -109,6 +109,14 @@ def meeting_due(state):
 
 
 class CoachCareer:
+    def _select_coach_appearance(self):
+        if self.club:self.coach_appearance=appearance_for(self.club.uid,self.coach_appearance)
+
+    @property
+    def coach_portrait(self):
+        uid=self.club.uid if self.club else ''
+        return PORTRAITS[appearance_for(uid,self.coach_appearance)['portrait']]
+
     @property
     def coach_key(self):
         return f'{self.season}:{self.week}:{self.club.uid}' if self.club else ''
@@ -164,3 +172,22 @@ class CoachCareer:
             (goals>=2 and key_match) or (e['kind'] in ('equaliser','lead') and e['outcome']=='goal' and goals>=1 and not_lost)
             for e in events) or (key_match and goals>=2)
         self.coach_state=state
+
+
+PORTRAITS=tuple(f'assets/coaches/coach_{i:02d}.png' for i in range(1,11))
+
+
+def clean_appearance(raw):
+    if (isinstance(raw,dict) and isinstance(raw.get('club'),str) and len(raw['club'])<=64
+            and (not raw['club'] or raw['club'].isprintable()) and number(raw.get('portrait'),9)):
+        return {k:raw[k] for k in ('club','portrait')}
+    return dict(club='',portrait=0)
+
+
+def appearance_for(uid,previous):
+    """Keep the current coach stable; a different club cannot reuse their face."""
+    previous=clean_appearance(previous)
+    if uid==previous['club']:return previous
+    index=int(hashlib.sha256(('scorer-coach-face-v1:'+uid).encode()).hexdigest()[:8],16)%len(PORTRAITS)
+    if previous['club'] and index==previous['portrait']:index=(index+1)%len(PORTRAITS)
+    return dict(club=uid,portrait=index)

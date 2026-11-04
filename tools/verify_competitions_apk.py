@@ -21,6 +21,8 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             assert c.coach_meeting_required and not c.begin_training()
             assert c.attend_coach_meeting() and not c.coach_meeting_required and c.begin_training()
             c.save();assert c.load() and not c.coach_meeting_required
+            for portrait in coach.PORTRAITS:assert Path(portrait).is_file()
+            face=c.coach_portrait;c.save();assert c.load() and c.coach_portrait==face
             for photo in news.PHOTOS:assert Path(photo).is_file()
             home,away=c.next_fixture()
             press=news.make_report(news.fresh_state(),dict(date='2026-11-04',competition='League',country=c.current_league.country,status='1-1'),home,away,home.uid,(1,1),0,1,[])
@@ -101,3 +103,5 @@ print('Actual APK: persisted French playoff ladder, top-three foreign-league cal
 print('Actual APK: 38-country capacities, Austrian split/half-points/reload and legacy layout preservation verified')
 
 print('Actual APK: conditional coach requests and offline newspaper report/photo data verified')
+
+print("Actual APK: ten coach portraits and saved appearance selection verified")

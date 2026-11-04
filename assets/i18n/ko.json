@@ -387,5 +387,10 @@
   "An important match deserves an honest review. Keep your focus and work on what needs improving.": "중요한 경기는 솔직한 검토가 필요하다. 집중력을 유지하고 개선할 부분을 훈련하자.",
   "Let us review that key match calmly, then take the lessons into training.": "그 중요한 경기를 차분하게 돌아보고 배운 점을 훈련에 적용하자.",
   "{team} opened the scoring in minute {minute}.": "{team}, {minute}분에 선제골을 기록했다.",
-  "The final goal came for {team} in minute {minute}.": "마지막 골은 {minute}분에 {team}에서 나왔다."
+  "The final goal came for {team} in minute {minute}.": "마지막 골은 {minute}분에 {team}에서 나왔다.",
+  "Goal: {minute}.": "득점: {minute}분.",
+  "First goal: {first}. Last goal: {last}.": "첫 골: {first}분. 마지막 골: {last}분.",
+  "{player}: {goals} goals.": "{player}: {goals}골.",
+  "{player}: a crucial goal.": "{player}: 중요한 골.",
+  "{player}: {games} games without a goal.": "{player}: {games}경기 연속 무득점."
 }

@@ -80,3 +80,12 @@ class CoachUI(unittest.TestCase):
             self.assertNotIn('COACH MEETING',buttons);self.assertFalse(buttons['TRAINING'].disabled)
             g._activate_ui('coach');self.assertEqual(g.view,'hub')
             g.start_training();self.assertEqual(g.view,'shot')
+
+
+    def test_requested_meeting_shows_saved_coach_portrait(self):
+        from kivy.uix.image import Image
+        from coach import PORTRAITS
+        with isolated_game() as g:
+            c=self.sign(g);g._activate_ui('coach');g.draw();settle()
+            self.assertTrue(any(isinstance(w,Image) and w.source==c.coach_portrait for w in g.walk()))
+            self.assertIn(c.coach_portrait,PORTRAITS)

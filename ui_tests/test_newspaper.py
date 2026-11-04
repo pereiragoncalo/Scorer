@@ -45,11 +45,11 @@ class NewspaperUI(unittest.TestCase):
                     Window.size=size;g.size=size
                     for lang in ('en','pt','es','de','it','ko','ja','zh','vi'):
                         g.i18n.choose(lang);g._activate_ui('newspaper');g.draw();settle()
-                        p=g._menu.body;self.assertIsInstance(p,NewspaperScreen);self.assertIsNotNone(p.scroll)
+                        p=g._menu.body;self.assertIsInstance(p,NewspaperScreen);self.assertIsNone(p.scroll);self.assertTrue(p.layout_fits,(size,lang))
                         back=next(w for w in p.walk() if isinstance(w,MenuTile))
                         x,y=back.to_window(back.x,back.y)
                         self.assertGreaterEqual(y,0);self.assertLessEqual(y+back.height,size[1]+1);self.assertGreaterEqual(back.height,48)
-                        self.assertGreaterEqual(p.photo.width,80);self.assertLessEqual(p.photo.width,size[0])
+                        self.assertGreaterEqual(p.photo.width,40);self.assertLessEqual(p.photo.width,size[0])
         finally:Window.size=old
 
     def test_empty_new_career_has_no_invented_news_or_photo(self):
@@ -67,3 +67,29 @@ class NewspaperUI(unittest.TestCase):
             g._match_shot_goal_counted=False;g._record_player_match_goal();g._record_player_match_goal()
             self.assertEqual(len(g.match_report_events),2)
             self.assertEqual(g.match_report_events[-1]['minute'],88)
+
+
+    def test_entire_page_fits_with_long_names_and_negative_story_without_scroll(self):
+        from kivy.uix.scrollview import ScrollView
+        from newspaper_ui import text_height
+        old=Window.size
+        try:
+            Window.size=(320,240)
+            with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+                c=self.played(g);g.size=(320,240);r=c.press_state['report']
+                r['negative_run']=12;r['standout']=False;r['goals']=0
+                for lang,char in (('en','W'),('de','W'),('pt','W'),('ja','選'),('ko','선'),('zh','名')):
+                    c.display_aliases['clubs'][r['home_uid']]=char*56
+                    c.display_aliases['clubs'][r['away_uid']]=char*55+'B'
+                    c.player_name=char*40;g.i18n.choose(lang);g._activate_ui('newspaper');g.draw();settle();p=g._menu.body
+                    self.assertFalse(any(isinstance(w,ScrollView) for w in p.walk()))
+                    self.assertTrue(p.layout_fits,(lang,p.body.y,p.y,p.body.text,p.headline.text))
+                    self.assertGreaterEqual(p.body_font_size,12)
+                    self.assertIn(c.player_name,p.body.text)
+                    for label in (p.headline,p.score,p.body,p.dateline):
+                        self.assertFalse(label.shorten)
+                        self.assertGreaterEqual(label.y,p.y-1,(lang,label.text))
+                        self.assertLessEqual(label.top,p.top+1)
+                        required=text_height(str(label.text),round(label.width),label.font_name,round(label.font_size,2),label.bold)
+                        self.assertLessEqual(required,label.height+1,(lang,label.text))
+        finally:Window.size=old

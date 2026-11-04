@@ -387,5 +387,10 @@
   "An important match deserves an honest review. Keep your focus and work on what needs improving.": "Ein wichtiges Spiel verdient eine ehrliche Analyse. Bleib fokussiert und arbeite an den Schwachstellen.",
   "Let us review that key match calmly, then take the lessons into training.": "Analysieren wir dieses Schlüsselspiel in Ruhe und nehmen wir die Erkenntnisse mit ins Training.",
   "{team} opened the scoring in minute {minute}.": "{team} eröffnete den Torreigen in Minute {minute}.",
-  "The final goal came for {team} in minute {minute}.": "Das letzte Tor erzielte {team} in Minute {minute}."
+  "The final goal came for {team} in minute {minute}.": "Das letzte Tor erzielte {team} in Minute {minute}.",
+  "Goal: {minute}.": "Tor: {minute}.",
+  "First goal: {first}. Last goal: {last}.": "Erstes Tor: {first}. Letztes Tor: {last}.",
+  "{player}: {goals} goals.": "{player}: {goals} Tore.",
+  "{player}: a crucial goal.": "{player}: ein wichtiges Tor.",
+  "{player}: {games} games without a goal.": "{player}: {games} Spiele ohne Tor."
 }

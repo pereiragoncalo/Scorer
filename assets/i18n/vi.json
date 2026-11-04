@@ -387,5 +387,10 @@
   "An important match deserves an honest review. Keep your focus and work on what needs improving.": "Trận quan trọng cần được đánh giá thẳng thắn. Giữ tập trung và cải thiện những điều cần thiết.",
   "Let us review that key match calmly, then take the lessons into training.": "Hãy bình tĩnh nhìn lại trận đấu then chốt đó rồi áp dụng bài học vào tập luyện.",
   "{team} opened the scoring in minute {minute}.": "{team} mở tỉ số ở phút {minute}.",
-  "The final goal came for {team} in minute {minute}.": "Bàn thắng cuối cùng thuộc về {team} ở phút {minute}."
+  "The final goal came for {team} in minute {minute}.": "Bàn thắng cuối cùng thuộc về {team} ở phút {minute}.",
+  "Goal: {minute}.": "Bàn thắng: phút {minute}.",
+  "First goal: {first}. Last goal: {last}.": "Bàn đầu: phút {first}. Bàn cuối: phút {last}.",
+  "{player}: {goals} goals.": "{player}: {goals} bàn.",
+  "{player}: a crucial goal.": "{player}: bàn thắng quan trọng.",
+  "{player}: {games} games without a goal.": "{player}: {games} trận không ghi bàn."
 }

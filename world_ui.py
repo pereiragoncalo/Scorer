@@ -33,7 +33,7 @@ class CompactHub(BoxLayout):
         entries = [('NEWSPAPER', 'newspaper'), ('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
                    ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
                    ('PLAYER', 'profile'), ('HELP', 'help')]
-        if c.world_unlocked:entries.extend([('NAMES EDITOR','editor'),('WORLD LEAGUES','upgrade')])
+        if c.world_unlocked:entries.extend([('WORLD LEAGUES','upgrade')])
         if c.coach_meeting_required:entries.insert(0,('COACH MEETING','coach'))
         entries.append(('EXIT', 'exit'))
         for title, action in entries:
@@ -57,7 +57,10 @@ class WorldBrowser(BoxLayout):
                                 background_normal='', background_active='', background_color=(.06,.14,.17,1),
                                 foreground_color=(.94,.98,.97,1), hint_text_color=(.65,.76,.78,1),
                                 cursor_color=(.3,1,.7,1), padding=[dp(10),dp(12)])
-        self.add_widget(self.search)
+        search_row=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6))
+        search_row.add_widget(self.search)
+        editor=MenuTile('NAMES EDITOR',lambda:menu.action('editor'));editor.size_hint_x=None;editor.width=dp(112)
+        search_row.add_widget(editor);self.add_widget(search_row)
         self.grid = GridLayout(cols=3, spacing=dp(6))
         self.add_widget(self.grid)
         controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(6))

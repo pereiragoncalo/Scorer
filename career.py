@@ -1,7 +1,7 @@
 """Original Striker simulation and career, importable without Kivy."""
 from __future__ import annotations
 from match_moments import clean_moments
-from coach import CoachCareer, fresh_state, clean_state, REQUIRED as COACH_REQUIRED
+from coach import CoachCareer, fresh_state, clean_state, clean_appearance, REQUIRED as COACH_REQUIRED
 import newspaper
 
 
@@ -789,6 +789,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.last_result = ""
         self.message = 'Choose the first contract of your career.'
         self.press_state = newspaper.fresh_state()
+        self.coach_appearance = clean_appearance(None)
         self.coach_state = fresh_state()
         self.last_training_week = -1
         self.training_session_week = -1
@@ -1535,6 +1536,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             return
         self.club_name = club_name
         self.message = f"Contract signed with {club_name}."
+        self._select_coach_appearance()
         self.save()
 
 
@@ -1992,6 +1994,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.agent_offers.clear()
         self.cup_active = new_season_contract
         self.message = f"Transfer completed to {club_name}."
+        self._select_coach_appearance()
         self.save()
 
 
@@ -2197,6 +2200,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             "last_result": self.last_result,
             "message": self.message,
             "press_state": self.press_state,
+            "coach_appearance": self.coach_appearance,
             "coach_state": self.coach_state,
             "last_training_week": self.last_training_week,
             "training_session_week": self.training_session_week,
@@ -2419,6 +2423,8 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             if not 0 <= self.training_session_goals <= self.training_shots_taken <= 3:
                 raise ValueError("Invalid saved training state")
             self.press_state = newspaper.clean_state(data.get('press_state'))
+            self.coach_appearance = clean_appearance(data.get('coach_appearance'))
+            self._select_coach_appearance()
             self.coach_state = clean_state(data.get('coach_state'))
             if 'coach_state' not in data:
                 # Adopt only known recent club form. Keep partial training

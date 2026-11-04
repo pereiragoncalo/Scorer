@@ -1805,3 +1805,22 @@ Published uncompressed JSON attachments through the conditional names-delivery
 job; six dedicated tests also passed in GitHub Actions. Both public downloads
 returned HTTP200 with attachment disposition and exact checked bytes/SHA256.
 See docs/data/name-packs/current-downloads.json. No APK rebuilt or game changed.
+
+## 2026-11-04 — 0.9.11 page layout, coach portraits and World editor
+
+Replaced the newspaper scroll reader with a measured single-page layout. Use
+full/concise editorial text, stable facts and conditional personal mentions,
+responsive columns and a smaller illustration on tight screens. Back48dp;
+body>=12sp in tested cases. Ten original generated coach-at-desk portraits are
+bundled and saved with bounded club/index identity. Actual transfers always
+change the face, with no match RNG use. Editor moved from all main hubs into
+World's search row; Back/Escape return to World. No IDs/rules/physics changes.
+
+Core336 passed. Targeted UI tests exposed old thumbnail-size assumptions and
+an extreme56-character CJK club-name overflow at320×240. Tightened the compact
+edition (remove repeated result prose, use a score-led heading and put photo/
+score in the masthead). The worst-case Latin/CJK tests then passed. Final full
+native and actual APK checks follow in release evidence. The first full native
+run passed143/144; one historical test still expected direct main-menu editor
+access. Updated it to assert absence in the hub and follow World > Names Editor. Original image hashes
+are documented in COACH_PORTRAITS.md; no physical Android validation claimed.

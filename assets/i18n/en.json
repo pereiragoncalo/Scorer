@@ -387,5 +387,10 @@
   "An important match deserves an honest review. Keep your focus and work on what needs improving.": "An important match deserves an honest review. Keep your focus and work on what needs improving.",
   "Let us review that key match calmly, then take the lessons into training.": "Let us review that key match calmly, then take the lessons into training.",
   "{team} opened the scoring in minute {minute}.": "{team} opened the scoring in minute {minute}.",
-  "The final goal came for {team} in minute {minute}.": "The final goal came for {team} in minute {minute}."
+  "The final goal came for {team} in minute {minute}.": "The final goal came for {team} in minute {minute}.",
+  "Goal: {minute}.": "Goal: {minute}.",
+  "First goal: {first}. Last goal: {last}.": "First goal: {first}. Last goal: {last}.",
+  "{player}: {goals} goals.": "{player}: {goals} goals.",
+  "{player}: a crucial goal.": "{player}: a crucial goal.",
+  "{player}: {games} games without a goal.": "{player}: {games} games without a goal."
 }

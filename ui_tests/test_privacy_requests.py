@@ -28,10 +28,12 @@ class LaunchNoticeUI(unittest.TestCase):
                     self.assertTrue(g.usage.notice_rejected);self.assertEqual(g.usage.counts,{})
                     StrikerApp.on_stop(type('App',(),{'root':g})());self.assertEqual(g.usage.counts,{})
         finally:Window.size=old
-    def test_world_hub_exposes_editor_and_import_at_top(self):
+    def test_world_submenu_exposes_editor_and_import_at_top(self):
         import edition
         with patch('edition.WORLD_BUILD',True),isolated_game(saved=True) as g:
             g.view='hub';g.draw();settle()
+            self.assertFalse(any(isinstance(w,Button) and w.text=='NAMES EDITOR' for w in g.walk()))
+            g._activate_ui('upgrade');g.draw();settle();self.assertEqual(g.view,'world')
             editor=next(w for w in g.walk() if isinstance(w,Button) and w.text=='NAMES EDITOR')
             editor.trigger_action(duration=0);settle();self.assertEqual(g.view,'editor')
             self.assertTrue(any(isinstance(w,Button) and w.text=='IMPORT NAMES FILE' for w in g.walk()))

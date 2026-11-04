@@ -2755,6 +2755,8 @@ class StrikerGame(Widget):
         if self.view in ('splash','data_notice'):
             if self.view=='data_notice' and key==27:self._request_exit()
             return True
+        if key == 27 and self.view=='editor':
+            self.view='world';self.draw();return True
         if key == 27:  # ESC
             if self.view not in ("hub", "offers", "start", "agent") and self.career.club_name:
                 self.view = "hub"

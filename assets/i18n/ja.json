@@ -387,5 +387,10 @@
   "An important match deserves an honest review. Keep your focus and work on what needs improving.": "重要な試合には率直な振り返りが必要だ。集中を保ち、改善すべき点に取り組もう。",
   "Let us review that key match calmly, then take the lessons into training.": "あの大事な試合を落ち着いて振り返り、学んだことを練習に生かそう。",
   "{team} opened the scoring in minute {minute}.": "{team}が{minute}分に先制した。",
-  "The final goal came for {team} in minute {minute}.": "最後のゴールは{minute}分、{team}が記録した。"
+  "The final goal came for {team} in minute {minute}.": "最後のゴールは{minute}分、{team}が記録した。",
+  "Goal: {minute}.": "ゴール：{minute}分。",
+  "First goal: {first}. Last goal: {last}.": "先制点：{first}分。最後の得点：{last}分。",
+  "{player}: {goals} goals.": "{player}：{goals}ゴール。",
+  "{player}: a crucial goal.": "{player}：重要なゴール。",
+  "{player}: {games} games without a goal.": "{player}：{games}試合連続無得点。"
 }

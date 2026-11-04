@@ -228,7 +228,7 @@ class CareerMenu(BoxLayout):
                 button.size_hint_x, button.width = None, dp(76)
                 header.add_widget(button)
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view == 'world_country' else 'hub')
+            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view in ('world_country','editor') else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view in ('hub', 'offers'):
@@ -299,7 +299,14 @@ class CareerMenu(BoxLayout):
         meeting = c.coach_conversation()
         card = self.card('COACH MEETING')
         card.label(COACH_STYLES[meeting['style']], muted=True)
-        card.label(conversation_text(meeting))
+        row=BoxLayout(spacing=dp(12),size_hint_y=None)
+        portrait=Image(source=c.coach_portrait,fit_mode='contain',size_hint=(None,None))
+        feedback=FlowLabel(text=conversation_text(meeting),font_size=sp(15))
+        row.add_widget(portrait);row.add_widget(feedback);card.add_widget(row)
+        def fit(*_):
+            portrait.width=min(dp(220),max(dp(72),row.width*.35));portrait.height=portrait.width*2/3
+            row.height=max(portrait.height,feedback.height)
+        row.bind(width=fit);feedback.bind(height=fit);fit()
         card.label(COACH_REQUIRED, muted=True)
         if c.message == 'Unable to save the meeting. Please try again.':card.label(c.message)
         card.add_widget(self._button('FINISH MEETING', 'coach_complete', accent=True))
@@ -915,7 +922,7 @@ class MainDashboard(BoxLayout):
         self.add_widget(self.hero)
         self.actions = GridLayout(cols=5, spacing=dp(6), size_hint_y=None, height=dp(52))
         for title, action in [('NEWSPAPER', 'newspaper'), ('STANDINGS', 'standings'),
-                              ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent')]+([('NAMES EDITOR','editor')] if c.world_unlocked else []):
+                              ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent')]:
             button = MenuTile(title, lambda name=action: menu.action(name))
             self.actions.add_widget(button)
             if action == 'scorers':
