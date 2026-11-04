@@ -1788,3 +1788,16 @@ source matches commit df26ae8; API36/code1026910/arm64,118ELF16KB, ZIP alignment
 existing upgrade certificate, bundled photo/font bytes and compiled conditional
 coach/newspaper/competition/save/publishing checks passed. Public download
 attachment bytes/hash were independently checked; see download evidence.
+
+## 2026-11-04 — regenerated real-name JSON downloads for0.9.10
+
+Added an offline current-capacity pack:378 clubs/16 leagues/2403 player aliases,
+including26 added clubs and120 added sourced player names. All previous club/
+player aliases are preserved. Added a352-club compatible variant for older
+career layouts, which retain old capacities and reject unknown expanded UIDs.
+Both files pass actual editor validation; apply/private backup/reload preserves
+progress and competition state. Real initial tiers and country/team uniqueness
+are checked against the reviewed registry. Players remain the July2026 snapshot;
+missing source squads stay fictional. No app/UID/physics change or APK rebuild.
+Six dedicated generation/import tests passed; related regression checks follow.
+Related regressions:5 division-pack and8 two-division tests also passed,19 total.

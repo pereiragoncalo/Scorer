@@ -1,4 +1,4 @@
-name: Deliver verified World 0.9.10 APK
+name: Deliver verified World QA files
 on:
   workflow_dispatch:
     inputs:
@@ -6,10 +6,16 @@ on:
         description: Immutable commit containing the verified transfer parts
         required: true
         type: string
+      deliver_names:
+        description: Deliver the checked editor JSON files instead of an APK
+        required: false
+        default: false
+        type: boolean
 permissions:
   contents: write
 jobs:
   deliver:
+    if: ${{ !inputs.deliver_names }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -62,3 +68,33 @@ jobs:
             gh release create qa-0.9.10 --target "$SOURCE_COMMIT" --prerelease --title "Scorer World 0.9.10 QA - conditional coach meetings and newspaper" --notes-file docs/RELEASE_0.9.10.md
           fi
           gh release upload qa-0.9.10 Scorer-World-0.9.10.apk docs/RELEASE_0.9.10_artifacts.json --clobber
+
+  names:
+    if: ${{ inputs.deliver_names }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify the importable JSON files
+        run: |
+          python3 - <<'PYCODE'
+          from pathlib import Path
+          import hashlib,json
+          root=Path('docs/data/name-packs')
+          expected={
+            'Scorer-World-Real-Names-0.9.10.json':(130196,'05d7d61ad2441cb01a6c4be1822de8940abf6bd6272d2160e339601731eeb0d9'),
+            'Scorer-World-Real-Names-Compatible.json':(123595,'2423ed8cf2bd522bfb2877cdd4a006c478b46aa1824f61c285ec7f958594cef3'),
+          }
+          for filename,(size,digest) in expected.items():
+              raw=(root/filename).read_bytes()
+              assert len(raw)==size and hashlib.sha256(raw).hexdigest()==digest
+              data=json.loads(raw)
+              assert data['version']==1 and set(data)=={'version','clubs','leagues','players'}
+              assert len(raw)<=262144 and sum(len(data[k]) for k in ('clubs','leagues','players'))<=4096
+          PYCODE
+          python3 -m unittest discover -s tests -p test_current_name_pack.py
+      - name: Publish uncompressed editor JSON attachments
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload real-names-0.9.10 docs/data/name-packs/Scorer-World-Real-Names-0.9.10.json docs/data/name-packs/Scorer-World-Real-Names-Compatible.json --clobber
