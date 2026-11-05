@@ -1,0 +1,31 @@
+{
+  "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.25/Scorer-World-0.9.25.apk",
+  "status": 200,
+  "bytes": 107486979,
+  "sha256": "d946c4d1404c3f1e2cfa5306cefdf4f7bba1909f370275368ddd3891cc6cb406",
+  "content_disposition": "attachment; filename=Scorer-World-0.9.25.apk",
+  "verified_utc": "2026-11-05T22:41:30.198228+00:00",
+  "workflow_run": 42123459717,
+  "source_commit": "ccfbda69b6233a0ea3adac72dfe48d13499a2a7b",
+  "club_stadium_audit": {
+    "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.25/club_stadium_audit_0.9.25.json",
+    "status": 200,
+    "bytes": 317980,
+    "sha256": "2dfacca498eeac5ed3fd80e5f959b4383c07c8832bea1872890031e070eef709",
+    "content_disposition": "attachment; filename=club_stadium_audit_0.9.25.json"
+  },
+  "improvement_list": {
+    "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.25/GAMEPLAY_IMPROVEMENTS.md",
+    "status": 200,
+    "bytes": 2587,
+    "sha256": "0e4b5d65b2fb73c6fa63e30784e38eda3e92b727350efc6817ca18efd0a1fc4b",
+    "content_disposition": "attachment; filename=GAMEPLAY_IMPROVEMENTS.md"
+  },
+  "responsive_report": {
+    "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.25/responsive_0.9.25.json",
+    "status": 200,
+    "bytes": 206216,
+    "sha256": "efbc1fd3fe7b53515025ee31a6625ce74e020b9aa2c86f6d2b0c24336c9b26f7",
+    "content_disposition": "attachment; filename=responsive_0.9.25.json"
+  }
+}

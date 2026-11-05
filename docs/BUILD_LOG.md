@@ -1,3 +1,11 @@
+### 0.9.25 public attachment verified
+
+Workflow42123459717 succeeded. Unauthenticated public download matched all
+107486979 local APK bytes and SHA256d946c4d1404c3f1e2cfa5306cefdf4f7bba1909f370275368ddd3891cc6cb406.
+Content-Disposition is attachment. Public club/stadium audit,990-case responsive
+report and saved suggestion list also matched the reviewed local bytes.
+Evidence:RELEASE_0.9.25_download.json. Physical handset acceptance remains pending.
+
 ## 2026-11-05 — World 0.9.25 club cards and home-ground supporters
 
 Removed the baked-in splash by clemir credit using an image edit; logo, tagline
