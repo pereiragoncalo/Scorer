@@ -18,7 +18,10 @@ with zipfile.ZipFile(sys.argv[1]) as z:
         for kind in opportunities.KINDS:
             delivery=opportunities.make_delivery(kind,19)
             assert delivery.position(1)==delivery.contact and delivery.duration>0
-        print('Actual APK: five distinct opportunity deliveries, exact reception and reserved penalty/duel slots verified')
+        assert {'long_cross','corner'}<=set(opportunities.KINDS)
+        duel=opportunities.make_delivery('through_ball',19)
+        assert duel.chasing_defender(0)[1]<duel.contact[1]+2<duel.chasing_defender(1)[1]
+        print('Actual APK: seven deliveries, onside release, deep crosses/corners and reserved penalty/duel slots verified')
         import edition
         assert edition.WORLD_BUILD and not edition.WORLD_PREVIEW
         with tempfile.TemporaryDirectory() as directory:

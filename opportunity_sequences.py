@@ -8,9 +8,11 @@ import math
 import random
 from career import BALL_RADIUS, HEADER_BALL_HEIGHT
 
-KINDS=('cross','cutback','first_time','rebound','free_kick')
+KINDS=('cross','long_cross','corner','cutback','first_time','rebound','free_kick')
 TEXT={
  'cross':('CROSS','A high cross is coming. Meet it with a header.'),
+ 'long_cross':('DEEP CROSS','A cross from deep on the wing. Attack the ball with a header.'),
+ 'corner':('CORNER','A corner into the box. Lose your marker and head towards goal.'),
  'cutback':('CUTBACK','A teammate reaches the byline and pulls the ball back to you.'),
  'first_time':('FIRST-TIME SHOT','A quick diagonal pass. Finish first time before the defence closes.'),
  'rebound':('REBOUND','A blocked shot falls to you. React and find a gap.'),
@@ -18,7 +20,7 @@ TEXT={
  'through_ball':('THROUGH BALL','A through ball puts you one on one with the goalkeeper.'),
  'penalty':('PENALTY','You have been chosen to take the penalty.'),
 }
-TIMING={'cross':.95,'cutback':1.0,'first_time':.85,'rebound':.90,'free_kick':1.10,'through_ball':1.0,'penalty':1.0}
+TIMING={'cross':.95,'long_cross':1.0,'corner':1.0,'cutback':1.0,'first_time':.85,'rebound':.90,'free_kick':1.10,'through_ball':1.0,'penalty':1.0}
 
 def plan_opportunities(count,clear_index,penalty_index,seed):
     rng=random.Random('scorer-opportunities-v1:'+str(seed))
@@ -44,6 +46,18 @@ class Delivery:
         a,b=self.points[segment:segment+2]
         return tuple(a[i]+(b[i]-a[i])*t+(math.sin(math.pi*t)*self.arcs[segment] if i==2 else 0) for i in range(3))
 
+    def chasing_defender(self,progress):
+        """Goal is y=0: the last defender plays the receiver onside at release.
+
+        The receiver runs from contact.y+2m towards contact; the beaten defender
+        retreats behind him before reception, leaving only the keeper ahead.
+        This is a real match actor after reception, never a blocker in the lane.
+        """
+        if self.kind!='through_ball':return None
+        p=max(0.,min(1.,progress));x,y,_=self.contact
+        side=1 if x>=0 else -1
+        return (x+side*(2.4+.4*p),y-.75+3.75*p)
+
     def mirrored(self):
         return Delivery(self.kind,self.shot_type,tuple((-x,y,z) for x,y,z in self.points),self.duration,self.arcs)
 
@@ -55,6 +69,10 @@ def make_delivery(kind,seed):
     if kind=='cross':
         end=(x,rng.uniform(6.5,9.0),HEADER_BALL_HEIGHT)
         return Delivery(kind,'header',((side*8.5,5.,radius),end),2.25,(2.8,))
+    if kind in ('long_cross','corner'):
+        end=(x,rng.uniform(6.5,10.),HEADER_BALL_HEIGHT)
+        start=(side*25.,rng.uniform(20.,26.),radius) if kind=='long_cross' else (side*33.7,.3,radius)
+        return Delivery(kind,'header',(start,end),3.15 if kind=='long_cross' else 3.0,(4.2,))
     if kind=='cutback':
         end=(x,rng.uniform(12.,16.),radius)
         return Delivery(kind,'kick',((side*8.,7.,radius),(side*7.,2.8,radius),end),2.7,(0.,.08))

@@ -535,5 +535,9 @@
   "Last appearance: {minutes} min · Trust change: {change}": "최근 출전: {minutes}분 · 신뢰 변화: {change}",
   "{goals} goals / {games} games · Trust {trust}/100 · {role}": "{games}경기 {goals}골 · 신뢰 {trust}/100 · {role}",
   "Training +2. Goals +6 each, up to +12. A key-game goal adds +2. No goal: -3, or -4 after three misses. No chances: -1.": "훈련 +2, 득점당 +6으로 최대 +12입니다. 중요 경기 득점은 +2를 더합니다. 무득점은 -3, 세 번 실패하면 -4입니다. 기회가 없으면 -1입니다.",
-  "MAXIMUM LEVEL": "최대 레벨"
+  "MAXIMUM LEVEL": "최대 레벨",
+  "DEEP CROSS": "먼 거리 크로스",
+  "A cross from deep on the wing. Attack the ball with a header.": "측면 깊은 곳에서 크로스가 옵니다. 헤더로 마무리하세요.",
+  "CORNER": "코너킥",
+  "A corner into the box. Lose your marker and head towards goal.": "페널티 지역으로 코너킥이 옵니다. 수비수를 따돌리고 헤더로 골을 노리세요."
 }

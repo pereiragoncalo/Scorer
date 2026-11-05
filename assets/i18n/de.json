@@ -535,5 +535,9 @@
   "Last appearance: {minutes} min · Trust change: {change}": "Letzter Einsatz: {minutes} Min. · Vertrauensänderung: {change}",
   "{goals} goals / {games} games · Trust {trust}/100 · {role}": "{goals} Tore / {games} Spiele · Vertrauen {trust}/100 · {role}",
   "Training +2. Goals +6 each, up to +12. A key-game goal adds +2. No goal: -3, or -4 after three misses. No chances: -1.": "Training +2. Pro Tor +6, höchstens +12. Ein Tor im Schlüsselspiel gibt weitere +2. Ohne Tor: -3, bei drei Fehlversuchen -4. Ohne Chancen: -1.",
-  "MAXIMUM LEVEL": "HÖCHSTES LEVEL"
+  "MAXIMUM LEVEL": "HÖCHSTES LEVEL",
+  "DEEP CROSS": "WEITE FLANKE",
+  "A cross from deep on the wing. Attack the ball with a header.": "Eine Flanke aus der Tiefe. Gehe zum Kopfball.",
+  "CORNER": "ECKBALL",
+  "A corner into the box. Lose your marker and head towards goal.": "Ein Eckball in den Strafraum. Löse dich von deinem Bewacher und köpfe aufs Tor."
 }

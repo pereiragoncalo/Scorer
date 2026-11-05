@@ -56,7 +56,7 @@ class NewspaperScreen(FloatLayout):
         self.counter=self.label('',(.84,.84,.76,1))
         self.masthead=self.label('SCORER DAILY',INK,DISPLAY);self.masthead.halign='center'
         self.dateline=self.label('',MUTED);self.headline=self.label('',INK);self.score=self.label('',INK)
-        self.caption=self.label(self.loc.tr('Illustration'),MUTED)
+        self.caption=None  # Photo is part of the story flow, without a caption.
         self.photo=None;c=menu.game.career;self.report=current_report(c)
         if self.report is None:
             self.story_text=self.loc.tr('Your first match report will appear here after you play.')
@@ -134,11 +134,6 @@ class NewspaperScreen(FloatLayout):
     def turn(self,step):
         self.page=max(0,min(len(self.pages)-1,self.page+step));self._layout_trigger()
 
-    def _caption_height(self,width):
-        if width<=0 or self.width<dp(500) or self.height<dp(310):return 0
-        height=text_height(self.caption.text,int(width),press_font(self.loc,self.caption.text),sp(8))
-        return height if height<=dp(16) else 0
-
     def _regions(self,left,top,width,height,size,first):
         gap=dp(16);columns=2 if width>=dp(630) else 1
         col=(width-gap)/2 if columns==2 else width
@@ -146,11 +141,10 @@ class NewspaperScreen(FloatLayout):
         available_photo_height=max(0,min(height*.48,height-dp(24))-dp(8))
         photo_width=max(dp(40),min(dp(200),col*.43,available_photo_height*1.5)) if first and self.photo and available_photo_height>=dp(16) else 0
         photo_height=photo_width*2/3
-        caption_height=self._caption_height(photo_width)
-        band=photo_height+(caption_height+dp(6) if caption_height else dp(8)) if photo_width else 0
+        band=photo_height+dp(6) if photo_width else 0
         if photo_width:
             regions.append((left+photo_width+dp(10),top,col-photo_width-dp(10),band))
-            if height-band-dp(6)>0:regions.append((left,top-band-dp(6),col,height-band-dp(6)))
+            if height-band>0:regions.append((left,top-band,col,height-band))
         else:regions.append((left,top,col,height))
         if columns==2:regions.append((left+col+gap,top,col,height))
         return regions,photo_width,photo_height
@@ -220,8 +214,7 @@ class NewspaperScreen(FloatLayout):
         self.body=self.fragments[0] if self.fragments else self.label('')
         if self.photo:
             self.photo.opacity=1 if imgw>0 else 0;self.photo.size=(imgw,imgh);self.photo.pos=(left,top-imgh)
-            self.caption.opacity=1 if self._caption_height(imgw)>0 else 0
-            self.place(self.caption,self.caption.text,left,self.photo.y-dp(3),max(1,imgw),8)
+
         if len(pages)>1:
             for widget in (self.previous,self.following):
                 if widget.parent is None:self.add_widget(widget)

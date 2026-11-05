@@ -535,5 +535,9 @@
   "Last appearance: {minutes} min · Trust change: {change}": "Ultima presenza: {minutes} min · Variazione fiducia: {change}",
   "{goals} goals / {games} games · Trust {trust}/100 · {role}": "{goals} gol / {games} partite · Fiducia {trust}/100 · {role}",
   "Training +2. Goals +6 each, up to +12. A key-game goal adds +2. No goal: -3, or -4 after three misses. No chances: -1.": "Allenamento +2. Ogni gol +6, fino a +12. Un gol in una gara chiave aggiunge +2. Senza gol: -3, o -4 con tre errori. Senza occasioni: -1.",
-  "MAXIMUM LEVEL": "LIVELLO MASSIMO"
+  "MAXIMUM LEVEL": "LIVELLO MASSIMO",
+  "DEEP CROSS": "CROSS DA LONTANO",
+  "A cross from deep on the wing. Attack the ball with a header.": "Un cross da lontano sulla fascia. Attacca la palla di testa.",
+  "CORNER": "CALCIO D’ANGOLO",
+  "A corner into the box. Lose your marker and head towards goal.": "Un calcio d’angolo in area. Liberati dalla marcatura e colpisci di testa."
 }

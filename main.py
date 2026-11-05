@@ -165,6 +165,7 @@ class StrikerGame(Widget):
         self.buildup_progress = 0.0
         self.buildup_actors = []
         self.buildup_blocker = None
+        self.onside_defender = None
         self.frozen_scene_time = None
         self.one_on_one = False
         self.field_players: list[FieldPlayer] = []
@@ -1049,10 +1050,14 @@ class StrikerGame(Widget):
 
     def _start_opportunity(self,kind,seed):
         delivery=make_delivery(kind,seed)
-        # Mirror the entire delivery, rather than cropping the receiver.
-        px,_=self.project(*delivery.contact)
-        if not self.x+self.width*.08<=px<=self.right-self.width*.08:
-            delivery=delivery.mirrored()
+        # Keep both the receiver and the distant delivery source in view.
+        def visibility(candidate):
+            penalty=0.
+            for point,weight in ((candidate.contact,3),(candidate.points[0],1)):
+                px,py=self.project(*point)
+                penalty+=weight*(max(0,self.x+self.width*.06-px,px-self.right+self.width*.06)+max(0,self.y+self.height*.06-py,py-self.top+self.height*.06))
+            return penalty
+        delivery=min((delivery,delivery.mirrored()),key=visibility)
         self.current_opportunity=delivery
         self.current_chance_difficulty='penalty' if kind=='penalty' else 'easy' if kind=='through_ball' else 'hard'
         self.shot_type=delivery.shot_type
@@ -1065,7 +1070,11 @@ class StrikerGame(Widget):
         self.shot_time_limit+=bonus;self.current_aim_speed*=steadiness
         self.shot_time_left=self.shot_time_limit
         self.buildup_progress=0.;self.frozen_scene_time=None
-        self.buildup_actors=[];self.buildup_blocker=None
+        self.buildup_actors=[];self.buildup_blocker=None;self.onside_defender=None
+        if kind=='through_ball':
+            x,y=delivery.chasing_defender(1.)
+            self.onside_defender=FieldPlayer(x,y,'defender',0.)
+            self.field_players.append(self.onside_defender)
         if kind not in ('free_kick','penalty'):
             x,y,_=delivery.points[0]
             self.buildup_actors=[FieldPlayer(x,y,'attacker',0.)]
@@ -2080,6 +2089,8 @@ class StrikerGame(Widget):
     def _field_player_position(self, player: FieldPlayer) -> tuple[float, float]:
         """Pequenos ajustes de apoio, partilhados pelo desenho e colisões."""
         elapsed = self.frozen_scene_time if self.state==self.STATE_AIMING and self.frozen_scene_time is not None else getattr(self, "elapsed", 0.0)
+        if self.state==self.STATE_BUILDUP and player is self.onside_defender:
+            return self.current_opportunity.chasing_defender(self.buildup_progress)
         if self.state==self.STATE_BUILDUP and player is self.buildup_blocker:return (player.x,player.y)
         if player in self.buildup_actors:
             if self.current_opportunity.kind=='cutback' and player is self.buildup_actors[0]:
@@ -2734,7 +2745,7 @@ class StrikerGame(Widget):
 
 
     def _prepare_next_shot(self) -> None:
-        self.current_opportunity=None;self.buildup_actors=[];self.buildup_blocker=None;self.frozen_scene_time=None
+        self.current_opportunity=None;self.buildup_actors=[];self.buildup_blocker=None;self.onside_defender=None;self.frozen_scene_time=None
         self.goalkeeper_holding = False
         self.goalkeeper_catch_age = 0.0
         self._randomize_aim_pattern()
@@ -5647,6 +5658,7 @@ class StrikerGame(Widget):
                 font_size=max(11, int(self.height * 0.018)),
                 color=(0.83, 0.90, 0.90, 0.88),
                 anchor="center",
+                max_width=self.width-dp(32),
             )
 
 
@@ -5659,6 +5671,7 @@ class StrikerGame(Widget):
                 font_size=int(max(34, self.height * 0.075) * pulse),
                 color=self.result_color,
                 anchor="center",
+                max_width=self.width-dp(32),
             )
             self._draw_text(
                 "TAP TO CONTINUE",
@@ -5667,6 +5680,7 @@ class StrikerGame(Widget):
                 font_size=max(12, int(self.height * 0.020)),
                 color=(0.90, 0.94, 0.94, 0.88),
                 anchor="center",
+                max_width=self.width-dp(32),
             )
 
 

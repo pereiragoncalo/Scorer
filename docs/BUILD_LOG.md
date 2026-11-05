@@ -1,3 +1,32 @@
+## 2026-11-05 — World 0.9.23 opportunity and text fixes
+
+Removed expected playing time from match notices. Replaced stacked repeated
+messages with a measured compact heading/type/context panel, widened its action,
+and synchronously fit the first draw so the text cannot start in an empty clipped
+viewport. Tiny notices use smaller measured line spacing; long edited results
+retain their scroll fallback. Footer/result text now has explicit screen bounds.
+
+Through balls now include a defending match actor ahead of the receiver at pass
+release (goal y=0, keeper is the other opponent), moving behind the runner before
+reception. He remains a physical trailing opponent; only the keeper is ahead at
+the finish. Penalties and training remain isolated. Added deep wing crosses
+(start25m wide/20–26m from the goal line) and corners from the real33.7m/.3m
+corner arc, both with animated high delivery and header reception. Seven ordinary
+variants share the existing capped opportunity slots. Source/receiver visibility
+chooses the mirrored orientation without moving the shot target or changing RNG.
+
+Removed the newspaper photo caption and its reserved band. Story text flows
+alongside the photo and expands to the full column immediately below it. All
+observed goal minutes, player headline/summary and one-page fallback are retained.
+
+Targeted23 core and18 native tests passed; the added144-case all-nine-language
+notice matrix passed after a tiny-screen spacing fix. Initial layout audit flags
+were also corrected to compare ScrollView children in window coordinates. Native
+1280x591 previews of Portuguese notice, passing defender, deep cross, corner and
+caption-free newspaper inspected. Full core/native suites, expanded29-view layout
+audit and actual candidate APK verification are running at this source checkpoint.
+Physical Android acceptance remains pending. Unrelated root WIP excluded.
+
 ### 0.9.22 public download verified
 
 Delivery workflow42083196774 succeeded. Unauthenticated public download matched

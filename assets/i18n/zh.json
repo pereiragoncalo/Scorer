@@ -535,5 +535,9 @@
   "Last appearance: {minutes} min · Trust change: {change}": "上次出场：{minutes}分钟 · 信任变化：{change}",
   "{goals} goals / {games} games · Trust {trust}/100 · {role}": "{games}场{goals}球 · 信任{trust}/100 · {role}",
   "Training +2. Goals +6 each, up to +12. A key-game goal adds +2. No goal: -3, or -4 after three misses. No chances: -1.": "训练＋2。每球＋6，最多＋12。关键比赛进球另加＋2。无进球－3，三次射失则－4。没有机会则－1。",
-  "MAXIMUM LEVEL": "最高等级"
+  "MAXIMUM LEVEL": "最高等级",
+  "DEEP CROSS": "远距离传中",
+  "A cross from deep on the wing. Attack the ball with a header.": "边路远距离传中。抢点头球攻门。",
+  "CORNER": "角球",
+  "A corner into the box. Lose your marker and head towards goal.": "角球传入禁区。摆脱盯防，头球攻门。"
 }

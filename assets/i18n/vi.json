@@ -535,5 +535,9 @@
   "Last appearance: {minutes} min · Trust change: {change}": "Lần ra sân trước: {minutes} phút · Đổi niềm tin: {change}",
   "{goals} goals / {games} games · Trust {trust}/100 · {role}": "{goals} bàn / {games} trận · Niềm tin {trust}/100 · {role}",
   "Training +2. Goals +6 each, up to +12. A key-game goal adds +2. No goal: -3, or -4 after three misses. No chances: -1.": "Tập luyện +2. Mỗi bàn +6, tối đa +12. Ghi bàn trận quan trọng thêm +2. Không ghi bàn: -3, hoặc -4 sau ba lần bỏ lỡ. Không có cơ hội: -1.",
-  "MAXIMUM LEVEL": "CẤP TỐI ĐA"
+  "MAXIMUM LEVEL": "CẤP TỐI ĐA",
+  "DEEP CROSS": "TẠT BÓNG TỪ XA",
+  "A cross from deep on the wing. Attack the ball with a header.": "Một quả tạt từ xa bên cánh. Băng vào đánh đầu.",
+  "CORNER": "PHẠT GÓC",
+  "A corner into the box. Lose your marker and head towards goal.": "Một quả phạt góc vào vòng cấm. Thoát người kèm và đánh đầu về phía khung thành."
 }

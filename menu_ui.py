@@ -5,6 +5,8 @@ from coach import STYLES as COACH_STYLES, conversation_text, REQUIRED as COACH_R
 from domestic_rules import uses_simplified_model, table_zones
 from kivy.graphics import Color, RoundedRectangle, Rectangle, Line, Triangle
 from kivy.core.image import Image as CoreImage
+from kivy.core.text import Label as CoreLabel
+from kivy.clock import Clock
 from kivy.metrics import dp, sp, Metrics
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
@@ -599,11 +601,16 @@ class LaunchNotice(FloatLayout):
         self.panel.center=self.center
 
 
+class MatchText(FlowLabel):
+    def _height(self,*_):
+        self.height=max(dp(16),self.texture_size[1]+dp(2))
+
+
 class MatchNotice(BoxLayout):
-    """Scroll long match messages while keeping the action reachable on phones."""
+    """Measure translated match messages and keep the whole action panel visible."""
     @localized_call
     def __init__(self, game, **kwargs):
-        super().__init__(orientation='vertical', padding=dp(14), spacing=dp(10),
+        super().__init__(orientation='vertical', padding=dp(8), spacing=dp(6),
                          size_hint=(None, None), **kwargs)
         self.game = game
         self.signature = None
@@ -612,23 +619,46 @@ class MatchNotice(BoxLayout):
             self.background = RoundedRectangle(pos=self.pos, size=self.size, radius=[dp(14)])
         self.bind(pos=self._rect, size=self._rect)
         self.scroll = ScrollView(do_scroll_x=False)
-        self.body = BoxLayout(orientation='vertical', spacing=dp(10), size_hint_y=None)
+        self.body = BoxLayout(orientation='vertical', spacing=dp(4), size_hint_y=None)
         self.body.bind(minimum_height=self.body.setter('height'))
         self.scroll.add_widget(self.body)
         self.add_widget(self.scroll)
         self.button = MenuTile('CONTINUE', self.proceed, accent=True)
         self.button.size_hint_x = None
-        self.button.width = dp(176)
+        self.button.width = dp(280)
         self.button.pos_hint = {'center_x': 0.5}
         self.add_widget(self.button)
-        self.body.bind(minimum_height=self._fit_panel)
-        self.button.bind(height=self._fit_panel)
+        self._fit_trigger=Clock.create_trigger(self._fit_panel,0)
+        self.body.bind(minimum_height=self._fit_trigger)
+        self.button.bind(height=self._fit_trigger)
+        self.bind(width=self._fit_trigger)
 
     def _fit_panel(self, *_):
-        available = max(dp(96), self.game.height - dp(112))
-        natural = self.body.minimum_height + self.button.height + dp(38)
-        self.height = min(natural, available)
-        self.center = (self.game.center_x, self.game.center_y - dp(44))
+        game=self.game
+        # Keep the whole notice below the scoreboard, with a fixed reachable
+        # action. Measure actual translated text rather than clipping a viewport.
+        top=game._scoreboard_bounds()[1]-dp(6);bottom=game.y+dp(8)
+        available=max(dp(96),top-bottom)
+        self.button.width=min(self.width-dp(16),max(dp(176),self.width*.56))
+        content_width=max(1,self.width-dp(16))
+        labels=list(reversed(self.body.children))
+        chosen=[]
+        for reduction in range(9):
+            chosen=[]
+            for label in labels:
+                preferred=getattr(label,'notice_font_size',13)
+                size=max(9,preferred-reduction)
+                measure=CoreLabel(text=label.text,font_name=label.font_name,font_size=sp(size),bold=label.bold,text_size=(content_width,None))
+                measure.refresh();chosen.append((label,size,max(dp(16),measure.texture.size[1]+dp(2))))
+            body_height=sum(h for _,_,h in chosen)+self.body.spacing*max(0,len(chosen)-1)
+            natural=body_height+self.button.height+dp(22)
+            if natural<=available:break
+        for label,size,height in chosen:
+            label.font_size=sp(size);label.height=height
+        self.height=min(natural,available)
+        self.center_x=game.center_x
+        self.y=bottom+(available-self.height)*.5
+        self.layout_fits=natural<=available
 
     def _rect(self, *_):
         self.background.pos, self.background.size = self.pos, self.size
@@ -636,45 +666,41 @@ class MatchNotice(BoxLayout):
     @localized_call
     def sync(self):
         game = self.game
-        self.width = min(game.width * 0.76, dp(460))
+        self.width = min(game.width * 0.90, dp(520))
         self._fit_panel()
         signature = (game.i18n.language, game.match_finished, game.match_halftime, game.match_summary, game.career.morale, game.career.stamina, getattr(game, "match_moment", ""), game.match_chance_index, game.match_penalty_chance_index, tuple((e["kind"],e["outcome"]) for e in getattr(game,"match_moments",[])),tuple(game.match_opportunities))
         if signature == self.signature:
             return
         self.signature = signature
         self.body.clear_widgets()
-        title = game.match_summary if game.match_finished else 'HALF-TIME' if game.match_halftime else 'CHANCE'
-        self.body.add_widget(FlowLabel(text=title, font_size=sp(17), bold=True, color=GREEN, halign='center'))
-        detail = (f'Morale {game.career.morale:.1f}/20  ·  Energy {game.career.stamina:.1f}/20'
-                  if game.match_finished else 'Ready for the second half?' if game.match_halftime else 'Line up your shot and make the difference.')
-        self.body.add_widget(FlowLabel(text=detail, font_size=sp(13), halign='center'))
-        if not game.match_finished and not game.match_halftime:
+        def row(text,size=13,heading=False):
+            label=MatchText(text=text,font_size=sp(size),bold=heading,color=GREEN if heading else INK,halign='center')
+            label.notice_font_size=size;self.body.add_widget(label)
+        moment=getattr(game,'match_moment','')
+        title=game.match_summary if game.match_finished else 'HALF-TIME' if game.match_halftime else MOMENT_TEXT[moment][0] if moment in MOMENT_TEXT else 'CHANCE'
+        row(title,17,True)
+        if game.match_finished:
+            row(f'Morale {game.career.morale:.1f}/20  ·  Energy {game.career.stamina:.1f}/20')
+            if getattr(game,'match_moments',[]):
+                event=game.match_moments[0]
+                outcome='GOAL!' if event['outcome']=='goal' else 'Chance missed'
+                row(game.i18n.tr(MOMENT_TEXT[event['kind']][0])+' · '+game.i18n.tr(outcome))
+        elif game.match_halftime:
+            row('Ready for the second half?')
+        else:
+            from opportunity_sequences import TEXT
             index=game.match_chance_index
-            if not game.match_is_international:
-                minutes=getattr(game,'match_exit_minute',90)-getattr(game,'match_entry_minute',0)
-                self.body.add_widget(FlowLabel(text=game.i18n.tr('Expected playing time: {minutes} minutes',minutes=minutes),font_size=sp(12),halign='center'))
-            if index==game.match_penalty_chance_index:
-                self.body.add_widget(FlowLabel(text='PENALTY',bold=True,color=GREEN,halign='center'))
-                self.body.add_widget(FlowLabel(text='You have been chosen to take the penalty.',font_size=sp(14),halign='center'))
-            elif index==game.match_easy_chance_index:
-                self.body.add_widget(FlowLabel(text='ONE ON ONE',bold=True,color=GREEN,halign='center'))
-            if index<len(game.match_opportunities) and index!=game.match_penalty_chance_index:
-                from opportunity_sequences import TEXT
-                headline,description=TEXT[game.match_opportunities[index]]
-                self.body.add_widget(FlowLabel(text=headline,bold=True,color=GREEN,halign='center'))
-                self.body.add_widget(FlowLabel(text=description,font_size=sp(13),halign='center'))
-                self.body.add_widget(FlowLabel(text='Watch the move. Aim and shoot when the ball reaches you.',font_size=sp(12),halign='center'))
-        moment = getattr(game, 'match_moment', '')
-        if not game.match_finished and not game.match_halftime and moment in MOMENT_TEXT:
-            headline, context = MOMENT_TEXT[moment]
-            self.body.add_widget(FlowLabel(text=headline, font_size=sp(17), bold=True, color=GREEN, halign='center'))
-            self.body.add_widget(FlowLabel(text=context, font_size=sp(13), halign='center'))
-        elif game.match_finished and getattr(game, 'match_moments', []):
-            event = game.match_moments[0]
-            headline = MOMENT_TEXT[event['kind']][0]
-            outcome = 'GOAL!' if event['outcome'] == 'goal' else 'Chance missed'
-            self.body.add_widget(FlowLabel(text=game.i18n.tr(headline) + ' · ' + game.i18n.tr(outcome), font_size=sp(13), halign='center'))
-        self.button.text = 'CONTINUE' if game.match_finished else 'SECOND HALF' if game.match_halftime else 'PLAY CHANCE'
+            kind='penalty' if index==game.match_penalty_chance_index else game.match_opportunities[index] if index<len(game.match_opportunities) else None
+            if kind:
+                headline,description=TEXT[kind]
+                row('ONE ON ONE' if kind=='through_ball' else headline,15,True)
+            else:description='Line up your shot and make the difference.'
+            detail=game.i18n.tr(description)
+            if moment in MOMENT_TEXT:detail+='\n'+game.i18n.tr(MOMENT_TEXT[moment][1])
+            row(detail)
+        self.button.text='CONTINUE' if game.match_finished else 'SECOND HALF' if game.match_halftime else 'PLAY CHANCE'
+        self._fit_panel()
+        self._fit_trigger()
 
     def proceed(self):
         if self.game.match_finished:

@@ -50,3 +50,20 @@ class OpportunityScenes(unittest.TestCase):
             g.shot_context='training';g._prepare_next_shot()
             self.assertEqual(g.state,g.STATE_AIMING);self.assertIsNone(g.current_opportunity)
             self.assertEqual(g.field_players,[]);self.assertEqual(g.buildup_actors,[])
+    def test_onside_defender_is_visible_at_release_and_stays_behind_at_reception(self):
+        with isolated_game() as g:
+            self.sign(g)
+            for seed in range(8):
+                g._start_opportunity('through_ball',seed)
+                defender=g.onside_defender
+                self.assertIsNotNone(defender);self.assertIn(defender,g.field_players)
+                self.assertEqual(defender.team,'defender')
+                released=g._field_player_position(defender)
+                self.assertLess(released[1],g.shot_origin_y+2)
+                while g.state==g.STATE_BUILDUP:g.update(.1)
+                chased=g._field_player_position(defender)
+                self.assertGreater(chased[1],g.shot_origin_y+2)
+                self.assertTrue(g.one_on_one)
+                self.assertEqual(g.attempts,0)
+            g._start_opportunity('penalty',9)
+            self.assertIsNone(g.onside_defender);self.assertEqual(g.field_players,[])

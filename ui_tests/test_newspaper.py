@@ -145,3 +145,20 @@ class NewspaperUI(unittest.TestCase):
                 g._activate_ui('newspaper');g.draw();settle();p=g._menu.body
                 self.assertEqual(len(p.pages),1);self.assertTrue(p.layout_fits);self.assertEqual(len(p.article['goals']),4)
         finally:Metrics.density=density;Window.size=old
+
+    def test_no_caption_and_story_reclaims_space_beside_and_below_photo(self):
+        old=Window.size
+        try:
+            Window.size=(1280,591)
+            with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+                self.played(g,2,0);g.size=Window.size;g.i18n.choose('en')
+                g._activate_ui('newspaper');g.draw();settle();p=g._menu.body
+                self.assertIsNone(p.caption)
+                self.assertFalse(any(isinstance(w,Label) and w.text==g.i18n.tr('Illustration') for w in p.walk()))
+                beside=[w for w in p.fragments if w.x>=p.photo.right]
+                below=[w for w in p.fragments if w.x<p.photo.right and w.top<=p.photo.y]
+                self.assertTrue(beside);self.assertTrue(below)
+                self.assertTrue(p.layout_fits);self.assertEqual(len(p.pages),1)
+                printed=''.join(w.text for w in p.fragments)
+                self.assertEqual(''.join(printed.split()),''.join(p.story_text.split()))
+        finally:Window.size=old

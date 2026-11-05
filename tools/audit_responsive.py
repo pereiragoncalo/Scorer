@@ -18,7 +18,7 @@ from test_menus import isolated_game
 from newspaper import make_report,fresh_state
 from coach import fresh_state as coach_fresh
 profiles=[('800x480',800,480,1.5,1),('1280x720',1280,720,2,1),('1920x1080',1920,1080,3,1),('2400x1080',2400,1080,3,1),('2340x1080',2340,1080,2.75,1),('2532x1170',2532,1170,3,1),('2960x1440',2960,1440,4,1),('foldable',2208,1768,2.75,1),('owner',1280,591,1.4,1),('compact',960,540,2,1),('largefont',1920,1080,3,1.3)]
-views=['development', 'splash','data_notice','start','profile','offers','hub','training','standings','scorers','calendar','agent','world','world_country','world_league','editor','competitions','competition','leaderboard','help','language','family','record_safety','privacy','newspaper','coach','match','shot']
+views=['development', 'splash','data_notice','start','profile','offers','hub','training','standings','scorers','calendar','agent','world','world_country','world_league','editor','competitions','competition','leaderboard','help','language','family','record_safety','privacy','newspaper','coach','match','shot','chance_notice']
 if args.views:
  unknown=set(args.views)-set(views)
  if unknown:parser.error('Unknown views: '+', '.join(sorted(unknown)))
@@ -57,11 +57,20 @@ try:
      try:
       c.post_match_stage='';c.coach_state=coach_fresh(c.club.uid)
       if view=='coach':c.coach_state.update(games=3,drought=3,recent=[0,0,0])
-      if view in ('match','shot'):
+      if view in ('match','shot','chance_notice'):
        c.last_training_week=c.week;g.start_career_match()
        if view=='shot':g.awaiting_chance=True;g._begin_pending_chance()
       if view=='development':g.development_tab='skills'
-      g.view=view;g.draw();settle()
+      if view=='chance_notice':
+       g.awaiting_chance=True;g.match_halftime=g.match_finished=False;g.match_opportunities=('long_cross',);g.match_chance_index=0;g.match_penalty_chance_index=g.match_easy_chance_index=-1;g.match_moment='equaliser'
+      g.view='match' if view=='chance_notice' else view;g.draw();settle()
+      if view=='chance_notice':
+       notice=g._match_notice
+       if not notice.layout_fits:issues.append(['notice_fit'])
+       if notice.body.height>notice.scroll.height+2:issues.append(['notice_hidden_text'])
+       for label in notice.body.children:
+        ly=label.to_window(*label.pos)[1];sy=notice.scroll.to_window(*notice.scroll.pos)[1]
+        if ly<sy-2 or ly+label.height>sy+notice.scroll.height+2:issues.append(['notice_text_bounds',label.text[:30]])
       menu=g._menu
       if menu:
        for child in menu.children:

@@ -535,5 +535,9 @@
   "Last appearance: {minutes} min · Trust change: {change}": "前回の出場：{minutes}分・信頼変化：{change}",
   "{goals} goals / {games} games · Trust {trust}/100 · {role}": "{games}試合{goals}得点・信頼{trust}/100・{role}",
   "Training +2. Goals +6 each, up to +12. A key-game goal adds +2. No goal: -3, or -4 after three misses. No chances: -1.": "練習は＋2。１得点につき＋6、最大＋12。重要な試合での得点はさらに＋2。無得点は－3、３回失敗すると－4。チャンスなしは－1です。",
-  "MAXIMUM LEVEL": "最大レベル"
+  "MAXIMUM LEVEL": "最大レベル",
+  "DEEP CROSS": "遠距離クロス",
+  "A cross from deep on the wing. Attack the ball with a header.": "サイドの深い位置からクロス。ヘディングで合わせよう。",
+  "CORNER": "コーナーキック",
+  "A corner into the box. Lose your marker and head towards goal.": "ゴール前へのコーナーキック。マークを外してヘディングで狙おう。"
 }

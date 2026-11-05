@@ -535,5 +535,9 @@
   "Last appearance: {minutes} min · Trust change: {change}": "Last appearance: {minutes} min · Trust change: {change}",
   "{goals} goals / {games} games · Trust {trust}/100 · {role}": "{goals} goals / {games} games · Trust {trust}/100 · {role}",
   "Training +2. Goals +6 each, up to +12. A key-game goal adds +2. No goal: -3, or -4 after three misses. No chances: -1.": "Training +2. Goals +6 each, up to +12. A key-game goal adds +2. No goal: -3, or -4 after three misses. No chances: -1.",
-  "MAXIMUM LEVEL": "MAXIMUM LEVEL"
+  "MAXIMUM LEVEL": "MAXIMUM LEVEL",
+  "DEEP CROSS": "DEEP CROSS",
+  "A cross from deep on the wing. Attack the ball with a header.": "A cross from deep on the wing. Attack the ball with a header.",
+  "CORNER": "CORNER",
+  "A corner into the box. Lose your marker and head towards goal.": "A corner into the box. Lose your marker and head towards goal."
 }
