@@ -1,3 +1,10 @@
+### 0.9.23 public download verified
+
+Workflow42088992305 succeeded. The unauthenticated public attachment matched all
+107427995 local APK bytes and SHA2566ac99368c41e3c13b4d3bd1c04562b36e6b587bf81921f6dccd0e421f7c6f296.
+Content-Disposition is attachment; public responsive report and saved suggestions
+also matched reviewed local bytes. Evidence:RELEASE_0.9.23_download.json.
+
 ### 0.9.23 final verification
 
 375 core tests passed. Full native182-case run:181 passed, one old five-kind
