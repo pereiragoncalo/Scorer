@@ -469,5 +469,8 @@
   "Away goals: {minutes}": "アウェーの得点: {minutes}",
   "Goal times unavailable.": "得点時刻の記録なし。",
   "Winning margin: {margin}.": "最終点差: {margin}。",
-  "Illustration": "挿絵"
+  "Illustration": "挿絵",
+  "English is the default. Choose a language or select Automatic to follow your phone.": "初期言語は英語です。言語を選ぶか、自動を選ぶと端末の言語に従います。",
+  "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "毎試合の前に練習で３回シュートすると試合に進めます。途中の練習は再開できます。体力と士気はチャンスに影響します。進行状況は自動保存されます。",
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "WorldからEditorを開くとクラブ、リーグ、選手の名前を変更したり、JSON名前ファイルを読み込んだりできます。表示名はチームの強さや結果に影響しません。"
 }

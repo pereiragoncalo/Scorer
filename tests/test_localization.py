@@ -28,7 +28,8 @@ class LocalizationTests(unittest.TestCase):
                          ('it-IT','it'),('ko-KR','ko'),('ja-JP','ja'),('zh-Hans-CN','zh'),('zh-Hant-TW','zh'),('vi-VN','vi'),('fr-FR','en'),(None,'en')]:
             self.assertEqual(language_for_tag(tag),code)
             self.assertEqual(language_from_locale(tag),code)
-            self.assertEqual(Localizer(True,tag).language,code)
+            loc=Localizer(True,tag);self.assertEqual(loc.language,'en')
+            loc.choose('auto');self.assertEqual(loc.language,code)
 
     def test_preferences_persist_independently_of_career_and_restore_automatic(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -39,6 +40,15 @@ class LocalizationTests(unittest.TestCase):
             self.assertTrue(restored.choose('auto'));self.assertEqual(restored.language,'ko')
             self.assertEqual(career.read_text(),'unchanged career')
             self.assertEqual(sorted(p.name for p in Path(temp).iterdir()),['scorer_language.json','striker_world_career.json'])
+
+    def test_legacy_automatic_migrates_to_english_but_explicit_choices_survive(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path=Path(temp)/'scorer_language.json'
+            path.write_text('{"version":1,"language":"auto"}')
+            loc=Localizer(True,'pt',temp);self.assertEqual(loc.language,'en')
+            loc.choose('auto');self.assertEqual(Localizer(True,'pt',temp).language,'pt')
+            path.write_text('{"version":1,"language":"pt"}')
+            self.assertEqual(Localizer(True,'ja',temp).language,'pt')
 
     def test_failed_save_keeps_previous_language_and_file(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -54,7 +64,7 @@ class LocalizationTests(unittest.TestCase):
                       '{"version":true,"language":"ja"}', 'x'*1025):
             with tempfile.TemporaryDirectory() as temp:
                 (Path(temp)/'scorer_language.json').write_text(value)
-                loc=Localizer(True,'vi-VN',temp);self.assertEqual(loc.language,'vi')
+                loc=Localizer(True,'vi-VN',temp);self.assertEqual(loc.language,'en')
                 self.assertFalse(loc.choose('../../keys'))
 
     def test_complete_catalogues_preserve_all_placeholders(self):
@@ -69,7 +79,7 @@ class LocalizationTests(unittest.TestCase):
 
     def test_dynamic_values_and_custom_names_are_never_retranslated(self):
         for lang in LANGUAGES:
-            loc=Localizer(True,lang)
+            loc=Localizer(True,lang);loc.choose(lang)
             alias='PLAY 日本語 Nguyễn'
             output=loc.tr('Contract signed with '+alias+'.')
             self.assertIn(alias,output)
@@ -80,8 +90,8 @@ class LocalizationTests(unittest.TestCase):
         from career import WORLD_COUNTRIES
         data=country_catalogue()
         for lang in LANGUAGES:self.assertEqual(set(data[lang]),set(WORLD_COUNTRIES))
-        self.assertEqual(Localizer(True,'ja').country('Japan'),'日本')
-        self.assertEqual(Localizer(True,'zh').country('Chinese Taipei'),'中华台北')
+        loc=Localizer(True,'ja');loc.choose('ja');self.assertEqual(loc.country('Japan'),'日本')
+        loc.choose('zh');self.assertEqual(loc.country('Chinese Taipei'),'中华台北')
         self.assertEqual(Localizer(False,'ja').country('Japan'),'Japan')
 
     def test_ui_and_country_characters_are_present_in_bundled_fonts(self):

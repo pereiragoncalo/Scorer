@@ -9,6 +9,23 @@ from anonymous_stats import create_statistics
 from main import StrikerApp
 
 class PublicationUITests(unittest.TestCase):
+    def test_compact_notice_keeps_disclosure_and_help_paragraphs_are_justified(self):
+        from menu_ui import LaunchNotice,FlowLabel
+        from online_safety import NOTICE_TEXT
+        from kivy.metrics import dp
+        with isolated_game() as g:
+            g.size=(1280,591);g.view='data_notice';g.draw();settle()
+            notice=next(w for w in g.walk() if isinstance(w,LaunchNotice))
+            self.assertLess(notice.panel.width,notice.width)
+            self.assertEqual(notice.message.halign,'justify')
+            self.assertEqual(notice.message.text,NOTICE_TEXT)
+            self.assertLessEqual(notice.message.font_size,dp(13))
+            for page in range(4):
+                g.view='help';g.help_page=page;g.draw();settle()
+                paragraphs=[w for w in g.walk() if isinstance(w,FlowLabel) and len(w.text)>90]
+                self.assertTrue(paragraphs)
+                self.assertTrue(all(w.halign=='justify' for w in paragraphs))
+
     def test_first_run_notice_precedes_delivery_and_cannot_be_bypassed_by_back(self):
         with isolated_game(saved=True) as g:
             with patch('anonymous_stats.APP_STATS_MANDATORY',True):g.usage=create_statistics(False,g.career.save_path.parent,endpoint='https://stats.example.com/v1/usage')
@@ -66,9 +83,10 @@ class PublicationUITests(unittest.TestCase):
                 sync.assert_called_once_with(g.career,False,withdraw=True)
                 self.assertFalse(g.family.social);self.assertFalse(g.leaderboard.enabled)
 
-    def test_free_help_describes_current_free_adfree_and_public_safety_features(self):
+    def test_help_contains_only_gameplay_guidance(self):
         with isolated_game() as g:
             g.view='help';g.help_page=3;g.draw();settle()
             text=' '.join(w.text for w in g.walk() if isinstance(w,Label))
-            self.assertIn('free and ad-free',text);self.assertIn('adult-managed',text)
+            self.assertIn('names editor',text);self.assertNotIn('adult-managed',text)
+            self.assertNotIn('Usage counts',text);self.assertNotIn('SETTINGS',text)
             self.assertNotIn('training ads',text);self.assertNotIn('earn +1 morale',text)

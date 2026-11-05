@@ -30,6 +30,7 @@ class CoachScreen(FloatLayout):
         recent=c._current_coach_state()['recent']
         self.recent=self.label(self.loc.tr('Recent club form: {goals} goals in {games} appearances.',goals=sum(recent),games=len(recent)) if recent else '',MUTED)
         self.feedback=self.label(self.full_text,INK)
+        self.closing=self.label('',INK);self.closing.halign='justify'
         self.portrait=Image(source=c.coach_portrait,fit_mode='contain',size_hint=(None,None));self.add_widget(self.portrait)
         self.error=self.label(c.message if c.message=='Unable to save the meeting. Please try again.' else '',(1,.65,.45,1))
         self.finish=MenuTile('FINISH MEETING',lambda:menu.action('coach_complete'),accent=True);self.finish.size_hint=(None,None);self.add_widget(self.finish)
@@ -77,13 +78,19 @@ class CoachScreen(FloatLayout):
             pw=min(dp(220),max(dp(60),(right-left)*.24));self.portrait.size=(pw,min(pw*2/3,th));self.portrait.pos=(left,top-self.portrait.height)
             tx=left+pw+dp(10);tw=max(dp(20),right-tx)
         selected=None
+        gap=dp(8)
         for text in (self.full_text,self.short_text):
+            lead,_,closing=text.rpartition('\n\n')
             for size in ((18,17,16,15,14,13,12) if text==self.full_text else (15,14,13,12,11,10,9)):
-                measure=CoreLabel(text=text,text_size=(int(tw),None),font_name=self.loc.font(text),font_size=sp(size));measure.refresh()
-                if measure.texture.size[1]<=th:
-                    selected=(text,size);break
+                self.feedback.text=lead;self.feedback.font_name=self.loc.font(lead)
+                self.closing.text=closing;self.closing.font_name=self.loc.font(closing)
+                lead_h=self.measured_height(self.feedback,tw,size,0)
+                closing_h=self.measured_height(self.closing,right-left,size,0)
+                upper_h=max(lead_h,0 if compact else self.portrait.height)
+                if upper_h+gap+closing_h<=th:
+                    selected=(size,lead_h,closing_h,upper_h);break
             if selected:break
-        text,size=selected or (self.short_text,9)
-        self.feedback.text=text;self.feedback.font_name=self.loc.font(text)
-        self.place(self.feedback,tx,bottom,tw,th,size)
+        size,lead_h,closing_h,upper_h=selected or (9,lead_h,closing_h,upper_h)
+        self.place(self.feedback,tx,top-lead_h,tw,lead_h,size)
+        self.place(self.closing,left,top-upper_h-gap-closing_h,right-left,closing_h,size)
         self.feedback_font_size=size;self.layout_fits=selected is not None

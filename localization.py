@@ -60,14 +60,14 @@ def patterns():
 class Localizer:
     def __init__(self,world=False,tag='',directory=None):
         self.world=bool(world);self.system_language=language_for_tag(tag)
-        self.choice='auto';self.directory=Path(directory) if directory is not None else None
+        self.choice='en';self.directory=Path(directory) if directory is not None else None
         self.revision=0;self.missing=set()
         if self.world and self.directory:
             try:
                 p=self.directory/'scorer_language.json'
                 if p.stat().st_size<=1024:
                     data=json.loads(p.read_text(encoding='utf-8'))
-                    if type(data.get('version')) is int and data.get('version')==1 and data.get('language') in ('auto',*LANGUAGES):self.choice=data['language']
+                    if type(data.get('version')) is int and data.get('version') in (1,2) and data.get('language') in ('auto',*LANGUAGES):self.choice='en' if data['version']==1 and data['language']=='auto' else data['language']
             except (OSError,ValueError,AttributeError):pass
 
     @property
@@ -81,7 +81,7 @@ class Localizer:
             if self.directory:
                 self.directory.mkdir(parents=True,exist_ok=True)
                 with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=self.directory,prefix='.scorer-language-',delete=False) as out:
-                    temporary=Path(out.name);json.dump({'version':1,'language':choice},out)
+                    temporary=Path(out.name);json.dump({'version':2,'language':choice},out)
                     out.flush();os.fsync(out.fileno())
                 os.replace(temporary,self.directory/'scorer_language.json')
             self.choice=choice;self.revision+=1;self.missing.clear();return True

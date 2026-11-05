@@ -481,9 +481,8 @@ class CareerMenu(BoxLayout):
         pages=WORLD_HELP_PAGES if edition.is_world() else HELP_PAGES
         title, text = pages[self.game.help_page]
         card = self.card(title)
-        card.label(text)
+        card.label(text).halign='justify'
         if edition.is_world():card.add_widget(self._button('LANGUAGE', 'language'))
-        card.add_widget(self._button('SETTINGS','privacy'))
         controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         controls.add_widget(self._button('PREVIOUS', 'help_page', -1))
         controls.add_widget(BoundedLabel(text=f'{self.game.help_page+1}/{len(HELP_PAGES)}', halign='center', size_hint_x=.3))
@@ -505,7 +504,7 @@ class CareerMenu(BoxLayout):
 
     def _language(self):
         card=self.card('LANGUAGE')
-        card.label('Language follows your phone unless you choose another language.', muted=True)
+        card.label('English is the default. Choose a language or select Automatic to follow your phone.', muted=True)
         grid=GridLayout(cols=3,size_hint_y=None,spacing=dp(6))
         grid.bind(minimum_height=grid.setter('height'))
         for code,name in LANGUAGES.items():
@@ -602,17 +601,26 @@ class CareerMenu(BoxLayout):
             self.card(country).label(f'{depth} divisions')
 
 
-class LaunchNotice(BoxLayout):
+class LaunchNotice(FloatLayout):
     def __init__(self,menu):
-        super().__init__(orientation='vertical',spacing=dp(10))
+        super().__init__()
         from online_safety import NOTICE_TEXT
-        self.add_widget(BoundedLabel(text='BEFORE YOU PLAY',font_size=sp(21),bold=True,size_hint_y=None,height=dp(38)))
-        scroll=ScrollView(do_scroll_x=False);message=FlowLabel(text=NOTICE_TEXT,font_size=sp(15),halign='justify');scroll.add_widget(message);self.add_widget(scroll)
-        if menu.game._safety_notice:self.add_widget(FlowLabel(text=menu.game._safety_notice))
-        buttons=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(10))
+        self.panel=EdgePanel(orientation='vertical',size_hint=(None,None),spacing=dp(8))
+        self.add_widget(self.panel)
+        self.panel.add_widget(BoundedLabel(text='BEFORE YOU PLAY',font_size=sp(16),bold=True,size_hint_y=None,height=dp(28)))
+        scroll=ScrollView(do_scroll_x=False)
+        self.message=FlowLabel(text=NOTICE_TEXT,font_size=sp(12),halign='justify')
+        scroll.add_widget(self.message);self.panel.add_widget(scroll)
+        if menu.game._safety_notice:self.panel.add_widget(FlowLabel(text=menu.game._safety_notice))
+        buttons=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
         buttons.add_widget(MenuTile('I DO NOT AGREE',lambda:menu.action('notice_exit')))
         buttons.add_widget(MenuTile('I AGREE',lambda:menu.action('notice_continue'),accent=True))
-        self.add_widget(buttons)
+        self.panel.add_widget(buttons)
+        self.bind(size=self.fit,pos=self.fit);self.message.bind(texture_size=self.fit);self.fit()
+    def fit(self,*_):
+        self.panel.width=min(dp(560),max(1,self.width-dp(16)))
+        self.panel.height=min(max(1,self.height-dp(16)),self.message.height+dp(116))
+        self.panel.center=self.center
 
 
 class MatchNotice(BoxLayout):
@@ -801,7 +809,7 @@ class LanguageScreen(BoxLayout):
         error=self.game._language_error
         self.title=BoundedLabel(text=error or 'LANGUAGE',bold=True,font_size=sp(12 if error else 18),size_hint_y=None,height=dp(34 if error else 28))
         self.add_widget(self.title)
-        self.info=BoundedLabel(text='Language follows your phone unless you choose another language.',color=MUTED,size_hint_y=None,height=dp(38),font_size=sp(12))
+        self.info=BoundedLabel(text='English is the default. Choose a language or select Automatic to follow your phone.',color=MUTED,size_hint_y=None,height=dp(38),font_size=sp(12))
         self.add_widget(self.info)
         self.grid=GridLayout(cols=3,spacing=dp(6))
         self.add_widget(self.grid)

@@ -469,5 +469,8 @@
   "Away goals: {minutes}": "Bàn đội khách: {minutes}",
   "Goal times unavailable.": "Không có thời điểm ghi bàn.",
   "Winning margin: {margin}.": "Cách biệt cuối: {margin}.",
-  "Illustration": "Minh họa"
+  "Illustration": "Minh họa",
+  "English is the default. Choose a language or select Automatic to follow your phone.": "Tiếng Anh là ngôn ngữ mặc định. Chọn ngôn ngữ hoặc Tự động để dùng ngôn ngữ điện thoại.",
+  "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "Hoàn thành ba cú sút tập trước mỗi trận để mở Chơi. Có thể tiếp tục buổi tập chưa xong. Thể lực và tinh thần ảnh hưởng đến cơ hội. Tiến trình tự động lưu.",
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Mở World rồi Editor để đổi tên câu lạc bộ, giải đấu và cầu thủ hoặc nhập tệp tên JSON. Tên hiển thị không thay đổi sức mạnh đội hay kết quả."
 }

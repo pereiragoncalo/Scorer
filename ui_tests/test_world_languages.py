@@ -27,11 +27,11 @@ class WorldLanguageTests(unittest.TestCase):
                 self.assertEqual(game.i18n.language,'en')
                 self.assertFalse(game.career.world_unlocked)
 
-    def test_world_entry_uses_each_phone_language_without_changing_start_country(self):
+    def test_world_entry_defaults_to_english_without_changing_start_country(self):
         for code in LANGUAGES:
             with self.subTest(language=code),patch('edition.WORLD_BUILD',True),patch('main.phone_locale_tag',return_value=code),patch('main.phone_country',return_value='Portugal'):
                 with isolated_game() as game:
-                    self.assertEqual(game.i18n.language,code)
+                    self.assertEqual(game.i18n.language,'en')
                     self.assertEqual(game.career.suggested_country,'Portugal')
                     game.view='start';game.draw();settle()
                     texts={w.text for w in game.walk() if isinstance(w,Button)}
@@ -112,6 +112,7 @@ class WorldLanguageTests(unittest.TestCase):
     def test_system_language_change_preserves_unsaved_text_input(self):
         with patch('edition.WORLD_BUILD',True),patch('main.phone_locale_tag',return_value='en'):
             with isolated_game() as game:
+                game.i18n.choose('auto')
                 game.view='profile';game.draw();settle()
                 game._menu.body.name.text='Nguyễn 日本語';game._menu.body.name.cursor=(3,0)
                 app=StrikerApp();app.root=game

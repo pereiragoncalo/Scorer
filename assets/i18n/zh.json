@@ -469,5 +469,8 @@
   "Away goals: {minutes}": "客队进球：{minutes}",
   "Goal times unavailable.": "无进球时间记录。",
   "Winning margin: {margin}.": "最终分差：{margin}。",
-  "Illustration": "插图"
+  "Illustration": "插图",
+  "English is the default. Choose a language or select Automatic to follow your phone.": "默认语言为英语。请选择语言，或选择自动以使用手机语言。",
+  "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "每场比赛前完成三次训练射门即可开始比赛。未完成的训练可以继续。体力和士气会影响机会。进度会自动保存。",
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "打开World，再进入Editor，可更改俱乐部、联赛和球员名称，或导入JSON名称文件。显示名称不会改变球队实力或比赛结果。"
 }

@@ -469,5 +469,8 @@
   "Away goals: {minutes}": "Auswärtstore: {minutes}",
   "Goal times unavailable.": "Torzeiten nicht verfügbar.",
   "Winning margin: {margin}.": "Siegvorsprung: {margin}.",
-  "Illustration": "Illustration"
+  "Illustration": "Illustration",
+  "English is the default. Choose a language or select Automatic to follow your phone.": "Englisch ist die Standardsprache. Wähle eine Sprache oder Automatisch für die Telefonsprache.",
+  "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "Absolviere vor jedem Spiel drei Trainingsschüsse, um Spielen freizuschalten. Unfertige Einheiten kannst du fortsetzen. Energie und Moral beeinflussen deine Chancen. Der Fortschritt wird automatisch gespeichert.",
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Öffne World und dann Editor, um Vereine, Ligen und Spieler umzubenennen oder eine JSON-Namensdatei zu importieren. Namen ändern weder Teamstärke noch Ergebnisse."
 }
