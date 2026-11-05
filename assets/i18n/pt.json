@@ -472,5 +472,20 @@
   "Illustration": "Ilustração",
   "English is the default. Choose a language or select Automatic to follow your phone.": "O inglês é o idioma inicial. Escolhe um idioma ou Automático para seguir o telemóvel.",
   "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "Completa três remates de treino antes de cada jogo para desbloquear Jogar. Podes retomar um treino incompleto. A energia e a moral influenciam as oportunidades. O progresso é guardado automaticamente.",
-  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Abre World e depois Editor para mudar nomes de clubes, ligas e jogadores ou importar um ficheiro JSON de nomes. Os nomes não alteram a força das equipas nem os resultados."
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Abre World e depois Editor para mudar nomes de clubes, ligas e jogadores ou importar um ficheiro JSON de nomes. Os nomes não alteram a força das equipas nem os resultados.",
+  "CROSS": "CRUZAMENTO",
+  "A high cross is coming. Meet it with a header.": "Vem aí um cruzamento alto. Finaliza de cabeça.",
+  "CUTBACK": "PASSE ATRASADO",
+  "A teammate reaches the byline and pulls the ball back to you.": "Um colega chega à linha de fundo e atrasa a bola para ti.",
+  "FIRST-TIME SHOT": "REMATE DE PRIMEIRA",
+  "A quick diagonal pass. Finish first time before the defence closes.": "Um passe diagonal rápido. Remata de primeira antes de a defesa fechar.",
+  "REBOUND": "RESSALTO",
+  "A blocked shot falls to you. React and find a gap.": "Um remate bloqueado sobra para ti. Reage e encontra espaço.",
+  "A direct free kick. Find a way around or over the wall.": "Um livre direto. Procura passar ao lado ou por cima da barreira.",
+  "THROUGH BALL": "PASSE EM PROFUNDIDADE",
+  "A through ball puts you one on one with the goalkeeper.": "Um passe em profundidade deixa-te frente a frente com o guarda-redes.",
+  "BUILD-UP": "CONSTRUÇÃO DA JOGADA",
+  "BALL RECEIVED — AIM AND SHOOT": "BOLA RECEBIDA — APONTA E REMATA",
+  "AIM AND SHOOT": "APONTA E REMATA",
+  "Watch the move. Aim and shoot when the ball reaches you.": "Vê a jogada. Aponta e remata quando a bola chegar até ti."
 }

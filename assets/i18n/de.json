@@ -472,5 +472,20 @@
   "Illustration": "Illustration",
   "English is the default. Choose a language or select Automatic to follow your phone.": "Englisch ist die Standardsprache. Wähle eine Sprache oder Automatisch für die Telefonsprache.",
   "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "Absolviere vor jedem Spiel drei Trainingsschüsse, um Spielen freizuschalten. Unfertige Einheiten kannst du fortsetzen. Energie und Moral beeinflussen deine Chancen. Der Fortschritt wird automatisch gespeichert.",
-  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Öffne World und dann Editor, um Vereine, Ligen und Spieler umzubenennen oder eine JSON-Namensdatei zu importieren. Namen ändern weder Teamstärke noch Ergebnisse."
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Öffne World und dann Editor, um Vereine, Ligen und Spieler umzubenennen oder eine JSON-Namensdatei zu importieren. Namen ändern weder Teamstärke noch Ergebnisse.",
+  "CROSS": "FLANKE",
+  "A high cross is coming. Meet it with a header.": "Eine hohe Flanke kommt. Schließe mit dem Kopf ab.",
+  "CUTBACK": "RÜCKPASS",
+  "A teammate reaches the byline and pulls the ball back to you.": "Ein Mitspieler erreicht die Grundlinie und legt den Ball zurück.",
+  "FIRST-TIME SHOT": "DIREKTABNAHME",
+  "A quick diagonal pass. Finish first time before the defence closes.": "Ein schneller diagonaler Pass. Schließe direkt ab, bevor die Abwehr schließt.",
+  "REBOUND": "ABPRALLER",
+  "A blocked shot falls to you. React and find a gap.": "Ein geblockter Schuss landet bei dir. Reagiere und finde eine Lücke.",
+  "A direct free kick. Find a way around or over the wall.": "Ein direkter Freistoß. Ziele neben oder über die Mauer.",
+  "THROUGH BALL": "STEILPASS",
+  "A through ball puts you one on one with the goalkeeper.": "Ein Steilpass bringt dich allein vor den Torwart.",
+  "BUILD-UP": "SPIELZUG",
+  "BALL RECEIVED — AIM AND SHOOT": "BALL ANGEKOMMEN — ZIELEN UND SCHIESSEN",
+  "AIM AND SHOOT": "ZIELEN UND SCHIESSEN",
+  "Watch the move. Aim and shoot when the ball reaches you.": "Beobachte den Spielzug. Ziele und schieße, wenn der Ball dich erreicht."
 }

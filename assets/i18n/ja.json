@@ -472,5 +472,20 @@
   "Illustration": "挿絵",
   "English is the default. Choose a language or select Automatic to follow your phone.": "初期言語は英語です。言語を選ぶか、自動を選ぶと端末の言語に従います。",
   "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "毎試合の前に練習で３回シュートすると試合に進めます。途中の練習は再開できます。体力と士気はチャンスに影響します。進行状況は自動保存されます。",
-  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "WorldからEditorを開くとクラブ、リーグ、選手の名前を変更したり、JSON名前ファイルを読み込んだりできます。表示名はチームの強さや結果に影響しません。"
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "WorldからEditorを開くとクラブ、リーグ、選手の名前を変更したり、JSON名前ファイルを読み込んだりできます。表示名はチームの強さや結果に影響しません。",
+  "CROSS": "クロス",
+  "A high cross is coming. Meet it with a header.": "高いクロスが来ます。ヘディングで合わせましょう。",
+  "CUTBACK": "折り返し",
+  "A teammate reaches the byline and pulls the ball back to you.": "味方がゴールラインまで進み、後方のあなたへ折り返します。",
+  "FIRST-TIME SHOT": "ダイレクトシュート",
+  "A quick diagonal pass. Finish first time before the defence closes.": "速い斜めのパスです。守備が寄せる前に直接シュートしましょう。",
+  "REBOUND": "こぼれ球",
+  "A blocked shot falls to you. React and find a gap.": "ブロックされたシュートがあなたの前へ。素早く反応して隙間を狙いましょう。",
+  "A direct free kick. Find a way around or over the wall.": "直接フリーキックです。壁の横や上を狙いましょう。",
+  "THROUGH BALL": "スルーパス",
+  "A through ball puts you one on one with the goalkeeper.": "スルーパスを受け、ゴールキーパーと一対一です。",
+  "BUILD-UP": "攻撃の展開",
+  "BALL RECEIVED — AIM AND SHOOT": "ボール到着 — 狙ってシュート",
+  "AIM AND SHOOT": "狙ってシュート",
+  "Watch the move. Aim and shoot when the ball reaches you.": "攻撃を見ましょう。ボールが届いたら狙ってシュートしましょう。"
 }

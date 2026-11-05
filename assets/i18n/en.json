@@ -472,5 +472,20 @@
   "Illustration": "Illustration",
   "English is the default. Choose a language or select Automatic to follow your phone.": "English is the default. Choose a language or select Automatic to follow your phone.",
   "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.",
-  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results."
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.",
+  "CROSS": "CROSS",
+  "A high cross is coming. Meet it with a header.": "A high cross is coming. Meet it with a header.",
+  "CUTBACK": "CUTBACK",
+  "A teammate reaches the byline and pulls the ball back to you.": "A teammate reaches the byline and pulls the ball back to you.",
+  "FIRST-TIME SHOT": "FIRST-TIME SHOT",
+  "A quick diagonal pass. Finish first time before the defence closes.": "A quick diagonal pass. Finish first time before the defence closes.",
+  "REBOUND": "REBOUND",
+  "A blocked shot falls to you. React and find a gap.": "A blocked shot falls to you. React and find a gap.",
+  "A direct free kick. Find a way around or over the wall.": "A direct free kick. Find a way around or over the wall.",
+  "THROUGH BALL": "THROUGH BALL",
+  "A through ball puts you one on one with the goalkeeper.": "A through ball puts you one on one with the goalkeeper.",
+  "BUILD-UP": "BUILD-UP",
+  "BALL RECEIVED — AIM AND SHOOT": "BALL RECEIVED — AIM AND SHOOT",
+  "AIM AND SHOOT": "AIM AND SHOOT",
+  "Watch the move. Aim and shoot when the ball reaches you.": "Watch the move. Aim and shoot when the ball reaches you."
 }

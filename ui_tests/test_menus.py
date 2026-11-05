@@ -295,18 +295,20 @@ class MenuTests(unittest.TestCase):
                             self.assertEqual(game.shot_type,'penalty');self.assertEqual(game.field_players,[])
                         else:
                             self.assertFalse(game.one_on_one)
-                            self.assertGreaterEqual(game.shot_origin_y, 15.5)
-                            self.assertGreaterEqual(abs(game.shot_origin_x), 4.0)
+                            kind=game.current_opportunity.kind
+                            self.assertIn(kind,('cross','cutback','first_time','rebound','free_kick'))
+                            self.assertGreaterEqual(game.shot_origin_y,{'cross':6.5,'cutback':12.,'first_time':15.5,'rebound':13.,'free_kick':18.5}[kind])
                             sx, sy = game.project(game.shot_origin_x, game.shot_origin_y, 0)
                             self.assertTrue(game.x <= sx <= game.right)
                             self.assertTrue(game.y <= sy <= game.top)
                             self.assertGreaterEqual(len(game.field_players), 4)
-                            self.assertLessEqual(game.shot_time_limit, 5.2)
+                            self.assertLessEqual(game.shot_time_limit, 6.)
                     self.assertLessEqual(easy_count, 1)
                     seen_easy |= easy_count == 1
                     seen_no_easy |= easy_count == 0
             self.assertTrue(seen_easy and seen_no_easy)
-            self.assertEqual(types, {'kick', 'penalty', 'header', 'free_kick'})
+            self.assertTrue({'kick','penalty'}<=types)
+            self.assertTrue(types<={'kick','penalty','header','free_kick'})
             with patch.object(game.career, 'chance_count', return_value=0):
                 game.start_career_match()
                 self.assertEqual(game.match_easy_chance_index, -1)
@@ -609,7 +611,7 @@ class MenuTests(unittest.TestCase):
                     self.assertEqual(game.current_chance_difficulty,'hard')
             self.assertGreater(speeds[1],speeds[0])
 
-    def test_high_morale_elite_match_gets_three_hard_chances_and_reserved_goal_budget(self):
+    def test_high_morale_elite_match_keeps_three_chances_and_planned_slot_difficulty(self):
         with isolated_game(saved=True) as game:
             game.career.load();c=game.career;c.morale=16;c.stamina=20;c.last_training_week=c.week;c.attend_coach_meeting()
             opponent=next(club for club in c.current_league.clubs if club.name!=c.club_name)
@@ -617,10 +619,10 @@ class MenuTests(unittest.TestCase):
             with patch.object(c,'next_match',return_value=('league',c.club,opponent)):
                 game.start_career_match()
             self.assertEqual(len(game.match_chance_minutes),3)
-            self.assertEqual(game.match_easy_chance_index,-1)
-            for _ in range(3):
+            for index in range(3):
                 game.awaiting_chance=True;game._begin_pending_chance()
-                self.assertEqual(game.current_chance_difficulty,'hard')
+                expected='penalty' if index==game.match_penalty_chance_index else 'easy' if index==game.match_easy_chance_index else 'hard'
+                self.assertEqual(game.current_chance_difficulty,expected)
 
     def test_opponent_controls_chance_plan_for_home_and_away_matches(self):
         with isolated_game(saved=True) as game:

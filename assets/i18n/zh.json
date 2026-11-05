@@ -472,5 +472,20 @@
   "Illustration": "插图",
   "English is the default. Choose a language or select Automatic to follow your phone.": "默认语言为英语。请选择语言，或选择自动以使用手机语言。",
   "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "每场比赛前完成三次训练射门即可开始比赛。未完成的训练可以继续。体力和士气会影响机会。进度会自动保存。",
-  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "打开World，再进入Editor，可更改俱乐部、联赛和球员名称，或导入JSON名称文件。显示名称不会改变球队实力或比赛结果。"
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "打开World，再进入Editor，可更改俱乐部、联赛和球员名称，或导入JSON名称文件。显示名称不会改变球队实力或比赛结果。",
+  "CROSS": "传中",
+  "A high cross is coming. Meet it with a header.": "高球传中来了，用头球完成射门。",
+  "CUTBACK": "倒三角传球",
+  "A teammate reaches the byline and pulls the ball back to you.": "队友推进到底线后将球回传给你。",
+  "FIRST-TIME SHOT": "直接射门",
+  "A quick diagonal pass. Finish first time before the defence closes.": "快速斜传来了，在防守合围前直接射门。",
+  "REBOUND": "反弹球",
+  "A blocked shot falls to you. React and find a gap.": "被挡出的射门落到你脚下，迅速反应并寻找空当。",
+  "A direct free kick. Find a way around or over the wall.": "直接任意球，尝试绕过人墙或从上方越过。",
+  "THROUGH BALL": "直塞球",
+  "A through ball puts you one on one with the goalkeeper.": "直塞球让你获得单刀面对门将的机会。",
+  "BUILD-UP": "进攻展开",
+  "BALL RECEIVED — AIM AND SHOOT": "球已到达 — 瞄准并射门",
+  "AIM AND SHOOT": "瞄准并射门",
+  "Watch the move. Aim and shoot when the ball reaches you.": "观察进攻，球到你身边后再瞄准射门。"
 }

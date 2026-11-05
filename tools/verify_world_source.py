@@ -4,7 +4,7 @@ for artifact in sys.argv[1:]:
  with zipfile.ZipFile(artifact) as z:
   archive=next(n for n in z.namelist() if n.endswith('assets/private.tar'))
   with tarfile.open(fileobj=io.BytesIO(z.read(archive))) as t:
-   for name in ('localization','coach_ui','honours','newspaper','newspaper_ui','coach','match_moments','main','anonymous_stats','online_safety','world_ui','menu_ui','defensive_difficulty','career','world_competitions','season_transitions','two_divisions','domestic_rules','club_kits','domestic_playoffs','promotion_playoffs','international_calendar','domestic_formats'):
+   for name in ('opportunity_sequences','localization','coach_ui','honours','newspaper','newspaper_ui','coach','match_moments','main','anonymous_stats','online_safety','world_ui','menu_ui','defensive_difficulty','career','world_competitions','season_transitions','two_divisions','domestic_rules','club_kits','domestic_playoffs','promotion_playoffs','international_calendar','domestic_formats'):
     m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
     actual=marshal.loads(t.extractfile(m).read()[16:]);source=Path(name+'.py').read_text()
     assert any(actual==compile(source,actual.co_filename,'exec',optimize=n) for n in (0,1,2)),name+' differs from reviewed source'

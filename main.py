@@ -19,6 +19,7 @@ responsivos sem ficheiros KV. A carreira é guardada automaticamente.
 
 from __future__ import annotations
 from match_moments import match_stakes, late_opportunity, chance_moment
+from opportunity_sequences import plan_opportunities, make_delivery, TEXT as OPPORTUNITY_TEXT, TIMING as OPPORTUNITY_TIMING
 from coach import REQUIRED as COACH_REQUIRED
 
 
@@ -139,6 +140,7 @@ class StrikerGame(Widget):
     """Widget principal: simulação, controlos e renderização."""
 
 
+    STATE_BUILDUP = "buildup"
     STATE_AIMING = "aiming"
     STATE_SHOT = "shot"
     STATE_RESULT = "result"
@@ -158,6 +160,12 @@ class StrikerGame(Widget):
         self.last_origin_index = -1
         self.player_kick_progress = 0.0
         self.shot_type = "kick"
+        self.match_opportunities = ()
+        self.current_opportunity = None
+        self.buildup_progress = 0.0
+        self.buildup_actors = []
+        self.buildup_blocker = None
+        self.frozen_scene_time = None
         self.one_on_one = False
         self.field_players: list[FieldPlayer] = []
         self.last_field_collision: Optional[tuple[str, float, float]] = None
@@ -310,6 +318,7 @@ class StrikerGame(Widget):
         self.match_chance_index = 0
         self.match_penalty_chance_index = -1
         self.match_easy_chance_index = -1
+        self.match_opportunity_seed=()
         self.current_chance_difficulty = "standard"
         self.match_player_goals = 0
         self.match_player_misses = 0
@@ -850,6 +859,8 @@ class StrikerGame(Widget):
         self.match_easy_chance_index = self.career.rng.randrange(len(self.match_chance_minutes)) if self.match_chance_minutes and self.career.rng.random() < chance_profile.clear_chance_probability else -1
         penalty_slots=[i for i in range(chance_total) if i!=self.match_easy_chance_index] or list(range(chance_total))
         self.match_penalty_chance_index=self.career.rng.choice(penalty_slots) if penalty_slots and self.career.rng.random()<0.18 else -1
+        self.match_opportunity_seed=(self.career.world_seed,self.career.season,self.career.week,self.match_competition,self.match_home.uid,self.match_away.uid)
+        self.match_opportunities=plan_opportunities(chance_total,self.match_easy_chance_index,self.match_penalty_chance_index,self.match_opportunity_seed)
         self.current_chance_difficulty = "standard"
         self.match_player_goals = 0
         self.match_player_misses = 0
@@ -1028,6 +1039,52 @@ class StrikerGame(Widget):
             self.current_aim_speed *= 1.18
         self.shot_time_left = self.shot_time_limit
         self._prepare_next_shot()
+        index=self.match_chance_index-1
+        if index<len(self.match_opportunities):
+            self._start_opportunity(self.match_opportunities[index],(self.match_opportunity_seed,index))
+
+    def _start_opportunity(self,kind,seed):
+        delivery=make_delivery(kind,seed)
+        # Mirror the entire delivery, rather than cropping the receiver.
+        px,_=self.project(*delivery.contact)
+        if not self.x+self.width*.08<=px<=self.right-self.width*.08:
+            delivery=delivery.mirrored()
+        self.current_opportunity=delivery
+        self.current_chance_difficulty='penalty' if kind=='penalty' else 'easy' if kind=='through_ball' else 'hard'
+        self.shot_type=delivery.shot_type
+        self.shot_origin_x,self.shot_origin_y,z=delivery.contact
+        self.one_on_one=kind in ('through_ball','penalty')
+        self.ball.reset(self.shot_origin_x,self.shot_origin_y,z)
+        self._generate_field_players()
+        self.shot_time_limit=max(2.7,self.shot_time_limit*OPPORTUNITY_TIMING[kind])
+        self.shot_time_left=self.shot_time_limit
+        self.buildup_progress=0.;self.frozen_scene_time=None
+        self.buildup_actors=[];self.buildup_blocker=None
+        if kind not in ('free_kick','penalty'):
+            x,y,_=delivery.points[0]
+            self.buildup_actors=[FieldPlayer(x,y,'attacker',0.)]
+            if kind=='rebound':
+                x,y,_=delivery.points[1]
+                self.buildup_blocker=FieldPlayer(x,y,'defender',1.)
+                self.field_players[-1]=self.buildup_blocker
+        if delivery.duration:
+            self.state=self.STATE_BUILDUP;self.state_age=0.
+            self.ball.x,self.ball.y,self.ball.z=delivery.position(0)
+            self.goalkeeper_x=self._aligned_goalkeeper_x()
+        else:
+            self.frozen_scene_time=self.elapsed
+
+    def _update_buildup(self,dt):
+        delivery=self.current_opportunity
+        self.buildup_progress=min(1.,self.buildup_progress+dt/delivery.duration)
+        self.ball.x,self.ball.y,self.ball.z=delivery.position(self.buildup_progress)
+        self._update_goalkeeper_idle(dt)
+        if self.buildup_progress>=1.:
+            self.ball.reset(*delivery.contact)
+            self.state=self.STATE_AIMING;self.state_age=0.
+            self.shot_time_left=self.shot_time_limit
+            self.goalkeeper_x=self._aligned_goalkeeper_x();self.goalkeeper_vx=0.
+            self.frozen_scene_time=self.elapsed
 
 
     def _play_chance_sound(self) -> None:
@@ -1235,6 +1292,9 @@ class StrikerGame(Widget):
             return
 
 
+        if self.state==self.STATE_BUILDUP:
+            self._update_buildup(frame_dt);self.draw();return
+
         if self.state == self.STATE_AIMING:
             self.player_kick_progress = 0.0
             if self.shot_context == "match":
@@ -1249,7 +1309,7 @@ class StrikerGame(Widget):
 
         if self.state == self.STATE_AIMING:
             self._update_aim(frame_dt)
-            self._update_goalkeeper_idle(frame_dt)
+            if self.current_opportunity is None:self._update_goalkeeper_idle(frame_dt)
         else:
             remaining = frame_dt
             while remaining > 1e-8:
@@ -2002,7 +2062,16 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     def _field_player_position(self, player: FieldPlayer) -> tuple[float, float]:
         """Pequenos ajustes de apoio, partilhados pelo desenho e colisões."""
-        elapsed = getattr(self, "elapsed", 0.0)
+        elapsed = self.frozen_scene_time if self.state==self.STATE_AIMING and self.frozen_scene_time is not None else getattr(self, "elapsed", 0.0)
+        if self.state==self.STATE_BUILDUP and player is self.buildup_blocker:return (player.x,player.y)
+        if player in self.buildup_actors:
+            if self.current_opportunity.kind=='cutback' and player is self.buildup_actors[0]:
+                a,b=self.current_opportunity.points[:2];t=min(1.,self.buildup_progress*2)
+                return (a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t+.4)
+            return (player.x,player.y+.4 if player.team=='attacker' else player.y)
+        if self.state==self.STATE_BUILDUP:
+            amount=1.-self.buildup_progress
+            return (player.x+math.sin(player.phase)*.8*amount,player.y+1.2*amount)
         return (
             player.x + math.sin(elapsed * 1.15 + player.phase) * 0.07,
             player.y + math.cos(elapsed * 0.92 + player.phase) * 0.045,
@@ -2648,6 +2717,7 @@ class StrikerGame(Widget):
 
 
     def _prepare_next_shot(self) -> None:
+        self.current_opportunity=None;self.buildup_actors=[];self.buildup_blocker=None;self.frozen_scene_time=None
         self.goalkeeper_holding = False
         self.goalkeeper_catch_age = 0.0
         self._randomize_aim_pattern()
@@ -2800,6 +2870,7 @@ class StrikerGame(Widget):
                 self.shoot()
             return True
         if codepoint and codepoint.lower() == "r":
+            if self.state==self.STATE_BUILDUP:return True
             self.reset_statistics()
             return True
         if codepoint and codepoint.lower() == "c":
@@ -5055,17 +5126,19 @@ class StrikerGame(Widget):
     def _draw_field_players(self) -> None:
         """Desenha defesas e atacantes, do mais distante para o mais próximo."""
         player_kit, opponent_kit = self._match_outfield_kits()
-        for player in sorted(self.field_players, key=lambda item: item.y):
+        actors=self.field_players+self.buildup_actors
+        for player in sorted(actors, key=lambda item: item.y):
             x, y = self._field_player_position(player)
-            target_x = self.ball.x if self.ball.active else self.shot_origin_x
-            target_y = self.ball.y if self.ball.active else self.shot_origin_y
+            target_x = self.ball.x if self.ball.active or self.state==self.STATE_BUILDUP else self.shot_origin_x
+            target_y = self.ball.y if self.ball.active or self.state==self.STATE_BUILDUP else self.shot_origin_y
             direction_x = target_x - x
             direction_y = target_y - y
             direction_size = max(0.001, math.hypot(direction_x, direction_y))
             forward_x = direction_x / direction_size
             forward_y = direction_y / direction_size
             side_x, side_y = -forward_y, forward_x
-            sway = math.sin(self.elapsed * 2.0 + player.phase) * 0.025
+            scene_time=self.frozen_scene_time if self.state==self.STATE_AIMING and self.frozen_scene_time is not None else self.elapsed
+            sway = math.sin(scene_time * 2.0 + player.phase) * 0.025
 
 
             def world(side: float, forward: float, z: float) -> tuple[float, float, float]:
@@ -5083,10 +5156,11 @@ class StrikerGame(Widget):
             shoulder_l = world(-0.25, 0.04 + sway, 1.42)
             shoulder_r = world(0.25, 0.04 + sway, 1.42)
             head_world = world(0.0, 0.05 + sway, 1.72)
-            knee_l = world(-0.16, 0.06 + sway, 0.43)
-            knee_r = world(0.16, -0.06 - sway, 0.43)
-            foot_l = world(-0.19, 0.12 + sway, 0.03)
-            foot_r = world(0.19, -0.11 - sway, 0.03)
+            stride=math.sin(self.state_age*10+player.phase)*.23 if self.state==self.STATE_BUILDUP else 0.
+            knee_l = world(-0.16, 0.06 + sway+stride, 0.43)
+            knee_r = world(0.16, -0.06 - sway-stride, 0.43)
+            foot_l = world(-0.19, 0.12 + sway+stride, 0.03)
+            foot_r = world(0.19, -0.11 - sway-stride, 0.03)
             hand_l = world(-0.44, 0.03, 1.10)
             hand_r = world(0.44, 0.03, 1.10)
 
@@ -5191,7 +5265,8 @@ class StrikerGame(Widget):
     def _draw_player(self) -> None:
         """Desenha o avançado junto à origem variável do remate."""
         # Eixo frontal aponta do local do remate para o ponto escolhido.
-        direction_x = self.aim_x - self.shot_origin_x
+        facing_x=0. if self.current_opportunity is not None and self.state in (self.STATE_BUILDUP,self.STATE_AIMING) else self.aim_x
+        direction_x = facing_x - self.shot_origin_x
         direction_y = -self.shot_origin_y
         direction_size = max(0.001, math.hypot(direction_x, direction_y))
         forward_x = direction_x / direction_size
@@ -5205,6 +5280,11 @@ class StrikerGame(Widget):
         distance_from_ball = 0.12 if is_header else 0.52
         player_x = self.shot_origin_x - forward_x * distance_from_ball * PLAYER_SCALE
         player_y = self.shot_origin_y - forward_y * distance_from_ball * PLAYER_SCALE
+        if self.state==self.STATE_BUILDUP:
+            player_y+=2.*(1.-self.buildup_progress)
+        if self.current_opportunity is not None and self.state in (self.STATE_BUILDUP,self.STATE_AIMING):
+            sx,sy=self.project(player_x,player_y,.03)
+            Color(.30,.91,.65,.95);Line(ellipse=(sx-9,sy-3,18,6),width=1.2)
         kick = clamp(self.player_kick_progress, 0.0, 1.0)
         kick_curve = math.sin(kick * math.pi * 0.5)
         lift = math.sin(kick * math.pi)
@@ -5501,6 +5581,12 @@ class StrikerGame(Widget):
                 max_width=timer_width - 18,
             )
 
+
+        if self.current_opportunity is not None and self.state in (self.STATE_BUILDUP,self.STATE_AIMING):
+            label=OPPORTUNITY_TEXT[self.current_opportunity.kind][0]
+            status='BUILD-UP' if self.state==self.STATE_BUILDUP else 'BALL RECEIVED — AIM AND SHOOT'
+            if self.current_opportunity.kind in ('free_kick','penalty') and self.state==self.STATE_AIMING:status='AIM AND SHOOT'
+            self._draw_text(self.i18n.tr(label)+' · '+self.i18n.tr(status),self.center_x,self.y+dp(38),max(11,int(self.height*.022)),(.94,.98,.91,1),'center',max_width=self.width-dp(100),localize=False)
 
         if self.state == self.STATE_AIMING:
             action = (

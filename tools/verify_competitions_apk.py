@@ -11,6 +11,13 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
         news=module('newspaper');coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
         formats=module('domestic_formats');kits=module('club_kits');competitions=module('world_competitions');module('promotion_playoffs');access=module('domestic_playoffs');calendar=module('international_calendar');module('two_divisions');module('season_transitions');rules=module('domestic_rules');hon=module('honours');career=module('career');competitions=module('world_competitions')
+        opportunities=module('opportunity_sequences')
+        plan=opportunities.plan_opportunities(3,0,1,'verified-apk')
+        assert plan[:2]==('through_ball','penalty') and len(plan)==3
+        for kind in opportunities.KINDS:
+            delivery=opportunities.make_delivery(kind,19)
+            assert delivery.position(1)==delivery.contact and delivery.duration>0
+        print('Actual APK: five distinct opportunity deliveries, exact reception and reserved penalty/duel slots verified')
         import edition
         assert edition.WORLD_BUILD and not edition.WORLD_PREVIEW
         with tempfile.TemporaryDirectory() as directory:

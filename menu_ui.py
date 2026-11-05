@@ -663,7 +663,7 @@ class MatchNotice(BoxLayout):
         game = self.game
         self.width = min(game.width * 0.76, dp(460))
         self._fit_panel()
-        signature = (game.i18n.language, game.match_finished, game.match_halftime, game.match_summary, game.career.morale, game.career.stamina, getattr(game, "match_moment", ""), game.match_chance_index, game.match_penalty_chance_index, tuple((e["kind"],e["outcome"]) for e in getattr(game,"match_moments",[])))
+        signature = (game.i18n.language, game.match_finished, game.match_halftime, game.match_summary, game.career.morale, game.career.stamina, getattr(game, "match_moment", ""), game.match_chance_index, game.match_penalty_chance_index, tuple((e["kind"],e["outcome"]) for e in getattr(game,"match_moments",[])),tuple(game.match_opportunities))
         if signature == self.signature:
             return
         self.signature = signature
@@ -680,6 +680,12 @@ class MatchNotice(BoxLayout):
                 self.body.add_widget(FlowLabel(text='You have been chosen to take the penalty.',font_size=sp(14),halign='center'))
             elif index==game.match_easy_chance_index:
                 self.body.add_widget(FlowLabel(text='ONE ON ONE',bold=True,color=GREEN,halign='center'))
+            if index<len(game.match_opportunities) and index!=game.match_penalty_chance_index:
+                from opportunity_sequences import TEXT
+                headline,description=TEXT[game.match_opportunities[index]]
+                self.body.add_widget(FlowLabel(text=headline,bold=True,color=GREEN,halign='center'))
+                self.body.add_widget(FlowLabel(text=description,font_size=sp(13),halign='center'))
+                self.body.add_widget(FlowLabel(text='Watch the move. Aim and shoot when the ball reaches you.',font_size=sp(12),halign='center'))
         moment = getattr(game, 'match_moment', '')
         if not game.match_finished and not game.match_halftime and moment in MOMENT_TEXT:
             headline, context = MOMENT_TEXT[moment]

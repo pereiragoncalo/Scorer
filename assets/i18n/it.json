@@ -472,5 +472,20 @@
   "Illustration": "Illustrazione",
   "English is the default. Choose a language or select Automatic to follow your phone.": "L’inglese è la lingua iniziale. Scegli una lingua o Automatico per seguire il telefono.",
   "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "Completa tre tiri di allenamento prima di ogni partita per sbloccare Gioca. Puoi riprendere una sessione incompleta. Energia e morale influenzano le occasioni. I progressi si salvano automaticamente.",
-  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Apri World, poi Editor per rinominare club, campionati e giocatori o importare un file JSON di nomi. I nomi non modificano la forza delle squadre o i risultati."
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Apri World, poi Editor per rinominare club, campionati e giocatori o importare un file JSON di nomi. I nomi non modificano la forza delle squadre o i risultati.",
+  "CROSS": "CROSS",
+  "A high cross is coming. Meet it with a header.": "Arriva un cross alto. Concludi di testa.",
+  "CUTBACK": "PASSAGGIO ALL’INDIETRO",
+  "A teammate reaches the byline and pulls the ball back to you.": "Un compagno arriva sulla linea di fondo e ti passa la palla indietro.",
+  "FIRST-TIME SHOT": "TIRO DI PRIMA",
+  "A quick diagonal pass. Finish first time before the defence closes.": "Un rapido passaggio diagonale. Tira di prima prima che la difesa si chiuda.",
+  "REBOUND": "RIMPALLO",
+  "A blocked shot falls to you. React and find a gap.": "Un tiro respinto arriva a te. Reagisci e trova un varco.",
+  "A direct free kick. Find a way around or over the wall.": "Una punizione diretta. Cerca di superare la barriera di lato o dall’alto.",
+  "THROUGH BALL": "PASSAGGIO FILTRANTE",
+  "A through ball puts you one on one with the goalkeeper.": "Un passaggio filtrante ti lascia a tu per tu con il portiere.",
+  "BUILD-UP": "AZIONE IN CORSO",
+  "BALL RECEIVED — AIM AND SHOOT": "PALLA RICEVUTA — MIRA E TIRA",
+  "AIM AND SHOOT": "MIRA E TIRA",
+  "Watch the move. Aim and shoot when the ball reaches you.": "Guarda l’azione. Mira e tira quando la palla ti raggiunge."
 }

@@ -472,5 +472,20 @@
   "Illustration": "Minh họa",
   "English is the default. Choose a language or select Automatic to follow your phone.": "Tiếng Anh là ngôn ngữ mặc định. Chọn ngôn ngữ hoặc Tự động để dùng ngôn ngữ điện thoại.",
   "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "Hoàn thành ba cú sút tập trước mỗi trận để mở Chơi. Có thể tiếp tục buổi tập chưa xong. Thể lực và tinh thần ảnh hưởng đến cơ hội. Tiến trình tự động lưu.",
-  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Mở World rồi Editor để đổi tên câu lạc bộ, giải đấu và cầu thủ hoặc nhập tệp tên JSON. Tên hiển thị không thay đổi sức mạnh đội hay kết quả."
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "Mở World rồi Editor để đổi tên câu lạc bộ, giải đấu và cầu thủ hoặc nhập tệp tên JSON. Tên hiển thị không thay đổi sức mạnh đội hay kết quả.",
+  "CROSS": "TẠT BÓNG",
+  "A high cross is coming. Meet it with a header.": "Một quả tạt bổng đang đến. Hãy đánh đầu dứt điểm.",
+  "CUTBACK": "CĂNG NGANG TRẢ NGƯỢC",
+  "A teammate reaches the byline and pulls the ball back to you.": "Đồng đội đến sát biên ngang rồi trả bóng ngược cho bạn.",
+  "FIRST-TIME SHOT": "SÚT MỘT CHẠM",
+  "A quick diagonal pass. Finish first time before the defence closes.": "Một đường chuyền chéo nhanh. Sút ngay trước khi hàng thủ áp sát.",
+  "REBOUND": "BÓNG BẬT RA",
+  "A blocked shot falls to you. React and find a gap.": "Cú sút bị chặn bật đến bạn. Phản ứng nhanh và tìm khoảng trống.",
+  "A direct free kick. Find a way around or over the wall.": "Một quả đá phạt trực tiếp. Tìm cách đưa bóng qua cạnh hoặc phía trên hàng rào.",
+  "THROUGH BALL": "CHỌC KHE",
+  "A through ball puts you one on one with the goalkeeper.": "Một đường chọc khe đưa bạn đối mặt thủ môn.",
+  "BUILD-UP": "TRIỂN KHAI TẤN CÔNG",
+  "BALL RECEIVED — AIM AND SHOOT": "BÓNG ĐÃ ĐẾN — NGẮM VÀ SÚT",
+  "AIM AND SHOOT": "NGẮM VÀ SÚT",
+  "Watch the move. Aim and shoot when the ball reaches you.": "Theo dõi pha bóng. Ngắm và sút khi bóng đến chân bạn."
 }

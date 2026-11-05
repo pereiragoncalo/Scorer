@@ -472,5 +472,20 @@
   "Illustration": "삽화",
   "English is the default. Choose a language or select Automatic to follow your phone.": "영어가 기본 언어입니다. 언어를 선택하거나 자동을 선택하여 휴대전화 언어를 사용하세요.",
   "Complete three training shots before every match to unlock Play. Resume an unfinished session. Energy and morale influence your opportunities. Progress saves automatically.": "매 경기 전에 훈련 슛 세 번을 완료하면 경기를 진행할 수 있습니다. 미완료 훈련은 이어 할 수 있습니다. 체력과 사기는 기회에 영향을 줍니다. 진행 상황은 자동 저장됩니다.",
-  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "World에서 Editor를 열어 구단, 리그, 선수 이름을 변경하거나 JSON 이름 파일을 가져오세요. 표시 이름은 팀 전력이나 결과에 영향을 주지 않습니다."
+  "Open World, then Editor to rename clubs, leagues and players or import a JSON names file. Display names do not change team strength or results.": "World에서 Editor를 열어 구단, 리그, 선수 이름을 변경하거나 JSON 이름 파일을 가져오세요. 표시 이름은 팀 전력이나 결과에 영향을 주지 않습니다.",
+  "CROSS": "크로스",
+  "A high cross is coming. Meet it with a header.": "높은 크로스가 옵니다. 헤더로 마무리하세요.",
+  "CUTBACK": "컷백",
+  "A teammate reaches the byline and pulls the ball back to you.": "동료가 골라인까지 전진해 뒤로 패스합니다.",
+  "FIRST-TIME SHOT": "논스톱 슛",
+  "A quick diagonal pass. Finish first time before the defence closes.": "빠른 대각선 패스입니다. 수비가 좁히기 전에 바로 슛하세요.",
+  "REBOUND": "리바운드",
+  "A blocked shot falls to you. React and find a gap.": "막힌 슛이 당신에게 옵니다. 빠르게 반응해 빈틈을 찾으세요.",
+  "A direct free kick. Find a way around or over the wall.": "직접 프리킥입니다. 수비벽 옆이나 위로 보내세요.",
+  "THROUGH BALL": "스루 패스",
+  "A through ball puts you one on one with the goalkeeper.": "스루 패스를 받아 골키퍼와 일대일입니다.",
+  "BUILD-UP": "공격 전개",
+  "BALL RECEIVED — AIM AND SHOOT": "공 도착 — 조준하고 슛하세요",
+  "AIM AND SHOOT": "조준하고 슛하세요",
+  "Watch the move. Aim and shoot when the ball reaches you.": "공격 전개를 보세요. 공이 도착하면 조준하고 슛하세요."
 }
