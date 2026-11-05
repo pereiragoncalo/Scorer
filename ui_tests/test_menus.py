@@ -296,8 +296,8 @@ class MenuTests(unittest.TestCase):
                         else:
                             self.assertFalse(game.one_on_one)
                             kind=game.current_opportunity.kind
-                            self.assertIn(kind,('cross','cutback','first_time','rebound','free_kick'))
-                            self.assertGreaterEqual(game.shot_origin_y,{'cross':6.5,'cutback':12.,'first_time':15.5,'rebound':13.,'free_kick':18.5}[kind])
+                            self.assertIn(kind,('cross','long_cross','corner','cutback','first_time','rebound','free_kick'))
+                            self.assertGreaterEqual(game.shot_origin_y,{'cross':6.5,'long_cross':6.5,'corner':6.5,'cutback':12.,'first_time':15.5,'rebound':13.,'free_kick':18.5}[kind])
                             sx, sy = game.project(game.shot_origin_x, game.shot_origin_y, 0)
                             self.assertTrue(game.x <= sx <= game.right)
                             self.assertTrue(game.y <= sy <= game.top)
