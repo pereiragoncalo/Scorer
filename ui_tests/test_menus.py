@@ -606,7 +606,10 @@ class MenuTests(unittest.TestCase):
             speeds=[]
             with patch.object(c,'next_match',return_value=('league',c.club,opponent)):
                 for tier in (4,1):
-                    c.club.tier=tier;game.start_career_match();game.awaiting_chance=True;game._begin_pending_chance()
+                    c.club.tier=tier;game.start_career_match()
+                    game.match_easy_chance_index=game.match_penalty_chance_index=-1
+                    game.match_opportunities=tuple('first_time' for _ in game.match_chance_minutes)
+                    game.awaiting_chance=True;game._begin_pending_chance()
                     speeds.append(game.current_aim_speed)
                     self.assertEqual(game.current_chance_difficulty,'hard')
             self.assertGreater(speeds[1],speeds[0])
