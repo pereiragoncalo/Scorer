@@ -15,6 +15,11 @@ compact trust access and focus confinement/locking. Visual English inspection of
 player/training/trust/focus/Help. Actual APK source/data, progression/save/competition,
 signing and16KB checks passed. Physical Android pending; unrelated root WIP retained.
 
+Delivery note: an abbreviated release target was rejected (422), and the workflow
+token could not create the new release (403). The authorized CLI created it using
+the full reviewed commit; the failed job was rerun successfully. Public APK bytes,
+digest, attachment header, layout report and saved-list downloads were verified.
+
 ## 2026-11-05 — World 0.9.20 objectives, focused growth and coach trust
 
 Suggestion points1/2/3 implemented as optional bounded development save extension,
