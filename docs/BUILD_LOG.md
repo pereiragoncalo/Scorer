@@ -1,3 +1,10 @@
+### 0.9.24 public attachment verified
+
+Workflow42091290777 succeeded. Unauthenticated public APK download matched all
+107428595 local bytes and SHA25603657e56bcef65904c71297ebd6a5540fc2f0404ab5d3afd5501e71da0b1c5a8.
+Attachment headers, public378-club colour audit and saved suggestion list were
+verified. Evidence:RELEASE_0.9.24_download.json. Physical handset acceptance pending.
+
 ### 0.9.24 actual candidate verified
 
 All actual APK checks passed:378 UID-bound palettes and explicit Vitória red/black,
