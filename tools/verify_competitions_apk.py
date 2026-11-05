@@ -122,7 +122,7 @@ print('Actual APK: conditional coach requests and offline newspaper report/photo
 
 print("Actual APK: ten coach portraits and saved appearance selection verified")
 
-assert 'ScorerPressPixel.ttf' in Path('newspaper_ui.py').read_text()
+assert 'ScorerRetro.ttf' in Path('newspaper_ui.py').read_text()
 report=dict(home='Home',away='Away',home_uid='h',away_uid='a',actor_uid='h',score=[3,1],status='3-1',events=[dict(minute=m,half=1 if m<46 else 2,side=s) for m,s in ((32,'home'),(51,'away'),(67,'home'),(90,'home'))],goals=0,negative_run=0,standout=False,photo=0)
 story=news.article(report,Localizer(False).tr,lambda e,side:e[side],'Player','League')
 assert len(story['goals'])==4 and story['goals'][-1]['score']==[3,1]
