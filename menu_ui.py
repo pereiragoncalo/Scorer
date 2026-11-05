@@ -31,7 +31,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('development','newspaper','coach', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
+MENU_VIEWS = frozenset(('club','development','newspaper','coach', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -239,6 +239,9 @@ class CareerMenu(BoxLayout):
         if self.game.view!='hub':
             header.bind(minimum_height=lambda row,height:setattr(row,'height',max(dp(52),height)))
         self.add_widget(header)
+        if self.game.view=='club':
+            from club_ui import ClubScreen
+            self.scroll=None;self.body=ClubScreen(self);self.add_widget(self.body);return
         if self.game.view=='development':
             from development_ui import DevelopmentScreen
             self.scroll=None;self.body=DevelopmentScreen(self);self.add_widget(self.body);return
@@ -937,7 +940,9 @@ class MainDashboard(BoxLayout):
         self.player_button=MenuTile(c.player_name,lambda:menu.action('profile'),localize=False,accent=True)
         self.player_button.size_hint_y=1;self.player_button.max_lines=2;self.player_button.shorten=True
         self.identity.add_widget(self.player_button)
-        self.identity.add_widget(BoundedLabel(text=c.display_text(c.club_name), localize=False, font_size=sp(14), halign='center'))
+        self.club_button=ClubButton(menu)
+        self.club_button.size_hint_y=1
+        self.identity.add_widget(self.club_button)
         self.identity.add_widget(BoundedLabel(text=f'Energy {c.stamina:.1f}/20 · Morale {c.morale:.1f}/20',
                                              color=MUTED, font_size=sp(11), halign='right'))
         self.add_widget(self.identity)
@@ -1440,3 +1445,28 @@ class SeasonRecordTable(CompactTable):
         self.padding=dp(4);self.spacing=dp(2);self.controls.height=dp(48);self.head.height=dp(20)
         super()._render(*_)
         self.lines.add_widget(Widget())  # Flexible space belongs below the records.
+
+
+class ClubButton(MenuTile):
+    def __init__(self,menu,**kwargs):
+        self.club_kit=menu.game.career.kit_for_club(menu.game.career.club) if menu.game.career.club else ((.1,.2,.25,1),)*4
+        super().__init__(menu.game.career.display_club(menu.game.career.club) if menu.game.career.club else menu.game.i18n.tr('NO CLUB'),lambda:menu.action('club'),localize=False,**kwargs)
+        self.disabled=menu.game.career.club is None
+        with self.canvas.before:
+            self._club_stripe_color=Color(*self.club_kit[3])
+            self._club_stripe=RoundedRectangle(radius=[dp(3)])
+        self._club_recolour();self._relief()
+    def _fit(self,*_):
+        self.text_size=(max(1,self.width-dp(32)),max(1,self.height-dp(12)))
+    def _relief(self,*_):
+        super()._relief(*_)
+        self._club_recolour()
+    def _club_recolour(self):
+        primary,_,_,secondary=self.club_kit
+        factor=.78 if self.state=='down' else 1.
+        self._face_color.rgba=tuple(c*factor for c in primary[:3])+(1,)
+        self._light_color.rgba=secondary
+        if hasattr(self,'_club_stripe'):
+            self._club_stripe.pos=(self.x+dp(4),self.y+dp(5));self._club_stripe.size=(dp(7),max(1,self.height-dp(10)))
+            self._club_stripe_color.rgba=secondary
+        self.color=(.025,.035,.04,1) if sum(primary[i]*v for i,v in enumerate((.2126,.7152,.0722)))>.48 else (.98,.98,.95,1)

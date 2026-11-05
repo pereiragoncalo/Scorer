@@ -18,7 +18,7 @@ from test_menus import isolated_game
 from newspaper import make_report,fresh_state
 from coach import fresh_state as coach_fresh
 profiles=[('800x480',800,480,1.5,1),('1280x720',1280,720,2,1),('1920x1080',1920,1080,3,1),('2400x1080',2400,1080,3,1),('2340x1080',2340,1080,2.75,1),('2532x1170',2532,1170,3,1),('2960x1440',2960,1440,4,1),('foldable',2208,1768,2.75,1),('owner',1280,591,1.4,1),('compact',960,540,2,1),('largefont',1920,1080,3,1.3)]
-views=['development', 'splash','data_notice','start','profile','offers','hub','training','standings','scorers','calendar','agent','world','world_country','world_league','editor','competitions','competition','leaderboard','help','language','family','record_safety','privacy','newspaper','coach','match','shot','chance_notice']
+views=['club','development', 'splash','data_notice','start','profile','offers','hub','training','standings','scorers','calendar','agent','world','world_country','world_league','editor','competitions','competition','leaderboard','help','language','family','record_safety','privacy','newspaper','coach','match','shot','chance_notice']
 if args.views:
  unknown=set(args.views)-set(views)
  if unknown:parser.error('Unknown views: '+', '.join(sorted(unknown)))

@@ -539,5 +539,13 @@
   "DEEP CROSS": "远距离传中",
   "A cross from deep on the wing. Attack the ball with a header.": "边路远距离传中。抢点头球攻门。",
   "CORNER": "角球",
-  "A corner into the box. Lose your marker and head towards goal.": "角球传入禁区。摆脱盯防，头球攻门。"
+  "A corner into the box. Lose your marker and head towards goal.": "角球传入禁区。摆脱盯防，头球攻门。",
+  "FOUNDED": "成立年份",
+  "STADIUM": "球场",
+  "CAPACITY": "容量",
+  "HISTORICAL TITLES": "历史冠军",
+  "CAREER TITLES": "生涯冠军",
+  "Not available": "暂无资料",
+  "None recorded": "暂无记录",
+  "NO CLUB": "无俱乐部"
 }

@@ -539,5 +539,13 @@
   "DEEP CROSS": "먼 거리 크로스",
   "A cross from deep on the wing. Attack the ball with a header.": "측면 깊은 곳에서 크로스가 옵니다. 헤더로 마무리하세요.",
   "CORNER": "코너킥",
-  "A corner into the box. Lose your marker and head towards goal.": "페널티 지역으로 코너킥이 옵니다. 수비수를 따돌리고 헤더로 골을 노리세요."
+  "A corner into the box. Lose your marker and head towards goal.": "페널티 지역으로 코너킥이 옵니다. 수비수를 따돌리고 헤더로 골을 노리세요.",
+  "FOUNDED": "창단",
+  "STADIUM": "경기장",
+  "CAPACITY": "수용 인원",
+  "HISTORICAL TITLES": "역대 우승",
+  "CAREER TITLES": "커리어 우승",
+  "Not available": "정보 없음",
+  "None recorded": "기록 없음",
+  "NO CLUB": "소속팀 없음"
 }

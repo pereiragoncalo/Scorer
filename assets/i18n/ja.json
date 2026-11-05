@@ -539,5 +539,13 @@
   "DEEP CROSS": "遠距離クロス",
   "A cross from deep on the wing. Attack the ball with a header.": "サイドの深い位置からクロス。ヘディングで合わせよう。",
   "CORNER": "コーナーキック",
-  "A corner into the box. Lose your marker and head towards goal.": "ゴール前へのコーナーキック。マークを外してヘディングで狙おう。"
+  "A corner into the box. Lose your marker and head towards goal.": "ゴール前へのコーナーキック。マークを外してヘディングで狙おう。",
+  "FOUNDED": "創設",
+  "STADIUM": "スタジアム",
+  "CAPACITY": "収容人数",
+  "HISTORICAL TITLES": "歴代タイトル",
+  "CAREER TITLES": "キャリアのタイトル",
+  "Not available": "情報なし",
+  "None recorded": "記録なし",
+  "NO CLUB": "所属クラブなし"
 }

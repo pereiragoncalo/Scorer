@@ -12,6 +12,12 @@ with zipfile.ZipFile(sys.argv[1]) as z:
         development=module('player_development')
         news=module('newspaper');coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
         formats=module('domestic_formats');kits=module('club_kits');competitions=module('world_competitions');module('promotion_playoffs');access=module('domestic_playoffs');calendar=module('international_calendar');module('two_divisions');module('season_transitions');rules=module('domestic_rules');hon=module('honours');career=module('career');competitions=module('world_competitions')
+        profiles=module('club_profiles')
+        assert len(profiles.catalogue())==378
+        assert profiles.ground(40000).tiers==1 and profiles.ground(40001).tiers==2
+        assert profiles.catalogue()['f9554f2ce1ab5ff99892']['capacity']==35618
+        assert profiles.catalogue()['f9554f2ce1ab5ff99892']['supporters']=='Os Imbatíveis'
+        print('Actual APK: 378 club profiles, sourced grounds and strict 40k second-tier threshold verified')
         opportunities=module('opportunity_sequences')
         plan=opportunities.plan_opportunities(3,0,1,'verified-apk')
         assert plan[:2]==('through_ball','penalty') and len(plan)==3

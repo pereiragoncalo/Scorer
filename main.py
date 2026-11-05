@@ -905,6 +905,7 @@ class StrikerGame(Widget):
         self.match_moment = ""
         self.match_moments = []
         self.match_report_events = []
+        self._celebrating_side=None;self._crowd_celebrate_until=0.
         self.awaiting_chance = False
         self.view = "match"
         self.state = self.STATE_AIMING
@@ -945,6 +946,9 @@ class StrikerGame(Widget):
         self._flash_scoreboard()
 
     def _record_report_goal(self, side, timeline_minute):
+        self._celebrating_side=side
+        self._crowd_celebration_started=self.elapsed
+        self._crowd_celebrate_until=self.elapsed+2.35
         half = 1 if timeline_minute <= 45 + self.match_first_stoppage else 2
         minute = int(timeline_minute - (self.match_first_stoppage if half == 2 else 0))
         self.match_report_events.append({'minute': minute, 'half': half, 'side': side})
@@ -1174,6 +1178,7 @@ class StrikerGame(Widget):
 
     def _play_goal_crowd_sound(self) -> None:
         """Celebração de bancada sintetizada, sem ficheiros externos."""
+        if self.shot_context=='training':return
         try:
             if not self._goal_crowd_sound_attempted:
                 self._goal_crowd_sound_attempted = True
@@ -1207,6 +1212,7 @@ class StrikerGame(Widget):
                 self._goal_crowd_sound = SoundLoader.load(str(sound_path))
             if self._goal_crowd_sound is not None:
                 self._goal_crowd_sound.stop()
+                self._goal_crowd_sound.volume=.9 if self._player_match_is_home() else .3
                 self._goal_crowd_sound.play()
         except Exception:
             self._goal_crowd_sound = None
@@ -3033,6 +3039,9 @@ class StrikerGame(Widget):
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
         import time
+        if action=='club' and self.view=='hub':
+            if self.career.club:self.view='club'
+            return
         if action=='competitions' and self.career.world_unlocked and self.career.club:
             self.career._ensure_competitions();self.view='competitions';self.draw();return
         if action=='competition_open' and self.career.world_unlocked and self.career.world_competitions is not None and value in self.career.world_competitions.tournaments:
@@ -4155,7 +4164,7 @@ class StrikerGame(Widget):
         """Guarda apenas o cenário opaco numa textura reutilizável."""
         if self._fbo_disabled or self.width < 2.0 or self.height < 2.0:
             return
-        key = (self.x, self.y, self.width, self.height)
+        key = (self.x, self.y, self.width, self.height,self._stadium_context()['key'])
         if key == self._static_layer_key:
             return
 
@@ -4197,48 +4206,21 @@ class StrikerGame(Widget):
             Line(points=[self.x, yy, self.right, yy], width=1.0)
 
 
+    def _stadium_context(self):
+        from stadium_scene import context
+        return context(self)
+
     def _draw_stadium_stands(self, draw_crowd: bool = True) -> None:
-        """Bancada oposta composta por degraus tridimensionais reais."""
-        cache_key = (self.x, self.y, self.width, self.height)
-        rebuild = (
-            cache_key != self._stand_mesh_cache_key
-            or cache_key != self._crowd_mesh_cache_key
-        )
-        if rebuild:
-            self._crowd_specs = []
-            self._stand_mesh_builders = {}
-
-
-            # Cada fila é geometria 3D real: espelho vertical e patamar
-            # horizontal. A geometria é calculada só quando o ecrã muda.
-            self._stand_cache_section = "goal"
-            self._draw_behind_goal_stand()
-            self._stand_cache_section = "corner"
-            self._draw_corner_stands((1.0,))
-            self._stand_cache_section = "side"
-            self._draw_touchline_stand(1.0)
-
-
-            self._stand_mesh_cache = [
-                (color, vertices, indices)
-                for (_, color), (vertices, indices) in (
-                    self._stand_mesh_builders or {}
-                ).items()
-                if indices
-            ]
-            self._stand_mesh_builders = None
-            self._stand_mesh_cache_key = cache_key
-            self._rebuild_crowd_mesh(self._crowd_specs or [])
-            self._crowd_mesh_cache_key = cache_key
-            self._crowd_specs = None
-
-
+        from stadium_scene import build,draw_banner,cheering
+        context=self._stadium_context()
+        key=(self.x,self.y,self.width,self.height,context['key'])
+        if key!=self._stand_mesh_cache_key or key!=self._crowd_mesh_cache_key:
+            build(self,context)
+            self._stand_mesh_cache_key=self._crowd_mesh_cache_key=key
         self._draw_stand_meshes()
-
-
         if draw_crowd and self._show_stadium_crowd():
-            self._draw_crowd_meshes(celebrating=self.result_text == "GOAL!")
-
+            self._draw_crowd_meshes(celebrating=cheering(self) is not None)
+            draw_banner(self,context)
 
     def _draw_stand_meshes(self) -> None:
         """Desenha toda a bancada em poucos lotes gráficos já projetados."""
@@ -4350,22 +4332,10 @@ class StrikerGame(Widget):
                     )
 
 
-    def _draw_crowd_meshes(self, celebrating: bool) -> None:
-        """Desenha o público já agrupado em poucos lotes gráficos."""
-        for color, vertices, indices, jump_group in self._crowd_mesh_cache:
-            Color(*color)
-            jump = 0.0
-            if celebrating:
-                phase = self.state_age * 11.5 + jump_group * 1.25
-                jump = max(0.0, math.sin(phase)) * (7.0 + jump_group * 1.4)
-            if jump > 0.0:
-                PushMatrix()
-                Translate(0.0, jump, 0.0)
-                Mesh(vertices=vertices, indices=indices, mode="triangles")
-                PopMatrix()
-            else:
-                Mesh(vertices=vertices, indices=indices, mode="triangles")
-
+    def _draw_crowd_meshes(self, celebrating=False) -> None:
+        # Keep the old call signature; the scorer's side controls each batch.
+        from stadium_scene import draw_crowd
+        draw_crowd(self)
 
     def _draw_spectator(
         self,
@@ -4452,109 +4422,9 @@ class StrikerGame(Widget):
             self._cache_stand_segment(color, start, end, width)
 
 
-    def _rebuild_crowd_mesh(
-        self,
-        spectators: list[tuple],
-    ) -> None:
-        """Agrupa os adeptos em poucos lotes gráficos por fase de salto."""
-        shirts = (
-            (0.78, 0.16, 0.12, 0.96),
-            (0.12, 0.34, 0.62, 0.96),
-            (0.88, 0.66, 0.12, 0.96),
-            (0.76, 0.78, 0.74, 0.94),
-            (0.16, 0.48, 0.27, 0.95),
-            (0.42, 0.20, 0.48, 0.95),
-        )
-        skins = (
-            (0.94, 0.72, 0.52, 0.96),
-            (0.72, 0.46, 0.29, 0.96),
-            (0.45, 0.27, 0.18, 0.96),
-        )
-        jump_groups = 4
-        shirt_vertices = [[[] for _ in shirts] for _ in range(jump_groups)]
-        shirt_indices = [[[] for _ in shirts] for _ in range(jump_groups)]
-        skin_vertices = [[[] for _ in skins] for _ in range(jump_groups)]
-        skin_indices = [[[] for _ in skins] for _ in range(jump_groups)]
-
-
-        visible = 0
-        for spectator in spectators:
-            if len(spectator) == 5:
-                screen_x, screen_y, person_height, color_index, _ = spectator
-                body_bottom = (screen_x, screen_y)
-                body_top = (screen_x, screen_y + person_height * 0.56)
-                head = (screen_x, screen_y + person_height * 0.78)
-                half_width = clamp(person_height * 0.17, 1.05, 2.15)
-                radius = clamp(person_height * 0.135, 1.05, 2.25)
-            else:
-                world_x, world_y, seat_z, color_index = spectator
-                body_bottom = self.project(world_x, world_y, seat_z + 0.05)
-                body_top = self.project(world_x, world_y, seat_z + 0.29)
-                head = self.project(world_x, world_y, seat_z + 0.38)
-                scale = self.pixels_per_meter(world_x, world_y, seat_z + 0.2)
-                half_width = clamp(scale * 0.041, 0.82, 1.95)
-                radius = clamp(scale * 0.062, 1.38, 3.05)
-            if not (
-                self.x - 8.0 <= head[0] <= self.right + 8.0
-                and self.y - 8.0 <= head[1] <= self.top + 8.0
-            ):
-                continue
-
-
-            visible += 1
-            delta_x = body_top[0] - body_bottom[0]
-            delta_y = body_top[1] - body_bottom[1]
-            body_length = max(1e-6, math.hypot(delta_x, delta_y))
-            normal_x = -delta_y / body_length * half_width
-            normal_y = delta_x / body_length * half_width
-            jump_group = color_index % jump_groups
-            shirt_index = color_index % len(shirts)
-            self._append_mesh_quad(
-                shirt_vertices[jump_group][shirt_index],
-                shirt_indices[jump_group][shirt_index],
-                (
-                    (body_bottom[0] - normal_x, body_bottom[1] - normal_y),
-                    (body_bottom[0] + normal_x, body_bottom[1] + normal_y),
-                    (body_top[0] + normal_x, body_top[1] + normal_y),
-                    (body_top[0] - normal_x, body_top[1] - normal_y),
-                ),
-            )
-            skin_index = (color_index // 2) % len(skins)
-            self._append_mesh_quad(
-                skin_vertices[jump_group][skin_index],
-                skin_indices[jump_group][skin_index],
-                (
-                    (head[0] - radius, head[1] - radius),
-                    (head[0] + radius, head[1] - radius),
-                    (head[0] + radius, head[1] + radius),
-                    (head[0] - radius, head[1] + radius),
-                ),
-            )
-
-
-        self.crowd_total = len(spectators)
-        self.crowd_visible = visible
-        self._crowd_mesh_cache = []
-        for jump_group in range(jump_groups):
-            for color, vertices, indices in zip(
-                shirts,
-                shirt_vertices[jump_group],
-                shirt_indices[jump_group],
-            ):
-                if indices:
-                    self._crowd_mesh_cache.append(
-                        (color, vertices, indices, jump_group)
-                    )
-            for color, vertices, indices in zip(
-                skins,
-                skin_vertices[jump_group],
-                skin_indices[jump_group],
-            ):
-                if indices:
-                    self._crowd_mesh_cache.append(
-                        (color, vertices, indices, jump_group)
-                    )
-
+    def _rebuild_crowd_mesh(self,spectators) -> None:
+        from stadium_scene import build_crowd
+        build_crowd(self,spectators)
 
     def _draw_behind_goal_stand(self) -> None:
         """Bancada de fundo contínua, dividida em seis sectores regulares."""

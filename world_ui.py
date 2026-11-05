@@ -5,7 +5,7 @@ from kivy.uix.image import Image
 from ui_localization import LocalizedInput as TextInput, localized_call
 from localization import current
 from kivy.metrics import dp, sp
-from menu_ui import MenuTile, BoundedLabel, Card, CompactTable, MenuLogo
+from menu_ui import MenuTile, BoundedLabel, Card, CompactTable, MenuLogo, ClubButton
 
 HELP_PAGES = (
     ('YOUR CAREER', 'Choose New Game or Load Game. Pick a player name and a first contract. Free starts in Scorer League with no country selection. SCORER World is a separate application and career, with local-country contracts and England Division 2 as an option.'),
@@ -47,7 +47,9 @@ class CompactHub(BoxLayout):
     def __init__(self, menu):
         super().__init__(orientation='vertical', spacing=dp(4))
         c = menu.game.career
-        self.add_widget(MenuLogo(size_hint_y=None,height=dp(32)))
+        identity=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6))
+        identity.add_widget(MenuLogo(size_hint_x=.45))
+        self.club_button=ClubButton(menu);self.club_button.size_hint_y=1;identity.add_widget(self.club_button);self.add_widget(identity)
         actions = GridLayout(cols=4, spacing=dp(4))
         entries = [('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
                    ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),

@@ -539,5 +539,13 @@
   "DEEP CROSS": "DEEP CROSS",
   "A cross from deep on the wing. Attack the ball with a header.": "A cross from deep on the wing. Attack the ball with a header.",
   "CORNER": "CORNER",
-  "A corner into the box. Lose your marker and head towards goal.": "A corner into the box. Lose your marker and head towards goal."
+  "A corner into the box. Lose your marker and head towards goal.": "A corner into the box. Lose your marker and head towards goal.",
+  "FOUNDED": "FOUNDED",
+  "STADIUM": "STADIUM",
+  "CAPACITY": "CAPACITY",
+  "HISTORICAL TITLES": "HISTORICAL TITLES",
+  "CAREER TITLES": "CAREER TITLES",
+  "Not available": "Not available",
+  "None recorded": "None recorded",
+  "NO CLUB": "NO CLUB"
 }

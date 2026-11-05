@@ -1,3 +1,48 @@
+## 2026-11-05 — World 0.9.25 club cards and home-ground supporters
+
+Removed the baked-in splash by clemir credit using an image edit; logo, tagline
+and existing splash fonts/flow retained. Added coloured club tiles to normal and
+compact hubs, with a secondary-colour stripe and readable foreground. Touch opens
+founded year, ground/capacity, sourced historical titles and separately observed
+career trophies (excluding personal Golden Boots). Facts follow stable club UID,
+not editor aliases.15 references have no verified historical honours: show Not
+available, never invent a zero or championship. Unknown fictional identities show
+unavailable facts and use an explicitly separate bounded venue model.
+
+Added378 source/revision-pinned club profiles: foundation, stadium and capacity
+all covered;363 have parsed/reviewed historical records.26 supporter group names
+verified against source articles; elsewhere the away banner uses the club display
+name, without asserting that no fan group exists. Supplementary local-language
+honours and two venue capacity references are pinned in reviewed overrides.
+The build parser excludes runner-up/promotion/individual records and ambiguous
+bare Winners labels; preserves genuine Promozione league titles. Exact offline
+rebuild checked against the cached source snapshot. No source prose/network at
+runtime. Public profile JSON explicitly allowed in staging and tested bytewise.
+
+Home fixture UID controls venue capacity and both supporter palettes, including
+when the player is away. Stand rows scale with capacity, with a separate curved
+upper deck and concourse strictly above40000. Lower behind-goal screen-left block
+contains away supporters and a group/club banner; all other seats use home colours.
+Mesh batches carry home/away tags, with at most56 batches, cache invalidation on
+fixture/kit/banner changes, and no draw of fans/banner during training. Goal report
+hooks cover player and AI goals; only the scoring side jumps for2.35seconds.
+Same-side skin/shirt motion, expiration and duplicate-goal guards tested.
+
+384 core cases passed. Full native suite ran190 cases: two old52dp minima exposed
+new compact club tile at48dp; raised header/tile to52dp. Nine affected/new tests
+passed on rerun; initial16 targeted scene/navigation/kit/geometry cases passed.
+19 final parser/profile/staging/edition checks passed, including JSON staging guard.
+Expanded30-view responsive matrix:990 cases, zero findings. Club/hub66 cases rerun
+after final card/stripe/height changes, zero findings. Actual1280x591 hub/card,
+one/two-deck venues, banner and separate goal previews inspected. Physical Android
+acceptance pending; no physics, scoring budget, save schema or server change.
+
+First candidate lacked club_profiles.json due explicit staging allowlist; actual
+APK check caught it. Added public asset to allowlist and staging regression, then
+rebuilt from a fresh stage with fail-fast shell. Final actual APK source/data/font/
+image checks, profile/40k rule, saves, competitions, safety, DEBUG upgrade signing
+and118 ELF/ZIP16KB checks passed. Unrelated root WIP excluded.
+
 ### 0.9.24 public attachment verified
 
 Workflow42091290777 succeeded. Unauthenticated public APK download matched all
