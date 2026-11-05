@@ -1,3 +1,18 @@
+## Scorer World 0.9.19 — watch the move, then finish
+
+[Download World 0.9.19 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.19/Scorer-World-0.9.19.apk) ·
+[Six saved gameplay suggestions](docs/GAMEPLAY_IMPROVEMENTS.md)
+
+Crosses, cutbacks, first-time finishes, rebounds and direct free kicks now have
+visible preparation. The ball reaches the striker before the scene pauses and
+aim/power/full countdown appear. Existing through-ball duels and announced
+penalties retain their slots; training stays striker+keeper only.
+
+358 core/171 native cases validated with corrected obsolete assertions; 66 targeted
+layout checks have zero findings. 2,880 paired physical attempts are documented.
+DEBUG QA upgrade; physical Android acceptance remains pending.
+[Changes and limits](docs/RELEASE_0.9.19.md) · [APK evidence](docs/RELEASE_0.9.19_artifacts.json).
+
 ## Scorer World 0.9.18 — English default and compact screens
 
 [Download World 0.9.18 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.18/Scorer-World-0.9.18.apk)

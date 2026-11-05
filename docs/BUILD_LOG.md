@@ -1,3 +1,19 @@
+## 2026-11-05 — World 0.9.19 opportunity sequences
+
+Saved the six-item improvement list; Google Drive unavailable, no upload claimed.
+Point5 adds deterministic cross/header, cutback, first-time, rebound and free-kick
+plans. Animate delivery/receiver/players/keeper before freezing on exact reception;
+aim/power/timer/input unlock then. Preserve chances, PK/duel slots, AI RNG, goal
+budget, training isolation and physical finishing. Green receiver marker.
+358 core tests passed; native171 run had two obsolete long-shot/all-hard assertions,
+corrected and all five relevant cases rerun successfully; final3 sequence checks
+passed after preserving defender caps. 66 match/shot responsive cases: zero
+findings. 2,880 paired physical attempts all resolved; rebound subset rerun after
+blocker placement. Existing 0.20 hard-chance budget remains conservative for the
+five-type average. Exact APK bytes/modules/data, signing and16KB checks passed.
+Physical Android remains pending. Evidence: RELEASE_0.9.19.md and associated JSON.
+Preserved unrelated root main/test-helper/mode WIP.
+
 ## 2026-11-05 — World 0.9.18
 
 English default/schema2 preference migration, compact launch notice, gameplay-only

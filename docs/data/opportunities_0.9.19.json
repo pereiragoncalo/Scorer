@@ -1,0 +1,413 @@
+{
+  "method": "Paired physical shots with exact aim, bypassing human aim/timer. Not human conversion or guaranteed results.",
+  "rows": [
+    {
+      "tier": 1,
+      "kind": "baseline",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "SAVED!": 43,
+        "GOAL!": 9,
+        "MISS!": 28
+      },
+      "conversion": 0.1125
+    },
+    {
+      "tier": 1,
+      "kind": "baseline",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 63,
+        "SAVED!": 13,
+        "MISS!": 4
+      },
+      "conversion": 0.7875
+    },
+    {
+      "tier": 1,
+      "kind": "baseline",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 1,
+      "kind": "cross",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 22,
+        "MISS!": 17,
+        "SAVED!": 41
+      },
+      "conversion": 0.275
+    },
+    {
+      "tier": 1,
+      "kind": "cross",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 1,
+      "kind": "cross",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 1,
+      "kind": "cutback",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 14,
+        "MISS!": 33,
+        "SAVED!": 33
+      },
+      "conversion": 0.175
+    },
+    {
+      "tier": 1,
+      "kind": "cutback",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "SAVED!": 3,
+        "GOAL!": 76,
+        "MISS!": 1
+      },
+      "conversion": 0.95
+    },
+    {
+      "tier": 1,
+      "kind": "cutback",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 1,
+      "kind": "first_time",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 13,
+        "MISS!": 28,
+        "SAVED!": 39
+      },
+      "conversion": 0.1625
+    },
+    {
+      "tier": 1,
+      "kind": "first_time",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "MISS!": 10,
+        "GOAL!": 69,
+        "SAVED!": 1
+      },
+      "conversion": 0.8625
+    },
+    {
+      "tier": 1,
+      "kind": "first_time",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 1,
+      "kind": "rebound",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 15,
+        "MISS!": 41,
+        "SAVED!": 24
+      },
+      "conversion": 0.1875
+    },
+    {
+      "tier": 1,
+      "kind": "rebound",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 77,
+        "MISS!": 2,
+        "SAVED!": 1
+      },
+      "conversion": 0.9625
+    },
+    {
+      "tier": 1,
+      "kind": "rebound",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 1,
+      "kind": "free_kick",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "SAVED!": 45,
+        "MISS!": 28,
+        "GOAL!": 7
+      },
+      "conversion": 0.0875
+    },
+    {
+      "tier": 1,
+      "kind": "free_kick",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "MISS!": 21,
+        "GOAL!": 42,
+        "SAVED!": 17
+      },
+      "conversion": 0.525
+    },
+    {
+      "tier": 1,
+      "kind": "free_kick",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 77,
+        "SAVED!": 3
+      },
+      "conversion": 0.9625
+    },
+    {
+      "tier": 2,
+      "kind": "baseline",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "SAVED!": 43,
+        "GOAL!": 10,
+        "MISS!": 27
+      },
+      "conversion": 0.125
+    },
+    {
+      "tier": 2,
+      "kind": "baseline",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 64,
+        "SAVED!": 12,
+        "MISS!": 4
+      },
+      "conversion": 0.8
+    },
+    {
+      "tier": 2,
+      "kind": "baseline",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 2,
+      "kind": "cross",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 25,
+        "MISS!": 16,
+        "SAVED!": 39
+      },
+      "conversion": 0.3125
+    },
+    {
+      "tier": 2,
+      "kind": "cross",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 2,
+      "kind": "cross",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 2,
+      "kind": "cutback",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 14,
+        "MISS!": 34,
+        "SAVED!": 32
+      },
+      "conversion": 0.175
+    },
+    {
+      "tier": 2,
+      "kind": "cutback",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "SAVED!": 3,
+        "GOAL!": 76,
+        "MISS!": 1
+      },
+      "conversion": 0.95
+    },
+    {
+      "tier": 2,
+      "kind": "cutback",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 2,
+      "kind": "first_time",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 13,
+        "MISS!": 28,
+        "SAVED!": 39
+      },
+      "conversion": 0.1625
+    },
+    {
+      "tier": 2,
+      "kind": "first_time",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "MISS!": 10,
+        "GOAL!": 69,
+        "SAVED!": 1
+      },
+      "conversion": 0.8625
+    },
+    {
+      "tier": 2,
+      "kind": "first_time",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 2,
+      "kind": "rebound",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 14,
+        "MISS!": 41,
+        "SAVED!": 25
+      },
+      "conversion": 0.175
+    },
+    {
+      "tier": 2,
+      "kind": "rebound",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 77,
+        "MISS!": 2,
+        "SAVED!": 1
+      },
+      "conversion": 0.9625
+    },
+    {
+      "tier": 2,
+      "kind": "rebound",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 80
+      },
+      "conversion": 1.0
+    },
+    {
+      "tier": 2,
+      "kind": "free_kick",
+      "strategy": "uniform",
+      "samples": 80,
+      "outcomes": {
+        "SAVED!": 44,
+        "MISS!": 28,
+        "GOAL!": 8
+      },
+      "conversion": 0.1
+    },
+    {
+      "tier": 2,
+      "kind": "free_kick",
+      "strategy": "low_corners",
+      "samples": 80,
+      "outcomes": {
+        "MISS!": 21,
+        "GOAL!": 48,
+        "SAVED!": 11
+      },
+      "conversion": 0.6
+    },
+    {
+      "tier": 2,
+      "kind": "free_kick",
+      "strategy": "high_corners",
+      "samples": 80,
+      "outcomes": {
+        "GOAL!": 77,
+        "SAVED!": 3
+      },
+      "conversion": 0.9625
+    }
+  ],
+  "samples_total": 2880,
+  "source_commit": "0cb4c9bc68b9f2252fffb293820fa7b495eeb12e"
+}
