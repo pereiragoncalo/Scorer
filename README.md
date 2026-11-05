@@ -1,3 +1,13 @@
+## Scorer World 0.9.25 — clubs and home grounds
+
+[Download World 0.9.25 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.25/Scorer-World-0.9.25.apk)
+
+Club-coloured name button opens foundation, honours, ground and capacity. Match
+stands scale to the actual home club, adding a second deck above40k. A lower away
+section has visiting colours and a group/club banner; only the scorer's side
+celebrates. Splash credit removed. Existing careers retained; DEBUG QA.
+[Scope and validation](docs/RELEASE_0.9.25.md) · [Club/stadium audit](docs/data/club_stadium_audit_0.9.25.json).
+
 ## Scorer World 0.9.24 — club colour coverage
 
 [Download World 0.9.24 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.24/Scorer-World-0.9.24.apk)
