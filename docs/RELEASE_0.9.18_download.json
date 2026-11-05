@@ -1,0 +1,17 @@
+{
+  "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.18/Scorer-World-0.9.18.apk",
+  "status": 200,
+  "bytes": 107357835,
+  "sha256": "d7677cb3dda05d1096180e715abe22a182b07495e2cf54ca86d03365bc0009af",
+  "content_disposition": "attachment; filename=Scorer-World-0.9.18.apk",
+  "verified_utc": "2026-11-05T06:41:51.880129+00:00",
+  "workflow_run": 41982082553,
+  "source_commit": "d512e13e37f8298b51da47f0e3fbc45b460c37db",
+  "responsive_report": {
+    "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.18/responsive_0.9.18.json",
+    "status": 200,
+    "bytes": 185528,
+    "sha256": "6b85a52def342843ed1f9c627c8b5cd320af33c7c978415b451bd450038bdd1e",
+    "content_disposition": "attachment; filename=responsive_0.9.18.json"
+  }
+}
