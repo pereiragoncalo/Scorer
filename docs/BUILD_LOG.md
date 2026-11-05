@@ -1,3 +1,14 @@
+### 0.9.24 actual candidate verified
+
+All actual APK checks passed:378 UID-bound palettes and explicit Vitória red/black,
+exact runtime/data/font/artwork bytes, competition/progression/save/safety smokes,
+existing DEBUG signature, API36/arm64 and118 ELF libraries/ZIP16KB alignment.
+Initial verification failed creating a temporary directory (container ENOSPC).
+Removed only generated0.9.22/0.9.23 stage/dev scratch archives after their committed
+source/public delivery, preserving evidence and deliverable APK copies; full
+candidate verification then passed. APK107428595bytes; SHA256
+03657e56bcef65904c71297ebd6a5540fc2f0404ab5d3afd5501e71da0b1c5a8.
+
 ## 2026-11-05 — World 0.9.24 club-colour coverage repair
 
 Confirmed Vitória BA UIDf9554f2ce1ab5ff99892 was absent from club_kits.json and

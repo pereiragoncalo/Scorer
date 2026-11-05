@@ -1,3 +1,13 @@
+## Scorer World 0.9.24 — club colour coverage
+
+[Download World 0.9.24 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.24/Scorer-World-0.9.24.apk)
+
+Fixes Vitória BA's generic white/blue kit: red shirt/black secondary, matching its
+club colours. All378 current real-name identities now have home palettes, including
+26 previously missing clubs;8 monochrome palettes regain their secondary colour.
+Existing careers update automatically without importing names again. DEBUG QA.
+[Changes and validation](docs/RELEASE_0.9.24.md) · [Colour audit](docs/data/club_colour_audit_0.9.24.json).
+
 ## Scorer World 0.9.23 — onside runs and wide deliveries
 
 [Download World 0.9.23 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.23/Scorer-World-0.9.23.apk)
