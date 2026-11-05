@@ -1,3 +1,20 @@
+## 2026-11-05 — World 0.9.21 UI simplification
+
+Owner requested values only in Training/Coach Trust, one objectives panel for the
+player, and focus controls only within Training. Moved all narrative mechanics to
+justified Help (twelve dynamic pages using existing nine-language strings).
+Replaced the development/skills tabs with direct player objectives and standalone
+trust values, preserving saved trophies/progression and name controls. Training
+focus is a context-only stat/selection popup. Trust uses the existing hub value;
+compact hubs add its action in an available grid slot.
+
+30 focused core checks passed. Full native178 ran; stale four-page help/compact
+button-count assertions corrected, then all9 affected cases passed. Final165-case
+changed-view matrix: zero findings. Native touch tests exercise both normal and
+compact trust access and focus confinement/locking. Visual English inspection of
+player/training/trust/focus/Help. Actual APK source/data, progression/save/competition,
+signing and16KB checks passed. Physical Android pending; unrelated root WIP retained.
+
 ## 2026-11-05 — World 0.9.20 objectives, focused growth and coach trust
 
 Suggestion points1/2/3 implemented as optional bounded development save extension,

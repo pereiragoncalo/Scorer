@@ -26,7 +26,7 @@ Lista proposta e guardada em 5 de novembro de 2026, por ordem de prioridade.
 - Ponto 5 implementado na World 0.9.19: cruzamentos, passes atrasados, remates de primeira, ressaltos e livres diretos. A jogada é mostrada até a bola chegar ao jogador; só então para e aparecem a mira e o tempo para rematar.
 - Pontos 4 e 6 continuam como sugestões, não como funcionalidades concluídas.
 
-Os detalhes, critérios, testes e limitações da candidata estão em RELEASE_0.9.20.md. A validação num Android físico continua pendente.
+A apresentação foi simplificada na World 0.9.21: objetivos num quadro no jogador; treino e confiança só com valores; seleção de capacidades apenas dentro do treino; explicações na ajuda. Os detalhes e testes estão em RELEASE_0.9.21.md. A validação num Android físico continua pendente.
 
 ## Cópia na Google Drive
 

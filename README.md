@@ -1,3 +1,17 @@
+## Scorer World 0.9.21 — compact player and training screens
+
+[Download World 0.9.21 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.21/Scorer-World-0.9.21.apk)
+
+Player objectives share one panel. Training and coach confidence contain values
+and controls; all explanations are in justified Help. Skill selection is confined
+to Training. Tap the green hub trust value (or compact Coach Trust action) for
+confidence stats. Existing careers, skill progress and trophy data are retained.
+
+30 focused core checks,178 native cases with corrected navigation/count reruns,
+and165 targeted layout cases validated. Actual APK/signing checks passed.
+Physical Android acceptance remains pending; DEBUG QA.
+[Scope and validation](docs/RELEASE_0.9.21.md) · [APK evidence](docs/RELEASE_0.9.21_artifacts.json).
+
 ## Scorer World 0.9.20 — objectives, skills and coach trust
 
 [Download World 0.9.20 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.20/Scorer-World-0.9.20.apk)
