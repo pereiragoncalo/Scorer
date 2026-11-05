@@ -1,3 +1,12 @@
+## 2026-11-05 — World 0.9.18
+
+English default/schema2 preference migration, compact launch notice, gameplay-only
+justified help, coach closing paragraph below the portrait. Existing QA certificate,
+arm64/API36 and 16KB packaging preserved. 354 core tests and 168 native cases
+validated (full native run followed by corrected expectation reruns); 891 responsive
+cases plus 33 final Help reruns, zero findings. Physical Android remains pending.
+See RELEASE_0.9.18.md and RELEASE_0.9.18_artifacts.json for scope and APK digest.
+
 ## 2026-11-04 — World0.9.7: integrated schedules and verified APK
 
 Owner paused country research and requested the APK. Integrated real regular capacities/legs and executable splits for38 countries/76 divisions in NEW careers. Old careers pin their original model and retain fixtures/history/UIDs. Smaller new rosters archive identities; larger rosters add deterministic fictional clubs without consuming reserves. Rank-locked split groups, one-time half points, unequal group endings, Finland final-round venue allocation, undrawn calendar dates, Sweden3v4 access, South African three-club promotion and China/Vietnam direct exchanges are implemented. Broader access/licence/tie clauses remain documented limitations; no full-country certification. Unrelated root WIP excluded.

@@ -1,3 +1,18 @@
+## Scorer World 0.9.18 — English default and compact screens
+
+[Download World 0.9.18 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.18/Scorer-World-0.9.18.apk)
+
+English starts by default; saved language choices and phone-country contracts remain
+independent. Compact justified launch notice retains the automatic usage disclosure.
+Help has justified gameplay instructions. Coach closing feedback starts below the
+portrait and spans the panel width. Existing career-transfer Settings remain accessible.
+
+354 core and 168 native Kivy tests validated; 891 layout cases have no findings,
+including 33 repeated Help cases after the final Settings-access adjustment.
+Exact APK source and upgrade signing checks are documented with the release.
+Physical Android handset validation remains pending; this is DEBUG QA, not Play approval.
+[Changes](docs/RELEASE_0.9.18.md) · [APK evidence](docs/RELEASE_0.9.18_artifacts.json).
+
 ## Scorer World0.9.17 — responsive layout audit and corrections
 
 [Download World0.9.17 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.17/Scorer-World-0.9.17.apk) ·
