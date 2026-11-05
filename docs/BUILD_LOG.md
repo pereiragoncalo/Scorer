@@ -1,3 +1,10 @@
+### 0.9.22 public download verified
+
+Delivery workflow42083196774 succeeded. Unauthenticated public download matched
+all107424967 local APK bytes and SHA25655b0a72984c3d8378c50561d4038ee78d2d30423003094d5306707fa008fc034;
+Content-Disposition is attachment. Public responsive report and six-point list
+also matched the reviewed local bytes. Evidence:RELEASE_0.9.22_download.json.
+
 ### 0.9.22 final verification
 
 Final full native suite:179/179 passed in220.528s; core373/373. Final924 responsive

@@ -1,0 +1,24 @@
+{
+  "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.22/Scorer-World-0.9.22.apk",
+  "status": 200,
+  "bytes": 107424967,
+  "sha256": "55b0a72984c3d8378c50561d4038ee78d2d30423003094d5306707fa008fc034",
+  "content_disposition": "attachment; filename=Scorer-World-0.9.22.apk",
+  "verified_utc": "2026-11-05T18:20:43.448076+00:00",
+  "workflow_run": 42083196774,
+  "source_commit": "d5fcaf62711d5b8faca86b893198a1cf4db1ceb1",
+  "responsive_report": {
+    "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.22/responsive_0.9.22.json",
+    "status": 200,
+    "bytes": 192479,
+    "sha256": "67241a57a96cfbeea28d28158d2bf1d4ff66e330cb51b81966c4fc992aadf442",
+    "content_disposition": "attachment; filename=responsive_0.9.22.json"
+  },
+  "improvement_list": {
+    "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.22/GAMEPLAY_IMPROVEMENTS.md",
+    "status": 200,
+    "bytes": 2587,
+    "sha256": "0e4b5d65b2fb73c6fa63e30784e38eda3e92b727350efc6817ca18efd0a1fc4b",
+    "content_disposition": "attachment; filename=GAMEPLAY_IMPROVEMENTS.md"
+  }
+}
