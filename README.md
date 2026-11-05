@@ -1,3 +1,14 @@
+## Scorer World 0.9.23 — onside runs and wide deliveries
+
+[Download World 0.9.23 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.23/Scorer-World-0.9.23.apk)
+
+Match notices fit their text and omit expected minutes. A defender keeps through
+ball receivers onside at release, then trails the run. Deep crosses and corners
+add header opportunities within the existing attempt cap. Newspaper text wraps
+beside/below the photo, without the Illustration caption. DEBUG QA; existing
+careers remain compatible and physical Android acceptance is pending.
+[Changes and validation](docs/RELEASE_0.9.23.md) · [APK evidence](docs/RELEASE_0.9.23_artifacts.json).
+
 ## Scorer World 0.9.22 — Scorer Retro
 
 [Download World 0.9.22 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.22/Scorer-World-0.9.22.apk)

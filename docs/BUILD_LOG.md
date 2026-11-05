@@ -1,3 +1,16 @@
+### 0.9.23 final verification
+
+375 core tests passed. Full native182-case run:181 passed, one old five-kind
+allowlist rejected long_cross. Added long_cross/corner and6.5m minimum header
+distances to its regression; the complete60-fixture rerun passed in0.511s. No
+runtime change required.144 translated notice combinations and real onside/
+trailing actor checks passed. Expanded957-case responsive report has zero findings.
+APK exact modules/data/images, seven deliveries, legal release geometry, saves,
+progression/competitions, edition/safety, same DEBUG certificate and16KB ELF/ZIP
+checks passed. APK107427995bytes, SHA256
+6ac99368c41e3c13b4d3bd1c04562b36e6b587bf81921f6dccd0e421f7c6f296.
+Physical Android acceptance remains pending.
+
 ## 2026-11-05 — World 0.9.23 opportunity and text fixes
 
 Removed expected playing time from match notices. Replaced stacked repeated
