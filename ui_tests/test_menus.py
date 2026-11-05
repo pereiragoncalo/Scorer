@@ -1158,7 +1158,7 @@ class MenuTests(unittest.TestCase):
         self.game.view = 'training'
         self.game.draw()
         settle()
-        button = next(w for w in self.game._menu.walk() if isinstance(w, TouchButton) and 'TRAINING' in w.text)
+        button = next(w for w in self.game._menu.walk() if isinstance(w, TouchButton) and w.text in ('START TRAINING','RESUME TRAINING'))
         button.dispatch('on_release')
         settle()
         self.assertEqual(self.game.view, 'shot')

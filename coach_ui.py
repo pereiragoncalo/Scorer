@@ -28,7 +28,7 @@ class CoachScreen(FloatLayout):
         self.style_text=self.loc.tr(STYLES[m['style']])
         self.style=self.label(self.style_text,MUTED)
         recent=c._current_coach_state()['recent']
-        self.recent=self.label(self.loc.tr('Recent club form: {goals} goals in {games} appearances.',goals=sum(recent),games=len(recent)) if recent else '',MUTED)
+        self.recent=self.label(self.loc.tr('{goals} goals / {games} games · Trust {trust}/100 · {role}',goals=sum(recent),games=len(recent),trust=c.coach_trust,role=self.loc.tr(c.team_role)),MUTED)
         self.feedback=self.label(self.full_text,INK)
         self.closing=self.label('',INK);self.closing.halign='justify'
         self.portrait=Image(source=c.coach_portrait,fit_mode='contain',size_hint=(None,None));self.add_widget(self.portrait)
@@ -78,6 +78,7 @@ class CoachScreen(FloatLayout):
             pw=min(dp(220),max(dp(60),(right-left)*.24));self.portrait.size=(pw,min(pw*2/3,th));self.portrait.pos=(left,top-self.portrait.height)
             tx=left+pw+dp(10);tw=max(dp(20),right-tx)
         selected=None
+        portrait_height=self.portrait.height
         gap=dp(8)
         for text in (self.full_text,self.short_text):
             lead,_,closing=text.rpartition('\n\n')
@@ -86,11 +87,14 @@ class CoachScreen(FloatLayout):
                 self.closing.text=closing;self.closing.font_name=self.loc.font(closing)
                 lead_h=self.measured_height(self.feedback,tw,size,0)
                 closing_h=self.measured_height(self.closing,right-left,size,0)
-                upper_h=max(lead_h,0 if compact else self.portrait.height)
+                photo_h=0 if compact else min(portrait_height,max(dp(36),th-gap-closing_h))
+                upper_h=max(lead_h,photo_h)
                 if upper_h+gap+closing_h<=th:
-                    selected=(size,lead_h,closing_h,upper_h);break
+                    selected=(size,lead_h,closing_h,upper_h,photo_h);break
             if selected:break
-        size,lead_h,closing_h,upper_h=selected or (9,lead_h,closing_h,upper_h)
+        size,lead_h,closing_h,upper_h,photo_h=selected or (9,lead_h,closing_h,upper_h,photo_h)
+        if not compact:
+            self.portrait.height=photo_h;self.portrait.y=top-photo_h
         self.place(self.feedback,tx,top-lead_h,tw,lead_h,size)
         self.place(self.closing,left,top-upper_h-gap-closing_h,right-left,closing_h,size)
         self.feedback_font_size=size;self.layout_fits=selected is not None

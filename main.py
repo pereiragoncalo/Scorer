@@ -852,9 +852,12 @@ class StrikerGame(Widget):
         chance_profile = self.career.opponent_chance_profile(opponent)
         chance_total = self.career.chance_count(opponent)
         final_minute = 90 + self.match_first_stoppage + self.match_stoppage
-        self.match_chance_minutes = sorted(
-            self.career.rng.sample(range(3, final_minute), min(chance_total, final_minute - 3))
-        )
+        self.match_stakes=match_stakes(self.career,self.match_competition,self.match_home,self.match_away)
+        self.match_entry_minute,self.match_exit_minute=self.career.playing_window(self.match_is_international,bool(self.match_stakes['kind']))
+        first=self.match_entry_minute+(self.match_first_stoppage if self.match_entry_minute>=45 else 0)
+        last=self.match_exit_minute+(self.match_first_stoppage if self.match_exit_minute>45 else 0)+(self.match_stoppage if self.match_exit_minute==90 else 0)
+        available=range(max(3,first+1),last)
+        self.match_chance_minutes = sorted(self.career.rng.sample(available,min(chance_total,len(available))))
         self.match_chance_index = 0
         self.match_easy_chance_index = self.career.rng.randrange(len(self.match_chance_minutes)) if self.match_chance_minutes and self.career.rng.random() < chance_profile.clear_chance_probability else -1
         penalty_slots=[i for i in range(chance_total) if i!=self.match_easy_chance_index] or list(range(chance_total))
@@ -890,11 +893,12 @@ class StrikerGame(Widget):
         ]
         self.match_goal_events = sorted(goal_events, key=lambda event: event[0])
         self.match_stakes = match_stakes(self.career, self.match_competition, self.match_home, self.match_away)
-        self.match_chance_minutes = late_opportunity(
-            self.match_chance_minutes, self.match_first_stoppage, final_minute,
-            (self.career.world_seed, self.career.season, self.career.week,
-             self.match_competition, self.match_home.uid, self.match_away.uid),
-            bool(self.match_stakes['kind']))
+        if self.match_exit_minute==90:
+            self.match_chance_minutes = late_opportunity(
+                self.match_chance_minutes, self.match_first_stoppage, final_minute,
+                (self.career.world_seed, self.career.season, self.career.week,
+                 self.match_competition, self.match_home.uid, self.match_away.uid),
+                bool(self.match_stakes['kind']))
         self.match_finished = False
         self.match_summary = ""
         self.match_moment = ""
@@ -1057,6 +1061,8 @@ class StrikerGame(Widget):
         self.ball.reset(self.shot_origin_x,self.shot_origin_y,z)
         self._generate_field_players()
         self.shot_time_limit=max(2.7,self.shot_time_limit*OPPORTUNITY_TIMING[kind])
+        bonus,steadiness=self.career.finishing_controls(self.shot_type)
+        self.shot_time_limit+=bonus;self.current_aim_speed*=steadiness
         self.shot_time_left=self.shot_time_limit
         self.buildup_progress=0.;self.frozen_scene_time=None
         self.buildup_actors=[];self.buildup_blocker=None
@@ -1230,7 +1236,9 @@ class StrikerGame(Widget):
     def _advance_after_shot(self) -> None:
         scored = self.result_text == "GOAL!"
         if self.shot_context == "training":
-            if not self.career.record_training_shot(scored):
+            focus=self.career.training_focus
+            on_focus=(self.aim_z<=.9 if focus=='low' else abs(self.aim_x)>=self.goal_half_width/3 if focus=='placed' else self.shot_type=='header' if focus=='heading' else self.shot_type=='penalty')
+            if not self.career.record_training_shot(scored,on_focus):
                 self.training_completed = False
                 self.view = 'training'
                 self.shot_context = 'career'
@@ -1410,6 +1418,14 @@ class StrikerGame(Widget):
 
 
     def _choose_shot_origin(self) -> None:
+        if self.shot_context=='training' and self.career.training_focus in ('heading','penalties'):
+            focus=self.career.training_focus;rng=self.career.rng
+            self.shot_type='header' if focus=='heading' else 'penalty'
+            self.one_on_one=focus=='penalties'
+            self.shot_origin_x,self.shot_origin_y=(rng.uniform(-1.8,1.8),rng.uniform(5.,7.)) if focus=='heading' else PENALTY_ORIGIN
+            self.ball.reset(self.shot_origin_x,self.shot_origin_y,HEADER_BALL_HEIGHT if focus=='heading' else None)
+            self.field_players=[];self.player_kick_progress=0.;self.last_field_collision=None
+            self.goalkeeper_x=self._aligned_goalkeeper_x();self.goalkeeper_vx=0.;return
         if self.shot_context=="match" and self.current_chance_difficulty=="penalty":
             self.one_on_one=True;self.shot_type="penalty";self.last_origin_index=-2
             self.shot_origin_x,self.shot_origin_y=PENALTY_ORIGIN
@@ -1912,6 +1928,7 @@ class StrikerGame(Widget):
             destination_x - self.ball.x, self.ball.y
         )
         flight_time = self._shot_flight_time(horizontal_distance, self.shot_type == "header")
+        if self.shot_context=='match':flight_time/=self.career.low_finish_speed(self.shot_type,destination_z)
 
         from shot_trajectory import launch_velocity
         self.ball.vx,self.ball.vy,self.ball.vz = launch_velocity(
@@ -2852,6 +2869,8 @@ class StrikerGame(Widget):
         if self.view in ('splash','data_notice'):
             if self.view=='data_notice' and key==27:self._request_exit()
             return True
+        if key==27 and self.view=='development':
+            self._activate_ui('development_back');return True
         if key==27 and self.view=='newspaper':
             self._activate_ui('post_match_continue');return True
         if key==27 and self.view=='coach' and (self.career.coach_meeting_required or self.career.post_match_stage):return True
@@ -3017,6 +3036,18 @@ class StrikerGame(Widget):
             cup=self.career.world_competitions.tournaments[self.competition_key]
             if cup.groups:self.competition_group=(self.competition_group+int(value))%len(cup.groups)
             self.draw();return
+        if action=='development' and self.view in ('profile','training'):
+            self._development_return=self.view
+            if self.view=='profile':self._profile_name_draft=self._menu.body.name.text if self._menu is not None else self.career.player_name
+            self.development_tab='skills' if value=='skills' else 'objectives';self._development_scroll_y=1.;self.view='development';return
+        if action=='development_back' and self.view=='development':
+            self.view=getattr(self,'_development_return','profile');return
+        if action=='development_tab' and self.view=='development' and value in ('objectives','skills','trust'):
+            self.development_tab=value;self._development_scroll_y=1.;return
+        if action=='training_focus' and self.view=='development':
+            scroll=getattr(self._menu.body,'scroll',None) if self._menu is not None else None
+            if scroll is not None:self._development_scroll_y=scroll.scroll_y
+            self.career.choose_training_focus(value);return
         if action=='competitions_back' and self.view in ('competitions','competition'):
             self.view='competitions' if self.view=='competition' else 'world';self.draw();return
         if action=='notice_exit' and self.view=='data_notice':self._reject_notice();return
@@ -3105,6 +3136,7 @@ class StrikerGame(Widget):
             self._profile_return = "hub"
             self.view = "profile"
         elif action == "save_profile" and self.view == "profile":
+            self._profile_name_draft=None
             try:
                 if edition.is_world() and self._profile_return == 'offers':
                     draft = value if isinstance(value, dict) else dict(self._player_draft or {
@@ -3117,6 +3149,7 @@ class StrikerGame(Widget):
             except ValueError as error:
                 self.career.message = str(error) if any(word in str(error) for word in ("scorer", "country", "nationality", "World")) else 'Enter a name with at least 2 characters.'
         elif action == "cancel_profile" and self.view == "profile":
+            self._profile_name_draft=None
             self.view = "hub" if self._profile_return == "hub" else "start"
         elif action == "exit":
             self._request_exit()
@@ -5582,6 +5615,9 @@ class StrikerGame(Widget):
             )
 
 
+        if self.shot_context=='training' and self.state==self.STATE_AIMING:
+            from player_development import NAMES
+            self._draw_text(NAMES[self.career.training_focus],self.center_x,self.y+dp(38),max(11,int(self.height*.022)),(.94,.98,.91,1),'center',max_width=self.width-dp(100))
         if self.current_opportunity is not None and self.state in (self.STATE_BUILDUP,self.STATE_AIMING):
             label=OPPORTUNITY_TEXT[self.current_opportunity.kind][0]
             status='BUILD-UP' if self.state==self.STATE_BUILDUP else 'BALL RECEIVED — AIM AND SHOOT'

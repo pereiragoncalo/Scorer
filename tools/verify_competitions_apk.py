@@ -9,6 +9,7 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
             obj=types.ModuleType(name);obj.__file__=str(Path.cwd()/(name+'.py'));sys.modules[name]=obj
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
+        development=module('player_development')
         news=module('newspaper');coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
         formats=module('domestic_formats');kits=module('club_kits');competitions=module('world_competitions');module('promotion_playoffs');access=module('domestic_playoffs');calendar=module('international_calendar');module('two_divisions');module('season_transitions');rules=module('domestic_rules');hon=module('honours');career=module('career');competitions=module('world_competitions')
         opportunities=module('opportunity_sequences')
@@ -23,6 +24,14 @@ with zipfile.ZipFile(sys.argv[1]) as z:
         with tempfile.TemporaryDirectory() as directory:
             os.environ['STRIKER_SAVE_DIR']=directory
             c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0]);c.next_match();assert c.world_competitions
+            assert c.coach_trust==50 and c.choose_training_focus('heading') and c.begin_training()
+            for _ in range(3):assert c.record_training_shot(True,True)
+            c.complete_training(999);assert c.development['skills']['heading']==dict(level=0,xp=24)
+            assert c.load() and c.development['skills']['heading']['xp']==24
+            c.complete_training(999);assert c.development['skills']['heading']['xp']==24
+            c.development.update(trust=40,peak_trust=50);assert c.playing_window()==(60,90)
+            c.development=development.fresh(c.season);c._ensure_development();c._consume_match_training();c.stamina=c.morale=10.;c.save()
+            print('Actual APK: persisted focused XP, no duplicate rewards, role/minutes and neutral legacy progression verified')
             assert not c.coach_meeting_required and c.begin_training()
             c.record_coach_performance(0,1,[],False,key_match=True)
             assert c.coach_meeting_required and not c.begin_training()

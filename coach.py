@@ -176,6 +176,7 @@ class CoachCareer:
         state['latest_decisive']=state['latest_decisive'] or any(
             (goals>=2 and key_match) or (e['kind'] in ('equaliser','lead') and e['outcome']=='goal' and goals>=1 and not_lost)
             for e in events) or (key_match and goals>=2)
+        self.record_development_match(goals,misses,key_match)
         self.coach_state=state
 
 

@@ -29,7 +29,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('newspaper','coach', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
+MENU_VIEWS = frozenset(('development','newspaper','coach', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -140,7 +140,7 @@ class CareerMenu(BoxLayout):
         signature = (tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
-                     self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required, str(c.coach_state), str(c.press_state),
+                     self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required, str(c.coach_state), str(c.press_state), str(c.development),getattr(self.game,'development_tab','objectives'),
                      self.game.help_page, self.game.editor_club_index, self.game.editor_key, self.game.world_country, self.game.world_league_key, c.alias_revision, self.game.reward_ad_status, Metrics.density, Metrics.fontscale, self._desktop_dashboard_available(),
                      (c.current_league.round_index, tuple(c.current_league.scorer_goals.items())) if self._desktop_dashboard_available() else None)
         if signature != self._signature:
@@ -227,7 +227,7 @@ class CareerMenu(BoxLayout):
                 group.add_widget(MenuTile(title,lambda a=action:self.action(a)))
             header.add_widget(group)
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view in ('world_country','editor') else 'hub')
+            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view in ('world_country','editor') else 'development_back' if self.game.view=='development' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view == 'offers':
@@ -237,6 +237,9 @@ class CareerMenu(BoxLayout):
         if self.game.view!='hub':
             header.bind(minimum_height=lambda row,height:setattr(row,'height',max(dp(52),height)))
         self.add_widget(header)
+        if self.game.view=='development':
+            from development_ui import DevelopmentScreen
+            self.scroll=None;self.body=DevelopmentScreen(self);self.add_widget(self.body);return
         if self.game.view == 'hub':
             self.scroll = None
             if self._desktop_dashboard_available():
@@ -321,8 +324,12 @@ class CareerMenu(BoxLayout):
         used = c.trained_this_week
         compact = g.height < dp(480)
         resumable = c.training_session_week == c.week and not used
-        card = self.card('Finishing practice')
+        from player_development import NAMES,HINTS
+        card = self.card(NAMES[c.training_focus] if compact else 'Finishing practice')
         card.spacing = dp(4)
+        if not compact:
+            card.label(NAMES[c.training_focus],heading=True)
+            card.label(HINTS[c.training_focus],muted=True)
         if g.training_completed and c.trained_this_week:
             card.label(f'Training complete · {g.training_goals}/3 goals', heading=True)
         elif resumable:
@@ -341,7 +348,9 @@ class CareerMenu(BoxLayout):
             card.label(f'Energy: {c.stamina:.1f}/20  ·  Morale: {c.morale:.1f}/20', muted=True)
             button = self._button('TRAINING COMPLETE' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
             button.disabled = used or c.coach_meeting_required
-            card.add_widget(button)
+            actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
+            actions.add_widget(self._button('TRAINING FOCUS','development','skills'));actions.add_widget(button)
+            card.add_widget(actions)
             return
         plan = GridLayout(cols=2 if self.width >= dp(600) else 1, spacing=dp(10), size_hint_y=None)
         plan.bind(minimum_height=plan.setter('height'), width=lambda widget, width: setattr(widget, 'cols', 2 if width >= dp(600) else 1))
@@ -363,7 +372,7 @@ class CareerMenu(BoxLayout):
         button = self._button('TRAINING COMPLETE' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
         button.disabled = used or c.coach_meeting_required
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
-        actions.add_widget(button)
+        actions.add_widget(self._button('TRAINING FOCUS','development','skills'));actions.add_widget(button)
         card.add_widget(actions)
     def _table_zones(self,league):
         c=self.game.career
@@ -675,6 +684,9 @@ class MatchNotice(BoxLayout):
         self.body.add_widget(FlowLabel(text=detail, font_size=sp(13), halign='center'))
         if not game.match_finished and not game.match_halftime:
             index=game.match_chance_index
+            if not game.match_is_international:
+                minutes=getattr(game,'match_exit_minute',90)-getattr(game,'match_entry_minute',0)
+                self.body.add_widget(FlowLabel(text=game.i18n.tr('Expected playing time: {minutes} minutes',minutes=minutes),font_size=sp(12),halign='center'))
             if index==game.match_penalty_chance_index:
                 self.body.add_widget(FlowLabel(text='PENALTY',bold=True,color=GREEN,halign='center'))
                 self.body.add_widget(FlowLabel(text='You have been chosen to take the penalty.',font_size=sp(14),halign='center'))
@@ -975,6 +987,7 @@ class MainDashboard(BoxLayout):
         self.season.add_widget(numbers)
         self.season.add_widget(BoundedLabel(localize=False,text=menu.game.i18n.league(c,c.current_league),
                                            color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
+        self.season.add_widget(BoundedLabel(text=menu.game.i18n.tr('Trust {trust}/100 · {role}',trust=c.coach_trust,role=menu.game.i18n.tr(c.team_role)),localize=False,color=GREEN,font_size=sp(10),size_hint_y=None,height=dp(20)))
         self.hero.add_widget(self.season)
         if menu.hub_header_actions is not None:
             group=menu.hub_header_actions
@@ -1048,7 +1061,7 @@ class PlayerScreen(FloatLayout):
             self.game._player_draft = {'name':'','nationality':self.game.career.nationality,
                                        'country':self.game.career.current_league.country}
         self.draft = self.game._player_draft if self.world_creation else None
-        self.name = TextInput(text=menu.game.career.player_name if existing else self.draft['name'] if self.draft else '',
+        self.name = TextInput(text=(menu.game.career.player_name if getattr(menu.game,'_profile_name_draft',None) is None else menu.game._profile_name_draft) if existing else self.draft['name'] if self.draft else '',
                               hint_text='Player name', multiline=False, write_tab=False,
                               font_size=sp(17), padding=[dp(12), dp(12)],
                               size_hint_y=None, height=dp(52), background_normal='', background_active='',
@@ -1081,6 +1094,8 @@ class PlayerScreen(FloatLayout):
             self.trophy_scroll = ScrollView(do_scroll_x=False, size_hint_y=None, height=dp(120))
             cabinet = BoxLayout(orientation='vertical', size_hint_y=None, spacing=dp(6))
             cabinet.bind(minimum_height=cabinet.setter('height'))
+            cabinet.add_widget(MenuTile('PLAYER DEVELOPMENT',lambda:menu.action('development')))
+            cabinet.add_widget(FlowLabel(text=menu.game.i18n.tr('Trust {trust}/100 · {role}',trust=menu.game.career.coach_trust,role=menu.game.i18n.tr(menu.game.career.team_role))))
             cabinet.add_widget(FlowLabel(text='TROPHIES',bold=True,color=GREEN))
             trophies=menu.game.career.honours['trophies']
             if not trophies:cabinet.add_widget(FlowLabel(text='No recorded trophies yet.',color=MUTED))

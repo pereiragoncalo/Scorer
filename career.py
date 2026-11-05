@@ -742,8 +742,9 @@ class WorldLeague:
 
 
 from two_divisions import TwoDivisionCareer
+from player_development import DevelopmentCareer, fresh as fresh_development, clean as clean_development
 
-class CareerMode(CoachCareer, TwoDivisionCareer):
+class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
     """Carreira persistente e simulação leve do futebol mundial."""
 
 
@@ -795,6 +796,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.press_state = newspaper.fresh_state()
         self.coach_appearance = clean_appearance(None)
         self.coach_state = fresh_state()
+        self.development = fresh_development(self.season)
         self.last_training_week = -1
         self.training_session_week = -1
         self.training_shots_taken = 0
@@ -1545,6 +1547,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         if club_name not in self.offers:
             return
         self.club_name = club_name
+        self._ensure_development()
         self.message = f"Contract signed with {club_name}."
         self._select_coach_appearance()
         self.save()
@@ -1597,7 +1600,8 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         trained = self.trained_this_week
         training_goals = self.training_session_goals if trained and self.training_session_week == self.week else 0
         training_bonus = clamp(training_goals, 0, 3) * 0.15
-        centre = 0.4 + factor * 2.5 + training_bonus - profile.pressure * 1.5
+        role_bonus=0. if opponent and (opponent.uid.startswith('nation:') or opponent.league=='National Team') else self.opportunity_role_bonus
+        centre = 0.4 + factor * 2.5 + training_bonus - profile.pressure * 1.5 + role_bonus
         floor = 3 if self.morale > 15 else 2 if self.morale > 10 else 1 if trained else 0
         ceiling = max(floor, profile.max_chances)
         return int(clamp(round(self.rng.gauss(centre, 0.70)), floor, ceiling))
@@ -1843,25 +1847,32 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             self.message = 'Training is complete. Play the next match to train again.'
             return False
         if self.training_session_week == self.week:
+            previous=copy.deepcopy(self.development)
+            if self.development['session'] is None:
+                self._reserve_development_training()
+                if self.save() is False:self.development=previous;return False
             self.message = 'Resume your weekly training session.'
             return True
-        previous = (self.training_session_week, self.training_shots_taken, self.training_session_goals)
+        previous = (self.training_session_week, self.training_shots_taken, self.training_session_goals,copy.deepcopy(self.development))
+        self._reserve_development_training()
         self.training_session_week = self.week
         self.training_shots_taken = self.training_session_goals = 0
         self.message = 'Weekly training started.'
         if self.save() is False:
-            self.training_session_week, self.training_shots_taken, self.training_session_goals = previous
+            self.training_session_week, self.training_shots_taken, self.training_session_goals,self.development = previous
             return False
         return True
 
-    def record_training_shot(self, scored: bool) -> bool:
+    def record_training_shot(self, scored: bool, on_focus: bool = False) -> bool:
         if self.coach_meeting_required or self.training_session_week != self.week or self.trained_this_week or self.training_shots_taken >= 3:
             return False
-        previous = (self.training_shots_taken, self.training_session_goals)
+        previous = (self.training_shots_taken, self.training_session_goals,copy.deepcopy(self.development))
         self.training_shots_taken += 1
         self.training_session_goals += int(bool(scored))
+        if self.development['session'] is not None:
+            self.development['session']['on_focus']+=int(bool(scored) and bool(on_focus))
         if self.save() is False:
-            self.training_shots_taken, self.training_session_goals = previous
+            self.training_shots_taken, self.training_session_goals,self.development = previous
             return False
         return True
 
@@ -1870,6 +1881,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.last_training_week = -1
         self.training_session_week = -1
         self.training_shots_taken = self.training_session_goals = 0
+        self.development['session']=None
 
     def complete_training(self, goals: int) -> float:
         if self.coach_meeting_required:
@@ -1883,14 +1895,15 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             return 0.0
         # Use persisted shots, never a caller-supplied score or an abandoned session.
         goals = self.training_session_goals
-        previous = (self.stamina, self.morale, self.last_training_week, self.training_session_week)
+        previous = (self.stamina, self.morale, self.last_training_week, self.training_session_week,copy.deepcopy(self.development))
         self.stamina = clamp(self.stamina + 1.25 + goals * 0.25, 0.0, 20.0)
         self.morale = clamp(self.morale + max(0, goals - 1) * 0.20, 0.0, 20.0)
         self.last_training_week = self.week
         self.training_session_week = self.week
+        self._reward_development_training()
         self.message = f"Training complete: {goals}/3 goals. Energy increased."
         if self.save() is False:
-            self.stamina, self.morale, self.last_training_week, self.training_session_week = previous
+            self.stamina, self.morale, self.last_training_week, self.training_session_week,self.development = previous
             return 0.0
         return self.stamina - previous[0]
 
@@ -2015,6 +2028,9 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         if (club_name, league_key) not in self.agent_offers or not any(c.name==club_name for c in self.leagues[league_key].clubs):
             return
         self.activate_world_country(self.leagues[league_key].country)
+        old_uid=self.club.uid if self.club else ''
+        previous_development=copy.deepcopy(self.development)
+        previous_contract=(self.club_name,self.league_key,self.free_agent,list(self.agent_offers),self.cup_active,copy.deepcopy(self.coach_appearance))
         new_season_contract=self.free_agent and self.week==0 and self.world_competitions is None
         self.club_name = club_name
         self.league_key = league_key
@@ -2023,7 +2039,11 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.cup_active = new_season_contract
         self.message = f"Transfer completed to {club_name}."
         self._select_coach_appearance()
-        self.save()
+        self._ensure_development()
+        if self.club.uid!=old_uid:self.development['transfers']+=1
+        if self.save() is False:
+            self.development=previous_development
+            self.club_name,self.league_key,self.free_agent,self.agent_offers,self.cup_active,self.coach_appearance=previous_contract
 
 
     def _finish_world_season(self):
@@ -2032,6 +2052,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self._ensure_competitions();self._prepare_world_run_in();book=self.world_competitions;book.complete()
         self.completed_records=keep_best(self.completed_records,completed_snapshot(self))
         honours.collect_season(self,book)
+        self.finish_development_season()
         league=self.current_league;club=self.club;old_tier=club.tier
         position=next(i+1 for i,c in enumerate(league.table()) if c.uid==club.uid)
         # Simulate unvisited national cups as real knockout fixtures, storing only winners.
@@ -2085,6 +2106,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
         self.completed_records=keep_best(self.completed_records,completed_snapshot(self))
         league = self.current_league
         honours.collect_season(self)
+        self.finish_development_season()
         table = league.table()
         position = next(
             (index + 1 for index, club in enumerate(table) if club.name == self.club_name),
@@ -2234,6 +2256,7 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
             "press_state": self.press_state,
             "coach_appearance": self.coach_appearance,
             "coach_state": self.coach_state,
+            "development": self._ensure_development(),
             "training_gate_version": 2,
             "last_training_week": self.last_training_week,
             "training_session_week": self.training_session_week,
@@ -2635,6 +2658,9 @@ class CareerMode(CoachCareer, TwoDivisionCareer):
                     for home, away in other_league.pairings():
                         other_league.simulate_fixture(home, away, self.rng)
                     other_league.advance_round()
+            self.development=clean_development(data.get('development'),self.season,self.goals,self.matches)
+            self._ensure_development();self._recognise_development()
+            if self.training_session_week!=self.week:self.development['session']=None
             return True
         except (OSError, ValueError, TypeError, KeyError, AttributeError, OverflowError):
             # Keep both the original file and all pre-load state intact.

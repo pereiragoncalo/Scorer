@@ -20,11 +20,13 @@ Lista proposta e guardada em 5 de novembro de 2026, por ordem de prioridade.
 6. **História pessoal da carreira**
    Uma linha temporal com primeiro golo, hat-tricks, títulos, internacionalizações e transferências. O jornal pode recordar esses momentos e criar continuidade entre épocas.
 
-## Trabalho autorizado
+## Estado dos pontos
 
-O proprietário selecionou o ponto 5. Pediu também que a jogada seja mostrada até a bola chegar ao jogador: só então a ação para, aparece a mira e começa o tempo para rematar.
+- Pontos 1, 2 e 3 implementados na candidata World 0.9.20: objetivos sazonais e de carreira, quatro focos de treino com experiência/capacidades persistentes e confiança do treinador com estatuto, minutos e frequência de oportunidades.
+- Ponto 5 implementado na World 0.9.19: cruzamentos, passes atrasados, remates de primeira, ressaltos e livres diretos. A jogada é mostrada até a bola chegar ao jogador; só então para e aparecem a mira e o tempo para rematar.
+- Pontos 4 e 6 continuam como sugestões, não como funcionalidades concluídas.
 
-Os restantes pontos são sugestões, não funcionalidades concluídas.
+Os detalhes, critérios, testes e limitações da candidata estão em RELEASE_0.9.20.md. A validação num Android físico continua pendente.
 
 ## Cópia na Google Drive
 
