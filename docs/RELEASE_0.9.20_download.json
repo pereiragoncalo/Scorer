@@ -1,0 +1,24 @@
+{
+  "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.20/Scorer-World-0.9.20.apk",
+  "status": 200,
+  "bytes": 107402563,
+  "sha256": "26f198ec4a23c125e37b3e2d2868bca80907d0dfd73b79ca8cb00e127903f578",
+  "content_disposition": "attachment; filename=Scorer-World-0.9.20.apk",
+  "verified_utc": "2026-11-05T12:40:44.893480+00:00",
+  "workflow_run": 42028989293,
+  "source_commit": "45496ce152bae2e452f6e48dc78f6be2a3f4d64c",
+  "responsive_report": {
+    "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.20/responsive_0.9.20.json",
+    "status": 200,
+    "bytes": 192479,
+    "sha256": "67241a57a96cfbeea28d28158d2bf1d4ff66e330cb51b81966c4fc992aadf442",
+    "content_disposition": "attachment; filename=responsive_0.9.20.json"
+  },
+  "improvement_list": {
+    "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.20/GAMEPLAY_IMPROVEMENTS.md",
+    "status": 200,
+    "bytes": 2431,
+    "sha256": "a23fb68061b835cb9171098d3e78d883fe173db23e4b8276bda1722dc0c6bd44",
+    "content_disposition": "attachment; filename=GAMEPLAY_IMPROVEMENTS.md"
+  }
+}
