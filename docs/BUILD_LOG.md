@@ -1,3 +1,29 @@
+## 2026-11-05 — World 0.9.24 club-colour coverage repair
+
+Confirmed Vitória BA UIDf9554f2ce1ab5ff99892 was absent from club_kits.json and
+world_clubs.json, so kit_for_club fell through to a name-hashed generic palette.
+The current0.9.10 names pack has378 identities but the historical colour file
+covered only352. Audited all378 UID/name/provenance associations: no conflicting
+assignments,26 missing palettes (Spain6, Italy4, Brazil16). Added all26 from fresh
+Wikipedia infobox/revision references with explicit traditional secondary-colour
+simplifications for image-overlay colours. Vitória uses red shirt/black secondary,
+with white shorts/socks from the referenced home kit. No kit patterns/logos copied.
+
+Also retained a contrasting traditional secondary colour for8 existing all-one-
+colour palettes (Casa Pia, Académico Viseu, Amarante, Heidenheim, Le Mans, Athletic,
+Figueirense, Barra). Fresh factual source review covered these34 changed rows;
+other344 records retain their earlier reviewed values. Stable UID binding remains
+independent of editor aliases. Added offline builder completeness/identity guard
+against the current names pack, so future extra identities cannot silently omit
+colours. New tests verify Vitória in existing saves, home/away scenes and training
+after an international appearance, without reimporting aliases.
+
+18 targeted core/name-pack/edition and10 native kit/finishing tests passed.
+All378 current names/colour/provenance keys match. Syntax checks passed; actual
+native training preview inspected. No gameplay, physics, save or layout change.
+Candidate APK and public attachment verification follow. Unrelated WIP excluded.
+Physical Android acceptance remains pending.
+
 ### 0.9.23 public download verified
 
 Workflow42088992305 succeeded. The unauthenticated public attachment matched all

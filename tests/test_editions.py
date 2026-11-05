@@ -24,8 +24,8 @@ class EditionTests(unittest.TestCase):
             for product in ('free','world'):
                 root=prepare_edition(product,Path(temp)/product)
                 spec=configparser.ConfigParser(interpolation=None);spec.read(root/'buildozer.spec')
-                self.assertEqual(spec['app']['version'],'0.9.23')
-                self.assertEqual(spec['app']['android.numeric_version'],'1026923')
+                self.assertEqual(spec['app']['version'],'0.9.24')
+                self.assertEqual(spec['app']['android.numeric_version'],'1026924')
                 products[product]=spec['app']['package.domain']+'.'+spec['app']['package.name']
                 self.assertEqual(spec['app']['title'],'Scorer World' if product=='world' else 'Scorer')
                 expected_icon='assets/icon_world.png' if product=='world' else 'assets/icon.png'

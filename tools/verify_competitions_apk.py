@@ -54,10 +54,11 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             assert [len(l.clubs) for l in c.domestic_leagues('Brazil')]==[20,20]
             assert c.leagues['Scotland|1'].total_rounds==38
             assert c.leagues['Finland|2'].total_rounds==27
-            assert not c.display_aliases['clubs'] and len(kits.catalogue())==352
+            assert not c.display_aliases['clubs'] and len(kits.catalogue())==378
             by_uid={x.uid:x for l in c.leagues.values() for x in l.clubs}
             for uid,colours in kits.catalogue().items():
                 assert c.kit_for_club(by_uid[uid])==tuple(career.hex_rgba(x) for x in colours)
+            assert kits.catalogue()['f9554f2ce1ab5ff99892']==('FF0000','FFFFFF','FFFFFF','000000')
             before_kit=c.kit_for_club(c.club);c.display_aliases['clubs'][c.club.uid]='Edited club'
             assert c.kit_for_club(c.club)==before_kit
             c.save();d=career.CareerMode(edition.entitlement_provider(),save_slot='world');assert d.world_competitions.to_dict()==c.world_competitions.to_dict()
@@ -115,7 +116,7 @@ print('Actual APK bytecode: World fixtures/qualifying/brackets and career save/r
 
 print('Actual APK: two divisions, ten-club FIFO reserves, relegation release, free-agent export/reload/signing verified')
 
-print('Actual APK: 352 built-in club colour palettes resolve without real-name import and survive aliases')
+print('Actual APK: 378 built-in club colour palettes resolve without real-name import and survive aliases')
 
 print('Actual APK: persisted French playoff ladder, top-three foreign-league call-up criterion and FIFA window dates verified')
 

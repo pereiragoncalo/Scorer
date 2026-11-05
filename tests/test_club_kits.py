@@ -11,7 +11,7 @@ class KitTests(unittest.TestCase):
     career=helpers.TwoDivisionTests.career
     # Reuse isolated career helper, not the inherited test suite.
     def test_all_pack_clubs_have_uid_palettes_without_importing_names(self):
-        c=self.career();pack=json.loads((Path(__file__).resolve().parents[1]/'docs/data/name-packs/Scorer-World-Real-Names-Two-Divisions-2026.json').read_text());by_uid={x.uid:x for l in c.leagues.values() for x in l.clubs}
+        c=self.career();pack=json.loads((Path(__file__).resolve().parents[1]/'docs/data/name-packs/Scorer-World-Real-Names-0.9.10.json').read_text());by_uid={x.uid:x for l in c.leagues.values() for x in l.clubs}
         self.assertFalse(c.display_aliases['clubs']);self.assertEqual(set(pack['clubs']),set(catalogue()))
         before={uid:c.kit_for_club(by_uid[uid]) for uid in pack['clubs']}
         c.apply_names(pack)
@@ -41,3 +41,25 @@ class KitTests(unittest.TestCase):
             with patch('club_kits.Path.read_text',return_value='{"version":1,"clubs":{"bad":{"home":["oops"]}}}'):
                 self.assertIsNone(home_colours(c.club));self.assertEqual(len(c.kit_for_club(c.club)),4)
         finally:catalogue.cache_clear()
+
+    def test_vitoria_bahia_and_every_added_club_keep_real_colours_after_save(self):
+        c=self.career();uid='f9554f2ce1ab5ff99892'
+        clubs={x.uid:x for league in c.leagues.values() for x in league.clubs}
+        club=clubs[uid];c.club_name=club.name;c.league_key=next(k for k,l in c.leagues.items() if club in l.clubs)
+        expected=tuple(hex_rgba(value) for value in ('FF0000','FFFFFF','FFFFFF','000000'))
+        self.assertEqual(c.kit_for_club(club),expected)
+        c.display_aliases['clubs'][uid]='Vitória BA';c.save();self.assertTrue(c.load())
+        self.assertEqual(c.club.uid,uid);self.assertEqual(c.kit_for_club(c.club),expected)
+        c.display_aliases['clubs'].clear();self.assertEqual(c.kit_for_club(c.club),expected)
+
+    def test_build_rejects_incomplete_current_name_pack_coverage(self):
+        from tools.build_club_kits import build
+        from unittest.mock import patch
+        original=Path.read_text
+        def missing(path,*args,**kwargs):
+            text=original(path,*args,**kwargs)
+            if path.name=='club_kits.provenance.json':
+                data=json.loads(text);del data['clubs']['f9554f2ce1ab5ff99892'];return json.dumps(data)
+            return text
+        with patch.object(Path,'read_text',missing),self.assertRaisesRegex(ValueError,'Vitória BA'):
+            build()
