@@ -12,14 +12,12 @@ from newspaper import single_page_story, article,current_report
 
 INK=(.12,.105,.078,1)
 MUTED=(.36,.30,.21,1)
-PIXEL='assets/fonts/ScorerPressPixel.ttf'
-DISPLAY='assets/fonts/ScorerPressDisplay.ttf'
+PIXEL='assets/fonts/ScorerRetro.ttf'
+DISPLAY='assets/fonts/ScorerRetro.ttf'
 
 
 def press_font(loc,text,title=False):
-    fallback=loc.font(text)
-    if 'Noto' in str(fallback):return fallback
-    return DISPLAY if title else PIXEL
+    return loc.font(text)
 
 
 @lru_cache(maxsize=768)

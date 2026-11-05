@@ -107,8 +107,8 @@ class NewspaperUI(unittest.TestCase):
                 c=self.played(g,2,0);g.size=(1280,720);g._activate_ui('newspaper');g.draw();settle();p=g._menu.body
                 x,y,w,h=p.sheet_bounds
                 self.assertGreater(x,p.x);self.assertGreater(y,p.y);self.assertLess(w,p.width);self.assertLess(h,p.height)
-                self.assertIn('ScorerPressDisplay',p.masthead.font_name)
-                self.assertTrue(all('ScorerPressPixel' in part['font'] for page in p.pages for part in page))
+                self.assertIn('ScorerRetro',p.masthead.font_name)
+                self.assertTrue(all('ScorerRetro' in part['font'] for page in p.pages for part in page))
                 self.assertLess(p.photo.right,p.fragments[0].x)
                 self.assertTrue(p.layout_fits)
         finally:Window.size=old

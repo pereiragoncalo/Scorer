@@ -3626,7 +3626,7 @@ class StrikerGame(Widget):
             return
 
         layout = BoxLayout(orientation="vertical", spacing=8, padding=12)
-        layout.add_widget(UiLabel(text='Local names — on this device only', size_hint_y=None, height=36))
+        layout.add_widget(UiLabel(text='Local names — on this device only',font_name=self.i18n.font('Local names — on this device only'), size_hint_y=None, height=36))
         club_input = TextInput(text=club.name, multiline=False, hint_text='Club name')
         league_input = TextInput(text=career.current_league.name, multiline=False, hint_text='Competition name')
         layout.add_widget(club_input)

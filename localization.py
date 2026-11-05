@@ -2,6 +2,7 @@
 from contextlib import contextmanager
 from contextvars import ContextVar
 from functools import lru_cache
+from retro_glyphs import RETRO_CODEPOINTS
 import json
 import os
 from pathlib import Path
@@ -55,6 +56,11 @@ def patterns():
         if fields and sum(x.isalpha() for x in literals)>=2:
             rows.append((len(literals),re.compile(''.join(pieces),re.DOTALL),source))
     return [(regex,source) for _,regex,source in sorted(rows,key=lambda x:-x[0])]
+
+
+@lru_cache(maxsize=1024)
+def retro_supported(text):
+    return all(c.isspace() or ord(c) in RETRO_CODEPOINTS for c in text)
 
 
 class Localizer:
@@ -142,6 +148,12 @@ class Localizer:
         return Rendered(career.display_text(title,country))
 
     def font(self,text='',explicit=None):
+        if explicit:return explicit
+        if retro_supported(str(text)):
+            return str(ROOT/'assets/fonts/ScorerRetro.ttf')
+        return self.legacy_font(text)
+
+    def legacy_font(self,text='',explicit=None):
         if explicit:return explicit
         if not self.world:return 'Roboto'
         if self.language in CJK_FONTS:return str(ROOT/'assets/fonts'/CJK_FONTS[self.language])

@@ -98,7 +98,7 @@ class LocalizationTests(unittest.TestCase):
         from fontTools.ttLib import TTFont
         base=Path(__file__).resolve().parents[1]
         for lang in LANGUAGES:
-            file=CJK_FONTS.get(lang,'Barlow-Regular.ttf')
+            file=CJK_FONTS.get(lang,'ScorerRetro.ttf')
             font=TTFont(base/'assets/fonts'/file)
             try:
                 cmap=font.getBestCmap()

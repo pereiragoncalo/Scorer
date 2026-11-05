@@ -1,3 +1,21 @@
+## 2026-11-05 — World 0.9.22 font implementation
+
+Created Scorer Retro as a 645-character TTF with distinct cases, Latin accents,
+monospaced digits and licensed symbols. Global label/input/popup/canvas selectors
+and newspaper use it; splash fonts and main-menu image remain original. CJK/native
+script fallback retained. Unioned contours fix rendering seams seen in the first
+native preview. Original font source, licence and generated coverage committed.
+
+Syntax and 373 core tests passed. Initial 178-case native run exposed two tiny
+coach layout failures and one obsolete newspaper font assertion. Updated the
+assertion and fitted coach headers/paragraphs for tiny viewports; the 12 affected
+coach/readability tests passed. New real-widget test verifies labels, editable
+names, native fallback and splash/logo exceptions. Full final suite rerun ongoing
+at this source checkpoint. Responsive matrix: 924 cases, zero findings; its 33
+coach cases were rerun after the final compact adjustment. Actual menu/training/
+player/help previews inspected. Android packaging and delivery evidence follow.
+Physical handset acceptance remains pending. Unrelated root WIP excluded.
+
 ## 2026-11-05 — World 0.9.21 UI simplification
 
 Owner requested values only in Training/Coach Trust, one objectives panel for the

@@ -444,7 +444,7 @@ class CareerMenu(BoxLayout):
         card.label('Careers stay on your device. Public records are optional and can be removed. Uninstalling does not remove public records.')
         card.label('Scorer World is free, with an included names editor. No advertising or in-app purchases.')
         card.label('Local files and exports contain game progress. Keep exported files private. Data and font licences are included.')
-        card.label('GeoNames / CC BY 4.0 · OpenFootball / CC0 · Annexare / MIT · Barlow, Noto CJK / OFL 1.1 · CLDR / Unicode',muted=True,localize=False)
+        card.label('GeoNames / CC BY 4.0 · OpenFootball / CC0 · Annexare / MIT · Scorer Retro, Barlow, Noto CJK / OFL 1.1 · CLDR / Unicode',muted=True,localize=False)
         if release_settings.DEVELOPER_NAME:card.label(release_settings.DEVELOPER_NAME,localize=False)
         if release_settings.SUPPORT_EMAIL:card.label(release_settings.SUPPORT_EMAIL,localize=False)
         if release_settings.PRIVACY_URL:card.add_widget(self._button('FULL PRIVACY POLICY','open_privacy_policy'))
@@ -826,7 +826,7 @@ class LanguageScreen(BoxLayout):
         self.page=max(0,min((9-1)//count,self.page));self.game._language_page=self.page;self.counter.text=f'{self.page+1}/{(9-1)//count+1}'
         self.grid.clear_widgets()
         for code,name in list(LANGUAGES.items())[self.page*count:(self.page+1)*count]:
-            font=str(ROOT/'assets/fonts'/CJK_FONTS[code]) if code in CJK_FONTS else str(ROOT/'assets/fonts/Barlow-Regular.ttf')
+            font=str(ROOT/'assets/fonts'/CJK_FONTS[code]) if code in CJK_FONTS else str(ROOT/'assets/fonts/ScorerRetro.ttf')
             self.grid.add_widget(MenuTile(name,lambda value=code:self.menu.action('choose_language',value),
                                          accent=self.game.i18n.choice==code,localize=False,font_name=font))
 
@@ -837,9 +837,9 @@ class SplashScreen(FloatLayout):
         self.menu = menu
         self.add_widget(Image(source='assets/splash.png', fit_mode='contain'))
         self.add_widget(BoundedLabel(text='Usage counts are sent automatically. Details in Privacy.',
-                                    font_size=sp(10),halign='center',size_hint=(1,None),height=dp(24),
+                                    font_name=menu.game.i18n.legacy_font('Usage counts are sent automatically. Details in Privacy.'),font_size=sp(10),halign='center',size_hint=(1,None),height=dp(24),
                                     pos_hint={'x':0,'top':1}))
-        self.add_widget(BoundedLabel(text='TAP TO START', font_size=sp(13), bold=True,
+        self.add_widget(BoundedLabel(text='TAP TO START',font_name=menu.game.i18n.legacy_font('TAP TO START'),font_size=sp(13), bold=True,
                                     halign='center', size_hint=(1, None), height=dp(32),
                                     pos_hint={'x': 0, 'y': 0}))
 
@@ -1347,9 +1347,9 @@ class BrandMark(BoxLayout):
     def __init__(self, centered=False, word='SCORER', with_icon=False, **kwargs):
         super().__init__(orientation='vertical', spacing=0, **kwargs)
         alignment = 'center' if centered else 'left'
-        self.wordmark = BoundedLabel(text=word, localize=False, font_name='assets/fonts/BarlowCondensed-ExtraBoldItalic.ttf',
+        self.wordmark = BoundedLabel(text=word, localize=False, font_name='assets/fonts/ScorerRetro.ttf',
                                      font_size=sp(32), halign=alignment, size_hint_y=0.70)
-        self.credit = BoundedLabel(text='by clemir', localize=False, font_name='assets/fonts/Barlow-Regular.ttf',
+        self.credit = BoundedLabel(text='by clemir', localize=False, font_name='assets/fonts/ScorerRetro.ttf',
                                    font_size=sp(11), halign=alignment, color=MUTED, size_hint_y=0.30)
         if with_icon:
             # Give the S and remaining letters the same line, independent of

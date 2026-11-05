@@ -48,16 +48,18 @@ class CoachScreen(FloatLayout):
         measure.refresh()
         return max(dp(minimum),measure.texture.size[1]+dp(2))
     def fit(self,*_):
-        compact=self.height<dp(330);margin=dp(8 if compact else 16);x=self.x+margin;w=max(1,self.width-2*margin)
+        compact=self.height<dp(330);dense=self.height<dp(260);margin=dp(4 if dense else 8 if compact else 16);x=self.x+margin;w=max(1,self.width-2*margin)
         self.panel.pos=(x,self.y+margin);self.panel.size=(w,max(1,self.height-2*margin))
         left=x+margin;right=x+w-margin;top=self.top-2*margin
         header_top=top
         if compact:
-            title_h=self.measured_height(self.title,right-left-dp(70),15,22)
-            self.place(self.title,left,top-title_h,right-left-dp(70),title_h,15);top-=title_h+dp(3)
+            title_size=13 if dense else 15
+            title_h=self.measured_height(self.title,right-left-dp(70),title_size,18 if dense else 22)
+            self.place(self.title,left,top-title_h,right-left-dp(70),title_h,title_size);top-=title_h+dp(3)
             self.style.text=self.style_text+(' · '+self.recent.text if self.recent.text else '')
-            style_h=self.measured_height(self.style,right-left-dp(70),10,26)
-            self.place(self.style,left,top-style_h,right-left-dp(70),style_h,10);top-=style_h+dp(3)
+            style_size=8 if dense else 9
+            style_h=self.measured_height(self.style,right-left-dp(70),style_size,18 if dense else 22)
+            self.place(self.style,left,top-style_h,right-left-dp(70),style_h,style_size);top-=style_h+dp(3)
             self.recent.opacity=0
         else:
             self.style.text=self.style_text;self.recent.opacity=1
@@ -79,10 +81,10 @@ class CoachScreen(FloatLayout):
             tx=left+pw+dp(10);tw=max(dp(20),right-tx)
         selected=None
         portrait_height=self.portrait.height
-        gap=dp(8)
+        gap=dp(4 if compact else 8)
         for text in (self.full_text,self.short_text):
             lead,_,closing=text.rpartition('\n\n')
-            for size in ((18,17,16,15,14,13,12) if text==self.full_text else (15,14,13,12,11,10,9)):
+            for size in ((18,17,16,15,14,13,12) if text==self.full_text else (15,14,13,12,11,10,9,8) if dense else (15,14,13,12,11,10,9)):
                 self.feedback.text=lead;self.feedback.font_name=self.loc.font(lead)
                 self.closing.text=closing;self.closing.font_name=self.loc.font(closing)
                 lead_h=self.measured_height(self.feedback,tw,size,0)
