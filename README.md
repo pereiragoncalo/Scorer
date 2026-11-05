@@ -1,3 +1,20 @@
+## Scorer World 0.9.20 — objectives, skills and coach trust
+
+[Download World 0.9.20 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.20/Scorer-World-0.9.20.apk)
+
+Player name > Player Development opens Objectives, Skills and Coach Trust.
+Training Focus selects low/placed finishing, headers or penalties for the next
+three-shot session. Persisted experience improves bounded match controls.
+Club trust controls status, availability and chance frequency while preserving
+training/morale minimums; scoring and training allow recovery. Existing careers,
+trophies, names and post-match flow remain compatible.
+
+549 core/native cases validated with final targeted reruns; 924 responsive cases
+have no findings. Exact APK code, upgrade certificate and16KB packaging verified.
+Physical Android acceptance is pending; this is DEBUG QA, not Play approval.
+[Rules and validation](docs/RELEASE_0.9.20.md) · [APK evidence](docs/RELEASE_0.9.20_artifacts.json) ·
+[Saved six-point list](docs/GAMEPLAY_IMPROVEMENTS.md).
+
 ## Scorer World 0.9.19 — watch the move, then finish
 
 [Download World 0.9.19 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.19/Scorer-World-0.9.19.apk) ·

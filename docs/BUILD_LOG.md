@@ -1,3 +1,25 @@
+## 2026-11-05 — World 0.9.20 objectives, focused growth and coach trust
+
+Suggestion points1/2/3 implemented as optional bounded development save extension,
+legacy current-season seeding, seasonal objectives/archive and lifetime tracked
+milestones. Four focused practice types, persisted partial focus and on-focus XP,
+level cap10 and explicit bounded match control effects. Trust changes role/actual
+minute windows and chance frequency, retaining trained/morale floors and3maximum.
+Corrected no-goal penalties so mandatory practice does not hide prolonged poor form.
+Focus/save/XP and transfer failure rollback, once-only completion, neutral new-club
+trust, no invented past-season progress, no extra routine coach meetings.
+
+Full core370 passed; final24 focused progression/localisation checks include the
+added legacy recognition test (371 unique core cases validated). Full native178
+had one stale random-penalty assumption in the division aiming comparison; normal
+chance type now fixed in that comparison, final10 affected tests pass. Initial
+compact training and large-font Japanese coach fit failures corrected and22
+screen checks rerun successfully. Final924-case matrix has zero findings (132
+final changed-screen cases merged). New English screens inspected visually.
+Actual APK focus/XP/reload/idempotence/role checks plus compiled module/data,
+competition, edition, save, signing and16KB checks passed. Physical Android pending.
+Unrelated main/test helper/mode WIP kept outside tested APK source.
+
 ## 2026-11-05 — World 0.9.19 opportunity sequences
 
 Saved the six-item improvement list; Google Drive unavailable, no upload claimed.
