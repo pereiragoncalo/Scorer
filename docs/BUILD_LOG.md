@@ -1,3 +1,15 @@
+### 0.9.22 final verification
+
+Final full native suite:179/179 passed in220.528s; core373/373. Final924 responsive
+cases have zero findings, including33 coach cases rerun after compact changes.
+Candidate APK checks passed for exact runtime modules/font/image bytes, saves,
+progression, competitions, publishing/edition safety, upgrade signature and16KB
+ELF/ZIP alignment. Initial APK smoke assertion expected ScorerPressPixel.ttf;
+updated verifier to ScorerRetro.ttf and reran successfully. No runtime change was
+needed for this obsolete check. QA APK107424967bytes; SHA256
+55b0a72984c3d8378c50561d4038ee78d2d30423003094d5306707fa008fc034.
+Physical Android acceptance remains pending.
+
 ## 2026-11-05 — World 0.9.22 font implementation
 
 Created Scorer Retro as a 645-character TTF with distinct cases, Latin accents,

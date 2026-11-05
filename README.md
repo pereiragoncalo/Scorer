@@ -1,3 +1,13 @@
+## Scorer World 0.9.22 — Scorer Retro
+
+[Download World 0.9.22 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.22/Scorer-World-0.9.22.apk)
+
+The approved retro font now covers game text, controls, scores, names, newspaper
+and coach feedback. The splash and main-menu logo keep their original appearance.
+Latin accents and native-script fallback are included. Careers and gameplay are
+unchanged. DEBUG QA; physical Android acceptance remains pending.
+[Scope and validation](docs/RELEASE_0.9.22.md) · [APK evidence](docs/RELEASE_0.9.22_artifacts.json).
+
 ## Scorer World 0.9.21 — compact player and training screens
 
 [Download World 0.9.21 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.21/Scorer-World-0.9.21.apk)
