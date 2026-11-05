@@ -2266,3 +2266,34 @@ is not universal device/cutout/OS certification. Unrelated root WIP preserved.
 Delivery run41933942390 succeeded. Public APK and891-case report returned HTTP200
 with attachment headers and exact local byte/SHA256 matches. Proof recorded in
 RELEASE_0.9.17_download.json; temporary qa-upload-0.9.17 branch removed after checks.
+
+## 2026-11-05 — approval-only retro sprite lab, phase 1
+
+Inspected the Kivy procedural actors, ball, delivery/shoot paths, keeper pose
+and shared collision skeleton before editing. Recovery branch
+`recovery/sprites-phase1-2026-11-05` at 51d2ef9, plus local worktree patch,
+snapshots and 589-file SHA manifest under striker-runtime/sprites-phase1/recovery.
+Existing uncommitted main.py/.gitignore/UI-test work and career_mode_state.py
+were preserved. All 589 initially tracked files matched their initial worktree
+hashes before this intentional log append; no runtime/game asset/version change.
+
+Added original 32x40 nominal pixel bodies in fixed padded canvases: 168 indexed
+transparent PNG frames, 24 sheets, 16 clips; player front/back, long-sleeve keeper,
+role palette recolouring, metadata/joint/contact anchors. Independent Kivy viewer
+shows both, animation/individual/sheet modes, all actions, speed, pause, stepping,
+mirror, scale and kit controls. No game imports, bindings or main-game replacement.
+
+Validation: 2 asset/clock test cases pass (168 frames, unique minimum counts,
+alpha/palette/no clipping, atlas equality and clock/event contract); compileall
+passes. Real Kivy2.3.1 SDL2/Mesa offscreen smoke checks every frame, filters,
+controls, views and modes; 960x640/1280x800/1440x900 layouts pass. 2,000 warmed
+updates created zero additional textures; 120 actual rendered frames completed.
+See docs/sprite_lab/validation.json for measured desktop timings/memory.
+An initial head mask, read-only texture UV assignment and palette variable
+collision were corrected; small-window assertion was adjusted to its actual
+130px minimum stage, keeping integer fitting. Optional clipboard provider
+warnings do not prevent execution. Animated preview, contact sheets, screenshot,
+inspection/recovery report and run instructions are in docs/sprite_lab/.
+
+Stops at owner-requested visual approval boundary (task sections 9 and 11).
+No integration, Android build/device test, physics regression claim or Play action.
