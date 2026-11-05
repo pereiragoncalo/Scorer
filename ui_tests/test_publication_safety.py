@@ -22,7 +22,7 @@ class PublicationUITests(unittest.TestCase):
             self.assertLessEqual(notice.message.font_size,dp(13))
             for page in range(4):
                 g.view='help';g.help_page=page;g.draw();settle()
-                paragraphs=[w for w in g.walk() if isinstance(w,FlowLabel) and len(w.text)>90]
+                paragraphs=[w for w in g.walk() if isinstance(w,FlowLabel) and len(w.text)>70]
                 self.assertTrue(paragraphs)
                 self.assertTrue(all(w.halign=='justify' for w in paragraphs))
 
