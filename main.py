@@ -2869,6 +2869,8 @@ class StrikerGame(Widget):
         if self.view in ('splash','data_notice'):
             if self.view=='data_notice' and key==27:self._request_exit()
             return True
+        if key==27 and getattr(self,'_training_focus_popup',None) is not None:
+            self._training_focus_popup.dismiss();return True
         if key==27 and self.view=='development':
             self._activate_ui('development_back');return True
         if key==27 and self.view=='newspaper':
@@ -3036,17 +3038,17 @@ class StrikerGame(Widget):
             cup=self.career.world_competitions.tournaments[self.competition_key]
             if cup.groups:self.competition_group=(self.competition_group+int(value))%len(cup.groups)
             self.draw();return
-        if action=='development' and self.view in ('profile','training'):
-            self._development_return=self.view
-            if self.view=='profile':self._profile_name_draft=self._menu.body.name.text if self._menu is not None else self.career.player_name
-            self.development_tab='skills' if value=='skills' else 'objectives';self._development_scroll_y=1.;self.view='development';return
+        if action=='coach_trust' and self.view in ('hub','coach'):
+            self._development_return=self.view;self.view='development';return
         if action=='development_back' and self.view=='development':
-            self.view=getattr(self,'_development_return','profile');return
-        if action=='development_tab' and self.view=='development' and value in ('objectives','skills','trust'):
-            self.development_tab=value;self._development_scroll_y=1.;return
-        if action=='training_focus' and self.view=='development':
-            scroll=getattr(self._menu.body,'scroll',None) if self._menu is not None else None
-            if scroll is not None:self._development_scroll_y=scroll.scroll_y
+            self.view=getattr(self,'_development_return','hub');return
+        if action=='training_focus_open' and self.view=='training':
+            if getattr(self,'_training_focus_popup',None) is None:
+                from development_ui import TrainingFocusPopup
+                popup=TrainingFocusPopup(self._menu);self._training_focus_popup=popup
+                popup.bind(on_dismiss=lambda *_:setattr(self,'_training_focus_popup',None));popup.open()
+            return
+        if action=='training_focus' and self.view=='training':
             self.career.choose_training_focus(value);return
         if action=='competitions_back' and self.view in ('competitions','competition'):
             self.view='competitions' if self.view=='competition' else 'world';self.draw();return
@@ -3251,7 +3253,9 @@ class StrikerGame(Widget):
         elif action == 'help_back':
             self.view = self.help_origin
         elif action == 'help_page':
-            self.help_page = max(0, min(3, self.help_page + int(value)))
+            from world_ui import HELP_PAGES,WORLD_HELP_PAGES
+            pages=WORLD_HELP_PAGES if edition.is_world() else HELP_PAGES
+            self.help_page=max(0,min(len(pages)-1,self.help_page+int(value)))
         elif action == 'upgrade':
             self.view = 'world' if edition.is_world() else 'upgrade'
         elif action == 'upgrade_back' and self.view == 'upgrade':

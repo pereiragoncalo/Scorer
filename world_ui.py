@@ -23,6 +23,25 @@ WORLD_HELP_PAGES = (
 )
 
 
+from player_development import FOCI,NAMES,HINTS
+PROGRESSION_HELP_PAGES=(
+ ('OBJECTIVES',('Top-three league finish','Confirmed at season end.','Tracking began in {season}. Earlier seasons are not reconstructed.')),
+ ('TRAINING FOCUS',('Three shots earn 12 XP, plus 4 XP per goal on focus. Each level needs 60 + 20 times the current level XP.',
+                    'Finish the next match before changing focus.')),
+ *tuple((NAMES[focus],(HINTS[focus],)) for focus in FOCI),
+ ('COACH TRUST',('Substitute below 45; starter from 45; key player from 80.',
+                 'Substitutes enter after 60 minutes. Starters below 60 trust play 75 minutes, or the full match on key occasions. Higher trust brings 90 minutes.',
+                 'Role changes the chance frequency slightly. Training and morale minimums always apply.')),
+ ('HOW TRUST CHANGES',('Training +2. Goals +6 each, up to +12. A key-game goal adds +2. No goal: -3, or -4 after three misses. No chances: -1.',
+                       'Training and goals rebuild trust. A new club starts at 50. International games do not change club trust.')),
+)
+def _training_help(pages):
+    title,text=pages[1]
+    return pages[:1]+((title,(text,'Complete this session to unlock the match. Training goals help your chances in the next match.')),)+pages[2:]
+HELP_PAGES=_training_help(HELP_PAGES)+PROGRESSION_HELP_PAGES
+WORLD_HELP_PAGES=_training_help(WORLD_HELP_PAGES)+PROGRESSION_HELP_PAGES
+
+
 class CompactHub(BoxLayout):
     """Small windows keep every action visible instead of squeezing the header."""
     def __init__(self, menu):
@@ -32,7 +51,7 @@ class CompactHub(BoxLayout):
         actions = GridLayout(cols=4, spacing=dp(4))
         entries = [('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
                    ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
-                   (c.player_name, 'profile'), ('HELP', 'help')]
+                   (c.player_name, 'profile'), ('HELP', 'help'), ('COACH TRUST','coach_trust')]
         if c.world_unlocked:entries.extend([('WORLD LEAGUES','upgrade')])
         entries.append(('EXIT', 'exit'))
         for title, action in entries:

@@ -320,60 +320,24 @@ class CareerMenu(BoxLayout):
         card.add_widget(self._button('FINISH MEETING', 'coach_complete', accent=True))
 
     def _training(self):
-        g, c = self.game, self.game.career
-        used = c.trained_this_week
-        compact = g.height < dp(480)
-        resumable = c.training_session_week == c.week and not used
-        from player_development import NAMES,HINTS
-        card = self.card(NAMES[c.training_focus] if compact else 'Finishing practice')
-        card.spacing = dp(4)
-        if not compact:
-            card.label(NAMES[c.training_focus],heading=True)
-            card.label(HINTS[c.training_focus],muted=True)
-        if g.training_completed and c.trained_this_week:
-            card.label(f'Training complete · {g.training_goals}/3 goals', heading=True)
-        elif resumable:
-            card.label(f'Resume training · {c.training_shots_taken}/3 shots completed.')
-            if not compact:card.label(c.message, muted=True)
-        elif not used:
-            card.label('Complete three shots to unlock the next match.')
-        else:
-            card.label('Training is complete for the next match.', muted=True)
-        if compact:
-            card.label('One striker. One goalkeeper. Three finishes.', muted=True)
-            card.label(g.i18n.tr('Completed shots: {shots}/3 · Goals: {goals}/3',
-                       shots=c.training_shots_taken if c.training_session_week == c.week else 0,
-                       goals=c.training_session_goals if c.training_session_week == c.week else 0), heading=True)
-            card.add_widget(ProgressBar(max=3, value=c.training_shots_taken if c.training_session_week == c.week else 0, size_hint_y=None, height=dp(14)))
-            card.label(f'Energy: {c.stamina:.1f}/20  ·  Morale: {c.morale:.1f}/20', muted=True)
-            button = self._button('TRAINING COMPLETE' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
-            button.disabled = used or c.coach_meeting_required
-            actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
-            actions.add_widget(self._button('TRAINING FOCUS','development','skills'));actions.add_widget(button)
-            card.add_widget(actions)
-            return
-        plan = GridLayout(cols=2 if self.width >= dp(600) else 1, spacing=dp(10), size_hint_y=None)
-        plan.bind(minimum_height=plan.setter('height'), width=lambda widget, width: setattr(widget, 'cols', 2 if width >= dp(600) else 1))
-        for title, lines in (
-            ('SESSION PLAN', ('One striker. One goalkeeper. Three finishes.',
-             'Alternate low and high finishes. Time your shot as the target moves inside the goal.')),
-            ('PROGRESS', (g.i18n.tr('Completed shots: {shots}/3 · Goals: {goals}/3',
-             shots=c.training_shots_taken if resumable or used else 0,
-             goals=c.training_session_goals if c.training_session_week == c.week else 0),
-             'One session before every match. Your progress is saved after each shot.'))):
-            panel = Card();panel.label(title, heading=True)
-            for line in lines:panel.label(line, muted=True)
-            plan.add_widget(panel)
-        card.add_widget(plan)
-        card.add_widget(ProgressBar(max=3, value=c.training_shots_taken if c.training_session_week == c.week else 0, size_hint_y=None, height=dp(14)))
-        card.label('PLAYER READINESS', heading=True)
-        card.label(f'Energy: {c.stamina:.1f}/20  ·  Morale: {c.morale:.1f}/20', muted=True)
-        card.label('Complete this session to unlock the match. Training goals help your chances in the next match.', muted=True)
-        button = self._button('TRAINING COMPLETE' if used else 'RESUME TRAINING' if resumable else 'START TRAINING', 'training_start', accent=True)
-        button.disabled = used or c.coach_meeting_required
-        actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
-        actions.add_widget(self._button('TRAINING FOCUS','development','skills'));actions.add_widget(button)
-        card.add_widget(actions)
+        g,c=self.game,self.game.career
+        from player_development import NAMES,needed
+        used=c.trained_this_week;resumable=c.training_session_week==c.week and not used
+        card=self.card(NAMES[c.training_focus]);card.spacing=dp(5)
+        if c.message.startswith(MENU_ERROR_PREFIXES):card.label(c.message)
+        shots=c.training_shots_taken if c.training_session_week==c.week or used else 0
+        goals=c.training_session_goals if c.training_session_week==c.week or used else 0
+        card.label('PROGRESS',heading=True)
+        card.label(g.i18n.tr('Completed shots: {shots}/3 · Goals: {goals}/3',shots=shots,goals=goals))
+        card.add_widget(ProgressBar(max=3,value=shots,size_hint_y=None,height=dp(12)))
+        skill=c.development['skills'][c.training_focus];level=skill['level']
+        card.label('MAXIMUM LEVEL' if level==10 else g.i18n.tr('Level {level}/10 · XP {xp}/{needed}',level=level,xp=skill['xp'],needed=needed(level)))
+        card.label(f'Energy: {c.stamina:.1f}/20  ·  Morale: {c.morale:.1f}/20',muted=True)
+        actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
+        actions.add_widget(self._button('TRAINING FOCUS','training_focus_open'))
+        button=self._button('TRAINING COMPLETE' if used else 'RESUME TRAINING' if resumable else 'START TRAINING','training_start',accent=True)
+        button.disabled=used or c.coach_meeting_required;actions.add_widget(button);card.add_widget(actions)
+
     def _table_zones(self,league):
         c=self.game.career
         if not c.world_unlocked:return None
@@ -490,12 +454,14 @@ class CareerMenu(BoxLayout):
         pages=WORLD_HELP_PAGES if edition.is_world() else HELP_PAGES
         title, text = pages[self.game.help_page]
         card = self.card(title)
-        card.label(text).halign='justify'
+        for paragraph in (text if isinstance(text,tuple) else (text,)):
+            if paragraph.startswith('Tracking began in '):paragraph=self.game.i18n.tr(paragraph,season=self.game.career.development['tracked_since'])
+            card.label(paragraph).halign='justify'
         if edition.is_world():card.add_widget(self._button('LANGUAGE', 'language'))
         card.add_widget(self._button('SETTINGS','privacy'))
         controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         controls.add_widget(self._button('PREVIOUS', 'help_page', -1))
-        controls.add_widget(BoundedLabel(text=f'{self.game.help_page+1}/{len(HELP_PAGES)}', halign='center', size_hint_x=.3))
+        controls.add_widget(BoundedLabel(text=f'{self.game.help_page+1}/{len(pages)}', halign='center', size_hint_x=.3))
         controls.add_widget(self._button('NEXT', 'help_page', 1))
         card.add_widget(controls)
 
@@ -987,7 +953,13 @@ class MainDashboard(BoxLayout):
         self.season.add_widget(numbers)
         self.season.add_widget(BoundedLabel(localize=False,text=menu.game.i18n.league(c,c.current_league),
                                            color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
-        self.season.add_widget(BoundedLabel(text=menu.game.i18n.tr('Trust {trust}/100 · {role}',trust=c.coach_trust,role=menu.game.i18n.tr(c.team_role)),localize=False,color=GREEN,font_size=sp(10),size_hint_y=None,height=dp(20)))
+        trust=BoundedLabel(text=menu.game.i18n.tr('Trust {trust}/100 · {role}',trust=c.coach_trust,role=menu.game.i18n.tr(c.team_role))+' ›',localize=False,color=GREEN,font_size=sp(10),size_hint_y=None,height=dp(20))
+        self.trust_link=trust
+        def open_trust(widget,touch):
+            if menu.game.view=='hub' and widget.x<=touch.x<=widget.right and abs(touch.y-widget.center_y)<=dp(24):
+                menu.action('coach_trust');return True
+            return False
+        trust.bind(on_touch_down=open_trust);self.season.add_widget(trust)
         self.hero.add_widget(self.season)
         if menu.hub_header_actions is not None:
             group=menu.hub_header_actions
@@ -1091,35 +1063,10 @@ class PlayerScreen(FloatLayout):
             self.title_label.text=error;self.title_label.font_size=sp(11)
         self.trophy_scroll = None
         if existing:
-            self.trophy_scroll = ScrollView(do_scroll_x=False, size_hint_y=None, height=dp(120))
-            cabinet = BoxLayout(orientation='vertical', size_hint_y=None, spacing=dp(6))
-            cabinet.bind(minimum_height=cabinet.setter('height'))
-            cabinet.add_widget(MenuTile('PLAYER DEVELOPMENT',lambda:menu.action('development')))
-            cabinet.add_widget(FlowLabel(text=menu.game.i18n.tr('Trust {trust}/100 · {role}',trust=menu.game.career.coach_trust,role=menu.game.i18n.tr(menu.game.career.team_role))))
-            cabinet.add_widget(FlowLabel(text='TROPHIES',bold=True,color=GREEN))
-            trophies=menu.game.career.honours['trophies']
-            if not trophies:cabinet.add_widget(FlowLabel(text='No recorded trophies yet.',color=MUTED))
-            for trophy in reversed(trophies):
-                row=BoxLayout(size_hint_y=None,spacing=dp(8))
-                icon=Widget(size_hint=(None,None),size=(dp(38),dp(42)))
-                def draw_cup(widget,*_):
-                    widget.canvas.clear()
-                    with widget.canvas:
-                        Color(1,.77,.24,1)
-                        x,y=widget.x,widget.y;w,h=widget.width,widget.height
-                        Line(points=[x+w*.15,y+h*.8,x+w*.15,y+h*.55,x+w*.35,y+h*.48],width=dp(2))
-                        Line(points=[x+w*.85,y+h*.8,x+w*.85,y+h*.55,x+w*.65,y+h*.48],width=dp(2))
-                        Triangle(points=[x+w*.25,y+h*.86,x+w*.75,y+h*.86,x+w*.5,y+h*.38])
-                        Rectangle(pos=(x+w*.45,y+h*.2),size=(w*.1,h*.3))
-                        Rectangle(pos=(x+w*.25,y+h*.12),size=(w*.5,h*.1))
-                icon.bind(pos=draw_cup,size=draw_cup);draw_cup(icon)
-                title=menu.game.i18n.tr('Golden Boot') if trophy['competition'].startswith('scorer:') else menu.game.i18n.competition(menu.game.career,trophy['title'],trophy['country'])
-                team=menu.game.career.display_aliases.get('clubs',{}).get(trophy['team_uid'],trophy['team'])
-                label=FlowLabel(text=f"{trophy['season']} · {title}\n{team}",localize=False,font_size=sp(14))
-                row.add_widget(icon);row.add_widget(label)
-                label.bind(height=lambda widget,height,parent=row:setattr(parent,'height',max(dp(44),height)))
-                row.height=max(dp(44),label.height);cabinet.add_widget(row)
-            self.trophy_scroll.add_widget(cabinet);self.panel.add_widget(self.trophy_scroll)
+            from development_ui import ObjectivesSummary
+            self.objective_scroll=self.trophy_scroll=ScrollView(do_scroll_x=False,size_hint_y=None,height=dp(150))
+            if not error:self.title_label.text='OBJECTIVES'
+            self.objective_scroll.add_widget(ObjectivesSummary(menu));self.panel.add_widget(self.objective_scroll)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         actions.add_widget(MenuTile('CANCEL', lambda: menu.action('cancel_profile')))
         self.actions=actions
@@ -1166,12 +1113,12 @@ class PlayerScreen(FloatLayout):
             self.helper.height=0 if compact else dp(36)
             self.helper.opacity=0 if compact else 1
         if self.trophy_scroll is not None:
-            self.trophy_scroll.height=max(dp(32),min(dp(150),self.height-dp(190)))
+            self.trophy_scroll.height=max(dp(32),min(dp(240),self.height-dp(200)))
             self.name.height=self.actions.height=dp(48 if compact else 52)
             self.title_label.height=dp(24 if compact else 28)
         self.panel.padding = dp(8 if compact and self.world_creation else 10 if compact else 14)
         self.panel.spacing = dp(4 if compact and self.world_creation else 6 if compact else 8)
-        self.panel.size = (min(self.width - dp(24), dp(420)), min(self.height - dp(16), self.panel.minimum_height))
+        self.panel.size = (min(self.width - dp(24), dp(650 if self.trophy_scroll is not None else 420)), min(self.height - dp(16), self.panel.minimum_height))
         self.panel.center = self.center
 
 

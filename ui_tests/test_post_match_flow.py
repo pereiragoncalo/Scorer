@@ -44,12 +44,13 @@ class PostMatchFlow(unittest.TestCase):
                     self.assertNotIn('NEWSPAPER',buttons);self.assertNotIn('COACH MEETING',buttons)
                     self.assertEqual(buttons['AGENT'].disabled,disabled)
                     if disabled:g._activate_ui('agent');self.assertEqual(g.view,'hub')
-    def test_profile_shows_saved_trophies_and_controls_fit_small_screens(self):
+    def test_profile_objectives_preserve_saved_trophies_and_controls_fit_small_screens(self):
         old=Window.size;self.addCleanup(setattr,Window,'size',old)
         with isolated_game() as g:
             c=self.sign(g);participate(c,'cup','Test cup',c.club.uid,c.club.name,c.club.country);award(c,c.honours['campaigns'][0]);c.save();self.assertTrue(c.load())
             for size in ((320,240),(960,540)):
                 Window.size=size;g.size=size;g.view='hub';g._activate_ui('profile');g.draw();settle()
                 p=g._menu.body;labels=[w.text for w in p.walk() if isinstance(w,Label)]
-                self.assertIn('TROPHIES',labels);self.assertTrue(any('Test cup' in x for x in labels))
+                self.assertIn('OBJECTIVES',labels);self.assertNotIn('TROPHIES',labels)
+                self.assertTrue(any(t['title']=='Test cup' for t in c.honours['trophies']))
                 self.assertGreaterEqual(p.actions.y,p.y);self.assertLessEqual(p.panel.top,p.top+1)

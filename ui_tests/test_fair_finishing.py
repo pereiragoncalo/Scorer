@@ -63,7 +63,7 @@ class FairFinishing(unittest.TestCase):
             g.view='training';g.draw();settle()
             labels=[w.text for w in g.walk() if isinstance(w,Label)]
             self.assertIn('Completed shots: 1/3 · Goals: 1/3',labels)
-            self.assertIn('SESSION PLAN',labels);self.assertIn('PLAYER READINESS',labels)
+            self.assertIn('PROGRESS',labels);self.assertTrue(any('XP ' in t for t in labels));self.assertNotIn('SESSION PLAN',labels)
 
     def test_coach_has_three_distinct_paragraphs_in_each_context_and_language(self):
         from localization import Localizer,LANGUAGES
