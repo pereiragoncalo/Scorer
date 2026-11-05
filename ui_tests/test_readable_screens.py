@@ -48,7 +48,7 @@ class ReadableScreens(unittest.TestCase):
                     c.coach_state=fresh_state(c.club.uid);c.coach_state.update(games=3,drought=3,recent=[0,0,0])
                     g.view='coach';g.draw();settle();p=g._menu.body
                     self.assertTrue(p.layout_fits,(size,lang,p.feedback_font_size));self.assertIsNone(g._menu.scroll)
-                    self.assertEqual(len(p.feedback.text.split('\n\n')),3)
+                    self.assertEqual(len((p.feedback.text+'\n\n'+p.closing.text).split('\n\n')),3)
                     self.assertFalse(any(isinstance(w,ScrollView) for w in p.walk()))
                     self.assertGreaterEqual(p.finish.y,0);self.assertLessEqual(p.finish.top,g.top)
     def test_every_recorded_minute_fits_on_one_sheet(self):

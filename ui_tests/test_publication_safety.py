@@ -88,5 +88,5 @@ class PublicationUITests(unittest.TestCase):
             g.view='help';g.help_page=3;g.draw();settle()
             text=' '.join(w.text for w in g.walk() if isinstance(w,Label))
             self.assertIn('names editor',text);self.assertNotIn('adult-managed',text)
-            self.assertNotIn('Usage counts',text);self.assertNotIn('SETTINGS',text)
+            self.assertNotIn('Usage counts',text)
             self.assertNotIn('training ads',text);self.assertNotIn('earn +1 morale',text)

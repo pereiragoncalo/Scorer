@@ -12,6 +12,7 @@ class PlayerCreationUITests(unittest.TestCase):
         return g._menu.body
     def test_world_search_select_and_commit_use_canonical_independent_countries(self):
         with patch('edition.WORLD_BUILD',True),patch('main.phone_country',return_value='Portugal'),patch('main.phone_locale_tag',return_value='pt-PT'),isolated_game() as g:
+            g.i18n.choose('pt')
             form=self.start(g);form.name.text='marco costa';before=(g.career.nationality,g.career.league_key,list(g.career.offers),g.career.rng.getstate())
             for field,query,key in [('nationality','Brasil','Brazil'),('country','México','Mexico')]:
                 form.choose_country(field);p=g._country_popup;p.search.text=query;settle()

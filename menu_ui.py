@@ -483,6 +483,7 @@ class CareerMenu(BoxLayout):
         card = self.card(title)
         card.label(text).halign='justify'
         if edition.is_world():card.add_widget(self._button('LANGUAGE', 'language'))
+        card.add_widget(self._button('SETTINGS','privacy'))
         controls = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         controls.add_widget(self._button('PREVIOUS', 'help_page', -1))
         controls.add_widget(BoundedLabel(text=f'{self.game.help_page+1}/{len(HELP_PAGES)}', halign='center', size_hint_x=.3))
