@@ -54,7 +54,7 @@ class WorldLanguageTests(unittest.TestCase):
                 self.assertEqual(c.save_path.read_bytes(),before)
                 self.assertEqual((c.player_name,c.club.uid,c.league_key),identity)
                 game._activate_ui('language_back');self.assertEqual(game.view,'hub')
-                game._activate_ui('help_back');game.draw();settle()
+                game.draw();settle()
                 labels={w.text for w in game.walk() if isinstance(w,Label)}
                 self.assertIn('HELP',labels);self.assertIn('PLAY',labels)
                 self.assertIn(c.player_name,labels)
