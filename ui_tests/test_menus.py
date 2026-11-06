@@ -41,7 +41,7 @@ def isolated_game(saved=False, corrupt=False):
         try:
             yield game
         finally:
-            for popup in (game._exit_popup, game._new_game_popup):
+            for popup in (game._exit_popup, game._new_game_popup,getattr(game,'_context_help',None),getattr(game,'_standings_picker',None)):
                 if popup is not None:
                     popup.dismiss()
             Clock.unschedule(game.update)
@@ -454,8 +454,8 @@ class MenuTests(unittest.TestCase):
                 game.view=origin;game.draw();settle()
                 self.assertIn('HELP',{w.text for w in game.walk() if isinstance(w,Label)})
                 game._activate_ui('help');game.draw();settle()
-                for _ in range(3):game._activate_ui('help_page',1)
-                self.assertEqual(game.help_page,3)
+                self.assertIsNotNone(game._context_help)
+                self.assertEqual(game.view,origin)
                 game._activate_ui('help_back');self.assertEqual(game.view,origin)
             game._activate_ui('upgrade');game.draw();settle()
             self.assertFalse(game.career.world_unlocked)

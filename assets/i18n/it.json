@@ -547,5 +547,18 @@
   "CAREER TITLES": "TITOLI IN CARRIERA",
   "Not available": "Non disponibile",
   "None recorded": "Nessuno registrato",
-  "NO CLUB": "NESSUN CLUB"
+  "NO CLUB": "NESSUN CLUB",
+  "Choose a contract to begin your career. Your nationality determines which national team can call you up.": "Scegli un contratto per iniziare la carriera. La nazionalità determina quale nazionale può convocarti.",
+  "Choose an action to open its screen. Use the Help button there for guidance about that part of the game.": "Scegli un’azione per aprire la relativa schermata. Il suo pulsante Aiuto spiega quella parte del gioco.",
+  "Select a competition to see its standings or fixtures. Switch groups when available. Knockout rounds show results, two-leg ties and penalties. Use the page controls to see every row.": "Seleziona una competizione per classifiche o partite. Cambia girone quando disponibile. I turni a eliminazione mostrano risultati, andata e ritorno e rigori. Usa le pagine per vedere tutte le righe.",
+  "This table ranks league scorers by goals. My Position finds your player. Cup and international goals are counted separately.": "La tabella ordina i marcatori del campionato per gol. La mia posizione trova il tuo giocatore. I gol di coppa e nazionale sono separati.",
+  "Check dates, opponents, competitions and results. Complete training before each playable fixture, including matches in the same week.": "Controlla date, avversari, competizioni e risultati. Completa l’allenamento prima di ogni partita, anche nella stessa settimana.",
+  "Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress.": "Scegli un’offerta durante il mercato. Uno svincolato può firmare anche fuori dal mercato. Cambiare club conserva i progressi.",
+  "Meet the coach after a scoring drought or a key match. Read the feedback and finish the meeting to continue.": "Incontra l’allenatore dopo un digiuno di gol o una partita chiave. Leggi il feedback e termina l’incontro per continuare.",
+  "Read the previous match report, including goals and the result. Continue to a requested coach meeting or back to your career.": "Leggi la notizia dell’ultima partita, con gol e risultato. Prosegui con l’incontro richiesto o torna alla carriera.",
+  "View the club foundation, honours, stadium and capacity. Club colours follow the selected team.": "Consulta fondazione, titoli, stadio e capienza del club. I colori corrispondono alla squadra scelta.",
+  "Load the public records table. Publishing your own record is optional. Select a position to report or block an entry.": "Carica la classifica dei record pubblici. Pubblicare il tuo record è facoltativo. Seleziona una posizione per segnalare o bloccare una voce.",
+  "An adult can manage access to public features. These controls do not prevent playing your local career.": "Un adulto può gestire l’accesso alle funzioni pubbliche. Questi controlli non impediscono la carriera locale.",
+  "Export your career before changing devices or uninstalling. Import restores a compatible career after confirmation.": "Esporta la carriera prima di cambiare dispositivo o disinstallare. L’importazione ripristina una carriera compatibile dopo conferma.",
+  "Choose I AGREE to continue or I DO NOT AGREE to close the game.": "Scegli ACCETTO per continuare o NON ACCETTO per chiudere il gioco."
 }

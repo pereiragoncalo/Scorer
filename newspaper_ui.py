@@ -51,6 +51,7 @@ class NewspaperScreen(FloatLayout):
     def __init__(self,menu):
         super().__init__();self.menu=menu;self.loc=menu.game.i18n;self.scroll=None;self.page=0;self.pages=[];self.fragments=[]
         self.back=MenuTile('CONTINUE',lambda:menu.action('post_match_continue'));self.back.size_hint=(None,None);self.add_widget(self.back)
+        self.help=MenuTile('HELP',lambda:menu.action('help'));self.help.size_hint=(None,None);self.add_widget(self.help)
         self.previous=MenuTile('PREVIOUS',lambda:self.turn(-1));self.previous.size_hint=(None,None)
         self.following=MenuTile('NEXT',lambda:self.turn(1));self.following.size_hint=(None,None)
         self.counter=self.label('',(.84,.84,.76,1))
@@ -164,6 +165,7 @@ class NewspaperScreen(FloatLayout):
         pw=self.width-2*margin-dp(20);px=self.x+margin;py=self.y+(dp(10) if small else dp(28));ph=self.height-(dp(70) if small else dp(105))
         self.sheet_bounds=(px,py,pw,ph);self._draw_paper(px,py,pw,ph)
         self.back.pos=(self.right-dp(100),self.top-dp(54 if small else 64));self.back.size=(dp(90),dp(48))
+        self.help.size=(dp(80),dp(48));self.help.pos=(self.back.x-dp(88),self.back.y)
         inset=dp(10) if small else dp(14) if dense else dp(20);left=px+inset;top=py+ph-inset;width=pw-2*inset
         mh=self.place(self.masthead,'SCORER DAILY',left,top,width,14 if small else 28 if dense else 42,DISPLAY)
         top-=mh+dp(2 if small else 4)

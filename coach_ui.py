@@ -34,6 +34,7 @@ class CoachScreen(FloatLayout):
         self.portrait=Image(source=c.coach_portrait,fit_mode='contain',size_hint=(None,None));self.add_widget(self.portrait)
         self.error=self.label(c.message if c.message=='Unable to save the meeting. Please try again.' else '',(1,.65,.45,1))
         self.finish=MenuTile('FINISH MEETING',lambda:menu.action('coach_complete'),accent=True);self.finish.size_hint=(None,None);self.add_widget(self.finish)
+        self.help=MenuTile('HELP',lambda:menu.action('help'));self.help.size_hint=(None,None);self.add_widget(self.help)
         with self.canvas.before:
             Color(.035,.10,.11,.98);self.panel=RoundedRectangle(radius=[dp(12)])
         self.trigger=Clock.create_trigger(self.fit,0);self.bind(pos=self.trigger,size=self.trigger);self.trigger()
@@ -69,7 +70,8 @@ class CoachScreen(FloatLayout):
             self.place(self.style,left,top-style_h,right-left,style_h,14);top-=style_h+dp(2)
             rh=self.measured_height(self.recent,right-left,12,16)
             self.place(self.recent,left,top-rh,right-left,rh,12);top-=rh+dp(6)
-        self.finish.size=(min(dp(320),right-left),dp(48 if compact else 52));self.finish.pos=(right-self.finish.width,self.y+2*margin)
+        self.finish.size=(min(dp(320),right-left-dp(80)),dp(48 if compact else 52));self.finish.pos=(right-self.finish.width,self.y+2*margin)
+        self.help.pos=(left,self.finish.y);self.help.size=(dp(72),self.finish.height)
         eh=self.measured_height(self.error,right-left,11,24)
         self.place(self.error,left,self.finish.top+dp(4),right-left,eh,11)
         bottom=self.finish.top+dp(8)+eh;th=max(dp(20),top-bottom)

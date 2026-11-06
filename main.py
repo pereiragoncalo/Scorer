@@ -265,6 +265,11 @@ class StrikerGame(Widget):
         self.reward_ad_status = ""
         self._next_reward_poll = 0.0
         self.help_page = 0
+        self._context_help = None
+        self._game_help = None
+        self.standings_key = ""
+        self.standings_group = 0
+        self.standings_tab = "auto"
         self.help_origin = "start"
         self.editor_key = "England|4"
         self.editor_club_index = 0
@@ -1298,7 +1303,7 @@ class StrikerGame(Widget):
         # O limite evita saltos gigantes ao regressar de segundo plano; a
         # física continua dividida em passos de 1/60 s para não atravessar
         # jogadores, postes ou redes entre duas atualizações.
-        if self._exit_popup is not None:
+        if self._exit_popup is not None or self._context_help is not None:
             return
         frame_dt = clamp(dt, 0.0, 0.12)
         self.elapsed += frame_dt
@@ -1902,7 +1907,7 @@ class StrikerGame(Widget):
 
 
     def shoot(self, x: Optional[float] = None, z: Optional[float] = None) -> None:
-        if self.state != self.STATE_AIMING:
+        if self._context_help is not None or self.state != self.STATE_AIMING:
             return
 
 
@@ -2889,6 +2894,11 @@ class StrikerGame(Widget):
             app.stop()
 
     def _on_key_down(self, _window, key, _scancode, codepoint, _modifiers):
+        if self._context_help is not None:
+            if key==27:self._context_help.dismiss()
+            return True
+        if key==27 and getattr(self,'_standings_picker',None) is not None:
+            self._standings_picker.dismiss();return True
         if self.view in ('splash','data_notice'):
             if self.view=='data_notice' and key==27:self._request_exit()
             return True
@@ -2951,6 +2961,9 @@ class StrikerGame(Widget):
 
 
     def on_touch_down(self, touch):
+        if self._context_help is not None:return True
+        if self._game_help is not None and self._game_help.parent is self and self._game_help.collide_point(*touch.pos):
+            return super().on_touch_down(touch)
         # Handle the first delivered touch at the root, even before the splash
         # widget has completed its initial Kivy layout.
         if self.view=="splash" and not getattr(touch,'is_mouse_scrolling',False):
@@ -3045,6 +3058,15 @@ class StrikerGame(Widget):
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
         import time
+        if action=='standings' and self.career.world_unlocked and self.career.club:
+            self.career._ensure_competitions();self.view='standings';self.draw();return
+        if action=='help':
+            if self._context_help is None:
+                from contextual_help import ContextHelp
+                self._context_help=ContextHelp(self);self._context_help.open()
+            return
+        if action=='help_back' and self._context_help is not None:
+            self._context_help.dismiss();return
         if action=='club' and self.view=='hub':
             if self.career.club:self.view='club'
             return
@@ -3353,6 +3375,7 @@ class StrikerGame(Widget):
         if self._match_notice is not None and self._match_notice.parent is self and not show_notice:
             self.remove_widget(self._match_notice)
         if self.view in MENU_VIEWS:
+            if self._game_help is not None and self._game_help.parent is self:self.remove_widget(self._game_help)
             self.ui_buttons.clear()
             if self._menu is None:
                 self.canvas.clear()
@@ -3451,6 +3474,15 @@ class StrikerGame(Widget):
                 self.canvas.add(self._match_notice.canvas)
         else:
             self._match_notice = None
+
+        if self.view in ('match','shot'):
+            from menu_ui import MenuTile
+            if self._game_help is None:
+                self._game_help=MenuTile('HELP',lambda:self._activate_ui('help'));self._game_help.size_hint=(None,None)
+            self._game_help.text=self.i18n.tr('HELP')
+            self._game_help.size=(dp(80),dp(48));self._game_help.pos=(self.right-dp(88),self.top-dp(56))
+            if self._game_help.parent is not self:self.add_widget(self._game_help)
+            elif self._game_help.canvas not in self.canvas.children:self.canvas.add(self._game_help.canvas)
 
 
     def _draw_career_screen(self) -> None:
@@ -4125,7 +4157,7 @@ class StrikerGame(Widget):
 
     def _scoreboard_bounds(self):
         return (self.x + dp(8), self.top - dp(54),
-                min(dp(280), self.width - dp(16)), dp(46))
+                min(dp(280), self.width - dp(104)), dp(46))
 
     def _shot_timer_bounds(self):
         x, y, width, _ = self._scoreboard_bounds()
@@ -5204,7 +5236,7 @@ class StrikerGame(Widget):
                 self.top - 47,
                 font_size=max(14, int(self.height * 0.025)),
                 color=(0.91, 0.96, 0.98, 1.0),
-                max_width=self.width - 72,
+                max_width=self.width - 72 - dp(88),
             )
 
 

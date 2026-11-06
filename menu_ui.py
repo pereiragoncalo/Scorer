@@ -139,7 +139,7 @@ class CareerMenu(BoxLayout):
     def sync(self):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
-        signature = (tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
+        signature = (tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,getattr(self.game,'standings_key',''),getattr(self.game,'standings_group',0),getattr(self.game,'standings_tab','auto'),self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required, str(c.coach_state), str(c.press_state), str(c.development),getattr(self.game,'development_tab','objectives'),
@@ -221,8 +221,17 @@ class CareerMenu(BoxLayout):
         else:
             header.height = dp(52)
             brand.add_widget(BrandMark())
+        if self.game.view=='standings' and c.world_unlocked:
+            from competition_views import involved_competitions
+            entries=involved_competitions(c);key=getattr(self.game,'standings_key','')
+            if key not in dict(entries):key=entries[0][0];self.game.standings_key=key
+            cup=dict(entries).get(key,c.current_league)
+            title=self.game.i18n.league(c,cup) if key.startswith('league:') or not key else self.game.i18n.tr(cup.title)
+            brand=MenuTile(self.game.i18n.tr('STANDINGS')+' · '+title,lambda:self.body.choose(),localize=False)
         header.add_widget(brand)
         self.hub_header_actions = None
+        if self.game.view not in ('hub','help'):
+            help_button=MenuTile('HELP',lambda:self.action('help'));help_button.size_hint_x=None;help_button.width=dp(64);header.add_widget(help_button)
         if self.game.view == 'hub':
             group=self.hub_header_actions=BoxLayout(size_hint_x=None,width=dp(250),spacing=dp(6))
             for title, action in ([('HELP','help'),('WORLD','upgrade'),('EXIT','exit')] if edition.is_world() else [('HELP','help'),('EXIT','exit')]):
@@ -255,7 +264,8 @@ class CareerMenu(BoxLayout):
             self.add_widget(self.body)
             return
         if self.game.view == 'world' and c.world_unlocked:
-            if c.club:header.add_widget(self._button('COMPETITIONS','competitions'))
+            if c.club:
+                button=MenuTile('COMPETITIONS',lambda:self.action('competitions'));button.size_hint_x=None;button.width=dp(100);header.add_widget(button)
             from world_ui import WorldBrowser
             self.scroll = None
             self.body = WorldBrowser(self)
@@ -272,7 +282,10 @@ class CareerMenu(BoxLayout):
             return
         if self.game.view in ('standings', 'scorers', 'calendar'):
             self.scroll = None
-            self.body = self._compact_list()
+            if self.game.view=='standings' and c.world_unlocked:
+                from standings_ui import StandingsScreen
+                self.body=StandingsScreen(self)
+            else:self.body = self._compact_list()
             self.add_widget(self.body)
             return
         if self.game.view=='leaderboard':
@@ -602,6 +615,7 @@ class LaunchNotice(FloatLayout):
         buttons=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
         buttons.add_widget(MenuTile('I DO NOT AGREE',lambda:menu.action('notice_exit')))
         buttons.add_widget(MenuTile('I AGREE',lambda:menu.action('notice_continue'),accent=True))
+        buttons.add_widget(MenuTile('HELP',lambda:menu.action('help')))
         self.panel.add_widget(buttons)
         self.bind(size=self.fit,pos=self.fit);self.message.bind(texture_size=self.fit);self.fit()
     def fit(self,*_):
@@ -840,6 +854,7 @@ class LanguageScreen(BoxLayout):
         self.paging.add_widget(MenuTile('NEXT',lambda:self.move(1)))
         self.add_widget(self.paging)
         actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6))
+        actions.add_widget(MenuTile('HELP',lambda:menu.action('help')))
         actions.add_widget(MenuTile('AUTOMATIC',lambda:menu.action('choose_language','auto'),accent=self.game.i18n.choice=='auto'))
         actions.add_widget(MenuTile('BACK',lambda:menu.action('language_back')))
         self.add_widget(actions)
@@ -1105,6 +1120,7 @@ class PlayerScreen(FloatLayout):
             if not error:self.title_label.text='OBJECTIVES'
             self.objective_scroll.add_widget(ObjectivesSummary(menu));self.panel.add_widget(self.objective_scroll)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        actions.add_widget(MenuTile('HELP', lambda: menu.action('help')))
         actions.add_widget(MenuTile('CANCEL', lambda: menu.action('cancel_profile')))
         self.actions=actions
         actions.add_widget(MenuTile('SAVE' if existing else 'CONTINUE',

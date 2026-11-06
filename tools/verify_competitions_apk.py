@@ -12,6 +12,7 @@ with zipfile.ZipFile(sys.argv[1]) as z:
         development=module('player_development')
         news=module('newspaper');coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
         formats=module('domestic_formats');kits=module('club_kits');competitions=module('world_competitions');module('promotion_playoffs');access=module('domestic_playoffs');calendar=module('international_calendar');module('two_divisions');module('season_transitions');rules=module('domestic_rules');hon=module('honours');career=module('career');competitions=module('world_competitions')
+        membership=module('competition_views')
         profiles=module('club_profiles')
         assert len(profiles.catalogue())==378
         assert profiles.ground(40000).tiers==1 and profiles.ground(40001).tiers==2
@@ -70,6 +71,10 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             c.save();d=career.CareerMode(edition.entitlement_provider(),save_slot='world');assert d.world_competitions.to_dict()==c.world_competitions.to_dict()
             b=competitions.CompetitionBook(2025,71,c.leagues);b.complete();assert len(b.tournaments['world_cup'].fixtures)==104
             assert all(v.champion for v in b.tournaments.values());competitions.CompetitionBook.from_dict(b.to_dict())
+            state=c.world_competitions.to_dict();choices=membership.involved_competitions(c)
+            assert 'league:'+c.league_key in dict(choices) and 'domestic:'+c.current_league.country in dict(choices)
+            assert c.world_competitions.to_dict()==state
+            print('Actual APK: read-only involved standings include the current league and domestic cup')
             assert set(competitions.CLUB_FIELDS)<=set(b.tournaments)
             assert len(b.tournaments['sudamericana'].fixtures)==141
             assert len(b.tournaments['caf_confederation'].fixtures)==62

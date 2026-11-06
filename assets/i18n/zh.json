@@ -547,5 +547,18 @@
   "CAREER TITLES": "生涯冠军",
   "Not available": "暂无资料",
   "None recorded": "暂无记录",
-  "NO CLUB": "无俱乐部"
+  "NO CLUB": "无俱乐部",
+  "Choose a contract to begin your career. Your nationality determines which national team can call you up.": "选择合同开始生涯。你的国籍决定哪支国家队可以征召你。",
+  "Choose an action to open its screen. Use the Help button there for guidance about that part of the game.": "选择操作打开相应界面。每个界面的帮助按钮会介绍该部分的玩法。",
+  "Select a competition to see its standings or fixtures. Switch groups when available. Knockout rounds show results, two-leg ties and penalties. Use the page controls to see every row.": "选择赛事查看积分榜或赛程。有小组时可切换。淘汰赛显示比分、主客场两回合和点球大战。使用翻页按钮查看全部行。",
+  "This table ranks league scorers by goals. My Position finds your player. Cup and international goals are counted separately.": "此表按联赛进球数排列射手。我的排名可找到你的球员。杯赛和国家队进球单独统计。",
+  "Check dates, opponents, competitions and results. Complete training before each playable fixture, including matches in the same week.": "查看日期、对手、赛事和结果。每场比赛前都要完成训练，同一周的多场比赛也一样。",
+  "Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress.": "在转会窗口选择报价。自由球员也可在窗口外签约。转会后保留生涯进度。",
+  "Meet the coach after a scoring drought or a key match. Read the feedback and finish the meeting to continue.": "长期未进球或关键比赛后与教练会面。阅读反馈并结束会面后继续。",
+  "Read the previous match report, including goals and the result. Continue to a requested coach meeting or back to your career.": "阅读上一场比赛的新闻，包括进球和结果。继续前往要求的教练会面，或返回生涯。",
+  "View the club foundation, honours, stadium and capacity. Club colours follow the selected team.": "查看俱乐部成立年份、荣誉、球场和容量。颜色对应所选球队。",
+  "Load the public records table. Publishing your own record is optional. Select a position to report or block an entry.": "加载公开纪录榜。发布自己的纪录是可选的。选择名次可举报或屏蔽条目。",
+  "An adult can manage access to public features. These controls do not prevent playing your local career.": "成年人可以管理公开功能的使用权限。这些设置不影响本地生涯游玩。",
+  "Export your career before changing devices or uninstalling. Import restores a compatible career after confirmation.": "更换设备或卸载前请导出生涯。导入将在确认后恢复兼容的生涯。",
+  "Choose I AGREE to continue or I DO NOT AGREE to close the game.": "选择同意继续，或选择不同意关闭游戏。"
 }

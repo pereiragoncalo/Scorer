@@ -7,7 +7,7 @@ from anonymous_stats import create_statistics
 from main import StrikerApp
 
 class LaunchNoticeUI(unittest.TestCase):
-    def test_every_launch_notice_has_only_ok_and_not_ok_and_reject_exits_directly(self):
+    def test_every_launch_notice_has_agreement_help_and_reject_exits_directly(self):
         old=Window.size
         try:
             for size in ((640,360),(320,240),(360,640)):
@@ -18,7 +18,7 @@ class LaunchNoticeUI(unittest.TestCase):
                     g._activate_ui('splash_continue');g.draw();settle()
                     self.assertEqual(g.view,'data_notice');self.assertFalse(g.usage.delivery_ready)
                     buttons=[w for w in g._menu.walk() if isinstance(w,Button)]
-                    self.assertEqual({w.text for w in buttons},{'CONCORDO','NÃO CONCORDO'})
+                    self.assertEqual({w.text for w in buttons},{'CONCORDO','NÃO CONCORDO','AJUDA'})
                     for w in buttons:
                         self.assertGreaterEqual(w.height,48);self.assertGreaterEqual(w.y,g.y);self.assertLessEqual(w.top,g.top+1)
                     g.usage.begin_session()

@@ -547,5 +547,18 @@
   "CAREER TITLES": "커리어 우승",
   "Not available": "정보 없음",
   "None recorded": "기록 없음",
-  "NO CLUB": "소속팀 없음"
+  "NO CLUB": "소속팀 없음",
+  "Choose a contract to begin your career. Your nationality determines which national team can call you up.": "계약을 선택해 선수 생활을 시작하세요. 국적에 따라 소집될 국가대표팀이 결정됩니다.",
+  "Choose an action to open its screen. Use the Help button there for guidance about that part of the game.": "원하는 기능의 화면을 여세요. 각 화면의 도움말 버튼에서 해당 기능의 설명을 확인할 수 있습니다.",
+  "Select a competition to see its standings or fixtures. Switch groups when available. Knockout rounds show results, two-leg ties and penalties. Use the page controls to see every row.": "대회를 선택하면 순위나 경기를 볼 수 있습니다. 조가 있으면 조를 바꾸세요. 토너먼트에서는 결과, 홈·원정 경기와 승부차기를 표시합니다. 페이지 버튼으로 모든 행을 확인하세요.",
+  "This table ranks league scorers by goals. My Position finds your player. Cup and international goals are counted separately.": "리그 득점순으로 선수를 표시합니다. 내 순위로 내 선수를 찾으세요. 컵대회와 국가대표 득점은 따로 집계합니다.",
+  "Check dates, opponents, competitions and results. Complete training before each playable fixture, including matches in the same week.": "날짜, 상대, 대회와 결과를 확인하세요. 같은 주에 여러 경기가 있어도 매 경기 전에 훈련을 완료해야 합니다.",
+  "Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress.": "이적 기간에 제안을 선택하세요. 자유계약 선수는 기간 밖에서도 계약할 수 있습니다. 이적해도 선수 생활의 진행 상황은 유지됩니다.",
+  "Meet the coach after a scoring drought or a key match. Read the feedback and finish the meeting to continue.": "오랜 무득점이나 중요한 경기 후 감독을 만나세요. 조언을 읽고 면담을 마쳐야 진행할 수 있습니다.",
+  "Read the previous match report, including goals and the result. Continue to a requested coach meeting or back to your career.": "직전 경기의 골과 결과를 기사로 읽으세요. 요청된 감독 면담으로 진행하거나 선수 생활로 돌아갑니다.",
+  "View the club foundation, honours, stadium and capacity. Club colours follow the selected team.": "구단 창립, 우승, 경기장과 수용 인원을 확인하세요. 색상은 선택한 팀을 따릅니다.",
+  "Load the public records table. Publishing your own record is optional. Select a position to report or block an entry.": "공개 기록 순위표를 불러오세요. 내 기록 공개는 선택 사항입니다. 순위를 선택해 항목을 신고하거나 차단할 수 있습니다.",
+  "An adult can manage access to public features. These controls do not prevent playing your local career.": "성인이 공개 기능의 접근을 관리할 수 있습니다. 이 설정과 관계없이 기기 내 선수 생활을 즐길 수 있습니다.",
+  "Export your career before changing devices or uninstalling. Import restores a compatible career after confirmation.": "기기 변경이나 삭제 전에 선수 생활을 내보내세요. 가져오기는 확인 후 호환되는 선수 생활을 복원합니다.",
+  "Choose I AGREE to continue or I DO NOT AGREE to close the game.": "동의하면 계속하고 동의하지 않으면 게임을 종료합니다."
 }

@@ -62,17 +62,18 @@ class DevelopmentUI(unittest.TestCase):
  def test_help_reaches_every_moved_explanation_and_justifies_all_paragraphs(self):
   from world_ui import WORLD_HELP_PAGES
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-   self.sign(g);g._activate_ui('help')
-   collected=[]
-   for index in range(len(WORLD_HELP_PAGES)):
-    g.help_page=index;g.draw();settle()
-    collected.extend(w.text for w in g._menu.body.walk() if isinstance(w,Label))
-    for label in g._menu.body.walk():
+   self.sign(g);collected=[]
+   for view in ('profile','training','development'):
+    g.view=view;g.draw();g._activate_ui('help');settle()
+    collected.extend(w.text for w in g._context_help.walk() if isinstance(w,Label))
+    for label in g._context_help.body.walk():
      if isinstance(label,Label) and len(label.text)>90:self.assertEqual(label.halign,'justify')
+    g._activate_ui('help_back')
    text=' '.join(collected)
    for explanation in ('earn 12 XP','below 45','Training +2','Training and goals',*HINTS.values()):self.assertIn(explanation,text)
-   g._activate_ui('help_page',1);self.assertEqual(g.help_page,len(WORLD_HELP_PAGES)-1)
-   g._activate_ui('help_page',-100);self.assertEqual(g.help_page,0)
+   g.view='hub';g._activate_ui('help');settle()
+   self.assertNotIn('earn 12 XP',' '.join(w.text for w in g._context_help.walk() if isinstance(w,Label)))
+   g._activate_ui('help_back')
  def test_actual_focus_drills_and_visible_bonus_criteria_are_preserved(self):
   with isolated_game() as g:
    c=self.sign(g)

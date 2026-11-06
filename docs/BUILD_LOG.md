@@ -2553,3 +2553,28 @@ Public delivery verified: GitHub Actions run42214598925 succeeded; qa-0.9.30
 attachment returned HTTP200 with Content-Disposition attachment, exact107606951
 bytes and matching tested SHA256. Temporary QA transfer branch removed after
 verification. Download evidence: docs/RELEASE_0.9.30_download.json.
+
+
+## 2026-11-06 — involved standings and contextual help0.9.31
+
+Recovery: recovery/before-standings-help-0931. Preserve unrelated root badge/
+mode-state/menu-test WIP with partial patches. World Standings selects all current
+club competitions, observed current-season former club/league campaigns and
+eligible/called-up/observed national campaigns. Eliminated entries remain visible.
+Groups have a selector; knockout phases show fixtures/results/penalties rather
+than invented points. Membership reading consumes no RNG and does not advance cups.
+Help now opens as a context-specific modal from normal game/menu screens (splash
+art remains unchanged). No normal global manual navigation. Training alone owns
+focus/XP guidance; confidence owns role/trust explanations; profile owns objectives.
+Help preserves drafts/post-match gates and freezes elapsed time, ball, shot timer,
+match progression and shooting/key shortcuts; Close/Back resumes the same screen.
+New gameplay help button also works above the opportunity notice, with narrow
+scoreboard clearance. Add13 translated guidance paragraphs in all9 languages.
+Core discovery:400 tests,3 skips, no failures.297 native responsive cases
+(9 changed menu views ×11 profiles ×en/de/ja) have zero findings. First full native
+suite:208 cases,3 stale expectations (group now opens on actor's group, notice
+adds Help, language returns to underlying hub); updated expectations. All7 focused
+new native cases pass, including actual touch through a match notice. Final native
+rerun and Android build/bytecode verification in progress. Screenshots visually
+inspected after EventLoop.idle (initial FBO captures missed pending font uploads).
+Physical Android playtest pending. No solver, scoring, save format or server change.
