@@ -1,94 +1,51 @@
-"""Coach gates and touch flow in the real native menus."""
 import unittest
 from unittest.mock import patch
 from kivy.core.window import Window
-from kivy.uix.label import Label
 from kivy.metrics import dp
-from coach import fresh_state, conversation_text, style_for
-from menu_ui import MenuTile, TouchButton
+from kivy.uix.button import Button
+from kivy.uix.label import Label
 from test_menus import isolated_game,settle
 
-
 class CoachUI(unittest.TestCase):
-    def sign(self,g,requested=True):
-        c=g.career;c.accept_starting_offer(c.offers[0])
-        if requested:c.record_coach_performance(0,1,[],False,key_match=True)
-        g._career_started=True;g.view='hub';g.draw();settle();return c
-
-    def test_direct_actions_and_back_cannot_skip_meeting_then_training_unlocks(self):
+    def sign(self,g):
+        c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True;g.view='hub';g.draw();settle();return c
+    def choose(self,g):
+        c=g.career;g._activate_ui('coach_focus',c.coach_focus_options()[1]);g.draw();settle();g._activate_ui('coach_complete');g.draw();settle()
+    def test_first_week_requires_choice_before_completion_and_training(self):
         with isolated_game() as g:
-            c=self.sign(g)
-            g.start_training();self.assertEqual(g.view,'coach');self.assertFalse(c.training_used_this_week)
-            g._activate_ui('hub');g.start_career_match();self.assertEqual(g.view,'coach')
-            self.assertFalse(c.coach_meeting_held)
-            g._activate_ui('coach_complete');g.draw();settle()
-            self.assertEqual(g.view,'hub');self.assertTrue(c.coach_meeting_held)
-            g.start_career_match();self.assertEqual(g.view,'hub') # training still required
-            g.start_training();self.assertEqual(g.view,'shot');self.assertEqual(g.shot_context,'training')
-
-    def test_both_hubs_hide_meeting_and_show_requested_meeting_automatically(self):
-        old=Window.size
-        try:
-            for size in ((320,240),(960,540)):
-                Window.size=size
-                with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-                    c=self.sign(g,requested=False);g.size=size;g.draw();settle()
-                    buttons={w.text:w for w in g.walk() if isinstance(w,MenuTile)}
-                    self.assertNotIn('COACH MEETING',buttons);self.assertNotIn('NEWSPAPER',buttons)
-                    c.record_coach_performance(0,1,[],False,key_match=True);g.draw();settle();self.assertEqual(g.view,'coach')
-                    g._activate_ui('coach_complete');g.draw();settle()
-                    buttons={w.text:w for w in g.walk() if isinstance(w,MenuTile)}
-                    self.assertFalse(buttons['TRAINING'].disabled);self.assertTrue(buttons['PLAY'].disabled)
-        finally:Window.size=old
-
-    def test_translated_feedback_and_finish_action_reachable_on_small_screens(self):
+            c=self.sign(g);self.assertEqual(g.view,'coach');g._activate_ui('coach_complete');self.assertFalse(c.coach_meeting_held)
+            g._on_key_down(Window,27,0,'',[]);self.assertEqual(g.view,'coach');g.start_training();self.assertEqual(g.view,'coach')
+            self.assertEqual(len(g._menu.body.choices),2);self.assertTrue(g._menu.body.finish.disabled)
+            focus=c.coach_focus_options()[1];self.choose(g);self.assertTrue(c.coach_meeting_held);self.assertEqual(c.training_focus,focus)
+            g.start_training();self.assertEqual(g.view,'shot')
+    def test_weekly_lock_and_training_screen_has_no_focus_selector(self):
+        with isolated_game() as g:
+            c=self.sign(g);self.choose(g);g._activate_ui('training');g.draw();settle()
+            buttons={w.text for w in g.walk() if isinstance(w,Button)};self.assertNotIn('TRAINING FOCUS',buttons)
+            focus=c.training_focus;g._activate_ui('training_focus_open');g._activate_ui('training_focus','heading');self.assertEqual(c.training_focus,focus)
+            c.week+=1;g._activate_ui('training');g.draw();self.assertEqual(g.view,'coach')
+    def test_collective_individual_feedback_and_weekly_choices_fit_all_languages(self):
         old=Window.size
         try:
             with patch('edition.WORLD_BUILD',True),isolated_game() as g:
                 c=self.sign(g)
-                for size in ((320,240),(640,360),(360,640)):
+                for size in ((320,240),(640,360),(1280,591)):
                     Window.size=size;g.size=size
-                    for lang in ('en','pt','es','de','it','ko','ja','zh','vi'):
-                        g.i18n.choose(lang)
-                        c.coach_state=fresh_state(c.club.uid);c.coach_state.update(games=3,drought=3,recent=[0,0,0])
-                        g._activate_ui('coach');g.draw();settle()
-                        message=g.i18n.tr(conversation_text(c.coach_conversation()))
-                        self.assertIn(g._menu.body.feedback.text+'\n\n'+g._menu.body.closing.text,(g._menu.body.full_text,g._menu.body.short_text),(size,lang))
-                        self.assertEqual(g._menu.body.closing.halign,'justify')
-                        self.assertLessEqual(g._menu.body.closing.top,g._menu.body.portrait.y)
-                        self.assertIsNone(g._menu.scroll);self.assertTrue(g._menu.body.layout_fits);settle()
-                        finish=next(w for w in g.walk() if isinstance(w,TouchButton) and w.text==g.i18n.tr('FINISH MEETING'))
-                        self.assertGreaterEqual(finish.height,dp(48))
-                        x,y=finish.to_window(finish.x,finish.y)
-                        self.assertGreaterEqual(y,-1,(size,lang,y));self.assertLessEqual(y+finish.height,size[1]+1)
-                        g._activate_ui('coach_complete');self.assertTrue(c.coach_meeting_held)
+                    for language in ('en','pt','es','de','it','ko','ja','zh','vi'):
+                        g.i18n.choose(language);g.view='coach';g.draw();settle();screen=g._menu.body
+                        self.assertTrue(screen.layout_fits,(size,language));self.assertIsNone(screen.scroll)
+                        self.assertIn(c.player_name,screen.full_text);self.assertEqual(screen.closing.halign,'justify')
+                        self.assertIn('team_talk.png',screen.portrait.source)
+                        for button in (*screen.choices,screen.finish,screen.help):
+                            self.assertGreaterEqual(button.height,dp(48)-1);self.assertGreaterEqual(button.y,g.y-1);self.assertLessEqual(button.top,g.top+1)
         finally:Window.size=old
-
-    def test_new_week_and_play_date_jump_require_current_meeting(self):
+    def test_no_gameplay_help_and_scoreboard_keeps_full_width(self):
+        with isolated_game(saved=True) as g:
+            c=g.career;c.load();c.attend_coach_meeting();g.start_training();g.draw();settle()
+            self.assertEqual(g.view,'shot');self.assertIsNone(g._game_help)
+            self.assertFalse(any(isinstance(w,Button) and w.text=='HELP' for w in g.walk()))
+    def test_help_explains_weekly_focus_only_at_team_talk(self):
+        from contextual_help import topics
         with isolated_game() as g:
-            c=self.sign(g);c.attend_coach_meeting();c.last_training_week=c.week
-            def next_week():
-                c.week+=1
-                c.record_coach_performance(0,1,[],False,key_match=True)
-                return ('league',*c.next_fixture())
-            with patch.object(c,'next_match',side_effect=next_week):g.start_career_match()
-            self.assertEqual(g.view,'coach');self.assertFalse(c.coach_meeting_held)
-            c.attend_coach_meeting();self.assertFalse(c.trained_this_week)
-
-
-    def test_ordinary_week_has_no_meeting_button_and_training_is_available(self):
-        with isolated_game() as g:
-            c=self.sign(g,requested=False)
-            buttons={w.text:w for w in g.walk() if isinstance(w,MenuTile)}
-            self.assertNotIn('COACH MEETING',buttons);self.assertFalse(buttons['TRAINING'].disabled)
-            g._activate_ui('coach');self.assertEqual(g.view,'hub')
-            g.start_training();self.assertEqual(g.view,'shot')
-
-
-    def test_requested_meeting_shows_saved_coach_portrait(self):
-        from kivy.uix.image import Image
-        from coach import PORTRAITS
-        with isolated_game() as g:
-            c=self.sign(g);g._activate_ui('coach');g.draw();settle()
-            self.assertTrue(any(isinstance(w,Image) and w.source==c.coach_portrait for w in g.walk()))
-            self.assertIn(c.coach_portrait,PORTRAITS)
+            self.sign(g);g.view='coach';self.assertTrue(any(title=='TRAINING FOCUS' for title,_ in topics(g)))
+            g.view='training';self.assertFalse(any(title=='TRAINING FOCUS' for title,_ in topics(g)))

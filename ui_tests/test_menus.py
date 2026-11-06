@@ -30,7 +30,7 @@ def isolated_game(saved=False, corrupt=False):
     with tempfile.TemporaryDirectory() as root, patch.dict(os.environ, STRIKER_SAVE_DIR=root), patch('analytics_config.ENDPOINT',''), patch('online_config.ORIGIN',''), patch('anonymous_stats.APP_STATS_MANDATORY',False):
         c = CareerMode()
         if saved:
-            c.accept_starting_offer(c.offers[0])
+            c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting()
             c.attend_coach_meeting()
             c.goals = 17
             c.save()
@@ -61,7 +61,7 @@ class MenuTests(unittest.TestCase):
         cls.game = StrikerGame()
         assert not cls.game.usage.remote_available
         Window.add_widget(cls.game)
-        cls.game.career.accept_starting_offer(cls.game.career.offers[0])
+        cls.game.career.accept_starting_offer(cls.game.career.offers[0]);cls.game.career.attend_coach_meeting()
 
     @classmethod
     def tearDownClass(cls):
@@ -227,6 +227,7 @@ class MenuTests(unittest.TestCase):
             game.start_career_match()
             self.assertEqual(game.view, 'match')
             game.career.week += 1
+            game.career.attend_coach_meeting()
             game.view = 'hub'
             game.draw()
             settle()
@@ -560,7 +561,7 @@ class MenuTests(unittest.TestCase):
         from world_ui import NamesEditor
         with patch('edition.WORLD_PREVIEW',True), patch('main.phone_country',return_value='Portugal'):
             with isolated_game() as game:
-                game.career.accept_starting_offer(game.career.offers[0])
+                game.career.accept_starting_offer(game.career.offers[0]);game.career.attend_coach_meeting()
                 original_key=game.career.league_key
                 game._activate_ui('world');game.draw();settle()
                 browser=game._menu.body
@@ -582,7 +583,7 @@ class MenuTests(unittest.TestCase):
         import json
         from kivy.uix.textinput import TextInput
         with patch('edition.WORLD_PREVIEW',True), isolated_game() as game:
-            game.career.accept_starting_offer(game.career.offers[0])
+            game.career.accept_starting_offer(game.career.offers[0]);game.career.attend_coach_meeting()
             before=game.career.save_path.read_bytes()
             game.editor_key=game.career.league_key;game.view='editor';game.draw();settle()
             self.assertIn('JSON FORMAT',{w.text for w in game.walk() if isinstance(w,Label)})
@@ -601,7 +602,7 @@ class MenuTests(unittest.TestCase):
 
     def test_world_division_changes_the_actual_match_aim_speed(self):
         with patch('edition.WORLD_PREVIEW',True),isolated_game() as game:
-            c=game.career;c.accept_starting_offer(c.offers[0]);c.last_training_week=c.week;c.attend_coach_meeting();c.morale=16
+            c=game.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();c.last_training_week=c.week;c.attend_coach_meeting();c.morale=16
             opponent=next(club for club in c.current_league.clubs if club.name!=c.club_name);opponent.rating=95
             speeds=[]
             with patch.object(c,'next_match',return_value=('league',c.club,opponent)):
@@ -660,7 +661,7 @@ class MenuTests(unittest.TestCase):
 
     def test_new_career_first_two_trained_matches_both_have_playable_chances(self):
         with isolated_game() as game:
-            game.career.accept_starting_offer(game.career.offers[0])
+            game.career.accept_starting_offer(game.career.offers[0]);game.career.attend_coach_meeting()
             for week in range(2):
                 game.career.attend_coach_meeting()
                 game.view = 'hub'
@@ -880,6 +881,7 @@ class MenuTests(unittest.TestCase):
             form.submit()
             self.assertEqual(game.view, 'offers')
             game._activate_ui('accept_offer', game.career.offers[0])
+            game.career.attend_coach_meeting()
             game._activate_ui('profile')
             game.draw()
             settle()
@@ -987,7 +989,7 @@ class MenuTests(unittest.TestCase):
             game.draw()
             settle()
             button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'START TRAINING')
-            self.assertFalse(button.disabled)
+            self.assertTrue(button.disabled)
             game.career.attend_coach_meeting();game.draw();settle()
             button = next(w for w in game.walk() if isinstance(w, TouchButton) and w.text == 'START TRAINING')
             self.assertFalse(button.disabled)
@@ -1014,6 +1016,7 @@ class MenuTests(unittest.TestCase):
             self.assertEqual(game.training_shots_left, 0)
 
     def test_all_menu_layouts_at_phone_sizes(self):
+        self.game.career.attend_coach_meeting()
         for size in ((640, 360), (800, 360), (960, 540), (1280, 720), (360, 800), (320, 240)):
             Window.size = size
             self.game.size = size

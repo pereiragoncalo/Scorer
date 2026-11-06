@@ -118,7 +118,7 @@ class ClubStadium(unittest.TestCase):
         old=Window.size;density=Metrics.density
         try:
             with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-                player,_=self.teams(g)
+                player,_=self.teams(g);g.career.attend_coach_meeting()
                 for size in ((1280,591),(640,360),(320,240)):
                     Window.size=size;g.size=size;g.view='hub';g.draw();settle();button=g._menu.body.club_button
                     self.assertEqual(button.text,'Vitória BA');self.assertAlmostEqual(button._face_color.rgba[0],1.)

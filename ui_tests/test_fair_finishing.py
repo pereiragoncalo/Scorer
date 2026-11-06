@@ -10,7 +10,7 @@ from kivy.core.window import Window
 class FairFinishing(unittest.TestCase):
     def test_aim_sweeps_both_posts_and_outside_while_height_stays_scorable(self):
         with isolated_game(saved=True) as g:
-            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0])
+            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
             for seed in range(12):
                 g.career.rng.seed(seed);g._randomize_aim_pattern();points=[]
                 for step in range(2400):
@@ -25,7 +25,7 @@ class FairFinishing(unittest.TestCase):
 
     def test_arms_keep_fixed_length_even_when_save_target_is_unreachable(self):
         with isolated_game(saved=True) as g:
-            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0])
+            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
             for side in (-1,1):
                 for high,low in ((1,0),(0,1),(.4,.5)):
                     for step in range(21):
@@ -38,7 +38,8 @@ class FairFinishing(unittest.TestCase):
 
     def test_every_training_shot_has_only_shooter_and_keeper(self):
         with isolated_game(saved=True) as g:
-            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0])
+            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
+            g.career.development['focus']='placed'
             g.shot_context='training'
             for seed in range(50):
                 g.career.rng.seed(seed);g._prepare_next_shot()
@@ -49,14 +50,14 @@ class FairFinishing(unittest.TestCase):
 
     def test_scoreboard_never_draws_badges(self):
         with isolated_game(saved=True) as g:
-            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0])
+            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
             g.match_home,g.match_away=g.career.next_fixture()
             with patch.object(g,'_draw_club_badge',create=True) as badge:g._draw_match_overlay()
             badge.assert_not_called()
 
     def test_training_progress_and_advice_are_visible_and_use_saved_values(self):
         with isolated_game(saved=True) as g:
-            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0])
+            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
             self.addCleanup(setattr,Window,'size',Window.size)
             Window.size=(960,540);settle();g.size=Window.size
             c=g.career;c.begin_training();c.record_training_shot(True)
@@ -81,7 +82,7 @@ class FairFinishing(unittest.TestCase):
         from career import CareerMode
         with isolated_game(saved=True) as g:
             c=g.career
-            if c.club is None:c.accept_starting_offer(c.offers[0])
+            if c.club is None:c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting()
             g._career_started=True
             for taken in range(3):
                 g.start_career_match();self.assertEqual(g.view,'hub')

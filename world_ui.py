@@ -27,7 +27,7 @@ from player_development import FOCI,NAMES,HINTS
 PROGRESSION_HELP_PAGES=(
  ('OBJECTIVES',('Top-three league finish','Confirmed at season end.','Tracking began in {season}. Earlier seasons are not reconstructed.')),
  ('TRAINING FOCUS',('Three shots earn 12 XP, plus 4 XP per goal on focus. Each level needs 60 + 20 times the current level XP.',
-                    'Finish the next match before changing focus.')),
+                    'The chosen focus stays fixed until the next weekly team talk.')),
  *tuple((NAMES[focus],(HINTS[focus],)) for focus in FOCI),
  ('COACH TRUST',('Substitute below 45; starter from 45; key player from 80.',
                  'Substitutes enter after 60 minutes. Starters below 60 trust play 75 minutes, or the full match on key occasions. Higher trust brings 90 minutes.',

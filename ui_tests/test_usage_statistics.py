@@ -23,7 +23,7 @@ class UsageStatisticsUITests(unittest.TestCase):
         with isolated_game() as g:
             g.usage.set_enabled(True);g._activate_ui('splash_continue');g._activate_ui('new_game');g._activate_ui('save_profile','Private Example')
             g._activate_ui('accept_offer',g.career.offers[0]);g._activate_ui('accept_offer',g.career.offers[0])
-            g._activate_ui('coach');g._activate_ui('coach_complete')
+            g._activate_ui('coach');g._activate_ui('coach_focus',g.career.coach_focus_options()[0]);g._activate_ui('coach_complete')
             g._activate_ui('training');g._activate_ui('training_start')
             for _ in range(3):g.result_text='GOAL!';g._advance_after_shot()
             g.view='hub';g.start_career_match();g._record_player_match_goal();g._finish_career_match();g._finish_career_match()

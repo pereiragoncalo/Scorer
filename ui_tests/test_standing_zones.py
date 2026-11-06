@@ -9,7 +9,7 @@ from test_menus import isolated_game,settle
 
 class StandingZoneUITests(unittest.TestCase):
     def world(self,g):
-        g.career.choose_start_country('Portugal');g.career.accept_starting_offer(g.career.offers[0]);g._career_started=True
+        g.career.choose_start_country('Portugal');g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting();g._career_started=True
     def table(self,g,key=None):
         if key:g.world_league_key=key;g.view='world_league'
         else:g.view='standings'

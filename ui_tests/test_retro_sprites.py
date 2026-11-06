@@ -50,7 +50,7 @@ class RetroSpriteIntegration(unittest.TestCase):
         self.assertNotIn(id(textures[0]),cache.payloads)
 
     def prepare(self,g):
-        g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
+        g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting();g.career.attend_coach_meeting()
         g._career_started=True;g.view='shot';g.shot_context='match';g._prepare_next_shot()
 
     def physics(self,g):

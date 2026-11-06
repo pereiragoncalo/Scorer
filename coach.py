@@ -33,7 +33,7 @@ FEEDBACK = {
         ('Your recent finishing has been strong. Keep the same preparation and consistency.',),
     ),
 }
-REQUIRED = 'Your coach has requested a meeting before training or playing.'
+REQUIRED = 'Attend the weekly team talk and choose a training focus before training or playing.'
 
 
 def number(value, maximum=1_000_000_000):
@@ -74,6 +74,10 @@ def clean_state(raw):
     if (isinstance(m,dict) and isinstance(m.get('key'),str) and len(m['key'])<=160 and m['key'].isprintable()
             and m.get('kind') in ('routine',*FEEDBACK) and number(m.get('style'),2) and number(m.get('variant'),1)):
         state['meeting']={k:m[k] for k in ('key','kind','style','variant')}
+        from player_development import FOCI
+        options=m.get('options');focus=m.get('focus')
+        if isinstance(options,list) and len(options)==2 and all(isinstance(x,str) and x in FOCI for x in options) and len(set(options))==2 and focus in options:
+            state['meeting'].update(options=list(options),focus=focus)
     return copy.deepcopy(state)
 
 
@@ -83,14 +87,14 @@ def style_for(uid):
 
 def conversation(state, key, uid):
     existing=state.get('meeting')
-    if existing and existing['key']==key and not meeting_due(state):
+    if existing and existing['key']==key and (existing.get('focus') or not meeting_due(state)):
         return dict(existing)
     kind='routine'
     if state['games']>state['feedback_game']:
         if state['pending_key'] or state['latest_decisive']:
             kind='decisive' if state['latest_decisive'] else 'key_match'
-        elif state['drought']>=3 and (state['feedback_kind']!='drought' or state['games']-state['feedback_game']>=3):
-            kind='drought'
+        elif state['drought']>=3:kind='drought'
+        elif sum(state['recent'][-3:])>=4:kind='form'
     style=style_for(uid)
     options=ROUTINE if kind=='routine' else FEEDBACK[kind][style]
     index=int(hashlib.sha256((key+':'+kind+':'+str(state['games'])).encode()).hexdigest()[:8],16)%len(options)
@@ -133,31 +137,73 @@ class CoachCareer:
     @property
     def coach_meeting_held(self):
         m=self._current_coach_state()['meeting']
-        return bool(self.club and not self.free_agent and m and m['key']==self.coach_key)
+        from player_development import FOCI
+        return bool(self.club and not self.free_agent and m and m['key']==self.coach_key and m.get('focus') in FOCI and m['focus'] in m.get('options',[]))
 
     @property
     def coach_meeting_required(self):
-        return bool(self.club and not self.free_agent and meeting_due(self._current_coach_state()))
+        return bool(self.club and not self.free_agent and not self.coach_meeting_held)
 
     def coach_conversation(self):
-        return conversation(self._current_coach_state(),self.coach_key,self.club.uid if self.club else '')
+        m=conversation(self._current_coach_state(),self.coach_key,self.club.uid if self.club else '')
+        m.setdefault('options',list(self.coach_focus_options()))
+        return m
 
-    def attend_coach_meeting(self):
+    def coach_focus_options(self):
+        from player_development import FOCI
+        state=self._current_coach_state();m=state['meeting']
+        if self.coach_meeting_held:return tuple(m['options'])
+        if state['drought']>=3:return ('low','placed') if style_for(self.club.uid)%2==0 else ('placed','low')
+        # Persistent state + week/club identity, never the gameplay random stream.
+        skills=self.development['skills']
+        ordered=sorted(FOCI,key=lambda f:(skills[f]['level'],skills[f]['xp'],hashlib.sha256((self.coach_key+':focus:'+f).encode()).hexdigest()))
+        return tuple(ordered[:2])
+
+    def coach_team_feedback(self):
+        state=self._current_coach_state();count=state['games']-state['feedback_game']
+        own=self.club.uid if self.club else '';name=self.club.name if self.club else ''
+        rows=[]
+        for row in reversed(self.fixture_history):
+            h,a=row.get('home_uid',''),row.get('away_uid','')
+            if h.startswith('nation:') or a.startswith('nation:'):continue
+            side=0 if h==own or row.get('home')==name else 1 if a==own or row.get('away')==name else None
+            if side is None:continue
+            import re
+            score=re.match(r'^(\d+)[-–](\d+)',row.get('status',''))
+            if score:
+                goals=list(map(int,score.groups()));pens=re.search(r'pen\.\s*(\d+)[-–](\d+)',row.get('status',''))
+                if goals[0]==goals[1] and pens:goals=list(map(int,pens.groups()))
+                rows.append((goals[side],goals[1-side]))
+            if len(rows)>=max(1,count):break
+        outcome='new' if not count or not rows else 'win' if rows[0][0]>rows[0][1] else 'loss' if rows[0][0]<rows[0][1] else 'draw'
+        return TEAM_FEEDBACK[outcome][style_for(own)]
+
+    def coach_individual_feedback(self):
+        m=self.coach_conversation()
+        if m['kind']=='routine':return INDIVIDUAL_ROUTINE[m['style']]
+        return FEEDBACK[m['kind']][m['style']][m['variant']%len(FEEDBACK[m['kind']][m['style']])]
+
+    def attend_coach_meeting(self,focus=None):
         if not self.club or self.free_agent:
             self.message='Choose a club before meeting your coach.'
             return False
-        if not self.coach_meeting_required:return True
-        previous=self.coach_state
+        if self.coach_meeting_held:
+            return focus is None or focus==self._current_coach_state()['meeting']['focus']
+        options=self.coach_focus_options()
+        # Legacy engine callers accept the recommendation; the UI requires an
+        # explicit choice before enabling its completion action.
+        focus=options[0] if focus is None else focus
+        if focus not in options:return False
+        previous=self.coach_state;development=copy.deepcopy(self.development);stage=self.post_match_stage
         state=copy.deepcopy(self._current_coach_state())
-        meeting=self.coach_conversation()
-        state['meeting']=meeting
-        if meeting['kind']!='routine':
-            state['feedback_game']=state['games'];state['feedback_kind']=meeting['kind']
-            if meeting['kind'] in ('decisive','key_match'):
-                state['latest_decisive']=False;state['pending_key']=False
-        self.coach_state=state
+        meeting=self.coach_conversation();meeting.update(focus=focus,options=list(options))
+        state['meeting']=meeting;state['feedback_game']=state['games'];state['feedback_kind']=meeting['kind'] if meeting['kind']!='routine' else ''
+        state['latest_decisive']=False;state['pending_key']=False
+        self.coach_state=state;self._ensure_development()['focus']=focus
+        if self.training_session_week!=self.week:self.development['session']=None
+        if self.post_match_stage=='coach':self.post_match_stage=''
         if self.save() is False:
-            self.coach_state=previous
+            self.coach_state=previous;self.development=development;self.post_match_stage=stage
             self.message='Unable to save the meeting. Please try again.'
             return False
         self.message='Coach meeting complete. You can train now.'
@@ -197,3 +243,24 @@ def appearance_for(uid,previous):
     index=int(hashlib.sha256(('scorer-coach-face-v1:'+uid).encode()).hexdigest()[:8],16)%len(PORTRAITS)
     if previous['club'] and index==previous['portrait']:index=(index+1)%len(PORTRAITS)
     return dict(club=uid,portrait=index)
+
+
+TEAM_FEEDBACK={
+ 'new':('A new week together. Support each other and prepare with confidence.',
+        'A new week starts here. I expect discipline and commitment from the whole squad.',
+        'Let us prepare the week together. Keep our shape and help the player beside you.'),
+ 'win':('That result was a team effort. Enjoy it and keep working for each other.',
+        'We earned the win, but the next opponent will not give us anything. Stay focused.',
+        'We worked well as a team. Keep the organisation and the same preparation.'),
+ 'loss':('We lost together, and we will respond together. Support each other and rebuild confidence.',
+         'The team fell short. We need more concentration and a disciplined response.',
+         'The result exposed things to improve. Stay organised and react as a team.'),
+ 'draw':('We took something from the game. Keep backing each other and build on it.',
+         'A draw is not a reason to relax. We must turn our chances into better results.',
+         'There were positives and things to improve. Keep our balance and work together.'),
+}
+INDIVIDUAL_ROUTINE=(
+ 'Your movement and preparation matter. Keep offering passing options and be ready when your chance comes.',
+ 'I expect concentration from you. Make your runs count and be decisive when the opportunity arrives.',
+ 'Keep working on your timing and positioning. Consistent preparation will help your next performance.',
+)

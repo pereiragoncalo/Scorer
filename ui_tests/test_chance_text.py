@@ -12,7 +12,7 @@ class ChanceText(unittest.TestCase):
         old=Window.size;density=Metrics.density;scale=Metrics.fontscale
         try:
             with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-                c=g.career;c.accept_starting_offer(c.offers[0]);c.last_training_week=c.week
+                c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();c.last_training_week=c.week
                 g.start_career_match()
                 for width,height,ratio,fontscale in ((320,240,1,1),(1280,591,1.4,1),(800,480,1.5,1),(1920,1080,3,1.3)):
                     Window.size=(width,height);g.size=Window.size;Metrics.density=ratio;Metrics.fontscale=fontscale

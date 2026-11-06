@@ -11,7 +11,7 @@ from test_menus import isolated_game,settle
 
 class NewspaperUI(unittest.TestCase):
     def played(self,g,goals=0,misses=1):
-        c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True
+        c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();g._career_started=True
         h,a=c.next_fixture();score=[1,1];score[0 if h.uid==c.club.uid else 1]=goals if goals>=2 else 1
         c.finish_match(h,a,goals,misses,forced_score=tuple(score));return c
 
@@ -25,7 +25,7 @@ class NewspaperUI(unittest.TestCase):
             printed=''.join(part['text'] for page in paper.pages for part in page)
             self.assertIn(''.join(c.player_name.split()),''.join(printed.split()));self.assertTrue(any('2-1' in t or '1-2' in t for t in texts))
             self.assertEqual(paper.photo.source,PHOTOS[0]);self.assertLessEqual(paper.photo.width,240)
-            g._activate_ui('hub');self.assertEqual(g.view,'hub')
+            g._activate_ui('hub');self.assertEqual(g.view,'coach')
 
     def test_ordinary_player_is_omitted_aliases_are_used_and_opening_is_read_only(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
@@ -55,7 +55,7 @@ class NewspaperUI(unittest.TestCase):
 
     def test_empty_new_career_has_no_invented_news_or_photo(self):
         with isolated_game() as g:
-            g.career.accept_starting_offer(g.career.offers[0]);g._activate_ui('newspaper');g.draw();settle()
+            g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting();g._activate_ui('newspaper');g.draw();settle()
             self.assertFalse(any(isinstance(w,Image) for w in g._menu.body.walk()))
             printed=''.join(part['text'] for page in g._menu.body.pages for part in page)
             self.assertIn('firstmatchreport',''.join(printed.split()))

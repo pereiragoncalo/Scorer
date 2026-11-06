@@ -2597,3 +2597,30 @@ Physical Android playtest pending; no physics/save/server/production changes.
 Public0.9.31 delivery: Actions run42220873368 succeeded. Download verified HTTP200,
 attachment filename, exact107632111bytes and matching tested SHA256. Evidence:
 docs/RELEASE_0.9.31_download.json. Temporary verified transfer branch removed.
+
+
+## 2026-11-06 — weekly locker-room team talks0.9.32
+
+Recovery: recovery/before-team-talk-0932. Remove gameplay Help and restore the
+scoreboard's original available width. Other contextual help remains. Coach talk
+is compulsory once per club/season/week, including the first week; transfers and
+season changes bind a new talk. Read collective feedback from actual club results
+(including shootouts), individual recent form and coach personality. Exactly two
+deterministic focus offers, no gameplay RNG consumed; UI requires a choice before
+completion. Save weekly choice, acknowledgement and post-match queue atomically,
+rollback all on failure; no attribute rewards. Same-week extra fixtures retain the
+focus and defer feedback to the next talk. Training has stats/progress only and no
+focus chooser/action. Old partial drills keep their original focus/XP; the chosen
+weekly focus applies to following sessions. A new week clears a stale development
+session so its old focus/reward flag cannot override the new choice.
+New original locker-room scene (image generation), retain10 saved coach faces as
+cropped avatars. One screen, no scroll: collective + named individual feedback,
+room photo, two choices and fixed finish/help actions. Prefer concise complete
+sentences over tiny full text.21 new strings ×9 languages; focus guidance moves
+to coach Help. Initial398 core cases pass/3skips,11 coach regressions and5 native
+coach tests pass;231 responsive cases +33 final coach cases have zero findings.
+Legacy conditional-meeting/training-focus UI tests adapted to the new weekly
+contract; unrelated fixtures explicitly acknowledge their setup week's talk.
+Final full suites and actual Android build verification in progress. Preserve
+root badge/mode-state/menu-test WIP with partial staged patches. Physical Android
+playtest pending; no shot solver/collision/save-envelope/server/Play changes.

@@ -7,7 +7,7 @@ from test_menus import isolated_game,settle
 class WorldCompetitionUI(unittest.TestCase):
     def test_competitions_page_fixture_pagination_table_groups_and_back(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-            g.career.accept_starting_offer(g.career.offers[0]);g._activate_ui('competitions');settle();self.assertEqual(g.view,'competitions')
+            g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting();g._activate_ui('competitions');settle();self.assertEqual(g.view,'competitions')
             g._activate_ui('competition_open','ucl');settle();self.assertEqual(g.view,'competition');self.assertIsNotNone(g._menu.scroll)
             before={w.text for w in g.walk() if isinstance(w,Label)}
             g._activate_ui('competition_page',1);settle();self.assertEqual(g.competition_page,1);self.assertNotEqual(before,{w.text for w in g.walk() if isinstance(w,Label)})
@@ -15,7 +15,7 @@ class WorldCompetitionUI(unittest.TestCase):
             g._activate_ui('competitions_back');self.assertEqual(g.view,'competitions');g._activate_ui('competitions_back');self.assertEqual(g.view,'world')
     def test_national_calendar_and_secondary_cups_are_browsable(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-            g.career.accept_starting_offer(g.career.offers[0]);g._activate_ui('competitions');settle()
+            g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting();g._activate_ui('competitions');settle()
             texts={w.text for w in g.walk() if isinstance(w,Label)}
             self.assertTrue({'FIFA World Cup','Copa America','OFC Nations Cup','2030'}<=texts)
             for key in ('sudamericana','caf_confederation','afc_two','afc_challenge'):
@@ -28,14 +28,14 @@ class WorldCompetitionUI(unittest.TestCase):
     def test_away_national_goal_updates_correct_scoreboard_side(self):
         from career import CareerClub
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-            g.career.accept_starting_offer(g.career.offers[0]);g.career.nationality='Argentina';g.match_competition='world|friendly|x';g.match_is_international=True
+            g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting();g.career.nationality='Argentina';g.match_competition='world|friendly|x';g.match_is_international=True
             g.match_home=CareerClub('Brazil','Brazil','National Team',1,90,uid='nation:Brazil');g.match_away=CareerClub('Argentina','Argentina','National Team',1,90,uid='nation:Argentina')
             g._match_shot_goal_counted=False;g.match_home_score=g.match_away_score=0;g._record_player_match_goal()
             self.assertEqual((g.match_home_score,g.match_away_score),(0,1));g._record_player_match_goal();self.assertEqual(g.match_away_score,1)
     def test_imported_aliases_are_used_for_cross_country_cup_and_calendar(self):
         from menu_ui import CompactTable
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-            g.career.accept_starting_offer(g.career.offers[0]);g._activate_ui('competitions');cup=g.career.world_competitions.tournaments['ucl'];f=cup.fixtures[0]
+            g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting();g._activate_ui('competitions');cup=g.career.world_competitions.tournaments['ucl'];f=cup.fixtures[0]
             g.career.apply_names({'version':1,'clubs':{f['home']:'Imported Cross Country Club'}})
             g._activate_ui('competition_open','ucl');settle()
             self.assertTrue(any('Imported Cross Country Club' in w.text for w in g.walk() if isinstance(w,Label)))
@@ -48,7 +48,7 @@ class WorldCompetitionUI(unittest.TestCase):
         try:
             Window.size=(320,240)
             with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-                g.size=(320,240);g.career.accept_starting_offer(g.career.offers[0]);g._activate_ui('competitions')
+                g.size=(320,240);g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting();g._activate_ui('competitions')
                 for lang in ('en','pt','es','de','it','ko','ja','zh','vi'):
                     g.i18n.choose(lang)
                     for view in ('competitions','competition'):

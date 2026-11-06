@@ -9,7 +9,7 @@ from contextual_help import topics
 
 class ContextualStandingsTests(unittest.TestCase):
     def sign(self,g):
-        c=g.career;c.accept_starting_offer(c.offers[0]);c._ensure_competitions();return c
+        c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();c._ensure_competitions();return c
     def test_standings_selector_opens_all_involved_cups_without_simulating_results(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
             c=self.sign(g);g._activate_ui('standings');settle();screen=g._menu.body
@@ -56,26 +56,11 @@ class ContextualStandingsTests(unittest.TestCase):
             g._activate_ui('help');g._activate_ui('help');self.assertEqual(g.view,'profile');g._activate_ui('help_back');g.draw();settle()
             self.assertIs(g._menu.body,screen);self.assertEqual(screen.name.text,'Draft Player')
             c.post_match_stage='newspaper';g.view='newspaper';g.draw();g._activate_ui('help');g._activate_ui('help_back');self.assertEqual(c.post_match_stage,'newspaper')
-    def test_gameplay_help_pauses_clock_ball_timer_and_blocks_shooting(self):
+    def test_gameplay_has_no_help_and_clock_continues(self):
         with isolated_game(saved=True) as g:
             g.career.load();g.career.attend_coach_meeting();g.start_training();g.draw();settle()
-            self.assertIsNotNone(g._game_help);self.assertEqual(g._game_help.parent,g)
-            g._activate_ui('help');before=(g.elapsed,g.state_age,g.shot_time_left,g.ball.x,g.ball.y,g.ball.z,g.attempts)
-            for _ in range(10):g.update(.1)
-            g.shoot();g._on_key_down(Window,ord('r'),0,'r',[])
-            self.assertEqual(before,(g.elapsed,g.state_age,g.shot_time_left,g.ball.x,g.ball.y,g.ball.z,g.attempts))
-            g._activate_ui('help_back');g.update(.01);self.assertGreater(g.elapsed,before[0])
-    def test_help_touch_works_while_match_notice_is_open(self):
-        from kivy.tests.common import UnitTestTouch
-        with isolated_game(saved=True) as g:
-            c=g.career;c.load();c.attend_coach_meeting();c.begin_training()
-            for _ in range(3):c.record_training_shot(False)
-            c.complete_training(0);g.start_career_match();g.awaiting_chance=True;g.draw();settle()
-            self.assertIsNotNone(g._match_notice)
-            self.assertLessEqual(g._scoreboard_bounds()[0]+g._scoreboard_bounds()[2],g._game_help.x)
-            touch=UnitTestTouch(*g._game_help.center);touch.touch_down();touch.touch_up();settle()
-            self.assertIsNotNone(g._context_help);self.assertEqual(g.view,'match')
-            g._activate_ui('help_back');self.assertTrue(g.awaiting_chance)
+            self.assertIsNone(g._game_help);before=g.elapsed;g.update(.01);self.assertGreater(g.elapsed,before)
+            self.assertFalse(any(isinstance(w,Button) and w.text=='HELP' for w in g.walk()))
 
     def test_context_topics_translate_and_do_not_leak_training_focus_elsewhere(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
@@ -83,6 +68,6 @@ class ContextualStandingsTests(unittest.TestCase):
             from contextual_help import TABLE
             for language in ('pt','es','de','it','ko','ja','zh','vi'):
                 g.i18n.choose(language);self.assertNotEqual(g.i18n.tr(TABLE),TABLE)
-            g.view='training';self.assertTrue(any('FOCUS' in title for title,_ in topics(g)))
-            for view in ('hub','profile','development','standings','coach'):
+            g.view='coach';self.assertTrue(any('FOCUS' in title for title,_ in topics(g)))
+            for view in ('hub','profile','development','standings','training'):
                 g.view=view;self.assertFalse(any('FOCUS' in title for title,_ in topics(g)))

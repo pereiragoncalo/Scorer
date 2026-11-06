@@ -10,7 +10,7 @@ from player_development import FOCI,HINTS,NAMES
 from test_menus import isolated_game,settle
 class DevelopmentUI(unittest.TestCase):
  def sign(self,g):
-  c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True;g.view='hub';g.draw();settle();Clock.unschedule(g.update);return c
+  c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();g._career_started=True;g.view='hub';g.draw();settle();Clock.unschedule(g.update);return c
  def test_player_has_only_objectives_in_one_panel_and_preserves_name_controls(self):
   with isolated_game() as g:
    c=self.sign(g);g._activate_ui('profile');g.draw();settle()
@@ -32,25 +32,12 @@ class DevelopmentUI(unittest.TestCase):
    for forbidden in ('below 45','Training +2','Training and goals','TRAINING FOCUS','Role changes','Substitutes enter'):
     self.assertNotIn(forbidden,text)
    g._activate_ui('development_back');self.assertEqual(g.view,'hub')
- def test_focus_selector_is_training_only_and_keeps_session_locked(self):
+ def test_focus_selector_is_removed_from_training_and_locked_for_week(self):
   with isolated_game() as g:
-   c=self.sign(g);g._activate_ui('training_focus_open');self.assertIsNone(getattr(g,'_training_focus_popup',None))
-   g._activate_ui('training_focus','heading');self.assertEqual(c.training_focus,'placed')
-   g.view='training';g.draw();settle();g._activate_ui('training_focus_open');settle()
-   popup=g._training_focus_popup
-   try:
-    self.assertEqual(g.view,'training');popup.choose(g._menu,'heading');settle()
-   finally:popup.dismiss()
-   self.assertEqual(c.training_focus,'heading');g.start_training()
-   self.assertEqual(g.shot_type,'header');self.assertEqual(g.field_players,[])
-   self.assertFalse(c.choose_training_focus('penalties'))
-   for _ in range(3):g.result_text='GOAL!';g._advance_after_shot()
-   self.assertEqual(c.development['skills']['heading']['xp'],24)
-   g.draw();settle();g._activate_ui('training_focus_open');settle();popup=g._training_focus_popup
-   try:
-    choices=[w for w in popup.walk() if isinstance(w,MenuTile) and '\n'in w.text]
-    self.assertEqual(len(choices),4);self.assertTrue(all(w.disabled for w in choices))
-   finally:popup.dismiss()
+   c=self.sign(g);before=c.training_focus;g.view='training';g.draw();settle()
+   g._activate_ui('training_focus_open');g._activate_ui('training_focus','heading')
+   self.assertIsNone(getattr(g,'_training_focus_popup',None));self.assertEqual(c.training_focus,before)
+   self.assertFalse(c.choose_training_focus('heading'))
  def test_training_has_values_and_controls_without_explanations(self):
   with isolated_game() as g:
    c=self.sign(g);g.view='training';g.draw();settle()
@@ -63,7 +50,7 @@ class DevelopmentUI(unittest.TestCase):
   from world_ui import WORLD_HELP_PAGES
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
    self.sign(g);collected=[]
-   for view in ('profile','training','development'):
+   for view in ('profile','coach','development'):
     g.view=view;g.draw();g._activate_ui('help');settle()
     collected.extend(w.text for w in g._context_help.walk() if isinstance(w,Label))
     for label in g._context_help.body.walk():
@@ -78,11 +65,11 @@ class DevelopmentUI(unittest.TestCase):
   with isolated_game() as g:
    c=self.sign(g)
    for focus in FOCI:
-    c._consume_match_training();c.choose_training_focus(focus);g.view='training';g.start_training()
+    c._consume_match_training();c.development['focus']=focus;g.view='training';g.start_training()
     self.assertEqual(g.field_players,[]);self.assertIsNone(g.current_opportunity)
     self.assertEqual(g.shot_type,'header' if focus=='heading' else 'penalty' if focus=='penalties' else 'kick')
    for focus,targets in (('low',((0.,.4),(0.,1.2),(0.,.9))),('placed',((1.5,1.),(0.,1.),(-2.5,1.)))):
-    c._consume_match_training();c.choose_training_focus(focus);g.view='training';g.start_training()
+    c._consume_match_training();c.development['focus']=focus;g.view='training';g.start_training()
     for x,z in targets:g.aim_x=x;g.aim_z=z;g.result_text='GOAL!';g._advance_after_shot()
     self.assertEqual(c.development['skills'][focus]['xp'],20)
  def test_role_window_and_skill_controls_are_preserved(self):

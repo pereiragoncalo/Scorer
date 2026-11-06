@@ -93,13 +93,8 @@ class DevelopmentCareer:
         return d['session']['focus'] if d['session'] is not None else d['focus']
 
     def choose_training_focus(self,focus):
-        if focus not in FOCI:return False
-        if self.training_used_this_week:
-            self.message='Finish the next match before changing focus.';return False
-        before=copy.deepcopy(self.development);self._ensure_development()['focus']=focus
-        if self.save() is False:
-            self.development=before;return False
-        return True
+        if not self.coach_meeting_required or focus not in self.coach_focus_options():return False
+        return self.attend_coach_meeting(focus)
 
     def _reserve_development_training(self):
         d=self._ensure_development()

@@ -11,7 +11,7 @@ from test_menus import isolated_game,settle
 
 class ReadableScreens(unittest.TestCase):
     def sign(self,g):
-        c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True;return c
+        c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();g._career_started=True;return c
     def test_first_splash_touch_works_before_child_layout(self):
         with isolated_game() as g:
             g.draw();settle();g._menu.body.pos=(10000,10000)

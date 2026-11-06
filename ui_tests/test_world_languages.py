@@ -42,7 +42,7 @@ class WorldLanguageTests(unittest.TestCase):
     def test_language_choice_uses_buttons_persists_and_keeps_names_and_save_bytes(self):
         with patch('edition.WORLD_BUILD',True),patch('main.phone_locale_tag',return_value='en'):
             with isolated_game() as game:
-                c=game.career;c.set_player_name('Nguyễn 日本語');c.accept_starting_offer(c.offers[0])
+                c=game.career;c.set_player_name('Nguyễn 日本語');c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting()
                 c.apply_names({'version':1,'clubs':{c.club.uid:'HELP'},'leagues':{c.league_key:'PLAY'}})
                 c.save();before=c.save_path.read_bytes();identity=(c.player_name,c.club.uid,c.league_key)
                 game._career_started=True;game.view='hub';game._activate_ui('help');settle()
@@ -62,7 +62,7 @@ class WorldLanguageTests(unittest.TestCase):
     def test_table_headers_stay_translated_after_paging_and_asynchronous_layout(self):
         with patch('edition.WORLD_BUILD',True),patch('main.phone_locale_tag',return_value='ja'):
             with isolated_game() as game:
-                c=game.career;c.accept_starting_offer(c.offers[0]);c.apply_names({'version':1,'clubs':{c.club.uid:'HELP'}})
+                c=game.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();c.apply_names({'version':1,'clubs':{c.club.uid:'HELP'}})
                 game.view='standings';game.draw();settle()
                 table=next(w for w in game.walk() if isinstance(w,CompactTable))
                 table.move(1);table.width-=5;settle();table.jump_to_focus();settle()
@@ -95,7 +95,7 @@ class WorldLanguageTests(unittest.TestCase):
     def test_editor_values_and_json_schema_are_not_translated(self):
         with patch('edition.WORLD_BUILD',True),patch('main.phone_locale_tag',return_value='ko'):
             with isolated_game() as game:
-                c=game.career;c.accept_starting_offer(c.offers[0]);c.apply_names({'version':1,'clubs':{c.club.uid:'PLAY 日本語'},'leagues':{c.league_key:'HELP'}})
+                c=game.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();c.apply_names({'version':1,'clubs':{c.club.uid:'PLAY 日本語'},'leagues':{c.league_key:'HELP'}})
                 game.editor_key=c.league_key;game.editor_club_index=c.current_league.clubs.index(c.club)
                 game.view='editor';game.draw();settle()
                 fields={w.text for w in game.walk() if isinstance(w,TextInput)}
@@ -129,7 +129,7 @@ class WorldLanguageTests(unittest.TestCase):
         for code in LANGUAGES:
             with self.subTest(language=code),patch('edition.WORLD_BUILD',True),patch('main.phone_locale_tag',return_value=code):
                 with isolated_game() as game:
-                    c=game.career;c.accept_starting_offer(c.offers[0]);c.last_training_week=c.week;c.attend_coach_meeting()
+                    c=game.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();c.last_training_week=c.week;c.attend_coach_meeting()
                     c.apply_names({'version':1,'clubs':{c.club.uid:'HELP'}})
                     game.start_career_match();game.draw();settle()
                     texts={key[0] for key in game._text_texture_cache}

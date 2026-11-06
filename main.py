@@ -2962,8 +2962,6 @@ class StrikerGame(Widget):
 
     def on_touch_down(self, touch):
         if self._context_help is not None:return True
-        if self._game_help is not None and self._game_help.parent is self and self._game_help.collide_point(*touch.pos):
-            return super().on_touch_down(touch)
         # Handle the first delivered touch at the root, even before the splash
         # widget has completed its initial Kivy layout.
         if self.view=="splash" and not getattr(touch,'is_mouse_scrolling',False):
@@ -3090,14 +3088,9 @@ class StrikerGame(Widget):
             self._development_return=self.view;self.view='development';return
         if action=='development_back' and self.view=='development':
             self.view=getattr(self,'_development_return','hub');return
-        if action=='training_focus_open' and self.view=='training':
-            if getattr(self,'_training_focus_popup',None) is None:
-                from development_ui import TrainingFocusPopup
-                popup=TrainingFocusPopup(self._menu);self._training_focus_popup=popup
-                popup.bind(on_dismiss=lambda *_:setattr(self,'_training_focus_popup',None));popup.open()
+        if action=='coach_focus' and self.view=='coach' and self.career.coach_meeting_required:
+            if value in self.career.coach_focus_options():self._coach_focus_pick=(self.career.coach_key,value)
             return
-        if action=='training_focus' and self.view=='training':
-            self.career.choose_training_focus(value);return
         if action=='competitions_back' and self.view in ('competitions','competition'):
             self.view='competitions' if self.view=='competition' else 'world';self.draw();return
         if action=='notice_exit' and self.view=='data_notice':self._reject_notice();return
@@ -3224,10 +3217,9 @@ class StrikerGame(Widget):
         elif action == 'coach':
             self.view = 'coach' if self.career.coach_meeting_required else 'hub'
         elif action == 'coach_complete' and self.view == 'coach':
-            if self.career.attend_coach_meeting():
-                self.career.post_match_stage=''
-                if self.career.save() is False:self.career.post_match_stage='coach'
-                else:self.view='hub'
+            pick=getattr(self,'_coach_focus_pick',None)
+            if pick and pick[0]==self.career.coach_key and pick[1] in self.career.coach_focus_options():
+                if self.career.attend_coach_meeting(pick[1]):self.view='hub'
         elif action == "training":
             if self.career.coach_meeting_required:
                 self.career.message=COACH_REQUIRED;self.view='coach';return
@@ -3475,14 +3467,6 @@ class StrikerGame(Widget):
         else:
             self._match_notice = None
 
-        if self.view in ('match','shot'):
-            from menu_ui import MenuTile
-            if self._game_help is None:
-                self._game_help=MenuTile('HELP',lambda:self._activate_ui('help'));self._game_help.size_hint=(None,None)
-            self._game_help.text=self.i18n.tr('HELP')
-            self._game_help.size=(dp(80),dp(48));self._game_help.pos=(self.right-dp(88),self.top-dp(56))
-            if self._game_help.parent is not self:self.add_widget(self._game_help)
-            elif self._game_help.canvas not in self.canvas.children:self.canvas.add(self._game_help.canvas)
 
 
     def _draw_career_screen(self) -> None:
@@ -4157,7 +4141,7 @@ class StrikerGame(Widget):
 
     def _scoreboard_bounds(self):
         return (self.x + dp(8), self.top - dp(54),
-                min(dp(280), self.width - dp(104)), dp(46))
+                min(dp(280), self.width - dp(16)), dp(46))
 
     def _shot_timer_bounds(self):
         x, y, width, _ = self._scoreboard_bounds()
@@ -5236,7 +5220,7 @@ class StrikerGame(Widget):
                 self.top - 47,
                 font_size=max(14, int(self.height * 0.025)),
                 color=(0.91, 0.96, 0.98, 1.0),
-                max_width=self.width - 72 - dp(88),
+                max_width=self.width - 72,
             )
 
 

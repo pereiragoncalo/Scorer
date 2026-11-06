@@ -12,7 +12,7 @@ class WorldEditorNavigationTests(unittest.TestCase):
             for size in ((320,240),(960,540)):
                 Window.size=size
                 with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-                    c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True;g.size=size;g.view='hub';g.draw();settle()
+                    c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();g._career_started=True;g.size=size;g.view='hub';g.draw();settle()
                     original=c.club.uid,c.league_key
                     self.assertNotIn('NAMES EDITOR',{w.text for w in g.walk() if isinstance(w,TouchButton)})
                     g._activate_ui('upgrade');g.draw();settle();self.assertEqual(g.view,'world')
@@ -25,5 +25,5 @@ class WorldEditorNavigationTests(unittest.TestCase):
 
     def test_free_cannot_open_editor(self):
         with patch('edition.WORLD_BUILD',False),isolated_game() as g:
-            c=g.career;c.accept_starting_offer(c.offers[0]);g.view='hub';g.draw();settle();g._activate_ui('editor')
+            c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();g.view='hub';g.draw();settle();g._activate_ui('editor')
             self.assertNotEqual(g.view,'editor')

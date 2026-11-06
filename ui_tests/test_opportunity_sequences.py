@@ -7,7 +7,7 @@ from opportunity_sequences import KINDS,TEXT
 from test_menus import isolated_game,settle
 class OpportunityScenes(unittest.TestCase):
     def sign(self,g):
-        c=g.career;c.accept_starting_offer(c.offers[0]);c.last_training_week=c.week
+        c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();c.last_training_week=c.week
         g.start_career_match();Clock.unschedule(g.update);g.view='shot';g.shot_context='match';g.current_chance_difficulty='hard'
         g._prepare_next_shot();g.shot_time_limit=g.shot_time_left=4.;return c
     def test_all_deliveries_freeze_on_arrival_before_timer_and_input(self):

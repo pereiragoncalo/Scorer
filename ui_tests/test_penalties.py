@@ -6,7 +6,7 @@ from test_menus import isolated_game,settle
 class Penalties(unittest.TestCase):
     def test_penalties_are_chosen_and_announced_before_playing_the_chance(self):
         with isolated_game() as g:
-            c=g.career;c.accept_starting_offer(c.offers[0]);c.last_training_week=c.week;found=0
+            c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();c.last_training_week=c.week;found=0
             with patch.object(c,'chance_count',return_value=3):
                 for seed in range(80):
                     c.rng.seed(80000+seed);g.start_career_match();idx=g.match_penalty_chance_index

@@ -8,7 +8,7 @@ from honours import participate,award
 
 class PostMatchFlow(unittest.TestCase):
     def sign(self,g):
-        c=g.career;c.accept_starting_offer(c.offers[0]);g._career_started=True;return c
+        c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();g._career_started=True;return c
     def result(self,g,key=False):
         c=self.sign(g);h,a=c.next_fixture()
         g.match_home,g.match_away=h,a;g.match_home_score=1;g.match_away_score=0
@@ -21,11 +21,11 @@ class PostMatchFlow(unittest.TestCase):
                 self.assertEqual(c.post_match_stage,'newspaper');self.assertTrue(c.load())
                 g._activate_ui('match_continue');g.draw();settle();self.assertEqual(g.view,'newspaper')
                 g._on_key_down(None,27,None,'',None);g.draw();settle()
-                self.assertEqual(g.view,'coach' if requested else 'hub')
-                if requested:
+                self.assertEqual(g.view,'coach')
+                if True:
                     self.assertTrue(c.load());self.assertEqual(c.post_match_stage,'coach')
                     g._on_key_down(None,27,None,'',None);self.assertEqual(g.view,'coach')
-                    g._activate_ui('coach_complete');g.draw();settle();self.assertEqual(g.view,'hub')
+                    g._activate_ui('coach_focus',c.coach_focus_options()[0]);g._activate_ui('coach_complete');g.draw();settle();self.assertEqual(g.view,'hub')
                 self.assertEqual(c.post_match_stage,'');self.assertTrue(c.load());self.assertEqual(c.post_match_stage,'')
     def test_failed_paper_save_retains_stage_and_does_not_skip_coach(self):
         with isolated_game() as g:
@@ -39,7 +39,7 @@ class PostMatchFlow(unittest.TestCase):
             with isolated_game() as g:
                 c=self.sign(g);g.size=size
                 for week,disabled in ((12,True),(0,False)):
-                    c.week=week;g.view='hub';g.draw();settle()
+                    c.week=week;c.attend_coach_meeting();g.view='hub';g.draw();settle()
                     buttons={w.text:w for w in g.walk() if isinstance(w,MenuTile)}
                     self.assertNotIn('NEWSPAPER',buttons);self.assertNotIn('COACH MEETING',buttons)
                     self.assertEqual(buttons['AGENT'].disabled,disabled)

@@ -51,7 +51,7 @@ class MatchMomentUI(unittest.TestCase):
         try:
             Window.size=(320,240)
             with patch('edition.WORLD_BUILD',True),isolated_game(saved=True) as g:
-                g.career.accept_starting_offer(g.career.offers[0]);g.career.last_training_week=g.career.week;g.career.attend_coach_meeting();g.start_career_match()
+                g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting();g.career.last_training_week=g.career.week;g.career.attend_coach_meeting();g.start_career_match()
                 g.size=(320,240);g.awaiting_chance=True;g.match_moment='equaliser'
                 for lang in ('en','pt','es','de','it','ko','ja','zh','vi'):
                     g.i18n.choose(lang);g.draw();settle()

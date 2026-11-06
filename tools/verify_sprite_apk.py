@@ -19,10 +19,11 @@ with zipfile.ZipFile(artifact) as archive:
                 for paths in a['individuals'].values():
                     for path in paths:
                         assert data(path)==(stage/path).read_bytes();frames+=1
-        for module in ('main','retro_sprites','sprite_animation','sprite_textures','stadium_scene','supporter_layout','celebrations','menu_ui','coach_ui','newspaper_ui','competition_views','standings_ui','contextual_help'):
+        for module in ('main','retro_sprites','sprite_animation','sprite_textures','stadium_scene','supporter_layout','celebrations','menu_ui','coach_ui','newspaper_ui','competition_views','standings_ui','contextual_help','coach','player_development','world_ui'):
             actual=marshal.loads(data(module+'.pyc')[16:])
             expected=compile((stage/(module+'.py')).read_text(),actual.co_filename,'exec',optimize=2)
             assert actual==expected,'Compiled source differs: '+module
+        assert data('assets/coaches/team_talk.png')==(stage/'assets/coaches/team_talk.png').read_bytes()
         assert frames==208 and sheets==30
         assert not any('/tools/sprite_lab/' in name for name in members)
 print('Original revision2 base plus requested celebrations:',frames,'frames,',sheets,'sheets, exact compiled rendering/runtime source; no sprite-lab build tools.')

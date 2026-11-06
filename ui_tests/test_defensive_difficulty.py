@@ -7,7 +7,7 @@ class DefensiveDifficultyUI(unittest.TestCase):
     def test_opponent_tier_controls_keeper_and_defenders_do_not_read_aim(self):
         from career import CareerClub
         with isolated_game(saved=True) as g:
-            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0])
+            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
             g.shot_context='match';g.current_chance_difficulty='hard'
             g.match_home=g.career.club;g.match_away=CareerClub('Elite','England','Test',1,90,uid='opponent')
             self.assertEqual(g._defensive_profile().level,1)
@@ -16,7 +16,7 @@ class DefensiveDifficultyUI(unittest.TestCase):
             g.career.rng.seed(123);random.seed(123);g.aim_x=3.4;g._generate_field_players();self.assertEqual(before,[(p.x,p.y) for p in g.field_players]);self.assertEqual(len(before),5)
     def test_save_pose_reaches_both_high_and_low_and_collision_uses_same_pose(self):
         with isolated_game(saved=True) as g:
-            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0])
+            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
             g.shot_context='match';g.current_chance_difficulty='hard';g.goalkeeper_is_diving=True
             g.goalkeeper_dive_progress=.9;g.goalkeeper_dive_amount=.9;g.goalkeeper_dive_age=.28;g.goalkeeper_dive_sign=1
             g.goalkeeper_high_reach=1;g.goalkeeper_low_reach=0
@@ -27,7 +27,7 @@ class DefensiveDifficultyUI(unittest.TestCase):
             self.assertTrue(g._collide_goalkeeper())
     def test_tier_and_recent_scoring_do_not_redirect_an_unobstructed_shot(self):
         with isolated_game(saved=True) as g:
-            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0])
+            if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
             g.shot_context='match';g.current_chance_difficulty='hard'
             velocities=[]
             for tier in (5,1):

@@ -143,7 +143,7 @@ class CareerMenu(BoxLayout):
                      c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required, str(c.coach_state), str(c.press_state), str(c.development),getattr(self.game,'development_tab','objectives'),
-                     self.game.help_page, self.game.editor_club_index, self.game.editor_key, self.game.world_country, self.game.world_league_key, c.alias_revision, self.game.reward_ad_status, Metrics.density, Metrics.fontscale, self._desktop_dashboard_available(),
+                     self.game.help_page,getattr(self.game,'_coach_focus_pick',None), self.game.editor_club_index, self.game.editor_key, self.game.world_country, self.game.world_league_key, c.alias_revision, self.game.reward_ad_status, Metrics.density, Metrics.fontscale, self._desktop_dashboard_available(),
                      (c.current_league.round_index, tuple(c.current_league.scorer_goals.items())) if self._desktop_dashboard_available() else None)
         if signature != self._signature:
             self._signature = signature
@@ -352,7 +352,6 @@ class CareerMenu(BoxLayout):
         card.label('MAXIMUM LEVEL' if level==10 else g.i18n.tr('Level {level}/10 · XP {xp}/{needed}',level=level,xp=skill['xp'],needed=needed(level)))
         card.label(f'Energy: {c.stamina:.1f}/20  ·  Morale: {c.morale:.1f}/20',muted=True)
         actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
-        actions.add_widget(self._button('TRAINING FOCUS','training_focus_open'))
         button=self._button('TRAINING COMPLETE' if used else 'RESUME TRAINING' if resumable else 'START TRAINING','training_start',accent=True)
         button.disabled=used or c.coach_meeting_required;actions.add_widget(button);card.add_widget(actions)
 

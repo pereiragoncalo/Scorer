@@ -8,8 +8,14 @@ class PlayerDevelopment(unittest.TestCase):
   self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
   self.env=patch.dict('os.environ',STRIKER_SAVE_DIR=self.temp.name);self.env.start();self.addCleanup(self.env.stop)
   self.c=CareerMode(autoload=False);self.c.accept_starting_offer(self.c.offers[0])
+ def select_focus(self,focus):
+  c=self.c
+  if c.coach_meeting_held:c.week+=1
+  alternative=next(f for f in FOCI if f!=focus)
+  with patch.object(c,'coach_focus_options',return_value=(focus,alternative)):
+   self.assertTrue(c.choose_training_focus(focus))
  def train(self,focus='placed',on_focus=3):
-  c=self.c;self.assertTrue(c.choose_training_focus(focus));self.assertTrue(c.begin_training())
+  c=self.c;self.select_focus(focus);self.assertTrue(c.begin_training())
   for i in range(3):self.assertTrue(c.record_training_shot(True,i<on_focus))
   c.complete_training(99)
  def test_only_selected_skill_earns_xp_once_from_persisted_three_shots(self):
@@ -18,7 +24,7 @@ class PlayerDevelopment(unittest.TestCase):
   self.assertTrue(all(c.skill_level(k)==0 for k in FOCI));self.assertEqual(c.coach_trust,52)
   before=copy.deepcopy(c.development);c.complete_training(999);self.assertEqual(c.development,before)
   self.assertFalse(c.choose_training_focus('low'));self.assertEqual(c.training_focus,'heading')
-  c._consume_match_training();self.assertTrue(c.choose_training_focus('low'));self.assertEqual(c.training_focus,'low')
+  c._consume_match_training();self.assertFalse(c.choose_training_focus('low'));self.select_focus('low');self.assertEqual(c.training_focus,'low')
  def test_three_focused_sessions_gain_one_level_and_cap_is_bounded(self):
   c=self.c
   for _ in range(3):
@@ -27,7 +33,7 @@ class PlayerDevelopment(unittest.TestCase):
   c.development['skills']['low']=dict(level=9,xp=needed(9)-1)
   self.train('low',3);self.assertEqual(c.development['skills']['low'],dict(level=10,xp=0))
  def test_partial_session_and_focused_goals_survive_load_without_reroll(self):
-  c=self.c;c.choose_training_focus('penalties');c.begin_training();c.record_training_shot(True,True)
+  c=self.c;self.select_focus('penalties');c.begin_training();c.record_training_shot(True,True)
   self.assertTrue(c.load());self.assertEqual(c.training_focus,'penalties');self.assertEqual(c.training_shots_taken,1)
   self.assertFalse(c.choose_training_focus('heading'))
   c.begin_training();c.record_training_shot(True,True);c.record_training_shot(False);c.complete_training(3)
@@ -38,7 +44,7 @@ class PlayerDevelopment(unittest.TestCase):
   with patch.object(c,'save',return_value=False):
    self.assertFalse(c.choose_training_focus('heading'));self.assertEqual(c.development,before)
    self.assertFalse(c.begin_training());self.assertEqual(c.development,before)
-  c.begin_training();before=copy.deepcopy(c.development)
+  self.select_focus('placed');c.begin_training();before=copy.deepcopy(c.development)
   with patch.object(c,'save',return_value=False):self.assertFalse(c.record_training_shot(True,True))
   self.assertEqual(c.development,before);self.assertEqual(c.training_shots_taken,0)
   for _ in range(3):c.record_training_shot(True,True)

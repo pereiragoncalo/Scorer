@@ -57,6 +57,7 @@ try:
      try:
       c.post_match_stage='';c.coach_state=coach_fresh(c.club.uid)
       if view=='coach':c.coach_state.update(games=3,drought=3,recent=[0,0,0])
+      else:c.attend_coach_meeting()
       if view in ('match','shot','chance_notice'):
        c.last_training_week=c.week;g.start_career_match()
        if view=='shot':g.awaiting_chance=True;g._begin_pending_chance()

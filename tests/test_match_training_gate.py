@@ -13,7 +13,7 @@ class MatchTrainingGate(unittest.TestCase):
         env=patch.dict(os.environ,STRIKER_SAVE_DIR=self.temp.name);env.start();self.addCleanup(env.stop)
     def signed(self,world=False):
         c=CareerMode(Access() if world else None,autoload=False,save_slot='world' if world else 'legacy')
-        c.accept_starting_offer(c.offers[0]);return c
+        c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();return c
     def train(self,c):
         self.assertTrue(c.begin_training())
         for outcome in (True,False,False):self.assertTrue(c.record_training_shot(outcome))

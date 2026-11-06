@@ -16,14 +16,14 @@ def topics(game):
     special={
         'start':(base[0],), 'offers':(('Your first contract',START),),
         'hub':(('HELP',HUB),), 'profile':(PROGRESSION_HELP_PAGES[0],),
-        'training':training,'development':PROGRESSION_HELP_PAGES[-2:],
-        'shot':(base[2],)+(training if game.shot_context=='training' else ()),
+        'training':(base[1],),'development':PROGRESSION_HELP_PAGES[-2:],
+        'shot':(base[2],),
         'match':(base[2],), 'standings':(('STANDINGS',TABLE),),
         'competition':(('COMPETITIONS',TABLE),),'competitions':(('COMPETITIONS',TABLE),),
         'world_league':(('STANDINGS',TABLE),),'scorers':(('TOP SCORERS',SCORERS),),
         'calendar':(('FIXTURES',CALENDAR),),'agent':(('AGENT',AGENT),),
         'world':(base[3],),'world_country':(base[3],),'editor':(base[3],),
-        'coach':(('COACH MEETING',COACH),),'newspaper':(('MATCH REPORT',PAPER),),
+        'coach':(('WEEKLY TEAM TALK',COACH),)+training[1:],'newspaper':(('MATCH REPORT',PAPER),),
         'club':(('CLUB',CLUB),),'language':(('LANGUAGE',LANGUAGE),),
         'leaderboard':(('LEADERBOARD',RECORDS),),'record_safety':(('LEADERBOARD',RECORDS),),
         'family':(('ADULT CONTROLS',CONTROLS),),'privacy':(('SETTINGS',SETTINGS),),
@@ -37,7 +37,7 @@ TABLE='Select a competition to see its standings or fixtures. Switch groups when
 SCORERS='This table ranks league scorers by goals. My Position finds your player. Cup and international goals are counted separately.'
 CALENDAR='Check dates, opponents, competitions and results. Complete training before each playable fixture, including matches in the same week.'
 AGENT='Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress.'
-COACH='Meet the coach after a scoring drought or a key match. Read the feedback and finish the meeting to continue.'
+COACH='Attend one team talk each week. Read the team and individual feedback, choose one of two training focuses, then finish the talk. The choice applies to the week; extra matches do not require another talk.'
 PAPER='Read the previous match report, including goals and the result. Continue to a requested coach meeting or back to your career.'
 CLUB='View the club foundation, honours, stadium and capacity. Club colours follow the selected team.'
 LANGUAGE='English is the default. Choose a language or select Automatic to follow your phone.'

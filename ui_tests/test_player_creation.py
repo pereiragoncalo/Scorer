@@ -23,7 +23,7 @@ class PlayerCreationUITests(unittest.TestCase):
             form.submit();self.assertEqual(g.view,'offers');self.assertEqual((g.career.player_name,g.career.nationality,g.career.current_league.country),('Marco Costa','Brazil','Mexico'))
             self.assertFalse(g.career.save_path.exists())
             g._activate_ui('accept_offer',g.career.offers[0]);self.assertTrue(g.career.save_path.exists())
-            g.view='start';g._load_career();self.assertEqual(g.view,'hub');self.assertTrue(g._career_started)
+            g.view='start';g._load_career();self.assertEqual(g.view,'coach');self.assertTrue(g._career_started)
             self.assertEqual((g.career.nationality,g.career.current_league.country),('Brazil','Mexico'))
     def test_draft_survives_validation_and_rebuild_and_picker_cancel_does_not_apply(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
@@ -52,5 +52,5 @@ class PlayerCreationUITests(unittest.TestCase):
         with isolated_game() as g:
             f=self.start(g);self.assertFalse(f.world_creation);self.assertFalse(hasattr(f,'country_buttons'))
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-            g.career.accept_starting_offer(g.career.offers[0]);g.view='hub';g._activate_ui('profile');g.draw();settle()
+            g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting();g.view='hub';g._activate_ui('profile');g.draw();settle()
             f=g._menu.body;self.assertFalse(f.world_creation);self.assertFalse(hasattr(f,'country_buttons'))

@@ -34,16 +34,21 @@ with zipfile.ZipFile(sys.argv[1]) as z:
         with tempfile.TemporaryDirectory() as directory:
             os.environ['STRIKER_SAVE_DIR']=directory
             c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0]);c.next_match();assert c.world_competitions
-            assert c.coach_trust==50 and c.choose_training_focus('heading') and c.begin_training()
+            assert c.coach_meeting_required and not c.begin_training()
+            options=c.coach_focus_options();assert len(options)==2 and len(set(options))==2
+            selected_focus=options[0]
+            assert c.coach_trust==50 and c.attend_coach_meeting(selected_focus) and c.begin_training()
             for _ in range(3):assert c.record_training_shot(True,True)
-            c.complete_training(999);assert c.development['skills']['heading']==dict(level=0,xp=24)
-            assert c.load() and c.development['skills']['heading']['xp']==24
-            c.complete_training(999);assert c.development['skills']['heading']['xp']==24
+            c.complete_training(999);assert c.development['skills'][selected_focus]==dict(level=0,xp=24)
+            assert c.load() and c.development['skills'][selected_focus]['xp']==24
+            c.complete_training(999);assert c.development['skills'][selected_focus]['xp']==24
             c.development.update(trust=40,peak_trust=50);assert c.playing_window()==(60,90)
             c.development=development.fresh(c.season);c._ensure_development();c._consume_match_training();c.stamina=c.morale=10.;c.save()
             print('Actual APK: persisted focused XP, no duplicate rewards, role/minutes and neutral legacy progression verified')
             assert not c.coach_meeting_required and c.begin_training()
             c.record_coach_performance(0,1,[],False,key_match=True)
+            assert not c.coach_meeting_required
+            c.week+=1
             assert c.coach_meeting_required and not c.begin_training()
             assert c.attend_coach_meeting() and not c.coach_meeting_required and c.begin_training()
             c.save();assert c.load() and not c.coach_meeting_required
@@ -143,7 +148,7 @@ print('Actual APK: persisted French playoff ladder, top-three foreign-league cal
 
 print('Actual APK: 38-country capacities, Austrian split/half-points/reload and legacy layout preservation verified')
 
-print('Actual APK: conditional coach requests and offline newspaper report/photo data verified')
+print('Actual APK: weekly team talks, two offered focuses, persistent choices, same-week lock and next-week gate verified')
 
 print("Actual APK: ten coach portraits and saved appearance selection verified")
 
@@ -155,6 +160,8 @@ print('Actual APK: all four goals, changing score and match summary verified')
 with tempfile.TemporaryDirectory() as tmp:
     os.environ['STRIKER_SAVE_DIR']=tmp
     c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0])
+    assert c.coach_meeting_required and not c.begin_training()
+    assert c.attend_coach_meeting(c.coach_focus_options()[0])
     assert not c.trained_this_week and c.complete_training(3)==0 and c.begin_training()
     for shot in range(3):
         assert not c.trained_this_week and c.complete_training(3)==0

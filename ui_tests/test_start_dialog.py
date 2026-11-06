@@ -58,7 +58,7 @@ class StartDialogTests(unittest.TestCase):
         try:
             Window.size=(360,640)
             with patch('edition.WORLD_BUILD',True),patch('main.phone_locale_tag',return_value='de-DE'),isolated_game() as g:
-                c=g.career;c.accept_starting_offer(c.offers[0]);g.view='start';g.draw();g._activate_ui('new_game');settle();p=g._new_game_popup
+                c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();g.view='start';g.draw();g._activate_ui('new_game');settle();p=g._new_game_popup
                 self.assertEqual(p.heading.text,g.i18n.tr('Start a new career?'))
                 self.assertLessEqual(p.message.top,p.heading.y+1)
                 self.assertGreaterEqual(p.message.y,p.buttons.top-1)
