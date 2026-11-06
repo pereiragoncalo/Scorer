@@ -5041,143 +5041,27 @@ class StrikerGame(Widget):
             Ellipse(pos=(point[0]-tube*.7,point[1]-tube*.7),size=(tube*1.4,tube*1.4))
 
 
+    def _retro_renderer(self):
+        if not hasattr(self,'_retro_sprites'):
+            from retro_sprites import RetroSprites
+            self._retro_sprites=RetroSprites()
+        return self._retro_sprites
+
     def _draw_field_players(self) -> None:
-        """Desenha defesas e atacantes, do mais distante para o mais próximo."""
-        player_kit, opponent_kit = self._match_outfield_kits()
+        """Approved sprites at the exact existing actor/collision positions."""
+        from retro_sprites import field_pose, kit_palette
+        renderer=self._retro_renderer()
+        player_kit,opponent_kit=self._match_outfield_kits()
         actors=self.field_players+self.buildup_actors
-        for player in sorted(actors, key=lambda item: item.y):
-            x, y = self._field_player_position(player)
-            target_x = self.ball.x if self.ball.active or self.state==self.STATE_BUILDUP else self.shot_origin_x
-            target_y = self.ball.y if self.ball.active or self.state==self.STATE_BUILDUP else self.shot_origin_y
-            direction_x = target_x - x
-            direction_y = target_y - y
-            direction_size = max(0.001, math.hypot(direction_x, direction_y))
-            forward_x = direction_x / direction_size
-            forward_y = direction_y / direction_size
-            side_x, side_y = -forward_y, forward_x
-            scene_time=self.frozen_scene_time if self.state==self.STATE_AIMING and self.frozen_scene_time is not None else self.elapsed
-            sway = math.sin(scene_time * 2.0 + player.phase) * 0.025
-
-
-            def world(side: float, forward: float, z: float) -> tuple[float, float, float]:
-                return (
-                    x + side_x * side * FIELD_PLAYER_SCALE
-                    + forward_x * forward * FIELD_PLAYER_SCALE,
-                    y + side_y * side * FIELD_PLAYER_SCALE
-                    + forward_y * forward * FIELD_PLAYER_SCALE,
-                    z * FIELD_PLAYER_SCALE,
-                )
-
-
-            hip_l = world(-0.16, 0.0, 0.82)
-            hip_r = world(0.16, 0.0, 0.82)
-            shoulder_l = world(-0.25, 0.04 + sway, 1.42)
-            shoulder_r = world(0.25, 0.04 + sway, 1.42)
-            head_world = world(0.0, 0.05 + sway, 1.72)
-            stride=math.sin(self.state_age*10+player.phase)*.23 if self.state==self.STATE_BUILDUP else 0.
-            knee_l = world(-0.16, 0.06 + sway+stride, 0.43)
-            knee_r = world(0.16, -0.06 - sway-stride, 0.43)
-            foot_l = world(-0.19, 0.12 + sway+stride, 0.03)
-            foot_r = world(0.19, -0.11 - sway-stride, 0.03)
-            hand_l = world(-0.44, 0.03, 1.10)
-            hand_r = world(0.44, 0.03, 1.10)
-
-
-            projected = {
-                "hip_l": self.project(*hip_l),
-                "hip_r": self.project(*hip_r),
-                "shoulder_l": self.project(*shoulder_l),
-                "shoulder_r": self.project(*shoulder_r),
-                "head": self.project(*head_world),
-                "knee_l": self.project(*knee_l),
-                "knee_r": self.project(*knee_r),
-                "foot_l": self.project(*foot_l),
-                "foot_r": self.project(*foot_r),
-                "hand_l": self.project(*hand_l),
-                "hand_r": self.project(*hand_r),
-            }
-
-
-            shadow_l = self.project(*world(-0.28, -0.12, 0.012))
-            shadow_r = self.project(*world(0.28, 0.18, 0.012))
-            Color(0.01, 0.03, 0.02, 0.32)
-            Line(points=[*shadow_l, *shadow_r], width=4.8)
-
-
-            if player.team == "defender":
-                shirt, shorts, socks, trim = opponent_kit
-            else:
-                shirt, shorts, socks, trim = player_kit
-
-
-            Color(*shorts)
-            Line(
-                points=[*projected["hip_l"], *projected["knee_l"]],
-                width=4.4,
-            )
-            Line(
-                points=[*projected["hip_r"], *projected["knee_r"]],
-                width=4.4,
-            )
-            Color(*socks)
-            Line(
-                points=[*projected["knee_l"], *projected["foot_l"]],
-                width=3.0,
-            )
-            Line(
-                points=[*projected["knee_r"], *projected["foot_r"]],
-                width=3.0,
-            )
-
-
-            Color(*shirt)
-            Triangle(
-                points=[
-                    *projected["hip_l"],
-                    *projected["hip_r"],
-                    *projected["shoulder_l"],
-                ]
-            )
-            Triangle(
-                points=[
-                    *projected["hip_r"],
-                    *projected["shoulder_l"],
-                    *projected["shoulder_r"],
-                ]
-            )
-            shoulder_middle = (
-                (projected["shoulder_l"][0] + projected["shoulder_r"][0]) / 2,
-                (projected["shoulder_l"][1] + projected["shoulder_r"][1]) / 2,
-            )
-            hip_middle = (
-                (projected["hip_l"][0] + projected["hip_r"][0]) / 2,
-                (projected["hip_l"][1] + projected["hip_r"][1]) / 2,
-            )
-            Color(*trim)
-            Line(points=[*shoulder_middle, *hip_middle], width=1.5)
-            Color(*shirt)
-            Line(
-                points=[*projected["shoulder_l"], *projected["hand_l"]],
-                width=3.8,
-            )
-            Line(
-                points=[*projected["shoulder_r"], *projected["hand_r"]],
-                width=3.8,
-            )
-
-
-            head_radius = max(
-                3.5,
-                self.pixels_per_meter(*head_world) * 0.10,
-            )
-            Color(0.88, 0.61, 0.41, 1.0)
-            Ellipse(
-                pos=(
-                    projected["head"][0] - head_radius,
-                    projected["head"][1] - head_radius,
-                ),
-                size=(head_radius * 2.0, head_radius * 2.0),
-            )
+        renderer.clear_field({id(player) for player in actors})
+        for player in sorted(actors,key=lambda item:item.y):
+            x,y=self._field_player_position(player)
+            target_x=self.ball.x if self.ball.active or self.state==self.STATE_BUILDUP else self.shot_origin_x
+            target_y=self.ball.y if self.ball.active or self.state==self.STATE_BUILDUP else self.shot_origin_y
+            left=self.project(target_x,target_y,0.)[0]<self.project(x,y,0.)[0]
+            kit=opponent_kit if player.team=='defender' else player_kit
+            renderer.draw(self,id(player),'players',field_pose(self,player,left),
+                          (x,y,0.),1.90*FIELD_PLAYER_SCALE,kit_palette(kit))
 
 
     def _draw_player(self) -> None:
@@ -5203,197 +5087,41 @@ class StrikerGame(Widget):
         if self.current_opportunity is not None and self.state in (self.STATE_BUILDUP,self.STATE_AIMING):
             sx,sy=self.project(player_x,player_y,.03)
             Color(.30,.91,.65,.95);Line(ellipse=(sx-9,sy-3,18,6),width=1.2)
-        kick = clamp(self.player_kick_progress, 0.0, 1.0)
-        kick_curve = math.sin(kick * math.pi * 0.5)
-        lift = math.sin(kick * math.pi)
-
-
-        def world(side: float, forward: float, z: float) -> tuple[float, float, float]:
-            side *= PLAYER_SCALE
-            forward *= PLAYER_SCALE
-            z *= PLAYER_SCALE
-            return (
-                player_x + side_x * side + forward_x * forward,
-                player_y + side_y * side + forward_y * forward,
-                z,
-            )
-
-
-        if is_header:
-            # Flexão, salto curto e avanço da cabeça em direção à bola.
-            crouch = 0.10 * math.sin(kick * math.pi)
-            jump = 0.14 * math.sin(kick * math.pi)
-            lean = -0.03 + 0.36 * kick_curve
-            hip_l = world(-0.16, 0.0, 0.84 - crouch + jump)
-            hip_r = world(0.16, 0.0, 0.84 - crouch + jump)
-            shoulder_l = world(-0.25, lean * 0.72, 1.43 + jump)
-            shoulder_r = world(0.25, lean * 0.72, 1.43 + jump)
-            head_world = world(0.0, lean, 1.72 + jump)
-            support_knee = world(-0.17, 0.03, 0.43 - crouch * 0.55 + jump)
-            support_foot = world(-0.20, 0.10, 0.04 + jump)
-            kicking_knee = world(0.17, -0.02, 0.43 - crouch * 0.55 + jump)
-            kicking_foot = world(0.20, 0.08, 0.04 + jump)
-            hand_l = world(-0.58, -0.06, 1.15 + jump)
-            hand_r = world(0.58, -0.02, 1.17 + jump)
-        else:
-            lean = 0.08 + 0.13 * kick_curve
-            hip_l = world(-0.16, 0.0, 0.86)
-            hip_r = world(0.16, 0.0, 0.86)
-            shoulder_l = world(-0.25, lean, 1.45)
-            shoulder_r = world(0.25, lean, 1.45)
-            head_world = world(0.0, lean + 0.02, 1.72)
-            support_knee = world(-0.16, 0.10, 0.45)
-            support_foot = world(-0.18, 0.23, 0.04)
-            kicking_knee = world(
-                0.17,
-                -0.18 + 0.58 * kick_curve,
-                0.45 + 0.18 * lift,
-            )
-            kicking_foot = world(
-                0.18,
-                -0.30 + 1.08 * kick_curve,
-                0.05 + 0.30 * lift,
-            )
-            hand_l = world(-0.52, -0.05 - 0.12 * kick_curve, 1.15)
-            hand_r = world(0.48, 0.08 + 0.12 * kick_curve, 1.22)
-
-
-        points = {
-            "hip_l": self.project(*hip_l),
-            "hip_r": self.project(*hip_r),
-            "shoulder_l": self.project(*shoulder_l),
-            "shoulder_r": self.project(*shoulder_r),
-            "head": self.project(*head_world),
-            "support_knee": self.project(*support_knee),
-            "support_foot": self.project(*support_foot),
-            "kicking_knee": self.project(*kicking_knee),
-            "kicking_foot": self.project(*kicking_foot),
-            "hand_l": self.project(*hand_l),
-            "hand_r": self.project(*hand_r),
-        }
-
-
-        shadow_l = self.project(*world(-0.32, -0.12, 0.012))
-        shadow_r = self.project(*world(0.38, 0.48, 0.012))
-        Color(0.015, 0.035, 0.025, 0.35)
-        Line(points=[*shadow_l, *shadow_r], width=6.0)
-
-
-        player_kit, _opponent_kit = self._match_outfield_kits()
-        shirt, shorts, socks, trim = player_kit
-        # Calções, pernas e chuteiras.
-        Color(*shorts)
-        Line(
-            points=[*points["hip_l"], *points["support_knee"], *points["support_foot"]],
-            width=5.3,
-        )
-        Line(
-            points=[*points["hip_r"], *points["kicking_knee"], *points["kicking_foot"]],
-            width=5.3,
-        )
-        Color(*socks)
-        Line(points=[*points["support_knee"], *points["support_foot"]], width=3.5)
-        Line(points=[*points["kicking_knee"], *points["kicking_foot"]], width=3.5)
-
-
-        # Camisola nas cores reais do clube e braços abertos para equilibrar.
-        Color(*shirt)
-        Triangle(points=[*points["hip_l"], *points["hip_r"], *points["shoulder_l"]])
-        Triangle(points=[*points["hip_r"], *points["shoulder_l"], *points["shoulder_r"]])
-        shoulder_middle = (
-            (points["shoulder_l"][0] + points["shoulder_r"][0]) / 2,
-            (points["shoulder_l"][1] + points["shoulder_r"][1]) / 2,
-        )
-        hip_middle = (
-            (points["hip_l"][0] + points["hip_r"][0]) / 2,
-            (points["hip_l"][1] + points["hip_r"][1]) / 2,
-        )
-        Color(*trim)
-        Line(points=[*shoulder_middle, *hip_middle], width=1.8)
-        Color(*shirt)
-        Line(points=[*points["shoulder_l"], *points["hand_l"]], width=4.6)
-        Line(points=[*points["shoulder_r"], *points["hand_r"]], width=4.6)
-
-
-        head_radius = max(
-            4.3,
-            self.pixels_per_meter(*head_world) * 0.11,
-        )
-        Color(0.91, 0.64, 0.43, 1.0)
-        Ellipse(
-            pos=(points["head"][0] - head_radius, points["head"][1] - head_radius),
-            size=(head_radius * 2.0, head_radius * 2.0),
-        )
+        from retro_sprites import hero_pose,kit_palette
+        player_kit,_=self._match_outfield_kits()
+        facing=self.project(player_x+forward_x,player_y+forward_y,0.)[0]<self.project(player_x,player_y,0.)[0]
+        self._retro_renderer().draw(self,'hero','players',hero_pose(self,facing),
+                                   (player_x,player_y,0.),1.86*PLAYER_SCALE,
+                                   kit_palette(player_kit))
 
 
     def _draw_goalkeeper(self) -> None:
-        visual_scale = 0.86 if self.desktop_windows else 1.0
-        flat_pose = self._goalkeeper_pose()
-        world_pose = self._goalkeeper_world_pose(flat_pose)
-        goalkeeper_shirt, goalkeeper_shorts = self._goalkeeper_kit()
-        pose = {
-            key: self.project(*point)
-            for key, point in world_pose.items()
-        }
-
-
-        # A sombra alarga-se no sentido do mergulho.
-        ground_pose = [
-            self.project(point[0], point[1], 0.012)
-            for point in world_pose.values()
-        ]
-        shadow_l = min(ground_pose, key=lambda point: point[0])
-        shadow_r = max(ground_pose, key=lambda point: point[0])
-        Color(0.015, 0.035, 0.025, 0.42)
-        Line(points=[*shadow_l, *shadow_r], width=6.0 * visual_scale)
-
-
-        # Tronco acompanha a rotação do corpo.
-        Color(*goalkeeper_shirt)
-        Triangle(points=[*pose["hip_l"], *pose["hip_r"], *pose["shoulder_l"]])
-        Triangle(points=[*pose["hip_r"], *pose["shoulder_l"], *pose["shoulder_r"]])
-        Line(points=[*pose["shoulder_l"], *pose["hand_l"]], width=4.7 * visual_scale)
-        Line(points=[*pose["shoulder_r"], *pose["hand_r"]], width=4.7 * visual_scale)
-
-
-        Color(*goalkeeper_shorts)
-        Line(points=[*pose["foot_l"], *pose["hip_l"]], width=5.0 * visual_scale)
-        Line(points=[*pose["foot_r"], *pose["hip_r"]], width=5.0 * visual_scale)
-
-
-        # Luvas avançam primeiro e são também parte da zona de defesa.
-        Color(0.94, 0.96, 0.88, 1.0)
-        for hand in (pose["hand_l"], pose["hand_r"]):
-            Ellipse(pos=(hand[0] - 3.5 * visual_scale, hand[1] - 3.5 * visual_scale), size=(7.0 * visual_scale, 7.0 * visual_scale))
-
-
-        head = pose["head"]
-        head_radius = max(
-            4.8 * visual_scale,
-            self.pixels_per_meter(*world_pose["head"]) * 0.12 * visual_scale,
-        )
-        Color(0.93, 0.68, 0.48, 1.0)
-        Ellipse(
-            pos=(head[0] - head_radius, head[1] - head_radius),
-            size=(2.0 * head_radius, 2.0 * head_radius),
-        )
-        # Pequeno marcador facial orientado para a bola, para a rotação ser
-        # legível mesmo com a cabeça desenhada como um círculo pequeno.
-        target_x = self.ball.x if self.ball.active else self.shot_origin_x
-        target_y = self.ball.y if self.ball.active else self.shot_origin_y
-        face_x = target_x - world_pose["head"][0]
-        face_y = target_y - world_pose["head"][1]
-        face_size = max(1e-6, math.hypot(face_x, face_y))
-        face_tip = self.project(
-            world_pose["head"][0] + face_x / face_size * 0.13,
-            world_pose["head"][1] + face_y / face_size * 0.13,
-            world_pose["head"][2],
-        )
-        Color(0.20, 0.12, 0.09, 0.92)
-        Ellipse(
-            pos=(face_tip[0] - 1.6, face_tip[1] - 1.6),
-            size=(3.2, 3.2),
-        )
+        from retro_sprites import keeper_pose,kit_palette
+        renderer=self._retro_renderer()
+        world_pose=self._goalkeeper_world_pose()
+        right=self.project(self.goalkeeper_x+self.goalkeeper_dive_sign,GOALKEEPER_Y,0.)[0]>=self.project(self.goalkeeper_x,GOALKEEPER_Y,0.)[0]
+        selection=keeper_pose(self,right)
+        shirt,shorts=self._goalkeeper_kit()
+        colours=kit_palette((shirt,shorts,shirt,(.94,.96,.88,1.)))
+        target=None;joint=None;rotation=0.
+        if self.goalkeeper_holding:
+            # Ball remains attached by the original physics function. Match
+            # the drawn gloves to that position, rotating the complete sprite
+            # through the original forward fall without stretching its limbs.
+            joint=('wrist_0','wrist_1')
+            target=self.project(*tuple((a+b)/2 for a,b in zip(world_pose['hand_l'],world_pose['hand_r'])))
+            hip=self.project(*tuple((a+b)/2 for a,b in zip(world_pose['hip_l'],world_pose['hip_r'])))
+            shoulder=self.project(*tuple((a+b)/2 for a,b in zip(world_pose['shoulder_l'],world_pose['shoulder_r'])))
+            character,clip,frame=renderer.sample('keeper','goalkeeper',selection)
+            joints=clip['joints']['front'][frame]
+            source=joints['hip'];end=joints['shoulder']
+            rotation=math.degrees(math.atan2(shoulder[1]-hip[1],shoulder[0]-hip[0])-math.atan2(source[1]-end[1],end[0]-source[0]))
+        elif self.goalkeeper_is_diving and selection.state!='RECOVER':
+            joint='hip'
+            target=self.project(*tuple((a+b)/2 for a,b in zip(world_pose['hip_l'],world_pose['hip_r'])))
+        renderer.draw(self,'keeper','goalkeeper',selection,
+                      (self.goalkeeper_x,GOALKEEPER_Y,0.),1.90*self.goalkeeper_scale,
+                      colours,joint=joint,target=target,rotation=rotation)
 
 
     def _ball_behind_keeper(self):

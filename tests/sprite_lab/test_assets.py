@@ -35,7 +35,7 @@ class AssetsTest(unittest.TestCase):
                     self.assertGreaterEqual(len(set(frames)),required,(role,state))
             self.assertEqual(c['anchor'][0],c['canvas'][0]/2)
         self.assertEqual(total,168)
-        self.assertEqual(m['approval_status'],'AWAITING_VISUAL_APPROVAL')
+        self.assertEqual(m['approval_status'],'APPROVED')
 
     def test_clock_and_event_contract(self):
         m=load_manifest();a=Animation(m['characters']['players'],'RUN')

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "art_revision": 2,
-  "approval_status": "AWAITING_VISUAL_APPROVAL",
+  "approval_status": "APPROVED",
   "original_art": true,
   "nominal_body": [
     32,
@@ -7350,5 +7350,7 @@
         }
       }
     }
-  }
+  },
+  "approved_art_revision": 2,
+  "approval_date": "2026-11-06"
 }

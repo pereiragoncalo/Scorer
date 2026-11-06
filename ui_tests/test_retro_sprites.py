@@ -1,0 +1,67 @@
+"""Real Kivy rendering of approved sprites, with gameplay-state isolation."""
+import unittest,copy,math
+from dataclasses import asdict
+from test_menus import isolated_game,settle
+from retro_sprites import hero_pose,field_pose,keeper_pose,kit_palette
+
+class RetroSpriteIntegration(unittest.TestCase):
+    def prepare(self,g):
+        g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
+        g._career_started=True;g.view='shot';g.shot_context='match';g._prepare_next_shot()
+
+    def physics(self,g):
+        return (copy.deepcopy(vars(g.ball)),{k:copy.deepcopy(v) for k,v in vars(g).items() if k.startswith('goalkeeper_')},[(p.x,p.y,p.team,p.phase) for p in g.field_players],g.attempts,g.goals,g.shot_time_left)
+
+    def test_approved_art_renders_without_mutating_ball_actors_keeper_or_hitboxes(self):
+        with isolated_game() as g:
+            self.prepare(g)
+            for kind in ('through_ball','cutback','corner','rebound','penalty'):
+                g._start_opportunity(kind,42)
+                for progress in (0.,.4,.51,.9):
+                    if g.current_opportunity.duration:
+                        g.buildup_progress=progress;g.state_age=progress*g.current_opportunity.duration
+                    before=self.physics(g);g.draw();self.assertEqual(self.physics(g),before)
+                    for player in g.field_players+g.buildup_actors:
+                        self.assertIn(field_pose(g,player).state,('RUN','DRIBBLE','PASS','SHOOT','TACKLE','IDLE'))
+                g.state=g.STATE_AIMING;g.state_age=.3;g.draw()
+                self.assertEqual(hero_pose(g).frame,2)
+                g.shoot(2.,1.)
+                self.assertEqual(hero_pose(g).frame,3)
+                self.assertTrue(g.ball.active)
+                before=self.physics(g);g.draw();self.assertEqual(self.physics(g),before)
+            for state in (g.STATE_SHOT,g.STATE_RESULT):
+                g.state=state;g.state_age=1.4
+                for sign in (-1.,1.):
+                    for high,low,amount in ((0.,1.,.1),(1.,0.,.1),(0.,0.,1.)):
+                        g.goalkeeper_is_diving=True;g.goalkeeper_dive_sign=sign
+                        g.goalkeeper_dive_amount=amount;g.goalkeeper_high_reach=high;g.goalkeeper_low_reach=low
+                        for age in (0.,.15,.35,.6,.9):
+                            g.goalkeeper_dive_age=age;g.goalkeeper_dive_progress=min(1,age*2.2)
+                            before=self.physics(g);g.draw();self.assertEqual(self.physics(g),before)
+            g.goalkeeper_is_diving=False;g.goalkeeper_holding=True
+            for age in (0.,.3,.8):
+                g.goalkeeper_catch_age=age;g._attach_held_ball();before=self.physics(g)
+                g.draw();self.assertEqual(self.physics(g),before)
+            self.assertEqual(g._retro_renderer().manifest['approval_status'],'APPROVED')
+
+    def test_event_choices_recovery_and_existing_team_colours(self):
+        with isolated_game() as g:
+            self.prepare(g);g._start_opportunity('rebound',1)
+            g.buildup_progress=.5;g.state_age=g.current_opportunity.duration*.5
+            self.assertEqual(field_pose(g,g.buildup_blocker).state,'TACKLE')
+            g.goalkeeper_is_diving=True;g.goalkeeper_dive_amount=1;g.goalkeeper_high_reach=0;g.goalkeeper_low_reach=0
+            self.assertEqual(keeper_pose(g,False).state,'DIVE_LEFT')
+            self.assertEqual(keeper_pose(g,True).state,'DIVE_RIGHT')
+            g.state=g.STATE_RESULT;g.state_age=1.1;g.ball.active=False
+            self.assertEqual(keeper_pose(g).state,'RECOVER')
+            kit=((1.,0.,0.,1.),(0.,0.,0.,1.),(1.,0.,0.,1.),(0.,0.,0.,1.))
+            self.assertEqual(kit_palette(kit),('FF0000','000000','000000','FF0000','F9FDF1'))
+            g.shot_context='training';g._prepare_next_shot();g.draw()
+            self.assertEqual(g.field_players+g.buildup_actors,[])
+            self.assertEqual(set(g._retro_renderer().clocks),{'hero','keeper'})
+            renderer=g._retro_renderer();before=renderer.cache.allocations
+            for _ in range(100):g.draw()
+            self.assertEqual(renderer.cache.allocations,before)
+            self.assertLessEqual(len(renderer.cache.entries),24)
+            for texture in renderer.cache.entries.values():
+                self.assertEqual((texture.min_filter,texture.mag_filter),('nearest','nearest'))
