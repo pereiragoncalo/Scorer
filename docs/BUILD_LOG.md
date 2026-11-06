@@ -2417,3 +2417,48 @@ colour mixing/stability/RNG isolation. Captured 1280x591 grounds at2500/10000/
 unrelated worktree edits preserved. Small-ground occupancy change is awaiting
 clarification of whether "only a corner" describes a problem or desired behaviour;
 no stadium geometry change, version bump or new APK is claimed at this stage.
+
+## 2026-11-06 — clarified visitor sectors, stewards and 1.80m reference, QA0.9.28
+
+Owner clarified small VISITOR clubs only occupy the corner; larger visitors also
+occupy the next behind-goal bay to its first staircase. Own visitor stadium
+capacity drives this model (<=20k corner-only, >20k extended); actual HOME capacity
+still drives rows/tiers. Not a real ticket-allocation claim. Cleared both flanking
+stairs, two files of neon-green stewards per stair/tread, separate static mesh
+that never celebrates. Training remains empty. Prior banner removal and stable
+random per-seat kit colours included. Mixed colours do not consume gameplay RNG.
+
+All actor roles now use1.80m upright world reference, calibrated to40px outfield/
+39px keeper ink, relative to unchanged2.44m goal, instead of multiplying by the
+old physics scales. Crouched keeper/animated poses keep natural heights. Existing
+low1.31m headers meet the ball with the approved crouched contact frame, no jump
+above it or delayed launch. Approved PNGs unchanged; metadata calibration only.
+Main AST comparison: only3 drawing methods changed in this step; solver, hitboxes,
+ball attachment, controls, scoring and saves unchanged. Shared texture recovery
+from0.9.27 retained. Unit/staging checks cover new pure supporter_layout module.
+
+Full core387 cases in131.655s (3 skipped) and native197 in255.899s exercised. One
+failure each was an obsolete assertion: pinned QA0.9.25 and old high-header frame.
+Updated version guard to authoritative launch JSON and header pose contract.
+Affected edition6 cases then pass(.479s), sprite integration4 pass(2.298s).
+All10 stadium/club/celebration cases pass(5.014s); all4 dedicated asset/clock/IK/
+calibration cases pass(.104s), compileall passes. Sector geometry checks verify
+small-corner/large-first-bay, no upper visitors, no fan-stair overlap, four steward
+files, neon colour, fixed guards during celebrations and empty training. Height
+checks cover all roles at multiple depths and immediate low-header launch.
+
+1280x591 small/large visitor fixtures, training, low header and height ruler were
+visually inspected. Capture's first diagnostic attempt used an unsupported ruler
+colour argument; fixed capture only, no product change. Synthetic5000/60000 visitor
+capacities share a70000-seat host in the comparison; no real club facts changed.
+Calibration actor/ruler is capture-only, not added to the game.
+
+Clean build input4a8288b. Final source9c7e397 differs only in the two excluded test
+files fixing stale expectations, verified by Git diff. Same runtime and assets.
+Actual APK compiled main/stadium/layout/renderer/clock/textures and approved168PNG
+frames/24sheets match. Existing DEBUG certificate, versionCode1026928, API36/min26,
+arm64,118ELF and ZIP16KB checks pass; edition/ad-free/safety/saves/competitions
+checks pass. No physical device validation, Play submission or server change.
+Initial unrelated .gitignore/main/UI-test WIP and untracked career module preserved.
+Duplicate downloaded/generated0.9.27 copies and old0.9.27 app staging cache cleared
+for build space; latest pre-task0.9.27 APK and recovery source retained.

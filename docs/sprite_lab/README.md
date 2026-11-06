@@ -1,8 +1,8 @@
 # Scorer original retro sprite lab — phase 1, art revision 2
 
-**Art revision 2 was approved on 2026-11-06 and is now integrated in World 0.9.27.**
+**Art revision 2 was approved on 2026-11-06 and is now integrated in World 0.9.28.**
 
-This page records the phase-1 preview. For the integration, APK checks and remaining device test, see [release report](../RELEASE_0.9.27.md). The standalone viewer remains available.
+This page records the phase-1 preview. For the integration, APK checks and remaining device test, see [release report](../RELEASE_0.9.28.md). The standalone viewer remains available.
 
 [Reference-style pose board](reference-revision-2.png) · [Animated preview](animations.gif) · [Actual Kivy viewer screenshot](viewer.png) · [All field-player frames](players-all-frames.png) · [All goalkeeper frames](goalkeeper-all-frames.png)
 
@@ -60,7 +60,7 @@ Original indexed pixel art drawn with Pillow on a hard pixel grid. Inspired by t
 
 There are **168 individual PNGs and 24 sheets**: 56 field-player frames in each of two views, plus 56 goalkeeper frames. Every animation meets or exceeds the requested minimum of distinct frames. Source images are transparent, indexed PNGs with a maximum of 16 palette entries and binary alpha. The source kit colours are recorded separately for each character in the manifest, so recolouring preserves independent shorts/socks roles even when their colours look similar.
 
-A nominal **32×40** body uses padded, constant-size frame canvases: **65×57** for outfield players, **97×65** for the goalkeeper. The larger transparent margins accommodate kicks, jumps and fully extended dives without resizing the frame. Anchors, measured from the top left, are **(32.5, 52)** and **(48.5, 58)**. Mirroring around the canvas centre preserves these anchors exactly. Airborne offsets and the gradual dive travel inside the canvas are deliberate pose motion. Scale the nominal 40-pixel body to the existing world height in a future integration, not the padded canvas height.
+A nominal **32×40** body uses padded, constant-size frame canvases: **65×57** for outfield players, **97×65** for the goalkeeper. The larger transparent margins accommodate kicks, jumps and fully extended dives without resizing the frame. Anchors, measured from the top left, are **(32.5, 52)** and **(48.5, 58)**. Mirroring around the canvas centre preserves these anchors exactly. Airborne offsets and the gradual dive travel inside the canvas are deliberate pose motion. The integrated renderer uses the measured upright ink height (40 pixels for outfield players, 39 for the goalkeeper) as a 1.80 m reference, never the padded canvas height.
 
 The manifest contains views, sheets, individual frame paths, timings, loop flags, contact-frame metadata and joint reference positions. The ball is absent from the character images and animation clock. It must remain the existing independent physics object, including during catches.
 

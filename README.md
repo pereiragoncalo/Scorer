@@ -1,3 +1,15 @@
+## Scorer World 0.9.28 — visitor sectors and player scale
+
+[Download World 0.9.28 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.28/Scorer-World-0.9.28.apk)
+
+Corner-only visitors for small clubs, a larger bay for bigger visitors, two files
+of fluorescent-green stewards on each flanking staircase, randomly mixed club
+colours and no supporter banner. Players use a 1.80 m upright reference against
+the 2.44 m goal. Existing physics, controls, saves and Android texture recovery
+remain. Physical Android playtest pending.
+
+[Scope and validation](docs/RELEASE_0.9.28.md).
+
 ## Scorer World 0.9.27 — retro sprites with Android texture recovery
 
 [Download World 0.9.27 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.27/Scorer-World-0.9.27.apk)
