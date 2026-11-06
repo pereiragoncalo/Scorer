@@ -2548,3 +2548,8 @@ flows. APK107606951bytes; SHA256
 c8f0e438d85b9a455d3c42b00b9d6461763fb4a4dec3a26391ea69f4a0e5c511.
 Code source55d506fa39c9f9a68fbf8e09d0f9974aec69f60b; World0.9.30/code1026930.
 Physical Android playtest pending; no production1.0/Play/server changes.
+
+Public delivery verified: GitHub Actions run42214598925 succeeded; qa-0.9.30
+attachment returned HTTP200 with Content-Disposition attachment, exact107606951
+bytes and matching tested SHA256. Temporary QA transfer branch removed after
+verification. Download evidence: docs/RELEASE_0.9.30_download.json.
