@@ -2366,3 +2366,30 @@ Old generated QA bin APKs0.9.12–0.9.17 removed to free build space; latest0.9.
 and all source/caches/careers retained. Optional host audio warnings due to no
 sound device do not affect passing Kivy tests. Initial user's .gitignore/main/
 UI-test work and untracked career_mode_state.py remain separate and preserved.
+
+### Final Android texture recovery candidate — World QA 0.9.27
+
+Final code review found custom recoloured Texture.create buffers need explicit
+Kivy reload observers after Android graphics-context recreation. Added bounded
+CPU payloads for the existing24-entry LRU, exact RGBA re-upload/nearest filters
+and removal of observer/payload on eviction. Real Kivy regression clears GPU
+pixels, invokes recovery and checks exact restored pixels and bounded eviction.
+Targeted3 cases pass; final full native suite193/193 passed in269.562s. Asset/
+clock/IK3 cases and staging payload1 case rerun successfully; compileall passes.
+Physics/drawing selection and approved PNG art unchanged by this final fix.
+
+Bumped the final upgrade to0.9.27/versionCode1026927, superseding the intermediate
+0.9.26 QA candidate. Clean source ce315b3. Actual rebuilt APK again passes exact
+compiled code/168frames/24sheets, same DEBUG certificate, API36/min26, arm64,
+118ELF and ZIP16KB alignment, edition/ad-free/safety/competition/save checks.
+No physical phone/resume validation claim. The recovery simulation tests only
+the reload path; installation and actual background/resume remain device checks.
+Final cache retains one RGBA recovery copy per live cached texture in addition
+to source buffers; no per-frame upload. Performance measurements retained from
+initial integration are explicitly labelled0.9.26, not rebranded as device data.
+
+Initial final build ran out of workspace space while copying generated app
+assets; freed802MiB of re-downloadable old QA APKs/app staging caches and rebuilt
+successfully. Source, careers, native toolchain and pre-task0.9.25 APK retained.
+Actions delivery still uses digest-checked immutable chunks; direct uploads
+remain unavailable through the local upload-host credential binding.

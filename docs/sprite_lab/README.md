@@ -1,8 +1,8 @@
 # Scorer original retro sprite lab — phase 1, art revision 2
 
-**Art revision 2 was approved on 2026-11-06 and is now integrated in World 0.9.26.**
+**Art revision 2 was approved on 2026-11-06 and is now integrated in World 0.9.27.**
 
-This page records the phase-1 preview. For the integration, APK checks and remaining device test, see [release report](../RELEASE_0.9.26.md). The standalone viewer remains available.
+This page records the phase-1 preview. For the integration, APK checks and remaining device test, see [release report](../RELEASE_0.9.27.md). The standalone viewer remains available.
 
 [Reference-style pose board](reference-revision-2.png) · [Animated preview](animations.gif) · [Actual Kivy viewer screenshot](viewer.png) · [All field-player frames](players-all-frames.png) · [All goalkeeper frames](goalkeeper-all-frames.png)
 

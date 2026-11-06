@@ -1,3 +1,13 @@
+## Scorer World 0.9.27 — retro sprites with Android texture recovery
+
+[Download World 0.9.27 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.27/Scorer-World-0.9.27.apk)
+
+Approved original retro footballers and goalkeeper, existing team colours,
+action-synchronised animation and unchanged gameplay physics. Cached textures
+restore when the graphics context is recreated. Physical Android playtest pending.
+
+[Scope and validation](docs/RELEASE_0.9.27.md) · [Approved sprite poses](docs/sprite_lab/reference-revision-2.png).
+
 ## Scorer World 0.9.26 — approved retro sprites
 
 [Download World 0.9.26 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.26/Scorer-World-0.9.26.apk)
