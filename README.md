@@ -1,3 +1,14 @@
+## Scorer World0.9.31 — involved standings and contextual help
+
+[Download World0.9.31 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.31/Scorer-World-0.9.31.apk)
+
+Standings selects every involved league, cup, playoff and national campaign from
+its title button, including current-season former-club participation. Group tables
+and knockout results remain available. Each normal screen has its own contextual
+help; it preserves the screen and pauses gameplay. Nine languages,400 core cases
+(3 skips),209 native UI cases and297 responsive cases. Physical Android playtest
+pending. [Scope and validation](docs/RELEASE_0.9.31.md).
+
 ## Scorer World0.9.30 — continental competitions
 
 [Download World0.9.30 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.30/Scorer-World-0.9.30.apk)

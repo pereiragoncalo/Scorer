@@ -33,7 +33,7 @@ Validation:400 core cases completed,3 skipped; all7 focused new native cases and
 8 language regressions pass.297 responsive menu cases across11 pixel/density/font
 profiles and English/German/Japanese have zero findings. League/selector/help
 screenshots were visually inspected. Stale old-global-help/notice/group expectations
-were updated; a final full native rerun is being completed. Android signature,
+were updated; the final full209-case native rerun passed. Android signature,
 ZIP16KB, all118 ELF alignments,208 sprites/30 sheets, exact compiled main/UI/new
 help/standings modules, ad-free/edition/safety/save checks and actual APK read-only
 competition membership pass. Final native evidence is recorded in BUILD_LOG.md.

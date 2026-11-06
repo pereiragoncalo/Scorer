@@ -2578,3 +2578,18 @@ new native cases pass, including actual touch through a match notice. Final nati
 rerun and Android build/bytecode verification in progress. Screenshots visually
 inspected after EventLoop.idle (initial FBO captures missed pending font uploads).
 Physical Android playtest pending. No solver, scoring, save format or server change.
+
+
+Final0.9.31: all209 native Kivy cases pass in263.217s. The second run's sole
+failure was a remaining obsolete help_back step after modal Language navigation;
+the test now follows the actual flow (modal dismisses before language screen,
+Back returns to hub); all8 language cases pass and the full209 rerun is green.
+All400 core cases (3 skips),7 focused native cases and297 responsive cases remain
+passed. Android APK compilation and checks pass: debug signature, ZIP16KB,
+118 ELF files,208 sprites/30 sheets, exact compiled main/menu/coach/newspaper/
+contextual_help/standings_ui/competition_views sources, edition/ad-free/safety,
+actual APK read-only involved membership and prior competition/career flows.
+World0.9.31/code1026931; source9453841c1531f638bbe40f0b1a1bc8131366e236.
+APK107632111 bytes, SHA256
+4ba1cf550c318ef9aa85f6d915806e484cbc665d80d22f358e825b94db106079.
+Physical Android playtest pending; no physics/save/server/production changes.

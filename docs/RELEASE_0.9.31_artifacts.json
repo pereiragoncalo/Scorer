@@ -26,7 +26,8 @@
     "focused_new_native_passed": 7,
     "responsive_cases": 297,
     "responsive_findings": 0,
-    "language_regressions_passed": 8
+    "language_regressions_passed": 8,
+    "native_kivy_passed": 209
   },
   "context_loss_recovery": true,
   "standing_player_height_m": 1.8,
