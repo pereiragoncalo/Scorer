@@ -1,8 +1,9 @@
 """Capacity-based ground geometry and separate home/away supporter batches."""
 import math
-from kivy.graphics import Color,Line,Mesh,PushMatrix,PopMatrix,Translate
+import zlib
+from kivy.graphics import Color,Mesh,PushMatrix,PopMatrix,Translate
 from kivy.metrics import dp
-from club_profiles import stadium_capacity,profile,ground
+from club_profiles import stadium_capacity,ground
 
 def context(g):
     training=g.shot_context=='training'
@@ -13,10 +14,18 @@ def context(g):
         return g.career.kit_for_club(club)
     home_kit=kit(home);away_kit=kit(away)
     capacity=stadium_capacity(home)
-    away_name=g.career.display_club(away) if away else ''
-    banner=(profile(away)['supporters'] or away_name) if away else ''
-    key=(getattr(home,'uid',''),getattr(away,'uid',''),capacity,home_kit,away_kit,banner,training)
-    return dict(home=home,away=away,home_kit=home_kit,away_kit=away_kit,ground=ground(capacity),banner=banner,key=key)
+    home_uid=getattr(home,'uid','');away_uid=getattr(away,'uid','')
+    seed=zlib.crc32((home_uid+'|'+away_uid).encode('utf-8'))
+    key=(home_uid,away_uid,capacity,home_kit,away_kit,training)
+    return dict(home=home,away=away,home_kit=home_kit,away_kit=away_kit,ground=ground(capacity),crowd_seed=seed,key=key)
+
+def seat_noise(x,y,z,code,seed=0):
+    """Stable per-seat randomness, with no stripes or gameplay RNG consumption."""
+    value=(seed ^ (round(x*100)*0x1f123bb5) ^ (round(y*100)*0x5f356495)
+           ^ (round(z*100)*0x6c8e9cf5) ^ (code*0x9e3779b9)) & 0xffffffff
+    value=((value^(value>>16))*0x7feb352d)&0xffffffff
+    value=((value^(value>>15))*0x846ca68b)&0xffffffff
+    return value^(value>>16)
 
 def away_seat(x,y,tier=0,section='goal'):
     # Positive world x is left of the goal in the fixed broadcast camera.
@@ -93,10 +102,11 @@ def build_crowd(g,spectators,ctx=None):
         if not(g.x-8<=head[0]<=g.right+8 and g.y-8<=head[1]<=g.top+8):continue
         visible+=1;team_counts[team]+=1;scale=g.pixels_per_meter(x,y,z+.2)
         width=max(.82,min(1.95,scale*.041));radius=max(1.15,min(2.75,scale*.062));dx=top[0]-foot[0];dy=top[1]-foot[1];length=max(1e-6,math.hypot(dx,dy));nx=-dy/length*width;ny=dx/length*width
-        kit=ctx['away_kit'] if team=='away' else ctx['home_kit'];base=kit[0 if (code//4)%3 else 3];shade=.90+((code//13)%2)*.08;color=tuple(min(1,v*shade) for v in base[:3])+(.98,)
-        group=code%4
+        noise=seat_noise(x,y,z,code,ctx['crowd_seed'])
+        kit=ctx['away_kit'] if team=='away' else ctx['home_kit'];base=kit[0 if noise&1 else 3];shade=.90+((noise>>1)&1)*.08;color=tuple(min(1,v*shade) for v in base[:3])+(.98,)
+        group=(noise>>2)&3
         add(team,group,color,((foot[0]-nx,foot[1]-ny),(foot[0]+nx,foot[1]+ny),(top[0]+nx,top[1]+ny),(top[0]-nx,top[1]-ny)))
-        add(team,group,skins[(code//2)%3],((head[0]-radius,head[1]-radius),(head[0]+radius,head[1]-radius),(head[0]+radius,head[1]+radius),(head[0]-radius,head[1]+radius)))
+        add(team,group,skins[(noise>>4)%3],((head[0]-radius,head[1]-radius),(head[0]+radius,head[1]-radius),(head[0]+radius,head[1]+radius),(head[0]-radius,head[1]+radius)))
     g.crowd_total=len(spectators);g.crowd_visible=visible;g.crowd_team_counts=team_counts
     g._crowd_mesh_cache=[(color,v,i,group,team) for (team,group,color),(v,i) in batches.items() if i]
 
@@ -114,12 +124,3 @@ def draw_crowd(g):
         if amount:
             PushMatrix();Translate(0,amount,0);Mesh(vertices=vertices,indices=indices,mode='triangles');PopMatrix()
         else:Mesh(vertices=vertices,indices=indices,mode='triangles')
-
-def draw_banner(g,ctx):
-    if not ctx['away'] or not g._show_stadium_crowd():return
-    kit=ctx['away_kit'];corners=[g.project(*p) for p in ((10,-4.1,.55),(29,-4.1,.55),(29,-4.1,1.6),(10,-4.1,1.6))]
-    Color(*(tuple(v*.3 for v in kit[0][:3])+(1,)));vertices=[];indices=[];g._append_mesh_quad(vertices,indices,tuple(corners));Mesh(vertices=vertices,indices=indices,mode='triangles')
-    Color(*kit[3]);Line(points=[coordinate for p in corners+[corners[0]] for coordinate in p],width=1.2)
-    center=g.project(19.5,-4.1,1.13);width=abs(corners[1][0]-corners[0][0])-dp(4)
-    g.away_banner_text=ctx['banner'];g.away_banner_bounds=(min(p[0] for p in corners),min(p[1] for p in corners),max(p[0] for p in corners),max(p[1] for p in corners))
-    g._draw_text(ctx['banner'],*center,dp(8),(.98,.98,.94,1),'center',max_width=max(1,width),localize=False)

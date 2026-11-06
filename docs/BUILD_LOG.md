@@ -2403,3 +2403,17 @@ Public0.9.27 APK returns HTTP200 with attachment filename,107575587B and SHA256
 matching the locally tested APK exactly. Proof: RELEASE_0.9.27_download.json.
 Temporary qa-upload-0.9.26 and qa-upload-0.9.27 transfer refs removed after
 successful delivery; source branch/tags and release attachments retained.
+
+## 2026-11-06 — crowd revision, banner removal and mixed kit colours
+
+Removed supporter-banner drawing and name-dependent context. Existing home/away
+sectors and scorer-only celebrations remain. Club primary/secondary shirt colours,
+small shade variants, skin tones and jump groups use a deterministic per-seat
+32-bit avalanche hash seeded by fixture club UIDs. No shared gameplay RNG, repeated
+linear stripe patterns, redraw flicker or extra palette/mesh-batch growth.
+9 native stadium/club/celebration tests pass in4.829s, including no banner/text draw,
+colour mixing/stability/RNG isolation. Captured 1280x591 grounds at2500/10000/
+40000/70000 seats; main edits limited to banner import/call removal. Initial
+unrelated worktree edits preserved. Small-ground occupancy change is awaiting
+clarification of whether "only a corner" describes a problem or desired behaviour;
+no stadium geometry change, version bump or new APK is claimed at this stage.

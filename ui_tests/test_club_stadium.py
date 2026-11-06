@@ -5,10 +5,31 @@ from kivy.core.window import Window
 from kivy.metrics import Metrics
 from kivy.uix.label import Label
 from club_profiles import profile
-from stadium_scene import context,away_seat,jump,cheering
+from stadium_scene import context,away_seat,jump,cheering,seat_noise
 from test_menus import isolated_game,settle
 
 class ClubStadium(unittest.TestCase):
+    def test_seat_colours_are_mixed_stable_and_do_not_consume_gameplay_randomness(self):
+        import random
+        before=random.getstate()
+        def row(r):return [seat_noise(-35.5+c*71/163,-4.4-r*.85,.3+r*.27,c*17+r*31,12345)&1 for c in range(164)]
+        rows=[row(r) for r in range(12)]
+        self.assertEqual(rows,[row(r) for r in range(12)])
+        self.assertEqual(before,random.getstate())
+        bits=[bit for values in rows for bit in values]
+        self.assertTrue(.4<sum(bits)/len(bits)<.6)
+        for values in rows:
+            self.assertGreater(sum(a!=b for a,b in zip(values,values[1:])),45)
+        self.assertGreater(sum(a!=b for a,b in zip(rows[0],rows[1])),45)
+
+    def test_no_supporter_banner_is_drawn(self):
+        with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+            self.teams(g)
+            with patch.object(g,'_draw_text') as text:
+                g._draw_stadium_stands()
+            text.assert_not_called()
+            self.assertNotIn('banner',context(g))
+
     def teams(self,g):
         c=g.career
         clubs={x.uid:x for l in c.leagues.values() for x in l.clubs}
@@ -23,9 +44,7 @@ class ClubStadium(unittest.TestCase):
             player,home=self.teams(g);g._draw_stadium_stands()
             self.assertEqual(g.stadium_capacity,profile(home)['capacity']);self.assertEqual(g.stadium_tiers,2)
             self.assertGreater(g.crowd_team_counts['home'],0);self.assertGreater(g.crowd_team_counts['away'],0)
-            self.assertEqual(g.away_banner_text,'Os Imbatíveis')
-            # Fixed camera: the banner is behind and left of goal on screen.
-            self.assertLess(g.away_banner_bounds[2],g.project(0,0,0)[0])
+            self.assertFalse(hasattr(g,'away_banner_text'))
             g.shot_context='training';g._draw_stadium_stands()
             self.assertEqual(g.stadium_capacity,profile(player)['capacity']);self.assertEqual(g.stadium_tiers,1)
             with patch.object(g,'_draw_crowd_meshes') as crowd:g._draw_stadium_stands();crowd.assert_not_called()
@@ -35,10 +54,10 @@ class ClubStadium(unittest.TestCase):
             player,home=self.teams(g);g._draw_stadium_stands();first=g._crowd_mesh_cache;key=g._crowd_mesh_cache_key
             g.match_home,g.match_away=player,home;g._draw_stadium_stands()
             self.assertNotEqual(key,g._crowd_mesh_cache_key);self.assertIsNot(first,g._crowd_mesh_cache)
-            self.assertEqual(g.away_banner_text,'Bamor')
+            self.assertFalse(hasattr(g,'away_banner_text'))
             g.match_away=next(x for l in g.career.leagues.values() for x in l.clubs if not profile(x)['supporters'])
             g.career.display_aliases['clubs'][g.match_away.uid]='Custom visitors';g._draw_stadium_stands()
-            self.assertEqual(g.away_banner_text,'Custom visitors')
+            self.assertFalse(hasattr(g,'away_banner_text'))
 
     def test_away_sector_is_only_lower_deck_and_palette_batches_are_team_tagged(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:

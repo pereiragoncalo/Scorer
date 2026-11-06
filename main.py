@@ -4211,7 +4211,7 @@ class StrikerGame(Widget):
         return context(self)
 
     def _draw_stadium_stands(self, draw_crowd: bool = True) -> None:
-        from stadium_scene import build,draw_banner,cheering
+        from stadium_scene import build,cheering
         context=self._stadium_context()
         key=(self.x,self.y,self.width,self.height,context['key'])
         if key!=self._stand_mesh_cache_key or key!=self._crowd_mesh_cache_key:
@@ -4220,7 +4220,6 @@ class StrikerGame(Widget):
         self._draw_stand_meshes()
         if draw_crowd and self._show_stadium_crowd():
             self._draw_crowd_meshes(celebrating=cheering(self) is not None)
-            draw_banner(self,context)
 
     def _draw_stand_meshes(self) -> None:
         """Desenha toda a bancada em poucos lotes gráficos já projetados."""
