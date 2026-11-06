@@ -2462,3 +2462,11 @@ checks pass. No physical device validation, Play submission or server change.
 Initial unrelated .gitignore/main/UI-test WIP and untracked career module preserved.
 Duplicate downloaded/generated0.9.27 copies and old0.9.27 app staging cache cleared
 for build space; latest pre-task0.9.27 APK and recovery source retained.
+
+Delivery42195662697 succeeded on first attempt using the existing authenticated
+Actions transfer route and pre-created source tag/release. Public0.9.28 APK
+returned HTTP200 with attachment filename,107578487B and exact local-tested SHA256
+4b963a7d328586053349cb1e93e3e4092c8567aea431dfb3955a6afd78122ec0.
+Proof in RELEASE_0.9.28_download.json. Temporary qa-upload-0.9.28 ref removed.
+Additional dive/held-ball-fall captures at the new scale inspected; no pixel-art
+redraw or change to ball physics. Physical Android playtest still pending.
