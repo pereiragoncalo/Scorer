@@ -14,6 +14,6 @@ class SpritePayloadTests(unittest.TestCase):
                 for a in c['animations'].values():
                     for sheet in a['sheets'].values():
                         self.assertEqual((target/sheet['path']).read_bytes(),(ROOT/sheet['path']).read_bytes())
-            for module in ('sprite_animation.py','sprite_textures.py','retro_sprites.py'):
+            for module in ('sprite_animation.py','sprite_textures.py','retro_sprites.py','stadium_scene.py','supporter_layout.py'):
                 text=(target/module).read_text();self.assertEqual(text,(ROOT/module).read_text())
                 self.assertNotIn('tools.sprite_lab',text);self.assertNotIn('from PIL',text)

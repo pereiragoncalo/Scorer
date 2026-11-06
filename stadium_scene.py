@@ -4,6 +4,7 @@ import zlib
 from kivy.graphics import Color,Mesh,PushMatrix,PopMatrix,Translate
 from kivy.metrics import dp
 from club_profiles import stadium_capacity,ground
+from supporter_layout import AwaySector,STAIR_HALF_WIDTH
 
 def context(g):
     training=g.shot_context=='training'
@@ -14,10 +15,11 @@ def context(g):
         return g.career.kit_for_club(club)
     home_kit=kit(home);away_kit=kit(away)
     capacity=stadium_capacity(home)
+    away_capacity=stadium_capacity(away) if away else 0
     home_uid=getattr(home,'uid','');away_uid=getattr(away,'uid','')
     seed=zlib.crc32((home_uid+'|'+away_uid).encode('utf-8'))
-    key=(home_uid,away_uid,capacity,home_kit,away_kit,training)
-    return dict(home=home,away=away,home_kit=home_kit,away_kit=away_kit,ground=ground(capacity),crowd_seed=seed,key=key)
+    key=(home_uid,away_uid,capacity,away_capacity,home_kit,away_kit,training)
+    return dict(home=home,away=away,home_kit=home_kit,away_kit=away_kit,ground=ground(capacity),away_sector=AwaySector(away_capacity,away is not None),crowd_seed=seed,key=key)
 
 def seat_noise(x,y,z,code,seed=0):
     """Stable per-seat randomness, with no stripes or gameplay RNG consumption."""
@@ -27,13 +29,15 @@ def seat_noise(x,y,z,code,seed=0):
     value=((value^(value>>15))*0x846ca68b)&0xffffffff
     return value^(value>>16)
 
-def away_seat(x,y,tier=0,section='goal'):
+def away_seat(x,y,tier=0,section='goal',capacity=40000):
     # Positive world x is left of the goal in the fixed broadcast camera.
-    return tier==0 and section=='goal' and 10<=x<=29
+    return AwaySector(capacity).contains(x,tier,section)
 
 def build(g,ctx):
     spec=ctx['ground'];g.stadium_tiers=spec.tiers;g.stadium_capacity=spec.capacity
     g._crowd_specs=[];g._stand_mesh_builders={}
+    sector=ctx['away_sector'];g.away_sector_extended=sector.extended
+    g.steward_positions=[]
     edge=(.42,.46,.44,1);tread=(.25,.28,.27,1);riser=(.12,.16,.16,1)
     def quad(points,color):g._cache_stand_quad(color,tuple(g.project(*p) for p in points))
     lower_height=.3+spec.lower_rows*.27
@@ -52,6 +56,13 @@ def build(g,ctx):
             quad(((sx,-4,z-.25),(sx,32,z-.25),(sx,32,z),(sx,-4,z)),riser)
             quad(((sx,-4,z),(sx,32,z),(sx+.8,32,z),(sx+.8,-4,z)),tread)
             g._cache_stand_world_polyline(edge,[(sx,-4,z),(sx,32,z)],.65)
+            if tier==0 and sector.enabled:
+                # Visible stair treads at the two ends of the visitor sector.
+                left=sector.goal_stair_x-STAIR_HALF_WIDTH;right=sector.goal_stair_x+STAIR_HALF_WIDTH
+                stair_colour=(.37,.39,.35,1)
+                quad(((left,near,z+.006),(right,near,z+.006),(right,far,z+.006),(left,far,z+.006)),stair_colour)
+                quad(((sx,-4.1,z+.006),(sx,-2.85,z+.006),(sx+.8,-2.85,z+.006),(sx+.8,-4.1,z+.006)),stair_colour)
+                g.steward_positions.extend(sector.stewards(sx,near,z))
             # Connect the two straight stands with a real curved corner.
             radius=depth+row*.85
             def corner(r,angle,height):return (36.2+r*math.cos(angle),-4-r*math.sin(angle),height)
@@ -64,16 +75,18 @@ def build(g,ctx):
                 code=col*23+row*41+tier*173
                 if code%29 in (0,1):continue
                 x,y,_=corner(radius+.4,(col+.5)*math.pi/(2*columns),z)
-                g._crowd_specs.append((x,y,z,code,'home',tier))
+                team='away' if sector.contains(x,tier,'corner') else 'home'
+                g._crowd_specs.append((x,y,z,code,team,tier))
             for col in range(164):
                 x=-35.5+col*71/163;code=col*17+row*31+tier*137
-                if col%27 in (0,1) or code%37 in (0,1):continue
-                team='away' if ctx['away'] and away_seat(x,near,tier) else 'home'
+                if col%27 in (0,1) or code%37 in (0,1) or sector.stair(x,near,tier):continue
+                team='away' if sector.contains(x,tier) else 'home'
                 g._crowd_specs.append((x,near-.4,z,code,team,tier))
             for col in range(80):
                 code=col*19+row*31+tier*137
-                if col%20 in (0,1) or code%37 in (0,1):continue
-                g._crowd_specs.append((sx+.4,-3.5+col*35/79,z,code,'home',tier))
+                y=-3.5+col*35/79
+                if col%20 in (0,1) or code%37 in (0,1) or sector.stair(sx,y,tier,'side'):continue
+                g._crowd_specs.append((sx+.4,y,z,code,'home',tier))
         if tier:
             # Clear projecting balcony/concourse separates the upper deck from
             # the first tier, rather than merely adding more continuous rows.
@@ -86,6 +99,7 @@ def build(g,ctx):
     g._stand_mesh_cache=[(color,vertices,indices) for (_,color),(vertices,indices) in g._stand_mesh_builders.items() if indices]
     g._stand_mesh_builders=None
     build_crowd(g,g._crowd_specs,ctx)
+    build_stewards(g)
     g._crowd_specs=None
 
 def build_crowd(g,spectators,ctx=None):
@@ -113,6 +127,22 @@ def build_crowd(g,spectators,ctx=None):
 def cheering(g):
     return getattr(g,'_celebrating_side',None) if g.elapsed<getattr(g,'_crowd_celebrate_until',0) and g.shot_context!='training' else None
 
+def build_stewards(g):
+    batches={};g.steward_visible=0
+    def add(colour,points):
+        vertices,indices=batches.setdefault(colour,([],[]));g._append_mesh_quad(vertices,indices,points)
+    green=(.46,1.,.015,1);dark=(.035,.06,.045,1);skin=(.86,.62,.42,1);reflective=(.9,1.,.65,1)
+    for x,y,z,flank,file in g.steward_positions:
+        foot=g.project(x,y,z+.05);waist=g.project(x,y,z+.19);shoulder=g.project(x,y,z+.38);head=g.project(x,y,z+.46)
+        if not(g.x-8<=head[0]<=g.right+8 and g.y-8<=head[1]<=g.top+8):continue
+        g.steward_visible+=1;scale=g.pixels_per_meter(x,y,z+.2);width=max(1.,min(2.3,scale*.05))
+        def body(a,b,w):return ((a[0]-w,a[1]),(a[0]+w,a[1]),(b[0]+w,b[1]),(b[0]-w,b[1]))
+        add(dark,body(foot,waist,width*.8));add(green,body(waist,shoulder,width))
+        radius=max(1.1,min(2.3,scale*.055));add(skin,((head[0]-radius,head[1]-radius),(head[0]+radius,head[1]-radius),(head[0]+radius,head[1]+radius),(head[0]-radius,head[1]+radius)))
+        middle=((waist[0]+shoulder[0])/2,(waist[1]+shoulder[1])/2)
+        add(reflective,((middle[0]-width,middle[1]-.4),(middle[0]+width,middle[1]-.4),(middle[0]+width,middle[1]+.4),(middle[0]-width,middle[1]+.4)))
+    g._steward_mesh_cache=[(colour,v,i) for colour,(v,i) in batches.items() if i]
+
 def jump(g,team,group):
     if cheering(g)!=team:return 0.
     age=max(0,g.elapsed-getattr(g,'_crowd_celebration_started',g.elapsed))
@@ -124,3 +154,6 @@ def draw_crowd(g):
         if amount:
             PushMatrix();Translate(0,amount,0);Mesh(vertices=vertices,indices=indices,mode='triangles');PopMatrix()
         else:Mesh(vertices=vertices,indices=indices,mode='triangles')
+    # Stewards never join a team's goal celebration.
+    for colour,vertices,indices in getattr(g,'_steward_mesh_cache',()):
+        Color(*colour);Mesh(vertices=vertices,indices=indices,mode='triangles')

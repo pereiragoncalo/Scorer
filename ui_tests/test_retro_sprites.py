@@ -5,6 +5,32 @@ from test_menus import isolated_game,settle
 from retro_sprites import hero_pose,field_pose,keeper_pose,kit_palette
 
 class RetroSpriteIntegration(unittest.TestCase):
+    def test_all_actor_roles_use_180cm_reference_at_their_world_depth(self):
+        from unittest.mock import patch
+        from retro_sprites import PLAYER_HEIGHT_METRES,projected_scale
+        with isolated_game() as g:
+            self.prepare(g);g._start_opportunity('cutback',42)
+            renderer=g._retro_renderer()
+            with patch.object(renderer,'draw',wraps=renderer.draw) as draw:
+                g.draw()
+            self.assertGreaterEqual(len(draw.call_args_list),3)
+            self.assertTrue(all(call.args[5]==1.80 for call in draw.call_args_list))
+            for character in renderer.manifest['characters'].values():
+                for x,y in ((0,0),(-5,8),(3,19)):
+                    scale=projected_scale(g,(x,y,0),character)
+                    foot=g.project(x,y,0);head=g.project(x,y,1.80)
+                    expected=math.hypot(head[0]-foot[0],head[1]-foot[1])
+                    self.assertAlmostEqual(scale*character['standing_height_pixels'],expected)
+            # Goal remains 2.44m. No old .72/.76/.80 physics scale shrinks art.
+            self.assertEqual(g.goal_height,2.44);self.assertEqual(PLAYER_HEIGHT_METRES,1.80)
+            g._start_opportunity('corner',42)
+            while g.state==g.STATE_BUILDUP:g.update(.1)
+            g.state_age=.3
+            self.assertEqual(hero_pose(g).frame,1)
+            height=g.ball.z;g.shoot(2.,1.)
+            self.assertEqual(hero_pose(g).frame,5)
+            self.assertEqual(g.ball.z,height)
+
     def test_recoloured_pixels_restore_after_context_reload_and_eviction_is_bounded(self):
         from sprite_animation import load_manifest
         from sprite_textures import TextureCache,DEFAULT_PLAYER

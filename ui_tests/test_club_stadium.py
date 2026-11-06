@@ -62,11 +62,40 @@ class ClubStadium(unittest.TestCase):
     def test_away_sector_is_only_lower_deck_and_palette_batches_are_team_tagged(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
             self.teams(g);g._draw_stadium_stands()
-            self.assertTrue(away_seat(20,-5,0));self.assertFalse(away_seat(20,-25,1));self.assertFalse(away_seat(-20,-5,0));self.assertFalse(away_seat(40,5,0,'side'))
+            self.assertTrue(away_seat(30,-5,0));self.assertFalse(away_seat(30,-25,1));self.assertFalse(away_seat(-20,-5,0));self.assertFalse(away_seat(40,5,0,'side'))
             self.assertEqual({row[4] for row in g._crowd_mesh_cache},{'home','away'})
             self.assertLessEqual(len(g._crowd_mesh_cache),56)
             for color,vertices,indices,group,team in g._crowd_mesh_cache:
                 self.assertTrue(indices);self.assertLess(max(indices),65536);self.assertLess(max(indices),len(vertices)//4)
+
+    def test_visitor_club_size_controls_sector_and_two_files_flank_each_stair(self):
+        import stadium_scene
+        from supporter_layout import FIRST_GOAL_STAIR_X,STAIR_HALF_WIDTH
+        with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+            away,home=self.teams(g)
+            original=stadium_scene.build_crowd;seats=[]
+            def capture(game,spectators,ctx=None):
+                seats[:]=spectators;return original(game,spectators,ctx)
+            for capacity in (5000,60000):
+                with patch('stadium_scene.stadium_capacity',side_effect=lambda club: capacity if club is away else 70000),patch('stadium_scene.build_crowd',side_effect=capture):
+                    g._draw_stadium_stands()
+                    visitors=[p for p in seats if p[4]=='away']
+                    self.assertTrue(visitors);self.assertTrue(all(p[5]==0 for p in visitors))
+                    if capacity==5000:self.assertTrue(all(p[0]>36.2 and p[1]<-4 for p in visitors))
+                    else:
+                        behind=[p for p in visitors if p[0]<=36.2]
+                        self.assertTrue(behind)
+                        self.assertTrue(all(p[0]>FIRST_GOAL_STAIR_X+STAIR_HALF_WIDTH for p in behind))
+                    ctx=context(g);self.assertEqual(g.stadium_capacity,70000)
+                    self.assertEqual(len(g.steward_positions),4*ctx['ground'].lower_rows)
+                    self.assertEqual({(p[3],p[4]) for p in g.steward_positions},{('goal',0),('goal',1),('side',0),('side',1)})
+                    self.assertGreater(g.steward_visible,0)
+                    self.assertIn((.46,1.,.015,1),[p[0] for p in g._steward_mesh_cache])
+                    guards=g._steward_mesh_cache
+                    g._record_report_goal('away',10);g.elapsed+=.1;g._draw_stadium_stands()
+                    self.assertIs(g._steward_mesh_cache,guards)
+            g.shot_context='training';g._draw_stadium_stands()
+            self.assertEqual(g.steward_positions,[]);self.assertEqual(g._steward_mesh_cache,[])
 
     def test_real_goal_reporting_celebrates_only_the_scoring_side_then_expires(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:

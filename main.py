@@ -5048,7 +5048,7 @@ class StrikerGame(Widget):
 
     def _draw_field_players(self) -> None:
         """Approved sprites at the exact existing actor/collision positions."""
-        from retro_sprites import field_pose, kit_palette
+        from retro_sprites import field_pose, kit_palette, PLAYER_HEIGHT_METRES
         renderer=self._retro_renderer()
         player_kit,opponent_kit=self._match_outfield_kits()
         actors=self.field_players+self.buildup_actors
@@ -5060,7 +5060,7 @@ class StrikerGame(Widget):
             left=self.project(target_x,target_y,0.)[0]<self.project(x,y,0.)[0]
             kit=opponent_kit if player.team=='defender' else player_kit
             renderer.draw(self,id(player),'players',field_pose(self,player,left),
-                          (x,y,0.),1.90*FIELD_PLAYER_SCALE,kit_palette(kit))
+                          (x,y,0.),PLAYER_HEIGHT_METRES,kit_palette(kit))
 
 
     def _draw_player(self) -> None:
@@ -5086,16 +5086,16 @@ class StrikerGame(Widget):
         if self.current_opportunity is not None and self.state in (self.STATE_BUILDUP,self.STATE_AIMING):
             sx,sy=self.project(player_x,player_y,.03)
             Color(.30,.91,.65,.95);Line(ellipse=(sx-9,sy-3,18,6),width=1.2)
-        from retro_sprites import hero_pose,kit_palette
+        from retro_sprites import hero_pose,kit_palette,PLAYER_HEIGHT_METRES
         player_kit,_=self._match_outfield_kits()
         facing=self.project(player_x+forward_x,player_y+forward_y,0.)[0]<self.project(player_x,player_y,0.)[0]
         self._retro_renderer().draw(self,'hero','players',hero_pose(self,facing),
-                                   (player_x,player_y,0.),1.86*PLAYER_SCALE,
+                                   (player_x,player_y,0.),PLAYER_HEIGHT_METRES,
                                    kit_palette(player_kit))
 
 
     def _draw_goalkeeper(self) -> None:
-        from retro_sprites import keeper_pose,kit_palette
+        from retro_sprites import keeper_pose,kit_palette,PLAYER_HEIGHT_METRES
         renderer=self._retro_renderer()
         world_pose=self._goalkeeper_world_pose()
         right=self.project(self.goalkeeper_x+self.goalkeeper_dive_sign,GOALKEEPER_Y,0.)[0]>=self.project(self.goalkeeper_x,GOALKEEPER_Y,0.)[0]
@@ -5119,7 +5119,7 @@ class StrikerGame(Widget):
             joint='hip'
             target=self.project(*tuple((a+b)/2 for a,b in zip(world_pose['hip_l'],world_pose['hip_r'])))
         renderer.draw(self,'keeper','goalkeeper',selection,
-                      (self.goalkeeper_x,GOALKEEPER_Y,0.),1.90*self.goalkeeper_scale,
+                      (self.goalkeeper_x,GOALKEEPER_Y,0.),PLAYER_HEIGHT_METRES,
                       colours,joint=joint,target=target,rotation=rotation)
 
 

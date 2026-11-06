@@ -217,7 +217,7 @@ class PixelArtist:
 def build():
     manifest=dict(version=1,art_revision=2,approval_status='APPROVED',approved_art_revision=2,approval_date='2026-11-06',original_art=True,nominal_body=[32,40],palette_roles=ROLES,source_palette=[list(c)+[0 if i==0 else 255] for i,c in enumerate(PALETTE)],characters={})
     for role,spec in SPECS.items():
-        character=dict(source_palette=[list(c)+[0 if i==0 else 255] for i,c in enumerate(role_palette(role))],canvas=spec['canvas'],anchor=spec['anchor'],nominal_height=40,views=spec['views'],animations={})
+        character=dict(standing_height_pixels=40 if role=='players' else 39,source_palette=[list(c)+[0 if i==0 else 255] for i,c in enumerate(role_palette(role))],canvas=spec['canvas'],anchor=spec['anchor'],nominal_height=40,views=spec['views'],animations={})
         for state,(count,fps,loop) in STATES[role].items():
             entry=dict(frames=count,fps=fps,loop=loop,sheets={},individuals={},contacts={},joints={})
             for view in spec['views']:

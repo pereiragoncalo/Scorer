@@ -10,6 +10,15 @@ from kivy.graphics import Color, Rectangle, PushMatrix, PopMatrix, Translate, Ro
 from sprite_animation import Animation, load_manifest
 from sprite_textures import TextureCache
 
+PLAYER_HEIGHT_METRES = 1.80
+
+def projected_scale(game,position,character,world_height=PLAYER_HEIGHT_METRES):
+    """Scale the upright ink, not the transparent canvas or old physics scales."""
+    x,y,_=position
+    foot=game.project(x,y,0.)
+    top=game.project(x,y,world_height)
+    return max(.15,math.hypot(top[0]-foot[0],top[1]-foot[1])/character.get('standing_height_pixels',character['nominal_height']))
+
 @dataclass(frozen=True)
 class Pose:
     state: str
@@ -34,10 +43,12 @@ def hero_pose(game,flipped=False):
     if game.state==game.STATE_AIMING:
         # Wind-up occurs before launch. Launch is still immediate at the real
         # physics event; the first post-launch frame is the authored contact.
-        frame=min(2,int(game.state_age*10))
+        frame=min(1 if state=='HEADER' else 2,int(game.state_age*10))
     else:
-        contact=3
-        frame=min(7,contact+int(game.player_kick_progress*5))
+        # Existing headers arrive at 1.31m. At the new 1.80m standing size,
+        # meet these low balls crouched, rather than jumping above them.
+        contact=5 if state=='HEADER' else 3
+        frame=min(7,contact+int(game.player_kick_progress*(3 if state=='HEADER' else 5)))
     return Pose(state,frame=frame,view='back',flipped=flipped)
 
 
@@ -123,8 +134,7 @@ class RetroSprites:
             uv=(uv[2],uv[3],uv[0],uv[1],uv[6],uv[7],uv[4],uv[5])
         x,y,z=position
         foot=game.project(x,y,0.)
-        top=game.project(x,y,world_height)
-        scale=max(.15,math.hypot(top[0]-foot[0],top[1]-foot[1])/character['nominal_height'])
+        scale=projected_scale(game,position,character,world_height)
         sx,sy=target if target is not None else game.project(x,y,z)
         Color(0.01,.025,.015,.28)
         Ellipse(pos=(foot[0]-scale*5,foot[1]-scale*1.2),size=(scale*10,scale*2.4))

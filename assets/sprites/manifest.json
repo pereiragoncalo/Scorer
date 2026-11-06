@@ -4864,7 +4864,8 @@
           },
           "contact_frames": []
         }
-      }
+      },
+      "standing_height_pixels": 40
     },
     "goalkeeper": {
       "source_palette": [
@@ -7348,7 +7349,8 @@
           },
           "contact_frames": []
         }
-      }
+      },
+      "standing_height_pixels": 39
     }
   },
   "approved_art_revision": 2,

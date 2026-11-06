@@ -4,6 +4,16 @@ from PIL import Image
 from tools.sprite_lab.animation import Animation,load_manifest,ROOT
 
 class AssetsTest(unittest.TestCase):
+    def test_upright_ink_height_calibration_ignores_transparent_padding(self):
+        manifest=load_manifest()
+        for role,state in (('players','IDLE'),('goalkeeper','RECOVER')):
+            character=manifest['characters'][role]
+            clip=character['animations'][state]
+            for view in character['views']:
+                image=Image.open(ROOT/clip['individuals'][view][-1]).convert('RGBA')
+                height=character['anchor'][1]-image.getbbox()[1]
+                self.assertEqual(height,character['standing_height_pixels'])
+
     def test_articulation_keeps_bone_lengths(self):
         from tools.sprite_lab.build_assets import ik
         for target in ((100,-100),(0,0),(3,5),(-9,1)):

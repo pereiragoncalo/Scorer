@@ -19,7 +19,7 @@ with zipfile.ZipFile(artifact) as archive:
                 for paths in a['individuals'].values():
                     for path in paths:
                         assert data(path)==(stage/path).read_bytes();frames+=1
-        for module in ('main','retro_sprites','sprite_animation','sprite_textures'):
+        for module in ('main','retro_sprites','sprite_animation','sprite_textures','stadium_scene','supporter_layout'):
             actual=marshal.loads(data(module+'.pyc')[16:])
             expected=compile((stage/(module+'.py')).read_text(),actual.co_filename,'exec',optimize=2)
             assert actual==expected,'Compiled source differs: '+module
