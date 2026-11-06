@@ -2507,3 +2507,9 @@ phone validation, new permissions, Play action, save schema or server changes.
 Duplicate/old generated APK/app staging and clean old dev worktrees removed for
 space; latest pre-task0.9.28 APK and source recovery commits retained. Initial
 unrelated main/.gitignore/UI-test changes and untracked career module preserved.
+
+Delivery42206733292 succeeded on its first attempt. Public0.9.29 APK returns
+HTTP200/attachment filename,107602219B and SHA256
+7e34595d39e223087b2e1de66bad888b15097a7540b89fda496b506d47903262,
+exactly matching the tested APK. Proof: RELEASE_0.9.29_download.json. Temporary
+qa-upload-0.9.29 ref removed; release, source tag and source branch retained.
