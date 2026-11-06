@@ -90,7 +90,10 @@ class ClubStadium(unittest.TestCase):
                     self.assertEqual(len(g.steward_positions),4*ctx['ground'].lower_rows)
                     self.assertEqual({(p[3],p[4]) for p in g.steward_positions},{('goal',0),('goal',1),('side',0),('side',1)})
                     self.assertGreater(g.steward_visible,0)
-                    self.assertIn((.46,1.,.015,1),[p[0] for p in g._steward_mesh_cache])
+                    self.assertTrue(g._steward_mesh_cache)
+                    pixels=bytes(g._steward_texture.pixels)
+                    self.assertIn(bytes((117,255,4,255)),pixels)
+                    self.assertEqual(g._steward_texture.mag_filter,'nearest')
                     guards=g._steward_mesh_cache
                     g._record_report_goal('away',10);g.elapsed+=.1;g._draw_stadium_stands()
                     self.assertIs(g._steward_mesh_cache,guards)

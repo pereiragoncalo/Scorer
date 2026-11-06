@@ -9,3 +9,5 @@ Winning an observed collective league, domestic cup, continental cup or national
 The existing gameplay, hitboxes, ball solver, club colours and approved player/goalkeeper art remain unchanged. New scene assets comprise 108 supporter cells, eight ball frames and one trophy. Textures use nearest-neighbour filtering, bounded palette caching and context-reload data; supporters remain two batched meshes rather than individual widgets.
 
 This is a debug-signed World QA candidate, not a Google Play production release. Physical Android testing remains pending.
+
+Validation: 406 core cases passed (three existing skips), plus eight focused scene/title cases including a played World cup final; 231 responsive presentation cases passed with zero findings. Additional title-talk layout checks cover all nine languages with and without a due weekly focus choice. The actual APK passed package/version, existing certificate, all118 ELF16KB alignment, ZIP alignment, exact sprite/source payload and packed career/title persistence checks.
