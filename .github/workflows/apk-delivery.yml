@@ -50,14 +50,14 @@ jobs:
                           raise
                       print('Retrying verified transfer part:', part['name'], flush=True)
           manifest = json.loads(read('manifest.json'))
-          expected = '4b963a7d328586053349cb1e93e3e4092c8567aea431dfb3955a6afd78122ec0'
-          assert manifest['version'] == '0.9.28'
-          assert manifest['filename'] == 'Scorer-World-0.9.28.apk'
-          assert manifest['sha256'] == expected and manifest['bytes'] == 107578487
+          expected = '7e34595d39e223087b2e1de66bad888b15097a7540b89fda496b506d47903262'
+          assert manifest['version'] == '0.9.29'
+          assert manifest['filename'] == 'Scorer-World-0.9.29.apk'
+          assert manifest['sha256'] == expected and manifest['bytes'] == 107602219
           assert 1 <= len(manifest['parts']) <= 16
           digest = hashlib.sha256()
           total = 0
-          with open('Scorer-World-0.9.28.apk', 'wb') as output:
+          with open('Scorer-World-0.9.29.apk', 'wb') as output:
               for index, part in enumerate(manifest['parts']):
                   assert part['name'] == f'apk.part.{index:02d}'
                   content = read_part(part)
@@ -66,8 +66,8 @@ jobs:
                   output.write(content)
                   digest.update(content)
                   total += len(content)
-          assert total == 107578487 and digest.hexdigest() == expected
-          metadata = json.loads(pathlib.Path('docs/RELEASE_0.9.28_artifacts.json').read_text())
+          assert total == 107602219 and digest.hexdigest() == expected
+          metadata = json.loads(pathlib.Path('docs/RELEASE_0.9.29_artifacts.json').read_text())
           assert metadata['sha256'] == expected and metadata['bytes'] == total
           source = metadata['source_commit']
           assert re.fullmatch('[0-9a-f]{40}', source)
@@ -80,10 +80,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SOURCE_COMMIT: ${{ steps.download.outputs.source_commit }}
         run: |
-          if ! gh release view qa-0.9.28 >/dev/null 2>&1; then
-            gh release create qa-0.9.28 --target "$SOURCE_COMMIT" --prerelease --title "Scorer World 0.9.28 QA - visitor sectors and player scale" --notes-file docs/RELEASE_0.9.28.md
+          if ! gh release view qa-0.9.29 >/dev/null 2>&1; then
+            gh release create qa-0.9.29 --target "$SOURCE_COMMIT" --prerelease --title "Scorer World 0.9.29 QA - individual crowd jumps and goal celebrations" --notes-file docs/RELEASE_0.9.29.md
           fi
-          gh release upload qa-0.9.28 Scorer-World-0.9.28.apk docs/RELEASE_0.9.28_artifacts.json docs/data/crowd_0.9.28/visitors-5000.png docs/data/crowd_0.9.28/visitors-60000.png docs/data/crowd_0.9.28/height-calibration.png --clobber
+          gh release upload qa-0.9.29 Scorer-World-0.9.29.apk docs/RELEASE_0.9.29_artifacts.json docs/data/celebrations_0.9.29/normal-hug.png docs/data/celebrations_0.9.29/decisive-slide.png docs/data/celebrations_0.9.29/preservation.json --clobber
 
   names:
     if: ${{ inputs.deliver_names }}

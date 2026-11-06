@@ -1,3 +1,13 @@
+## Scorer World 0.9.29 — goal celebrations
+
+[Download World 0.9.29 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.29/Scorer-World-0.9.29.apk)
+
+Supporters jump with individual rhythms and heights. The scorer runs to his own
+supporters and teammates embrace him; late go-ahead goals add a knee slide.
+Match time pauses, the existing tap skips, and goals/physics remain unchanged.
+
+[Scope and validation](docs/RELEASE_0.9.29.md).
+
 ## Scorer World 0.9.28 — visitor sectors and player scale
 
 [Download World 0.9.28 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.28/Scorer-World-0.9.28.apk)

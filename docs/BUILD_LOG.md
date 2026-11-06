@@ -2470,3 +2470,40 @@ returned HTTP200 with attachment filename,107578487B and exact local-tested SHA2
 Proof in RELEASE_0.9.28_download.json. Temporary qa-upload-0.9.28 ref removed.
 Additional dive/held-ball-fall captures at the new scale inspected; no pixel-art
 redraw or change to ball physics. Physical Android playtest still pending.
+
+## 2026-11-06 — individual supporters and player goal celebrations, QA0.9.29
+
+Recovery branch before-goal-celebrations-0929 plus initial WIP patch/main snapshot
+in striker-runtime/celebrations-0929. Unique deterministic per-seat jump frequency,
+height, phase and reaction delay, perspective-scaled height and varied fade. Head/
+body share offsets, only scorer side moves, exact base-y restoration, static
+stewards. Precomputed profiles and palette14-batch meshes replace4 shared wave
+groups/56 batches; no per-person draw calls or gameplay RNG. New presentation-only
+celebrations module: original striker position to own home/visitor section,
+3 staggered teammates embrace, decisive observed late lead runs/slides on knees
+facing supporters, gets up then hugs. No future scores read. Clock stays paused;
+auto result waits, normal tap skips, reset/new shot clears state. Goal counter and
+all launch/ball/field/keeper collision methods untouched; no new gameplay actor
+positions or colliders. Original168 PNGs byte-identical.40 new CELEBRATE/KNEE_SLIDE/
+HUG frames,6 sheets, total208/30; calibrated1.80m and original team palettes retained.
+
+390 core cases in142.771s:387 pass/3 skip. All201 native Kivy cases pass in293.083s,
+including4 new integration cases.3 new pure trajectory/decisive/slide cases pass;
+all4 asset/clock/IK/calibration cases pass(.099s). compileall/staging guards pass.
+Tests cover unique traces, no RNG changes, head/body coherence, no opponent/guard
+movement, exact reset, own supporter targeting, preserved start anchor, slide
+deceleration/recovery/hug, immediate single score, clock/auto-advance/tap and
+training isolation. Normal/decisive run, slide and embrace screenshots inspected.
+Standalone Kivy viewer extended to11 outfield actions:208 frames/PNG/sheet modes,
+960x640/1280x800/1440x900 pass,2000 warmed updates with zero texture uploads.
+Initial imported test helper class duplicated discovery; moved import inside helper
+before final suite. A temporary fade variable placement was corrected before tests.
+
+Clean committed source9ebc071. Combined real Android build/verification succeeds:
+compiled main/stadium/layout/celebrations/renderer/clock/textures and208frames/30
+sheets exact; DEBUG upgrade key unchanged, API36/min26, versionCode1026929, arm64,
+118 ELF+ZIP16KB, edition/ad-free/safety/competition/save guards pass. No physical
+phone validation, new permissions, Play action, save schema or server changes.
+Duplicate/old generated APK/app staging and clean old dev worktrees removed for
+space; latest pre-task0.9.28 APK and source recovery commits retained. Initial
+unrelated main/.gitignore/UI-test changes and untracked career module preserved.
