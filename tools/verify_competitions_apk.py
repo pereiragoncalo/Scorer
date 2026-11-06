@@ -9,6 +9,7 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
             obj=types.ModuleType(name);obj.__file__=str(Path.cwd()/(name+'.py'));sys.modules[name]=obj
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
+        titles=module('title_events');attendance=module('attendance')
         development=module('player_development')
         news=module('newspaper');coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
         formats=module('domestic_formats');kits=module('club_kits');competitions=module('world_competitions');module('promotion_playoffs');access=module('domestic_playoffs');calendar=module('international_calendar');module('two_divisions');module('season_transitions');rules=module('domestic_rules');hon=module('honours');career=module('career');competitions=module('world_competitions')
@@ -198,3 +199,11 @@ report=dict(score=[2,1],events=[dict(minute=32,half=1,side='home'),dict(minute=5
 compact=news.single_page_story(report,Localizer(False).tr,'Alex')
 assert all(minute in compact for minute in ("32'","51'","90'")) and 'Alex: one goal.' in compact
 print('Actual APK: clear chances remain possible against elite opponents, penalty contribution is reserved, concise story preserves every goal minute')
+
+assert titles.pending(c) and titles.view(c)=='trophy'
+title_id=titles.pending(c)['id'];assert titles.to_coach(c) and c.load() and titles.pending(c)['id']==title_id
+focus=c.coach_focus_options()[0] if titles.needs_focus(c) else None
+assert titles.finish(c,focus) and c.load() and titles.pending(c) is None
+from types import SimpleNamespace
+assert attendance.turnout(SimpleNamespace(played=10,points=30))>attendance.turnout(SimpleNamespace(played=10,points=0))
+print('Actual APK: collective trophy queue, stage reload, once-only special talk and performance-based turnout verified')

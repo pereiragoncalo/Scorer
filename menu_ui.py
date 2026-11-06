@@ -31,7 +31,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('club','development','newspaper','coach', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
+MENU_VIEWS = frozenset(('club','development','newspaper','coach','title_coach', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -142,7 +142,7 @@ class CareerMenu(BoxLayout):
         signature = (tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,getattr(self.game,'standings_key',''),getattr(self.game,'standings_group',0),getattr(self.game,'standings_tab','auto'),self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
-                     self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required, str(c.coach_state), str(c.press_state), str(c.development),getattr(self.game,'development_tab','objectives'),
+                     self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required,str(c.title_events), str(c.coach_state), str(c.press_state), str(c.development),getattr(self.game,'development_tab','objectives'),
                      self.game.help_page,getattr(self.game,'_coach_focus_pick',None), self.game.editor_club_index, self.game.editor_key, self.game.world_country, self.game.world_league_key, c.alias_revision, self.game.reward_ad_status, Metrics.density, Metrics.fontscale, self._desktop_dashboard_available(),
                      (c.current_league.round_index, tuple(c.current_league.scorer_goals.items())) if self._desktop_dashboard_available() else None)
         if signature != self._signature:
@@ -169,7 +169,7 @@ class CareerMenu(BoxLayout):
         if self.game.view=='newspaper':
             from newspaper_ui import NewspaperScreen
             self.padding=self.spacing=0;self.scroll=None;self.body=NewspaperScreen(self);self.add_widget(self.body);return
-        if self.game.view=='coach':
+        if self.game.view in ('coach','title_coach'):
             from coach_ui import CoachScreen
             self.padding=self.spacing=0;self.scroll=None;self.body=CoachScreen(self);self.add_widget(self.body);return
         if self.game.view=='data_notice':

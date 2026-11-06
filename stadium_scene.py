@@ -5,6 +5,8 @@ from kivy.graphics import Color,Mesh,PushMatrix,PopMatrix,Translate
 from kivy.metrics import dp
 from club_profiles import stadium_capacity,ground
 from supporter_layout import AwaySector,STAIR_HALF_WIDTH
+from attendance import fixture_snapshot,occupied_seats
+from retro_props import cache as scene_cache,uv
 
 def context(g):
     training=g.shot_context=='training'
@@ -18,8 +20,9 @@ def context(g):
     away_capacity=stadium_capacity(away) if away else 0
     home_uid=getattr(home,'uid','');away_uid=getattr(away,'uid','')
     seed=zlib.crc32((home_uid+'|'+away_uid).encode('utf-8'))
-    key=(home_uid,away_uid,capacity,away_capacity,home_kit,away_kit,training)
-    return dict(home=home,away=away,home_kit=home_kit,away_kit=away_kit,ground=ground(capacity),away_sector=AwaySector(away_capacity,away is not None),crowd_seed=seed,key=key)
+    turnout={'home':0.,'away':0.} if training else fixture_snapshot(g,home,away)
+    key=(home_uid,away_uid,capacity,away_capacity,home_kit,away_kit,training,tuple(sorted(turnout.items())))
+    return dict(turnout=turnout,home=home,away=away,home_kit=home_kit,away_kit=away_kit,ground=ground(capacity),away_sector=AwaySector(away_capacity,away is not None),crowd_seed=seed,key=key)
 
 def seat_noise(x,y,z,code,seed=0):
     """Stable per-seat randomness, with no stripes or gameplay RNG consumption."""
@@ -73,19 +76,18 @@ def build(g,ctx):
             columns=max(2,min(72,round((radius+.4)*math.pi/.95)))
             for col in range(columns):
                 code=col*23+row*41+tier*173
-                if code%29 in (0,1):continue
                 x,y,_=corner(radius+.4,(col+.5)*math.pi/(2*columns),z)
                 team='away' if sector.contains(x,tier,'corner') else 'home'
                 g._crowd_specs.append((x,y,z,code,team,tier))
             for col in range(164):
                 x=-35.5+col*71/163;code=col*17+row*31+tier*137
-                if col%27 in (0,1) or code%37 in (0,1) or sector.stair(x,near,tier):continue
+                if col%27 in (0,1) or sector.stair(x,near,tier):continue
                 team='away' if sector.contains(x,tier) else 'home'
                 g._crowd_specs.append((x,near-.4,z,code,team,tier))
             for col in range(80):
                 code=col*19+row*31+tier*137
                 y=-3.5+col*35/79
-                if col%20 in (0,1) or code%37 in (0,1) or sector.stair(sx,y,tier,'side'):continue
+                if col%20 in (0,1) or sector.stair(sx,y,tier,'side'):continue
                 g._crowd_specs.append((sx+.4,y,z,code,'home',tier))
         if tier:
             # Clear projecting balcony/concourse separates the upper deck from
@@ -98,58 +100,54 @@ def build(g,ctx):
             quad(((x,-4,base-1.35),(x,32,base-1.35),(x,32,base-.1),(x,-4,base-.1)),fascia)
     g._stand_mesh_cache=[(color,vertices,indices) for (_,color),(vertices,indices) in g._stand_mesh_builders.items() if indices]
     g._stand_mesh_builders=None
-    build_crowd(g,g._crowd_specs,ctx)
+    g.crowd_available=len(g._crowd_specs)
+    seats=occupied_seats(g._crowd_specs,ctx['turnout'],lambda x,y,z,c:seat_noise(x,y,z,c,ctx['crowd_seed']))
+    g.crowd_occupied_seats=tuple(seats);g.crowd_turnout=dict(ctx['turnout'])
+    build_crowd(g,seats,ctx)
     build_stewards(g)
     g._crowd_specs=None
 
 def build_crowd(g,spectators,ctx=None):
     from celebrations import crowd_profile
-    ctx=ctx or context(g);batches={};skins=((.94,.72,.52,.96),(.72,.46,.29,.96),(.45,.27,.18,.96))
-    visible=0;team_counts={'home':0,'away':0};g._crowd_motions=[];g._crowd_motion_scales=[]
-    def add(team,group,color,points):
-        vertices,indices=batches.setdefault((team,group,color),([],[]));start=len(vertices);g._append_mesh_quad(vertices,indices,points)
-        return vertices,start
+    ctx=ctx or context(g);batches={};g._crowd_textures={}
+    visible=0;team_counts={'home':0,'away':0};g._crowd_motions=[];g._crowd_motion_scales=[];g._crowd_cells=[]
+    for team in ('home','away'):
+        kit=ctx['away_kit'] if team=='away' else ctx['home_kit']
+        g._crowd_textures[team]=scene_cache(g).get('supporters.png',(kit[0],kit[3]))
     for spectator in spectators:
-        if len(spectator)==6:
-            x,y,z,code,team,tier=spectator
+        if len(spectator)==6:x,y,z,code,team,tier=spectator
         elif len(spectator)==4:x,y,z,code=spectator;team='home';tier=0
         else:continue
-        foot=g.project(x,y,z+.05);top=g.project(x,y,z+.29);head=g.project(x,y,z+.38)
-        if not(g.x-8<=head[0]<=g.right+8 and g.y-8<=head[1]<=g.top+8):continue
-        visible+=1;team_counts[team]+=1;scale=g.pixels_per_meter(x,y,z+.2)
-        width=max(.82,min(1.95,scale*.041));radius=max(1.15,min(2.75,scale*.062));dx=top[0]-foot[0];dy=top[1]-foot[1];length=max(1e-6,math.hypot(dx,dy));nx=-dy/length*width;ny=dx/length*width
-        noise=seat_noise(x,y,z,code,ctx['crowd_seed'])
-        kit=ctx['away_kit'] if team=='away' else ctx['home_kit'];base=kit[0 if noise&1 else 3];shade=.90+((noise>>1)&1)*.08;color=tuple(min(1,v*shade) for v in base[:3])+(.98,)
-        # Batch by palette, but keep a unique motion record for every person.
-        group=0
-        body=((foot[0]-nx,foot[1]-ny),(foot[0]+nx,foot[1]+ny),(top[0]+nx,top[1]+ny),(top[0]-nx,top[1]-ny))
-        head_quad=((head[0]-radius,head[1]-radius),(head[0]+radius,head[1]-radius),(head[0]+radius,head[1]+radius),(head[0]-radius,head[1]+radius))
-        bv,bs=add(team,group,color,body)
-        hv,hs=add(team,group,skins[(noise>>4)%3],head_quad)
-        g._crowd_motions.append((team,crowd_profile(noise),bv,bs,tuple(p[1] for p in body),hv,hs,tuple(p[1] for p in head_quad)))
-        g._crowd_motion_scales.append(scale/30.)
+        foot=g.project(x,y,z+.03);scale=g.pixels_per_meter(x,y,z+.2)
+        height=max(4.,min(24.,scale*.55));width=height*2/3
+        if not(g.x-width<=foot[0]<=g.right+width and g.y-height<=foot[1]<=g.top+height):continue
+        visible+=1;team_counts[team]+=1;noise=seat_noise(x,y,z,code,ctx['crowd_seed']);column=noise%18
+        body=((foot[0]-width/2,foot[1]),(foot[0]+width/2,foot[1]),(foot[0]+width/2,foot[1]+height),(foot[0]-width/2,foot[1]+height))
+        vertices,indices=batches.setdefault(team,([],[]));start=len(vertices);g._append_mesh_quad(vertices,indices,body)
+        texture=g._crowd_textures[team];frame=(noise>>8)&1;coords=uv(texture,column,frame,18,6)
+        for j in range(4):vertices[start+j*4+2:start+j*4+4]=coords[j*2:j*2+2]
+        baseline=tuple(p[1] for p in body)
+        # Preserve the motion contract, with head and body now one sprite quad.
+        g._crowd_motions.append((team,crowd_profile(noise),vertices,start,baseline,vertices,start,baseline))
+        g._crowd_motion_scales.append(scale/30.);g._crowd_cells.append((column,frame,noise))
     g.crowd_total=len(spectators);g.crowd_visible=visible;g.crowd_team_counts=team_counts
-    g._crowd_mesh_cache=[(color,v,i,group,team) for (team,group,color),(v,i) in batches.items() if i]
+    g._crowd_mesh_cache=[((1,1,1,1),v,i,0,team) for team,(v,i) in batches.items() if i]
     g._crowd_motion_offsets=[0.]*len(g._crowd_motions);g._crowd_motion_active=False
 
 def cheering(g):
     return getattr(g,'_celebrating_side',None) if g.elapsed<getattr(g,'_crowd_celebrate_until',0) and g.shot_context!='training' else None
 
 def build_stewards(g):
-    batches={};g.steward_visible=0
-    def add(colour,points):
-        vertices,indices=batches.setdefault(colour,([],[]));g._append_mesh_quad(vertices,indices,points)
-    green=(.46,1.,.015,1);dark=(.035,.06,.045,1);skin=(.86,.62,.42,1);reflective=(.9,1.,.65,1)
-    for x,y,z,flank,file in g.steward_positions:
-        foot=g.project(x,y,z+.05);waist=g.project(x,y,z+.19);shoulder=g.project(x,y,z+.38);head=g.project(x,y,z+.46)
-        if not(g.x-8<=head[0]<=g.right+8 and g.y-8<=head[1]<=g.top+8):continue
-        g.steward_visible+=1;scale=g.pixels_per_meter(x,y,z+.2);width=max(1.,min(2.3,scale*.05))
-        def body(a,b,w):return ((a[0]-w,a[1]),(a[0]+w,a[1]),(b[0]+w,b[1]),(b[0]-w,b[1]))
-        add(dark,body(foot,waist,width*.8));add(green,body(waist,shoulder,width))
-        radius=max(1.1,min(2.3,scale*.055));add(skin,((head[0]-radius,head[1]-radius),(head[0]+radius,head[1]-radius),(head[0]+radius,head[1]+radius),(head[0]-radius,head[1]+radius)))
-        middle=((waist[0]+shoulder[0])/2,(waist[1]+shoulder[1])/2)
-        add(reflective,((middle[0]-width,middle[1]-.4),(middle[0]+width,middle[1]-.4),(middle[0]+width,middle[1]+.4),(middle[0]-width,middle[1]+.4)))
-    g._steward_mesh_cache=[(colour,v,i) for colour,(v,i) in batches.items() if i]
+    vertices=[];indices=[];g.steward_visible=0
+    g._steward_texture=scene_cache(g).get('supporters.png',((.46,1.,.015,1),(.9,1.,.65,1)))
+    for index,(x,y,z,flank,file) in enumerate(g.steward_positions):
+        foot=g.project(x,y,z+.03);height=max(4.,min(25.,g.pixels_per_meter(x,y,z+.2)*.58));width=height*2/3
+        if not(g.x-width<=foot[0]<=g.right+width and g.y-height<=foot[1]<=g.top+height):continue
+        g.steward_visible+=1;start=len(vertices)
+        g._append_mesh_quad(vertices,indices,((foot[0]-width/2,foot[1]),(foot[0]+width/2,foot[1]),(foot[0]+width/2,foot[1]+height),(foot[0]-width/2,foot[1]+height)))
+        coords=uv(g._steward_texture,(index%3)*3,0,18,6)
+        for j in range(4):vertices[start+j*4+2:start+j*4+4]=coords[j*2:j*2+2]
+    g._steward_mesh_cache=[((1,1,1,1),vertices,indices)] if indices else []
 
 def jump(g,team,group):
     if cheering(g)!=team:return 0.
@@ -166,6 +164,12 @@ def animate_crowd(g):
     for index,(team,profile,bv,bs,by,hv,hs,hy) in enumerate(getattr(g,'_crowd_motions',())):
         fade=1. if remaining>=.65 else min(1.,remaining/(.2+profile[3]))
         amount=jump_displacement(age,profile)*g._crowd_motion_scales[index]*fade if side==team else 0.
+        column,previous,noise=g._crowd_cells[index]
+        frame=2+int(max(0.,age-profile[3])*profile[0]*.6+profile[1])%4 if side==team and age>profile[3] else (noise>>8)&1
+        if frame!=previous:
+            coords=uv(g._crowd_textures[team],column,frame,18,6)
+            for j in range(4):bv[bs+j*4+2:bs+j*4+4]=coords[j*2:j*2+2]
+            g._crowd_cells[index]=(column,frame,noise)
         if amount==g._crowd_motion_offsets[index]:continue
         for j in range(4):
             bv[bs+j*4+1]=by[j]+amount
@@ -176,7 +180,7 @@ def animate_crowd(g):
 def draw_crowd(g):
     animate_crowd(g)
     for color,vertices,indices,group,team in g._crowd_mesh_cache:
-        Color(*color);Mesh(vertices=vertices,indices=indices,mode='triangles')
+        Color(*color);Mesh(vertices=vertices,indices=indices,texture=g._crowd_textures[team],mode='triangles')
     # Stewards never join a team's goal celebration.
     for colour,vertices,indices in getattr(g,'_steward_mesh_cache',()):
-        Color(*colour);Mesh(vertices=vertices,indices=indices,mode='triangles')
+        Color(*colour);Mesh(vertices=vertices,indices=indices,texture=g._steward_texture,mode='triangles')

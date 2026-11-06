@@ -819,6 +819,9 @@ class StrikerGame(Widget):
     # Ciclo de jogo
     # ------------------------------------------------------------------
     def start_career_match(self) -> None:
+        from title_events import view as title_view
+        if title_view(self.career):
+            self.view=title_view(self.career);self.draw();return
         if self.career.post_match_stage=='newspaper':
             self.view='newspaper';self.draw();return
         self.ads.start()
@@ -868,6 +871,7 @@ class StrikerGame(Widget):
         self.match_easy_chance_index = self.career.rng.randrange(len(self.match_chance_minutes)) if self.match_chance_minutes and self.career.rng.random() < chance_profile.clear_chance_probability else -1
         penalty_slots=[i for i in range(chance_total) if i!=self.match_easy_chance_index] or list(range(chance_total))
         self.match_penalty_chance_index=self.career.rng.choice(penalty_slots) if penalty_slots and self.career.rng.random()<0.18 else -1
+        self._attendance_snapshot=None
         self.match_opportunity_seed=(self.career.world_seed,self.career.season,self.career.week,self.match_competition,self.match_home.uid,self.match_away.uid)
         self.match_opportunities=plan_opportunities(chance_total,self.match_easy_chance_index,self.match_penalty_chance_index,self.match_opportunity_seed)
         self.current_chance_difficulty = "standard"
@@ -1226,6 +1230,9 @@ class StrikerGame(Widget):
 
 
     def start_training(self) -> None:
+        from title_events import view as title_view
+        if title_view(self.career):
+            self.view=title_view(self.career);self.draw();return
         if self.career.post_match_stage=='newspaper':
             self.view='newspaper';self.draw();return
         if self.career.free_agent:
@@ -2904,6 +2911,8 @@ class StrikerGame(Widget):
             return True
         if key==27 and getattr(self,'_training_focus_popup',None) is not None:
             self._training_focus_popup.dismiss();return True
+        if self.view=='trophy':return True
+        if key==27 and self.view=='title_coach':return True
         if key==27 and self.view=='development':
             self._activate_ui('development_back');return True
         if key==27 and self.view=='newspaper':
@@ -3056,6 +3065,19 @@ class StrikerGame(Widget):
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
         import time
+        if action in ('play','training','coach'):
+            from title_events import view as title_view
+            if title_view(self.career):self.view=title_view(self.career);self.draw();return
+        if action=='title_continue' and self.view=='trophy':
+            from title_events import to_coach
+            if to_coach(self.career):self.view='title_coach'
+            self.draw();return
+        if action=='title_coach_complete' and self.view=='title_coach':
+            from title_events import finish,view as title_view,needs_focus
+            pick=getattr(self,'_coach_focus_pick',None)
+            focus=pick[1] if pick and pick[0]==self.career.coach_key else None
+            if finish(self.career,focus):self.view=title_view(self.career) or ('newspaper' if self.career.post_match_stage=='newspaper' else 'hub')
+            self.draw();return
         if action=='standings' and self.career.world_unlocked and self.career.club:
             self.career._ensure_competitions();self.view='standings';self.draw();return
         if action=='help':
@@ -3088,7 +3110,7 @@ class StrikerGame(Widget):
             self._development_return=self.view;self.view='development';return
         if action=='development_back' and self.view=='development':
             self.view=getattr(self,'_development_return','hub');return
-        if action=='coach_focus' and self.view=='coach' and self.career.coach_meeting_required:
+        if action=='coach_focus' and self.view in ('coach','title_coach') and self.career.coach_meeting_required:
             if value in self.career.coach_focus_options():self._coach_focus_pick=(self.career.coach_key,value)
             return
         if action=='competitions_back' and self.view in ('competitions','competition'):
@@ -3205,6 +3227,8 @@ class StrikerGame(Widget):
                 self.ads.start()
             self.view = "hub"
         elif action in ('hub','post_match_continue'):
+            from title_events import view as title_view
+            if title_view(self.career):self.view=title_view(self.career);return
             if self.view=='newspaper' and self.career.post_match_stage=='newspaper':
                 self.career.post_match_stage='coach' if self.career.coach_meeting_required else ''
                 if self.career.save() is False:
@@ -3348,7 +3372,8 @@ class StrikerGame(Widget):
         elif action == "ad_privacy_options" and self.view == 'privacy':
             self.ads.privacy_options()
         elif action == "match_continue" and self.match_finished and self.view == "match":
-            self.view = "newspaper"
+            from title_events import view as title_view
+            self.view = title_view(self.career) or "newspaper"
             self.ads.continue_after_match()
 
 
@@ -3358,10 +3383,15 @@ class StrikerGame(Widget):
     @localized_call
     def draw(self) -> None:
         if self.view=='hub':
-            if self.career.post_match_stage:self.view=self.career.post_match_stage
+            from title_events import view as title_view
+            if title_view(self.career):self.view=title_view(self.career)
+            elif self.career.post_match_stage:self.view=self.career.post_match_stage
             elif self.career.coach_meeting_required:self.view='coach'
         if self.career.free_agent and self.view in ('hub','training','shot'):
             self.view='agent'
+        if self.view=='trophy':
+            from title_presentation import prepare
+            prepare(self)
         # Keep touch grabs and the widget tree stable while a notice is visible.
         show_notice = self.view == "match" and (self.match_finished or self.awaiting_chance or self.match_halftime)
         if self._match_notice is not None and self._match_notice.parent is self and not show_notice:
@@ -3456,6 +3486,9 @@ class StrikerGame(Widget):
 
             if self.view == "match":
                 self._draw_match_overlay()
+            elif self.view=='trophy':
+                from title_presentation import draw as draw_title
+                draw_title(self)
         if self.view == "match" and (self.match_finished or self.awaiting_chance or self.match_halftime):
             if self._match_notice is None:
                 self._match_notice = MatchNotice(self)
@@ -5166,10 +5199,8 @@ class StrikerGame(Widget):
 
         Color(0.01, 0.025, 0.018, 0.40)
         Ellipse(pos=(ground_x - radius * 1.15, ground_y - radius * 0.35), size=(radius * 2.3, radius * 0.70))
-        Color(0.97, 0.98, 0.94, 1.0)
-        Ellipse(pos=(bx - radius, by - radius), size=(radius * 2, radius * 2))
-        Color(0.08, 0.10, 0.11, 1.0)
-        Ellipse(pos=(bx - radius * 0.33, by - radius * 0.25), size=(radius * 0.66, radius * 0.58))
+        from retro_props import ball as draw_ball_sprite
+        draw_ball_sprite(self,bx,by,radius)
 
 
     def _draw_aim_marker(self) -> None:

@@ -123,6 +123,9 @@ class CoachCareer:
 
     @property
     def coach_portrait(self):
+        from title_events import pending
+        event=pending(self)
+        if event and event['stage']=='coach':return PORTRAITS[event['portrait']]
         uid=self.club.uid if self.club else ''
         return PORTRAITS[appearance_for(uid,self.coach_appearance)['portrait']]
 
@@ -147,6 +150,9 @@ class CoachCareer:
     def coach_conversation(self):
         m=conversation(self._current_coach_state(),self.coach_key,self.club.uid if self.club else '')
         m.setdefault('options',list(self.coach_focus_options()))
+        from title_events import pending
+        event=pending(self)
+        if event and event['stage']=='coach':m['style']=style_for(event['team_uid'])
         return m
 
     def coach_focus_options(self):
@@ -160,6 +166,9 @@ class CoachCareer:
         return tuple(ordered[:2])
 
     def coach_team_feedback(self):
+        from title_events import pending
+        event=pending(self)
+        if event and event['stage']=='coach':return TITLE_TEAM_FEEDBACK[style_for(event['team_uid'])]
         state=self._current_coach_state();count=state['games']-state['feedback_game']
         own=self.club.uid if self.club else '';name=self.club.name if self.club else ''
         rows=[]
@@ -179,6 +188,9 @@ class CoachCareer:
         return TEAM_FEEDBACK[outcome][style_for(own)]
 
     def coach_individual_feedback(self):
+        from title_events import pending
+        event=pending(self)
+        if event and event['stage']=='coach':return TITLE_INDIVIDUAL_FEEDBACK[style_for(event['team_uid'])]
         m=self.coach_conversation()
         if m['kind']=='routine':return INDIVIDUAL_ROUTINE[m['style']]
         return FEEDBACK[m['kind']][m['style']][m['variant']%len(FEEDBACK[m['kind']][m['style']])]
@@ -263,4 +275,16 @@ INDIVIDUAL_ROUTINE=(
  'Your movement and preparation matter. Keep offering passing options and be ready when your chance comes.',
  'I expect concentration from you. Make your runs count and be decisive when the opportunity arrives.',
  'Keep working on your timing and positioning. Consistent preparation will help your next performance.',
+)
+
+
+TITLE_TEAM_FEEDBACK=(
+ 'We are champions! You earned this together. Take the trophy to our supporters and enjoy what we achieved.',
+ 'We earned this title through discipline and teamwork. Celebrate together tonight; keep the standards that brought us here.',
+ 'This trophy belongs to the whole squad and our supporters. Remember the effort behind it and enjoy this moment together.',
+)
+TITLE_INDIVIDUAL_FEEDBACK=(
+ 'You played your part in a title-winning squad. Be proud of your contribution and share the moment with your teammates.',
+ 'You contributed to a team that met its target. Enjoy the title, then bring that same commitment to the next challenge.',
+ 'Your contribution is part of this collective achievement. Celebrate with the squad and carry the confidence forward.',
 )

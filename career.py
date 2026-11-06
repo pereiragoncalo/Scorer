@@ -805,6 +805,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.cup_round_index = 0
         self.honours = honours.fresh()
         self.post_match_stage = ""
+        from title_events import fresh as fresh_title_events
+        self.title_events=fresh_title_events()
         self.fixture_history: list[dict[str, object]] = []
         self.cup_history: list[str] = []
         self.national_cup_winners: dict[str, str] = {}
@@ -1660,6 +1662,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         coach_context="",
         report_events=None,
     ) -> tuple[int, int]:
+        from title_events import match_scene
+        self._title_match_scene=match_scene(self,home,away)
         if competition.startswith('world|'):
             return self._finish_world_fixture(competition,home,away,player_goals,player_misses,forced_score,moments,coach_context,report_events)
         match_date = self.current_date+timedelta(days=4 if self.world_unlocked else 0)
@@ -1749,6 +1753,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 else:
                     league.simulate_fixture(fixture_home, fixture_away, self.rng)
             league.advance_round()
+            honours.collect(self,league=league)
 
 
         self.week += 1
@@ -2254,6 +2259,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             "message": self.message,
             "post_match_stage": self.post_match_stage,
             "honours": self.honours,
+            "title_events": self.title_events,
             "press_state": self.press_state,
             "coach_appearance": self.coach_appearance,
             "coach_state": self.coach_state,
@@ -2482,6 +2488,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             if data.get('training_gate_version') != 2 and self.last_training_week == self.week:
                 self._consume_match_training()
             self.honours = honours.clean(data.get('honours'))
+            from title_events import clean as clean_title_events
+            self.title_events=clean_title_events(data.get('title_events'),self.honours)
             self.post_match_stage = data.get('post_match_stage','')
             if self.post_match_stage not in ('','newspaper','coach'):self.post_match_stage=''
             self.press_state = newspaper.clean_state(data.get('press_state'))

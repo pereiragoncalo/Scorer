@@ -20,7 +20,10 @@ def participate(c,key,title,team_uid,team,country):
     if row not in c.honours['campaigns']:c.honours['campaigns']=(c.honours['campaigns']+[row])[-256:]
 
 def award(c,row):
-    if row not in c.honours['trophies']:c.honours['trophies']=(c.honours['trophies']+[copy.deepcopy(row)])[-512:]
+    if row not in c.honours['trophies']:
+        c.honours['trophies']=(c.honours['trophies']+[copy.deepcopy(row)])[-512:]
+        from title_events import enqueue
+        enqueue(c,row)
 
 def collect(c,book=None,league=None):
     for row in c.honours['campaigns']:

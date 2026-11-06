@@ -20,15 +20,19 @@ class CoachScreen(FloatLayout):
     def __init__(self,menu):
         super().__init__();self.menu=menu;self.loc=menu.game.i18n;c=menu.game.career
         self.meeting=c.coach_conversation();self.scroll=None
-        self.full_text='\n\n'.join((self.loc.tr(c.coach_team_feedback()),c.player_name+': '+self.loc.tr(c.coach_individual_feedback()),self.loc.tr('Choose one of these two training focuses for the week.')))
+        from title_events import pending,needs_focus
+        event=pending(c) if menu.game.view=='title_coach' else None
+        self.is_title=event is not None;self.requires_focus=not self.is_title or needs_focus(c)
+        closing=self.loc.tr('Choose one of these two training focuses for the week.' if self.requires_focus else 'This title belongs to everyone. Enjoy the moment with the supporters.')
+        self.full_text='\n\n'.join((self.loc.tr(c.coach_team_feedback()),c.player_name+': '+self.loc.tr(c.coach_individual_feedback()),closing))
         import re
         first=lambda text:re.split(r'(?<=[.!?。！？])\s*',text,maxsplit=1)[0]
-        self.short_text='\n\n'.join((first(self.loc.tr(c.coach_team_feedback())),c.player_name+': '+first(self.loc.tr(c.coach_individual_feedback())),self.loc.tr('Choose one of these two training focuses for the week.')))
-        self.title=self.label(self.loc.tr('WEEKLY TEAM TALK'),GREEN)
+        self.short_text='\n\n'.join((first(self.loc.tr(c.coach_team_feedback())),c.player_name+': '+first(self.loc.tr(c.coach_individual_feedback())),closing))
+        self.title=self.label(self.loc.tr("CHAMPIONS' TEAM TALK" if self.is_title else 'WEEKLY TEAM TALK'),GREEN)
         self.style_text=self.loc.tr(STYLES[self.meeting['style']])
         self.style=self.label(self.style_text,MUTED)
         recent=c._current_coach_state()['recent']
-        self.recent=self.label(self.loc.tr('{goals} goals / {games} games · Trust {trust}/100 · {role}',goals=sum(recent),games=len(recent),trust=c.coach_trust,role=self.loc.tr(c.team_role)),MUTED)
+        self.recent=self.label(event['title'] if self.is_title else self.loc.tr('{goals} goals / {games} games · Trust {trust}/100 · {role}',goals=sum(recent),games=len(recent),trust=c.coach_trust,role=self.loc.tr(c.team_role)),MUTED)
         self.feedback=self.label('',INK)
         self.closing=self.label('',INK);self.closing.halign='justify'
         self.portrait=Image(source='assets/coaches/team_talk.png',fit_mode='contain',size_hint=(None,None));self.add_widget(self.portrait)
@@ -36,15 +40,15 @@ class CoachScreen(FloatLayout):
         if self.avatar.texture:
             t=self.avatar.texture;self.avatar.texture=t.get_region(int(t.width*.28),int(t.height*.34),int(t.width*.44),int(t.height*.65))
         self.error=self.label(c.message if c.message=='Unable to save the meeting. Please try again.' else '',(1,.65,.45,1))
-        self.finish=MenuTile('FINISH TEAM TALK',lambda:menu.action('coach_complete'),accent=True);self.finish.size_hint=(None,None);self.add_widget(self.finish)
+        self.finish=MenuTile('FINISH TEAM TALK',lambda:menu.action('title_coach_complete' if self.is_title else 'coach_complete'),accent=True);self.finish.size_hint=(None,None);self.add_widget(self.finish)
         from player_development import NAMES
-        self.options=c.coach_focus_options();self.choices=[]
+        self.options=c.coach_focus_options() if self.requires_focus else ();self.choices=[]
         pick=getattr(menu.game,'_coach_focus_pick',None)
         selected=pick[1] if pick and pick[0]==c.coach_key else None
         for focus in self.options:
             button=MenuTile(NAMES[focus],lambda f=focus:menu.action('coach_focus',f),accent=focus==selected);button.size_hint=(None,None)
             self.choices.append(button);self.add_widget(button)
-        self.finish.disabled=selected not in self.options
+        self.finish.disabled=self.requires_focus and selected not in self.options
         self.help=MenuTile('HELP',lambda:menu.action('help'));self.help.size_hint=(None,None);self.add_widget(self.help)
         with self.canvas.before:
             Color(.035,.10,.11,.98);self.panel=RoundedRectangle(radius=[dp(12)])
@@ -86,7 +90,7 @@ class CoachScreen(FloatLayout):
         self.help.pos=(left,self.finish.y);self.help.size=(dp(72),self.finish.height)
         eh=self.measured_height(self.error,right-left,11,24)
         self.place(self.error,left,self.finish.top+dp(4),right-left,eh,11)
-        choice_h=dp(48);choice_y=self.finish.top+dp(6);choice_w=max(1,(right-left-dp(8))/2)
+        choice_h=dp(48) if self.choices else 0;choice_y=self.finish.top+dp(6);choice_w=max(1,(right-left-dp(8))/2)
         for i,button in enumerate(self.choices):button.pos=(left+i*(choice_w+dp(8)),choice_y);button.size=(choice_w,choice_h)
         self.place(self.error,left,choice_y+choice_h+dp(2),right-left,eh,11)
         bottom=choice_y+choice_h+dp(8)+eh;th=max(dp(20),top-bottom)

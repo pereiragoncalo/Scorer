@@ -23,6 +23,7 @@ def topics(game):
         'world_league':(('STANDINGS',TABLE),),'scorers':(('TOP SCORERS',SCORERS),),
         'calendar':(('FIXTURES',CALENDAR),),'agent':(('AGENT',AGENT),),
         'world':(base[3],),'world_country':(base[3],),'editor':(base[3],),
+        'title_coach':(("CHAMPIONS' TEAM TALK",'This title belongs to everyone. Enjoy the moment with the supporters.'),),
         'coach':(('WEEKLY TEAM TALK',COACH),)+training[1:],'newspaper':(('MATCH REPORT',PAPER),),
         'club':(('CLUB',CLUB),),'language':(('LANGUAGE',LANGUAGE),),
         'leaderboard':(('LEADERBOARD',RECORDS),),'record_safety':(('LEADERBOARD',RECORDS),),
