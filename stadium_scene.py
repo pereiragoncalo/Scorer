@@ -103,10 +103,12 @@ def build(g,ctx):
     g._crowd_specs=None
 
 def build_crowd(g,spectators,ctx=None):
+    from celebrations import crowd_profile
     ctx=ctx or context(g);batches={};skins=((.94,.72,.52,.96),(.72,.46,.29,.96),(.45,.27,.18,.96))
-    visible=0;team_counts={'home':0,'away':0}
+    visible=0;team_counts={'home':0,'away':0};g._crowd_motions=[];g._crowd_motion_scales=[]
     def add(team,group,color,points):
-        vertices,indices=batches.setdefault((team,group,color),([],[]));g._append_mesh_quad(vertices,indices,points)
+        vertices,indices=batches.setdefault((team,group,color),([],[]));start=len(vertices);g._append_mesh_quad(vertices,indices,points)
+        return vertices,start
     for spectator in spectators:
         if len(spectator)==6:
             x,y,z,code,team,tier=spectator
@@ -118,11 +120,17 @@ def build_crowd(g,spectators,ctx=None):
         width=max(.82,min(1.95,scale*.041));radius=max(1.15,min(2.75,scale*.062));dx=top[0]-foot[0];dy=top[1]-foot[1];length=max(1e-6,math.hypot(dx,dy));nx=-dy/length*width;ny=dx/length*width
         noise=seat_noise(x,y,z,code,ctx['crowd_seed'])
         kit=ctx['away_kit'] if team=='away' else ctx['home_kit'];base=kit[0 if noise&1 else 3];shade=.90+((noise>>1)&1)*.08;color=tuple(min(1,v*shade) for v in base[:3])+(.98,)
-        group=(noise>>2)&3
-        add(team,group,color,((foot[0]-nx,foot[1]-ny),(foot[0]+nx,foot[1]+ny),(top[0]+nx,top[1]+ny),(top[0]-nx,top[1]-ny)))
-        add(team,group,skins[(noise>>4)%3],((head[0]-radius,head[1]-radius),(head[0]+radius,head[1]-radius),(head[0]+radius,head[1]+radius),(head[0]-radius,head[1]+radius)))
+        # Batch by palette, but keep a unique motion record for every person.
+        group=0
+        body=((foot[0]-nx,foot[1]-ny),(foot[0]+nx,foot[1]+ny),(top[0]+nx,top[1]+ny),(top[0]-nx,top[1]-ny))
+        head_quad=((head[0]-radius,head[1]-radius),(head[0]+radius,head[1]-radius),(head[0]+radius,head[1]+radius),(head[0]-radius,head[1]+radius))
+        bv,bs=add(team,group,color,body)
+        hv,hs=add(team,group,skins[(noise>>4)%3],head_quad)
+        g._crowd_motions.append((team,crowd_profile(noise),bv,bs,tuple(p[1] for p in body),hv,hs,tuple(p[1] for p in head_quad)))
+        g._crowd_motion_scales.append(scale/30.)
     g.crowd_total=len(spectators);g.crowd_visible=visible;g.crowd_team_counts=team_counts
     g._crowd_mesh_cache=[(color,v,i,group,team) for (team,group,color),(v,i) in batches.items() if i]
+    g._crowd_motion_offsets=[0.]*len(g._crowd_motions);g._crowd_motion_active=False
 
 def cheering(g):
     return getattr(g,'_celebrating_side',None) if g.elapsed<getattr(g,'_crowd_celebrate_until',0) and g.shot_context!='training' else None
@@ -146,14 +154,29 @@ def build_stewards(g):
 def jump(g,team,group):
     if cheering(g)!=team:return 0.
     age=max(0,g.elapsed-getattr(g,'_crowd_celebration_started',g.elapsed))
-    return max(0,math.sin(age*11.5+group*1.25))*dp(4+group*.6)
+    from celebrations import crowd_jump
+    return dp(crowd_jump(age,group))
+
+def animate_crowd(g):
+    side=cheering(g)
+    if side is None and not getattr(g,'_crowd_motion_active',False):return
+    age=max(0,g.elapsed-getattr(g,'_crowd_celebration_started',g.elapsed))
+    remaining=max(0,getattr(g,'_crowd_celebrate_until',0)-g.elapsed)
+    from celebrations import jump_displacement
+    for index,(team,profile,bv,bs,by,hv,hs,hy) in enumerate(getattr(g,'_crowd_motions',())):
+        fade=1. if remaining>=.65 else min(1.,remaining/(.2+profile[3]))
+        amount=jump_displacement(age,profile)*g._crowd_motion_scales[index]*fade if side==team else 0.
+        if amount==g._crowd_motion_offsets[index]:continue
+        for j in range(4):
+            bv[bs+j*4+1]=by[j]+amount
+            hv[hs+j*4+1]=hy[j]+amount
+        g._crowd_motion_offsets[index]=amount
+    g._crowd_motion_active=side is not None
 
 def draw_crowd(g):
+    animate_crowd(g)
     for color,vertices,indices,group,team in g._crowd_mesh_cache:
-        Color(*color);amount=jump(g,team,group)
-        if amount:
-            PushMatrix();Translate(0,amount,0);Mesh(vertices=vertices,indices=indices,mode='triangles');PopMatrix()
-        else:Mesh(vertices=vertices,indices=indices,mode='triangles')
+        Color(*color);Mesh(vertices=vertices,indices=indices,mode='triangles')
     # Stewards never join a team's goal celebration.
     for colour,vertices,indices in getattr(g,'_steward_mesh_cache',()):
         Color(*colour);Mesh(vertices=vertices,indices=indices,mode='triangles')

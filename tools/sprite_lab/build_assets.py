@@ -14,7 +14,7 @@ PALETTE=[(0,0,0),(8,14,24),(171,104,49),(242,191,112),(35,25,28),
 ROLES=['transparent','outline','skin_dark','skin','hair','shirt','shirt_dark','secondary','shorts','shorts_dark','socks','socks_dark','boots','gloves','highlight','gloves_dark']
 SPECS={'players':dict(canvas=[65,57],origin=[32,50],anchor=[32.5,52.0],views=['back','front']),
        'goalkeeper':dict(canvas=[97,65],origin=[48,56],anchor=[48.5,58.0],views=['front'])}
-STATES={'players':{'IDLE':(2,4,True),'RUN':(8,12,True),'DRIBBLE':(8,10,True),'PASS':(6,10,False),'SHOOT':(8,12,False),'TACKLE':(8,11,False),'HEADER':(8,10,False),'FALL':(8,10,False)},
+STATES={'players':{'IDLE':(2,4,True),'RUN':(8,12,True),'DRIBBLE':(8,10,True),'PASS':(6,10,False),'SHOOT':(8,12,False),'TACKLE':(8,11,False),'HEADER':(8,10,False),'FALL':(8,10,False),'CELEBRATE':(6,8,True),'KNEE_SLIDE':(8,12,False),'HUG':(6,8,False)},
 'goalkeeper':{'READY':(4,5,True),'MOVE':(8,11,True),'LOW_SAVE':(6,10,False),'DIVE_LEFT':(8,12,False),'DIVE_RIGHT':(8,12,False),'HIGH_SAVE':(8,11,False),'CATCH':(6,9,False),'RECOVER':(8,10,False)}}
 
 def role_palette(role):
@@ -71,6 +71,26 @@ def player_pose(state,f,n):
         feet=[((-3,0),(3,0)),((-5,0),(6,-1)),((-7,-1),(9,-2)),((-5,0),(6,-1)),((-5,0),(9,0)),((-4,0),(5,0)),((-3,0),(4,0)),((-3,0),(3,0))]
         hands=[((-8,-22),(9,-21)),((-6,-15),(17,-17)),((9,-2),(23,-6)),((18,-1),(29,-2)),((0,-1),(19,-1)),((-5,-12),(6,-9)),((-5,-16),(5,-17)),((-5,-17),(5,-17))]
         p.update(hip=hips[f],shoulder=shoulders[f],feet=list(feet[f]),hands=list(hands[f]))
+    elif state=='CELEBRATE':
+        p['shoulder']=((f%3)-1,-28-(f%2))
+        p['hands']=[(-8+(f%2),-36-(f%3)),(8-(f%2),-36-((f+1)%3))]
+        p['head_tilt']=[0,-5,0,5,0,-3][f]
+    elif state=='HUG':
+        reach=[13,12,11,10,11,10][f]
+        p['hands']=[(-reach,-27+(f%2)),(reach,-26-((f+1)%2))]
+        p['embracing']=True
+        p['shoulder']=((f%3)-1,-27)
+        p['head_tilt']=[-5,-3,0,3,5,0][f]
+    elif state=='KNEE_SLIDE':
+        if f==0:
+            p.update(hip=(0,-12),shoulder=(1,-24),feet=[(-4,0),(4,0)],hands=[(-6,-19),(6,-19)])
+        else:
+            lean=[0,-2,-1,0,1,1,0,-1][f]
+            hip=(0,-1-math.sqrt(55))
+            p.update(hip=hip,shoulder=(lean,hip[1]-12),kneeling=True)
+            raised=[0,22,25,29,30,28,26,27][f]
+            p['hands']=[(-8,-raised),(8,-raised)]
+            p['head_tilt']=[0,0,-5,0,5,0,-3,3][f]
     return p
 
 def keeper_pose(state,f,n):
@@ -144,6 +164,9 @@ class PixelArtist:
             knee,foot=ik(hips[i],feet[i],8,8,bend)
             if knee[1]>max(hips[i][1],foot[1])+1:
                 knee,foot=ik(hips[i],feet[i],8,8,-bend)
+            if p.get('kneeling'):
+                knee=(hips[i][0]+3,hips[i][1]+math.sqrt(55))
+                foot=(knee[0]-math.sqrt(60),knee[1]-2)
             # Separate shorts, bare thigh/knee and socks, rather than trouser legs.
             skin=2 if i==0 else 3
             self.segment(hips[i],knee,skin,6,5)
@@ -160,7 +183,7 @@ class PixelArtist:
             self.joints['ankle_'+str(i)]=self.point(foot);self.joints['knee_'+str(i)]=self.point(knee)
         elbows=[];wrists=[]
         for i in (0,1):
-            bend=(-1 if i==0 else 1) if keeper else (1 if i==0 else -1)
+            bend=(-1 if i==0 else 1) if keeper or p.get('embracing') else (1 if i==0 else -1)
             elbow,wrist=ik(shoulders[i],hands[i],6,6,bend);elbows.append(elbow);wrists.append(wrist)
         # Far sleeve/forearm behind the shirt. Full sleeves distinguish the GK.
         self.limb(shoulders[0],elbows[0],wrists[0],6 if keeper else 2,6 if keeper else 2,3)

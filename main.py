@@ -944,6 +944,8 @@ class StrikerGame(Widget):
         self._record_report_goal("home" if self._player_match_is_home() else "away", self.match_minute)
         self._record_match_moment(True)
         self._flash_scoreboard()
+        from celebrations import start
+        start(self)
 
     def _record_report_goal(self, side, timeline_minute):
         self._celebrating_side=side
@@ -1352,7 +1354,8 @@ class StrikerGame(Widget):
 
 
         if self.state == self.STATE_RESULT and self.state_age > 2.55:
-            self._advance_after_shot()
+            from celebrations import active
+            if not active(self):self._advance_after_shot()
 
 
         # O callback já ocorre uma vez por frame. Desenhar sempre evita o
@@ -2751,6 +2754,9 @@ class StrikerGame(Widget):
 
 
     def _prepare_next_shot(self) -> None:
+        if getattr(self,'goal_celebration',None) is not None:
+            self._crowd_celebrate_until=min(self._crowd_celebrate_until,self.elapsed+1.)
+        self.goal_celebration=None
         self.current_opportunity=None;self.buildup_actors=[];self.buildup_blocker=None;self.onside_defender=None;self.frozen_scene_time=None
         self.goalkeeper_holding = False
         self.goalkeeper_catch_age = 0.0
@@ -5053,7 +5059,10 @@ class StrikerGame(Widget):
         player_kit,opponent_kit=self._match_outfield_kits()
         actors=self.field_players+self.buildup_actors
         renderer.clear_field({id(player) for player in actors})
+        from celebrations import active
+        celebrating=active(self)
         for player in sorted(actors,key=lambda item:item.y):
+            if celebrating and player.team=='attacker':continue
             x,y=self._field_player_position(player)
             target_x=self.ball.x if self.ball.active or self.state==self.STATE_BUILDUP else self.shot_origin_x
             target_y=self.ball.y if self.ball.active or self.state==self.STATE_BUILDUP else self.shot_origin_y
@@ -5065,6 +5074,9 @@ class StrikerGame(Widget):
 
     def _draw_player(self) -> None:
         """Desenha o avançado junto à origem variável do remate."""
+        from celebrations import active,draw
+        if active(self):
+            draw(self);return
         # Eixo frontal aponta do local do remate para o ponto escolhido.
         facing_x=0. if self.current_opportunity is not None and self.state in (self.STATE_BUILDUP,self.STATE_AIMING) else self.aim_x
         direction_x = facing_x - self.shot_origin_x

@@ -30,7 +30,7 @@ def build():
     board.save(OUT/'reference-revision-2.png')
     for role,c in m['characters'].items():
         w,h=c['canvas'];scale=2;cellw=w*scale+8;cellh=h*scale+26
-        sheet=Image.new('RGB',(135+8*cellw,8*cellh),GREEN);d=ImageDraw.Draw(sheet)
+        sheet=Image.new('RGB',(135+8*cellw,len(c['animations'])*cellh),GREEN);d=ImageDraw.Draw(sheet)
         for row,(state,a) in enumerate(c['animations'].items()):
             d.text((8,row*cellh+22),state,fill='white',font=FONT)
             for i,path in enumerate(a['individuals'][c['views'][0]]):
@@ -38,12 +38,12 @@ def build():
                 sheet.paste(im,(x,y),im);d.text((x+10,y+h*scale+2),str(i+1),fill='#bde4c3',font=FONT)
         sheet.save(OUT/f'{role}-all-frames.png')
     frames=[];states=[list(c['animations']) for c in m['characters'].values()]
-    for stateindex in range(8):
+    for stateindex in range(max(map(len,states))):
         for tick in range(24):
             im=Image.new('RGB',(1000,440),GREEN);d=ImageDraw.Draw(im)
             d.text((22,12),'SCORER / ORIGINAL 8-BIT SPRITES / APPROVAL PREVIEW',fill='white',font=FONT)
             for index,(role,c) in enumerate(m['characters'].items()):
-                state=states[index][stateindex];a=c['animations'][state];frame=int(tick/24*a['frames'])
+                state=states[index][stateindex%len(states[index])];a=c['animations'][state];frame=int(tick/24*a['frames'])
                 art=sprite(a['individuals'][c['views'][0]][frame],5)
                 ax,ay=c['anchor'];center=250+index*500;x=round(center-ax*5);y=round(360-ay*5)
                 im.paste(art,(x,y),art)

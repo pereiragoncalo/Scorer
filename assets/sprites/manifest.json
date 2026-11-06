@@ -2,6 +2,8 @@
   "version": 1,
   "art_revision": 2,
   "approval_status": "APPROVED",
+  "approved_art_revision": 2,
+  "approval_date": "2026-11-06",
   "original_art": true,
   "nominal_body": [
     32,
@@ -125,6 +127,7 @@
   ],
   "characters": {
     "players": {
+      "standing_height_pixels": 40,
       "source_palette": [
         [
           0,
@@ -4863,11 +4866,1664 @@
             ]
           },
           "contact_frames": []
+        },
+        "CELEBRATE": {
+          "frames": 6,
+          "fps": 8,
+          "loop": true,
+          "sheets": {
+            "back": {
+              "path": "assets/sprites/players/celebrate/back/sheet.png",
+              "columns": 4,
+              "rows": 2
+            },
+            "front": {
+              "path": "assets/sprites/players/celebrate/front/sheet.png",
+              "columns": 4,
+              "rows": 2
+            }
+          },
+          "individuals": {
+            "back": [
+              "assets/sprites/players/celebrate/back/frame_00.png",
+              "assets/sprites/players/celebrate/back/frame_01.png",
+              "assets/sprites/players/celebrate/back/frame_02.png",
+              "assets/sprites/players/celebrate/back/frame_03.png",
+              "assets/sprites/players/celebrate/back/frame_04.png",
+              "assets/sprites/players/celebrate/back/frame_05.png"
+            ],
+            "front": [
+              "assets/sprites/players/celebrate/front/frame_00.png",
+              "assets/sprites/players/celebrate/front/frame_01.png",
+              "assets/sprites/players/celebrate/front/frame_02.png",
+              "assets/sprites/players/celebrate/front/frame_03.png",
+              "assets/sprites/players/celebrate/front/frame_04.png",
+              "assets/sprites/players/celebrate/front/frame_05.png"
+            ]
+          },
+          "contacts": {},
+          "joints": {
+            "back": [
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  31,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  31,
+                  22
+                ],
+                "head": [
+                  31,
+                  17
+                ],
+                "wrist_0": [
+                  24,
+                  14
+                ],
+                "wrist_1": [
+                  40,
+                  13
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  32,
+                  21
+                ],
+                "head": [
+                  32,
+                  16
+                ],
+                "wrist_0": [
+                  25,
+                  13
+                ],
+                "wrist_1": [
+                  39,
+                  12
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  36,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  33,
+                  22
+                ],
+                "head": [
+                  33,
+                  17
+                ],
+                "wrist_0": [
+                  24,
+                  12
+                ],
+                "wrist_1": [
+                  40,
+                  14
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  31,
+                  21
+                ],
+                "head": [
+                  31,
+                  16
+                ],
+                "wrist_0": [
+                  25,
+                  14
+                ],
+                "wrist_1": [
+                  39,
+                  13
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  32,
+                  22
+                ],
+                "head": [
+                  32,
+                  17
+                ],
+                "wrist_0": [
+                  24,
+                  13
+                ],
+                "wrist_1": [
+                  40,
+                  12
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  36,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  33,
+                  21
+                ],
+                "head": [
+                  33,
+                  16
+                ],
+                "wrist_0": [
+                  25,
+                  12
+                ],
+                "wrist_1": [
+                  39,
+                  14
+                ]
+              }
+            ],
+            "front": [
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  31,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  31,
+                  22
+                ],
+                "head": [
+                  31,
+                  17
+                ],
+                "wrist_0": [
+                  24,
+                  14
+                ],
+                "wrist_1": [
+                  40,
+                  13
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  32,
+                  21
+                ],
+                "head": [
+                  32,
+                  16
+                ],
+                "wrist_0": [
+                  25,
+                  13
+                ],
+                "wrist_1": [
+                  39,
+                  12
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  36,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  33,
+                  22
+                ],
+                "head": [
+                  33,
+                  17
+                ],
+                "wrist_0": [
+                  24,
+                  12
+                ],
+                "wrist_1": [
+                  40,
+                  14
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  31,
+                  21
+                ],
+                "head": [
+                  31,
+                  16
+                ],
+                "wrist_0": [
+                  25,
+                  14
+                ],
+                "wrist_1": [
+                  39,
+                  13
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  32,
+                  22
+                ],
+                "head": [
+                  32,
+                  17
+                ],
+                "wrist_0": [
+                  24,
+                  13
+                ],
+                "wrist_1": [
+                  40,
+                  12
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  36,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  33,
+                  21
+                ],
+                "head": [
+                  33,
+                  16
+                ],
+                "wrist_0": [
+                  25,
+                  12
+                ],
+                "wrist_1": [
+                  39,
+                  14
+                ]
+              }
+            ]
+          },
+          "contact_frames": []
+        },
+        "KNEE_SLIDE": {
+          "frames": 8,
+          "fps": 12,
+          "loop": false,
+          "sheets": {
+            "back": {
+              "path": "assets/sprites/players/knee_slide/back/sheet.png",
+              "columns": 4,
+              "rows": 2
+            },
+            "front": {
+              "path": "assets/sprites/players/knee_slide/front/sheet.png",
+              "columns": 4,
+              "rows": 2
+            }
+          },
+          "individuals": {
+            "back": [
+              "assets/sprites/players/knee_slide/back/frame_00.png",
+              "assets/sprites/players/knee_slide/back/frame_01.png",
+              "assets/sprites/players/knee_slide/back/frame_02.png",
+              "assets/sprites/players/knee_slide/back/frame_03.png",
+              "assets/sprites/players/knee_slide/back/frame_04.png",
+              "assets/sprites/players/knee_slide/back/frame_05.png",
+              "assets/sprites/players/knee_slide/back/frame_06.png",
+              "assets/sprites/players/knee_slide/back/frame_07.png"
+            ],
+            "front": [
+              "assets/sprites/players/knee_slide/front/frame_00.png",
+              "assets/sprites/players/knee_slide/front/frame_01.png",
+              "assets/sprites/players/knee_slide/front/frame_02.png",
+              "assets/sprites/players/knee_slide/front/frame_03.png",
+              "assets/sprites/players/knee_slide/front/frame_04.png",
+              "assets/sprites/players/knee_slide/front/frame_05.png",
+              "assets/sprites/players/knee_slide/front/frame_06.png",
+              "assets/sprites/players/knee_slide/front/frame_07.png"
+            ]
+          },
+          "contacts": {},
+          "joints": {
+            "back": [
+              {
+                "ankle_0": [
+                  28,
+                  50
+                ],
+                "knee_0": [
+                  34,
+                  45
+                ],
+                "ankle_1": [
+                  36,
+                  50
+                ],
+                "knee_1": [
+                  41,
+                  43
+                ],
+                "hip": [
+                  32,
+                  38
+                ],
+                "shoulder": [
+                  33,
+                  26
+                ],
+                "head": [
+                  33,
+                  21
+                ],
+                "wrist_0": [
+                  26,
+                  31
+                ],
+                "wrist_1": [
+                  38,
+                  31
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  33,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  37,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  30,
+                  30
+                ],
+                "head": [
+                  29,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  28
+                ],
+                "wrist_1": [
+                  40,
+                  28
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  33,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  37,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  31,
+                  30
+                ],
+                "head": [
+                  31,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  25
+                ],
+                "wrist_1": [
+                  40,
+                  25
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  32,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  38,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  32,
+                  30
+                ],
+                "head": [
+                  32,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  21
+                ],
+                "wrist_1": [
+                  40,
+                  21
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  33,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  37,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  33,
+                  30
+                ],
+                "head": [
+                  33,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  20
+                ],
+                "wrist_1": [
+                  40,
+                  20
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  33,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  37,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  33,
+                  30
+                ],
+                "head": [
+                  33,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  22
+                ],
+                "wrist_1": [
+                  40,
+                  22
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  32,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  38,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  32,
+                  30
+                ],
+                "head": [
+                  32,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  24
+                ],
+                "wrist_1": [
+                  40,
+                  24
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  33,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  37,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  31,
+                  30
+                ],
+                "head": [
+                  31,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  23
+                ],
+                "wrist_1": [
+                  40,
+                  23
+                ]
+              }
+            ],
+            "front": [
+              {
+                "ankle_0": [
+                  28,
+                  50
+                ],
+                "knee_0": [
+                  34,
+                  45
+                ],
+                "ankle_1": [
+                  36,
+                  50
+                ],
+                "knee_1": [
+                  41,
+                  43
+                ],
+                "hip": [
+                  32,
+                  38
+                ],
+                "shoulder": [
+                  33,
+                  26
+                ],
+                "head": [
+                  33,
+                  21
+                ],
+                "wrist_0": [
+                  26,
+                  31
+                ],
+                "wrist_1": [
+                  38,
+                  31
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  33,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  37,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  30,
+                  30
+                ],
+                "head": [
+                  29,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  28
+                ],
+                "wrist_1": [
+                  40,
+                  28
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  33,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  37,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  31,
+                  30
+                ],
+                "head": [
+                  31,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  25
+                ],
+                "wrist_1": [
+                  40,
+                  25
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  32,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  38,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  32,
+                  30
+                ],
+                "head": [
+                  32,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  21
+                ],
+                "wrist_1": [
+                  40,
+                  21
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  33,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  37,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  33,
+                  30
+                ],
+                "head": [
+                  33,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  20
+                ],
+                "wrist_1": [
+                  40,
+                  20
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  33,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  37,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  33,
+                  30
+                ],
+                "head": [
+                  33,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  22
+                ],
+                "wrist_1": [
+                  40,
+                  22
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  32,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  38,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  32,
+                  30
+                ],
+                "head": [
+                  32,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  24
+                ],
+                "wrist_1": [
+                  40,
+                  24
+                ]
+              },
+              {
+                "ankle_0": [
+                  25,
+                  47
+                ],
+                "knee_0": [
+                  33,
+                  49
+                ],
+                "ankle_1": [
+                  30,
+                  47
+                ],
+                "knee_1": [
+                  37,
+                  49
+                ],
+                "hip": [
+                  32,
+                  42
+                ],
+                "shoulder": [
+                  31,
+                  30
+                ],
+                "head": [
+                  31,
+                  25
+                ],
+                "wrist_0": [
+                  24,
+                  23
+                ],
+                "wrist_1": [
+                  40,
+                  23
+                ]
+              }
+            ]
+          },
+          "contact_frames": []
+        },
+        "HUG": {
+          "frames": 6,
+          "fps": 8,
+          "loop": false,
+          "sheets": {
+            "back": {
+              "path": "assets/sprites/players/hug/back/sheet.png",
+              "columns": 4,
+              "rows": 2
+            },
+            "front": {
+              "path": "assets/sprites/players/hug/front/sheet.png",
+              "columns": 4,
+              "rows": 2
+            }
+          },
+          "individuals": {
+            "back": [
+              "assets/sprites/players/hug/back/frame_00.png",
+              "assets/sprites/players/hug/back/frame_01.png",
+              "assets/sprites/players/hug/back/frame_02.png",
+              "assets/sprites/players/hug/back/frame_03.png",
+              "assets/sprites/players/hug/back/frame_04.png",
+              "assets/sprites/players/hug/back/frame_05.png"
+            ],
+            "front": [
+              "assets/sprites/players/hug/front/frame_00.png",
+              "assets/sprites/players/hug/front/frame_01.png",
+              "assets/sprites/players/hug/front/frame_02.png",
+              "assets/sprites/players/hug/front/frame_03.png",
+              "assets/sprites/players/hug/front/frame_04.png",
+              "assets/sprites/players/hug/front/frame_05.png"
+            ]
+          },
+          "contacts": {},
+          "joints": {
+            "back": [
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  31,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  31,
+                  23
+                ],
+                "head": [
+                  31,
+                  18
+                ],
+                "wrist_0": [
+                  19,
+                  23
+                ],
+                "wrist_1": [
+                  45,
+                  23
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  32,
+                  23
+                ],
+                "head": [
+                  32,
+                  18
+                ],
+                "wrist_0": [
+                  20,
+                  24
+                ],
+                "wrist_1": [
+                  44,
+                  24
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  36,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  33,
+                  23
+                ],
+                "head": [
+                  33,
+                  18
+                ],
+                "wrist_0": [
+                  21,
+                  23
+                ],
+                "wrist_1": [
+                  43,
+                  23
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  31,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  31,
+                  23
+                ],
+                "head": [
+                  31,
+                  18
+                ],
+                "wrist_0": [
+                  22,
+                  24
+                ],
+                "wrist_1": [
+                  42,
+                  24
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  32,
+                  23
+                ],
+                "head": [
+                  32,
+                  18
+                ],
+                "wrist_0": [
+                  21,
+                  23
+                ],
+                "wrist_1": [
+                  43,
+                  23
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  36,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  33,
+                  23
+                ],
+                "head": [
+                  33,
+                  18
+                ],
+                "wrist_0": [
+                  22,
+                  24
+                ],
+                "wrist_1": [
+                  42,
+                  24
+                ]
+              }
+            ],
+            "front": [
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  31,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  31,
+                  23
+                ],
+                "head": [
+                  31,
+                  18
+                ],
+                "wrist_0": [
+                  19,
+                  23
+                ],
+                "wrist_1": [
+                  45,
+                  23
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  32,
+                  23
+                ],
+                "head": [
+                  32,
+                  18
+                ],
+                "wrist_0": [
+                  20,
+                  24
+                ],
+                "wrist_1": [
+                  44,
+                  24
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  36,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  33,
+                  23
+                ],
+                "head": [
+                  33,
+                  18
+                ],
+                "wrist_0": [
+                  21,
+                  23
+                ],
+                "wrist_1": [
+                  43,
+                  23
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  31,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  31,
+                  23
+                ],
+                "head": [
+                  31,
+                  18
+                ],
+                "wrist_0": [
+                  22,
+                  24
+                ],
+                "wrist_1": [
+                  42,
+                  24
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  35,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  32,
+                  23
+                ],
+                "head": [
+                  32,
+                  18
+                ],
+                "wrist_0": [
+                  21,
+                  23
+                ],
+                "wrist_1": [
+                  43,
+                  23
+                ]
+              },
+              {
+                "ankle_0": [
+                  29,
+                  50
+                ],
+                "knee_0": [
+                  30,
+                  42
+                ],
+                "ankle_1": [
+                  35,
+                  50
+                ],
+                "knee_1": [
+                  36,
+                  42
+                ],
+                "hip": [
+                  32,
+                  34
+                ],
+                "shoulder": [
+                  33,
+                  23
+                ],
+                "head": [
+                  33,
+                  18
+                ],
+                "wrist_0": [
+                  22,
+                  24
+                ],
+                "wrist_1": [
+                  42,
+                  24
+                ]
+              }
+            ]
+          },
+          "contact_frames": []
         }
-      },
-      "standing_height_pixels": 40
+      }
     },
     "goalkeeper": {
+      "standing_height_pixels": 39,
       "source_palette": [
         [
           0,
@@ -7349,10 +9005,7 @@
           },
           "contact_frames": []
         }
-      },
-      "standing_height_pixels": 39
+      }
     }
-  },
-  "approved_art_revision": 2,
-  "approval_date": "2026-11-06"
+  }
 }

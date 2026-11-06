@@ -42,7 +42,7 @@ lab.step(1);lab.step(-1);lab.speed(None,.5);lab.change_scale(None,'4')
 for size in [(960,640),(1280,800),(1440,900)]:
     Window.size=size;settle()
     for p in lab.panels:
-        assert p.stage.height>=130
+        assert p.stage.height>=97
         assert p.stage.x>=0 and p.stage.right<=Window.width+1
         assert p.stage.y>=0 and p.stage.top<=Window.height
 lab.change_scale(None,'5')

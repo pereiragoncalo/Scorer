@@ -75,7 +75,7 @@ class CharacterPanel(BoxLayout):
         self.view=c['views'][0];self.mode='Animation'
         self.colours=DEFAULT_PLAYER if role=='players' else DEFAULT_KEEPER
         self.add_widget(Label(text='FIELD PLAYER' if role=='players' else 'GOALKEEPER',size_hint_y=None,height=28,bold=True))
-        grid=GridLayout(cols=4,size_hint_y=None,height=82,spacing=4)
+        grid=GridLayout(cols=4,size_hint_y=None,height=93,spacing=4)
         for state in c['animations']:
             grid.add_widget(button(state.replace('_',' '),lambda state=state:self.select(state)))
         self.add_widget(grid)
