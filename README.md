@@ -1,3 +1,13 @@
+## Scorer World0.9.33 — retro crowds and championship celebrations
+
+[Download World0.9.33 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.33/Scorer-World-0.9.33.apk)
+
+Original retro ball and supporter sprites, collective-performance attendance and
+sectors occupied from the highest rows down. Collective titles trigger a squad
+celebration with the trophy beside their fans, followed by a special coach talk.
+Existing physics, team colours and weekly training gates are preserved.
+Physical Android playtest pending. [Scope and validation](docs/RELEASE_0.9.33.md).
+
 ## Scorer World0.9.32 — weekly locker-room team talks
 
 [Download World0.9.32 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.32/Scorer-World-0.9.32.apk)
