@@ -2593,3 +2593,7 @@ World0.9.31/code1026931; source9453841c1531f638bbe40f0b1a1bc8131366e236.
 APK107632111 bytes, SHA256
 4ba1cf550c318ef9aa85f6d915806e484cbc665d80d22f358e825b94db106079.
 Physical Android playtest pending; no physics/save/server/production changes.
+
+Public0.9.31 delivery: Actions run42220873368 succeeded. Download verified HTTP200,
+attachment filename, exact107632111bytes and matching tested SHA256. Evidence:
+docs/RELEASE_0.9.31_download.json. Temporary verified transfer branch removed.
