@@ -25,7 +25,15 @@ class TextureCache:
     def __init__(self, manifest, limit=24):
         self.manifest, self.limit = manifest, limit
         self.sources, self.entries = {}, OrderedDict()
+        self.payloads = {}
         self.allocations = 0
+
+    def _reload_texture(self, texture):
+        """Kivy calls this after Android recreates the OpenGL context."""
+        payload = self.payloads.get(id(texture))
+        if payload is not None:
+            texture.blit_buffer(payload, colorfmt='rgba', bufferfmt='ubyte')
+            texture.mag_filter = texture.min_filter = 'nearest'
 
     def get(self, path, colours):
         key = (path,tuple(colours))
@@ -44,7 +52,10 @@ class TextureCache:
             if result[offset+3] and tuple(result[offset:offset+3]) in mapping:
                 result[offset:offset+3] = bytes(mapping[tuple(result[offset:offset+3])])
         texture = Texture.create(size=size, colorfmt='rgba')
-        texture.blit_buffer(bytes(result), colorfmt='rgba', bufferfmt='ubyte')
+        payload = bytes(result)
+        texture.blit_buffer(payload, colorfmt='rgba', bufferfmt='ubyte')
+        self.payloads[id(texture)] = payload
+        texture.add_reload_observer(self._reload_texture)
         # CoreImage PNG coordinates are vertically flipped relative to raw pixels.
         if coords[1] > coords[5]:
             texture.flip_vertical()
@@ -52,7 +63,9 @@ class TextureCache:
         self.entries[key] = texture
         self.allocations += 1
         if len(self.entries) > self.limit:
-            self.entries.popitem(last=False)
+            _, evicted = self.entries.popitem(last=False)
+            self.payloads.pop(id(evicted), None)
+            evicted.remove_reload_observer(self._reload_texture)
         return texture
 
     def frame(self, character, clip, view, frame, colours):

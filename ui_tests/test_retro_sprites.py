@@ -5,6 +5,24 @@ from test_menus import isolated_game,settle
 from retro_sprites import hero_pose,field_pose,keeper_pose,kit_palette
 
 class RetroSpriteIntegration(unittest.TestCase):
+    def test_recoloured_pixels_restore_after_context_reload_and_eviction_is_bounded(self):
+        from sprite_animation import load_manifest
+        from sprite_textures import TextureCache,DEFAULT_PLAYER
+        manifest=load_manifest();cache=TextureCache(manifest,limit=2)
+        clips=list(manifest['characters']['players']['animations'].values())
+        textures=[]
+        for clip in clips[:3]:
+            texture=cache.get(clip['sheets']['front']['path'],DEFAULT_PLAYER)
+            pixels=bytes(texture.pixels)
+            texture.blit_buffer(bytes(len(pixels)),colorfmt='rgba',bufferfmt='ubyte')
+            self.assertNotEqual(bytes(texture.pixels),pixels)
+            cache._reload_texture(texture)
+            self.assertEqual(bytes(texture.pixels),pixels)
+            self.assertEqual((texture.min_filter,texture.mag_filter),('nearest','nearest'))
+            textures.append(texture)
+        self.assertEqual(len(cache.payloads),2)
+        self.assertNotIn(id(textures[0]),cache.payloads)
+
     def prepare(self,g):
         g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()
         g._career_started=True;g.view='shot';g.shot_context='match';g._prepare_next_shot()
