@@ -2321,3 +2321,48 @@ documentation log differs. Existing untracked career module also byte-identical.
 Updated animated preview, compact reference pose board, full sheets, viewer
 screenshot, validation metrics and report. Android/device integration is still
 explicitly deferred until owner's visual approval; no game version/APK changed.
+
+## 2026-11-06 — owner-approved sprites integrated, World QA 0.9.26
+
+Owner explicitly approved art revision2. Recovery branch
+recovery/sprites-approved-before-integration-2026-11-06 and initial WIP patch/
+main snapshot retained in striker-runtime/sprites-integration. Integrated exact
+approved PNGs through retro_sprites; shared root clock/texture modules now serve
+both game and viewer without Android imports from excluded tools. Production
+cache bounded at24 recoloured textures, nearest filtering, existing team kits.
+Only3 existing drawing methods changed plus lazy renderer accessor; all135 other
+existing methods compared by AST with initial workspace, including physics,
+control/update, collisions/keeper skeleton, held-ball attachment and scoring.
+Root-motion compensated at diving hips; held gloves align to independent ball;
+recovery only after inactive/unheld completed result. Existing build-up block
+animates TACKLE, no invented tackle/fall gameplay. Wind-up before actual launch,
+contact frame starts at the real immediate kick/header event.
+
+385 core cases:382 passed/3 skipped in126.256s. All192 native Kivy cases passed
+in253.538s, including2 integration cases; all3 sprite asset/clock/IK cases pass.
+compileall and staging payload guard pass. Main drawing cannot mutate physics
+snapshot, all keeper states and opportunities render, training has only2 actors,
+warmed repeated draws upload no textures. 1280x591 aiming/build-up/shot/dive/
+held-ball fall/training screenshots inspected. Same-process Mesa comparison:
+35.081ms/frame sprites vs34.895 baseline; CPU draw11.446 vs11.850ms. An earlier
+concurrent-load sample104.916ms/frame is retained to show variance. Desktop
+measurements are not Android performance claims; training source RGBA buffers
+421200B,3 warmed textures; full-process peak RSS includes app/Mesa, not sprites only.
+
+Built actual World APK from clean committed source a68b469, excluding initial
+unrelated WIP. Explicit staging manifest allowlist covered by a new regression.
+Actual compiled main/renderer/clock/texture source and all168frames/24sheets
+match; no developer sprite tools in APK. Existing DEBUG certificate retained,
+versionCode1026926, API36/min26, arm64, ZIP16KB and all118ELF alignments pass.
+Existing APK edition/ad-free metadata/saves/competitions/training/newspaper
+verification passes. Physical Android install/playtest still pending. No Play
+submission, new signing key, save schema, server or balancing change.
+
+Initial setup redundantly tried to add staging's existing platform symlink;
+stage already correct, build succeeded. Direct release binary upload returned401
+on uploads.github.com; use the existing authenticated Actions delivery pipeline
+with immutable8MiB chunks/digest checks, not a new login or credential workaround.
+Old generated QA bin APKs0.9.12–0.9.17 removed to free build space; latest0.9.25
+and all source/caches/careers retained. Optional host audio warnings due to no
+sound device do not affect passing Kivy tests. Initial user's .gitignore/main/
+UI-test work and untracked career_mode_state.py remain separate and preserved.

@@ -1,3 +1,13 @@
+## Scorer World 0.9.26 — approved retro sprites
+
+[Download World 0.9.26 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.26/Scorer-World-0.9.26.apk)
+
+The approved original 8-bit footballers and goalkeeper are now integrated, with
+team-colour palettes, action-synchronised animation and unchanged shot physics,
+controls and hitboxes. World DEBUG QA upgrade; physical Android playtest pending.
+
+[Scope and validation](docs/RELEASE_0.9.26.md) · [Approved sprite poses](docs/sprite_lab/reference-revision-2.png).
+
 ## Scorer World 0.9.25 — clubs and home grounds
 
 [Download World 0.9.25 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.25/Scorer-World-0.9.25.apk)

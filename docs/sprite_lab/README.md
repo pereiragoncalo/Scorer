@@ -1,6 +1,8 @@
 # Scorer original retro sprite lab — phase 1, art revision 2
 
-**Visual approval preview only. The main game still uses its original graphics.**
+**Art revision 2 was approved on 2026-11-06 and is now integrated in World 0.9.26.**
+
+This page records the phase-1 preview. For the integration, APK checks and remaining device test, see [release report](../RELEASE_0.9.26.md). The standalone viewer remains available.
 
 [Reference-style pose board](reference-revision-2.png) · [Animated preview](animations.gif) · [Actual Kivy viewer screenshot](viewer.png) · [All field-player frames](players-all-frames.png) · [All goalkeeper frames](goalkeeper-all-frames.png)
 
@@ -31,7 +33,7 @@ The supplied screenshots requested fuller footballers than the first thin silhou
 
 These are original redraws, not extracted pixels from the screenshots. All 168 frames and 24 sheets were regenerated; the visualizer uses them directly. Canvas sizes, ground anchors, frame counts, state names and the approval boundary remain unchanged. Bone lengths remain fixed; a grounded knee solution that would sink through the ground is replaced by its alternate bend. There is no ball painted into the sprites. The compact pose board centres cropped silhouettes for presentation only; the animated preview and viewer retain the actual fixed anchors.
 
-Recovery point for the first proposal: `recovery/sprites-before-reference-revision-2026-11-06`, commit `4bf8932`. The main game remains unmodified by either sprite proposal.
+Recovery point for the first proposal: `recovery/sprites-before-reference-revision-2026-11-06`, commit `4bf8932`. The main game remained unmodified during both sprite proposals. Integration was subsequently approved by the owner and is documented in the release report.
 
 ## Delivered artwork
 
@@ -114,4 +116,4 @@ Initial validation exposed a head-stamp mask error, an unwritable texture-coordi
 
 ## Approval boundary
 
-Review the run, kick, tackle, header, dive and recovery sequences in motion, including the back/front views and both facing directions. Check proportions, palette, natural limb motion and the fixed ground anchors. **As requested in sections 9 and 11 of the task, this delivery stops here for visual approval.** Only after that approval should these exact resources be connected to the existing rendering and real action events, followed by main-game physics/control/collision, Android, kit, memory and performance tests.
+Review the run, kick, tackle, header, dive and recovery sequences in motion, including the back/front views and both facing directions. Check proportions, palette, natural limb motion and the fixed ground anchors. Phase 1 stopped for visual approval as requested in sections 9 and 11. The owner approved revision 2 on 2026-11-06. These exact resources are now connected to the existing game; see the release report for integration tests and the pending physical-device check.

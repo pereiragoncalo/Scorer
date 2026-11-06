@@ -1,0 +1,28 @@
+"""Check trusted APK sprite resources and bytecode with its host Python version."""
+import io,json,marshal,sys,tarfile,zipfile
+from pathlib import Path
+artifact,stage=Path(sys.argv[1]),Path(sys.argv[2])
+with zipfile.ZipFile(artifact) as archive:
+    with tarfile.open(fileobj=io.BytesIO(archive.read('assets/private.tar'))) as tar:
+        members={m.name.removeprefix('./'):m for m in tar.getmembers() if m.isfile()}
+        def data(path):
+            match=next(m for name,m in members.items() if name==path or name.endswith('/'+path))
+            return tar.extractfile(match).read()
+        manifest=json.loads(data('assets/sprites/manifest.json'))
+        assert manifest==json.loads((stage/'assets/sprites/manifest.json').read_text())
+        assert manifest['approval_status']=='APPROVED' and manifest['approved_art_revision']==2
+        frames=sheets=0
+        for c in manifest['characters'].values():
+            for a in c['animations'].values():
+                for sheet in a['sheets'].values():
+                    assert data(sheet['path'])==(stage/sheet['path']).read_bytes();sheets+=1
+                for paths in a['individuals'].values():
+                    for path in paths:
+                        assert data(path)==(stage/path).read_bytes();frames+=1
+        for module in ('main','retro_sprites','sprite_animation','sprite_textures'):
+            actual=marshal.loads(data(module+'.pyc')[16:])
+            expected=compile((stage/(module+'.py')).read_text(),actual.co_filename,'exec',optimize=2)
+            assert actual==expected,'Compiled source differs: '+module
+        assert frames==168 and sheets==24
+        assert not any('/tools/sprite_lab/' in name for name in members)
+print('Approved revision2:',frames,'frames,',sheets,'sheets, exact compiled rendering/runtime source; no sprite-lab build tools.')

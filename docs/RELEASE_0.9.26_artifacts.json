@@ -1,0 +1,29 @@
+{
+  "version": "0.9.26",
+  "version_code": 1026926,
+  "package": "com.clemir.scorerworld",
+  "source_commit": "a68b46989ed337924d4b9851d8f79ac4b60c882c",
+  "artifact": "Scorer-World-0.9.26.apk",
+  "bytes": 107575219,
+  "sha256": "08b33964dd3e8cefa074290bba970ccfe669cd17520ceaf9716a25725b84a856",
+  "certificate_sha256": "84c17cdf31e2ee7c6e9c082bde539df6822bf48267a0603de9814d6e2846ef49",
+  "signing": "Existing DEBUG upgrade key; QA",
+  "target_api": 36,
+  "min_api": 26,
+  "architecture": "arm64-v8a",
+  "elf16k": 118,
+  "zip16k": true,
+  "advertising_sdk": false,
+  "billing_sdk": false,
+  "approved_art_revision": 2,
+  "sprite_frames": 168,
+  "sprite_sheets": 24,
+  "physics_changed": false,
+  "android_device_tested": false,
+  "tests": {
+    "core_run": 385,
+    "core_skipped": 3,
+    "native_kivy_passed": 192,
+    "sprite_asset_clock_passed": 3
+  }
+}
