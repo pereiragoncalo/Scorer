@@ -21,14 +21,16 @@
   "physics_changed": false,
   "android_device_tested": false,
   "tests": {
-    "core_run": 406,
+    "core_run": 407,
     "core_skipped": 3,
     "scene_core_passed": 8,
     "scene_native_passed": 4,
     "responsive_cases": 231,
     "responsive_findings": 0,
     "title_all_language_layout_cases": 54,
-    "title_all_language_layout_findings": 0
+    "title_all_language_layout_findings": 0,
+    "native_kivy_passed": 211,
+    "staged_world_scene_native_passed": 4
   },
   "context_loss_recovery": true,
   "standing_player_height_m": 1.8,

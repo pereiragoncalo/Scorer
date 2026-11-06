@@ -1,3 +1,9 @@
+## 2026-11-06 — World0.9.33 retro scenes and collective titles
+
+Source70214d938564416786c716f9c58b5bd855715449; World APK1026933, existing debug upgrade certificate, API36/min26 arm64. Original ball/fan/trophy sprites, performance-based frozen attendance and top-down home/away filling. Eleven-player own-supporter trophy celebration followed by persistent once-only coach talk; merge due weekly focus choices. Preserve physics, approved player/keeper art, training gates and unrelated WIP.
+
+407core/3existing skips,211native,4clean-staged World scene cases,231responsive/0findings and54nine-language special-talk layouts/0findings. Actual APK compiled modules and scene PNGs, packed title reload,118ELF16KB,ZIP16KB,package/version/certificate verified. Software-renderer measurement:1953visible fans/two meshes/~1.85ms update/zero texture allocations during300updates; no handset performance claim. Physical Android test pending.
+
 ### 0.9.25 public attachment verified
 
 Workflow42123459717 succeeded. Unauthenticated public download matched all

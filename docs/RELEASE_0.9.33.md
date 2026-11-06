@@ -10,6 +10,8 @@ The existing gameplay, hitboxes, ball solver, club colours and approved player/g
 
 This is a debug-signed World QA candidate, not a Google Play production release. Physical Android testing remains pending.
 
-Validation: 406 core cases passed (three existing skips), plus eight focused scene/title cases including a played World cup final; 231 responsive presentation cases passed with zero findings. Additional title-talk layout checks cover all nine languages with and without a due weekly focus choice. The actual APK passed package/version, existing certificate, all118 ELF16KB alignment, ZIP alignment, exact sprite/source payload and packed career/title persistence checks.
+Validation: 407 core cases passed (three existing skips), plus eight focused scene/title cases including a played World cup final; 231 responsive presentation cases passed with zero findings. Additional title-talk layout checks cover all nine languages with and without a due weekly focus choice. The actual APK passed package/version, existing certificate, all118 ELF16KB alignment, ZIP alignment, exact sprite/source payload and packed career/title persistence checks.
 
 Headless measurement (not a handset performance claim): 1,953 visible supporters, two team meshes, about1.85ms per crowd-motion update across300 updates, zero new texture allocations during animation; three scene palette textures retain279,936CPU bytes. Both versions of the special coach talk passed54 measured layout cases across all nine languages.
+
+Final native validation: all211 Kivy UI tests passed. The four new scene/title tests also passed against the clean staged World source used for the actual APK.
