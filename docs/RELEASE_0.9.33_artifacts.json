@@ -27,7 +27,7 @@
     "scene_native_passed": 4,
     "responsive_cases": 231,
     "responsive_findings": 0,
-    "title_all_language_layout_cases": 27,
+    "title_all_language_layout_cases": 54,
     "title_all_language_layout_findings": 0
   },
   "context_loss_recovery": true,
@@ -55,5 +55,14 @@
   "collective_title_celebration": true,
   "special_title_talk": true,
   "performance_attendance": true,
-  "top_down_sector_fill": true
+  "top_down_sector_fill": true,
+  "crowd_headless_measurement": {
+    "visible_supporters": 1953,
+    "team_meshes": 2,
+    "motion_update_ms": 1.849880029913038,
+    "new_texture_allocations": 0,
+    "scene_texture_count": 3,
+    "scene_texture_cpu_bytes": 279936,
+    "headless_software_renderer": true
+  }
 }
