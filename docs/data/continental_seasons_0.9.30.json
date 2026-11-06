@@ -1,0 +1,21 @@
+{
+  "method": "Seeded engine lifecycle with controlled player-team scores; not physical or human Android play.",
+  "seed": 902026,
+  "season": 2029,
+  "completed_matches": 218,
+  "types": {
+    "league": 114,
+    "libertadores": 39,
+    "friendly": 40,
+    "domestic:Brazil": 17,
+    "copa_q0": 2,
+    "copa": 6
+  },
+  "reloads": 13,
+  "archived_seasons": 3,
+  "seconds": 36.86,
+  "caps": 48,
+  "international_goals": 48,
+  "calendar_nondecreasing": true,
+  "repeated_fixtures": false
+}

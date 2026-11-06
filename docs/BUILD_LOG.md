@@ -2531,3 +2531,20 @@ the same-week national ordering bug. No physics/art/control changes.
 Official portal checks do not certify current access regulations: see
 WORLD_COMPETITIONS_0.9.md for modeled baselines and excluded regional feeder cups.
 Physical Android playtest remains pending.
+
+
+Final0.9.30 evidence: all7 expansion/date and15 competition regression cases
+passed;202 native Kivy cases passed. Three-year controlled lifecycle:218 matches,
+13 reloads,3 archived seasons, nondecreasing dates, no repeated fixtures. The
+prior0.9.29 baseline lifecycle also passed; the new Copa field exposed the latent
+same-week lexical ordering error, now covered by a focused date regression.
+Build succeeded; initial post-build ELF check ran out of container temporary
+disk. Removed3421MiB of obsolete generated staging app/bin copies, retaining
+sources, native toolchain and current APKs. Rechecking the identical APK passed:
+existing debug signature, ZIP16KB,118 ELF alignments,208 original sprite frames/
+30 sheets and exact compiled rendering source, edition/safety/no-ad checks,
+actual secondary competition results/transfers/snapshot reload and legacy career
+flows. APK107606951bytes; SHA256
+c8f0e438d85b9a455d3c42b00b9d6461763fb4a4dec3a26391ea69f4a0e5c511.
+Code source55d506fa39c9f9a68fbf8e09d0f9974aec69f60b; World0.9.30/code1026930.
+Physical Android playtest pending; no production1.0/Play/server changes.

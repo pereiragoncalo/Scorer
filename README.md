@@ -1,3 +1,15 @@
+## Scorer World0.9.30 — continental competitions
+
+[Download World0.9.30 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.30/Scorer-World-0.9.30.apk)
+
+Adds Sudamericana, CAF Confederation Cup, AFC Champions League Two and Challenge
+League: twelve club cups across all six confederations. Seven national finals
+have a permanent next-edition overview. Existing careers gain missing cups;
+qualification snapshots, played results and trophies persist. Access lists and
+some phase/calendar details remain game models. Physical Android playtest pending.
+
+[Scope and validation](docs/RELEASE_0.9.30.md).
+
 ## Scorer World 0.9.29 — goal celebrations
 
 [Download World 0.9.29 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.29/Scorer-World-0.9.29.apk)
