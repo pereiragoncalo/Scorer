@@ -70,6 +70,16 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             c.save();d=career.CareerMode(edition.entitlement_provider(),save_slot='world');assert d.world_competitions.to_dict()==c.world_competitions.to_dict()
             b=competitions.CompetitionBook(2025,71,c.leagues);b.complete();assert len(b.tournaments['world_cup'].fixtures)==104
             assert all(v.champion for v in b.tournaments.values());competitions.CompetitionBook.from_dict(b.to_dict())
+            assert set(competitions.CLUB_FIELDS)<=set(b.tournaments)
+            assert len(b.tournaments['sudamericana'].fixtures)==141
+            assert len(b.tournaments['caf_confederation'].fixtures)==62
+            assert all(b.tournaments[k].champion for k in ('afc_two','afc_challenge'))
+            next_entries=b.entrants_for_next_season(c.leagues)
+            c.qualification_snapshot=dict(season=c.season,entries=next_entries)
+            assert c.save() and c.load() and set(competitions.CLUB_FIELDS)<=set(c.qualification_snapshot['entries'])
+            c.qualification_snapshot=None
+            assert len(calendar.national_tournament_calendar(2026))==7
+            print('Actual APK: four secondary cups, Libertadores transfers, seven national finals and expanded qualification snapshot verified')
             assert len(c.domestic_leagues())==2*len(career.WORLD_COUNTRIES)
             assert all(len(c.reserve_clubs(country))==10 for country in career.WORLD_COUNTRIES)
             c.league_key='Yemen|2';c.club_name=c.current_league.clubs[0].name

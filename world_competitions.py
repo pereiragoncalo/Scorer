@@ -10,6 +10,13 @@ import random
 
 MODEL_VERSION=2
 
+# Initial fields only: Libertadores transfers join Sudamericana during the season.
+CLUB_FIELDS={'ucl':36,'uel':36,'uecl':36,'libertadores':32,'sudamericana':32,
+             'caf_cl':16,'caf_confederation':16,'concacaf':27,'ofc':8,
+             'afc_elite':24,'afc_two':32,'afc_challenge':18}
+LEGACY_CLUB_FIELDS={'ucl','uel','uecl','libertadores','caf_cl','concacaf','ofc','afc_elite'}
+
+
 
 def rng_for(*parts):
     return random.Random(':'.join(map(str,parts)))
@@ -113,13 +120,16 @@ class Tournament:
         if len(ids)%2:raise ValueError('Invalid knockout field')
         self.stage_number+=1
         self.stage='Preliminary round' if first else 'Knockout playoffs' if self.stage=='League phase' and self.kind=='swiss' else ('Final' if len(ids)==2 else f'Last {len(ids)}')
-        legs=1 if len(ids)==2 and self.key not in ('caf_cl',) else self.knockout_legs
+        legs=1 if len(ids)==2 and self.key not in ('caf_cl','caf_confederation') else self.knockout_legs
         if self.key=='afc_elite' and len(ids)<=8:legs=1
         self.active=[];start=(self.weeks[self.stage_number-1] if self.weeks and self.stage_number<=len(self.weeks) else self.last_week+2)
         pairs=list(zip(ids[:len(ids)//2],reversed(ids[len(ids)//2:])))
-        if self.regional_last16 and len(ids)==16:
+        if self.regional_last16 and (len(ids)==16 or self.key in ('afc_two','afc_challenge') and len(ids)>=4):
             pairs=[]
-            for group in (ids[:8],ids[8:]):pairs.extend(zip(group[:4],reversed(group[4:])))
+            half=len(ids)//2
+            for group in (ids[:half],ids[half:]):
+                middle=len(group)//2
+                pairs.extend(zip(group[:middle],reversed(group[middle:])))
         for i,(a,b) in enumerate(pairs):
             tie=f'{self.stage_number}:{i}';self._add(a,b,start,tie=tie)
             if legs==2:self._add(b,a,start+1,tie=tie,leg=2)
@@ -152,6 +162,14 @@ class Tournament:
     def _progress(self):
         if self.stage=='League phase':
             tables=[self.table(i) for i in range(len(self.groups))]
+            if self.key=='sudamericana':
+                self.stage='Awaiting Libertadores';self.active=[];return
+            if self.key=='afc_challenge':
+                west=[rows[0]['uid'] for rows in tables[:3]]
+                runner=max((rows[1] for rows in tables[:3]),key=lambda r:(r['pts'],r['gf']-r['ga'],r['gf'],r['uid']))
+                west.append(runner['uid'])
+                east=[r['uid'] for rows in tables[3:] for r in rows[:2]]
+                self._knockout(west+east);return
             if self.kind=='qualifying':
                 ordered=[]
                 for rank in range(max(map(len,tables))):
@@ -187,11 +205,12 @@ class Tournament:
         def due(f):return f['week']<=week and (until is None or not f.get('date') or f['date']<=until)
         while not self.champion:
             active=[f for f in self.fixtures if f['id'] in self.active]
+            if not active:return None  # A cross-competition draw may still be pending.
             for f in active:
                 if f['score'] is None and due(f) and not is_protected(f):
                     self.record(f,simulate_score(f'{self.seed}:{f["id"]}',self.teams[f['home']],self.teams[f['away']],neutral=f.get('neutral',False)))
             pending=[f for f in active if f['score'] is None and due(f) and is_protected(f)]
-            if pending:return min(pending,key=lambda f:(f['week'],f['id']))
+            if pending:return min(pending,key=lambda f:(f['week'],f.get('date',''),f['id']))
             if any(f['score'] is None for f in active):return None
             self._progress()
             if progress_callback:progress_callback()
@@ -281,10 +300,17 @@ class CompetitionBook:
             self.tournaments[key]=Tournament(key,title,teams,f'{seed}:{season}',kind='swiss',rounds=rounds)
         for key,title,countries,count,groups,rounds,qualifiers,legs in [
             ('libertadores','CONMEBOL Libertadores',SOUTH_AMERICA_COUNTRIES,32,8,6,2,2),
+            ('sudamericana','CONMEBOL Sudamericana',SOUTH_AMERICA_COUNTRIES,32,8,6,2,2),
             ('caf_cl','CAF Champions League',AFRICA_COUNTRIES,16,4,6,2,2),
+            ('caf_confederation','CAF Confederation Cup',AFRICA_COUNTRIES,16,4,6,2,2),
             ('concacaf','Concacaf Champions Cup',NORTH_AMERICA_COUNTRIES,27,1,0,0,2),
             ('ofc','OFC Champions League',OCEANIA_COUNTRIES,8,2,3,2,1)]:
-            self.tournaments[key]=Tournament(key,title,(entrants or {}).get(key) or participants(countries,count),f'{seed}:{season}',kind='concacaf' if key=='concacaf' else 'groups',groups=groups,rounds=rounds,qualifiers=qualifiers,knockout_legs=legs)
+            teams=(entrants or {}).get(key) or participants(countries,count,used)
+            if not entrants:
+                priority=[(title_holders or {}).get(k) for k in (('libertadores','sudamericana') if key=='libertadores' else ('caf_cl','caf_confederation') if key=='caf_cl' else ())]
+                teams=prioritized(teams,priority,used)
+            used.update(t['uid'] for t in teams)
+            self.tournaments[key]=Tournament(key,title,teams,f'{seed}:{season}',kind='concacaf' if key=='concacaf' else 'groups',groups=groups,rounds=rounds,qualifiers=qualifiers,knockout_legs=legs)
         # Explicit West/Central/South region membership (country names can contain spaces).
         west={'Afghanistan','Bahrain','Bangladesh','Bhutan','India','Iran','Iraq','Jordan','Kuwait','Kyrgyzstan','Lebanon','Maldives','Nepal','Oman','Pakistan','Palestine','Qatar','Saudi Arabia','Sri Lanka','Syria','Tajikistan','Turkmenistan','United Arab Emirates','Uzbekistan','Yemen'}
         saved=(entrants or {}).get('afc_elite');a=[t for t in saved if t['country'] in west] if saved else participants(west,12);b=[t for t in saved if t['country'] not in west] if saved else participants(set(ASIA_COUNTRIES)-west,12)
@@ -295,6 +321,26 @@ class CompetitionBook:
             for r,pairs in enumerate(balanced_league(group,8)):
                 for x,y in pairs:event._add(x,y,3+r*2,group=i)
         event.last_week=17;self.tournaments[event.key]=event
+        used.update(event.teams)
+        for key,title,wcount,ecount,ngroups in (
+            ('afc_two','AFC Champions League Two',16,16,8),
+            ('afc_challenge','AFC Challenge League',12,6,5)):
+            saved=(entrants or {}).get(key)
+            a=[t for t in saved if t['country'] in west] if saved else participants(west,wcount,used)
+            b=[t for t in saved if t['country'] not in west] if saved else participants(set(ASIA_COUNTRIES)-west,ecount,used)
+            event=Tournament(key,title,a+b,f'{seed}:{season}',groups=ngroups,rounds=6,qualifiers=2,regional_last16=True)
+            # Keep West/East separate through the regional semi-finals.
+            wg=4 if key=='afc_two' else 3;eg=ngroups-wg
+            aw=[t['uid'] for t in a];be=[t['uid'] for t in b]
+            rng_for(seed,season,key,'west').shuffle(aw);rng_for(seed,season,key,'east').shuffle(be)
+            event.groups=[aw[i::wg] for i in range(wg)]+[be[i::eg] for i in range(eg)]
+            event.fixtures=[];event.active=[]
+            for i,group in enumerate(event.groups):
+                for r,pairs in enumerate(round_robin(group,2 if key=='afc_two' else 1)):
+                    for x,y in pairs:event._add(x,y,3+r*2,group=i)
+            event.last_week=max(f['week'] for f in event.fixtures)
+            used.update(event.teams);self.tournaments[key]=event
+
         # Four explicit game leagues keep every European national team active.
         european=sorted((t for t in self.nations.values() if t['country'] in EUROPE_COUNTRIES),key=lambda t:(-t['rating'],t['uid']))
         for index,letter in enumerate('ABCD'):
@@ -313,7 +359,9 @@ class CompetitionBook:
             ('gold','Concacaf Gold Cup',NORTH_AMERICA_COUNTRIES,16,4,0,(season+1)%2==1),
             ('copa','Copa America',SOUTH_AMERICA_COUNTRIES+NORTH_AMERICA_COUNTRIES,16,4,0,(season+1)%4==0),
             ('ofc_nations','OFC Nations Cup',OCEANIA_COUNTRIES,8,2,0,(season+1)%4==0)]:
-            if active:national_events.append((key,title,[(countries,size)],groups,thirds,0))
+            if active:
+                regions=[(SOUTH_AMERICA_COUNTRIES,10),(NORTH_AMERICA_COUNTRIES,6)] if key=='copa' else [(countries,size)]
+                national_events.append((key,title,regions,groups,thirds,0))
         for key,title,regions,groups,thirds,wildcards in national_events:
             path={'key':key,'title':title,'groups':groups,'thirds':thirds,'wildcards':wildcards,'qualifiers':[],'created':False}
             for index,(countries,slots) in enumerate(regions):
@@ -324,6 +372,36 @@ class CompetitionBook:
             self.qualification_paths.append(path)
         from international_calendar import schedule_book
         schedule_book(self)
+
+    def add_missing_continental(self,leagues,week):
+        missing=set(CLUB_FIELDS)-set(self.tournaments)
+        if not missing:return False
+        # Preserve all existing draws/results. No retrospective personal credit.
+        entrants={k:list(c.teams.values()) for k,c in self.tournaments.items() if k in CLUB_FIELDS}
+        entrants.update(copy.deepcopy(self.national_membership))
+        fresh=CompetitionBook(self.season,self.seed,leagues,entrants)
+        for key in sorted(missing):
+            cup=fresh.tournaments[key];cup.advance(max(0,week-1))
+            self.tournaments[key]=cup
+        self._continental_transfers()
+        for key in sorted(missing):self.tournaments[key].advance(max(0,week-1))
+        return True
+
+    def _continental_transfers(self):
+        cup=self.tournaments.get('sudamericana');source=self.tournaments.get('libertadores')
+        if not cup or not source or cup.stage!='Awaiting Libertadores':return False
+        if any(f['group'] is not None and f['score'] is None for f in source.fixtures):return False
+        tables=[cup.table(i) for i in range(8)]
+        cup.direct=[rows[0]['uid'] for rows in tables]
+        runners=[rows[1]['uid'] for rows in tables]
+        incoming=[source.teams[source.table(i)[2]['uid']] for i in range(8)]
+        cup.teams.update({t['uid']:dict(t) for t in incoming})
+        cup.last_week=max(cup.last_week,max(f['week'] for f in source.fixtures if f['group'] is not None))
+        cup._knockout(runners+[t['uid'] for t in incoming])
+        cup.stage='Knockout playoffs'
+        for f in cup.fixtures:
+            if f['id'] in cup.active:f['stage']=cup.stage
+        return True
 
     def _create_finals(self):
         changed=False
@@ -382,7 +460,7 @@ class CompetitionBook:
         from international_calendar import schedule_book
         while True:
             for cup in list(self.tournaments.values()):cup.advance(200,progress_callback=lambda:schedule_book(self))
-            if not self._create_finals():break
+            if not (self._continental_transfers() | self._create_finals()):break
 
 
     def next_fixture(self,week,club_uid,nationality,eligible):
@@ -398,7 +476,7 @@ class CompetitionBook:
                 fixture=cup.advance(week,selector=selector,progress_callback=lambda:schedule_book(self),until=until)
             else:fixture=cup.advance(week,[club_uid])
             if fixture:pending.append((match_date(self.season,cup,fixture).isoformat(),cup.key,fixture))
-        if self._create_finals():return self.next_fixture(week,club_uid,nationality,eligible)
+        if self._continental_transfers() | self._create_finals():return self.next_fixture(week,club_uid,nationality,eligible)
         for f in self.friendlies.values():
             if f['score'] is not None or f['week']>week or (f.get('date') and f['date']>until) or actor not in (f['home'],f['away']):continue
             if selected(self,nationality,match_date(self.season,None,f),eligible,week):pending.append((match_date(self.season,None,f).isoformat(),'friendly',f))
@@ -418,6 +496,7 @@ class CompetitionBook:
         cup=self.tournaments[key];f=next(f for f in cup.fixtures if f['id']==fixture_id)
         from international_calendar import schedule_book
         cup.record(f,score);cup.advance(f['week'],(f['home'],f['away']),progress_callback=lambda:schedule_book(self))
+        self._continental_transfers()
         schedule_book(self)
         return f
 

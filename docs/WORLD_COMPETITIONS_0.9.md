@@ -9,6 +9,10 @@ Point 1 is implemented as an executable, persistent game model. Tournaments now 
 | UEFA Champions League / Europa League | 36 clubs, 8 unique opponents, 4 home + 4 away | Top 8 direct; 9–24 play two-leg playoffs; round of 16 onward; single final |
 | UEFA Conference League | 36 clubs, 6 unique opponents, 3 home + 3 away | Same ranked qualification and knockout structure |
 | CONMEBOL Libertadores | 32 clubs, 8 groups of 4, home and away | Two qualify per group; two-leg ties; single final |
+| CONMEBOL Sudamericana | 32 clubs, eight home/away groups; eight Libertadores thirds join later | Group winners enter last 16; runners-up play transferred clubs over two legs; single final |
+| CAF Confederation Cup | 16 clubs, four home/away groups | Top two; two-leg quarterfinals, semifinals and final |
+| AFC Champions League Two | 32 clubs, four West and four East home/away groups | Top two; regional two-leg ties until a single West/East final |
+| AFC Challenge League | 18-club baseline, three West groups of four and two East groups of three | Three West winners + best runner-up; East top two; regional two-leg ties, single final |
 | CAF Champions League | 16 clubs, 4 groups of 4, home and away | Two qualify per group; two-leg quarterfinals, semifinals and final |
 | Concacaf Champions Cup | 27 clubs; five first-round byes | Remaining 22 play two-leg ties, then a 16-team bracket; single final |
 | AFC Champions League Elite | 24 clubs, separate West/East leagues, eight matches each | Eight from each region; regional two-leg last 16, then single-match final eight |
@@ -45,3 +49,34 @@ Old saves acquire an elapsed external competition history without adding persona
 Core checks cover league schedules, balanced home/away Swiss rounds, byes, aggregate ties, penalties, qualifiers, the 104-match World Cup, identity-preserving movement, future qualification, migration, duplicate result rejection, away nationality attribution, save/export/import and mid-playoff recovery. Native Kivy checks cover competition browsing, fixture pages, groups, standings, back navigation, nine languages and small phone-sized layouts. Actual APK bytecode is inspected and exercised on the build host.
 
 `tools/check_world_seasons.py` runs three seasons with controlled player-team scores, checking repeated fixtures, nondecreasing dates, qualification, archives and repeated reloads. Controlled engine outcomes are not a human difficulty measurement. The point-1 implementation is complete for these game formats. Physical Android acceptance, actual server/policy deployment and production Play signing/Console work remain points 2–4 in [the launch checklist](play/ROAD_TO_1.0.md).
+
+
+## 0.9.30 continental expansion
+
+All six confederations have their principal club tournament. Secondary tournaments
+are present for UEFA, CONMEBOL, CAF and AFC. Concacaf Champions Cup and OFC Champions
+League are retained; no invented Europa League equivalent is assigned to those
+confederations. Regional Concacaf feeder cups and the OFC professional league are
+not simulated by this iteration.
+
+The seven national finals have a permanent next-edition overview in Competitions,
+including off-years. Active qualifying/finals open through that overview. Copa
+America's baseline now reserves ten South American and six invited Concacaf places
+instead of selecting an unrestricted mixed pool. That 16-team baseline is a game
+model, not confirmation of invitations to the next real edition.
+
+Existing books acquire only missing cups, simulating elapsed rounds without
+personal credit. Existing draws/results and old qualification snapshots remain
+valid; new snapshots persist all twelve continental fields. Sudamericana's
+cross-competition waiting/draw state survives reload without replay or duplication.
+
+Reference competition portals checked 2026-11-06:
+https://www.the-afc.com/en/club/afc_champions_league_two.html and
+https://www.the-afc.com/en/club/afc_challenge_league.html (HTTP200), plus
+https://www.concacaf.com/central-american-cup/ and
+https://www.concacaf.com/caribbean-cup/ (HTTP200). CONMEBOL's public portal returned
+HTTP403. These checks confirm current competition identities, not a completed
+regulation audit. AFC season-specific field changes are not applied to the
+existing Elite24/Challenge18 baseline; complete current access lists, entry
+qualifiers, draw restrictions and exact club match dates remain modeled. Do not
+label this implementation a full reproduction of the2026/27 regulations.

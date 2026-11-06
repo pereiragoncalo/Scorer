@@ -1176,6 +1176,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             for cup in self.world_competitions.tournaments.values():
                 cup.advance(max(0,self.week-1),[self.club.uid] if cup.key.startswith('domestic:') and self.club and self.cup_active else [])
         else:
+            self.world_competitions.add_missing_continental(self.leagues,self.week)
             key='domestic:'+self.current_league.country
             new=key not in self.world_competitions.tournaments
             cup=self.world_competitions.add_domestic(self.current_league.country,self.leagues,self.cup_weeks)
@@ -2628,8 +2629,9 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             if snapshot is not None and self.world_unlocked:
                 if not isinstance(snapshot,dict) or set(snapshot)!={'season','entries'} or snapshot['season']!=self.season or not isinstance(snapshot['entries'],dict) or len(snapshot['entries'])>16:raise ValueError('Invalid qualification snapshot')
                 if any(not isinstance(v,list) or len(v)>36 for v in snapshot['entries'].values()):raise ValueError('Invalid qualified entrants')
-                expected={'ucl':36,'uel':36,'uecl':36,'libertadores':32,'caf_cl':16,'concacaf':27,'ofc':8,'afc_elite':24}
-                if not set(expected)<=set(snapshot['entries']):raise ValueError('Missing qualification fields')
+                from world_competitions import CLUB_FIELDS,LEGACY_CLUB_FIELDS
+                expected=CLUB_FIELDS
+                if not LEGACY_CLUB_FIELDS<=set(snapshot['entries']):raise ValueError('Missing qualification fields')
                 pool={c.uid for l in self.leagues.values() for c in l.clubs}
                 seen=set()
                 for key,teams in snapshot['entries'].items():

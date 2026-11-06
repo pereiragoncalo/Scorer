@@ -2513,3 +2513,21 @@ HTTP200/attachment filename,107602219B and SHA256
 7e34595d39e223087b2e1de66bad888b15097a7540b89fda496b506d47903262,
 exactly matching the tested APK. Proof: RELEASE_0.9.29_download.json. Temporary
 qa-upload-0.9.29 ref removed; release, source tag and source branch retained.
+
+
+## 2026-11-06 — continental competitions0.9.30
+
+Recovery branch: recovery/before-continental-0930. Preserve unrelated root badge,
+mode-state and menu-test WIP. Add Sudamericana with Libertadores thirds/playoffs,
+CAF Confederation Cup, AFC Champions League Two and AFC Challenge League.
+Twelve continental club fields, seven national finals overview, Copa regional
+places, persistent secondary qualification snapshots and additive old-book upgrade.
+National same-week matches now sort by full date before fixture ID.
+Core discovery before the date correction:395 tests,3 skips, no failures.
+Focused expansion/date and competition suites, native UI, multi-season replay and
+actual Android build/bytecode checks are being completed. An initial Sudamericana
+fixture-count expectation was corrected (141 including playoffs); lifecycle caught
+the same-week national ordering bug. No physics/art/control changes.
+Official portal checks do not certify current access regulations: see
+WORLD_COMPETITIONS_0.9.md for modeled baselines and excluded regional feeder cups.
+Physical Android playtest remains pending.

@@ -535,6 +535,12 @@ class CareerMenu(BoxLayout):
     def _competitions(self):
         c=self.game.career
         competitions=list(c.world_competitions.tournaments.items());page=self.game.competition_list_page
+        if page==0:
+            from international_calendar import national_tournament_calendar
+            for key,title,year in national_tournament_calendar(c.season):
+                card=self.card(title);card.label(str(year),localize=False)
+                target=key if key in c.world_competitions.tournaments else next((q for p in c.world_competitions.qualification_paths if p['key']==key for q in p['qualifiers'] if 'nation:'+c.nationality in c.world_competitions.tournaments[q].teams),None)
+                if target:card.add_widget(self._button('VIEW COMPETITION','competition_open',target))
         for key,cup in competitions[page*10:(page+1)*10]:
             card=self.card(cup.title)
             card.label(('Winner: '+self._competition_team_name(cup.teams[cup.champion])) if cup.champion and cup.kind!='qualifying' else cup.stage)

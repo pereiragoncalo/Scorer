@@ -13,6 +13,18 @@ class WorldCompetitionUI(unittest.TestCase):
             g._activate_ui('competition_page',1);settle();self.assertEqual(g.competition_page,1);self.assertNotEqual(before,{w.text for w in g.walk() if isinstance(w,Label)})
             g._activate_ui('competition_tab','table');settle();self.assertTrue(any('Group 1' in w.text for w in g.walk() if isinstance(w,Label)))
             g._activate_ui('competitions_back');self.assertEqual(g.view,'competitions');g._activate_ui('competitions_back');self.assertEqual(g.view,'world')
+    def test_national_calendar_and_secondary_cups_are_browsable(self):
+        with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+            g.career.accept_starting_offer(g.career.offers[0]);g._activate_ui('competitions');settle()
+            texts={w.text for w in g.walk() if isinstance(w,Label)}
+            self.assertTrue({'FIFA World Cup','Copa America','OFC Nations Cup','2030'}<=texts)
+            for key in ('sudamericana','caf_confederation','afc_two','afc_challenge'):
+                g._activate_ui('competition_open',key);settle()
+                self.assertEqual(g.view,'competition');self.assertIsNotNone(g._menu.scroll)
+                g._activate_ui('competition_tab','table');settle()
+                self.assertTrue(any('Group 1' in w.text for w in g.walk() if isinstance(w,Label)))
+                g._activate_ui('competitions_back');settle()
+
     def test_away_national_goal_updates_correct_scoreboard_side(self):
         from career import CareerClub
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:

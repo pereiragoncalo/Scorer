@@ -8,6 +8,24 @@ from functools import lru_cache
 
 FINALS={'world_cup','euro','afcon','asian','gold','copa','ofc_nations'}
 
+NATIONAL_TOURNAMENTS=(
+    ('world_cup','FIFA World Cup',4,2),
+    ('euro','European Championship',4,0),
+    ('copa','Copa America',4,0),
+    ('afcon','Africa Cup of Nations',2,1),
+    ('asian','AFC Asian Cup',4,3),
+    ('gold','Concacaf Gold Cup',2,1),
+    ('ofc_nations','OFC Nations Cup',4,0),
+)
+
+def national_tournament_calendar(season):
+    result=[]
+    for key,title,period,offset in NATIONAL_TOURNAMENTS:
+        year=season+1
+        year+=(offset-year)%period
+        result.append((key,title,year))
+    return result
+
 @lru_cache(maxsize=1)
 def calendar_source():
     from pathlib import Path
