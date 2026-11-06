@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.27/Scorer-World-0.9.27.apk",
+  "status": 200,
+  "content_disposition": "attachment; filename=Scorer-World-0.9.27.apk",
+  "bytes": 107575587,
+  "sha256": "370d3302017cff8c7f727b2444c22bef3873d459a6ba70df44f15c115d632951",
+  "matches_tested_apk": true,
+  "workflow_run": 42182967744,
+  "source_commit": "ce315b38787d54328f2297da254ba158a9eeba9c"
+}

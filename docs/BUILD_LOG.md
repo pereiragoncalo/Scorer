@@ -2393,3 +2393,13 @@ assets; freed802MiB of re-downloadable old QA APKs/app staging caches and rebuil
 successfully. Source, careers, native toolchain and pre-task0.9.25 APK retained.
 Actions delivery still uses digest-checked immutable chunks; direct uploads
 remain unavailable through the local upload-host credential binding.
+
+Final delivery run42182967744 attempt3 succeeded. Actions could not create the
+release with its integration token (403); the source tag and QA release were
+created through the already-authorized repository connection, then the runner
+uploaded the digest-checked files. No permissions expansion or new login.
+Public0.9.27 APK returns HTTP200 with attachment filename,107575587B and SHA256
+370d3302017cff8c7f727b2444c22bef3873d459a6ba70df44f15c115d632951,
+matching the locally tested APK exactly. Proof: RELEASE_0.9.27_download.json.
+Temporary qa-upload-0.9.26 and qa-upload-0.9.27 transfer refs removed after
+successful delivery; source branch/tags and release attachments retained.
