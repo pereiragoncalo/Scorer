@@ -12,6 +12,22 @@ def sprite(path,scale):
 
 def build():
     OUT.mkdir(exist_ok=True);m=load_manifest()
+    # A compact approval board in the format of the user's supplied reference.
+    board=Image.new('RGB',(1320,660),(37,42,47));draw=ImageDraw.Draw(board)
+    title=ImageFont.load_default(size=22);caption=ImageFont.load_default(size=18)
+    draw.text((22,16),'SCORER / SPRITES / REVISION 2',font=title,fill='white')
+    selections=[('players',[('RUN',i) for i in (0,1,2,4,5,6)]),
+                ('goalkeeper',[('READY',0),('MOVE',2),('LOW_SAVE',3),('DIVE_LEFT',5),('HIGH_SAVE',4),('DIVE_RIGHT',4)])]
+    for row,(role,poses) in enumerate(selections):
+        character=m['characters'][role]
+        draw.text((22,57+row*300),'FIELD PLAYER / RUN' if row==0 else 'GOALKEEPER / DEFENSIVE POSES',font=caption,fill='#a8dbbb')
+        for col,(state,frame) in enumerate(poses):
+            art=Image.open(ROOT/character['animations'][state]['individuals']['front'][frame]).convert('RGBA')
+            art=art.crop(art.getbbox())
+            art=art.resize((art.width*5,art.height*5),Image.Resampling.NEAREST)
+            board.paste(art,(col*220+(220-art.width)//2,320+row*300-art.height),art)
+            draw.text((col*220+12,330+row*300),f'{state}  {frame+1}',font=caption,fill='white')
+    board.save(OUT/'reference-revision-2.png')
     for role,c in m['characters'].items():
         w,h=c['canvas'];scale=2;cellw=w*scale+8;cellh=h*scale+26
         sheet=Image.new('RGB',(135+8*cellw,8*cellh),GREEN);d=ImageDraw.Draw(sheet)

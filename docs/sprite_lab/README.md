@@ -1,8 +1,8 @@
-# Scorer original retro sprite lab — phase 1
+# Scorer original retro sprite lab — phase 1, art revision 2
 
 **Visual approval preview only. The main game still uses its original graphics.**
 
-[Animated preview](animations.gif) · [Actual Kivy viewer screenshot](viewer.png) · [All field-player frames](players-all-frames.png) · [All goalkeeper frames](goalkeeper-all-frames.png)
+[Reference-style pose board](reference-revision-2.png) · [Animated preview](animations.gif) · [Actual Kivy viewer screenshot](viewer.png) · [All field-player frames](players-all-frames.png) · [All goalkeeper frames](goalkeeper-all-frames.png)
 
 ## Run the viewer
 
@@ -23,7 +23,15 @@ Both characters animate simultaneously on a pitch-green background. Choose any a
 
 Animation uses cached sheet regions. **Frames** displays the individual PNG files; **Sheet** displays the actual atlas. All three views use the delivered resources, not substitute artwork. Frames and Sheet place frames in reading order. A tiny window may crop a sheet rather than interpolate pixels; use the tested sizes above. Yellow outlines and crosses expose the fixed canvas and ground anchor; toggle **Anchors** to hide them. **Repeat / hold** switches preview replay of one-shot actions; holding still loops the naturally looping idle/run clips.
 
-The five hexadecimal fields configure shirt, secondary trim, shorts, socks and gloves. Apply validates the values; presets make colour changes quick to inspect. The keeper starts in a distinct green long-sleeved kit with gloves. Presets are viewer-only; existing team data is neither loaded nor rewritten. A future integration must supply the existing team's exact kit values.
+The five hexadecimal fields configure shirt, secondary trim, shorts, socks and gloves. Apply validates the values; presets make colour changes quick to inspect. The outfield preview starts in blue/white stripes, with blue shorts and pale socks. The keeper starts in a bright green long-sleeved shirt, dark shorts, yellow socks and visible gloves, matching the colour vocabulary of the user-supplied references. Presets are viewer-only; existing team data is neither loaded nor rewritten. A future integration must supply the existing team's exact kit values.
+
+## Reference revision — 2026-11-06
+
+The supplied screenshots requested fuller footballers than the first thin silhouettes. Revision 2 redraws the bodies with wider shoulders, tapered kit shapes, stronger limbs, distinct bare thighs, short sleeves and larger original 9×9 heads with short necks. Blue/white torso stripes and shorts are independent palette roles. Run/dribble use wider strides and bent, alternating arms. The goalkeeper now waits in a wider, lower crouch; lateral steps and the low save share that stance, with outward knees and a two-handed ground gather. Dives still progress through take-off, extension, contact and landing.
+
+These are original redraws, not extracted pixels from the screenshots. All 168 frames and 24 sheets were regenerated; the visualizer uses them directly. Canvas sizes, ground anchors, frame counts, state names and the approval boundary remain unchanged. Bone lengths remain fixed; a grounded knee solution that would sink through the ground is replaced by its alternate bend. There is no ball painted into the sprites. The compact pose board centres cropped silhouettes for presentation only; the animated preview and viewer retain the actual fixed anchors.
+
+Recovery point for the first proposal: `recovery/sprites-before-reference-revision-2026-11-06`, commit `4bf8932`. The main game remains unmodified by either sprite proposal.
 
 ## Delivered artwork
 

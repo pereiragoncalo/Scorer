@@ -1,8 +1,17 @@
 import unittest
+import math
 from PIL import Image
 from tools.sprite_lab.animation import Animation,load_manifest,ROOT
 
 class AssetsTest(unittest.TestCase):
+    def test_articulation_keeps_bone_lengths(self):
+        from tools.sprite_lab.build_assets import ik
+        for target in ((100,-100),(0,0),(3,5),(-9,1)):
+            for bend in (-1,1):
+                elbow,wrist=ik((0,0),target,6,6,bend)
+                self.assertAlmostEqual(math.dist((0,0),elbow),6)
+                self.assertAlmostEqual(math.dist(elbow,wrist),6)
+
     def test_complete_original_assets(self):
         m=load_manifest();total=0
         minimums=((2,6,6,4,6,4,4,4),(2,6,4,6,6,6,4,4))

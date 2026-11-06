@@ -1,6 +1,6 @@
 {
   "rendered_frames": 120,
-  "rendered_seconds": 1.5576,
+  "rendered_seconds": 1.5874,
   "kivy": "2.3.1",
   "backend": "SDL2 offscreen / Mesa llvmpipe",
   "frames_checked": 168,
@@ -20,12 +20,12 @@
     ]
   ],
   "steady_state_updates": 2000,
-  "update_seconds": 0.041,
-  "mean_update_ms": 0.0205,
+  "update_seconds": 0.042,
+  "mean_update_ms": 0.021,
   "texture_allocations_during_updates": 0,
   "cached_textures": 32,
   "max_cached_textures": 32,
   "source_pixel_bytes": 6304480,
-  "process_peak_rss_kib": 360108,
+  "process_peak_rss_kib": 361924,
   "android_device_tested": false
 }

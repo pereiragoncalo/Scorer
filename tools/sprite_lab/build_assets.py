@@ -9,7 +9,7 @@ from PIL import Image,ImageDraw
 ROOT=Path(__file__).resolve().parents[2]
 DEST=ROOT/'assets/sprites'
 PALETTE=[(0,0,0),(8,14,24),(171,104,49),(242,191,112),(35,25,28),
- (230,38,48),(150,22,37),(251,239,171),(226,226,207),(119,130,126),
+ (38,64,218),(22,36,139),(248,246,228),(34,52,198),(21,32,124),
  (246,246,224),(157,166,153),(23,31,40),(249,253,241),(255,249,219),(161,188,185)]
 ROLES=['transparent','outline','skin_dark','skin','hair','shirt','shirt_dark','secondary','shorts','shorts_dark','socks','socks_dark','boots','gloves','highlight','gloves_dark']
 SPECS={'players':dict(canvas=[65,57],origin=[32,50],anchor=[32.5,52.0],views=['back','front']),
@@ -20,12 +20,14 @@ STATES={'players':{'IDLE':(2,4,True),'RUN':(8,12,True),'DRIBBLE':(8,10,True),'PA
 def role_palette(role):
     colours=list(PALETTE)
     if role=='goalkeeper':
-        for index,colour in {5:(40,184,133),6:(26,118,85),7:(255,242,174),8:(20,47,55),9:(13,30,35),10:(41,185,134),11:(27,119,86)}.items():colours[index]=colour
+        for index,colour in {5:(68,215,39),6:(31,128,28),7:(229,250,194),8:(30,32,39),9:(16,20,28),10:(246,207,39),11:(167,133,28)}.items():colours[index]=colour
     return colours
 
 def mix(a,b,t):return tuple(x+(y-x)*t for x,y in zip(a,b))
 def ik(a,b,l1,l2,bend):
-    dx,dy=b[0]-a[0],b[1]-a[1];d=max(.05,math.hypot(dx,dy));d2=min(l1+l2-.03,max(abs(l1-l2)+.03,d))
+    dx,dy=b[0]-a[0],b[1]-a[1];d=math.hypot(dx,dy)
+    if d<1e-9:dx,dy,d=0,.03,.03
+    d2=min(l1+l2-.03,max(abs(l1-l2)+.03,d))
     bx=a[0]+dx*d2/d;by=a[1]+dy*d2/d;ux,uy=(bx-a[0])/d2,(by-a[1])/d2
     along=(l1*l1-l2*l2+d2*d2)/(2*d2);height=math.sqrt(max(0,l1*l1-along*along))
     return (a[0]+ux*along-uy*height*bend,a[1]+uy*along+ux*height*bend),(bx,by)
@@ -38,12 +40,12 @@ def player_pose(state,f,n):
     if state=='IDLE':
         p['shoulder']=(f,-28-f);p['hands']=[(-5,-17-f),(5,-18+f)]
     elif state in ('RUN','DRIBBLE'):
-        dribble=state=='DRIBBLE';stride=4.5 if dribble else 7
+        dribble=state=='DRIBBLE';stride=6 if dribble else 10
         bob=round(abs(math.sin(phase))*1)
-        p.update(hip=(1,-14-bob),shoulder=(3 if dribble else 2,-27-bob))
-        p['feet']=[(-math.sin(phase)*stride,-max(0,-math.cos(phase))*4),(math.sin(phase)*stride,-max(0,math.cos(phase))*4)]
-        swing=4 if dribble else 7
-        p['hands']=[(math.sin(phase)*swing-1,-18-math.cos(phase)),(-math.sin(phase)*swing+1,-18+math.cos(phase))]
+        p.update(hip=(0,-14-bob),shoulder=(4 if dribble else 3,-27-bob))
+        p['feet']=[(-math.sin(phase)*stride,-max(0,-math.cos(phase))*7),(math.sin(phase)*stride,-max(0,math.cos(phase))*7)]
+        swing=5 if dribble else 8
+        p['hands']=[(p['shoulder'][0]-3+math.sin(phase)*swing,-19-math.cos(phase)*2),(p['shoulder'][0]+4-math.sin(phase)*swing,-19+math.cos(phase)*2)]
     elif state in ('PASS','SHOOT'):
         if state=='PASS':
             feet=[(3,0),(-5,-3),(7,-1),(11,-5),(6,-2),(3,0)];leans=[0,-1,1,2,1,0];arms=[2,4,6,5,3,2]
@@ -72,13 +74,13 @@ def player_pose(state,f,n):
     return p
 
 def keeper_pose(state,f,n):
-    p=base(True);p.update(hip=(0,-15),shoulder=(0,-28),feet=[(-5,0),(5,0)],hands=[(-7,-19),(7,-19)])
+    p=base(True);p.update(hip=(0,-12),shoulder=(0,-24),feet=[(-9,0),(9,0)],hands=[(-9,-12),(9,-12)])
     if state=='READY':
-        shifts=[0,-1,0,1];p['hip']=(shifts[f],-15);p['shoulder']=(shifts[f],-28+(f%2));p['hands']=[(-7+shifts[f],-19),(7+shifts[f],-19-(f%2))]
+        shifts=[0,-1,0,1];p['hip']=(shifts[f],-12);p['shoulder']=(shifts[f],-24+(f%2));p['hands']=[(-9+shifts[f],-12),(9+shifts[f],-12-(f%2))]
     elif state=='MOVE':
-        phase=f/n*math.tau;p['hip']=(0,-15-round(abs(math.sin(phase))));p['shoulder']=(0,-28-round(abs(math.sin(phase))))
-        p['feet']=[(-5-math.sin(phase)*3,-max(0,-math.cos(phase))*2),(5+math.sin(phase)*3,-max(0,math.cos(phase))*2)]
-        p['hands']=[(-7,-19+math.sin(phase)),(7,-19-math.sin(phase))]
+        phase=f/n*math.tau;p['hip']=(0,-12-round(abs(math.sin(phase))));p['shoulder']=(0,-24-round(abs(math.sin(phase))))
+        p['feet']=[(-8-math.sin(phase)*3,-max(0,-math.cos(phase))*2),(8+math.sin(phase)*3,-max(0,math.cos(phase))*2)]
+        p['hands']=[(-9,-12+math.sin(phase)),(9,-12-math.sin(phase))]
     elif state in ('DIVE_LEFT','DIVE_RIGHT'):
         hips=[(0,-15),(-1,-12),(3,-16),(7,-19),(10,-17),(12,-11),(11,-5),(9,-3)]
         shoulders=[(0,-28),(0,-25),(6,-28),(14,-28),(21,-22),(24,-14),(23,-7),(21,-5)]
@@ -89,10 +91,10 @@ def keeper_pose(state,f,n):
             for key in ('hip','shoulder'):p[key]=(-p[key][0],p[key][1])
             for key in ('feet','hands'):p[key]=[(-x,y) for x,y in p[key]]
     elif state=='LOW_SAVE':
-        hips=[(0,-15),(1,-12),(2,-9),(3,-8),(1,-11),(0,-15)]
-        shoulders=[(0,-28),(2,-24),(4,-19),(6,-18),(2,-24),(0,-28)]
-        hands=[((-7,-19),(7,-19)),((1,-10),(7,-11)),((4,-4),(9,-4)),((6,-3),(10,-3)),((0,-17),(5,-16)),((-6,-19),(6,-19))]
-        p.update(hip=hips[f],shoulder=shoulders[f],hands=list(hands[f]),feet=[(-7,0),(5,0)])
+        hips=[(0,-12),(0,-10),(0,-7),(0,-6),(0,-10),(0,-12)]
+        shoulders=[(0,-24),(0,-20),(0,-15),(0,-14),(0,-19),(0,-24)]
+        hands=[((-9,-12),(9,-12)),((-6,-9),(6,-9)),((-3,-4),(3,-4)),((-2,-3),(2,-3)),((-4,-9),(4,-9)),((-9,-12),(9,-12))]
+        p.update(hip=hips[f],shoulder=shoulders[f],hands=list(hands[f]),feet=[(-9,0),(9,0)])
     elif state=='HIGH_SAVE':
         heights=[0,0,-2,-5,-7,-4,0,0];p['dy']=heights[f]
         hands=[((-7,-19),(7,-19)),((-7,-28),(7,-28)),((-6,-37),(6,-37)),((-3,-42),(3,-42)),((-2,-42),(2,-42)),((-4,-35),(4,-35)),((-6,-26),(6,-26)),((-7,-19),(7,-19))]
@@ -120,51 +122,80 @@ class PixelArtist:
     def limb(self,a,j,b,color1,color2,width=3):
         self.line((a,j,b),1,width+2);self.line((a,j),color1,width);self.line((j,b),color2,width)
         self.pixel((j[0]+1,j[1]),color2)
+    def segment(self,a,b,colour,width=4,end_width=3):
+        """A tapered pixel cluster, with a continuous one-pixel dark contour."""
+        dx,dy=b[0]-a[0],b[1]-a[1];length=max(.01,math.hypot(dx,dy))
+        nx,ny=-dy/length,dx/length
+        self.poly(((a[0]+nx*width/2,a[1]+ny*width/2),
+                   (b[0]+nx*end_width/2,b[1]+ny*end_width/2),
+                   (b[0]-nx*end_width/2,b[1]-ny*end_width/2),
+                   (a[0]-nx*width/2,a[1]-ny*width/2)),1)
+        self.line((a,b),colour,max(1,width-2))
     def draw(self,p):
         keeper=self.role=='goalkeeper';hip=p['hip'];shoulder=p['shoulder'];dy=p.get('dy',0)
         def shift(v):return (v[0],v[1]+dy)
         hip=shift(hip);shoulder=shift(shoulder);feet=list(map(shift,p['feet']));hands=list(map(shift,p['hands']))
         dx,dy2=shoulder[0]-hip[0],shoulder[1]-hip[1];length=max(1,math.hypot(dx,dy2));along=(dx/length,dy2/length);cross=(-along[1],along[0])
         def side(center,offset):return (center[0]+cross[0]*offset,center[1]+cross[1]*offset)
-        hips=[side(hip,-2),side(hip,2)];shoulders=[side(shoulder,-3.5),side(shoulder,3.5)]
+        hips=[side(hip,-2.5),side(hip,2.5)];shoulders=[side(shoulder,-4.5),side(shoulder,4.5)]
         # Far leg first. Knees are genuine two-bone bends; ankles never stretch.
         for i in (0,1):
-            knee,foot=ik(hips[i],feet[i],8,8,1)
-            self.limb(hips[i],knee,foot,9 if i==0 else 8,11 if i==0 else 10,2)
+            bend=(1 if i==0 else -1) if keeper and abs(along[0])<.5 else -1
+            knee,foot=ik(hips[i],feet[i],8,8,bend)
+            if knee[1]>max(hips[i][1],foot[1])+1:
+                knee,foot=ik(hips[i],feet[i],8,8,-bend)
+            # Separate shorts, bare thigh/knee and socks, rather than trouser legs.
+            skin=2 if i==0 else 3
+            self.segment(hips[i],knee,skin,6,5)
+            self.segment(knee,foot,skin,5,4)
+            shorts_end=mix(hips[i],knee,.48)
+            self.segment(hips[i],shorts_end,9 if i==0 else 8,7,6)
+            sock_top=mix(knee,foot,.28)
+            self.segment(sock_top,foot,11 if i==0 else 10,5,4)
+            # A solid cuff stripe remains legible at native resolution.
+            self.line((sock_top,mix(knee,foot,.43)),7 if keeper else 5,2)
             # Pixel boots: heel, sole, toe and one flat lace highlight.
             x,y=foot;self.poly(((x-1,y-1),(x+2,y-1),(x+4,y+1),(x-1,y+1)),1)
             self.line(((x,y),(x+2,y)),12,1);self.pixel((x+2,y),14)
             self.joints['ankle_'+str(i)]=self.point(foot);self.joints['knee_'+str(i)]=self.point(knee)
         elbows=[];wrists=[]
         for i in (0,1):
-            elbow,wrist=ik(shoulders[i],hands[i],6,6,-1 if i==0 else 1);elbows.append(elbow);wrists.append(wrist)
+            bend=(-1 if i==0 else 1) if keeper else (1 if i==0 else -1)
+            elbow,wrist=ik(shoulders[i],hands[i],6,6,bend);elbows.append(elbow);wrists.append(wrist)
         # Far sleeve/forearm behind the shirt. Full sleeves distinguish the GK.
-        self.limb(shoulders[0],elbows[0],wrists[0],6,6 if keeper else 2,2)
+        self.limb(shoulders[0],elbows[0],wrists[0],6 if keeper else 2,6 if keeper else 2,3)
+        if not keeper:self.segment(shoulders[0],mix(shoulders[0],elbows[0],.48),6,6,5)
         self.hand(wrists[0],keeper,False)
         # Tailored torso with tapered waist, a collar and solid-pixel folds.
-        a=side(shoulder,-4);b=side(shoulder,4);c=side(hip,3);d=side(hip,-3)
+        a=side(shoulder,-6);b=side(shoulder,6);c=side(hip,4.5);d=side(hip,-4.5)
         self.poly((a,b,c,d),1)
         inner=(mix(a,b,.12),mix(a,b,.88),mix(c,d,.12),mix(c,d,.88));self.poly(inner,5)
         self.line((mix(a,b,.18),mix(d,c,.18)),6,1)
+        # Broad two-pixel kit stripes follow the torso's articulated direction.
+        if not keeper:
+            for offset in (-2,2):
+                self.line((side(mix(shoulder,hip,.10),offset),side(mix(shoulder,hip,.85),offset*.75)),7,2)
         collar=(shoulder[0]-along[0],shoulder[1]-along[1]);self.line((side(collar,-1),side(collar,1)),7,1)
-        self.line((side(hip,-2.5),side(hip,2.5)),8,2)
+        self.poly((side(hip,-4),side(hip,4),side((hip[0]-along[0]*3,hip[1]-along[1]*3),4),side((hip[0]-along[0]*3,hip[1]-along[1]*3),-4)),8)
+        self.line((side(hip,-3),side(hip,3)),9,1)
         # A hand-lettered 9 on the back; a tiny original chest patch on the front.
         center=mix(shoulder,hip,.48)
         pattern=('111','101','111','001','111') if self.view=='back' else ('11','10','11')
         for row,bits in enumerate(pattern):
             for col,bit in enumerate(bits):
                 if bit=='1':self.pixel((center[0]+cross[0]*(col-1)-along[0]*(row-1),center[1]+cross[1]*(col-1)-along[1]*(row-1)),7)
-        self.limb(shoulders[1],elbows[1],wrists[1],5,5 if keeper else 3,2)
+        self.limb(shoulders[1],elbows[1],wrists[1],5 if keeper else 3,5 if keeper else 3,3)
+        if not keeper:self.segment(shoulders[1],mix(shoulders[1],elbows[1],.48),7,6,5)
         # Short-sleeve cuff or long-sleeve wrist ribbing.
         cuff=wrists[1] if keeper else mix(shoulders[1],elbows[1],.7)
         self.pixel((cuff[0]-1,cuff[1]),7)
         self.hand(wrists[1],keeper,True)
-        self.line((shoulder,(shoulder[0]+along[0]*5,shoulder[1]+along[1]*5)),1,3)
-        self.line((shoulder,(shoulder[0]+along[0]*5,shoulder[1]+along[1]*5)),3,1)
-        head=(shoulder[0]+along[0]*7,shoulder[1]+along[1]*7)
-        stamp=Image.new('P',(6,7),0);stamp.putpalette(self.image.getpalette())
-        back=['.1111.','144441','144441','144431','143331','.12331','..111.']
-        front=['.1111.','144441','143331','133133','133331','.12331','..111.']
+        self.line((shoulder,(shoulder[0]+along[0]*5,shoulder[1]+along[1]*5)),1,4)
+        self.line((shoulder,(shoulder[0]+along[0]*5,shoulder[1]+along[1]*5)),3,2)
+        head=(shoulder[0]+along[0]*5,shoulder[1]+along[1]*5)
+        stamp=Image.new('P',(9,9),0);stamp.putpalette(self.image.getpalette())
+        back=['..11111..','.1444441.','144444441','144443331','144443131','.14433331','..142331.','...1331..','...111...']
+        front=['..11111..','.1444441.','144444441','144333331','143313331','.13333331','..123331.','...1331..','...111...']
         for y,row in enumerate(back if self.view=='back' else front):
             for x,char in enumerate(row):
                 if char!='.':stamp.putpixel((x,y),int(char))
@@ -184,7 +215,7 @@ class PixelArtist:
             self.line(((x,y-1),(x,y+1)),1,3);self.line(((x,y-1),(x,y)),3 if near else 2,2)
 
 def build():
-    manifest=dict(version=1,approval_status='AWAITING_VISUAL_APPROVAL',original_art=True,nominal_body=[32,40],palette_roles=ROLES,source_palette=[list(c)+[0 if i==0 else 255] for i,c in enumerate(PALETTE)],characters={})
+    manifest=dict(version=1,art_revision=2,approval_status='AWAITING_VISUAL_APPROVAL',original_art=True,nominal_body=[32,40],palette_roles=ROLES,source_palette=[list(c)+[0 if i==0 else 255] for i,c in enumerate(PALETTE)],characters={})
     for role,spec in SPECS.items():
         character=dict(source_palette=[list(c)+[0 if i==0 else 255] for i,c in enumerate(role_palette(role))],canvas=spec['canvas'],anchor=spec['anchor'],nominal_height=40,views=spec['views'],animations={})
         for state,(count,fps,loop) in STATES[role].items():

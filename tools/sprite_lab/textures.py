@@ -4,8 +4,8 @@ from kivy.core.image import Image as CoreImage
 from kivy.graphics.texture import Texture
 from .animation import ROOT
 
-DEFAULT_PLAYER = ('E62630', 'FBEFAB', 'E2E2CF', 'F6F6E0', 'F9FDF1')
-DEFAULT_KEEPER = ('28B885', 'FFF2AE', '142F37', '28B885', 'F9FDF1')
+DEFAULT_PLAYER = ('2640DA', 'F8F6E4', '2234C6', 'F6F6E0', 'F9FDF1')
+DEFAULT_KEEPER = ('44D727', 'E5FAC2', '1E2027', 'F6CF27', 'F9FDF1')
 
 def rgb(value):
     value = value.strip().lstrip('#')

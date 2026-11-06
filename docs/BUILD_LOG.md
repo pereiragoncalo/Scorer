@@ -2297,3 +2297,27 @@ inspection/recovery report and run instructions are in docs/sprite_lab/.
 
 Stops at owner-requested visual approval boundary (task sections 9 and 11).
 No integration, Android build/device test, physics regression claim or Play action.
+
+## 2026-11-06 — sprite lab reference revision 2 (still awaiting visual approval)
+
+Owner supplied two screenshots and requested closer proportions/style. Preserved
+first proposal at recovery/sprites-before-reference-revision-2026-11-06 (4bf8932).
+Redrew all168 frames/24 sheets with fuller shoulders/limbs, original9x9 heads,
+short necks, separate shorts/bare thighs/socks, blue-white stripe preview kit;
+keeper green shirt/dark shorts/yellow socks, wide low ready stance, outward
+knees and two-handed low gather. Expanded run/dribble strides and arm alternation.
+Canvas sizes, anchors, state counts and existing presentation clock retained.
+Ground-level knee bend now chooses the alternate solution if a knee would sink
+below the floor. Added fixed-bone-length check; it exposed a coincident-target
+IK degeneracy, fixed with a stable unit direction instead of collapsing limbs.
+These are sprite-lab-only changes; game physics/keeper collision skeleton intact.
+
+3 asset/clock/articulation cases pass across all168 frames. Pixel/alpha/palette,
+transparent margins, sheet equality and uniqueness pass; compileall passes.
+Real Kivy SDL2/Mesa smoke again traversed all frames, modes and views at the
+three previous window sizes; 2,000 warmed updates upload zero new textures.
+All589 initially tracked files compared with pre-phase1 hashes: only this expected
+documentation log differs. Existing untracked career module also byte-identical.
+Updated animated preview, compact reference pose board, full sheets, viewer
+screenshot, validation metrics and report. Android/device integration is still
+explicitly deferred until owner's visual approval; no game version/APK changed.
