@@ -2624,3 +2624,18 @@ contract; unrelated fixtures explicitly acknowledge their setup week's talk.
 Final full suites and actual Android build verification in progress. Preserve
 root badge/mode-state/menu-test WIP with partial staged patches. Physical Android
 playtest pending; no shot solver/collision/save-envelope/server/Play changes.
+
+
+Final0.9.32:399 core cases/3skips pass in168.287s; all207 native cases pass in
+303.254s. All11 coach core and5 coach UI cases pass.231 responsive cases and33
+final coach checks have zero findings. Original full-suite failures reflected
+obsolete conditional-meeting/focus-picker assumptions; final unrelated fixtures
+acknowledge their setup week, club-change fixture acknowledges the new coach,
+finishing-only geometry fixture explicitly uses placed finishing.
+Actual APK build/checks pass: debug signature, ZIP16KB,118 ELF alignments,
+208 approved sprite frames/30 sheets, exact compiled main/coach/progression/UI/
+help modules and locker-room PNG; actual saved weekly choices, no extra same-week
+talk, next-week gate, focused XP, competitions/standings/legacy career flows.
+Source8448aebd78dd97700124119eda026b6ed375c898. World0.9.32/code1026932.
+APK109566131bytes; SHA2568c75a0dcfe53d4796a23835caa7bf87f963e026423374ef8f52bec6a6fdb9f6f.
+Physical Android playtest pending; no solver/collider/server/production change.

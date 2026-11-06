@@ -1,3 +1,13 @@
+## Scorer World0.9.32 — weekly locker-room team talks
+
+[Download World0.9.32 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.32/Scorer-World-0.9.32.apk)
+
+Weekly squad briefing with collective and individual feedback and two training
+focus choices. Choose before training; the focus stays fixed for the week.
+Training has no focus picker. Gameplay Help removed; other contextual Help stays.
+399 core cases/3 skips,207 native cases and231 responsive cases pass; physical
+Android playtest pending. [Scope and validation](docs/RELEASE_0.9.32.md).
+
 ## Scorer World0.9.31 — involved standings and contextual help
 
 [Download World0.9.31 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.31/Scorer-World-0.9.31.apk)
