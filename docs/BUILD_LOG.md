@@ -2639,3 +2639,7 @@ talk, next-week gate, focused XP, competitions/standings/legacy career flows.
 Source8448aebd78dd97700124119eda026b6ed375c898. World0.9.32/code1026932.
 APK109566131bytes; SHA2568c75a0dcfe53d4796a23835caa7bf87f963e026423374ef8f52bec6a6fdb9f6f.
 Physical Android playtest pending; no solver/collider/server/production change.
+
+Public0.9.32 delivery verified: Actions run42301240855 succeeded; public attachment
+HTTP200, expected filename,109566131bytes and exact tested SHA256. Evidence:
+docs/RELEASE_0.9.32_download.json. Temporary QA transfer branch removed.
