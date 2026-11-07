@@ -477,10 +477,6 @@ class CompetitionBook:
             else:fixture=cup.advance(week,[club_uid])
             if fixture:pending.append((match_date(self.season,cup,fixture).isoformat(),cup.key,fixture))
         if self._continental_transfers() | self._create_finals():return self.next_fixture(week,club_uid,nationality,eligible)
-        for f in self.friendlies.values():
-            if f['score'] is not None or f['week']>week or (f.get('date') and f['date']>until) or actor not in (f['home'],f['away']):continue
-            if selected(self,nationality,match_date(self.season,None,f),eligible,week):pending.append((match_date(self.season,None,f).isoformat(),'friendly',f))
-            else:f['score']=simulate_score(f'{self.seed}:{f["id"]}',self.nations[f['home']],self.nations[f['away']])
         if pending:
             _,key,f=min(pending,key=lambda item:(item[0],item[1],item[2]['id']))
             cup=self.tournaments.get(key);teams=cup.teams if cup else self.nations
@@ -523,4 +519,6 @@ class CompetitionBook:
         for f in obj.friendlies.values():
             if f.get('home') not in obj.nations or f.get('away') not in obj.nations or f['home']==f['away'] or type(f.get('week'))is not int or not 0<=f['week']<=200:raise ValueError('Invalid friendly')
             if f.get('score') is not None and (not isinstance(f['score'],list) or len(f['score'])!=2 or any(type(x)is not int or not 0<=x<=99 for x in f['score'])):raise ValueError('Invalid friendly result')
+        from international_calendar import prepare_friendlies
+        prepare_friendlies(obj)
         return obj

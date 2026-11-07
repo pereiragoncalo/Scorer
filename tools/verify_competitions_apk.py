@@ -230,3 +230,15 @@ with tempfile.TemporaryDirectory() as tmp:
     assert c.life['injury_games']==1 and not c.fixture_history[-1]['played'] and c.load()
     assert (c.matches,c.international_caps,c.morale,c.stamina,c.coach_trust,c.form_goals)==before
 print('Actual APK: saved short injury, practice block, skipped-fixture recovery and no personal credit verified')
+
+with tempfile.TemporaryDirectory() as tmp:
+    os.environ['STRIKER_SAVE_DIR']=tmp
+    c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0]);c._ensure_competitions()
+    b=c.world_competitions;own='nation:'+c.nationality;other=next(uid for uid in b.nations if uid!=own)
+    future=dict(id='friendly:retired-future',home=own,away=other,week=0,stage='International friendly',score=None)
+    played=dict(future,id='friendly:retired-played',score=[1,0]);b.friendlies={future['id']:future,played['id']:played}
+    official=b.to_dict()['tournaments'];assert c.save() and c.load()
+    assert c.world_competitions.friendlies=={played['id']:played} and c.world_competitions.to_dict()['tournaments']==official
+    assert not any(e['competition']=='International friendly' for e in c.calendar_entries())
+    fixture=c.next_match();assert fixture is None or not fixture[0].startswith('world|friendly|')
+print('Actual APK: no upcoming national friendlies; legacy pending removed, completed results and official tournaments preserved')

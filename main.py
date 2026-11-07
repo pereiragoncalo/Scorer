@@ -853,9 +853,6 @@ class StrikerGame(Widget):
             self.career.message='Complete training to unlock Play.';self.view='hub';self.draw();return
         if scheduled is None:
             self.career.message='No scheduled match is available.';self.view='hub';return
-        if not self.career.world_unlocked and self.career.called_up:
-            opponent=self.career.rng.choice([c for c in WORLD_COUNTRIES if c!='Portugal'])
-            scheduled=('international',CareerClub('Portugal','Portugal','National Team',1,89),CareerClub(opponent,opponent,'National Team',1,84))
         if injured(self.career):
             token,home,away=scheduled
             self.career.finish_match(home,away,0,0,is_international=token=='international',competition=token)

@@ -1190,8 +1190,6 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             new=key not in self.world_competitions.tournaments
             cup=self.world_competitions.add_domestic(self.current_league.country,self.leagues,self.cup_weeks)
             if new:cup.advance(max(0,self.week-1))
-        from international_calendar import prepare_friendlies
-        prepare_friendlies(self.world_competitions,self.nationality)
         self._refresh_competition_status()
 
     def _prepare_world_run_in(self):
@@ -1335,11 +1333,6 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 for f in cup.fixtures:
                     if f['score'] is not None or actor not in (f['home'],f['away']):continue
                     entries.append({'date':match_date(self.season,cup,f).isoformat(),'competition':cup.title,'country':self.current_league.country,'home':cup.teams[f['home']]['name'],'away':cup.teams[f['away']]['name'],'home_uid':f['home'],'away_uid':f['away'],'status':f['stage']+' · '+selection_label(self.world_competitions,self.nationality,match_date(self.season,cup,f)) if cup.national else f['stage'],'played':False})
-            from international_calendar import match_date
-            actor='nation:'+self.nationality
-            for f in self.world_competitions.friendlies.values():
-                if f['score'] is None and actor in (f['home'],f['away']):
-                    entries.append({'date':match_date(self.season,None,f).isoformat(),'competition':'International friendly','country':self.nationality,'home':self.world_competitions.nations[f['home']]['name'],'away':self.world_competitions.nations[f['away']]['name'],'home_uid':f['home'],'away_uid':f['away'],'status':selection_label(self.world_competitions,self.nationality,match_date(self.season,None,f)),'played':False})
         return sorted(entries, key=lambda entry: str(entry.get('date', '')))
 
 
@@ -1976,7 +1969,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             from international_calendar import window_key
             self.called_up=bool(self.world_competitions.callups.get(self.nationality+':'+window_key(self.season,self.current_date),False))
         else:
-            club=self.club;self.called_up=bool(club and club.tier==1 and self.matches>=5 and sum(self.form_goals[-5:])>=4 and self.morale>=13 and self.week%4==0)
+            self.called_up=False  # Legacy Free has no official national competition.
         if self.called_up:self.message='You have been called up to the national team!'
 
     def generate_agent_offers(

@@ -89,21 +89,12 @@ def schedule_book(book):
         if cup.national:cup.last_week=max((f['week'] for f in cup.fixtures),default=cup.last_week)
 
 
-def prepare_friendlies(book,nationality):
-    from world_competitions import rng_for
-    actor='nation:'+nationality
-    if actor not in book.nations:return
-    competitive={(uid,f['date']) for cup in book.tournaments.values() if cup.national for f in cup.fixtures if f.get('date') for uid in (f['home'],f['away'])}
-    for key,f in list(book.friendlies.items()):
-        if f.get('date') and f['score'] is None and (actor,f['date']) in competitive and actor in (f['home'],f['away']):del book.friendlies[key]
-    for d in window_dates(book.season):
-        if (actor,d.isoformat()) in competitive:continue
-        key='friendly:'+nationality+':'+d.isoformat()
-        if key in book.friendlies:continue
-        opponents=[uid for uid in book.nations if uid!=actor and (uid,d.isoformat()) not in competitive]
-        if not opponents:continue
-        opponent=rng_for(book.seed,book.season,key).choice(sorted(opponents));home,away=(actor,opponent) if d.day%2 else (opponent,actor)
-        book.friendlies[key]=dict(id=key,home=home,away=away,week=(d-date(book.season,7,12)).days//7,date=d.isoformat(),stage='International friendly',score=None)
+def prepare_friendlies(book,nationality=None):
+    """Remove unplayed legacy friendlies; never create new ones.
+
+    Finished results remain part of the saved career's history.
+    """
+    book.friendlies={key:f for key,f in book.friendlies.items() if f.get('score') is not None}
 
 
 def selected(book,nationality,day,eligible,current_week):
