@@ -185,15 +185,18 @@ class CoachCareer:
                 rows.append((goals[side],goals[1-side]))
             if len(rows)>=max(1,count):break
         outcome='new' if not count or not rows else 'win' if rows[0][0]>rows[0][1] else 'loss' if rows[0][0]<rows[0][1] else 'draw'
-        return TEAM_FEEDBACK[outcome][style_for(own)]
+        from coach_feedback import feedback
+        return feedback(self,True,outcome)
 
     def coach_individual_feedback(self):
+        if self._current_coach_state()['recent'] and self._current_coach_state()['recent'][-1]>=3:
+            from coach_feedback import HAT_TRICK
+            return HAT_TRICK[style_for(self.club.uid if self.club else '')]
         from title_events import pending
         event=pending(self)
         if event and event['stage']=='coach':return TITLE_INDIVIDUAL_FEEDBACK[style_for(event['team_uid'])]
-        m=self.coach_conversation()
-        if m['kind']=='routine':return INDIVIDUAL_ROUTINE[m['style']]
-        return FEEDBACK[m['kind']][m['style']][m['variant']%len(FEEDBACK[m['kind']][m['style']])]
+        from coach_feedback import feedback
+        return feedback(self,False)
 
     def attend_coach_meeting(self,focus=None):
         if not self.club or self.free_agent:
@@ -236,6 +239,9 @@ class CoachCareer:
             for e in events) or (key_match and goals>=2)
         self.record_development_match(goals,misses,key_match)
         self.coach_state=state
+        if hasattr(self,'life') and state['drought']>=5 and state['drought']-self.life.get('drought_talk',0)>=5:
+            self.life['private_meeting']='drought';self.life['drought_talk']=state['drought']
+        if goals and hasattr(self,'life'):self.life['drought_talk']=0
 
 
 PORTRAITS=tuple(f'assets/coaches/coach_{i:02d}.png' for i in range(1,11))

@@ -327,6 +327,7 @@ class StrikerGame(Widget):
         self.match_opportunity_seed=()
         self.current_chance_difficulty = "standard"
         self.match_player_goals = 0
+        self.hattrick_until=0
         self.match_player_misses = 0
         self.match_home_score = 0
         self.match_away_score = 0
@@ -774,12 +775,16 @@ class StrikerGame(Widget):
             for index in range(3)
         )
         if colour_distance < 0.42:
+            original_pattern=getattr(opponent_kit,'pattern',None)
             opponent_kit = (
                 opponent_kit[3],
                 opponent_kit[1],
                 opponent_kit[2],
                 opponent_kit[0],
             )
+            if original_pattern:
+                from club_kits import HomeKit
+                opponent_kit=HomeKit(opponent_kit,original_pattern)
         return player_kit, opponent_kit
 
 
@@ -792,6 +797,9 @@ class StrikerGame(Widget):
         speed = (17.0 if hard else 18.0) + self.power * 8.0
         low, high = (0.28, 0.82) if hard else (0.20, 1.15)
         duration = clamp(distance / speed, low, high)
+        if self.shot_context=='match':
+            from career_life import age
+            duration*=1+max(0,age(self.career)-38)*.07
         return duration / 1.22 if self.desktop_windows else duration
 
     def _show_stadium_crowd(self):
@@ -824,6 +832,7 @@ class StrikerGame(Widget):
             self.view=title_view(self.career);self.draw();return
         if self.career.post_match_stage=='newspaper':
             self.view='newspaper';self.draw();return
+        if self.career.life['retired']:self.view='profile';self.draw();return
         self.ads.start()
         """Cria um jogo completo com relógio e oportunidades interativas."""
         if self.career.free_agent:
@@ -876,6 +885,7 @@ class StrikerGame(Widget):
         self.match_opportunities=plan_opportunities(chance_total,self.match_easy_chance_index,self.match_penalty_chance_index,self.match_opportunity_seed)
         self.current_chance_difficulty = "standard"
         self.match_player_goals = 0
+        self.hattrick_until=0
         self.match_player_misses = 0
         self.match_home_score = 0
         self.match_away_score = 0
@@ -953,6 +963,10 @@ class StrikerGame(Widget):
         self._record_report_goal("home" if self._player_match_is_home() else "away", self.match_minute)
         self._record_match_moment(True)
         self._flash_scoreboard()
+        if self.match_player_goals==3:
+            from coach_feedback import HAT_TRICK_LIVE
+            from coach import style_for
+            self.hattrick_feedback=HAT_TRICK_LIVE[style_for('nation:'+self.career.nationality if self.match_is_international else self.career.club.uid)];self.hattrick_until=self.elapsed+8.
         from celebrations import start
         start(self)
 
@@ -1080,9 +1094,16 @@ class StrikerGame(Widget):
         self.one_on_one=kind in ('through_ball','penalty')
         self.ball.reset(self.shot_origin_x,self.shot_origin_y,z)
         self._generate_field_players()
+        if kind=='penalty' and self.shot_context=='match':
+            self.field_players=[FieldPlayer(x,17.,team,float(i)) for team,positions in (('attacker',(-12,-8,8,12)),('defender',(-10,-7.3,7.3,10))) for i,x in enumerate(positions)]
+        elif self.shot_context=='match' and kind in ('corner','long_cross','cross'):
+            count=3 if kind=='corner' else 1
+            self.field_players.extend(FieldPlayer(-5+i*3,7+i*.7,'attacker',float(i)) for i in range(count))
         self.shot_time_limit=max(2.7,self.shot_time_limit*OPPORTUNITY_TIMING[kind])
         bonus,steadiness=self.career.finishing_controls(self.shot_type)
-        self.shot_time_limit+=bonus;self.current_aim_speed*=steadiness
+        self.current_aim_speed*=steadiness
+        from career_life import decline
+        self.shot_time_limit=max(1.3,self.shot_time_limit*.40/decline(self.career))+bonus
         self.shot_time_left=self.shot_time_limit
         self.buildup_progress=0.;self.frozen_scene_time=None
         self.buildup_actors=[];self.buildup_blocker=None;self.onside_defender=None
@@ -1404,7 +1425,9 @@ class StrikerGame(Widget):
         self.aim_amplitude_x = self.goal_half_width + 0.40
         self.aim_amplitude_z = rng.uniform(0.80, 1.05)
         self.aim_speed_pulse = rng.uniform(0.0, math.tau)
-        self._apply_aim_pattern()
+        from unpredictable_aim import Aim
+        self._stochastic_aim=Aim(rng.getrandbits(64),rng.uniform(-2.2,2.2),rng.uniform(.45,1.9))
+        self.aim_x,self.aim_z=self._stochastic_aim.x,self._stochastic_aim.z
 
 
     def _apply_aim_pattern(self) -> None:
@@ -1444,7 +1467,10 @@ class StrikerGame(Widget):
                 0.5 + 0.5 * math.sin(self.aim_phase * 0.61 + self.aim_speed_pulse)
             )
             self.aim_phase += dt * aim_speed * self.aim_direction * pulse
-            self._apply_aim_pattern()
+            if not hasattr(self,'_stochastic_aim'):
+                from unpredictable_aim import Aim
+                self._stochastic_aim=Aim(self.career.rng.getrandbits(64),self.aim_x,self.aim_z)
+            self.aim_x,self.aim_z=self._stochastic_aim.advance(dt,aim_speed,self.goal_half_width,self.goal_height,self.ball.radius+.09)
 
 
     def _choose_shot_origin(self) -> None:
@@ -2945,6 +2971,7 @@ class StrikerGame(Widget):
             return False
 
 
+        if self.shot_context=='match' and key in (276,97,275,100,273,119,274,115):return True
         step_x, step_z = 0.16, 0.10
         movement = False
         if key in (276, 97):  # esquerda / A
@@ -2975,6 +3002,8 @@ class StrikerGame(Widget):
         # widget has completed its initial Kivy layout.
         if self.view=="splash" and not getattr(touch,'is_mouse_scrolling',False):
             self._activate_ui('splash_continue');self.draw();return True
+        if self.view=='trophy' and getattr(self,'_title_button',None) is not None:
+            return super().on_touch_down(touch)
         if self._menu is not None or self._match_notice is not None:
             super().on_touch_down(touch)
             return True
@@ -3011,7 +3040,7 @@ class StrikerGame(Widget):
             -self.goal_half_width <= world_x <= self.goal_half_width
             and 0.0 <= world_z <= self.goal_height
         )
-        if inside_goal:
+        if inside_goal and self.shot_context!='match':
             self.shoot(world_x, world_z)
         else:
             self.shoot()
@@ -3065,6 +3094,16 @@ class StrikerGame(Widget):
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
         import time
+        if action=='leaderboard_category' and value in ('season','career'):
+            if not self.leaderboard.busy:
+                self.leaderboard.category=value;self.leaderboard.entries=[];self._activate_ui('leaderboard_refresh')
+            return
+        if action=='lifestyle' and self.view=='profile':self.view='lifestyle';return
+        if action=='profile' and self.view=='lifestyle':self.view='profile';return
+        if action=='private_complete' and self.view=='private_coach':
+            old=self.career.life['private_meeting'];self.career.life['private_meeting']=''
+            if self.career.save() is False:self.career.life['private_meeting']=old;return
+            self.view='hub';return
         if action in ('play','training','coach'):
             from title_events import view as title_view
             if title_view(self.career):self.view=title_view(self.career);self.draw();return
@@ -3178,9 +3217,9 @@ class StrikerGame(Widget):
                 self._request_record_sharing();return
             if action=='leaderboard_confirm_join' and valid_origin(board.origin):
                 if self._records_popup is None:return
-                self.family.accept_terms();self._records_popup.dismiss();board.enabled=True;board.terms_version=1;board.sent={};board.save()
+                self.family.accept_terms();self._records_popup.dismiss();board.enabled=True;board.career_enabled=board.career_enabled or getattr(board,'category','season')=='career';board.terms_version=1;board.sent={};board.save()
             if action=='leaderboard_leave':
-                board.enabled=False;board.pending_withdrawal=True;board.save()
+                board.enabled=False;board.career_enabled=False;board.pending_withdrawal=True;board.save()
             if valid_origin(board.origin):
                 board.sync(self.career,edition.is_world(),
                     lambda:Clock.schedule_once(lambda _:self.draw(),0),
@@ -3207,6 +3246,7 @@ class StrikerGame(Widget):
                     draft = value if isinstance(value, dict) else dict(self._player_draft or {
                         'nationality': self.career.nationality, 'country': self.career.current_league.country}, name=value)
                     if self.career.configure_new_player(draft.get('name'), draft.get('nationality'), draft.get('country')):
+                        self.career.life['favourite']=draft.get('favourite','')
                         self._player_draft = None
                         self.view = 'offers'
                 elif self.career.set_player_name(value):
@@ -3233,7 +3273,7 @@ class StrikerGame(Widget):
                 self.career.post_match_stage='coach' if self.career.coach_meeting_required else ''
                 if self.career.save() is False:
                     self.career.post_match_stage='newspaper';return
-            self.view='coach' if self.career.coach_meeting_required or self.career.post_match_stage=='coach' else 'hub'
+            self.view='private_coach' if self.career.life['private_meeting'] else 'coach' if self.career.coach_meeting_required else 'hub'
         elif action == "play":
             self.start_career_match()
         elif action == 'newspaper':
@@ -3382,13 +3422,24 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     @localized_call
     def draw(self) -> None:
+        if self.view in ('hub','coach') and self.career.club and not self.career.free_agent and not self.career.life['retired']:
+            self.career.next_match()
         if self.view=='hub':
             from title_events import view as title_view
             if title_view(self.career):self.view=title_view(self.career)
             elif self.career.post_match_stage:self.view=self.career.post_match_stage
+            elif self.career.life['private_meeting']:self.view='private_coach'
             elif self.career.coach_meeting_required:self.view='coach'
+            else:
+                from career_life import retirement_due
+                if retirement_due(self.career):
+                    from lifestyle_ui import retirement_prompt
+                    retirement_prompt(self)
         if self.career.free_agent and self.view in ('hub','training','shot'):
             self.view='agent'
+        if getattr(self,'_title_button',None) is not None and self.view!='trophy':
+            if self._title_button.parent is self:self.remove_widget(self._title_button)
+            self._title_button=None
         if self.view=='trophy':
             from title_presentation import prepare
             prepare(self)
@@ -3479,6 +3530,9 @@ class StrikerGame(Widget):
 
                 self._draw_aim_marker()
                 self._draw_hud()
+                if self.elapsed<getattr(self,'hattrick_until',0):
+                    self._draw_text('HAT-TRICK!',self.center_x,self.top-dp(95),dp(23),(1,.83,.23,1),'center',max_width=self.width-dp(24))
+                    self._draw_text(getattr(self,'hattrick_feedback',''),self.center_x,self.top-dp(125),dp(12),(1,1,1,1),'center',max_width=self.width-dp(32))
             else:
                 # Entre oportunidades vê-se o campo limpo, sem jogadores nem bola.
                 self._draw_goal_frame()
@@ -5190,6 +5244,10 @@ class StrikerGame(Widget):
         return not self.goalkeeper_holding and self.ball.y < GOALKEEPER_Y-self.ball.radius
 
     def _draw_ball(self) -> None:
+        celebration=getattr(self,'goal_celebration',None)
+        if celebration and celebration.retrieving and self.elapsed-celebration.started>=2.6:
+            from celebrations import active
+            if active(self):return
         ball = self.ball
         bx, by = self.project(ball.x, ball.y, ball.z)
         ground_x, ground_y = self.project(ball.x, ball.y, 0.01)
@@ -5260,7 +5318,7 @@ class StrikerGame(Widget):
             ratio = clamp(
                 self.shot_time_left / max(0.01, self.shot_time_limit), 0.0, 1.0
             )
-            urgent = self.shot_time_left <= 1.5
+            urgent = self.shot_time_left <= max(.45,self.shot_time_limit*.3)
             Color(0.01, 0.025, 0.03, 0.94)
             Rectangle(pos=(timer_x, timer_y), size=(timer_width, timer_height))
             timer_color = (
@@ -5306,7 +5364,7 @@ class StrikerGame(Widget):
                 f"TYPE: {action}   |   SPACE: SHOOT   |   "
                 "ARROWS/WASD: AIM   |   C: AUTO   |   R: RESET"
             )
-            if edition.is_world():hint='Tap the goal to aim and shoot.'
+            if edition.is_world():hint='Tap to shoot at the moving marker.' if self.shot_context=='match' else 'Tap the goal to aim and shoot.'
             self._draw_text(
                 hint,
                 self.center_x,

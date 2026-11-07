@@ -10,7 +10,8 @@ class AttendanceTests(unittest.TestCase):
     def test_collective_results_affect_both_sides_and_snapshot_is_fixed(self):
         good=NS(uid='a',country='England',tier=1,played=10,points=30)
         bad=NS(uid='b',country='England',tier=1,played=10,points=0)
-        league=NS(table=lambda:[good,bad])
+        middle=[NS(uid=str(i),country='England',tier=1,played=10,points=15) for i in range(5)]
+        league=NS(table=lambda:sorted([good,bad,*middle],key=lambda x:-x.points))
         self.assertGreater(turnout(good,league),turnout(bad,league))
         g=NS(career=NS(leagues={'England|1':league},world_competitions=None),match_opportunity_seed=('fixture',1))
         ratios=fixture_snapshot(g,good,bad);self.assertGreater(ratios['home'],ratios['away'])

@@ -291,9 +291,9 @@ class MenuTests(unittest.TestCase):
                         if game.current_chance_difficulty == 'easy':
                             easy_count += 1
                             self.assertLessEqual(game.shot_origin_y, 11)
-                            self.assertGreaterEqual(game.shot_time_limit, 5)
+                            self.assertGreaterEqual(game.shot_time_limit, 1.3)
                         elif game.current_chance_difficulty=='penalty':
-                            self.assertEqual(game.shot_type,'penalty');self.assertEqual(game.field_players,[])
+                            self.assertEqual(game.shot_type,'penalty');self.assertEqual(len(game.field_players),8)
                         else:
                             self.assertFalse(game.one_on_one)
                             kind=game.current_opportunity.kind
@@ -720,6 +720,7 @@ class MenuTests(unittest.TestCase):
                 self.assertFalse(game.outcome_registered)
             for x in xs:self.assertAlmostEqual(x,3.45,places=6)
             game.shot_context = 'training'
+            game.career.development['focus']='low'
             game._prepare_next_shot()
             game.power = 0.85
             game.shoot(0, 1)

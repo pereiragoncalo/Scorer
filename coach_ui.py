@@ -22,13 +22,19 @@ class CoachScreen(FloatLayout):
         self.meeting=c.coach_conversation();self.scroll=None
         from title_events import pending,needs_focus
         event=pending(c) if menu.game.view=='title_coach' else None
-        self.is_title=event is not None;self.requires_focus=not self.is_title or needs_focus(c)
+        self.is_title=event is not None;self.is_private=menu.game.view=='private_coach';self.requires_focus=not self.is_private and (not self.is_title or needs_focus(c))
         closing=self.loc.tr('Choose one of these two training focuses for the week.' if self.requires_focus else 'This title belongs to everyone. Enjoy the moment with the supporters.')
-        self.full_text='\n\n'.join((self.loc.tr(c.coach_team_feedback()),c.player_name+': '+self.loc.tr(c.coach_individual_feedback()),closing))
+        if self.is_private:closing=self.loc.tr('The club has received a transfer offer. Consider your role and the next step in your career.' if c.life['private_meeting']=='offer' else 'You have gone five or more games without a goal. Let us review your movement, composure and finishing together.')
+        from coach_feedback import translate
+        self.full_text='\n\n'.join((translate(self.loc,c.coach_team_feedback()),c.player_name+': '+translate(self.loc,c.coach_individual_feedback()),closing))
         import re
         first=lambda text:re.split(r'(?<=[.!?。！？])\s*',text,maxsplit=1)[0]
-        self.short_text='\n\n'.join((first(self.loc.tr(c.coach_team_feedback())),c.player_name+': '+first(self.loc.tr(c.coach_individual_feedback())),closing))
-        self.title=self.label(self.loc.tr("CHAMPIONS' TEAM TALK" if self.is_title else 'WEEKLY TEAM TALK'),GREEN)
+        individual_short=first(translate(self.loc,c.coach_individual_feedback()))
+        if c._current_coach_state()['recent'] and c._current_coach_state()['recent'][-1]>=3:
+            from coach_feedback import HAT_TRICK_LIVE
+            individual_short=self.loc.tr('HAT-TRICK!')+' '+self.loc.tr(HAT_TRICK_LIVE[self.meeting['style']])
+        self.short_text='\n\n'.join((first(translate(self.loc,c.coach_team_feedback())),c.player_name+': '+individual_short,closing))
+        self.title=self.label(self.loc.tr("CHAMPIONS' TEAM TALK" if self.is_title else 'INDIVIDUAL MEETING' if self.is_private else 'WEEKLY TEAM TALK'),GREEN)
         self.style_text=self.loc.tr(STYLES[self.meeting['style']])
         self.style=self.label(self.style_text,MUTED)
         recent=c._current_coach_state()['recent']
@@ -36,11 +42,10 @@ class CoachScreen(FloatLayout):
         self.feedback=self.label('',INK)
         self.closing=self.label('',INK);self.closing.halign='justify'
         self.portrait=Image(source='assets/coaches/team_talk.png',fit_mode='contain',size_hint=(None,None));self.add_widget(self.portrait)
-        self.avatar=Image(source=c.coach_portrait,fit_mode='contain',size_hint=(None,None));self.add_widget(self.avatar)
-        if self.avatar.texture:
-            t=self.avatar.texture;self.avatar.texture=t.get_region(int(t.width*.28),int(t.height*.34),int(t.width*.44),int(t.height*.65))
+        from kivy.uix.widget import Widget
+        self.avatar=Widget(size_hint=(None,None),opacity=0)
         self.error=self.label(c.message if c.message=='Unable to save the meeting. Please try again.' else '',(1,.65,.45,1))
-        self.finish=MenuTile('FINISH TEAM TALK',lambda:menu.action('title_coach_complete' if self.is_title else 'coach_complete'),accent=True);self.finish.size_hint=(None,None);self.add_widget(self.finish)
+        self.finish=MenuTile('FINISH TEAM TALK',lambda:menu.action('private_complete' if self.is_private else 'title_coach_complete' if self.is_title else 'coach_complete'),accent=True);self.finish.size_hint=(None,None);self.add_widget(self.finish)
         from player_development import NAMES
         self.options=c.coach_focus_options() if self.requires_focus else ();self.choices=[]
         pick=getattr(menu.game,'_coach_focus_pick',None)
@@ -68,24 +73,24 @@ class CoachScreen(FloatLayout):
         self.panel.pos=(x,self.y+margin);self.panel.size=(w,max(1,self.height-2*margin))
         left=x+margin;right=x+w-margin;top=self.top-2*margin
         header_top=top
-        self.avatar.opacity=0 if compact else 1;self.avatar.size=(dp(60),dp(60));self.avatar.pos=(right-dp(60),top-dp(60))
+        self.avatar.opacity=0;self.avatar.size=(dp(60),dp(60));self.avatar.pos=(right-dp(60),top-dp(60))
         if compact:
             title_size=13 if dense else 15
-            title_h=self.measured_height(self.title,right-left-dp(70),title_size,18 if dense else 22)
-            self.place(self.title,left,top-title_h,right-left-dp(70),title_h,title_size);top-=title_h+dp(3)
+            title_h=self.measured_height(self.title,right-left-dp(4),title_size,18 if dense else 22)
+            self.place(self.title,left,top-title_h,right-left-dp(4),title_h,title_size);top-=title_h+dp(3)
             self.style.text=self.style_text+(' · '+self.recent.text if self.recent.text else '')
             style_size=8 if dense else 9
-            style_h=self.measured_height(self.style,right-left-dp(70),style_size,18 if dense else 22)
-            self.place(self.style,left,top-style_h,right-left-dp(70),style_h,style_size);top-=style_h+dp(3)
+            style_h=self.measured_height(self.style,right-left-dp(4),style_size,18 if dense else 22)
+            self.place(self.style,left,top-style_h,right-left-dp(4),style_h,style_size);top-=style_h+dp(3)
             self.recent.opacity=0
         else:
             self.style.text=self.style_text;self.recent.opacity=1
-            title_h=self.measured_height(self.title,right-left-dp(70),21,26)
-            self.place(self.title,left,top-title_h,right-left-dp(70),title_h,21);top-=title_h+dp(3)
-            style_h=self.measured_height(self.style,right-left-dp(70),14,17)
-            self.place(self.style,left,top-style_h,right-left-dp(70),style_h,14);top-=style_h+dp(2)
-            rh=self.measured_height(self.recent,right-left-dp(70),12,16)
-            self.place(self.recent,left,top-rh,right-left-dp(70),rh,12);top-=rh+dp(6)
+            title_h=self.measured_height(self.title,right-left-dp(4),21,26)
+            self.place(self.title,left,top-title_h,right-left-dp(4),title_h,21);top-=title_h+dp(3)
+            style_h=self.measured_height(self.style,right-left-dp(4),14,17)
+            self.place(self.style,left,top-style_h,right-left-dp(4),style_h,14);top-=style_h+dp(2)
+            rh=self.measured_height(self.recent,right-left-dp(4),12,16)
+            self.place(self.recent,left,top-rh,right-left-dp(4),rh,12);top-=rh+dp(6)
         self.finish.size=(min(dp(320),right-left-dp(80)),dp(48 if compact else 52));self.finish.pos=(right-self.finish.width,self.y+2*margin)
         self.help.pos=(left,self.finish.y);self.help.size=(dp(72),self.finish.height)
         eh=self.measured_height(self.error,right-left,11,24)

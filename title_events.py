@@ -33,21 +33,28 @@ def view(c):
     return ('trophy' if e['stage']=='celebration' else 'title_coach') if e else None
 def needs_focus(c):
     e=pending(c)
-    return bool(e and c.club and e['team_uid']==c.club.uid and c.coach_meeting_required)
+    return bool(e and c.club and c.coach_meeting_required)
 def to_coach(c):
     e=pending(c)
     if not e or e['stage']!='celebration':return False
+    # Resolve the next playable week before choosing its weekly focus.
+    # Otherwise hub construction can advance the calendar after the title talk.
+    c.next_match()
     e['stage']='coach'
     if c.save() is False:e['stage']='celebration';return False
     return True
 def finish(c,focus=None):
     e=pending(c)
     if not e or e['stage']!='coach':return False
-    required=needs_focus(c)
+    required=bool(c.club and c.coach_meeting_required)
     if required and focus not in c.coach_focus_options():return False
     before=copy.deepcopy(c.title_events)
     c.title_events['queue'].pop(0)
+    previous_private=c.life.get('private_meeting','');c.life['private_meeting']=''
+    stage=c.post_match_stage
+    if stage=='coach':c.post_match_stage=''
     ok=c.attend_coach_meeting(focus) if required else c.save()
+    if ok is False:c.post_match_stage=stage;c.life['private_meeting']=previous_private
     if ok is False:c.title_events=before;return False
     return True
 

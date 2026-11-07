@@ -40,8 +40,10 @@ class TwoDivisionCareer:
     def _free_agent_offers(self):
         country=self.current_league.country
         domestic=[(c.name,l.key) for l in self.domestic_leagues(country) if l.tier==2 for c in l.clubs]
-        foreign=[(c.name,l.key) for l in self.domestic_leagues() if l.country!=country and l.tier==2 for c in l.clubs]
-        self.agent_offers=self.rng.sample(domestic,min(3,len(domestic)))+self.rng.sample(foreign,min(2,len(foreign)))
+        from league_status import league_band
+        status=league_band(country,2)
+        foreign=[(c.name,l.key) for l in self.domestic_leagues() if l.country!=country and l.tier==2 and league_band(l.country,2)>=status for c in l.clubs]
+        self.agent_offers=self.rng.sample(domestic,min(5-min(2,len(foreign)),len(domestic)))+self.rng.sample(foreign,min(2,len(foreign)))
         self.last_offer_week=self.week
         return self.agent_offers
 

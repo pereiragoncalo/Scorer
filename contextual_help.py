@@ -23,6 +23,8 @@ def topics(game):
         'world_league':(('STANDINGS',TABLE),),'scorers':(('TOP SCORERS',SCORERS),),
         'calendar':(('FIXTURES',CALENDAR),),'agent':(('AGENT',AGENT),),
         'world':(base[3],),'world_country':(base[3],),'editor':(base[3],),
+        'lifestyle':(('LIFESTYLE','Your weekly contract salary is paid once per career week. Start with a club-provided studio. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.'),),
+        'private_coach':(('INDIVIDUAL MEETING','An individual meeting can follow five or more games without scoring or a transfer proposal. Your weekly training focus is chosen in the team talk.'),),
         'title_coach':(("CHAMPIONS' TEAM TALK",'This title belongs to everyone. Enjoy the moment with the supporters.'),),
         'coach':(('WEEKLY TEAM TALK',COACH),)+training[1:],'newspaper':(('MATCH REPORT',PAPER),),
         'club':(('CLUB',CLUB),),'language':(('LANGUAGE',LANGUAGE),),
@@ -37,7 +39,7 @@ HUB='Choose an action to open its screen. Use the Help button there for guidance
 TABLE='Select a competition to see its standings or fixtures. Switch groups when available. Knockout rounds show results, two-leg ties and penalties. Use the page controls to see every row.'
 SCORERS='This table ranks league scorers by goals. My Position finds your player. Cup and international goals are counted separately.'
 CALENDAR='Check dates, opponents, competitions and results. Complete training before each playable fixture, including matches in the same week.'
-AGENT='Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress.'
+AGENT='Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress. Offers must be from an equal or higher league status band. Your agent prioritises your country until you stand out. A strong season can bring an eligible offer from your favourite club.'
 COACH='Attend one team talk each week. Read the team and individual feedback, choose one of two training focuses, then finish the talk. The choice applies to the week; extra matches do not require another talk.'
 PAPER='Read the previous match report, including goals and the result. Continue to a requested coach meeting or back to your career.'
 CLUB='View the club foundation, honours, stadium and capacity. Club colours follow the selected team.'

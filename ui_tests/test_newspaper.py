@@ -25,7 +25,7 @@ class NewspaperUI(unittest.TestCase):
             printed=''.join(part['text'] for page in paper.pages for part in page)
             self.assertIn(''.join(c.player_name.split()),''.join(printed.split()));self.assertTrue(any('2-1' in t or '1-2' in t for t in texts))
             self.assertEqual(paper.photo.source,PHOTOS[0]);self.assertLessEqual(paper.photo.width,240)
-            g._activate_ui('hub');self.assertEqual(g.view,'coach')
+            c.life['private_meeting']='';g._activate_ui('hub');self.assertEqual(g.view,'coach')
 
     def test_ordinary_player_is_omitted_aliases_are_used_and_opening_is_read_only(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:

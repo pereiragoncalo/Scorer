@@ -15,5 +15,5 @@ class Penalties(unittest.TestCase):
                     g.match_chance_index=idx;g.awaiting_chance=True;g.view='match';g.draw();settle()
                     self.assertTrue(any(isinstance(w,Label) and w.text=='You have been chosen to take the penalty.' for w in g.walk()))
                     g._begin_pending_chance();self.assertEqual(g.shot_type,'penalty')
-                    self.assertEqual((g.shot_origin_x,g.shot_origin_y),(0,11));self.assertEqual(g.field_players,[])
+                    self.assertEqual((g.shot_origin_x,g.shot_origin_y),(0,11));self.assertEqual(len(g.field_players),8);self.assertEqual({p.team for p in g.field_players},{'attacker','defender'});self.assertTrue(all(p.y>=16.5 and (p.x*p.x+(p.y-11)**2)>=9.15**2 for p in g.field_players))
             self.assertGreater(found,5)

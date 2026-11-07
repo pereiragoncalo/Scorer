@@ -807,6 +807,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.post_match_stage = ""
         from title_events import fresh as fresh_title_events
         self.title_events=fresh_title_events()
+        from career_life import fresh as fresh_life
+        self.life=fresh_life(self)
         self.fixture_history: list[dict[str, object]] = []
         self.cup_history: list[str] = []
         self.national_cup_winners: dict[str, str] = {}
@@ -820,6 +822,10 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.free_agent=False;self.released_club=None;self.relegation_pools={};self._needs_two_division_backup=False
         self.domestic_format_version=1 if self.world_unlocked and domestic_formats else 0
         self._build_world()
+        if self.world_unlocked:
+            from league_status import club_rating
+            for league in self.leagues.values():
+                for team in league.clubs:team.rating=club_rating(team)
         if self.world_unlocked:
             self._ensure_reserves()
             from domestic_formats import initialize_world
@@ -1120,6 +1126,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
 
     def next_match(self) -> Optional[tuple[str, CareerClub, CareerClub]]:
+        if self.life['retired']:return None
         if self.free_agent:return None
         if self.world_unlocked and self.club:
             self._ensure_competitions()
@@ -1226,7 +1233,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         if actor not in (home.uid,away.uid):raise ValueError('Player does not participate in this fixture')
         if score is None:
             means=self.world_fixture_goal_means(token,home,away)
-            score=tuple(poisson_goal(self.rng,max(.05,m-.35))+ (player_goals if (home if i==0 else away).uid==actor else 0) for i,m in enumerate(means))
+            score=tuple(poisson_goal(self.rng,max(0.,m-(max(float(player_goals),.65) if (home if i==0 else away).uid==actor else 0)))+ (player_goals if (home if i==0 else away).uid==actor else 0) for i,m in enumerate(means))
         if player_goals<0 or player_misses<0 or score[0 if home.uid==actor else 1]<player_goals:raise ValueError('Personal goals exceed the team score')
         f=self.world_competitions.record(key,fixture_id,score)
         score=tuple(f['score'])
@@ -1446,10 +1453,10 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
     def kit_for_club(self, club):
         if self.world_unlocked:
-            from club_kits import home_colours
+            from club_kits import home_colours,HomeKit,shirt_pattern
             colours = home_colours(club)
             if colours:
-                return tuple(hex_rgba(value) for value in colours)
+                return HomeKit(tuple(hex_rgba(value) for value in colours),shirt_pattern(club))
             from world_clubs import catalogue
             row = catalogue().get(club.uid)
             if row and row.get('colours'):
@@ -1547,6 +1554,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         return clean
 
     def accept_starting_offer(self, club_name: str) -> None:
+        if self.life['retired']:return
         if club_name not in self.offers:
             return
         self.club_name = club_name
@@ -1607,7 +1615,9 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         centre = 0.4 + factor * 2.5 + training_bonus - profile.pressure * 1.5 + role_bonus
         floor = 3 if self.morale > 15 else 2 if self.morale > 10 else 1 if trained else 0
         ceiling = max(floor, profile.max_chances)
-        return int(clamp(round(self.rng.gauss(centre, 0.70)), floor, ceiling))
+        amount=int(clamp(round(self.rng.gauss(centre, 0.70)), floor, ceiling))
+        from career_life import decline
+        return max(1 if trained else 0,round(amount/decline(self)))
 
 
     def fixture_goal_means(
@@ -1622,7 +1632,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
         def competitive_strength(club: CareerClub) -> float:
             position = positions.get(club.name, team_count - 1)
-            table_score = 1.0 - position / (team_count - 1)
+            evidence=min(1.,club.played/8.)
+            table_score = .5+(1.0-position/(team_count-1)-.5)*evidence
             rating_score = clamp((club.rating - 40.0) / 55.0, 0.0, 1.0)
             if club.played:
                 points_score = clamp(club.points / (club.played * 3.0), 0.0, 1.0)
@@ -1643,7 +1654,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
 
         difference = competitive_strength(home) - competitive_strength(away)
-        advantage = math.log(MATCH_HOME_GOALS / MATCH_AWAY_GOALS) + difference * 1.55
+        advantage = math.log(MATCH_HOME_GOALS / MATCH_AWAY_GOALS) + (home.rating-away.rating)/18. + difference*.65
         share = 1.0 / (1.0 + math.exp(-advantage))
         total = MATCH_HOME_GOALS + MATCH_AWAY_GOALS
         return total * share, total * (1.0 - share)
@@ -1670,7 +1681,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         if is_international:
             if forced_score is None:
                 home_mean, away_mean = realistic_goal_means(home.rating, away.rating)
-                portugal_goals = poisson_goal(self.rng, max(0.05, home_mean - 0.35)) + player_goals
+                portugal_goals = poisson_goal(self.rng, max(0.0, home_mean-max(float(player_goals),.65))) + player_goals
                 opponent_goals = poisson_goal(self.rng, away_mean)
             else:
                 portugal_goals, opponent_goals = forced_score
@@ -1705,7 +1716,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             home_mean, away_mean = self.fixture_goal_means(home, away)
             player_mean = home_mean if player_home else away_mean
             opponent_mean = away_mean if player_home else home_mean
-            player_base = poisson_goal(self.rng, max(0.05, player_mean - 0.35))
+            player_base = poisson_goal(self.rng, max(0.0, player_mean-max(float(player_goals),.65)))
             opponent_base = poisson_goal(self.rng, opponent_mean)
             if player_home:
                 score = (player_base + player_goals, opponent_base)
@@ -1843,6 +1854,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
     def begin_training(self) -> bool:
         """Reserve the career week's sole session before opening its first shot."""
+        if self.life['retired']:return False
         if not self.club_name:
             self.message = 'Choose a club before training.'
             return False
@@ -1945,6 +1957,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
     def generate_agent_offers(
         self, guaranteed: bool = False
     ) -> list[tuple[str, str]]:
+        if self.life['retired']:self.agent_offers=[];return []
         if self.free_agent:
             result=self._free_agent_offers();self.save();return result
         if not self.transfer_window_open:
@@ -1973,7 +1986,12 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         # Clubes do mesmo país surgem com maior frequência, mas boas épocas
         # podem abrir portas noutros campeonatos europeus.
         domestic = [league for league in leagues if league.country == self.current_league.country]
-        leagues.extend(domestic * 2)
+        from league_status import league_band,standout
+        current_status=league_band(self.current_league.country,current_tier)
+        leagues=[l for l in leagues if league_band(l.country,l.tier)>=current_status]
+        domestic=[l for l in leagues if l.country==self.current_league.country]
+        leagues=domestic+[l for l in leagues if l not in domestic] if not standout(self) else leagues
+        if not standout(self) and domestic:leagues=domestic
         if not self.world_unlocked:
             # FREE has exactly one playable division.
             leagues = [self.current_league]
@@ -1981,7 +1999,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         seen: set[tuple[str, str]] = set()
         current_rating = self.club.rating if self.club else 60.0
         rating_ceiling = current_rating + 5.0 + performance * 12.0
-        for league in leagues:
+        for league in (leagues if amount else []):
             clubs = [
                 club for club in league.clubs
                 if club.name != self.club_name and club.rating <= rating_ceiling
@@ -1994,7 +2012,17 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                     seen.add(offer)
             if len(candidates) >= amount:
                 break
+        if standout(self) and self.life.get('favourite'):
+            favourite=next(((t,l) for l in self.domestic_leagues() for t in l.clubs if t.uid==self.life['favourite']),None)
+            if favourite:
+                t,l=favourite
+                if t.uid!=self.club.uid and league_band(l.country,l.tier)>=current_status:
+                    offer=(t.name,l.key);candidates=[offer]+[x for x in candidates if x!=offer];candidates=candidates[:max(1,amount)]
         self.agent_offers = candidates
+        if candidates:
+            import hashlib
+            key=hashlib.sha256(repr(candidates).encode()).hexdigest()[:24]
+            if self.life.get('offer_talk')!=key:self.life.update(private_meeting='offer',offer_talk=key)
         self.last_offer_week = self.week
         self.message = (
             f"Your agent found {len(candidates)} offer(s)."
@@ -2025,6 +2053,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
 
     def accept_transfer(self, club_name: str, league_key: str) -> None:
+        if self.life['retired']:return
         if not self.transfer_window_open:
             self.message = 'Transfers can only be completed during an open window.'
             return
@@ -2036,6 +2065,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.activate_world_country(self.leagues[league_key].country)
         old_uid=self.club.uid if self.club else ''
         previous_development=copy.deepcopy(self.development)
+        previous_life=copy.deepcopy(self.life)
         previous_contract=(self.club_name,self.league_key,self.free_agent,list(self.agent_offers),self.cup_active,copy.deepcopy(self.coach_appearance))
         new_season_contract=self.free_agent and self.week==0 and self.world_competitions is None
         self.club_name = club_name
@@ -2048,6 +2078,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self._ensure_development()
         if self.club.uid!=old_uid:self.development['transfers']+=1
         if self.save() is False:
+            self.life=previous_life
             self.development=previous_development
             self.club_name,self.league_key,self.free_agent,self.agent_offers,self.cup_active,self.coach_appearance=previous_contract
 
@@ -2198,6 +2229,9 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
 
     def save(self) -> bool:
+        from career_life import sync
+        previous_life=copy.deepcopy(self.life)
+        sync(self)
         if self._save_slot == 'world' and not self.world_unlocked:
             return False
         if not self.club_name and not self.free_agent:
@@ -2260,6 +2294,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             "post_match_stage": self.post_match_stage,
             "honours": self.honours,
             "title_events": self.title_events,
+            "life": self.life,
             "press_state": self.press_state,
             "coach_appearance": self.coach_appearance,
             "coach_state": self.coach_state,
@@ -2312,6 +2347,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 if temporary is not None:
                     temporary.unlink(missing_ok=True)
         except OSError:
+            self.life=previous_life
             self.message = 'Unable to save your career. Please try again.'
             return False
         return True
@@ -2490,6 +2526,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             self.honours = honours.clean(data.get('honours'))
             from title_events import clean as clean_title_events
             self.title_events=clean_title_events(data.get('title_events'),self.honours)
+            from career_life import clean as clean_life
+            self.life=clean_life(data.get('life'),self)
             self.post_match_stage = data.get('post_match_stage','')
             if self.post_match_stage not in ('','newspaper','coach'):self.post_match_stage=''
             self.press_state = newspaper.clean_state(data.get('press_state'))
@@ -2671,6 +2709,10 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             self.development=clean_development(data.get('development'),self.season,self.goals,self.matches)
             self._ensure_development();self._recognise_development()
             if self.training_session_week!=self.week:self.development['session']=None
+            if self.world_unlocked:
+                from league_status import club_rating
+                for league in self.leagues.values():
+                    for team in league.clubs:team.rating=club_rating(team)
             return True
         except (OSError, ValueError, TypeError, KeyError, AttributeError, OverflowError):
             # Keep both the original file and all pre-load state intact.

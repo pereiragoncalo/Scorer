@@ -42,11 +42,12 @@ class CoachTests(unittest.TestCase):
         c.record_coach_performance(1,0,[],True);self.assertEqual(c.coach_state['drought'],0)
     def test_collective_feedback_uses_actual_team_result_and_personality(self):
         c=self.signed();style=style_for(c.club.uid)
-        self.assertEqual(c.coach_team_feedback(),TEAM_FEEDBACK['new'][style]);self.assertEqual(c.coach_individual_feedback(),INDIVIDUAL_ROUTINE[style])
+        from coach_feedback import TEAM,STYLE,INDIVIDUAL
+        self.assertIn(c.coach_team_feedback().split('\n')[0],TEAM['new']);self.assertIn(c.coach_individual_feedback().split('\n')[0],INDIVIDUAL['routine'])
         for score,outcome in [('2-0','win'),('0-2','loss'),('1-1','draw'),('1-1 (pen. 5-4)','win')]:
             c.coach_state=fresh_state(c.club.uid);c.record_coach_performance(1,0,[],True)
             c.fixture_history=[dict(home=c.club.name,away='Other club',home_uid=c.club.uid,status=score)]
-            self.assertEqual(c.coach_team_feedback(),TEAM_FEEDBACK[outcome][style])
+            self.assertIn(c.coach_team_feedback().split('\n')[0],TEAM[outcome]);self.assertIn(c.coach_team_feedback().split('\n')[-1],STYLE[style])
         self.assertEqual(len(set(TEAM_FEEDBACK['loss'])),3)
     def test_big_game_and_strong_form_produce_individual_feedback(self):
         c=self.signed();c.record_coach_performance(2,0,[dict(kind='final',minute=20,outcome='goal')],True)

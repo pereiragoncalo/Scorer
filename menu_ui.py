@@ -31,7 +31,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('club','development','newspaper','coach','title_coach', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
+MENU_VIEWS = frozenset(('club','development','newspaper','coach','title_coach','private_coach','lifestyle', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -139,8 +139,8 @@ class CareerMenu(BoxLayout):
     def sync(self):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
-        signature = (tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,getattr(self.game,'standings_key',''),getattr(self.game,'standings_group',0),getattr(self.game,'standings_tab','auto'),self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
-                     c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
+        signature = (tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,getattr(self.game,'standings_key',''),getattr(self.game,'standings_group',0),getattr(self.game,'standings_tab','auto'),getattr(self.game.leaderboard,'category','season'),getattr(self.game.leaderboard,'career_enabled',False),self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
+                     str(c.life),c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required,str(c.title_events), str(c.coach_state), str(c.press_state), str(c.development),getattr(self.game,'development_tab','objectives'),
                      self.game.help_page,getattr(self.game,'_coach_focus_pick',None), self.game.editor_club_index, self.game.editor_key, self.game.world_country, self.game.world_league_key, c.alias_revision, self.game.reward_ad_status, Metrics.density, Metrics.fontscale, self._desktop_dashboard_available(),
@@ -169,7 +169,10 @@ class CareerMenu(BoxLayout):
         if self.game.view=='newspaper':
             from newspaper_ui import NewspaperScreen
             self.padding=self.spacing=0;self.scroll=None;self.body=NewspaperScreen(self);self.add_widget(self.body);return
-        if self.game.view in ('coach','title_coach'):
+        if self.game.view=='lifestyle':
+            from lifestyle_ui import LifestyleScreen
+            self.body=LifestyleScreen(self);self.add_widget(self.body);return
+        if self.game.view in ('coach','title_coach','private_coach'):
             from coach_ui import CoachScreen
             self.padding=self.spacing=0;self.scroll=None;self.body=CoachScreen(self);self.add_widget(self.body);return
         if self.game.view=='data_notice':
@@ -314,7 +317,10 @@ class CareerMenu(BoxLayout):
         grid.bind(minimum_height=grid.setter('height'))
         card.add_widget(grid)
         for club in self.game.career.offers:
-            grid.add_widget(self._button(c.display_text(club), 'accept_offer', club, accent=True))
+            from career_life import quote
+            team=next(t for t in c.current_league.clubs if t.name==club)
+            label=c.display_text(club)+'\n'+self.game.i18n.tr('€{salary}/week',salary=quote(c,team))
+            grid.add_widget(self._button(label, 'accept_offer', club, accent=True))
 
     def _coach(self):
         c = self.game.career
@@ -536,7 +542,10 @@ class CareerMenu(BoxLayout):
         if c.free_agent:card.label('Sign for a club to continue your career.')
         card.label('Transfer window open' if c.transfer_window_open else 'Window closed · Jul/Aug and Jan/Feb', muted=True)
         for club, key in c.agent_offers:
-            card.add_widget(self._button(c.display_text(f'{club}\n{c.leagues[key].name}', c.leagues[key].country), 'transfer', (club, key)))
+            from career_life import quote
+            team=next(t for t in c.leagues[key].clubs if t.name==club)
+            label=c.display_text(f'{club} · {c.leagues[key].name}',c.leagues[key].country)+'\n'+self.game.i18n.tr('€{salary}/week',salary=quote(c,team))
+            card.add_widget(self._button(label,'transfer',(club,key)))
         card.add_widget(self._button('FIND OFFERS', 'agent_refresh'))
         if c.free_agent:card.add_widget(TouchButton('EXIT',self.game._request_exit))
 
@@ -963,8 +972,6 @@ class MainDashboard(BoxLayout):
         self.club_button=ClubButton(menu)
         self.club_button.size_hint_y=1
         self.identity.add_widget(self.club_button)
-        self.identity.add_widget(BoundedLabel(text=f'Energy {c.stamina:.1f}/20 · Morale {c.morale:.1f}/20',
-                                             color=MUTED, font_size=sp(11), halign='right'))
         self.add_widget(self.identity)
         self.hero = BoxLayout(spacing=dp(12))
         self.match = EdgePanel(orientation='vertical', size_hint_x=0.66)
@@ -982,11 +989,10 @@ class MainDashboard(BoxLayout):
         footer = self.footer = FloatLayout(size_hint_y=None, height=dp(52))
         self.training = MenuTile('TRAINING', lambda: menu.action('training'), accent=not c.trained_this_week)
         self.play = MenuTile('PLAY', lambda: menu.action('play'), accent=True)
-        self.play.disabled = not c.trained_this_week or c.coach_meeting_required
-        self.training.disabled = c.coach_meeting_required
-        footer.add_widget(self.training)
-        footer.add_widget(self.play)
-        self.match.add_widget(footer)
+        self.play.disabled = not c.trained_this_week or c.coach_meeting_required or c.life['retired']
+        self.training.disabled = c.coach_meeting_required or c.life['retired']
+        self.training.size_hint=self.play.size_hint=(1,1)
+        self.identity.add_widget(self.training);self.identity.add_widget(self.play)
         self.hero.add_widget(self.match)
         self.season = EdgePanel(orientation='vertical', size_hint_x=0.34)
         self.season.add_widget(BoundedLabel(text='YOUR SEASON', color=GREEN, font_size=sp(10),
@@ -1002,9 +1008,11 @@ class MainDashboard(BoxLayout):
             anchor.add_widget(column)
             numbers.add_widget(anchor)
         self.season.add_widget(numbers)
+        energy=BoundedLabel(text=menu.game.i18n.tr('Morale {morale}/20 · Fitness {fitness}/20',morale=f'{c.morale:.1f}',fitness=f'{c.stamina:.1f}'),localize=False,halign='center',font_size=sp(14),size_hint_y=None,height=dp(36),color=GREEN)
+        self.season.add_widget(energy)
         self.season.add_widget(BoundedLabel(localize=False,text=menu.game.i18n.league(c,c.current_league),
-                                           color=MUTED, font_size=sp(11), size_hint_y=None, height=dp(26)))
-        trust=BoundedLabel(text=menu.game.i18n.tr('Trust {trust}/100 · {role}',trust=c.coach_trust,role=menu.game.i18n.tr(c.team_role))+' ›',localize=False,color=GREEN,font_size=sp(10),size_hint_y=None,height=dp(20))
+                                           color=MUTED, font_size=sp(15), halign='center',size_hint_y=None, height=dp(34)))
+        trust=BoundedLabel(text=menu.game.i18n.tr('Trust {trust}/100 · {role}',trust=c.coach_trust,role=menu.game.i18n.tr(c.team_role))+' ›',localize=False,color=GREEN,font_size=sp(13),halign='center',size_hint_y=None,height=dp(30))
         self.trust_link=trust
         def open_trust(widget,touch):
             if menu.game.view=='hub' and widget.x<=touch.x<=widget.right and abs(touch.y-widget.center_y)<=dp(24):
@@ -1038,21 +1046,7 @@ class MainDashboard(BoxLayout):
         tiny = self.height < dp(215)
         portrait = self.width < dp(480) and self.height > dp(400)
         self.identity.height = dp(52)
-        if tiny:
-            if self.hero.parent is self:
-                self.remove_widget(self.hero)
-                for button in (self.play, self.training):
-                    button.parent.remove_widget(button)
-                    button.size_hint = (1, None)
-                    self.actions.add_widget(button, index=len(self.actions.children))
-            self.actions.cols = 3
-        else:
-            if self.hero.parent is None:
-                for button in (self.training, self.play):
-                    self.actions.remove_widget(button)
-                    self.footer.add_widget(button)
-                self.add_widget(self.hero, index=self.children.index(self.identity))
-            self.actions.cols = 2 if portrait else len(self.actions.children)
+        self.actions.cols = 2 if portrait else len(self.actions.children)
         rows = (len(self.actions.children) + self.actions.cols - 1) // self.actions.cols
         self.actions.height = rows * dp(52) + (rows - 1) * dp(6)
         self.hero.orientation = 'vertical' if portrait else 'horizontal'
@@ -1106,6 +1100,10 @@ class PlayerScreen(FloatLayout):
                 button=MenuTile('',lambda key=field:self.choose_country(key),localize=False)
                 self.country_buttons[field]=button;choices.add_widget(button)
             self.panel.add_widget(choices);self._country_labels()
+            from club_profiles import catalogue as club_profiles
+            favourite=self.draft.get('favourite','');team=next((t for l in self.game.career.domestic_leagues() for t in l.clubs if t.uid==favourite),None) if favourite else None
+            label=club_profiles().get(favourite,{}).get('club',self.game.career.display_club(team)) if team else 'FAVOURITE CLUB'
+            self.favourite=MenuTile(label,self.choose_favourite,localize=not bool(team));choices.add_widget(self.favourite)
         message = menu.game.career.message
         error = message if message.startswith(MENU_ERROR_PREFIXES) else ''
         self.helper = BoundedLabel(text=error,color=(1,.65,.45,1),font_size=sp(14),size_hint_y=None,height=dp(40))
@@ -1119,6 +1117,11 @@ class PlayerScreen(FloatLayout):
             if not error:self.title_label.text='OBJECTIVES'
             self.objective_scroll.add_widget(ObjectivesSummary(menu));self.panel.add_widget(self.objective_scroll)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
+        if existing:
+            actions.add_widget(MenuTile('LIFESTYLE',lambda:menu.action('lifestyle')))
+            from career_life import age
+            self.contract_info=BoundedLabel(text=self.game.i18n.tr('Age {age} · Salary €{salary}/week',age=age(self.game.career),salary=self.game.career.life['salary']),localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(20))
+            self.panel.add_widget(self.contract_info)
         actions.add_widget(MenuTile('HELP', lambda: menu.action('help')))
         actions.add_widget(MenuTile('CANCEL', lambda: menu.action('cancel_profile')))
         self.actions=actions
@@ -1130,6 +1133,10 @@ class PlayerScreen(FloatLayout):
         self.bind(pos=self._fit, size=self._fit)
         self.panel.bind(minimum_height=self._fit)
         self._fit()
+
+    def choose_favourite(self):
+        from lifestyle_ui import FavouritePicker
+        FavouritePicker(self).open()
 
     def _field_rect(self, *_):
         self._name_background.pos, self._name_background.size = self.name.pos, self.name.size
@@ -1345,7 +1352,8 @@ class CompactTable(EdgePanel):
         if not hasattr(self, 'controls'):
             return
         line_height = max(dp(24), sp(12) * 1.35)
-        available = max(line_height, self.height - dp(115))
+        overhead=sum(self.padding[1::2])+self.spacing*max(0,len(self.children)-1)+self.title.height+self.head.height+self.controls.height
+        available = max(line_height, self.height-overhead)
         if self.zones is not None:
             self.zone_legend.font_size=sp(10.5 if self.width<dp(280) else 12)
             short=self.height<dp(220)
@@ -1432,9 +1440,14 @@ class SeasonRecordsScreen(BoxLayout):
         super().__init__(orientation='vertical',spacing=dp(6))
         g=menu.game;b=g.leaderboard;c=g.career
         from season_records import scope
+        category=getattr(b,'category','season')
+        self.tabs=tabs=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(6));self.category_buttons=[]
+        for key,label in (('season','SEASON'),('career','CAREER')):
+            button=MenuTile(label,lambda k=key:menu.action('leaderboard_category',k),accent=category==key);tabs.add_widget(button);self.category_buttons.append(button)
+        self.add_widget(tabs)
         kind,country,division=scope(c,edition.is_world())
         heading=(g.i18n.country(country)+' · '+g.i18n.tr('Division {tier}',tier=division)) if kind=='world' else 'SCORER LEAGUE'
-        self.scope_label=BoundedLabel(text=heading+' · SEASON RECORDS',localize=False,bold=True,color=GREEN,
+        self.scope_label=BoundedLabel(text=heading+' · '+g.i18n.tr('CAREER RECORDS' if category=='career' else 'SEASON RECORDS'),localize=False,bold=True,color=GREEN,
                                       font_size=sp(17),size_hint_y=None,height=dp(28))
         self.add_widget(self.scope_label)
         status=b.status or ('No published records in this division yet.' if not b.entries else '')
@@ -1442,12 +1455,13 @@ class SeasonRecordsScreen(BoxLayout):
         self.status=BoundedLabel(text=status,font_size=sp(12),color=MUTED,size_hint_y=None,height=dp(24),max_lines=1)
         self.add_widget(self.status)
         self.actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
-        for title,action in [('STOP SHARING & REMOVE' if b.enabled else 'SHARE SEASON RECORDS','leaderboard_leave' if b.enabled else 'leaderboard_join'),('REFRESH','leaderboard_refresh'),('REPORT OR BLOCK','record_safety')]:
+        sharing=b.enabled and (category!='career' or b.career_enabled)
+        for title,action in [('STOP SHARING & REMOVE' if sharing else 'SHARE CAREER RECORDS' if category=='career' else 'SHARE SEASON RECORDS','leaderboard_leave' if sharing else 'leaderboard_join'),('REFRESH','leaderboard_refresh'),('REPORT OR BLOCK','record_safety')]:
             self.actions.add_widget(MenuTile(title,lambda a=action:menu.action(a)))
         self.add_widget(self.actions)
         rows=[(i+1,e['player'],e['team'],str(e['season'])+'/'+str(e['season']+1)[-2:],e['goals'])
               for i,e in enumerate(b.entries) if (e.get('edition'),e.get('country'),e.get('division'))==(kind,country,division)]
-        self.table=SeasonRecordTable('BEST COMPLETED SEASONS',('POS','PLAYER','TEAM','SEASON','GOALS'),rows,
+        self.table=SeasonRecordTable('CAREER RECORDS' if category=='career' else 'BEST COMPLETED SEASONS',('POS','PLAYER','TEAM','MATCHES' if category=='career' else 'SEASON','GOALS'),[(r[:3]+(b.entries[i]['matches'],)+r[4:]) if category=='career' else r for i,r in enumerate(rows)],
                                  focus=c.player_name,summary=(0,1,4),detail=(0,2,3,4))
         self.add_widget(self.table)
         self.bind(size=self._fit);self._fit()
@@ -1455,6 +1469,15 @@ class SeasonRecordsScreen(BoxLayout):
     def _fit(self,*_):
         short=self.height<dp(320);tiny=self.height<dp(200)
         self.spacing=dp(2 if tiny else 4 if short else 6)
+        self.actions.spacing=dp(4 if tiny else 8);self.actions.height=dp(48 if tiny else 52)
+        for button in self.actions.children:button.height=self.actions.height
+        for button in self.category_buttons:button.height=self.actions.height if tiny else dp(48)
+        if tiny and self.tabs.parent is self:
+            self.remove_widget(self.tabs)
+            for button in reversed(self.category_buttons):self.tabs.remove_widget(button);self.actions.add_widget(button,index=len(self.actions.children))
+        elif not tiny and self.tabs.parent is None:
+            for button in self.category_buttons:self.actions.remove_widget(button);self.tabs.add_widget(button)
+            self.add_widget(self.tabs,index=len(self.children))
         self.scope_label.height=0 if tiny else dp(24 if short else 28);self.scope_label.opacity=0 if tiny else 1
         self.status.height=0 if tiny else dp(20 if short else 24);self.status.opacity=0 if tiny else 1
 

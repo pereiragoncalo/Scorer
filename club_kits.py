@@ -21,3 +21,13 @@ def catalogue():
 
 def home_colours(club):
     return catalogue().get(club.uid)
+
+class HomeKit(tuple):
+    def __new__(cls,colours,pattern='striped'):
+        obj=super().__new__(cls,colours);obj.pattern=pattern;return obj
+
+def shirt_pattern(club):
+    from club_profiles import catalogue as profiles
+    name=profiles().get(club.uid,{}).get('club','')
+    solid={'Benfica','Sporting Braga','Braga','Liverpool','Arsenal','Chelsea','Manchester City','Manchester United','Everton','Tottenham Hotspur','Real Madrid','Sevilla','Valencia','Villarreal','Roma','Napoli','Fiorentina','Lazio','Bayern Munich','Bayern München','Borussia Dortmund','Hamburger SV','Paris Saint-Germain','Lyon','Marseille','Bordeaux','Cruzeiro','Santos','Corinthians','Independiente'}
+    return 'plain' if name in solid else 'striped'

@@ -39,7 +39,7 @@ def draw(g):
     captain=None
     for y,i,x,state,clock in sorted(actors):
         # Keep the walk articulated, then lift the trophy with the raised-hands pose.
-        pose=Pose(state,age=clock,view='back',flipped=not home)
+        pose=Pose('CARRY' if i==0 and state=='RUN' else state,age=clock,view='back',flipped=not home)
         renderer.draw(g,'title_'+str(i),'players',pose,(x,y,0),PLAYER_HEIGHT_METRES,colours)
         if i==0:
             character,clip,frame=renderer.sample('title_0','players',pose)
@@ -51,4 +51,10 @@ def draw(g):
     t=cache(g).get('trophy.png');Color(1,1,1,1);Rectangle(texture=t,pos=(px-12*scale,py-5*scale),size=(24*scale,28*scale))
     g._draw_text('CHAMPIONS',g.center_x,g.top-dp(35),dp(23),(1,.83,.23,1),'center',max_width=g.width-dp(24))
     g._draw_text(event['title']+' · '+g.career.display_club(winner),g.center_x,g.top-dp(65),dp(13),(1,1,1,1),'center',max_width=g.width-dp(24))
-    g._ui_button('CONTINUE',g.right-dp(152),g.y+dp(12),dp(136),dp(48),'title_continue')
+    if getattr(g,'_title_button',None) is None:
+        from menu_ui import MenuTile
+        g._title_button=MenuTile('CONTINUE',lambda:g._activate_ui('title_continue'),accent=True)
+        g._title_button.size_hint=(None,None);g.add_widget(g._title_button)
+    g._title_button.size=(dp(160),dp(52));g._title_button.pos=(g.right-dp(176),g.y+dp(12))
+
+    if g._title_button.canvas not in g.canvas.children:g.canvas.add(g._title_button.canvas)

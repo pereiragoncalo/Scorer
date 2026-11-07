@@ -103,34 +103,12 @@ class NewspaperScreen(FloatLayout):
     def _draw_paper(self,x,y,w,h):
         self.canvas.before.clear()
         with self.canvas.before:
+            from kivy.core.image import Image as CoreImage
+            if not hasattr(self,'_paper_sprite'):
+                self._paper_sprite=CoreImage('assets/sprites/scene/newspaper.png').texture
+                self._paper_sprite.mag_filter=self._paper_sprite.min_filter='nearest'
             Color(.025,.045,.052,1);Rectangle(pos=self.pos,size=self.size)
-            for i in range(8):
-                Color(.12,.18,.18,.035);Line(points=[self.x,self.y+self.height*i/8,self.right,self.y+self.height*i/8+dp(20)],width=1)
-            for off,alpha in ((dp(14),.18),(dp(8),.22),(dp(3),.35)):
-                Color(0,0,0,alpha);Rectangle(pos=(x+off,y-off),size=(w,h))
-            # The rear half is folded behind the front sheet, visible on the
-            # right and above it. Shadows/crease show thickness without an image.
-            self.triangle([x+w-dp(34),y+dp(6),x+w+dp(58),y+dp(25),x+w+dp(45),y+h-dp(24)],(.48,.43,.33,1))
-            self.triangle([x+w-dp(34),y+dp(6),x+w+dp(45),y+h-dp(24),x+w-dp(40),y+h+dp(12)],(.72,.67,.54,1))
-            Color(.88,.84,.73,1);Rectangle(pos=(x,y),size=(w,h))
-            Color(.96,.92,.81,.55);Rectangle(pos=(x,y+h-dp(3)),size=(w,dp(3)))
-            # Subtle printed paper grain and a horizontal fold, all procedural.
-            import random
-            grain=random.Random(912)
-            for i in range(260):
-                gx=x+grain.random()*w;gy=y+grain.random()*h
-                Color(.25,.20,.12,.035);Line(points=[gx,gy,gx+dp(grain.uniform(1,5)),gy+dp(.4)],width=.55)
-            # Faint type on the folded reverse makes the turned-back half visible.
-            for i in range(8):
-                yy=y+h*.2+i*h*.075
-                Color(.27,.23,.16,.24);Line(points=[x+w+dp(4),yy,x+w+dp(33),yy+dp(3)],width=1)
-            Color(.35,.29,.19,.13);Line(points=[x+dp(2),y+h*.46,x+w-dp(2),y+h*.46-dp(2)],width=1)
-            Color(.98,.94,.83,.35);Line(points=[x+dp(2),y+h*.46+dp(2),x+w-dp(2),y+h*.46],width=1)
-            # Folded-back upper corner and inner edge.
-            fold=min(dp(25),w*.05)
-            self.triangle([x+w-fold,y+h,x+w,y+h-fold,x+w,y+h],(.23,.25,.21,1))
-            self.triangle([x+w-fold,y+h,x+w,y+h-fold,x+w-fold+dp(3),y+h-fold+dp(3)],(.69,.62,.47,1))
-            Color(.27,.23,.16,.3);Line(rectangle=(x+dp(3),y+dp(3),w-dp(6),h-dp(6)),width=.7)
+            Color(1,1,1,1);Rectangle(texture=self._paper_sprite,pos=(x-dp(10),y-dp(9)),size=(w+dp(28),h+dp(24)))
 
     def turn(self,step):
         self.page=max(0,min(len(self.pages)-1,self.page+step));self._layout_trigger()

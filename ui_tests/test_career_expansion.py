@@ -1,0 +1,51 @@
+import unittest,copy,math
+from unittest.mock import patch
+from kivy.uix.image import Image
+from kivy.core.window import Window
+from test_menus import isolated_game,settle
+import test_retro_attendance_titles as scene_fixture
+from career_life import purchase
+from celebrations import start,active
+import honours,title_events
+class ExpansionTests(unittest.TestCase):
+ def setUp(self):self.old_window=Window.size
+ def tearDown(self):Window.size=self.old_window
+ def prepare(self,g):return scene_fixture.RetroSceneTests().prepare(g)
+ def test_primary_actions_equal_size_and_aligned(self):
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   c=self.prepare(g);g.size=(1280,720);Window.size=g.size;g.view='hub';g.draw();settle();d=g._menu.body
+   buttons=[d.player_button,d.club_button,d.training,d.play]
+   for b in buttons:self.assertAlmostEqual(b.width,buttons[0].width,delta=1);self.assertAlmostEqual(b.height,buttons[0].height,delta=1);self.assertAlmostEqual(b.y,buttons[0].y,delta=1)
+ def test_title_carries_extended_arms_and_uses_menu_button(self):
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   c=self.prepare(g);honours.award(c,dict(season=c.season,competition='cup:qa',title='QA cup',team_uid=c.club.uid,team=c.club.name,country=c.club.country));g.view='trophy';g.draw();g.elapsed+=2.;g.draw()
+   from menu_ui import MenuTile
+   self.assertIsInstance(g._title_button,MenuTile);self.assertEqual(g._retro_renderer().clocks['title_0'][0].state,'CARRY');self.assertGreaterEqual(g._title_button.height,48)
+ def test_title_talk_merge_does_not_repeat_after_newspaper(self):
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   c=self.prepare(g);c.week+=1;c.life['private_meeting']='offer';c.post_match_stage='newspaper';honours.award(c,dict(season=c.season,competition='cup:qa',title='QA cup',team_uid=c.club.uid,team=c.club.name,country=c.club.country))
+   g.view='trophy';g.draw();g._activate_ui('title_continue');g.draw();settle();self.assertEqual(g.view,'title_coach');g._activate_ui('coach_focus',c.coach_focus_options()[0]);g._activate_ui('title_coach_complete');g.draw();settle();self.assertEqual(g.view,'newspaper');g._activate_ui('post_match_continue');g.draw();settle();self.assertEqual(g.view,'hub');self.assertTrue(c.coach_meeting_held);self.assertEqual(c.life['private_meeting'],'')
+ def test_hat_trick_slide_and_losing_goal_retrieval_priority(self):
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   self.prepare(g);g._match_shot_goal_counted=False;g.match_player_goals=2;home=g._player_match_is_home();g.match_home_score=g.match_away_score=2;g._record_player_match_goal();self.assertEqual(g.match_player_goals,3);self.assertTrue(g.goal_celebration.decisive);self.assertTrue(g.hattrick_feedback)
+   g._match_shot_goal_counted=False;g.match_home_score=0 if home else 5;g.match_away_score=5 if home else 0;g._record_player_match_goal();self.assertTrue(g.goal_celebration.retrieving);self.assertEqual(g.goal_celebration.actor(3)[1],'BALL_RUN');self.assertFalse(g.goal_celebration.decisive)
+ def test_coach_has_only_dressing_room_photo(self):
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   c=self.prepare(g);c.week+=1;g.view='coach';g.draw();settle();images=[w for w in g._menu.body.walk() if isinstance(w,Image)];self.assertEqual(len(images),1);self.assertEqual(images[0].source,'assets/coaches/team_talk.png')
+ def test_shop_images_prices_and_local_money_save(self):
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   c=self.prepare(g);c.life['balance']=100000;g.view='lifestyle';g.draw();settle();self.assertTrue(any(isinstance(w,Image) and w.source.endswith('/studio.png') for w in g._menu.body.walk()));self.assertTrue(purchase(c,'studio'));self.assertEqual(c.life['balance'],20000);self.assertTrue(c.load());self.assertIn('studio',c.life['owned'])
+ def test_penalty_players_wait_legally_and_training_stays_isolated(self):
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   self.prepare(g);g._start_opportunity('penalty',8);self.assertEqual(len(g.field_players),8);self.assertTrue(all(p.y>=16.5 and math.hypot(p.x,p.y-11)>=9.15 for p in g.field_players));g.shot_context='training';g._prepare_next_shot();self.assertEqual(g.field_players,[])
+
+ def test_trophy_continue_accepts_real_touch_after_multiple_redraws(self):
+  from kivy.tests.common import UnitTestTouch
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   c=self.prepare(g);honours.award(c,dict(season=c.season,competition='cup:qa',title='QA cup',team_uid=c.club.uid,team=c.club.name,country=c.club.country));g.view='trophy';g.draw();g.draw();g.draw();settle()
+   self.assertIn(g._title_button.canvas,g.canvas.children);t=UnitTestTouch(*g._title_button.center);t.touch_down();t.touch_up();settle();self.assertEqual(g.view,'title_coach')
+ def test_competitive_goal_tap_uses_marker_instead_of_free_target(self):
+  from kivy.tests.common import UnitTestTouch
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   self.prepare(g);g.state=g.STATE_AIMING;g._menu=None;g._match_notice=None;g.ui_buttons=[];x,y=g.project(3.4,0,2.)
+   with patch.object(g,'shoot') as shoot:g.on_touch_down(UnitTestTouch(x,y));shoot.assert_called_once_with()

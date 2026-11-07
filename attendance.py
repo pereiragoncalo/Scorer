@@ -1,12 +1,14 @@
 """Deterministic visual turnout, based on collective league results only."""
 def turnout(club,league=None):
     played=max(0,getattr(club,'played',0));points=max(0,getattr(club,'points',0))
-    if not played:return .66
     ppg=min(1.,points/max(1,played*3))
     rank=.5
     if league is not None:
         rows=league.table();index=next((i for i,t in enumerate(rows) if t.uid==club.uid),None)
-        if index is not None:rank=1.-index/max(1,len(rows)-1)
+        if index is not None:
+            if index<5:return 1.
+            rank=1.-index/max(1,len(rows)-1)
+    if not played:return .66
     performance=.8*ppg+.2*rank
     evidence=min(1.,played/5.)
     return round(max(.35,min(.98,.35+.63*(.492*(1-evidence)+performance*evidence))),4)
@@ -43,7 +45,8 @@ def occupied_seats(seats,fractions,noise):
         sectors.setdefault((team,section),[]).append(seat)
     result=[]
     for (team,section),values in sectors.items():
-        values.sort(key=lambda s:(-s[2],noise(*s[:4])))
+        # A bounded one-to-three-row ragged fringe; highest rows stay full.
+        values.sort(key=lambda s:(-(s[2]+(noise(*s[:4])%1000)/1000*.65),noise(*s[:4])))
         count=round(len(values)*max(0.,min(1.,fractions.get(team,0.))))
         result.extend(values[:count])
     return result

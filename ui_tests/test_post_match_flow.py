@@ -17,7 +17,7 @@ class PostMatchFlow(unittest.TestCase):
     def test_final_then_paper_then_optional_coach_then_hub_survives_reload(self):
         for requested in (False,True):
             with isolated_game() as g:
-                c=self.result(g,requested);self.assertEqual(g.view,'match')
+                c=self.result(g,requested);c.life['private_meeting']='';c.save();self.assertEqual(g.view,'match')
                 self.assertEqual(c.post_match_stage,'newspaper');self.assertTrue(c.load())
                 g._activate_ui('match_continue');g.draw();settle();self.assertEqual(g.view,'newspaper')
                 g._on_key_down(None,27,None,'',None);g.draw();settle()

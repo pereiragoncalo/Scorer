@@ -40,12 +40,18 @@ class GoalCelebration:
     fans:tuple
     run_seconds:float
     slide_start:tuple
+    retrieving:bool=False
+    pickup:tuple=(0.,-.25)
 
     @property
-    def duration(self):return self.run_seconds+(1.1 if self.decisive else 0.)+2.6
+    def duration(self):return 6. if self.retrieving else self.run_seconds+(1.1 if self.decisive else 0.)+2.6
 
     def actor(self,age,index=0):
         age=max(0.,age)
+        if self.retrieving:
+            if age<2.:return mix(self.origin,self.pickup,min(1.,age/2.)),'RUN',age
+            if age<2.6:return self.pickup,'TACKLE',age-2.
+            return mix(self.pickup,(0.,52.5),min(1.,(age-2.6)/7.)),'BALL_RUN',age-2.6
         run=self.run_seconds
         slide=1.1 if self.decisive else 0.
         if index==0:
@@ -79,11 +85,13 @@ def start(game):
     length=max(.001,math.hypot(fx,fy));standoff=(.12 if game.shot_type=='header' else .52)*PLAYER_SCALE
     origin=(game.shot_origin_x-fx/length*standoff,game.shot_origin_y-fy/length*standoff)
     dx,dy=target[0]-origin[0],target[1]-origin[1];distance=max(.01,math.hypot(dx,dy))
-    decisive=decisive_now(game)
+    own,other=(game.match_home_score,game.match_away_score) if home else (game.match_away_score,game.match_home_score)
+    retrieving=own<other
+    decisive=not retrieving and (game.match_player_goals==3 or decisive_now(game))
     slide_start=(target[0]-dx/distance*2.6,target[1]-dy/distance*2.6) if decisive else target
     run_distance=math.dist(origin,slide_start)
     run=max(1.3,min(5.8,run_distance/7.0))
-    celebration=GoalCelebration(game.elapsed,'home' if home else 'away',decisive,origin,target,fans,run,slide_start)
+    celebration=GoalCelebration(game.elapsed,'home' if home else 'away',decisive,origin,target,fans,run,slide_start,retrieving,(game.ball.x,-.25))
     game.goal_celebration=celebration
     game._crowd_celebrate_until=game.elapsed+celebration.duration+.3
 
@@ -98,7 +106,7 @@ def draw(game):
     age=game.elapsed-celebration.started
     renderer=game._retro_renderer();colours=kit_palette(game._match_outfield_kits()[0])
     actors=[]
-    for index in range(4):
+    for index in range(1 if celebration.retrieving else 4):
         (x,y),state,clock=celebration.actor(age,index)
         if state=='RUN':target=celebration.target
         elif index==0:target=celebration.fans
@@ -109,3 +117,16 @@ def draw(game):
         actors.append((y,index,x,Pose(state,age=clock,view=view,flipped=flip)))
     for y,index,x,pose in sorted(actors):
         renderer.draw(game,'celebration_'+str(index),'players',pose,(x,y,0.),PLAYER_HEIGHT_METRES,colours)
+
+        if index==0 and celebration.retrieving and age>=2.6:
+            # A cosmetic held-ball sprite follows the athlete; match physics stay frozen.
+            from retro_props import cache
+            from kivy.graphics import Color,Rectangle
+            from retro_sprites import projected_scale
+            character,clip,frame=renderer.sample('celebration_0','players',pose)
+            joints=clip['joints'][pose.view][frame];a,b=joints['wrist_0'],joints['wrist_1'];mx,my=(a[0]+b[0])/2,(a[1]+b[1])/2;ax,ay=character['anchor']
+            if pose.flipped:mx=character['canvas'][0]-mx;ax=character['canvas'][0]-ax
+            scale=projected_scale(game,(x,y,0),character);px,py=game.project(x,y,0);px+=(mx-ax)*scale;py+=(ay-my)*scale;r=scale*3.
+            from retro_props import uv
+            texture=cache(game).get('ball.png')
+            Color(1,1,1,1);Rectangle(texture=texture,tex_coords=uv(texture,0,0,8,1),pos=(px-r,py-r),size=(r*2,r*2))

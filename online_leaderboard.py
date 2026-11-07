@@ -23,10 +23,11 @@ def valid_origin(origin):
 class Leaderboard:
     def __init__(self,directory,origin=''):
         self.path=Path(directory)/'leaderboard.json';self.origin=origin
-        self.pending_withdrawal=False;self.enabled=False;self.alias='';self.token='';self.entries=[];self.status='';self.busy=False;self.sent={};self.blocked=set();self.terms_version=0
+        self.pending_withdrawal=False;self.enabled=False;self.career_enabled=False;self.alias='';self.token='';self.entries=[];self.status='';self.busy=False;self.sent={};self.blocked=set();self.terms_version=0
         try:
             d=json.loads(self.path.read_text());self.token=d['token'];self.alias=d['alias']
             self.enabled=d['enabled'] is True and d.get('origin')==origin and d.get('consent_version')==3
+            self.career_enabled=d.get('career_enabled') is True and self.enabled
             self.sent=d.get('sent',{}) if isinstance(d.get('sent'),dict) else {}
             self.pending_withdrawal=d.get('pending_withdrawal') is True
             self.terms_version=1 if d.get('terms_version')==1 else 0
@@ -40,7 +41,7 @@ class Leaderboard:
         self.path.parent.mkdir(parents=True,exist_ok=True)
         fd,name=tempfile.mkstemp(dir=self.path.parent)
         try:
-            with os.fdopen(fd,'w') as f:json.dump(dict(token=self.token,alias=self.alias,enabled=self.enabled,origin=self.origin,pending_withdrawal=self.pending_withdrawal,consent_version=3,sent=self.sent,terms_version=self.terms_version,blocked=sorted(self.blocked)),f)
+            with os.fdopen(fd,'w') as f:json.dump(dict(career_enabled=self.career_enabled,token=self.token,alias=self.alias,enabled=self.enabled,origin=self.origin,pending_withdrawal=self.pending_withdrawal,consent_version=3,sent=self.sent,terms_version=self.terms_version,blocked=sorted(self.blocked)),f)
             os.replace(name,self.path)
         finally:
             try:os.unlink(name)
@@ -63,9 +64,13 @@ class Leaderboard:
         from season_records import scope,valid_record
         import hashlib
         edition,country,division=scope(career,world)
-        query='/v3/records?'+urlencode(dict(edition=edition,country=country,division=division))
+        category=getattr(self,'category','season')
+        query=('/v4/records?' if category=='career' else '/v3/records?')+urlencode(dict(edition=edition,country=country,division=division))
         snapshots=[dict(r) for r in getattr(career,'completed_records',[]) if valid_record(r)]
-        publish=self.enabled and self.terms_version==1 and not withdraw
+        if category=='career':
+            from career_records import snapshot
+            career_snapshot=snapshot(career,world);snapshots=[career_snapshot] if career_snapshot else []
+        publish=self.enabled and (category!='career' or self.career_enabled) and self.terms_version==1 and not withdraw
         self.busy=True
         def work():
             try:
@@ -76,14 +81,14 @@ class Leaderboard:
                 elif publish:
                     sent=0
                     for record in snapshots:
-                        digest=hashlib.sha256(json.dumps(record,sort_keys=True).encode()).hexdigest()
+                        digest=hashlib.sha256((category+json.dumps(record,sort_keys=True)).encode()).hexdigest()
                         if digest in self.sent:continue
-                        self.request('/v3/records',dict(token=self.token,record=record,terms_version=self.terms_version))
+                        self.request('/v4/records' if category=='career' else '/v3/records',dict(token=self.token,record=record,terms_version=self.terms_version))
                         self.sent[digest]=True;self.save();sent+=1
                         if sent>=8:break
                 result=self.request(query);entries=result.get('entries')
-                if result.get('schema')!=3 or not isinstance(entries,list) or len(entries)>100:raise ValueError('Invalid records')
-                if any(not valid_public_entry(e) or (e['edition'],e['country'],e['division'])!=(edition,country,division) for e in entries):raise ValueError('Wrong division')
+                if result.get('schema')!=(4 if category=='career' else 3) or not isinstance(entries,list) or len(entries)>100:raise ValueError('Invalid records')
+                if any(not valid_public_entry(e,category) or (e['edition'],e['country'],e['division'])!=(edition,country,division) for e in entries):raise ValueError('Wrong division')
                 self.entries=[e for e in entries if e['publisher'] not in self.blocked]
                 self.status='Submitted for moderator review.' if sent else 'Completed-season records updated.'
             except HTTPError as error:
@@ -113,9 +118,11 @@ class Leaderboard:
                 if callback:callback()
         threading.Thread(target=work,daemon=True).start();return True
 
-def valid_public_entry(entry):
+def valid_public_entry(entry,category='season'):
     import re
     from season_records import FIELDS,valid_record
+    if category=='career':
+        from career_records import valid_record
     return (isinstance(entry,dict) and set(entry)==FIELDS|{'publisher','record_id'}
             and valid_record({k:entry[k] for k in FIELDS})
             and all(isinstance(entry[k],str) and re.fullmatch('[0-9a-f]{32}',entry[k]) for k in ('publisher','record_id')))

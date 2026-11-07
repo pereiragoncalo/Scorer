@@ -9,6 +9,7 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
             obj=types.ModuleType(name);obj.__file__=str(Path.cwd()/(name+'.py'));sys.modules[name]=obj
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
+        life=module('career_life');prestige=module('league_status');module('career_records');module('coach_feedback');module('unpredictable_aim')
         titles=module('title_events');attendance=module('attendance')
         development=module('player_development')
         news=module('newspaper');coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
@@ -207,3 +208,14 @@ assert titles.finish(c,focus) and c.load() and titles.pending(c) is None
 from types import SimpleNamespace
 assert attendance.turnout(SimpleNamespace(played=10,points=30))>attendance.turnout(SimpleNamespace(played=10,points=0))
 print('Actual APK: collective trophy queue, stage reload, once-only special talk and performance-based turnout verified')
+
+with tempfile.TemporaryDirectory() as tmp:
+    os.environ['STRIKER_SAVE_DIR']=tmp
+    c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0])
+    assert life.age(c)==18 and c.life['salary']>0 and len(prestige.data()['countries'])==212
+    wage=c.life['salary'];c.week+=1;assert c.save() and c.life['balance']==wage
+    assert c.save() and c.life['balance']==wage and c.load() and c.life['balance']==wage
+    c.life['balance']=100000;assert life.purchase(c,'studio') and c.life['balance']==20000 and c.load() and 'studio' in c.life['owned']
+    c.season+=20;assert life.retirement_due(c) and life.retirement(c,False) and not life.retirement_due(c)
+    c.season+=1;assert life.retirement_due(c) and life.decline(c)>1 and life.retirement(c,True) and c.next_match() is None
+print('Actual APK: weekly wage deduplication, local purchases, age18, yearly retirement38+, progressive decline and212 league-status entries verified')

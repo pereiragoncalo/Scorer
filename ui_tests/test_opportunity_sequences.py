@@ -46,7 +46,7 @@ class OpportunityScenes(unittest.TestCase):
     def test_training_has_no_build_up_or_extra_players_and_penalty_is_preserved(self):
         with isolated_game() as g:
             self.sign(g);g._start_opportunity('penalty',8)
-            self.assertEqual(g.state,g.STATE_AIMING);self.assertEqual((g.ball.x,g.ball.y),(0,11));self.assertEqual(g.field_players,[])
+            self.assertEqual(g.state,g.STATE_AIMING);self.assertEqual((g.ball.x,g.ball.y),(0,11));self.assertEqual(len(g.field_players),8)
             g.shot_context='training';g._prepare_next_shot()
             self.assertEqual(g.state,g.STATE_AIMING);self.assertIsNone(g.current_opportunity)
             self.assertEqual(g.field_players,[]);self.assertEqual(g.buildup_actors,[])
@@ -66,4 +66,4 @@ class OpportunityScenes(unittest.TestCase):
                 self.assertTrue(g.one_on_one)
                 self.assertEqual(g.attempts,0)
             g._start_opportunity('penalty',9)
-            self.assertIsNone(g.onside_defender);self.assertEqual(g.field_players,[])
+            self.assertIsNone(g.onside_defender);self.assertEqual(len(g.field_players),8)
