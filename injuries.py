@@ -9,7 +9,7 @@ def complete(c,absent):
     if c.life.get('injury_fixture')==key:return
     c.life['injury_fixture']=key
     if absent:
-        entry['played']=False;entry['absence']=c.life['injury_name']
+        entry['played']=True;entry['player_played']=False;entry['absence']=c.life['injury_name']
         c.life['injury_games']=max(0,c.life['injury_games']-1)
         return
     rng=random.Random(hashlib.sha256(f"injury-v1:{c.world_seed}:{key}".encode()).digest())

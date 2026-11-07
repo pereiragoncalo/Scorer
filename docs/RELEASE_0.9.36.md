@@ -9,6 +9,10 @@ no longer replaces a league match with a random national-team friendly.
 
 Official call-up eligibility and national competitions stay available. Existing
 training, injuries/recovery, club fixtures, dashboard and shot physics are unchanged.
+A completed team fixture missed through injury stays marked as completed in the
+calendar, separately from personal participation. Existing0.9.35 injury entries
+with the old marker are repaired on reload.
+
 Explicit recording of an already-started legacy friendly remains compatible; it
 cannot create another friendly in the normal calendar.
 

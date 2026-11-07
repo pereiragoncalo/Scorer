@@ -46,13 +46,13 @@ def clean_events(events,score):
 def make_report(state,entry,home,away,actor_uid,score,goals,misses,moments,events=None):
     from match_moments import clean_moments
     state=copy.deepcopy(state)
-    state['negative_run']=(state['negative_run']+1 if goals==0 and misses>0 else 0) if entry.get('played',True) else state['negative_run']
+    state['negative_run']=(state['negative_run']+1 if goals==0 and misses>0 else 0) if entry.get('player_played',True) else state['negative_run']
     standout=goals>0
     report={k:str(entry.get(k,'')) for k in ('date','competition','country','status')}
     if not report['status'][:1].isdigit():report['status']=f'{score[0]}-{score[1]}'
     report.update(home=home.name,away=away.name,home_uid=home.uid,away_uid=away.uid,actor_uid=actor_uid,
                   score=list(score),goals=goals,misses=misses,photo=state['editions']%len(PHOTOS),
-                  negative_run=state['negative_run'] if entry.get('played',True) else 0,standout=standout,events=clean_events(events,score))
+                  negative_run=state['negative_run'] if entry.get('player_played',True) else 0,standout=standout,events=clean_events(events,score))
     state['report']=report;state['editions']+=1
     return state
 

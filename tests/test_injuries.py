@@ -21,15 +21,19 @@ class InjuryTests(unittest.TestCase):
   stats=(c.matches,c.goals,c.morale,c.stamina,c.coach_trust,list(c.form_goals));negative=c.press_state['negative_run']
   for left in (1,0):
    token,h,a=c.next_match();c.finish_match(h,a,0,0,forced_score=(1,0),competition=token)
-   self.assertEqual(c.life['injury_games'],left);self.assertFalse(c.fixture_history[-1]['played']);self.assertIn('absence',c.fixture_history[-1]);self.assertEqual((c.matches,c.goals,c.morale,c.stamina,c.coach_trust,c.form_goals),stats);self.assertEqual(c.press_state['negative_run'],negative);self.assertEqual(c.press_state['report']['negative_run'],0)
+   self.assertEqual(c.life['injury_games'],left);self.assertFalse(c.fixture_history[-1]['player_played']);self.assertTrue(c.fixture_history[-1]['played']);self.assertIn('absence',c.fixture_history[-1]);self.assertEqual((c.matches,c.goals,c.morale,c.stamina,c.coach_trust,c.form_goals),stats);self.assertEqual(c.press_state['negative_run'],negative);self.assertEqual(c.press_state['report']['negative_run'],0)
    before=copy.deepcopy(c.life);c.next_match();self.assertEqual(c.life,before);self.assertTrue(c.load());self.assertEqual(c.life['injury_games'],left)
   self.assertFalse(injuries.active(c))
  def test_world_absence_records_fixture_without_personal_credit(self):
   c=CareerMode(Access(),autoload=False);c.configure_new_player('Alex','Portugal','Portugal');c.accept_starting_offer(c.offers[0]);c.life.update(injury_name='Ankle sprain',injury_games=3)
   token,h,a=c.next_match();before=c.matches+c.international_caps;c.finish_match(h,a,0,0,competition=token)
-  self.assertEqual(c.matches+c.international_caps,before);self.assertEqual(c.life['injury_games'],2);self.assertTrue(c.load());self.assertFalse(c.fixture_history[-1]['played'])
+  self.assertEqual(c.matches+c.international_caps,before);self.assertEqual(c.life['injury_games'],2);self.assertTrue(c.load());self.assertFalse(c.fixture_history[-1]['player_played'])
  def test_no_double_recovery_and_clean_legacy_data(self):
   c=self.c;c.fixture_history=[dict(date='x',competition='x',home='h',away='a')];c.life.update(injury_name='Calf strain',injury_games=2)
   injuries.complete(c,True);injuries.complete(c,True);self.assertEqual(c.life['injury_games'],1)
   d=clean({'version':1},c);self.assertEqual(d['injury_games'],0)
   d=clean({'version':1,'injury_name':'fake','injury_games':999},c);self.assertEqual(d['injury_games'],0)
+
+ def test_legacy_absence_entries_are_completed_fixtures_after_reload(self):
+  c=self.c;c.fixture_history=[dict(date='2026-07-12',competition=c.current_league.name,home='h',away='a',status='1-0',played=False,absence='Calf strain')]
+  self.assertTrue(c.save());self.assertTrue(c.load());self.assertTrue(c.fixture_history[-1]['played']);self.assertFalse(c.fixture_history[-1]['player_played'])

@@ -227,7 +227,7 @@ with tempfile.TemporaryDirectory() as tmp:
     assert not c.begin_training() and c.chance_count()==0
     before=(c.matches,c.international_caps,c.morale,c.stamina,c.coach_trust,list(c.form_goals))
     token,h,a=c.next_match();c.finish_match(h,a,0,0,competition=token)
-    assert c.life['injury_games']==1 and not c.fixture_history[-1]['played'] and c.load()
+    assert c.life['injury_games']==1 and not c.fixture_history[-1]['player_played'] and c.load()
     assert (c.matches,c.international_caps,c.morale,c.stamina,c.coach_trust,c.form_goals)==before
 print('Actual APK: saved short injury, practice block, skipped-fixture recovery and no personal credit verified')
 

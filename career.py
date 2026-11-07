@@ -1253,7 +1253,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         from international_calendar import match_date
         self.fixture_history.append({'date':match_date(self.season,cup,f).isoformat(),'competition':title,'country':self.current_league.country,
                                      'home':home.name,'away':away.name,'home_uid':home.uid,'away_uid':away.uid,'status':f'{score[0]}-{score[1]}{decision}','played':True,'moments':clean_moments(moments)})
-        self.fixture_history[-1]['played']=not absent
+        self.fixture_history[-1]['player_played']=not absent
         self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,actor,score,player_goals,player_misses,moments,report_events)
         self.fixture_history=self.fixture_history[-128:]
         if key.startswith('domestic:'):
@@ -1705,7 +1705,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 "moments": clean_moments(moments),
                 "played": True,
             })
-            self.fixture_history[-1]['played']=not absent
+            self.fixture_history[-1]['player_played']=not absent
             self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,home.uid,(portugal_goals,opponent_goals),player_goals,player_misses,moments,report_events)
             self.fixture_history = self.fixture_history[-128:]
             self.post_match_stage='newspaper'
@@ -1806,7 +1806,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             "moments": clean_moments(moments),
             "played": True,
         })
-        self.fixture_history[-1]['played']=not absent
+        self.fixture_history[-1]['player_played']=not absent
         self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,self.club.uid,score,player_goals,player_misses,moments,report_events)
         self.fixture_history = self.fixture_history[-128:]
         if competition == "league":
@@ -2575,6 +2575,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 if isinstance(value, dict)
             ][-128:]
             for entry in self.fixture_history:
+                if entry.get('played') is False and entry.get('absence') in __import__('injuries').NAMES:
+                    entry['played']=True;entry['player_played']=False
                 if "moments" in entry:
                     entry["moments"] = clean_moments(entry["moments"])
                 if key == FREE_LEAGUE_KEY and entry.get("competition") == "Liga Scorer":
