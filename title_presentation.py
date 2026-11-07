@@ -57,4 +57,6 @@ def draw(g):
         g._title_button.size_hint=(None,None);g.add_widget(g._title_button)
     g._title_button.size=(dp(160),dp(52));g._title_button.pos=(g.right-dp(176),g.y+dp(12))
 
-    if g._title_button.canvas not in g.canvas.children:g.canvas.add(g._title_button.canvas)
+    # Canvas.clear retains widget canvases; move the button above the new pitch.
+    if g._title_button.canvas in g.canvas.children:g.canvas.remove(g._title_button.canvas)
+    g.canvas.add(g._title_button.canvas)

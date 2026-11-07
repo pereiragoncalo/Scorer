@@ -43,7 +43,7 @@ class ExpansionTests(unittest.TestCase):
   from kivy.tests.common import UnitTestTouch
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
    c=self.prepare(g);honours.award(c,dict(season=c.season,competition='cup:qa',title='QA cup',team_uid=c.club.uid,team=c.club.name,country=c.club.country));g.view='trophy';g.draw();g.draw();g.draw();settle()
-   self.assertIn(g._title_button.canvas,g.canvas.children);t=UnitTestTouch(*g._title_button.center);t.touch_down();t.touch_up();settle();self.assertEqual(g.view,'title_coach')
+   self.assertIs(g.canvas.children[-1],g._title_button.canvas);t=UnitTestTouch(*g._title_button.center);t.touch_down();t.touch_up();settle();self.assertEqual(g.view,'title_coach')
  def test_competitive_goal_tap_uses_marker_instead_of_free_target(self):
   from kivy.tests.common import UnitTestTouch
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
