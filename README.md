@@ -1,3 +1,12 @@
+## Scorer World0.9.36 — official national fixtures only
+
+[Download World0.9.36 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.36/Scorer-World-0.9.36.apk)
+
+No new national-team friendlies or pending friendly fixtures in existing saves.
+Completed results and all official national competitions stay intact. Injury
+absences now keep the team fixture marked as completed in the calendar.
+Physical Android playtest pending. [Scope](docs/RELEASE_0.9.36.md).
+
 ## Scorer World0.9.35 — restored dashboard, lifestyle and injuries
 
 [Download World0.9.35 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.35/Scorer-World-0.9.35.apk)
