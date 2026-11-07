@@ -64,3 +64,16 @@ class ExpansionTests(unittest.TestCase):
    c=self.prepare(g);c.life.update(injury_name='Ankle sprain',injury_games=2);c.last_training_week=-1;g.view='hub';g.draw();settle()
    self.assertTrue(g._menu.body.training.disabled);self.assertFalse(g._menu.body.play.disabled)
    before=c.matches+c.international_caps;g.start_career_match();settle();self.assertEqual(g.view,'newspaper');self.assertEqual(c.life['injury_games'],1);self.assertEqual(c.matches+c.international_caps,before);self.assertFalse(c.fixture_history[-1]['played'])
+
+ def test_season_labels_fit_short_phone_panel(self):
+  from kivy.core.text import Label as CoreLabel
+  from menu_ui import DashboardField
+  from kivy.metrics import Metrics
+  old_density=Metrics.density
+  try:
+   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+    self.prepare(g);Metrics.density=3;Window.size=g.size=(1920,1080);g.view='hub';g.draw();settle()
+    for w in g._menu.body.season.walk(restrict=True):
+     if isinstance(w,DashboardField):
+      m=CoreLabel(text=w.text,text_size=(w.width,None),font_name=w.font_name,font_size=w.font_size,bold=w.bold,line_height=w.line_height);m.refresh();self.assertLessEqual(m.texture.size[1],w.height+1,w.text)
+  finally:Metrics.density=old_density

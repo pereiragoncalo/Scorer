@@ -1020,15 +1020,15 @@ class MainDashboard(BoxLayout):
         numbers = BoxLayout(spacing=dp(8),size_hint_y=.36)
         for number, title in ((c.matches, 'MATCHES'), (c.goals, 'GOALS')):
             column=BoxLayout(orientation='vertical',spacing=0)
-            column.add_widget(BoundedLabel(text=str(number),font_size=sp(28),bold=True,halign='center',size_hint_y=.7))
-            column.add_widget(BoundedLabel(text=title,font_size=sp(10),color=MUTED,halign='center',size_hint_y=.3))
+            column.add_widget(DashboardField(compact_text=str(number),text=str(number),localize=False,font_size=sp(28),bold=True,halign='center',size_hint_y=.7))
+            column.add_widget(DashboardField(compact_text=menu.game.i18n.tr(title),text=menu.game.i18n.tr(title),localize=False,font_size=sp(10),color=MUTED,halign='center',size_hint_y=.3))
             numbers.add_widget(column)
         self.season.add_widget(numbers)
         energy=BoxLayout(size_hint_y=.25,spacing=dp(6))
         for title,value in (('Morale',c.morale),('Fitness',c.stamina)):
             field=DashboardField(compact_text=menu.game.i18n.tr(title)+' '+f'{value:.1f}/20',text=menu.game.i18n.tr(title)+'\n'+f'{value:.1f}/20',localize=False,halign='center',font_size=sp(13),color=GREEN);field.shorten=False;energy.add_widget(field)
         self.season.add_widget(energy)
-        self.season.add_widget(BoundedLabel(localize=False,text=menu.game.i18n.league(c,c.current_league),color=MUTED,font_size=sp(14),halign='center',size_hint_y=.17))
+        self.season.add_widget(DashboardField(compact_text=menu.game.i18n.league(c,c.current_league),localize=False,text=menu.game.i18n.league(c,c.current_league),color=MUTED,font_size=sp(14),halign='center',size_hint_y=.17))
         trust=DashboardField(compact_text=menu.game.i18n.tr('Trust {trust}/100 · {role}',trust=c.coach_trust,role=menu.game.i18n.tr(c.team_role))+' ›',text=menu.game.i18n.tr('Trust {trust}/100',trust=c.coach_trust)+'\n'+menu.game.i18n.tr(c.team_role)+' ›',localize=False,color=GREEN,font_size=sp(12),halign='center',size_hint_y=.22)
         trust.shorten=False
         self.trust_link=trust
