@@ -1,3 +1,13 @@
+## Scorer World0.9.34 — contracts, lifestyle and revised match presentation
+
+[Download World0.9.34 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.34/Scorer-World-0.9.34.apk)
+
+Weekly wages,16 illustrated purchases, ageing and retirement; revised aim and
+scoring, favourite-club offers, Season/Career boards and improved title/goal
+celebrations, coach feedback and dashboard. Full official five-season club
+standings verification is still incomplete. Physical Android playtest pending.
+[Scope and validation](docs/RELEASE_0.9.34.md).
+
 ## Scorer World0.9.33 — retro crowds and championship celebrations
 
 [Download World0.9.33 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.33/Scorer-World-0.9.33.apk)

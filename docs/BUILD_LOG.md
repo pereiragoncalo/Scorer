@@ -1,3 +1,9 @@
+## 2026-11-07 — World0.9.34 career expansion
+
+Source f4e30b6407d16c7953026dba22e8dfbc1899c3e7; World1026934, existing debug upgrade certificate, API36/min26 arm64. Contracts and16 illustrated purchases, ageing/retirement, stochastic authoritative aim, revised budgets, club/league prestige, favourite-club offers, career records and additive owner-run bastion installer. Dashboard/coach/title celebrations and crowd refinements. Preserve physics, aliases and unrelated WIP.
+
+418 core cases/3 existing skips,220 native cases and9 final expansion cases passed.396 responsive cases/zero findings; fixed catalogue header height. Screenshot review caught Continue behind the stadium: move retained button canvas above the new scene, native assertion/touch and refreshed screenshot confirm the correction. Rebuilt actual APK and verified package/version/signature,118 ELF16KB andZIP16KB; packed source/data checks recorded separately. Physical Android playtest pending. Five-season official final tables remain incomplete:499 game identities matched,301 five-season results-derived presets; deductions/phases/tie-break verification remains. Installer hashes/syntax verified, server not deployed from cloud.
+
 ## 2026-11-06 — World0.9.33 retro scenes and collective titles
 
 Source70214d938564416786c716f9c58b5bd855715449; World APK1026933, existing debug upgrade certificate, API36/min26 arm64. Original ball/fan/trophy sprites, performance-based frozen attendance and top-down home/away filling. Eleven-player own-supporter trophy celebration followed by persistent once-only coach talk; merge due weekly focus choices. Preserve physics, approved player/keeper art, training gates and unrelated WIP.

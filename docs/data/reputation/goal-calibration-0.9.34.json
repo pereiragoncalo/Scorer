@@ -1,0 +1,13 @@
+{
+  "away": 1.1894927536231885,
+  "draw_rate": 0.2486231884057971,
+  "five_plus_rate": 0.12518115942028984,
+  "goals_per_match": 2.623731884057971,
+  "home": 1.4342391304347826,
+  "matches": 55200,
+  "nil_nil_rate": 0.07141304347826087,
+  "seasons": 100,
+  "top_scorer_max": 40,
+  "top_scorer_mean": 29.68,
+  "top_scorer_min": 25
+}
