@@ -1,3 +1,13 @@
+## Scorer World0.9.35 — restored dashboard, lifestyle and injuries
+
+[Download World0.9.35 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.35/Scorer-World-0.9.35.apk)
+
+Player/club above the fixture and training/play below, matching sizes and aligned
+columns; season stats fit their rows. Lifestyle on the dashboard opens separate
+Shopping and My Assets screens. Six saved short injuries have1–3% risk per played
+fixture and1–3 missed matches; Simulate Match advances recovery without a personal
+appearance. Physical Android playtest pending. [Scope](docs/RELEASE_0.9.35.md).
+
 ## Scorer World0.9.34 — contracts, lifestyle and revised match presentation
 
 [Download World0.9.34 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.34/Scorer-World-0.9.34.apk)

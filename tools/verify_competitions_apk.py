@@ -9,7 +9,7 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
             obj=types.ModuleType(name);obj.__file__=str(Path.cwd()/(name+'.py'));sys.modules[name]=obj
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
-        life=module('career_life');prestige=module('league_status');module('career_records');module('coach_feedback');module('unpredictable_aim')
+        injury=module('injuries');life=module('career_life');prestige=module('league_status');module('career_records');module('coach_feedback');module('unpredictable_aim')
         titles=module('title_events');attendance=module('attendance')
         development=module('player_development')
         news=module('newspaper');coach=module('coach');moments=module('match_moments');assert moments.chance_moment({},88,0,1,True)=='equaliser'
@@ -219,3 +219,14 @@ with tempfile.TemporaryDirectory() as tmp:
     c.season+=20;assert life.retirement_due(c) and life.retirement(c,False) and not life.retirement_due(c)
     c.season+=1;assert life.retirement_due(c) and life.decline(c)>1 and life.retirement(c,True) and c.next_match() is None
 print('Actual APK: weekly wage deduplication, local purchases, age18, yearly retirement38+, progressive decline and212 league-status entries verified')
+
+with tempfile.TemporaryDirectory() as tmp:
+    os.environ['STRIKER_SAVE_DIR']=tmp
+    c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting()
+    c.life.update(injury_name='Ankle sprain',injury_games=2);assert c.save() and c.load()
+    assert not c.begin_training() and c.chance_count()==0
+    before=(c.matches,c.international_caps,c.morale,c.stamina,c.coach_trust,list(c.form_goals))
+    token,h,a=c.next_match();c.finish_match(h,a,0,0,competition=token)
+    assert c.life['injury_games']==1 and not c.fixture_history[-1]['played'] and c.load()
+    assert (c.matches,c.international_caps,c.morale,c.stamina,c.coach_trust,c.form_goals)==before
+print('Actual APK: saved short injury, practice block, skipped-fixture recovery and no personal credit verified')
