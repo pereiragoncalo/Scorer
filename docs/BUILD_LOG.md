@@ -1,5 +1,7 @@
 ## 2026-11-07 — World0.9.36 removes national friendlies
 
+Public APK verified HTTP200/attachment:114456099bytes, SHA256f3f342dd0b5c543e59add912fc8d5c131e4c079d67e46e364e56a94b9b617f0d. Delivery workflow42418877562 succeeded. Packed source, legacy migration and official-tournament preservation checks passed. Temporary transfer branch removed.
+
 Source cb2f7fd9036fabea7f5f6132bca2385bbdbd85c5 (runtime identical to87583c5; later changes isolate unit fixtures from random injury rolls). No friendly generation, selection or upcoming-calendar rows. Book reload/scheduling drops unplayed legacy friendlies; completed results/caps/goals and official tournaments are preserved. Legacy Free random-national substitution removed. Explicit already-started legacy result completion remains compatible.
 
 The full regression exposed a prior injury-calendar marker bug: completed team fixtures missed personally were marked unplayed. Separate player_played from played and repair0.9.35 absence entries on load; no change to injury risk or personal stats. Training/calendar/transfer unit fixtures now explicitly suppress random new injuries; dedicated injury probability/distribution/recovery cases remain enabled.426core cases/3existing skips,70targeted logic cases and13clean native UI/training cases passed. Existing dashboard layout/art is unchanged. Actual APK signature/package/API36/min26/118ELF16KB/ZIP16KB and packed runtime migration checks verified. Physical handset test and prior full official club-history audit remain pending.
