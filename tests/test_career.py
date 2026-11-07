@@ -85,7 +85,7 @@ class CareerTests(unittest.TestCase):
         for _ in range(35):
             kind, home, away = c.next_match()
             score = (0, 1) if home.name == c.club_name else (1, 0)
-            c.finish_match(home, away, 0, 1, forced_score=score, competition=kind)
+            c.finish_match(home, away, 0, 0 if __import__('injuries').active(c) else 1, forced_score=score, competition=kind)
             for round_name, fixture in upcoming().items():
                 self.assertEqual(fixture, initial[round_name])
         self.assertFalse(c.cup_active)

@@ -673,5 +673,19 @@
   "Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress. Offers must be from an equal or higher league status band. Your agent prioritises your country until you stand out. A strong season can bring an eligible offer from your favourite club.": "Chọn đề nghị trong kỳ chuyển nhượng. Cầu thủ tự do có thể ký ngoài kỳ. Chuyển CLB vẫn giữ tiến trình. Đề nghị phải đến từ giải có vị thế ngang hoặc cao hơn. Đại diện ưu tiên trong nước đến khi bạn nổi bật. Mùa giải tốt có thể đem lại đề nghị phù hợp từ CLB yêu thích.",
   "Tap to shoot at the moving marker.": "Chạm để sút theo tâm ngắm đang di chuyển.",
   "Time your tap to shoot at the moving marker. Watch power and the shot timer. Opponent strength changes the number and difficulty of chances. Continue at half-time and full-time.": "Canh thời điểm chạm để sút theo tâm ngắm đang di chuyển. Theo dõi lực và thời gian sút. Sức mạnh đối thủ thay đổi số cơ hội và độ khó. Tiếp tục ở giờ nghỉ và cuối trận.",
-  "CAREER": "SỰ NGHIỆP"
+  "CAREER": "SỰ NGHIỆP",
+  "SHOPPING": "MUA SẮM",
+  "MY ASSETS": "TÀI SẢN",
+  "No purchases yet.": "Chưa có giao dịch.",
+  "SIMULATE MATCH": "MÔ PHỎNG TRẬN",
+  "Morale": "Tinh thần",
+  "Fitness": "Thể lực",
+  "Trust {trust}/100": "Tin tưởng {trust}/100",
+  "{injury} · Out for {games} match(es)": "{injury} · Nghỉ {games} trận",
+  "Ankle sprain": "Bong gân mắt cá",
+  "Calf strain": "Căng cơ bắp chân",
+  "Thigh knock": "Bầm tím đùi",
+  "Groin strain": "Căng cơ háng",
+  "Bruised knee": "Bầm tím đầu gối",
+  "Hamstring strain": "Căng cơ đùi sau"
 }

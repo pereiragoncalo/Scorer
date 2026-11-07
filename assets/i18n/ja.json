@@ -673,5 +673,19 @@
   "Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress. Offers must be from an equal or higher league status band. Your agent prioritises your country until you stand out. A strong season can bring an eligible offer from your favourite club.": "移籍期間中にオファーを選びます。無所属なら期間外も契約できます。移籍しても進行状況は残ります。同等以上の格のリーグからのみオファーが届きます。活躍するまでは代理人が国内を優先します。好調なシーズンには、条件を満たす好きなクラブのオファーが届くこともあります。",
   "Tap to shoot at the moving marker.": "動く照準に合わせてタップしてシュート。",
   "Time your tap to shoot at the moving marker. Watch power and the shot timer. Opponent strength changes the number and difficulty of chances. Continue at half-time and full-time.": "動く照準に合わせてタップし、シュートします。パワーと残り時間に注目しましょう。相手の強さでチャンスの数と難しさが変わります。ハーフタイムと試合終了時に続行してください。",
-  "CAREER": "通算"
+  "CAREER": "通算",
+  "SHOPPING": "買い物",
+  "MY ASSETS": "所有資産",
+  "No purchases yet.": "購入品はまだありません。",
+  "SIMULATE MATCH": "試合をシミュレート",
+  "Morale": "士気",
+  "Fitness": "体力",
+  "Trust {trust}/100": "信頼 {trust}/100",
+  "{injury} · Out for {games} match(es)": "{injury} · {games}試合欠場",
+  "Ankle sprain": "足首の捻挫",
+  "Calf strain": "ふくらはぎの肉離れ",
+  "Thigh knock": "太ももの打撲",
+  "Groin strain": "鼠径部の筋損傷",
+  "Bruised knee": "膝の打撲",
+  "Hamstring strain": "ハムストリングの肉離れ"
 }

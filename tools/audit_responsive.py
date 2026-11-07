@@ -19,7 +19,7 @@ from test_menus import isolated_game
 from newspaper import make_report,fresh_state
 from coach import fresh_state as coach_fresh
 profiles=[('800x480',800,480,1.5,1),('1280x720',1280,720,2,1),('1920x1080',1920,1080,3,1),('2400x1080',2400,1080,3,1),('2340x1080',2340,1080,2.75,1),('2532x1170',2532,1170,3,1),('2960x1440',2960,1440,4,1),('foldable',2208,1768,2.75,1),('owner',1280,591,1.4,1),('compact',960,540,2,1),('largefont',1920,1080,3,1.3)]
-views=['club','development', 'splash','data_notice','start','profile','offers','hub','training','standings','scorers','calendar','agent','world','world_country','world_league','editor','competitions','competition','leaderboard','help','language','family','record_safety','privacy','newspaper','coach','title_coach','private_coach','lifestyle','trophy','match','shot','chance_notice']
+views=['club','development', 'splash','data_notice','start','profile','offers','hub','injured_hub','training','standings','scorers','calendar','agent','world','world_country','world_league','editor','competitions','competition','leaderboard','help','language','family','record_safety','privacy','newspaper','coach','title_coach','private_coach','lifestyle','shopping','possessions','trophy','match','shot','chance_notice']
 if args.views:
  unknown=set(args.views)-set(views)
  if unknown:parser.error('Unknown views: '+', '.join(sorted(unknown)))
@@ -57,6 +57,7 @@ try:
      issues=[]
      try:
       c.post_match_stage='';c.coach_state=coach_fresh(c.club.uid)
+      c.life.update(injury_name='Calf strain',injury_games=2 if view=='injured_hub' else 0)
       if view in ('title_coach','trophy'):
        import honours,title_events
        honours.award(c,dict(season=c.season,competition='cup:qa:'+lang+':'+view,title='National Cup',team_uid=c.club.uid,team=c.club.name,country=c.club.country))
@@ -74,7 +75,7 @@ try:
       if view=='development':g.development_tab='skills'
       if view=='chance_notice':
        g.awaiting_chance=True;g.match_halftime=g.match_finished=False;g.match_opportunities=('long_cross',);g.match_chance_index=0;g.match_penalty_chance_index=g.match_easy_chance_index=-1;g.match_moment='equaliser'
-      g.view='match' if view=='chance_notice' else view;g.draw();settle()
+      g.view='match' if view=='chance_notice' else 'hub' if view=='injured_hub' else view;g.draw();settle()
       if view=='chance_notice':
        notice=g._match_notice
        if not notice.layout_fits:issues.append(['notice_fit'])

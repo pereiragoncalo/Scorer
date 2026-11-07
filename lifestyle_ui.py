@@ -8,25 +8,47 @@ from menu_ui import MenuTile,BoundedLabel,LocalizedPopup,GREEN
 from career_life import ITEMS,age,purchase,retirement
 class LifestyleScreen(BoxLayout):
  def __init__(self,menu):
-  super().__init__(orientation='vertical',spacing=dp(6));self.menu=menu;c=menu.game.career;d=c.life;tr=menu.game.i18n.tr
+  super().__init__(orientation='vertical',spacing=dp(10));self.menu=menu
+  c=menu.game.career;tr=menu.game.i18n.tr
+  header=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6));self.add_widget(header)
+  header.add_widget(BoundedLabel(text='LIFESTYLE',halign='center',font_size=sp(20),color=GREEN))
+  help=MenuTile('HELP',lambda:menu.action('help'));help.size_hint_x=None;help.width=dp(80);header.add_widget(help)
+  summary=BoundedLabel(text=tr('Age {age} · Salary €{salary}/week',age=age(c),salary=f"{c.life['salary']:,}".replace(',',' '))+'\n'+tr('Balance €{balance}',balance=f"{c.life['balance']:,}".replace(',',' ')),localize=False,halign='center',font_size=sp(16));summary.shorten=False;self.add_widget(summary)
+  buttons=BoxLayout(spacing=dp(12),size_hint_y=None,height=dp(64));self.add_widget(buttons)
+  buttons.add_widget(MenuTile('SHOPPING',lambda:menu.action('shopping'),accent=True));buttons.add_widget(MenuTile('MY ASSETS',lambda:menu.action('possessions')))
+  self.add_widget(BoundedLabel(text='',size_hint_y=.3))
+  self.add_widget(MenuTile('BACK',lambda:menu.action('hub')))
+class CatalogueScreen(BoxLayout):
+ def __init__(self,menu,owned=False):
+  super().__init__(orientation='vertical',spacing=dp(6));self.menu=menu;self.owned=owned;c=menu.game.career;d=c.life;tr=menu.game.i18n.tr
   header=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(5));self.add_widget(header)
-  summary=tr('Age {age} · Salary €{salary}/week',age=age(c),salary=f"{d['salary']:,}".replace(',',' '))+'\n'+tr('Balance €{balance}',balance=f"{d['balance']:,}".replace(',',' '))
-  summary_label=BoundedLabel(text=summary,localize=False,halign='center',color=GREEN,font_size=sp(12),max_lines=2);summary_label.shorten=False;header.add_widget(summary_label)
-  help_button=MenuTile('HELP',lambda:menu.action('help'));help_button.size_hint_x=None;help_button.width=dp(72);header.add_widget(help_button)
-
-  index=getattr(menu.game,'_shop_index',0)%len(ITEMS);menu.game._shop_index=index;key,category,name,price=ITEMS[index]
-  panel=BoxLayout(spacing=dp(10));image=Image(source='assets/lifestyle/'+key+'.png',fit_mode='contain');image.texture.mag_filter=image.texture.min_filter='nearest';panel.add_widget(image)
-  info=BoxLayout(orientation='vertical');info.add_widget(BoundedLabel(text=name,font_size=sp(21),halign='center'));info.add_widget(BoundedLabel(text='€ '+f'{price:,}'.replace(',',' '),localize=False,font_size=sp(22),halign='center',color=GREEN))
-  owned=d['owned'].get(key,0);info.add_widget(BoundedLabel(text=tr('Owned: {count}',count=owned) if owned else tr('Club-provided studio') if not any(k in d['owned'] for k,kind,_,_ in ITEMS if kind=='home') and category=='home' else '',localize=False,halign='center'))
-  panel.add_widget(info);self.add_widget(panel)
-  tabs=GridLayout(cols=4,size_hint_y=None,height=dp(48),spacing=dp(4));self.add_widget(tabs)
-  for i,title in enumerate(('HOMES','CARS','GIFTS','CLOTHES')):tabs.add_widget(MenuTile(title,lambda n=i:self.choose(n*4),accent=index//4==i))
+  summary=tr('MY ASSETS' if owned else 'SHOPPING')+' · '+tr('Balance €{balance}',balance=f"{d['balance']:,}".replace(',',' '))
+  header.add_widget(BoundedLabel(text=summary,localize=False,halign='center',color=GREEN,font_size=sp(13)))
+  help=MenuTile('HELP',lambda:menu.action('help'));help.size_hint_x=None;help.width=dp(72);header.add_widget(help)
+  category=getattr(menu.game,'_shop_category',0)%4;kind=('home','car','gift','clothes')[category]
+  rows=[i for i in ITEMS if i[1]==kind and (not owned or i[0] in d['owned'])]
+  index=getattr(menu.game,'_shop_pos',0)%max(1,len(rows));menu.game._shop_pos=index
+  panel=BoxLayout(spacing=dp(10));self.add_widget(panel)
+  if rows:
+   key,_,name,price=rows[index];image=Image(source='assets/lifestyle/'+key+'.png',fit_mode='contain');image.texture.mag_filter=image.texture.min_filter='nearest';panel.add_widget(image)
+   info=BoxLayout(orientation='vertical');panel.add_widget(info)
+   info.add_widget(BoundedLabel(text=name,font_size=sp(21),halign='center'))
+   info.add_widget(BoundedLabel(text='€ '+f'{price:,}'.replace(',',' '),localize=False,font_size=sp(22),halign='center',color=GREEN))
+   count=d['owned'].get(key,0)
+   info.add_widget(BoundedLabel(text=tr('Owned: {count}',count=count) if count else '',localize=False,halign='center'))
+  else:panel.add_widget(BoundedLabel(text='No purchases yet.',font_size=sp(20),halign='center'))
+  tabs=GridLayout(cols=4,size_hint_y=None,height=dp(52),spacing=dp(4));self.add_widget(tabs)
+  for i,title in enumerate(('HOMES','CARS','GIFTS','CLOTHES')):tabs.add_widget(MenuTile(title,lambda n=i:self.category(n),accent=category==i))
   actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(5));self.add_widget(actions)
-  actions.add_widget(MenuTile('PREVIOUS',lambda:self.choose(index//4*4+(index-1)%4)))
-  buy=MenuTile('BUY',lambda:self.buy(key),accent=True);buy.disabled=d['balance']<price or bool(owned and category!='gift');actions.add_widget(buy)
-  actions.add_widget(MenuTile('NEXT',lambda:self.choose(index//4*4+(index+1)%4)));actions.add_widget(MenuTile('BACK',lambda:menu.action('profile')))
- def choose(self,n):self.menu.game._shop_index=n;self.menu._signature=None;self.menu.game.draw()
- def buy(self,key):purchase(self.menu.game.career,key);self.menu._signature=None;self.menu.game.draw()
+  for title,delta in (('PREVIOUS',-1),('NEXT',1)):
+   button=MenuTile(title,lambda n=delta:self.move(n));button.disabled=len(rows)<2;actions.add_widget(button)
+  if not owned:
+   buy=MenuTile('BUY',lambda:self.buy(key),accent=True);buy.disabled=not rows or d['balance']<price or bool(count and kind!='gift');actions.add_widget(buy)
+  actions.add_widget(MenuTile('BACK',lambda:menu.action('lifestyle')))
+ def category(self,n):self.menu.game._shop_category=n;self.menu.game._shop_pos=0;self.refresh()
+ def move(self,n):self.menu.game._shop_pos+=n;self.refresh()
+ def refresh(self):self.menu._signature=None;self.menu.game.draw()
+ def buy(self,key):purchase(self.menu.game.career,key);self.refresh()
 class FavouritePicker(LocalizedPopup):
  def __init__(self,screen):
   self.screen=screen;self.page=0;c=screen.game.career

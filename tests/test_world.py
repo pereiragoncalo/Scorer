@@ -126,7 +126,7 @@ class WorldTests(unittest.TestCase):
             elif kind=='league':league_games+=1
             actor=c.club.uid
             score=(1,0) if h.uid==actor else (0,1)
-            c.finish_match(h,a,1,0,forced_score=score,competition=kind)
+            c.finish_match(h,a,0 if __import__('injuries').active(c) else 1,0,forced_score=score,competition=kind)
         self.assertGreaterEqual(len(rounds),5)
         self.assertIn('Final',rounds)
         self.assertEqual(league_games,34)

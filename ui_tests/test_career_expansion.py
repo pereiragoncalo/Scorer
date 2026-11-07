@@ -15,7 +15,8 @@ class ExpansionTests(unittest.TestCase):
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
    c=self.prepare(g);g.size=(1280,720);Window.size=g.size;g.view='hub';g.draw();settle();d=g._menu.body
    buttons=[d.player_button,d.club_button,d.training,d.play]
-   for b in buttons:self.assertAlmostEqual(b.width,buttons[0].width,delta=1);self.assertAlmostEqual(b.height,buttons[0].height,delta=1);self.assertAlmostEqual(b.y,buttons[0].y,delta=1)
+   for b in buttons:self.assertAlmostEqual(b.width,buttons[0].width,delta=1);self.assertAlmostEqual(b.height,buttons[0].height,delta=1)
+   self.assertAlmostEqual(d.player_button.x,d.training.x,delta=1);self.assertAlmostEqual(d.club_button.x,d.play.x,delta=1);self.assertGreater(d.player_button.y,d.training.y)
  def test_title_carries_extended_arms_and_uses_menu_button(self):
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
    c=self.prepare(g);honours.award(c,dict(season=c.season,competition='cup:qa',title='QA cup',team_uid=c.club.uid,team=c.club.name,country=c.club.country));g.view='trophy';g.draw();g.elapsed+=2.;g.draw()
@@ -34,7 +35,7 @@ class ExpansionTests(unittest.TestCase):
    c=self.prepare(g);c.week+=1;g.view='coach';g.draw();settle();images=[w for w in g._menu.body.walk() if isinstance(w,Image)];self.assertEqual(len(images),1);self.assertEqual(images[0].source,'assets/coaches/team_talk.png')
  def test_shop_images_prices_and_local_money_save(self):
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-   c=self.prepare(g);c.life['balance']=100000;g.view='lifestyle';g.draw();settle();self.assertTrue(any(isinstance(w,Image) and w.source.endswith('/studio.png') for w in g._menu.body.walk()));self.assertTrue(purchase(c,'studio'));self.assertEqual(c.life['balance'],20000);self.assertTrue(c.load());self.assertIn('studio',c.life['owned'])
+   c=self.prepare(g);c.life['balance']=100000;g.view='shopping';g.draw();settle();self.assertTrue(any(isinstance(w,Image) and w.source.endswith('/studio.png') for w in g._menu.body.walk()));self.assertTrue(purchase(c,'studio'));self.assertEqual(c.life['balance'],20000);self.assertTrue(c.load());self.assertIn('studio',c.life['owned'])
  def test_penalty_players_wait_legally_and_training_stays_isolated(self):
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
    self.prepare(g);g._start_opportunity('penalty',8);self.assertEqual(len(g.field_players),8);self.assertTrue(all(p.y>=16.5 and math.hypot(p.x,p.y-11)>=9.15 for p in g.field_players));g.shot_context='training';g._prepare_next_shot();self.assertEqual(g.field_players,[])
@@ -49,3 +50,17 @@ class ExpansionTests(unittest.TestCase):
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
    self.prepare(g);g.state=g.STATE_AIMING;g._menu=None;g._match_notice=None;g.ui_buttons=[];x,y=g.project(3.4,0,2.)
    with patch.object(g,'shoot') as shoot:g.on_touch_down(UnitTestTouch(x,y));shoot.assert_called_once_with()
+
+ def test_lifestyle_from_hub_has_shopping_and_owned_assets(self):
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   c=self.prepare(g);g.view='hub';g._activate_ui('lifestyle');g.draw();settle();self.assertEqual(g.view,'lifestyle')
+   texts=[w.text for w in g._menu.body.walk() if hasattr(w,'text')];self.assertIn('SHOPPING',texts);self.assertIn('MY ASSETS',texts);self.assertFalse(any('studio' in t.lower() for t in texts))
+   g._activate_ui('possessions');g.draw();settle();self.assertFalse(any(isinstance(w,Image) for w in g._menu.body.walk()))
+   c.life['balance']=100;c.life['owned']={'rose':2};g._shop_category=2;g._menu._signature=None;g.draw();settle()
+   images=[w.source for w in g._menu.body.walk() if isinstance(w,Image)];self.assertEqual(images,['assets/lifestyle/rose.png'])
+   g._activate_ui('lifestyle');g._activate_ui('shopping');g.draw();settle();self.assertEqual(g.view,'shopping')
+ def test_injury_simulates_fixture_without_training_or_personal_appearance(self):
+  with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+   c=self.prepare(g);c.life.update(injury_name='Ankle sprain',injury_games=2);c.last_training_week=-1;g.view='hub';g.draw();settle()
+   self.assertTrue(g._menu.body.training.disabled);self.assertFalse(g._menu.body.play.disabled)
+   before=c.matches+c.international_caps;g.start_career_match();settle();self.assertEqual(g.view,'newspaper');self.assertEqual(c.life['injury_games'],1);self.assertEqual(c.matches+c.international_caps,before);self.assertFalse(c.fixture_history[-1]['played'])

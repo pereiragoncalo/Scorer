@@ -47,26 +47,30 @@ class CompactHub(BoxLayout):
     def __init__(self, menu):
         super().__init__(orientation='vertical', spacing=dp(4))
         c = menu.game.career
-        identity=BoxLayout(size_hint_y=None,height=dp(30),spacing=dp(6))
-        identity.add_widget(MenuLogo(size_hint_x=.4))
-        identity.add_widget(BoundedLabel(text=menu.game.i18n.tr('Morale {morale}/20 · Fitness {fitness}/20',morale=f'{c.morale:.1f}',fitness=f'{c.stamina:.1f}'),localize=False,halign='center',font_size=sp(13)))
-        self.add_widget(identity)
-        primary=GridLayout(cols=4,spacing=dp(4),size_hint_y=None,height=dp(52));self.add_widget(primary)
-        primary.add_widget(MenuTile(c.player_name,lambda:menu.action('profile'),localize=False,accent=True))
-        self.club_button=ClubButton(menu);self.club_button.size_hint=(1,1);primary.add_widget(self.club_button)
-        for title,action in (('TRAINING','training'),('PLAY','play')):
-            button=MenuTile(title,lambda a=action:menu.action(a),accent=action=='play');button.size_hint=(1,1)
-            button.disabled=c.coach_meeting_required or c.life['retired'] or (action=='play' and not c.trained_this_week);primary.add_widget(button)
-        self.add_widget(BoundedLabel(text=menu.game.i18n.league(c,c.current_league)+' · '+menu.game.i18n.tr(c.team_role),localize=False,halign='center',font_size=sp(14),size_hint_y=None,height=dp(28)))
-        actions=GridLayout(cols=5,spacing=dp(4));self.add_widget(actions)
-        entries=[('STANDINGS','standings'),('TOP SCORERS','scorers'),('LEADERBOARD','leaderboard'),('FIXTURES','calendar'),('AGENT','agent'),('HELP','help'),('COACH TRUST','coach_trust')]
-        if c.world_unlocked:entries.append(('WORLD LEAGUES','upgrade'))
-        entries.append(('EXIT','exit'))
-        for title,action in entries:
-            button=MenuTile(title,lambda a=action:menu.action(a));button.font_size=sp(12)
-            if action=='agent':button.disabled=not c.transfer_window_open
+        from injuries import active,label
+        injured=active(c)
+        identity=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6))
+        identity.add_widget(MenuLogo(size_hint_x=.45))
+        self.club_button=ClubButton(menu);self.club_button.size_hint_y=1;identity.add_widget(self.club_button);self.add_widget(identity)
+        actions = GridLayout(cols=4, spacing=dp(4))
+        entries = [('TRAINING', 'training'), ('PLAY', 'play'), ('STANDINGS', 'standings'),
+                   ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
+                   (c.player_name, 'profile'), ('HELP', 'help'), ('LIFESTYLE','lifestyle'), ('COACH TRUST','coach_trust')]
+        if c.world_unlocked:entries.extend([('WORLD LEAGUES','upgrade')])
+        entries.append(('EXIT', 'exit'))
+        for title, action in entries:
+            button = MenuTile(title, lambda a=action: menu.action(a), accent=action == 'play',localize=action!='profile')
+            button.font_size = sp(12)
+            if action=='profile':button.max_lines=2;button.shorten=True
+            if action == 'play':
+                button.disabled=(not c.trained_this_week and not injured) or c.coach_meeting_required or c.life['retired']
+                if injured:button.text='SIMULATE MATCH'
+            if action == 'training': button.disabled = c.coach_meeting_required or injured or c.life['retired']
+            if action == 'agent':button.disabled=not c.transfer_window_open
             actions.add_widget(button)
-
+        if injured:self.add_widget(BoundedLabel(text=label(c,menu.game.i18n.tr),localize=False,font_size=sp(10),color=(1,.7,.3,1),size_hint_y=None,height=dp(28)))
+        self.add_widget(actions)
+        self.bind(size=lambda *_:setattr(actions,'cols',5 if c.world_unlocked and self.height<dp(290) else 4))
 
 
 class WorldBrowser(BoxLayout):

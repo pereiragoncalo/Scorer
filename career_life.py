@@ -5,7 +5,7 @@ ITEMS=(
  ('utility','car','Compact car',10000),('sedan','car','Executive sedan',35000),('sports','car','Sports car',140000),('supercar','car','Supercar',750000),
  ('rose','gift','A rose',25),('flowers','gift','Flower bouquet',80),('necklace','gift','Gold necklace',2500),('handbag','gift','Designer handbag',6000),
  ('casual','clothes','Casual outfit',60),('smart','clothes','Smart outfit',300),('suit','clothes','Tailored suit',1500),('designer','clothes','Designer wardrobe',12000))
-def fresh(c):return dict(version=1,start_season=2026,balance=0,salary=0,contract_club='',paid_at=c.season*52+c.week,owned={},retired=False,retirement_seen=0,favourite='',private_meeting='',drought_talk=0,offer_talk='')
+def fresh(c):return dict(version=1,start_season=2026,balance=0,salary=0,contract_club='',paid_at=c.season*52+c.week,owned={},retired=False,retirement_seen=0,favourite='',private_meeting='',drought_talk=0,offer_talk='',injury_name='',injury_games=0,injury_fixture='')
 def clean(raw,c):
  d=fresh(c)
  if not isinstance(raw,dict) or raw.get('version')!=1:return d
@@ -13,8 +13,11 @@ def clean(raw,c):
   v=raw.get(key)
   if type(v)is int and 0<=v<=100000000000:d[key]=v
  d['start_season']=min(c.season,max(2026,d['start_season']))
- for key in ('contract_club','favourite','offer_talk','private_meeting'):
-  if isinstance(raw.get(key),str) and len(raw[key])<=100 and raw[key].isprintable():d[key]=raw[key]
+ for key in ('contract_club','favourite','offer_talk','private_meeting','injury_fixture'):
+  if isinstance(raw.get(key),str) and len(raw[key])<=(600 if key=='injury_fixture' else 100) and raw[key].isprintable():d[key]=raw[key]
+ from injuries import NAMES
+ if raw.get('injury_name') in NAMES and type(raw.get('injury_games')) is int and 0<=raw['injury_games']<=3:
+  d['injury_name']=raw['injury_name'];d['injury_games']=raw['injury_games']
  d['retired']=raw.get('retired') is True
  if isinstance(raw.get('owned'),dict):d['owned']={k:v for k,v in raw['owned'].items() if k in {i[0] for i in ITEMS} and type(v)is int and 1<=v<=100000}
  return d

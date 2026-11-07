@@ -31,7 +31,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('club','development','newspaper','coach','title_coach','private_coach','lifestyle', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
+MENU_VIEWS = frozenset(('club','development','newspaper','coach','title_coach','private_coach','lifestyle','shopping','possessions', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -169,9 +169,9 @@ class CareerMenu(BoxLayout):
         if self.game.view=='newspaper':
             from newspaper_ui import NewspaperScreen
             self.padding=self.spacing=0;self.scroll=None;self.body=NewspaperScreen(self);self.add_widget(self.body);return
-        if self.game.view=='lifestyle':
-            from lifestyle_ui import LifestyleScreen
-            self.body=LifestyleScreen(self);self.add_widget(self.body);return
+        if self.game.view in ('lifestyle','shopping','possessions'):
+            from lifestyle_ui import LifestyleScreen,CatalogueScreen
+            self.body=LifestyleScreen(self) if self.game.view=='lifestyle' else CatalogueScreen(self,owned=self.game.view=='possessions');self.add_widget(self.body);return
         if self.game.view in ('coach','title_coach','private_coach'):
             from coach_ui import CoachScreen
             self.padding=self.spacing=0;self.scroll=None;self.body=CoachScreen(self);self.add_widget(self.body);return
@@ -761,6 +761,21 @@ class BoundedLabel(LocalizedText, Label):
         self.text_size = (max(1, self.width), max(1, self.height))
 
 
+class DashboardField(BoundedLabel):
+    """Measure full text; switch to one line when a short panel needs it."""
+    def __init__(self, compact_text, **kwargs):
+        self.compact_text=compact_text;self.full_text=kwargs.get('text','')
+        super().__init__(**kwargs);self.shorten=False;self._bounds()
+    def _bounds(self,*_):
+        self.text=self.compact_text if self.height<sp(40) else self.full_text
+        size=self._preferred_font
+        while size>dp(7):
+            measure=CoreLabel(text=self.text,text_size=(max(1,self.width),None),font_name=self.font_name,font_size=size,bold=self.bold,line_height=self.line_height);measure.refresh()
+            if measure.texture.size[1]<=self.height and measure.texture.size[0]<=self.width:break
+            size-=dp(.5)
+        self.font_size=size;self.text_size=(max(1,self.width),max(1,self.height))
+
+
 class MenuTile(TouchButton):
     """Fixed touch area: labels cannot expand the main menu beyond the screen."""
     def __init__(self, text, callback, accent=False, **kwargs):
@@ -965,13 +980,15 @@ class MainDashboard(BoxLayout):
         super().__init__(orientation='vertical', spacing=dp(6))
         self.menu = menu
         c = menu.game.career
-        self.identity = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(12), padding=[dp(10), 0])
+        self.identity = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(12))
+        self.identity_left=BoxLayout(size_hint_x=.66,spacing=dp(8),padding=[dp(10),0]);self.identity.add_widget(self.identity_left)
         self.player_button=MenuTile(c.player_name,lambda:menu.action('profile'),localize=False,accent=True)
         self.player_button.size_hint_y=1;self.player_button.max_lines=2;self.player_button.shorten=True
-        self.identity.add_widget(self.player_button)
+        self.identity_left.add_widget(self.player_button)
         self.club_button=ClubButton(menu)
         self.club_button.size_hint_y=1
-        self.identity.add_widget(self.club_button)
+        self.identity_left.add_widget(self.club_button)
+        lifestyle=MenuTile('LIFESTYLE',lambda:menu.action('lifestyle'));lifestyle.size_hint=(.34,1);self.identity.add_widget(lifestyle)
         self.add_widget(self.identity)
         self.hero = BoxLayout(spacing=dp(12))
         self.match = EdgePanel(orientation='vertical', size_hint_x=0.66)
@@ -991,28 +1008,29 @@ class MainDashboard(BoxLayout):
         self.play = MenuTile('PLAY', lambda: menu.action('play'), accent=True)
         self.play.disabled = not c.trained_this_week or c.coach_meeting_required or c.life['retired']
         self.training.disabled = c.coach_meeting_required or c.life['retired']
-        self.training.size_hint=self.play.size_hint=(1,1)
-        self.identity.add_widget(self.training);self.identity.add_widget(self.play)
+        from injuries import active,label
+        if active(c):
+            self.play.text='SIMULATE MATCH';self.play.disabled=c.coach_meeting_required or c.life['retired'];self.training.disabled=True
+            self.match.add_widget(BoundedLabel(text=label(c,menu.game.i18n.tr),localize=False,color=(1,.7,.3,1),halign='center',font_size=sp(11),size_hint_y=None,height=dp(32)))
+        footer.add_widget(self.training);footer.add_widget(self.play);self.match.add_widget(footer)
         self.hero.add_widget(self.match)
         self.season = EdgePanel(orientation='vertical', size_hint_x=0.34)
         self.season.add_widget(BoundedLabel(text='YOUR SEASON', color=GREEN, font_size=sp(10),
                                            bold=True, size_hint_y=None, height=dp(16)))
-        numbers = BoxLayout(spacing=dp(8))
+        numbers = BoxLayout(spacing=dp(8),size_hint_y=.36)
         for number, title in ((c.matches, 'MATCHES'), (c.goals, 'GOALS')):
-            anchor = AnchorLayout()
-            column = BoxLayout(orientation='vertical', size_hint=(1, None), height=dp(68), spacing=dp(4))
-            column.add_widget(BoundedLabel(text=str(number), font_size=sp(30), bold=True, halign='center',
-                                           size_hint_y=None, height=dp(44)))
-            column.add_widget(BoundedLabel(text=title, font_size=sp(10), color=MUTED, halign='center',
-                                           size_hint_y=None, height=dp(20)))
-            anchor.add_widget(column)
-            numbers.add_widget(anchor)
+            column=BoxLayout(orientation='vertical',spacing=0)
+            column.add_widget(BoundedLabel(text=str(number),font_size=sp(28),bold=True,halign='center',size_hint_y=.7))
+            column.add_widget(BoundedLabel(text=title,font_size=sp(10),color=MUTED,halign='center',size_hint_y=.3))
+            numbers.add_widget(column)
         self.season.add_widget(numbers)
-        energy=BoundedLabel(text=menu.game.i18n.tr('Morale {morale}/20 · Fitness {fitness}/20',morale=f'{c.morale:.1f}',fitness=f'{c.stamina:.1f}'),localize=False,halign='center',font_size=sp(14),size_hint_y=None,height=dp(36),color=GREEN)
+        energy=BoxLayout(size_hint_y=.25,spacing=dp(6))
+        for title,value in (('Morale',c.morale),('Fitness',c.stamina)):
+            field=DashboardField(compact_text=menu.game.i18n.tr(title)+' '+f'{value:.1f}/20',text=menu.game.i18n.tr(title)+'\n'+f'{value:.1f}/20',localize=False,halign='center',font_size=sp(13),color=GREEN);field.shorten=False;energy.add_widget(field)
         self.season.add_widget(energy)
-        self.season.add_widget(BoundedLabel(localize=False,text=menu.game.i18n.league(c,c.current_league),
-                                           color=MUTED, font_size=sp(15), halign='center',size_hint_y=None, height=dp(34)))
-        trust=BoundedLabel(text=menu.game.i18n.tr('Trust {trust}/100 · {role}',trust=c.coach_trust,role=menu.game.i18n.tr(c.team_role))+' ›',localize=False,color=GREEN,font_size=sp(13),halign='center',size_hint_y=None,height=dp(30))
+        self.season.add_widget(BoundedLabel(localize=False,text=menu.game.i18n.league(c,c.current_league),color=MUTED,font_size=sp(14),halign='center',size_hint_y=.17))
+        trust=DashboardField(compact_text=menu.game.i18n.tr('Trust {trust}/100 · {role}',trust=c.coach_trust,role=menu.game.i18n.tr(c.team_role))+' ›',text=menu.game.i18n.tr('Trust {trust}/100',trust=c.coach_trust)+'\n'+menu.game.i18n.tr(c.team_role)+' ›',localize=False,color=GREEN,font_size=sp(12),halign='center',size_hint_y=.22)
+        trust.shorten=False
         self.trust_link=trust
         def open_trust(widget,touch):
             if menu.game.view=='hub' and widget.x<=touch.x<=widget.right and abs(touch.y-widget.center_y)<=dp(24):
@@ -1058,7 +1076,8 @@ class MainDashboard(BoxLayout):
         if self.play.parent is not self.footer:
             return
         for button, side in ((self.training, 'x'), (self.play, 'right')):
-            button.size_hint = (0.49, None)
+            button.size_hint = (None, None)
+            button.width=max(1,(self.footer.width-dp(8))/2)
             button.pos_hint = {side: 0 if side == 'x' else 1, 'y': 0}
 
 
@@ -1118,7 +1137,6 @@ class PlayerScreen(FloatLayout):
             self.objective_scroll.add_widget(ObjectivesSummary(menu));self.panel.add_widget(self.objective_scroll)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         if existing:
-            actions.add_widget(MenuTile('LIFESTYLE',lambda:menu.action('lifestyle')))
             from career_life import age
             self.contract_info=BoundedLabel(text=self.game.i18n.tr('Age {age} · Salary €{salary}/week',age=age(self.game.career),salary=self.game.career.life['salary']),localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(20))
             self.panel.add_widget(self.contract_info)

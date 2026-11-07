@@ -673,5 +673,19 @@
   "Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress. Offers must be from an equal or higher league status band. Your agent prioritises your country until you stand out. A strong season can bring an eligible offer from your favourite club.": "Wähle ein Angebot im Transferfenster. Vereinslose können auch außerhalb unterschreiben. Fortschritte bleiben bei Wechseln erhalten. Angebote müssen aus Ligen mit gleichem oder höherem Status stammen. Dein Agent bevorzugt dein Land, bis du herausragst. Eine starke Saison kann ein passendes Angebot deines Lieblingsvereins bringen.",
   "Tap to shoot at the moving marker.": "Tippe, um auf die bewegliche Markierung zu schießen.",
   "Time your tap to shoot at the moving marker. Watch power and the shot timer. Opponent strength changes the number and difficulty of chances. Continue at half-time and full-time.": "Stimme deinen Tipp auf die bewegliche Zielmarkierung ab. Achte auf Kraft und Schusszeit. Die Gegnerstärke beeinflusst Anzahl und Schwierigkeit der Chancen. Fahre zur Halbzeit und nach Spielende fort.",
-  "CAREER": "KARRIERE"
+  "CAREER": "KARRIERE",
+  "SHOPPING": "EINKAUFEN",
+  "MY ASSETS": "MEIN BESITZ",
+  "No purchases yet.": "Noch keine Käufe.",
+  "SIMULATE MATCH": "SPIEL SIMULIEREN",
+  "Morale": "Moral",
+  "Fitness": "Fitness",
+  "Trust {trust}/100": "Vertrauen {trust}/100",
+  "{injury} · Out for {games} match(es)": "{injury} · Ausfall: {games} Spiel(e)",
+  "Ankle sprain": "Knöchelverstauchung",
+  "Calf strain": "Wadenzerrung",
+  "Thigh knock": "Oberschenkelprellung",
+  "Groin strain": "Leistenzerrung",
+  "Bruised knee": "Knieprellung",
+  "Hamstring strain": "Zerrung im hinteren Oberschenkel"
 }

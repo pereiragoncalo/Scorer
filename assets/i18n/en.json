@@ -673,5 +673,19 @@
   "Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress. Offers must be from an equal or higher league status band. Your agent prioritises your country until you stand out. A strong season can bring an eligible offer from your favourite club.": "Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress. Offers must be from an equal or higher league status band. Your agent prioritises your country until you stand out. A strong season can bring an eligible offer from your favourite club.",
   "Tap to shoot at the moving marker.": "Tap to shoot at the moving marker.",
   "Time your tap to shoot at the moving marker. Watch power and the shot timer. Opponent strength changes the number and difficulty of chances. Continue at half-time and full-time.": "Time your tap to shoot at the moving marker. Watch power and the shot timer. Opponent strength changes the number and difficulty of chances. Continue at half-time and full-time.",
-  "CAREER": "CAREER"
+  "CAREER": "CAREER",
+  "SHOPPING": "SHOPPING",
+  "MY ASSETS": "MY ASSETS",
+  "No purchases yet.": "No purchases yet.",
+  "SIMULATE MATCH": "SIMULATE MATCH",
+  "Morale": "Morale",
+  "Fitness": "Fitness",
+  "Trust {trust}/100": "Trust {trust}/100",
+  "{injury} · Out for {games} match(es)": "{injury} · Out for {games} match(es)",
+  "Ankle sprain": "Ankle sprain",
+  "Calf strain": "Calf strain",
+  "Thigh knock": "Thigh knock",
+  "Groin strain": "Groin strain",
+  "Bruised knee": "Bruised knee",
+  "Hamstring strain": "Hamstring strain"
 }

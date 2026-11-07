@@ -833,13 +833,14 @@ class StrikerGame(Widget):
         if self.career.post_match_stage=='newspaper':
             self.view='newspaper';self.draw();return
         if self.career.life['retired']:self.view='profile';self.draw();return
+        from injuries import active as injured
         self.ads.start()
         """Cria um jogo completo com relógio e oportunidades interativas."""
         if self.career.free_agent:
             self.view="agent";self.draw();return
         if self.career.coach_meeting_required:
             self.career.message=COACH_REQUIRED;self.view='coach';self.draw();return
-        if not self.career.trained_this_week:
+        if not self.career.trained_this_week and not injured(self.career):
             self.career.message = 'Complete training to unlock Play.'
             self.view = 'hub'
             self.draw()
@@ -848,13 +849,17 @@ class StrikerGame(Widget):
         if self.career.free_agent:self.view='agent';self.draw();return
         if self.career.coach_meeting_required:
             self.career.message=COACH_REQUIRED;self.view='coach';self.draw();return
-        if not self.career.trained_this_week:
+        if not self.career.trained_this_week and not injured(self.career):
             self.career.message='Complete training to unlock Play.';self.view='hub';self.draw();return
         if scheduled is None:
             self.career.message='No scheduled match is available.';self.view='hub';return
         if not self.career.world_unlocked and self.career.called_up:
             opponent=self.career.rng.choice([c for c in WORLD_COUNTRIES if c!='Portugal'])
             scheduled=('international',CareerClub('Portugal','Portugal','National Team',1,89),CareerClub(opponent,opponent,'National Team',1,84))
+        if injured(self.career):
+            token,home,away=scheduled
+            self.career.finish_match(home,away,0,0,is_international=token=='international',competition=token)
+            self.view='newspaper';self.draw();return
         self.match_competition,self.match_home,self.match_away=scheduled
         self.match_is_international=self.match_competition=='international' or (self.match_competition.startswith('world|') and self.match_home.uid.startswith('nation:'))
         self.match_is_cup=self.match_competition=='cup' or self.match_competition.startswith('world|domestic:')
@@ -3098,8 +3103,8 @@ class StrikerGame(Widget):
             if not self.leaderboard.busy:
                 self.leaderboard.category=value;self.leaderboard.entries=[];self._activate_ui('leaderboard_refresh')
             return
-        if action=='lifestyle' and self.view=='profile':self.view='lifestyle';return
-        if action=='profile' and self.view=='lifestyle':self.view='profile';return
+        if action=='lifestyle' and self.view in ('hub','shopping','possessions'):self.view='lifestyle';return
+        if action in ('shopping','possessions') and self.view=='lifestyle':self.view=action;return
         if action=='private_complete' and self.view=='private_coach':
             old=self.career.life['private_meeting'];self.career.life['private_meeting']=''
             if self.career.save() is False:self.career.life['private_meeting']=old;return
@@ -3285,6 +3290,8 @@ class StrikerGame(Widget):
             if pick and pick[0]==self.career.coach_key and pick[1] in self.career.coach_focus_options():
                 if self.career.attend_coach_meeting(pick[1]):self.view='hub'
         elif action == "training":
+            from injuries import active
+            if active(self.career):self.view="hub";return
             if self.career.coach_meeting_required:
                 self.career.message=COACH_REQUIRED;self.view='coach';return
             self.ads.prepare_reward()

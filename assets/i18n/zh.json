@@ -673,5 +673,19 @@
   "Choose an offer during the transfer window. A free agent can sign outside the window. Changing clubs keeps your career progress. Offers must be from an equal or higher league status band. Your agent prioritises your country until you stand out. A strong season can bring an eligible offer from your favourite club.": "在转会窗口内选择报价。自由球员可在窗口外签约。转会不会清除生涯进度。报价只能来自同等或更高档次的联赛。在你表现突出前，经纪人优先考虑国内。出色的赛季也可能带来符合条件的最喜爱俱乐部的报价。",
   "Tap to shoot at the moving marker.": "看准移动准星，点击射门。",
   "Time your tap to shoot at the moving marker. Watch power and the shot timer. Opponent strength changes the number and difficulty of chances. Continue at half-time and full-time.": "看准移动准星，选择时机点击射门。留意力量和射门时间。对手实力会影响机会数量和难度。在半场和全场结束时点击继续。",
-  "CAREER": "生涯"
+  "CAREER": "生涯",
+  "SHOPPING": "购物",
+  "MY ASSETS": "我的资产",
+  "No purchases yet.": "尚未购买。",
+  "SIMULATE MATCH": "模拟比赛",
+  "Morale": "士气",
+  "Fitness": "体能",
+  "Trust {trust}/100": "信任 {trust}/100",
+  "{injury} · Out for {games} match(es)": "{injury} · 缺席{games}场",
+  "Ankle sprain": "脚踝扭伤",
+  "Calf strain": "小腿拉伤",
+  "Thigh knock": "大腿撞伤",
+  "Groin strain": "腹股沟拉伤",
+  "Bruised knee": "膝盖挫伤",
+  "Hamstring strain": "腿后肌拉伤"
 }

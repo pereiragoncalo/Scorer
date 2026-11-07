@@ -15,7 +15,7 @@ def topics(game):
     training=(base[1],*PROGRESSION_HELP_PAGES[1:6])
     special={
         'start':(base[0],), 'offers':(('Your first contract',START),),
-        'hub':(('HELP',HUB),), 'profile':(PROGRESSION_HELP_PAGES[0],),
+        'hub':(('HELP',HUB+' Injuries have a 1–3% risk per played match, depending on fitness, and last 1–3 missed fixtures. Use Simulate Match while recovering; no appearance or training is counted.'),), 'profile':(PROGRESSION_HELP_PAGES[0],),
         'training':(base[1],),'development':PROGRESSION_HELP_PAGES[-2:],
         'shot':(base[2],),
         'match':(base[2],), 'standings':(('STANDINGS',TABLE),),
@@ -23,7 +23,9 @@ def topics(game):
         'world_league':(('STANDINGS',TABLE),),'scorers':(('TOP SCORERS',SCORERS),),
         'calendar':(('FIXTURES',CALENDAR),),'agent':(('AGENT',AGENT),),
         'world':(base[3],),'world_country':(base[3],),'editor':(base[3],),
-        'lifestyle':(('LIFESTYLE','Your weekly contract salary is paid once per career week. Start with a club-provided studio. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.'),),
+        'lifestyle':(('LIFESTYLE','Your weekly contract salary is paid once per career week. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.'),),
+        'shopping':(('SHOPPING','Use career money to buy homes, cars, clothes and gifts. Owned items appear in My Assets.'),),
+        'possessions':(('MY ASSETS','Browse only the purchases already acquired in this career. The displayed value is the purchase price.'),),
         'private_coach':(('INDIVIDUAL MEETING','An individual meeting can follow five or more games without scoring or a transfer proposal. Your weekly training focus is chosen in the team talk.'),),
         'title_coach':(("CHAMPIONS' TEAM TALK",'This title belongs to everyone. Enjoy the moment with the supporters.'),),
         'coach':(('WEEKLY TEAM TALK',COACH),)+training[1:],'newspaper':(('MATCH REPORT',PAPER),),

@@ -1221,7 +1221,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 return ((means[0]+reverse[1])/2,(means[1]+reverse[0])/2)
         return means
 
-    def _finish_world_fixture(self,token,home,away,player_goals,player_misses,score,moments=None,coach_context="",report_events=None):
+    def _finish_world_fixture(self,token,home,away,player_goals,player_misses,score,moments=None,coach_context="",report_events=None,absent=False):
         from world_competitions import fixture_day
         _,key,fixture_id=token.split('|',2)
         self._ensure_competitions()
@@ -1238,15 +1238,16 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         f=self.world_competitions.record(key,fixture_id,score)
         score=tuple(f['score'])
         title='International friendly' if key=='friendly' else self.world_competitions.tournaments[key].title
-        if national:
+        if national:self.called_up=False
+        if national and not absent:
             self.international_caps+=1;self.international_goals+=player_goals;self.called_up=False
-        else:
+        elif not absent:
             self.matches+=1;self.goals+=player_goals;self.missed_chances+=player_misses
             self.form_goals=(self.form_goals+[player_goals])[-8:]
-        if not national:
+        if not national and not absent:
             own=0 if home.uid==actor else 1
             self.record_coach_performance(player_goals,player_misses,moments,score[own]>=score[1-own],coach_context in ("final","playoff","derby","survival"))
-        self._update_attributes(player_goals,player_misses)
+        if not absent:self._update_attributes(player_goals,player_misses)
         decision=' (aet)' if f.get('extra_time') is not None else ''
         decision+= '' if not f.get('penalties') else f" (pen. {f['penalties'][0]}-{f['penalties'][1]})"
         self.last_result=f'{home.name} {score[0]}-{score[1]} {away.name}{decision}'
@@ -1254,14 +1255,17 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         from international_calendar import match_date
         self.fixture_history.append({'date':match_date(self.season,cup,f).isoformat(),'competition':title,'country':self.current_league.country,
                                      'home':home.name,'away':away.name,'home_uid':home.uid,'away_uid':away.uid,'status':f'{score[0]}-{score[1]}{decision}','played':True,'moments':clean_moments(moments)})
+        self.fixture_history[-1]['played']=not absent
         self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,actor,score,player_goals,player_misses,moments,report_events)
         self.fixture_history=self.fixture_history[-128:]
         if key.startswith('domestic:'):
             self.cup_history=(self.cup_history+[f["stage"]+': '+self.last_result])[-8:]
-        honours.participate(self,key,title,actor,home.name if home.uid==actor else away.name,self.nationality if national else self.current_league.country)
+        if not absent:honours.participate(self,key,title,actor,home.name if home.uid==actor else away.name,self.nationality if national else self.current_league.country)
         honours.collect(self,self.world_competitions)
         self.post_match_stage='newspaper'
         self._consume_match_training()
+        import injuries
+        injuries.complete(self,absent)
         self._refresh_competition_status();self.save()
         return tuple(score)
 
@@ -1604,6 +1608,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         return OpponentChanceProfile(pressure, 3, 0.90 - 0.25 * pressure / 0.72)
 
     def chance_count(self, opponent: Optional[CareerClub] = None) -> int:
+        from injuries import active
+        if active(self):return 0
         factor = clamp((self.stamina + self.morale) / 40.0, 0.05, 1.0)
         profile = self.opponent_chance_profile(opponent)
         # Morale floors supersede opponent quantity caps, without changing their quality mix.
@@ -1673,10 +1679,17 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         coach_context="",
         report_events=None,
     ) -> tuple[int, int]:
+        import injuries
+        absent=injuries.active(self)
+        if absent:
+            if player_goals or player_misses:raise ValueError('An injured player cannot participate')
+            if forced_score is None:
+                means=self.world_fixture_goal_means(competition,home,away) if competition.startswith('world|') else self.fixture_goal_means(home,away)
+                forced_score=tuple(poisson_goal(self.rng,m) for m in means)
         from title_events import match_scene
         self._title_match_scene=match_scene(self,home,away)
         if competition.startswith('world|'):
-            return self._finish_world_fixture(competition,home,away,player_goals,player_misses,forced_score,moments,coach_context,report_events)
+            return self._finish_world_fixture(competition,home,away,player_goals,player_misses,forced_score,moments,coach_context,report_events,absent)
         match_date = self.current_date+timedelta(days=4 if self.world_unlocked else 0)
         if is_international:
             if forced_score is None:
@@ -1685,10 +1698,11 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 opponent_goals = poisson_goal(self.rng, away_mean)
             else:
                 portugal_goals, opponent_goals = forced_score
-            self.international_caps += 1
-            self.international_goals += player_goals
+            if not absent:
+                self.international_caps += 1
+                self.international_goals += player_goals
             self.last_result = f"Portugal {portugal_goals}-{opponent_goals} {away.name}"
-            self._update_attributes(player_goals, player_misses)
+            if not absent:self._update_attributes(player_goals, player_misses)
             self.fixture_history.append({
                 "date": match_date.isoformat(),
                 "competition": "Portugal",
@@ -1698,16 +1712,18 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 "moments": clean_moments(moments),
                 "played": True,
             })
+            self.fixture_history[-1]['played']=not absent
             self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,home.uid,(portugal_goals,opponent_goals),player_goals,player_misses,moments,report_events)
             self.fixture_history = self.fixture_history[-128:]
             self.post_match_stage='newspaper'
             self._consume_match_training()
+            injuries.complete(self,absent)
             self.save()
             return portugal_goals, opponent_goals
 
 
         league = self.current_league
-        honours.participate(self,'domestic:'+league.country if competition=='cup' else 'league:'+league.key,self.cup_name if competition=='cup' else league.name,self.club.uid,self.club.name,league.country)
+        if not absent:honours.participate(self,'domestic:'+league.country if competition=='cup' else 'league:'+league.key,self.cup_name if competition=='cup' else league.name,self.club.uid,self.club.name,league.country)
         previous_league_goals = league.scorer_goals.get(self.player_name, 0)
         if forced_score is not None:
             score = forced_score
@@ -1769,16 +1785,17 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
         self.week += 1
         self._skip_reserved_cup_breaks()
-        self.matches += 1
-        self.goals += player_goals
-        self.missed_chances += player_misses
-        self.form_goals.append(player_goals)
-        self.form_goals = self.form_goals[-8:]
-        if competition != "cup":
-            league.scorer_goals[self.player_name] = previous_league_goals + player_goals
-        self.record_coach_performance(player_goals,player_misses,moments,
-            score[0 if home.name==self.club_name else 1]>=score[1 if home.name==self.club_name else 0],coach_context in ("final","playoff","derby","survival"))
-        self._update_attributes(player_goals, player_misses)
+        if not absent:
+            self.matches += 1
+            self.goals += player_goals
+            self.missed_chances += player_misses
+            self.form_goals.append(player_goals)
+            self.form_goals = self.form_goals[-8:]
+            if competition != "cup":
+                league.scorer_goals[self.player_name] = previous_league_goals + player_goals
+            self.record_coach_performance(player_goals,player_misses,moments,
+                score[0 if home.name==self.club_name else 1]>=score[1 if home.name==self.club_name else 0],coach_context in ("final","playoff","derby","survival"))
+            self._update_attributes(player_goals, player_misses)
 
 
         home_goals, away_goals = score
@@ -1796,12 +1813,14 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             "moments": clean_moments(moments),
             "played": True,
         })
+        self.fixture_history[-1]['played']=not absent
         self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,self.club.uid,score,player_goals,player_misses,moments,report_events)
         self.fixture_history = self.fixture_history[-128:]
         if competition == "league":
             self._simulate_world_round()
         self.post_match_stage='newspaper'
         self._consume_match_training()
+        injuries.complete(self,absent)
         self._check_national_team()
         self._maybe_generate_transfer_offers()
         if competition == "league" and league.round_index >= league.total_rounds:
@@ -1854,6 +1873,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
     def begin_training(self) -> bool:
         """Reserve the career week's sole session before opening its first shot."""
+        from injuries import active
+        if active(self):return False
         if self.life['retired']:return False
         if not self.club_name:
             self.message = 'Choose a club before training.'
@@ -1882,6 +1903,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         return True
 
     def record_training_shot(self, scored: bool, on_focus: bool = False) -> bool:
+        from injuries import active
+        if active(self):return False
         if self.coach_meeting_required or self.training_session_week != self.week or self.trained_this_week or self.training_shots_taken >= 3:
             return False
         previous = (self.training_shots_taken, self.training_session_goals,copy.deepcopy(self.development))
@@ -1902,6 +1925,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.development['session']=None
 
     def complete_training(self, goals: int) -> float:
+        from injuries import active
+        if active(self):return 0.0
         if self.coach_meeting_required:
             self.message = COACH_REQUIRED
             return 0.0
