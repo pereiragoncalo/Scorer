@@ -1,5 +1,7 @@
 ## 2026-11-07 — World0.9.34 career expansion
 
+Public download HTTP200/attachment verified:114450183bytes, SHA256356b29d04ee8504991757d2977e9ef7918fec87348507c6a13f3fbb373a6e43b. Workflow42387120450 succeeded. Public installer attachment exactly matches the locally checked file. Final packed source/PNG and all career/competition payload checks passed. Temporary transfer branch removed.
+
 Source f4e30b6407d16c7953026dba22e8dfbc1899c3e7; World1026934, existing debug upgrade certificate, API36/min26 arm64. Contracts and16 illustrated purchases, ageing/retirement, stochastic authoritative aim, revised budgets, club/league prestige, favourite-club offers, career records and additive owner-run bastion installer. Dashboard/coach/title celebrations and crowd refinements. Preserve physics, aliases and unrelated WIP.
 
 418 core cases/3 existing skips,220 native cases and9 final expansion cases passed.396 responsive cases/zero findings; fixed catalogue header height. Screenshot review caught Continue behind the stadium: move retained button canvas above the new scene, native assertion/touch and refreshed screenshot confirm the correction. Rebuilt actual APK and verified package/version/signature,118 ELF16KB andZIP16KB; packed source/data checks recorded separately. Physical Android playtest pending. Five-season official final tables remain incomplete:499 game identities matched,301 five-season results-derived presets; deductions/phases/tie-break verification remains. Installer hashes/syntax verified, server not deployed from cloud.
