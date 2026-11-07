@@ -9,7 +9,7 @@ from career_life import ITEMS,age,purchase,retirement
 class LifestyleScreen(BoxLayout):
  def __init__(self,menu):
   super().__init__(orientation='vertical',spacing=dp(6));self.menu=menu;c=menu.game.career;d=c.life;tr=menu.game.i18n.tr
-  header=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(5));self.add_widget(header)
+  header=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(5));self.add_widget(header)
   summary=tr('Age {age} · Salary €{salary}/week',age=age(c),salary=f"{d['salary']:,}".replace(',',' '))+'\n'+tr('Balance €{balance}',balance=f"{d['balance']:,}".replace(',',' '))
   summary_label=BoundedLabel(text=summary,localize=False,halign='center',color=GREEN,font_size=sp(12),max_lines=2);summary_label.shorten=False;header.add_widget(summary_label)
   help_button=MenuTile('HELP',lambda:menu.action('help'));help_button.size_hint_x=None;help_button.width=dp(72);header.add_widget(help_button)

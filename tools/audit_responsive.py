@@ -2,9 +2,10 @@ import sys,json,os,argparse
 from pathlib import Path
 parser=argparse.ArgumentParser(description="Audit native World layouts at representative phone resolutions, densities and font scales.")
 parser.add_argument("--output",type=Path,required=True)
+parser.add_argument("--source",type=Path,help="Read runtime and fixtures from this clean checkout")
 parser.add_argument('--views',nargs='+',help='Audit only the named views')
 args=parser.parse_args();output=args.output.resolve();output.parent.mkdir(parents=True,exist_ok=True)
-root=Path(__file__).resolve().parents[1];os.chdir(root)
+root=args.source.resolve() if args.source else Path(__file__).resolve().parents[1];os.chdir(root)
 sys.path[:0]=[str(root),str(root/'ui_tests')]
 from unittest.mock import patch
 from kivy.clock import Clock
@@ -58,7 +59,7 @@ try:
       c.post_match_stage='';c.coach_state=coach_fresh(c.club.uid)
       if view in ('title_coach','trophy'):
        import honours,title_events
-       honours.award(c,dict(season=c.season,competition='cup:qa',title='National Cup',team_uid=c.club.uid,team=c.club.name,country=c.club.country))
+       honours.award(c,dict(season=c.season,competition='cup:qa:'+lang+':'+view,title='National Cup',team_uid=c.club.uid,team=c.club.name,country=c.club.country))
        if view=='title_coach':title_events.to_coach(c)
       else:
        from title_events import fresh
