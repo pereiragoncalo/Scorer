@@ -236,6 +236,7 @@ class CareerMenu(BoxLayout):
         if self.game.view not in ('hub','help'):
             help_button=MenuTile('HELP',lambda:self.action('help'));help_button.size_hint_x=None;help_button.width=dp(64);header.add_widget(help_button)
         if self.game.view == 'hub':
+            feedback=MenuTile('FEEDBACK',lambda:self.action('feedback'));feedback.size_hint_x=None;feedback.width=dp(104);header.add_widget(feedback)
             group=self.hub_header_actions=BoxLayout(size_hint_x=None,width=dp(250),spacing=dp(6))
             for title, action in ([('HELP','help'),('WORLD','upgrade'),('EXIT','exit')] if edition.is_world() else [('HELP','help'),('EXIT','exit')]):
                 group.add_widget(MenuTile(title,lambda a=action:self.action(a)))
@@ -945,6 +946,7 @@ class EntryScreen(FloatLayout):
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         self.entry_actions=actions
         actions.add_widget(MenuTile('HELP', lambda: menu.action('help')))
+        actions.add_widget(MenuTile('FEEDBACK', lambda: menu.action('feedback')))
         actions.add_widget(MenuTile('EXIT', menu.game._request_exit))
         self.panel.add_widget(actions)
         self.panel.canvas.before.remove(self.panel.edge)

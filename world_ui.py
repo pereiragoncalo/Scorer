@@ -57,7 +57,7 @@ class CompactHub(BoxLayout):
                    ('TOP SCORERS', 'scorers'), ('LEADERBOARD', 'leaderboard'), ('FIXTURES', 'calendar'), ('AGENT', 'agent'),
                    (c.player_name, 'profile'), ('HELP', 'help'), ('LIFESTYLE','lifestyle'), ('COACH TRUST','coach_trust')]
         if c.world_unlocked:entries.extend([('WORLD LEAGUES','upgrade')])
-        entries.append(('EXIT', 'exit'))
+        entries.extend([('FEEDBACK','feedback'),('EXIT', 'exit')])
         for title, action in entries:
             button = MenuTile(title, lambda a=action: menu.action(a), accent=action == 'play',localize=action!='profile')
             button.font_size = sp(12)
@@ -70,7 +70,7 @@ class CompactHub(BoxLayout):
             actions.add_widget(button)
         if injured:self.add_widget(BoundedLabel(text=label(c,menu.game.i18n.tr),localize=False,font_size=sp(10),color=(1,.7,.3,1),size_hint_y=None,height=dp(28)))
         self.add_widget(actions)
-        self.bind(size=lambda *_:setattr(actions,'cols',5 if c.world_unlocked and self.height<dp(290) else 4))
+        self.bind(size=lambda *_:setattr(actions,'cols',5 if self.height<dp(290) else 4))
 
 
 class WorldBrowser(BoxLayout):

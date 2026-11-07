@@ -9,6 +9,9 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
             obj=types.ModuleType(name);obj.__file__=str(Path.cwd()/(name+'.py'));sys.modules[name]=obj
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
+        mail=module('feedback');from urllib.parse import urlsplit,parse_qs
+        destination=urlsplit(mail.mail_url());assert destination.scheme=='mailto' and destination.path=='goncalo@clemir.com' and parse_qs(destination.query)=={'subject':['Scorer World - Feedback']}
+        print('Actual APK: feedback opens a support email draft without attachments or career data')
         injury=module('injuries');life=module('career_life');prestige=module('league_status');module('career_records');module('coach_feedback');module('unpredictable_aim')
         titles=module('title_events');attendance=module('attendance')
         development=module('player_development')

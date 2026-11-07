@@ -3100,6 +3100,9 @@ class StrikerGame(Widget):
             if not self.leaderboard.busy:
                 self.leaderboard.category=value;self.leaderboard.entries=[];self._activate_ui('leaderboard_refresh')
             return
+        if action=='feedback' and self.view in ('hub','start'):
+            from feedback import compose,unavailable
+            compose(lambda:unavailable(self));return
         if action=='lifestyle' and self.view in ('hub','shopping','possessions'):self.view='lifestyle';return
         if action in ('shopping','possessions') and self.view=='lifestyle':self.view=action;return
         if action=='private_complete' and self.view=='private_coach':

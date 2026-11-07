@@ -1077,7 +1077,7 @@ class MenuTests(unittest.TestCase):
                     menu = self.game._menu
                     self.assertFalse(any(isinstance(w, ScrollView) for w in menu.walk()))
                     buttons = [w for w in menu.walk() if isinstance(w, TouchButton)]
-                    self.assertEqual(len(buttons),13 if self.game.width<dp(540) or self.game.height<dp(300) else 12)
+                    self.assertEqual(len(buttons),14 if self.game.width<dp(540) or self.game.height<dp(300) else 13)
                     self.assertIn(menu.body.club_button,buttons)
                     self.assertFalse(any('WORLD' in button.text for button in buttons))
                     for button in buttons:
