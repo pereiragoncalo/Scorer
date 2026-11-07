@@ -50,10 +50,10 @@ jobs:
                           raise
                       print('Retrying verified transfer part:', part['name'], flush=True)
           manifest = json.loads(read('manifest.json'))
-          expected = '5d2a6ddc83de3e419a7e47da2cd8c7ce0502d962d72d9f015834b59ef175f63b'
+          expected = '7310fdfb79fd245c94dc096b06bc229db2e130931a542cfada9721c81267aef1'
           assert manifest['version'] == '0.9.35'
           assert manifest['filename'] == 'Scorer-World-0.9.35.apk'
-          assert manifest['sha256'] == expected and manifest['bytes'] == 114458179
+          assert manifest['sha256'] == expected and manifest['bytes'] == 114458343
           assert 1 <= len(manifest['parts']) <= 16
           digest = hashlib.sha256()
           total = 0
@@ -66,7 +66,7 @@ jobs:
                   output.write(content)
                   digest.update(content)
                   total += len(content)
-          assert total == 114458179 and digest.hexdigest() == expected
+          assert total == 114458343 and digest.hexdigest() == expected
           metadata = json.loads(pathlib.Path('docs/RELEASE_0.9.35_artifacts.json').read_text())
           assert metadata['sha256'] == expected and metadata['bytes'] == total
           source = metadata['source_commit']
