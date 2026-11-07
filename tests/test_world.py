@@ -15,6 +15,7 @@ class PreviewAccess:
 
 class WorldTests(unittest.TestCase):
     def setUp(self):
+        injury=patch("injuries.probability",return_value=0);injury.start();self.addCleanup(injury.stop)
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.env = patch.dict(os.environ, STRIKER_SAVE_DIR=self.temp.name)

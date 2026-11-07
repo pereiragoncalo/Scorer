@@ -14,6 +14,7 @@ import career
 
 class CareerTests(unittest.TestCase):
     def setUp(self):
+        injury=patch("injuries.probability",return_value=0);injury.start();self.addCleanup(injury.stop)
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
