@@ -4,7 +4,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp,sp
-from menu_ui import MenuTile,BoundedLabel,LocalizedPopup,GREEN
+from menu_ui import MenuTile,BoundedLabel,DashboardField,LocalizedPopup,GREEN
 from career_life import ITEMS,age,purchase,retirement
 class LifestyleScreen(BoxLayout):
  def __init__(self,menu):
@@ -13,7 +13,8 @@ class LifestyleScreen(BoxLayout):
   header=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6));self.add_widget(header)
   header.add_widget(BoundedLabel(text='LIFESTYLE',halign='center',font_size=sp(20),color=GREEN))
   help=MenuTile('HELP',lambda:menu.action('help'));help.size_hint_x=None;help.width=dp(80);header.add_widget(help)
-  summary=BoundedLabel(text=tr('Age {age} · Salary €{salary}/week',age=age(c),salary=f"{c.life['salary']:,}".replace(',',' '))+'\n'+tr('Balance €{balance}',balance=f"{c.life['balance']:,}".replace(',',' ')),localize=False,halign='center',font_size=sp(16));summary.shorten=False;self.add_widget(summary)
+  text=tr('Age {age} · Salary €{salary}/week',age=age(c),salary=f"{c.life['salary']:,}".replace(',',' '))+'\n'+tr('Balance €{balance}',balance=f"{c.life['balance']:,}".replace(',',' '))
+  summary=DashboardField(compact_text=text.replace('\n',' · '),text=text,localize=False,halign='center',font_size=sp(16));self.add_widget(summary)
   buttons=BoxLayout(spacing=dp(12),size_hint_y=None,height=dp(64));self.add_widget(buttons)
   buttons.add_widget(MenuTile('SHOPPING',lambda:menu.action('shopping'),accent=True));buttons.add_widget(MenuTile('MY ASSETS',lambda:menu.action('possessions')))
   self.add_widget(BoundedLabel(text='',size_hint_y=.3))
