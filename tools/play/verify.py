@@ -41,7 +41,7 @@ def inspect_manifest(text,expected_package='com.clemir.striker'):
     return root, sorted(permissions)
 
 
-def verify(artifact, manifest, channel,expected_package='com.clemir.striker'):
+def verify(artifact, manifest, channel,expected_package='com.clemir.striker', expected_catalogue=None):
     root, permissions = inspect_manifest(manifest,expected_package)
     with zipfile.ZipFile(artifact) as archive:
         names = archive.namelist()
@@ -60,8 +60,14 @@ def verify(artifact, manifest, channel,expected_package='com.clemir.striker'):
             data_member = next(m for m in payload if m.name.endswith('assets/data/world_clubs.json'))
             import json
             data = json.load(payload.extractfile(data_member))
-            if data.get('version') != 1 or len(data.get('clubs', {})) != 9896:
-                raise ValueError('World presentation catalogue missing or incomplete')
+            if data.get('version') != 1 or not isinstance(data.get('clubs'), dict) or not data['clubs']:
+                raise ValueError('World presentation catalogue missing or malformed')
+            if expected_catalogue is not None:
+                import hashlib
+                packaged = payload.extractfile(data_member).read()
+                source = Path(expected_catalogue).read_bytes()
+                if hashlib.sha256(packaged).digest() != hashlib.sha256(source).digest():
+                    raise ValueError('Packaged World catalogue differs from the pinned source')
             edition = next(m for m in payload if m.name.endswith('/edition.pyc') or m.name == 'edition.pyc')
             # Flag is checked separately with the built Python version; do not unmarshal untrusted input here.
             if edition.size > 16384: raise ValueError('Unexpected edition module')
@@ -75,5 +81,6 @@ if __name__ == '__main__':
     parser.add_argument('artifact',type=Path);parser.add_argument('--manifest',required=True,type=Path)
     parser.add_argument('--channel',choices=('rehearsal','production'),required=True)
     parser.add_argument('--package',choices=('com.clemir.striker','com.clemir.scorerworld'),default='com.clemir.striker')
+    parser.add_argument('--expected-catalogue',type=Path)
     args=parser.parse_args()
-    print(json.dumps(verify(args.artifact,args.manifest.read_text(),args.channel,args.package),indent=2))
+    print(json.dumps(verify(args.artifact,args.manifest.read_text(),args.channel,args.package,args.expected_catalogue),indent=2))
