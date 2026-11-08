@@ -1,0 +1,5 @@
+Scorer World 0.9.36 - unsigned AAB QA compilation
+
+This file triggers a one-time GitHub Actions build when created on main.
+Source is pinned to qa-0.9.36 commit cb2f7fd9036fabea7f5f6132bca2385bbdbd85c5.
+This QA job does not sign a production AAB, publish releases or upload to Google Play.
