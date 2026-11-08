@@ -74,8 +74,23 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Set up Android SDK command-line tools
-        uses: android-actions/setup-android@v3
+      - name: Reuse hosted Android SDK command-line tools
+        run: |
+          set -euo pipefail
+          sdk_root="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$sdk_root"
+          tool=""
+          for candidate in "$sdk_root/cmdline-tools/latest/bin" "$sdk_root/cmdline-tools/16.0/bin"; do
+            if test -x "$candidate/sdkmanager"; then
+              tool="$candidate"
+              break
+            fi
+          done
+          test -n "$tool" || { echo "Android sdkmanager not found" >&2; exit 1; }
+          echo "ANDROID_HOME=$sdk_root" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$sdk_root" >> "$GITHUB_ENV"
+          echo "$tool" >> "$GITHUB_PATH"
+          "$tool/sdkmanager" --version
 
       - name: Install API 36, build-tools and NDK 28c
         run: |
