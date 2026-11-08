@@ -160,8 +160,13 @@ jobs:
           set -euo pipefail
           export APP_ANDROID_SDK_PATH="$ANDROID_HOME"
           export APP_ANDROID_NDK_PATH="$ANDROID_HOME/ndk/28.2.13676358"
+          # The old openssl.org source URL now returns 504 on hosted runners.
+          # Override only this p4a recipe URL with the official archive mirror.
+          export URL_openssl="https://mirror.openssl-library.org/source/old/3.3/openssl-3.3.1.tar.gz"
           cd "$SCORER_STAGE"
           python tools/build_android.py android release
+          # Exact OpenSSL 3.3.1 distribution checksum from its official release announcement.
+          echo "777cd596284c883375a2a7a11bf5d2786fc5413255efab20c50d6ffe6d020b7e  .buildozer/android/platform/build-arm64-v8a/packages/openssl/openssl-3.3.1.tar.gz" | sha256sum --check
           find bin -maxdepth 1 -type f -name '*.aab' -ls
 
       - name: Validate bundle and produce audit reports
