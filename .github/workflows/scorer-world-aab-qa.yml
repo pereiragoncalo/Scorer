@@ -1,15 +1,19 @@
-name: Scorer World - unsigned AAB QA
+name: Scorer World 0.9.36 - unsigned AAB QA
 
 # Only runs when the owner explicitly clicks "Run workflow".
 # Does not sign, publish a release, or contact Google Play Console.
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - docs/play/TRIGGER_SCORER_WORLD_0936_AAB.txt
 
 permissions:
   contents: read
 
 concurrency:
-  group: scorer-world-unsigned-aab-qa
+  group: scorer-world-0936-unsigned-aab-qa
   cancel-in-progress: false
 
 jobs:
@@ -28,6 +32,21 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: false
+          ref: cb2f7fd9036fabea7f5f6132bca2385bbdbd85c5
+
+      - name: Verify exact Scorer World 0.9.36 source commit
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "cb2f7fd9036fabea7f5f6132bca2385bbdbd85c5"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          launch=json.loads(Path("release/world-launch.json").read_text())
+          assert launch["next_test_version"] == "0.9.36"
+          assert launch["next_test_version_code"] == 1026936
+          assert launch["package"] == "com.clemir.scorerworld"
+          print("Pinned Scorer World source and version verified.")
+          PY
 
       - name: Free runner disk space
         run: |
@@ -105,12 +124,12 @@ jobs:
           assert app["android.release_artifact"] == "aab"
           assert app["android.ndk"] == "28c"
           assert app["p4a.extra_args"] == "--dist_name=striker"
-          assert app["android.numeric_version"] == "1026906"
+          assert app["android.numeric_version"] == "1026936"
           # SDK licences are accepted for the ephemeral CI build only.
           app["android.accept_sdk_license"] = "True"
           with spec.open("w", encoding="utf-8") as out:
               cfg.write(out)
-          print("Isolated World 0.9.6 rehearsal configuration verified.")
+          print("Isolated World 0.9.36 rehearsal configuration verified.")
           PY
 
       - name: Build release-format AAB without production credentials
@@ -176,8 +195,8 @@ jobs:
           report = {
               "purpose": "unsigned QA AAB, not suitable for Google Play upload",
               "package": "com.clemir.scorerworld",
-              "rehearsal_version": "0.9.6",
-              "source_sha": os.environ["GITHUB_SHA"],
+              "rehearsal_version": "0.9.36",
+              "source_sha": "cb2f7fd9036fabea7f5f6132bca2385bbdbd85c5",
               "sha256": digest,
               "size_bytes": path.stat().st_size,
               "bundletool_validated": True,
@@ -196,7 +215,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: scorer-world-unsigned-aab-qa
+          name: scorer-world-0936-unsigned-aab-qa
           path: |
             /tmp/scorer-world-aab-stage/bin/*.aab
             /tmp/scorer-world-aab-stage/qa-aab-report.json
