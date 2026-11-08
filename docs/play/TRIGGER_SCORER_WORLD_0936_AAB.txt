@@ -11,3 +11,5 @@ Third attempt: use compatibility path for the Buildozer 1.5.0 sdkmanager lookup 
 Fourth attempt: p4a OpenSSL recipe points to official archive mirror with verified published SHA256.
 
 Fifth attempt: retrieve historical OpenSSL from HTTPS mirrors, verify the upstream digest, serve it locally during p4a compile.
+
+Sixth attempt: install libltdl-dev to define libffi LT_SYS_SYMBOL_USCORE macro during autoreconf.
