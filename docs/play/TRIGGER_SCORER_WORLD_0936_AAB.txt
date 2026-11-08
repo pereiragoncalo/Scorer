@@ -7,3 +7,5 @@ This QA job does not sign a production AAB, publish releases or upload to Google
 Second attempt: reuse GitHub runner's Android SDK; the first attempt failed because the setup action requested the removed 'tools' SDK package.
 
 Third attempt: use compatibility path for the Buildozer 1.5.0 sdkmanager lookup (host SDK has only cmdline-tools).
+
+Fourth attempt: p4a OpenSSL recipe points to official archive mirror with verified published SHA256.
