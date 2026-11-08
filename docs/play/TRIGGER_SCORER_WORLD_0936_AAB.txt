@@ -17,3 +17,5 @@ Sixth attempt: install libltdl-dev to define libffi LT_SYS_SYMBOL_USCORE macro d
 Seventh attempt (2026-11-08): use verified libffi 3.4.2 release tarball from alternate mirrors; source pinned to qa-0.9.36. No Google Play upload.
 
 Eighth attempt (2026-11-08): libffi 3.4.2 mirror verified in seventh; remove SIGPIPE-prone tar|grep -q validation, retry AAB build.
+
+Ninth attempt (2026-11-08): validate packaged World catalogue SHA-256 against pinned source using fixed QA verifier; preserve unsigned QA-only build.
