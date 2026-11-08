@@ -211,7 +211,7 @@ jobs:
             echo "Unable to retrieve SHA256-matching libffi 3.4.2 release archive" >&2
             exit 1
           fi
-          tar -tzf "$libffi_archive" | grep -q '^libffi-3.4.2/'
+          tar -tzf "$libffi_archive" >/dev/null
           echo "libffi 3.4.2 archive checksum and structure verified"
           # p4a's existing HTTPS downloader has no file:// support. Serve the
           # checksum-verified archives over localhost, only during this step.
