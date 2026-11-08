@@ -9,3 +9,5 @@ Second attempt: reuse GitHub runner's Android SDK; the first attempt failed beca
 Third attempt: use compatibility path for the Buildozer 1.5.0 sdkmanager lookup (host SDK has only cmdline-tools).
 
 Fourth attempt: p4a OpenSSL recipe points to official archive mirror with verified published SHA256.
+
+Fifth attempt: retrieve historical OpenSSL from HTTPS mirrors, verify the upstream digest, serve it locally during p4a compile.
