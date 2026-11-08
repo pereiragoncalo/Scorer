@@ -13,3 +13,5 @@ Fourth attempt: p4a OpenSSL recipe points to official archive mirror with verifi
 Fifth attempt: retrieve historical OpenSSL from HTTPS mirrors, verify the upstream digest, serve it locally during p4a compile.
 
 Sixth attempt: install libltdl-dev to define libffi LT_SYS_SYMBOL_USCORE macro during autoreconf.
+
+Seventh attempt (2026-11-08): use verified libffi 3.4.2 release tarball from alternate mirrors; source pinned to qa-0.9.36. No Google Play upload.
