@@ -251,10 +251,14 @@ jobs:
             --bundle="$aab" --module=base > "$SCORER_STAGE/bundle-manifest.xml"
           java -jar /tmp/bundletool-all-1.18.1.jar dump config \
             --bundle="$aab" > "$SCORER_STAGE/bundle-config.json"
+          # The game source stays pinned; use the separately reviewed QA verifier fix.
+          git -C "$GITHUB_WORKSPACE" fetch --no-tags --depth=1 origin fd60bed14d96acfc593c4c15b873cbe2e755ba6f
+          git -C "$GITHUB_WORKSPACE" show fd60bed14d96acfc593c4c15b873cbe2e755ba6f:tools/play/verify.py > "$SCORER_STAGE/tools/play/verify.py"
           cd "$SCORER_STAGE"
           python tools/play/verify.py "$aab" \
             --manifest "$SCORER_STAGE/bundle-manifest.xml" \
             --channel rehearsal --package com.clemir.scorerworld \
+            --expected-catalogue "$SCORER_STAGE/assets/data/world_clubs.json" \
             > "$SCORER_STAGE/static-audit.json"
           python tools/android/verify_elf_alignment.py "$aab" \
             --readelf "$ANDROID_HOME/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-readelf" \
