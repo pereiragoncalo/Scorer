@@ -1,6 +1,6 @@
 name: Scorer World 0.9.36 - unsigned AAB QA
 
-# Only runs when the owner explicitly clicks "Run workflow".
+# Runs manually, or on changes to the single QA trigger text file.
 # Does not sign, publish a release, or contact Google Play Console.
 on:
   workflow_dispatch:
@@ -186,8 +186,35 @@ jobs:
             echo "Unable to retrieve SHA256-matching OpenSSL 3.3.1 source archive" >&2
             exit 1
           fi
+          # The p4a libffi recipe's GitHub tag archive returns HTTP 504.
+          # Fetch the upstream libffi 3.4.2 *release* tarball instead.
+          # Hash independently documented by the Buildroot project.
+          libffi_sha="540fb721619a6aba3bdeef7d940d8e9e0e6d2c193595bc243241b77ff9e93620"
+          libffi_archive="$cache_dir/libffi-3.4.2.tar.gz"
+          libffi_verified=false
+          for source_url in \
+            "https://ftp.fau.de/macports/distfiles/libffi/libffi-3.4.2.tar.gz" \
+            "https://mirrors.mit.edu/macports/distfiles/libffi/libffi-3.4.2.tar.gz" \
+            "https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz" \
+            "https://macports.distfiles.ionic.de/libffi/libffi-3.4.2.tar.gz"
+          do
+            rm -f "$libffi_archive"
+            echo "Trying libffi 3.4.2 release mirror: $source_url"
+            if curl --fail --location --retry 2 --connect-timeout 12 --max-time 90 \
+              --silent --show-error --output "$libffi_archive" "$source_url" &&
+              echo "$libffi_sha  $libffi_archive" | sha256sum --check --status; then
+              libffi_verified=true
+              break
+            fi
+          done
+          if [[ "$libffi_verified" != true ]]; then
+            echo "Unable to retrieve SHA256-matching libffi 3.4.2 release archive" >&2
+            exit 1
+          fi
+          tar -tzf "$libffi_archive" | grep -q '^libffi-3.4.2/'
+          echo "libffi 3.4.2 archive checksum and structure verified"
           # p4a's existing HTTPS downloader has no file:// support. Serve the
-          # checksum-verified archive over localhost, only during this step.
+          # checksum-verified archives over localhost, only during this step.
           python -m http.server 18763 --bind 127.0.0.1 --directory "$cache_dir" \
             >/tmp/scorer-qa-source-server.log 2>&1 &
           source_server=$!
@@ -198,9 +225,12 @@ jobs:
           done
           curl --fail --silent --head "http://127.0.0.1:18763/openssl-3.3.1.tar.gz" >/dev/null
           export URL_openssl="http://127.0.0.1:18763/openssl-3.3.1.tar.gz"
+          export URL_libffi="http://127.0.0.1:18763/libffi-3.4.2.tar.gz"
+          curl --fail --silent --head "$URL_libffi" >/dev/null
           cd "$SCORER_STAGE"
           python tools/build_android.py android release
           echo "$openssl_sha  .buildozer/android/platform/build-arm64-v8a/packages/openssl/openssl-3.3.1.tar.gz" | sha256sum --check
+          echo "$libffi_sha  .buildozer/android/platform/build-arm64-v8a/packages/libffi/libffi-3.4.2.tar.gz" | sha256sum --check
           find bin -maxdepth 1 -type f -name '*.aab' -ls
 
       - name: Validate bundle and produce audit reports
