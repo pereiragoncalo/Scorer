@@ -160,13 +160,47 @@ jobs:
           set -euo pipefail
           export APP_ANDROID_SDK_PATH="$ANDROID_HOME"
           export APP_ANDROID_NDK_PATH="$ANDROID_HOME/ndk/28.2.13676358"
-          # The old openssl.org source URL now returns 504 on hosted runners.
-          # Override only this p4a recipe URL with the official archive mirror.
-          export URL_openssl="https://mirror.openssl-library.org/source/old/3.3/openssl-3.3.1.tar.gz"
+          # Fetch the historical OpenSSL release from established mirrors.
+          # The original source redirects to an unavailable release asset.
+          # Only the exact upstream-verified bytes are accepted.
+          openssl_sha="777cd596284c883375a2a7a11bf5d2786fc5413255efab20c50d6ffe6d020b7e"
+          cache_dir="$SCORER_STAGE/native-source-cache"
+          mkdir -p "$cache_dir"
+          archive="$cache_dir/openssl-3.3.1.tar.gz"
+          verified=false
+          for source_url in \
+            "https://mirror.viaduck.org/openssl/openssl-3.3.1.tar.gz" \
+            "https://mirrors.lzu.edu.cn/buildroot/libopenssl/openssl-3.3.1.tar.gz" \
+            "https://github.com/openssl/openssl/releases/download/openssl-3.3.1/openssl-3.3.1.tar.gz"
+          do
+            rm -f "$archive"
+            echo "Trying authenticated TLS archive mirror: $source_url"
+            if curl --fail --location --retry 2 --connect-timeout 12 --max-time 90 \
+              --silent --show-error --output "$archive" "$source_url" &&
+              echo "$openssl_sha  $archive" | sha256sum --check --status; then
+              verified=true
+              break
+            fi
+          done
+          if [[ "$verified" != true ]]; then
+            echo "Unable to retrieve SHA256-matching OpenSSL 3.3.1 source archive" >&2
+            exit 1
+          fi
+          # p4a's existing HTTPS downloader has no file:// support. Serve the
+          # checksum-verified archive over localhost, only during this step.
+          python -m http.server 18763 --bind 127.0.0.1 --directory "$cache_dir" \
+            >/tmp/scorer-qa-source-server.log 2>&1 &
+          source_server=$!
+          trap 'kill "$source_server" 2>/dev/null || true' EXIT
+          for attempt in 1 2 3 4 5; do
+            if curl --fail --silent --head "http://127.0.0.1:18763/openssl-3.3.1.tar.gz" >/dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent --head "http://127.0.0.1:18763/openssl-3.3.1.tar.gz" >/dev/null
+          export URL_openssl="http://127.0.0.1:18763/openssl-3.3.1.tar.gz"
           cd "$SCORER_STAGE"
           python tools/build_android.py android release
-          # Exact OpenSSL 3.3.1 distribution checksum from its official release announcement.
-          echo "777cd596284c883375a2a7a11bf5d2786fc5413255efab20c50d6ffe6d020b7e  .buildozer/android/platform/build-arm64-v8a/packages/openssl/openssl-3.3.1.tar.gz" | sha256sum --check
+          echo "$openssl_sha  .buildozer/android/platform/build-arm64-v8a/packages/openssl/openssl-3.3.1.tar.gz" | sha256sum --check
           find bin -maxdepth 1 -type f -name '*.aab' -ls
 
       - name: Validate bundle and produce audit reports
