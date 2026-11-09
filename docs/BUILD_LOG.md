@@ -2754,3 +2754,17 @@ Site generator2tests, public policy15tests, release staging14tests, editions6tes
 and native policy-link1test passed. Gameplay unchanged from0.9.40; no redundant
 full gameplay run. Changed release_settings/examples/compiled metadata check to
 canonical GitHub Pages privacy URL. Unrelated WIP remains excluded.
+
+Public policy host closure: custom workflow42673061046 succeeded; Pages built.
+All3canonical anonymous HTTPS URLs returned200, final English HTML and expected
+identity. Direct Chromium got the managed proxy CA error (no TLS checks disabled);
+render/navigation checked using exact TLS-verified live HTML on localhost. First
+local browser selector matched both header/footer navigation links; fixed the probe
+to choose the first link. See live/browser evidence under docs/data/policy_0.9.41.
+Bastion and old policy/service remain untouched; no operator-review flags asserted.
+
+Final0.9.41 APK: package com.clemir.scorerworld/code1026941/API36/min26/arm64,
+existing DEBUG signature, ZIP16KB and118ELFs verified. Matching hostpython bytecode
+inspection confirms new public policy URL and edition/channel metadata. No physics
+or save-format changes; game regression baseline remains0.9.40. Physical Android
+and Play production signing/review remain pending.
