@@ -1,5 +1,7 @@
 ## 2026-11-09 — World0.9.39 training touch and estate portrait
 
+Public APK verified HTTP200/attachment:118304435bytes, SHA2569ef4d290b6b24b54913e960c39d1b37a945c2caa5a3b46d6169322b177a88d4f. Workflow42623550381 succeeded. Both original generated PNGs, compiled portrait/selection source and all packed regression checks passed. Temporary transfer branch removed.
+
 Sourcea3bc6943c4dbab5f0643ed84b681ac5db762f4bf; World1026939, existing debug upgrade certificate, API36/min26 arm64. Hide archived friendly calendar rows and old queued friendly paper, preserve earned statistics; national attendance official-only. Training result input precedes stale menu, redraws synchronously and waits for explicit tap rather than2.55s auto-advance. Same press never shoots next; third tap immediately shows summary. Match timing unchanged.
 
 My Assets composes original forecourt/five-outfit atlas with independently best owned house and parked car by unit price. Provided defaults do not add ownership; no unowned car. Collection retains every purchase/gift. Nearest texture regions; cached CoreImage objects retain reload references. Sources/generation provenance in assets/lifestyle/scene/README.md. No0.9.38 finishing/ballistic/price changes; preserve unrelated WIP.
