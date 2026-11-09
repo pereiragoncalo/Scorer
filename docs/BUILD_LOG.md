@@ -1,3 +1,11 @@
+## 2026-11-09 — World0.9.39 training touch and estate portrait
+
+Sourcea3bc6943c4dbab5f0643ed84b681ac5db762f4bf; World1026939, existing debug upgrade certificate, API36/min26 arm64. Hide archived friendly calendar rows and old queued friendly paper, preserve earned statistics; national attendance official-only. Training result input precedes stale menu, redraws synchronously and waits for explicit tap rather than2.55s auto-advance. Same press never shoots next; third tap immediately shows summary. Match timing unchanged.
+
+My Assets composes original forecourt/five-outfit atlas with independently best owned house and parked car by unit price. Provided defaults do not add ownership; no unowned car. Collection retains every purchase/gift. Nearest texture regions; cached CoreImage objects retain reload references. Sources/generation provenance in assets/lifestyle/scene/README.md. No0.9.38 finishing/ballistic/price changes; preserve unrelated WIP.
+
+433core cases/3existing skips,235clean-source native cases,19focused cases and165responsive cases/zero findings. First broad UI run found3obsolete expectations (Feedback entry, close-header control time, Argentina call-up requiring an official2027/28 fixture); these were corrected and the complete clean suite passed. New tests exercise stale-menu first tap, six-second wait, immediate third-tap summary, independent best assets/no unowned car, friendly history filtering and queued-report migration. Reviewed final portraits for empty, mixed and highest tiers. Actual APK package/signature,118ELF16KB/ZIP16KB, compiled source and both generated PNG assets verified. Physical Android acceptance and prior official club-history audit remain pending.
+
 ## 2026-11-09 — World0.9.38 situational finishing balance
 
 Public APK verified HTTP200/attachment:114461175bytes, SHA2564f029c6c75d27f294ab75eee1b72c381182c29ca04c46d30f8e3968482403f4d. Workflow42614504702 succeeded. Compiled tuning/neutral controls and all packed regression checks passed. Temporary transfer branch removed.

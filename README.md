@@ -1,3 +1,13 @@
+## Scorer World0.9.39 — training touch and estate portrait
+
+[Download World0.9.39 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.39/Scorer-World-0.9.39.apk)
+
+Training results wait for one explicit tap and redraw immediately. Archived
+international friendlies are hidden from displayed fixtures too. My Assets shows
+a live retro portrait with the best owned home, clothes and parked car; Collection
+keeps the complete inventory accessible. Physical Android playtest pending.
+[Scope](docs/RELEASE_0.9.39.md).
+
 ## Scorer World0.9.38 — situational finishing balance
 
 [Download World0.9.38 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.38/Scorer-World-0.9.38.apk)
