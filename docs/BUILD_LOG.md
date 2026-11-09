@@ -2816,3 +2816,10 @@ screens; captures complete. Initial command addressed a clean checkout before
 it existed; reran from source, then tested/staged the clean index successfully.
 APK build/signature/metadata verification and delivery evidence follow separately.
 No server update, signing key creation, production assertion or Play submission.
+
+Final0.9.42 package/signature/API/code and ZIP16KB passed. Initial container ELF
+probe could not create a temporary directory due to writable-layer disk space;
+archived only generated older staging/index snapshots to /tmp, preserving them,
+then118ELF and matching-hostpython metadata checks passed. Actual APK prints
+Displayed version:0.9.42, matching Android versionName/code1026942.
+No APK rebuild or gameplay change was needed after verification.
