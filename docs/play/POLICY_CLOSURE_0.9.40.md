@@ -60,3 +60,11 @@ created by passing tests or accepting the startup notice.
 The candidate still needs release signing, Android/Play acceptance and Console
 forms. Previous0.9.39 APK does not contain these changes. Do not use its automatic
 analytics behavior as the description of this new candidate.
+
+## Final automated evidence
+
+Clean indexed-source436core cases(3existing skips),235native Kivy cases and
+165responsive cases/zero findings passed. Actual APK package/code/API/signature,
+16KB ZIP/118nativeELFs and compiled optional-usage factory were verified.
+Public installer download HTTP200 and exact SHA256 verified. Physical Android
+and public server execution are still outside this evidence.

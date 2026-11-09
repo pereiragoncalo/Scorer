@@ -2734,3 +2734,9 @@ container Python instead of the matching hostpython and exited139; retry uses
 the packaged Python compiler version. This was an inspection-process failure,
 not an Android app run. Signature, package/code/API,16KB ZIP and118ELF checks passed.
 No production signing key, Console declaration, public server update or submission.
+
+Final0.9.40 indexed-source evidence:436core/3skips and235native Kivy passed;
+165responsive cases/zero findings. APK bytecode verified using matching hostpython:
+actual default-off factory, versioned opt-in, stop/erase and safety text all passed.
+Public standalone installer HTTP200/download hash verified. Owner must execute on
+bastion; latest live phone report is still the OLD draft/test policy.
