@@ -1,5 +1,7 @@
 ## 2026-11-09 — World0.9.37 feedback button
 
+Public APK verified HTTP200/attachment:114459739bytes, SHA256a0825de09bb30ad08c250a82aef558c258b26ddacf8267ce1403de605effda42. Workflow42607706948 succeeded. Compiled feedback mailto recipient/subject and all packed regression checks passed. Temporary transfer branch removed.
+
 Source9cd4eeae721ede68c0ad41fd59c1c57c415e2b81; World1026937, existing debug upgrade certificate, API36/min26 arm64. Feedback in entry/hub/compact menu; spare normal-header space preserves existing action positions/alignment. Android UI-thread ACTION_SENDTO opens an email draft to public support; user sends manually, no automatic submission or attachments. Missing-handler fallback is localized, copyable and measured to fit; nine-language labels. Gameplay/save/physics modules unchanged.
 
 7clean-source native cases passed, including mocked Android UI-thread intent/recipient/subject, actual menu touch, no-handler main-clock callback, copying fallback, entry access and main-menu bounds.12fallback layouts across4languages/3sizes fit their text/buttons;99responsive cases/zero findings. Reviewed native screenshots. Actual APK package/signature,118ELF16KB/ZIP16KB and packed compiled-source/public-contact checks verified. Physical Android mail-client/handset acceptance remains pending; prior official club-history audit limits remain.
