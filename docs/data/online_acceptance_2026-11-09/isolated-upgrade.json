@@ -1,0 +1,87 @@
+{
+  "scope": "Isolated fixture only; no public requests",
+  "baseline": "qa-0.9.33",
+  "installer_sha256": "d50cc638fd61ecdf1868ccf313531f38cc50426eddf63a02ec2e547071274bea",
+  "checks": [
+    {
+      "check": "old_v3_responds",
+      "passed": true
+    },
+    {
+      "check": "baseline_has_no_career_table",
+      "passed": true
+    },
+    {
+      "check": "real_bundled_installer_verifies_public_pages_and_v3_v4",
+      "passed": true
+    },
+    {
+      "check": "existing_season_record_preserved",
+      "passed": true
+    },
+    {
+      "check": "new_career_board_empty",
+      "passed": true
+    },
+    {
+      "check": "v3_pending_record_not_public",
+      "passed": true
+    },
+    {
+      "check": "v4_pending_record_not_public",
+      "passed": true
+    },
+    {
+      "check": "both_pending_categories_in_private_queue",
+      "passed": true
+    },
+    {
+      "check": "queue_does_not_expose_write_credentials",
+      "passed": true
+    },
+    {
+      "check": "v3_approval_publishes",
+      "passed": true
+    },
+    {
+      "check": "v4_approval_publishes",
+      "passed": true
+    },
+    {
+      "check": "client_block_preserves_other_publisher",
+      "passed": true
+    },
+    {
+      "check": "client_block_survives_reload",
+      "passed": true
+    },
+    {
+      "check": "report_visible_to_moderator",
+      "passed": true
+    },
+    {
+      "check": "v3_ban_hides",
+      "passed": true
+    },
+    {
+      "check": "v4_ban_hides",
+      "passed": true
+    },
+    {
+      "check": "withdraw_removes_both_categories_and_reports",
+      "passed": true
+    },
+    {
+      "check": "withdraw_preserves_unrelated_record",
+      "passed": true
+    },
+    {
+      "check": "aggregate_totals_preserved",
+      "passed": true
+    },
+    {
+      "check": "no_career_rows_after_withdrawal",
+      "passed": true
+    }
+  ]
+}

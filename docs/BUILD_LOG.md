@@ -2775,3 +2775,26 @@ verified. Transfer commit creation initially preceded pushing its source parent;
 pushed source and reconstructed the tree from existing uploaded blob hashes,
 without re-uploading/rebuilding APK. Site recheck: all3final HTTPS pages200;
 Pages reports built/HTTPS enforced. No bastion access or Play submission performed.
+
+
+## 2026-11-09 — real online acceptance and actual upgrade rehearsal
+
+Read-only real HTTPS using app UA: health200/v3schema3; v4JSON404; unauthorized
+private queue404. Own disposable zero-goal pending canary: terms400, submit204,
+not publicly visible, report204/invalid-reason400, withdrawal204. First repeat
+withdrawal got503; cleanup owner/reporter204. Complete paced second run passed
+including idempotency and report-target absence after withdrawal; both credentials
+cleaned,0600 recovery files removed. No user records or usage counters changed,
+no live admin approvals or queue access. Original503 evidence preserved.
+
+New isolated rehearsal exports actual qa-0.9.33 v3 modules into temporary source/DB,
+seeds unrelated approved record and aggregate42, applies the actual standalone
+0.9.40 installer and restarts with new sources.20checks passed: migration, both
+pending/approved categories, invalid terms/private admin, reports, local block,
+bans, withdrawals and preservation. First harness run lacked root import path for
+client-block module; fixed the probe path, reran successfully. No runtime game
+code changed. Existing publication safety13tests and installer3tests passed.
+
+Service update not applied remotely: no SSH/admin credential and owner lacks
+bastion access. Live v4/human moderation gate stays open. Prepared honest physical
+Android acceptance checklist; version/install confirmation requested asynchronously.

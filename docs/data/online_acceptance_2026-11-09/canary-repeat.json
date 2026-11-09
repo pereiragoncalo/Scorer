@@ -1,0 +1,84 @@
+{
+  "checked_utc": "2026-11-09T18:36:20.285177+00:00",
+  "scope": "Only own zero-goal pending canary; never approved; no usage counters sent",
+  "steps": [
+    {
+      "check": "withdraw_supported_before_create",
+      "http": 204,
+      "passed": true,
+      "error_marker": null
+    },
+    {
+      "check": "terms_required",
+      "http": 400,
+      "passed": true,
+      "error_marker": "invalid"
+    },
+    {
+      "check": "submit_pending",
+      "http": 204,
+      "passed": true,
+      "error_marker": null
+    },
+    {
+      "check": "read_after_submit",
+      "http": 200,
+      "passed": true,
+      "error_marker": null
+    },
+    {
+      "check": "own_unapproved_record_not_public",
+      "passed": true
+    },
+    {
+      "check": "report_own_pending_fixture",
+      "http": 204,
+      "passed": true,
+      "error_marker": null
+    },
+    {
+      "check": "invalid_report_reason_rejected",
+      "http": 400,
+      "passed": true,
+      "error_marker": "invalid"
+    },
+    {
+      "check": "withdraw_own_fixture",
+      "http": 204,
+      "passed": true,
+      "error_marker": null
+    },
+    {
+      "check": "withdraw_is_idempotent",
+      "http": 204,
+      "passed": true,
+      "error_marker": null
+    },
+    {
+      "check": "report_target_absent_after_withdrawal",
+      "http": 400,
+      "passed": true,
+      "error_marker": "invalid"
+    },
+    {
+      "check": "read_after_withdrawal",
+      "http": 200,
+      "passed": true,
+      "error_marker": null
+    }
+  ],
+  "cleanup": [
+    {
+      "identity": "owner",
+      "http": 204,
+      "passed": true
+    },
+    {
+      "identity": "reporter",
+      "http": 204,
+      "passed": true
+    }
+  ],
+  "credentials_retained": false,
+  "failure": null
+}
