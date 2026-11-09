@@ -1,0 +1,237 @@
+{
+  "method": "Paired physical finishing check. Exact targets isolate keeper tuning, not human conversion.",
+  "rows": [
+    {
+      "tier": 1,
+      "kind": "penalty",
+      "mode": "previous",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 18,
+        "SAVED!": 102
+      },
+      "conversion": 0.15
+    },
+    {
+      "tier": 1,
+      "kind": "penalty",
+      "mode": "tuned",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 87,
+        "SAVED!": 33
+      },
+      "conversion": 0.725
+    },
+    {
+      "tier": 1,
+      "kind": "through_ball",
+      "mode": "previous",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 28,
+        "SAVED!": 92
+      },
+      "conversion": 0.23333333333333334
+    },
+    {
+      "tier": 1,
+      "kind": "through_ball",
+      "mode": "tuned",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 64,
+        "SAVED!": 56
+      },
+      "conversion": 0.5333333333333333
+    },
+    {
+      "tier": 1,
+      "kind": "header_close",
+      "mode": "previous",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 48,
+        "SAVED!": 53,
+        "MISS!": 19
+      },
+      "conversion": 0.4
+    },
+    {
+      "tier": 1,
+      "kind": "header_close",
+      "mode": "tuned",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 53,
+        "SAVED!": 48,
+        "MISS!": 19
+      },
+      "conversion": 0.44166666666666665
+    },
+    {
+      "tier": 1,
+      "kind": "header_far",
+      "mode": "previous",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 20,
+        "SAVED!": 91,
+        "MISS!": 9
+      },
+      "conversion": 0.16666666666666666
+    },
+    {
+      "tier": 1,
+      "kind": "header_far",
+      "mode": "tuned",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 20,
+        "SAVED!": 91,
+        "MISS!": 9
+      },
+      "conversion": 0.16666666666666666
+    },
+    {
+      "tier": 1,
+      "kind": "first_time",
+      "mode": "previous",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 20,
+        "MISS!": 39,
+        "SAVED!": 61
+      },
+      "conversion": 0.16666666666666666
+    },
+    {
+      "tier": 1,
+      "kind": "first_time",
+      "mode": "tuned",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 20,
+        "MISS!": 39,
+        "SAVED!": 61
+      },
+      "conversion": 0.16666666666666666
+    },
+    {
+      "tier": 4,
+      "kind": "penalty",
+      "mode": "previous",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 26,
+        "SAVED!": 94
+      },
+      "conversion": 0.21666666666666667
+    },
+    {
+      "tier": 4,
+      "kind": "penalty",
+      "mode": "tuned",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 93,
+        "SAVED!": 27
+      },
+      "conversion": 0.775
+    },
+    {
+      "tier": 4,
+      "kind": "through_ball",
+      "mode": "previous",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 45,
+        "SAVED!": 75
+      },
+      "conversion": 0.375
+    },
+    {
+      "tier": 4,
+      "kind": "through_ball",
+      "mode": "tuned",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 86,
+        "SAVED!": 34
+      },
+      "conversion": 0.7166666666666667
+    },
+    {
+      "tier": 4,
+      "kind": "header_close",
+      "mode": "previous",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 73,
+        "SAVED!": 31,
+        "MISS!": 16
+      },
+      "conversion": 0.6083333333333333
+    },
+    {
+      "tier": 4,
+      "kind": "header_close",
+      "mode": "tuned",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 76,
+        "SAVED!": 28,
+        "MISS!": 16
+      },
+      "conversion": 0.6333333333333333
+    },
+    {
+      "tier": 4,
+      "kind": "header_far",
+      "mode": "previous",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 21,
+        "SAVED!": 92,
+        "MISS!": 7
+      },
+      "conversion": 0.175
+    },
+    {
+      "tier": 4,
+      "kind": "header_far",
+      "mode": "tuned",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 21,
+        "SAVED!": 92,
+        "MISS!": 7
+      },
+      "conversion": 0.175
+    },
+    {
+      "tier": 4,
+      "kind": "first_time",
+      "mode": "previous",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 20,
+        "MISS!": 38,
+        "SAVED!": 62
+      },
+      "conversion": 0.16666666666666666
+    },
+    {
+      "tier": 4,
+      "kind": "first_time",
+      "mode": "tuned",
+      "samples": 120,
+      "outcomes": {
+        "GOAL!": 20,
+        "MISS!": 38,
+        "SAVED!": 62
+      },
+      "conversion": 0.16666666666666666
+    }
+  ]
+}

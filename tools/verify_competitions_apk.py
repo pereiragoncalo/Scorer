@@ -9,6 +9,8 @@ with zipfile.ZipFile(sys.argv[1]) as z:
             m=next(m for m in t if m.name==name+'.pyc' or m.name.endswith('/'+name+'.pyc'))
             obj=types.ModuleType(name);obj.__file__=str(Path.cwd()/(name+'.py'));sys.modules[name]=obj
             exec(marshal.loads(t.extractfile(m).read()[16:]),obj.__dict__);return obj
+        balance=module('finishing_balance');assert balance.PENALTY.decision_time==2.2 and balance.ONE_ON_ONE.aim_speed==.8 and balance.finishing_balance('header',False,12)==balance.NEUTRAL and balance.finishing_balance('kick',False,7)==balance.NEUTRAL
+        print('Actual APK: penalty/one-on-one assistance and close-header fade verified; normal shots unchanged')
         mail=module('feedback');from urllib.parse import urlsplit,parse_qs
         destination=urlsplit(mail.mail_url());assert destination.scheme=='mailto' and destination.path=='goncalo@clemir.com' and parse_qs(destination.query)=={'subject':['Scorer World - Feedback']}
         print('Actual APK: feedback opens a support email draft without attachments or career data')

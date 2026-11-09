@@ -1103,9 +1103,10 @@ class StrikerGame(Widget):
             self.field_players.extend(FieldPlayer(-5+i*3,7+i*.7,'attacker',float(i)) for i in range(count))
         self.shot_time_limit=max(2.7,self.shot_time_limit*OPPORTUNITY_TIMING[kind])
         bonus,steadiness=self.career.finishing_controls(self.shot_type)
-        self.current_aim_speed*=steadiness
+        balance=self._finishing_balance()
+        self.current_aim_speed*=steadiness*balance.aim_speed
         from career_life import decline
-        self.shot_time_limit=max(1.3,self.shot_time_limit*.40/decline(self.career))+bonus
+        self.shot_time_limit=max(1.3,self.shot_time_limit*.40/decline(self.career))*balance.decision_time+bonus
         self.shot_time_left=self.shot_time_limit
         self.buildup_progress=0.;self.frozen_scene_time=None
         self.buildup_actors=[];self.buildup_blocker=None;self.onside_defender=None
@@ -1725,6 +1726,11 @@ class StrikerGame(Widget):
         self.field_players = players
 
 
+    def _finishing_balance(self):
+        from finishing_balance import finishing_balance,NEUTRAL
+        if self.shot_context not in ('match','training'):return NEUTRAL
+        return finishing_balance(self.shot_type,self.one_on_one,math.hypot(self.shot_origin_x,self.shot_origin_y))
+
     def _defensive_profile(self):
         from defensive_difficulty import defensive_profile
         club=self.career.club
@@ -2015,6 +2021,10 @@ class StrikerGame(Widget):
             reading_error=profile.reading_error*(1.0 if hard else 1.8-.6*self.shot_distance_factor)
             self.goalkeeper_read_error=random.gauss(0.0,reading_error)
             self.goalkeeper_target_x=clamp(destination_x+self.goalkeeper_read_error,-self.goal_half_width+.62,self.goal_half_width-.62)
+        balance=self._finishing_balance()
+        self.goalkeeper_read_error*=balance.reading_error
+        reaction_low+=balance.reaction_delay;reaction_high+=balance.reaction_delay
+        self.goalkeeper_target_x=clamp(destination_x+self.goalkeeper_read_error,-self.goal_half_width+.62,self.goal_half_width-.62)
         self.goalkeeper_vertical_error=random.gauss(0.0,.16)
         self.goalkeeper_reaction = random.uniform(reaction_low, reaction_high) * (1.0 - .25*clamp((destination_z-1.4)/.7,0.0,1.0))
         self.goalkeeper_dive_speed = profile.dive_speed + 1.2*clamp((destination_z-1.4)/.7,0.0,1.0) - .8*clamp((.8-destination_z)/.6,0.0,1.0)
