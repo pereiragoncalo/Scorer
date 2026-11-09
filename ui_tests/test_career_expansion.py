@@ -56,7 +56,7 @@ class ExpansionTests(unittest.TestCase):
    c=self.prepare(g);g.view='hub';g._activate_ui('lifestyle');g.draw();settle();self.assertEqual(g.view,'lifestyle')
    texts=[w.text for w in g._menu.body.walk() if hasattr(w,'text')];self.assertIn('SHOPPING',texts);self.assertIn('MY ASSETS',texts);self.assertFalse(any('studio' in t.lower() for t in texts))
    g._activate_ui('possessions');g.draw();settle();self.assertFalse(any(isinstance(w,Image) for w in g._menu.body.walk()))
-   c.life['balance']=100;c.life['owned']={'rose':2};g._shop_category=2;g._menu._signature=None;g.draw();settle()
+   c.life['balance']=100;c.life['owned']={'rose':2};g.view='collection';g._shop_category=2;g._menu._signature=None;g.draw();settle()
    images=[w.source for w in g._menu.body.walk() if isinstance(w,Image)];self.assertEqual(images,['assets/lifestyle/rose.png'])
    g._activate_ui('lifestyle');g._activate_ui('shopping');g.draw();settle();self.assertEqual(g.view,'shopping')
  def test_injury_simulates_fixture_without_training_or_personal_appearance(self):

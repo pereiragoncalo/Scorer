@@ -19,11 +19,25 @@ class LifestyleScreen(BoxLayout):
   buttons.add_widget(MenuTile('SHOPPING',lambda:menu.action('shopping'),accent=True));buttons.add_widget(MenuTile('MY ASSETS',lambda:menu.action('possessions')))
   self.add_widget(BoundedLabel(text='',size_hint_y=.3))
   self.add_widget(MenuTile('BACK',lambda:menu.action('hub')))
+class EstateScreen(BoxLayout):
+ def __init__(self,menu):
+  super().__init__(orientation='vertical',spacing=dp(6));self.menu=menu;c=menu.game.career;tr=menu.game.i18n.tr
+  header=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6));self.add_widget(header)
+  header.add_widget(DashboardField(compact_text=tr('MY ASSETS')+' · '+c.player_name,text=tr('MY ASSETS')+' · '+c.player_name,localize=False,halign='center',font_size=sp(18),color=GREEN))
+  help=MenuTile('HELP',lambda:menu.action('help'));help.size_hint_x=None;help.width=dp(72);header.add_widget(help)
+  from estate_portrait import EstatePortrait
+  self.portrait=EstatePortrait(c);self.add_widget(self.portrait)
+  names=BoxLayout(size_hint_y=None,height=dp(32),spacing=dp(6));self.add_widget(names)
+  for kind in ('home','clothes','car'):
+   row=self.portrait.selection[kind];text=tr(row[2]) if row else '—'
+   names.add_widget(DashboardField(compact_text=text,text=text,localize=False,halign='center',font_size=sp(12)))
+  actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6));self.add_widget(actions)
+  actions.add_widget(MenuTile('COLLECTION',lambda:menu.action('collection')));actions.add_widget(MenuTile('BACK',lambda:menu.action('lifestyle')))
 class CatalogueScreen(BoxLayout):
  def __init__(self,menu,owned=False):
   super().__init__(orientation='vertical',spacing=dp(6));self.menu=menu;self.owned=owned;c=menu.game.career;d=c.life;tr=menu.game.i18n.tr
   header=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(5));self.add_widget(header)
-  summary=tr('MY ASSETS' if owned else 'SHOPPING')+' · '+tr('Balance €{balance}',balance=f"{d['balance']:,}".replace(',',' '))
+  summary=tr('COLLECTION' if owned else 'SHOPPING')+' · '+tr('Balance €{balance}',balance=f"{d['balance']:,}".replace(',',' '))
   header.add_widget(BoundedLabel(text=summary,localize=False,halign='center',color=GREEN,font_size=sp(13)))
   help=MenuTile('HELP',lambda:menu.action('help'));help.size_hint_x=None;help.width=dp(72);header.add_widget(help)
   category=getattr(menu.game,'_shop_category',0)%4;kind=('home','car','gift','clothes')[category]
@@ -45,7 +59,7 @@ class CatalogueScreen(BoxLayout):
    button=MenuTile(title,lambda n=delta:self.move(n));button.disabled=len(rows)<2;actions.add_widget(button)
   if not owned:
    buy=MenuTile('BUY',lambda:self.buy(key),accent=True);buy.disabled=not rows or d['balance']<price or bool(count and kind!='gift');actions.add_widget(buy)
-  actions.add_widget(MenuTile('BACK',lambda:menu.action('lifestyle')))
+  actions.add_widget(MenuTile('BACK',lambda:menu.action('possessions' if owned else 'lifestyle')))
  def category(self,n):self.menu.game._shop_category=n;self.menu.game._shop_pos=0;self.refresh()
  def move(self,n):self.menu.game._shop_pos+=n;self.refresh()
  def refresh(self):self.menu._signature=None;self.menu.game.draw()

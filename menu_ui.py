@@ -31,7 +31,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('club','development','newspaper','coach','title_coach','private_coach','lifestyle','shopping','possessions', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
+MENU_VIEWS = frozenset(('club','development','newspaper','coach','title_coach','private_coach','lifestyle','shopping','possessions','collection', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -169,9 +169,10 @@ class CareerMenu(BoxLayout):
         if self.game.view=='newspaper':
             from newspaper_ui import NewspaperScreen
             self.padding=self.spacing=0;self.scroll=None;self.body=NewspaperScreen(self);self.add_widget(self.body);return
-        if self.game.view in ('lifestyle','shopping','possessions'):
-            from lifestyle_ui import LifestyleScreen,CatalogueScreen
-            self.body=LifestyleScreen(self) if self.game.view=='lifestyle' else CatalogueScreen(self,owned=self.game.view=='possessions');self.add_widget(self.body);return
+        if self.game.view in ('lifestyle','shopping','possessions','collection'):
+            self.padding=dp(12);self.spacing=dp(6);self.scroll=None
+            from lifestyle_ui import LifestyleScreen,CatalogueScreen,EstateScreen
+            self.body=LifestyleScreen(self) if self.game.view=='lifestyle' else EstateScreen(self) if self.game.view=='possessions' else CatalogueScreen(self,owned=self.game.view=='collection');self.add_widget(self.body);return
         if self.game.view in ('coach','title_coach','private_coach'):
             from coach_ui import CoachScreen
             self.padding=self.spacing=0;self.scroll=None;self.body=CoachScreen(self);self.add_widget(self.body);return

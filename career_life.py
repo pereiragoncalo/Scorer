@@ -52,3 +52,8 @@ def retirement(c,retire):
  before=copy.deepcopy(c.life);c.life.update(retired=bool(retire),retirement_seen=c.season)
  if c.save() is False:c.life=before;return False
  return True
+
+
+def best_assets(c):
+ """Best owned item in each portrait category, independent of purchase order."""
+ return {kind:max((row for row in ITEMS if row[1]==kind and c.life['owned'].get(row[0],0)>0),key=lambda row:row[3],default=None) for kind in ('home','car','clothes')}

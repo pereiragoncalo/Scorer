@@ -1389,7 +1389,7 @@ class StrikerGame(Widget):
         ]
 
 
-        if self.state == self.STATE_RESULT and self.state_age > 2.55:
+        if self.state == self.STATE_RESULT and self.state_age > 2.55 and self.shot_context!="training":
             from celebrations import active
             if not active(self):self._advance_after_shot()
 
@@ -3009,11 +3009,13 @@ class StrikerGame(Widget):
 
 
     def on_touch_down(self, touch):
-        if self._context_help is not None:return True
+        if self._context_help is not None or self._exit_popup is not None:return True
         # Handle the first delivered touch at the root, even before the splash
         # widget has completed its initial Kivy layout.
         if self.view=="splash" and not getattr(touch,'is_mouse_scrolling',False):
             self._activate_ui('splash_continue');self.draw();return True
+        if self.view=='shot' and (self.state==self.STATE_RESULT or (self.outcome_registered and self.result_text)):
+            self._advance_after_shot();self.draw();return True
         if self.view=='trophy' and getattr(self,'_title_button',None) is not None:
             return super().on_touch_down(touch)
         if self._menu is not None or self._match_notice is not None:
@@ -3031,15 +3033,6 @@ class StrikerGame(Widget):
 
 
         if self.view != "shot":
-            return True
-
-
-        # A tap on a visible result advances immediately and must not also
-        # trigger the following shot.
-        if self.state == self.STATE_RESULT or (
-            self.outcome_registered and self.result_text
-        ):
-            self._advance_after_shot()
             return True
 
 
@@ -3113,8 +3106,10 @@ class StrikerGame(Widget):
         if action=='feedback' and self.view in ('hub','start'):
             from feedback import compose,unavailable
             compose(lambda:unavailable(self));return
-        if action=='lifestyle' and self.view in ('hub','shopping','possessions'):self.view='lifestyle';return
+        if action=='lifestyle' and self.view in ('hub','shopping','possessions','collection'):self.view='lifestyle';return
         if action in ('shopping','possessions') and self.view=='lifestyle':self.view=action;return
+        if action=='collection' and self.view=='possessions':self.view='collection';return
+        if action=='possessions' and self.view=='collection':self.view='possessions';return
         if action=='private_complete' and self.view=='private_coach':
             old=self.career.life['private_meeting'];self.career.life['private_meeting']=''
             if self.career.save() is False:self.career.life['private_meeting']=old;return

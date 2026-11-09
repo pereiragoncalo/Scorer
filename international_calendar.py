@@ -108,3 +108,8 @@ def selected(book,nationality,day,eligible,current_week):
 def selection_label(book,nationality,day):
     decision=book.callups.get(nationality+':'+window_key(book.season,day))
     return 'Selection pending' if decision is None else 'Called up' if decision else 'Not selected'
+
+
+def is_national_friendly(entry):
+    label=str(entry.get('competition','')).strip().casefold()
+    return label in ('international friendly','international friendlies','amigável internacional','amigáveis internacionais') or str(entry.get('competition_key','')).startswith('friendly')

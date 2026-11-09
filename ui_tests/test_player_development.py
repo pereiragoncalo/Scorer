@@ -79,4 +79,4 @@ class DevelopmentUI(unittest.TestCase):
    self.assertTrue(all(m>=60+g.match_first_stoppage for m in g.match_chance_minutes))
    g.shot_context='match';g.view='shot';c.development['skills']['heading']=dict(level=10,xp=0)
    g._prepare_next_shot();g.shot_time_limit=4.;g.current_aim_speed=3.;g._start_opportunity('cross',7)
-   self.assertAlmostEqual(g.shot_time_limit,4*.95*.40+1.);self.assertLess(g.current_aim_speed,3.)
+   self.assertAlmostEqual(g.shot_time_limit,4*.95*.40*g._finishing_balance().decision_time+1.);self.assertLess(g.current_aim_speed,3.)

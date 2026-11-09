@@ -1291,9 +1291,10 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         Cup dates are reserved even after elimination, so league dates never
         move when a cup result changes. Pagination keeps the full list usable.
         """
+        from international_calendar import is_national_friendly
         start = date(self.season, 7, 12)
         entries = [dict(e) for e in self.fixture_history
-                   if str(e.get('date', '')) >= start.isoformat()]
+                   if str(e.get('date', '')) >= start.isoformat() and not is_national_friendly(e)]
         future_week = self.week
         future_round = self.current_league.round_index
         while future_round < self.current_league.total_rounds:
@@ -2549,6 +2550,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             self.post_match_stage = data.get('post_match_stage','')
             if self.post_match_stage not in ('','newspaper','coach'):self.post_match_stage=''
             self.press_state = newspaper.clean_state(data.get('press_state'))
+            from international_calendar import is_national_friendly
+            if self.post_match_stage=='newspaper' and is_national_friendly(self.press_state.get('report') or {}):self.post_match_stage=''
             self.coach_appearance = clean_appearance(data.get('coach_appearance'))
             self._select_coach_appearance()
             self.coach_state = clean_state(data.get('coach_state'))

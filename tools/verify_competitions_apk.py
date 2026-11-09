@@ -247,3 +247,13 @@ with tempfile.TemporaryDirectory() as tmp:
     assert not any(e['competition']=='International friendly' for e in c.calendar_entries())
     fixture=c.next_match();assert fixture is None or not fixture[0].startswith('world|friendly|')
 print('Actual APK: no upcoming national friendlies; legacy pending removed, completed results and official tournaments preserved')
+
+with tempfile.TemporaryDirectory() as tmp:
+    os.environ['STRIKER_SAVE_DIR']=tmp
+    c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0])
+    c.life['owned']={'studio':1,'mansion':1,'utility':1,'designer':1,'casual':1}
+    assert {k:r[0] for k,r in life.best_assets(c).items()}=={'home':'mansion','car':'utility','clothes':'designer'}
+    c.fixture_history=[dict(date=c.current_date.isoformat(),competition='International friendly',home='Portugal',away='Brazil',status='1-0',played=True)]
+    assert not any(e['competition']=='International friendly' for e in c.calendar_entries())
+    assert len(c.fixture_history)==1
+print('Actual APK: best assets select independently and archived friendlies are hidden without rewriting statistics')

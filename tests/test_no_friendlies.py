@@ -28,3 +28,15 @@ class NoFriendliesTests(unittest.TestCase):
   c=self.c;f=self.fixtures();c.world_competitions.friendlies[f['id']]=f
   self.assertFalse(any(e['competition']=='International friendly' for e in c.calendar_entries()))
   self.assertTrue(any(t.national for t in c.world_competitions.tournaments.values()))
+
+ def test_old_friendly_results_are_hidden_without_rewriting_personal_totals(self):
+  c=self.c;c.international_caps=7;c.international_goals=4
+  c.fixture_history=[dict(date=c.current_date.isoformat(),competition='International friendly',home='Portugal',away='Brazil',status='1-0',played=True),dict(date=c.current_date.isoformat(),competition='International Friendlies',home='Portugal',away='Argentina',status='1-1',played=True)]
+  self.assertTrue(c.save());self.assertTrue(c.load())
+  self.assertEqual(len(c.fixture_history),2);self.assertEqual((c.international_caps,c.international_goals),(7,4))
+  self.assertFalse(any('friendl' in str(e['competition']).lower() for e in c.calendar_entries()))
+ def test_obsolete_friendly_newspaper_is_not_queued_after_reload(self):
+  import newspaper
+  c=self.c;_,h,a=c.next_match();entry=dict(date=c.current_date.isoformat(),competition='International friendly',status='1-0')
+  c.press_state=newspaper.make_report(c.press_state,entry,h,a,c.club.uid,(1,0),1,0,[]);c.post_match_stage='newspaper'
+  self.assertTrue(c.save());self.assertTrue(c.load());self.assertEqual(c.post_match_stage,'')

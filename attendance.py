@@ -18,7 +18,7 @@ def team_turnout(career,club):
     if str(club.uid).startswith('nation:') and career.world_competitions is not None:
         from types import SimpleNamespace
         book=career.world_competitions
-        fixtures=[f for cup in book.tournaments.values() if cup.national for f in cup.fixtures]+list(book.friendlies.values())
+        fixtures=[f for cup in book.tournaments.values() if cup.national for f in cup.fixtures]
         played=sorted((f for f in fixtures if f.get('score') is not None and club.uid in (f['home'],f['away'])),key=lambda f:(f['week'],f.get('date',''),f['id']))[-8:]
         points=0
         for f in played:

@@ -12,11 +12,11 @@ class PlayoffCallupUITests(unittest.TestCase):
             g.view='calendar';g.draw();settle();self.assertTrue(any('nation:'+c.nationality in (e.get('home_uid'),e.get('away_uid')) for e in c.calendar_entries()))
     def test_foreign_league_top_scorer_can_start_actual_national_match(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-            c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();g._career_started=True;c.league_key='Brazil|1';c.club_name=c.current_league.clubs[0].name;c.nationality='Argentina';c.current_league.scorer_goals={c.player_name:8};c._ensure_competitions()
+            c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();g._career_started=True;c.league_key='Brazil|1';c.club_name=c.current_league.clubs[0].name;c.nationality='Argentina';c.season=2027;c.current_league.scorer_goals={c.player_name:8};c._ensure_competitions()
             c.week=15
             for cup in c.world_competitions.tournaments.values():
                 if not cup.national:cup.advance(15)
-            c.last_training_week=c.week;c.attend_coach_meeting();g.view='hub';g.start_career_match();settle();self.assertTrue(g.match_is_international);self.assertIn('Argentina',(g.match_home.name,g.match_away.name));self.assertTrue(g.match_competition.startswith('world|'))
+            c.last_training_week=c.week;c.attend_coach_meeting();g.view='hub';g.start_career_match();settle();self.assertTrue(g.match_is_international);self.assertIn('Argentina',(g.match_home.name,g.match_away.name));self.assertTrue(g.match_competition.startswith('world|'));self.assertNotIn('|friendly|',g.match_competition)
 
     def test_match_ai_uses_the_scheduled_neutral_venue_means(self):
         from domestic_playoffs import build_tournament
