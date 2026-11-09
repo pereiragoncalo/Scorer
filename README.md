@@ -1,3 +1,12 @@
+## Scorer World0.9.37 — player feedback
+
+[Download World0.9.37 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.37/Scorer-World-0.9.37.apk)
+
+Feedback on the entry menu and dashboard opens a user-controlled draft to the
+support email. No automatic sending or attachments. Missing email apps show a
+copyable contact. Existing dashboard buttons keep their positions. Physical
+Android mail-client test pending. [Scope](docs/RELEASE_0.9.37.md).
+
 ## Scorer World0.9.36 — official national fixtures only
 
 [Download World0.9.36 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.36/Scorer-World-0.9.36.apk)
