@@ -2699,3 +2699,14 @@ Physical Android playtest pending; no solver/collider/server/production change.
 Public0.9.32 delivery verified: Actions run42301240855 succeeded; public attachment
 HTTP200, expected filename,109566131bytes and exact tested SHA256. Evidence:
 docs/RELEASE_0.9.32_download.json. Temporary QA transfer branch removed.
+
+
+## 2026-11-09 — Play policy audit of World1.0 candidate
+
+Read official User Data/Families/UGC/IP policies (HTTP200); privacy endpoint403
+from cloud, not proof of universal failure. Audited matching0.9.39 source;13
+publication safety tests passed in5.910s. Initial policy retrieval script failed
+because system Python has no requests; retried successfully with stdlib urllib.
+No runtime changes. See docs/play/POLICY_AUDIT_1.0_2026-11-09.md for unresolved
+policy accuracy, live access/moderation, minors/data treatment and rights evidence.
+No compliance declaration or Console submission performed.

@@ -1,0 +1,40 @@
+[
+  {
+    "key": "userdata",
+    "url": "https://support.google.com/googleplay/android-developer/answer/10144311?hl=en",
+    "status": 200,
+    "characters": 30471,
+    "text_sha256": "bd6c84b0594c56e54b78cf7a8e0cb99b95844115bd54f50eb8d6a3202427c1d7",
+    "checked_utc": "2026-11-09T15:59:07.561304+00:00"
+  },
+  {
+    "key": "families",
+    "url": "https://support.google.com/googleplay/android-developer/answer/9893335?hl=en",
+    "status": 200,
+    "characters": 19492,
+    "text_sha256": "b99eaa84a2aadb982357a2fbe5f45cfb398713c94dccc38997ae1feb265647e4",
+    "checked_utc": "2026-11-09T15:59:07.561550+00:00"
+  },
+  {
+    "key": "ugc",
+    "url": "https://support.google.com/googleplay/android-developer/answer/9876937?hl=en",
+    "status": 200,
+    "characters": 7789,
+    "text_sha256": "061250c5bc08867a095a7033b8aaab398395b81cfe9c03eac33d43b943a9dc9d",
+    "checked_utc": "2026-11-09T15:59:07.561600+00:00"
+  },
+  {
+    "key": "ip",
+    "url": "https://support.google.com/googleplay/android-developer/answer/9888072?hl=en",
+    "status": 200,
+    "characters": 7437,
+    "text_sha256": "6be3ee7dc4d28e0398b65835a499672d26557ca5781e6d96479dd0a0739bdce4",
+    "checked_utc": "2026-11-09T15:59:07.561631+00:00"
+  },
+  {
+    "key": "privacy",
+    "url": "https://stats.clemir.com/privacy",
+    "error": "HTTP Error 403: Forbidden",
+    "checked_utc": "2026-11-09T15:59:07.561651+00:00"
+  }
+]

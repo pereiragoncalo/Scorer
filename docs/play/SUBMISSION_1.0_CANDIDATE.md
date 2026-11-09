@@ -53,3 +53,10 @@ production key creation or rollout has occurred in this preparation.
 The public stats administrator token is never an app-review login. There is no
 Scorer account/password to provide. Do not claim official licensing or a completely
 verified current club database: historical final-table audit limits remain.
+
+## Current policy audit
+
+See POLICY_AUDIT_1.0_2026-11-09.md: compliance remains unconfirmed.
+Official policy retrieval succeeded;13 focused safety tests passed.
+Policy wording/current Career records, public access, minors/data treatment,
+live moderation and rights evidence still require closure before public release.
