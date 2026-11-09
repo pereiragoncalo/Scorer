@@ -2768,3 +2768,10 @@ existing DEBUG signature, ZIP16KB and118ELFs verified. Matching hostpython bytec
 inspection confirms new public policy URL and edition/channel metadata. No physics
 or save-format changes; game regression baseline remains0.9.40. Physical Android
 and Play production signing/review remain pending.
+
+0.9.41 delivery workflow42674141359 passed. Anonymous APK HTTP200,118312875bytes
+and SHA2561bfe5414c26e811a2a277f44d89ba7a3fa9932615702db9a0854dc616f73c108
+verified. Transfer commit creation initially preceded pushing its source parent;
+pushed source and reconstructed the tree from existing uploaded blob hashes,
+without re-uploading/rebuilding APK. Site recheck: all3final HTTPS pages200;
+Pages reports built/HTTPS enforced. No bastion access or Play submission performed.
