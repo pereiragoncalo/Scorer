@@ -1,5 +1,7 @@
 ## 2026-11-09 — World0.9.38 situational finishing balance
 
+Public APK verified HTTP200/attachment:114461175bytes, SHA2564f029c6c75d27f294ab75eee1b72c381182c29ca04c46d30f8e3968482403f4d. Workflow42614504702 succeeded. Compiled tuning/neutral controls and all packed regression checks passed. Temporary transfer branch removed.
+
 Sourcef6fab585f803264a5511ae63a16c3894911f5b7f; World1026938, existing debug upgrade certificate, API36/min26 arm64. Pure finishing profile: penalties*.60aim/*2.2time/+180mskeeper/error*2.5; one-on-ones*.80/*1.5/+90ms/*1.6; close headers*.95/*1.12/+15ms/*1.08, smooth7–10m fade. Full focus-time bonus stays unscaled. No change to marker target, launch solver, save/collision geometry, tier differences or chance frequencies; preserve unrelated WIP.
 
 428core cases/3existing skips and17clean-source native cases passed.2400paired physical shots with fixed target/seed pairs: top keeper penalties15%→72.5%, one-on-ones23.3%→53.3%, close headers40%→44.2%; tier4:21.7%→77.5%,37.5%→71.7%,60.8%→63.3%. Distant headers and normal shots retain identical outcome counts. Targets bypass marker/timer skill; these are controlled comparisons, not human rates. Native tests prove launch velocities unchanged and earned bonuses retained. Actual APK package/signature,118ELF16KB/ZIP16KB and compiled tuning/runtime source checks verified. Physical handset test and prior official club-history audit remain pending.
