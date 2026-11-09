@@ -23,8 +23,9 @@ support goncalo@clemir.com. Keep the9 UI languages; primary listing en-US.
 
 ## Missing external inputs/evidence
 
-1. Establish whether the Console app exists and has any prior releases. The owner
- already confirmed the account itself is active/verified; do not ask again.
+1. Owner confirmed: no app has been created in Play Console. Create a NEW
+ Scorer World app; there are no previous Console releases. The developer
+ account is active/verified. Follow NEW_APP_SETUP.md.
 2. Establish the registered/new upload-key situation. Only the DEBUG keystore is
  available in this execution workspace. Never generate a replacement for an
  existing registered identity by assumption; never put secrets into Git/chat.
