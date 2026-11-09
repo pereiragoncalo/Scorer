@@ -1,4 +1,4 @@
-# Data Safety — Scorer World 0.6.47
+# Data Safety inventory — Scorer World1.0 candidate (0.9.39 content)
 
 Owner-approved public identity: **Gonçalo Pereira**, **goncalo@clemir.com**.
 Scorer World is **free**, ad-free, with the names editor and no in-app purchase. Account verification
@@ -25,3 +25,19 @@ it. Usage payload's historical `app:scorer_free` is a common family constant, no
 an edition/platform/unique-player breakdown.
 
 Public policy URL: https://stats.clemir.com/privacy. The previously installed draft is not this final policy; install the new server and English policy using WORLD_LAUNCH_0.6.47.md. Confirm the live published marker after deployment. Console form classifications must match the actual shipped build and deployment. No SMTP service is activated.
+
+
+## Current candidate additions,9November2026
+
+-Optional public records now have separate Season and Career categories, using
+ the same adult-managed sharing/moderation and owner-token model. Career totals
+ are club-career totals. Viewing does not publish records.
+-Lifestyle purchases, fictional wages and generated estate portraits are local.
+ These are not real financial transactions or uploads of the user's photographs.
+-Feedback opens an external email draft to public support with a subject only.
+ The game does not transmit a feedback form, email identity, logs or attachments.
+ The user may voluntarily send correspondence through their mail provider;
+ support correspondence must be reflected in the public policy as applicable.
+-Public endpoints could not be verified from this cloud on9November: HTTP403,
+ sampled body error1010. Confirm deployment/content from a normal public browser.
+ This inventory is a draft for truthful Console answers, not submitted form data.

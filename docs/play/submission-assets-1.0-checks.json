@@ -1,0 +1,23 @@
+{
+  "icon-512.png": {
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "5fba084f6ce72f790000860d78f2ff436039dded3d58f33c128f68ff3ca9c8d6"
+  },
+  "feature-1024x500.png": {
+    "size": [
+      1024,
+      500
+    ],
+    "sha256": "fdb718d459bcd4b41e2922701e4d8d9509fb8a03b9ba8db984b0da9c6587f58f"
+  },
+  "listing": {
+    "title": "Scorer World",
+    "short_description_length": 76,
+    "primary_locale": "en-US",
+    "title_length": 12,
+    "full_description_length": 2474
+  }
+}
