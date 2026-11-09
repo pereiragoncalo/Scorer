@@ -691,5 +691,13 @@
   "FEEDBACK": "FEEDBACK",
   "COPY EMAIL": "COPIA EMAIL",
   "No email app is available. Send your suggestion to:": "Nessuna app email disponibile. Invia il suggerimento a:",
-  "COLLECTION": "COLLEZIONE"
+  "COLLECTION": "COLLEZIONE",
+  "Play your career locally. Usage statistics are optional and off by default; an adult can enable them separately in Help > Settings. Public records require separate adult controls and sharing. Read the Privacy Policy in Settings. I AGREE acknowledges this notice; it does not enable statistics or publish records. I DO NOT AGREE closes the game.": "Gioca la carriera localmente. Le statistiche sono facoltative e disattivate; un adulto può attivarle separatamente in Aiuto > Impostazioni. I record pubblici richiedono controlli adulti e condivisione separati. Leggi l’Informativa sulla privacy nelle Impostazioni. ACCETTO conferma la lettura; non attiva statistiche né pubblica record. NON ACCETTO chiude il gioco.",
+  "Optional usage statistics are off by default. An adult may allow nine numeric counters (openings, closes, careers, training, matches, goals and save/load failures) to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. Unsent counts expire after 7 days; server totals after 90 days. You can stop statistics and erase unsent counts at any time without affecting play.": "Le statistiche facoltative sono disattivate. Un adulto può consentire nove contatori numerici (aperture, chiusure, carriere, allenamenti, partite, gol ed errori di salvataggio/caricamento) verso stats.clemir.com per migliorare il gioco. Non vengono inviati nomi, carriere o ID del dispositivo. Cloudflare tratta IP e dati di connessione. I contatori in attesa scadono dopo 7 giorni; i totali sul server dopo 90 giorni. Puoi interrompere le statistiche ed eliminare i contatori in attesa senza influire sul gioco.",
+  "Stay safe online: other people can see shared names and records. Never share your real name, school, contact details or location. Ask a trusted adult for help with anything worrying; report or block unsafe entries.": "Proteggiti online: altre persone possono vedere nomi e record condivisi. Non condividere nome reale, scuola, contatti o posizione. Chiedi aiuto a un adulto fidato se qualcosa ti preoccupa; segnala o blocca voci non sicure.",
+  "Optional usage statistics": "Statistiche facoltative",
+  "Statistics enabled": "Statistiche attivate",
+  "Statistics disabled": "Statistiche disattivate",
+  "STOP STATISTICS & ERASE UNSENT": "FERMA STATISTICHE ED ELIMINA DATI IN ATTESA",
+  "ALLOW OPTIONAL STATISTICS": "CONSENTI STATISTICHE FACOLTATIVE"
 }

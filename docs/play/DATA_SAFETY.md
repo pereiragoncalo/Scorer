@@ -8,7 +8,7 @@ Windows is not a Play listing. Only com.clemir.scorerworld is the current Play p
 | Flow | Actual implementation | Form considerations |
 | --- | --- | --- |
 | Careers/exports/editor/language | Private local files; explicit user-selected SAF documents; no cloud career upload | Local-only data is not an automatic server collection. User-chosen document provider can be cloud-backed; disclose user-directed export. Export contains names/progress, excludes credentials |
-| Automatic usage |9 numeric app activity/failure counters. No ordinary switch. Delivery begins only after I AGREE on the detailed launch notice; I DO NOT AGREE closes the game and discards pending unsent counts. No in-app privacy-request workflow | Required App interactions / analytics; assess Diagnostics for selected failure counts. Never declare optional or no data collected |
+| Optional usage |9 numeric app activity/failure counters, disabled by default and migrated off for old mandatory builds. Separate adult PIN opt-in in Help > Settings; Stop Statistics & Erase Unsent requires no PIN. Launch acknowledgment does not enable analytics | Optional App interactions / analytics; assess Diagnostics for selected failure counts. Never declare no data collected while opt-in collection is available |
 | Collector and provider |90day combined receipt-day totals,7day local expiry; hourly active cleanup/daily maintenance. Collector has no raw requests/IP/UA logs; Cloudflare processes network/IP | Owner confirms only Tunnel/proxy, no Web Analytics/Logpush; provider may process IP/security data under its own terms. No direct account audit was performed. Review applicable retention and transfer terms. Do not automatically infer location collection from an IP, or omit actual inference. Not all retained data is ephemeral |
 | Optional completed records |Explicit adult-managed public access + terms v1 + Share; chosen name/team, season, matches, goals, country/division/edition; persistent ownership token only for writes/deletion | Names include nicknames in Google definition. Assess Name, other UGC/activity and identifier type for random persistent token; it is not anonymous merely because random. Device/session IDs are absent from usage payload, not a claim that ranking has no identifier |
 | Public IDs and local blocking |Opaque public publisher/record IDs; blocked publishers stored locally, filtered from display | Declare identifier handling accurately; public IDs cannot authorize writes/deletion |
@@ -20,8 +20,7 @@ Windows is not a Play listing. Only com.clemir.scorerworld is the current Play p
 HTTPS is verified. Collected/shared/ephemeral classifications must follow current
 Play definitions, including service-provider and user-directed sharing exceptions;
 do not automatically label all transfers sharing or all aggregates ephemeral.
-The same data type cannot be declared optional when some automatic flow requires
-it. Usage payload's historical `app:scorer_free` is a common family constant, not
+Classify each data type across all actual flows; optional usage does not make data required for an enabled online feature disappear. Usage payload's historical `app:scorer_free` is a common family constant, not
 an edition/platform/unique-player breakdown.
 
 Public policy URL: https://stats.clemir.com/privacy. The previously installed draft is not this final policy; install the new server and English policy using WORLD_LAUNCH_0.6.47.md. Confirm the live published marker after deployment. Console form classifications must match the actual shipped build and deployment. No SMTP service is activated.
@@ -41,3 +40,12 @@ Public policy URL: https://stats.clemir.com/privacy. The previously installed dr
 -Public endpoints could not be verified from this cloud on9November: HTTP403,
  sampled body error1010. Confirm deployment/content from a normal public browser.
  This inventory is a draft for truthful Console answers, not submitted form data.
+
+
+## Policy closure update
+
+Usage is now optional and default-off with versioned opt-in; old mandatory state
+is not permission. Startup agreement does not enable it. The English policy now
+explicitly includes Season/Career records, local fictional purchases, feedback and
+English default. Deploy the matching public renderer/config before submission.
+Owner confirms clubs are fictional; do not claim official licensing.

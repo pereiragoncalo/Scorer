@@ -423,7 +423,8 @@ class CareerMenu(BoxLayout):
     def _family(self):
         card=self.card('ADULT CONTROLS')
         card.label('An adult manages access to public names. The game remains playable with public features locked.')
-        card.label('Use a nickname, never personal contact or school information.')
+        from online_safety import SAFETY_TEXT
+        card.label(SAFETY_TEXT)
         if self.game._safety_notice:card.label(self.game._safety_notice)
         if not self.game.family.configured:
             card.label('An adult enters their own birth date and sets a private PIN. The date is checked locally, then discarded. This is not identity verification.')
@@ -461,8 +462,14 @@ class CareerMenu(BoxLayout):
         transfer.label('Export before uninstalling or changing to the Play version. The file includes your name and game progress; keep it private. Only the same edition can import it. No PINs or online credentials are exported.')
         transfer.add_widget(self._button('EXPORT CAREER','career_export'));transfer.add_widget(self._button('IMPORT CAREER','career_import'))
         if self.game._safety_notice:transfer.label(self.game._safety_notice)
-        from online_safety import NOTICE_TEXT
-        stats=self.card('Automatic usage statistics');stats.label(NOTICE_TEXT);stats.label('Status: Automatic')
+        from online_safety import USAGE_TEXT
+        stats=self.card('Optional usage statistics');stats.label(USAGE_TEXT)
+        stats.label('Statistics enabled' if self.game.usage.enabled else 'Statistics disabled')
+        if self.game.usage.enabled:
+            stats.add_widget(self._button('STOP STATISTICS & ERASE UNSENT','disable_usage_stats'))
+        else:
+            self._draft_field(stats,'analytics_pin','Adult PIN',True)
+            stats.add_widget(self._button('ALLOW OPTIONAL STATISTICS','enable_usage_stats'))
         if self.game.usage_notice:stats.label(self.game.usage_notice)
 
     def _privacy_contact(self, card):

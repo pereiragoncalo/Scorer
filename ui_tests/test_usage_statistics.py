@@ -5,19 +5,22 @@ from main import StrikerApp
 from test_menus import isolated_game,settle
 
 class UsageStatisticsUITests(unittest.TestCase):
-    def test_automatic_stats_are_disclosed_and_have_no_disable_control(self):
-        from anonymous_stats import create_statistics
+    def test_opt_in_is_separate_pin_guarded_and_stop_requires_no_pin(self):
         with isolated_game(saved=True) as g:
-            with patch('anonymous_stats.APP_STATS_MANDATORY',True):
-                g.usage=create_statistics(False,g.career.save_path.parent,endpoint='')
-            before=g.career.save_path.read_bytes();self.assertTrue(g.usage.enabled)
+            before=g.career.save_path.read_bytes()
             g._activate_ui('splash_continue');g._activate_ui('privacy');g.draw();settle()
-            labels={w.text for w in g.walk() if isinstance(w,Label)}
-            self.assertIn('Automatic usage statistics',labels)
-            self.assertNotIn('ALLOW USAGE STATS',labels);self.assertNotIn('DISABLE AND ERASE STATS',labels)
-            self.assertEqual(g.usage.counts,{'sessions':1})
-            g._activate_ui('disable_usage_stats');self.assertTrue(g.usage.enabled)
-            self.assertFalse(g.usage.set_enabled(False));self.assertTrue(g.usage.enabled)
+            self.assertFalse(g.usage.enabled);self.assertEqual(g.usage.counts,{})
+            self.assertIn('Optional usage statistics',{w.text for w in g.walk() if isinstance(w,Label)})
+            g._activate_ui('enable_usage_stats');self.assertEqual(g.view,'family')
+            g._safety_draft=dict(birth='1980-01-01',pin='123456',confirm='123456')
+            g._activate_ui('adult_setup');g._activate_ui('safety_back')
+            g._safety_draft['analytics_pin']='000000';g._activate_ui('enable_usage_stats')
+            self.assertFalse(g.usage.enabled)
+            g._safety_draft['analytics_pin']='123456';g._activate_ui('enable_usage_stats')
+            self.assertTrue(g.usage.enabled);self.assertEqual(g.usage.counts,{'sessions':1})
+            self.assertFalse(g.leaderboard.enabled)
+            g._safety_draft={};g._activate_ui('disable_usage_stats')
+            self.assertFalse(g.usage.enabled);self.assertEqual(g.usage.counts,{})
             self.assertEqual(g.career.save_path.read_bytes(),before)
     def test_real_game_hooks_count_once_without_names_or_ids(self):
         with isolated_game() as g:
@@ -31,15 +34,15 @@ class UsageStatisticsUITests(unittest.TestCase):
             for key in ('sessions','new_careers','trainings_completed','matches_completed','goals_scored'):self.assertEqual(counts[key],1,key)
             data=g.usage.path.read_text();self.assertNotIn('Private Example',data);self.assertNotIn(g.career.club_name,data)
             self.assertEqual(set(json.loads(data)['counts']),set(counts))
-    def test_world_is_automatic_but_public_name_sharing_stays_optional(self):
+    def test_world_startup_agreement_does_not_enable_statistics_or_sharing(self):
         from anonymous_stats import create_statistics
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-            with patch('anonymous_stats.APP_STATS_MANDATORY',True):
+            with patch('anonymous_stats.APP_NOTICE_REQUIRED',True):
                 g.usage=create_statistics(True,g.career.save_path.parent,endpoint='')
-            g._activate_ui('splash_continue');self.assertEqual(g.usage.counts['sessions'],1)
-            self.assertTrue(g.usage.enabled);self.assertFalse(g.leaderboard.enabled)
-            g.view='privacy';g.draw();settle()
-            self.assertNotIn('DISABLE AND ERASE STATS',{w.text for w in g.walk() if isinstance(w,Label)})
+            g._activate_ui('splash_continue');self.assertEqual(g.view,'data_notice')
+            g._activate_ui('notice_continue');self.assertEqual(g.view,'start')
+            self.assertFalse(g.usage.enabled);self.assertFalse(g.leaderboard.enabled)
+            self.assertEqual(g.usage.counts,{})
     def test_known_save_load_failures_use_fixed_numeric_events_only(self):
         with isolated_game(corrupt=True) as g:
             g.usage.set_enabled(True);g._activate_ui('splash_continue');g._activate_ui('load_game');self.assertEqual(g.usage.counts['load_failures'],1)

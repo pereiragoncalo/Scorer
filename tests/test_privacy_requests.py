@@ -8,12 +8,12 @@ from server import privacy_cases
 from server.maintenance import backup
 
 class PrivacyClientTests(unittest.TestCase):
-    def test_normal_usage_has_no_case_identifier_and_no_normal_off_switch(self):
+    def test_optional_usage_has_no_case_identifier_and_can_be_stopped(self):
         with tempfile.TemporaryDirectory() as t:
             u=create_statistics(True,t,endpoint='');u.begin_session()
-            self.assertTrue(u.enabled);self.assertFalse(u.set_enabled(False));self.assertFalse(PrivacyRequest(t).active)
+            self.assertFalse(u.enabled);self.assertTrue(u.set_enabled(False));self.assertFalse(PrivacyRequest(t).active)
             self.assertFalse((Path(t)/'scorer_privacy_request.json').exists())
-            self.assertEqual(u.counts,{'sessions':1})
+            self.assertEqual(u.counts,{})
     def test_reject_notice_discards_counts_and_never_retries_on_stop(self):
         with tempfile.TemporaryDirectory() as t:
             u=create_statistics(True,t,endpoint='https://stats.example.com/v1/usage');u.begin_session()
@@ -26,7 +26,7 @@ class PrivacyClientTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as t:
             (Path(t)/'scorer_privacy_request.json').write_text('{broken')
             u=create_statistics(True,t,endpoint='');u.begin_session()
-            self.assertEqual(u.counts,{'sessions':1});self.assertFalse(u.delivery_ready)
+            self.assertEqual(u.counts,{});self.assertFalse(u.delivery_ready)
 
     def test_offline_and_failed_withdrawal_keep_hold(self):
         with tempfile.TemporaryDirectory() as t:

@@ -691,5 +691,13 @@
   "FEEDBACK": "GÓP Ý",
   "COPY EMAIL": "SAO CHÉP EMAIL",
   "No email app is available. Send your suggestion to:": "Không có ứng dụng email. Gửi góp ý đến:",
-  "COLLECTION": "BỘ SƯU TẬP"
+  "COLLECTION": "BỘ SƯU TẬP",
+  "Play your career locally. Usage statistics are optional and off by default; an adult can enable them separately in Help > Settings. Public records require separate adult controls and sharing. Read the Privacy Policy in Settings. I AGREE acknowledges this notice; it does not enable statistics or publish records. I DO NOT AGREE closes the game.": "Chơi sự nghiệp trên thiết bị. Thống kê là tùy chọn và mặc định tắt; người lớn có thể bật riêng trong Trợ giúp > Cài đặt. Kỷ lục công khai cần kiểm soát người lớn và thao tác chia sẻ riêng. Đọc Chính sách quyền riêng tư trong Cài đặt. ĐỒNG Ý chỉ xác nhận đã đọc, không bật thống kê hay đăng kỷ lục. KHÔNG ĐỒNG Ý sẽ đóng trò chơi.",
+  "Optional usage statistics are off by default. An adult may allow nine numeric counters (openings, closes, careers, training, matches, goals and save/load failures) to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. Unsent counts expire after 7 days; server totals after 90 days. You can stop statistics and erase unsent counts at any time without affecting play.": "Thống kê tùy chọn mặc định tắt. Người lớn có thể cho phép gửi chín bộ đếm số (mở, đóng, sự nghiệp, luyện tập, trận đấu, bàn thắng và lỗi lưu/tải) đến stats.clemir.com để cải thiện trò chơi. Không gửi tên, tệp sự nghiệp hay ID thiết bị. Cloudflare xử lý IP và dữ liệu kết nối. Bộ đếm chưa gửi hết hạn sau 7 ngày; tổng trên máy chủ sau 90 ngày. Bạn có thể dừng thống kê và xóa dữ liệu chưa gửi mà không ảnh hưởng việc chơi.",
+  "Stay safe online: other people can see shared names and records. Never share your real name, school, contact details or location. Ask a trusted adult for help with anything worrying; report or block unsafe entries.": "Giữ an toàn trực tuyến: người khác có thể thấy tên và kỷ lục được chia sẻ. Không chia sẻ tên thật, trường học, thông tin liên hệ hay vị trí. Nhờ người lớn đáng tin giúp nếu lo lắng; báo cáo hoặc chặn mục không an toàn.",
+  "Optional usage statistics": "Thống kê tùy chọn",
+  "Statistics enabled": "Đã bật thống kê",
+  "Statistics disabled": "Đã tắt thống kê",
+  "STOP STATISTICS & ERASE UNSENT": "DỪNG THỐNG KÊ VÀ XÓA DỮ LIỆU CHƯA GỬI",
+  "ALLOW OPTIONAL STATISTICS": "CHO PHÉP THỐNG KÊ TÙY CHỌN"
 }

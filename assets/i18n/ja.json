@@ -691,5 +691,13 @@
   "FEEDBACK": "ご意見",
   "COPY EMAIL": "メールをコピー",
   "No email app is available. Send your suggestion to:": "メールアプリがありません。ご意見はこちらへ:",
-  "COLLECTION": "コレクション"
+  "COLLECTION": "コレクション",
+  "Play your career locally. Usage statistics are optional and off by default; an adult can enable them separately in Help > Settings. Public records require separate adult controls and sharing. Read the Privacy Policy in Settings. I AGREE acknowledges this notice; it does not enable statistics or publish records. I DO NOT AGREE closes the game.": "キャリアは端末内でプレイします。利用統計は任意で初期設定では無効です。大人がヘルプ > 設定で別途有効にできます。公開記録には別の大人用管理と共有操作が必要です。設定のプライバシーポリシーをお読みください。同意は案内の確認であり、統計の有効化や記録の公開ではありません。同意しない場合はゲームを終了します。",
+  "Optional usage statistics are off by default. An adult may allow nine numeric counters (openings, closes, careers, training, matches, goals and save/load failures) to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. Unsent counts expire after 7 days; server totals after 90 days. You can stop statistics and erase unsent counts at any time without affecting play.": "任意の利用統計は初期設定では無効です。大人はゲーム改善のため、起動、終了、キャリア、練習、試合、得点、保存・読込失敗の9種類の数値をstats.clemir.comへ送ることを許可できます。名前、キャリアファイル、端末IDは送りません。CloudflareはIPと接続データを処理します。未送信数値は7日、サーバー合計は90日で失効します。プレイに影響せず統計を停止し未送信データを削除できます。",
+  "Stay safe online: other people can see shared names and records. Never share your real name, school, contact details or location. Ask a trusted adult for help with anything worrying; report or block unsafe entries.": "オンラインでの安全に注意してください。共有した名前や記録は他の人に見えます。本名、学校、連絡先、居場所を共有しないでください。心配なことは信頼できる大人に相談し、危険な項目を報告またはブロックしてください。",
+  "Optional usage statistics": "任意の利用統計",
+  "Statistics enabled": "統計は有効",
+  "Statistics disabled": "統計は無効",
+  "STOP STATISTICS & ERASE UNSENT": "統計停止・未送信データ削除",
+  "ALLOW OPTIONAL STATISTICS": "任意の統計を許可"
 }

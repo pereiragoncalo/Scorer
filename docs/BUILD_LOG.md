@@ -2710,3 +2710,27 @@ because system Python has no requests; retried successfully with stdlib urllib.
 No runtime changes. See docs/play/POLICY_AUDIT_1.0_2026-11-09.md for unresolved
 policy accuracy, live access/moderation, minors/data treatment and rights evidence.
 No compliance declaration or Console submission performed.
+
+
+## 2026-11-09 — optional usage and World policy remediation0.9.40
+
+Owner clarified clubs are fictional and confirmed live privacy still says test
+version on the phone. Added versioned, default-off optional usage, separate adult
+PIN opt-in, no-PIN stop/erase, translated safety reminder and matching English
+Season/Career/local-purchases/feedback policy. Combined bastion installer has
+source checks, rollback and local policy/v3/v4 verification; not executed remotely.
+Preserved pre-existing badge-deletion/test-helper WIP and career_mode_state.py.
+
+First full runs:433core with1stale policy-text assertion,235native with1stale
+Windows-label assertion. Updated those assertions for optional statistics. Final
+clean indexed-source core:436tests passed(3existing skips). Focused public policy
+15passed; installer3passed including failed-verification rollback/symlink rejection;
+statistics20passed. Final clean native run and APK delivery evidence follow in
+RELEASE_0.9.40_artifacts.json when completed. Responsive165cases/zero findings.
+
+Initial plain Buildozer call missed the shared native distribution; retry used
+existing tools/build_android.py correctly. Initial APK bytecode inspection used
+container Python instead of the matching hostpython and exited139; retry uses
+the packaged Python compiler version. This was an inspection-process failure,
+not an Android app run. Signature, package/code/API,16KB ZIP and118ELF checks passed.
+No production signing key, Console declaration, public server update or submission.

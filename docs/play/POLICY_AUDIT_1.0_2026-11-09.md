@@ -52,3 +52,9 @@ certifying the declaration or authorizing a public rollout.
 - [Families](https://support.google.com/googleplay/android-developer/answer/9893335?hl=en)
 - [User Generated Content](https://support.google.com/googleplay/android-developer/answer/9876937?hl=en)
 - [Intellectual Property](https://support.google.com/googleplay/android-developer/answer/9888072?hl=en)
+
+## Subsequent implementation
+
+Owner clarified that clubs are fictional. The former rights uncertainty is not
+a finding of infringement. See POLICY_CLOSURE_0.9.40.md for the optional-statistics,
+policy and family-safety changes; this original audit records the earlier0.9.39.

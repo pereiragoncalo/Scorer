@@ -14,7 +14,7 @@ class LaunchNoticeUI(unittest.TestCase):
                 Window.size=size
                 with patch('edition.WORLD_BUILD',True),isolated_game(saved=True) as g:
                     g.i18n.choose('pt');g.size=size;g.family.acknowledge()
-                    with patch('anonymous_stats.APP_STATS_MANDATORY',True):g.usage=create_statistics(True,g.career.save_path.parent,endpoint='')
+                    with patch('anonymous_stats.APP_NOTICE_REQUIRED',True):g.usage=create_statistics(True,g.career.save_path.parent,endpoint='')
                     g._activate_ui('splash_continue');g.draw();settle()
                     self.assertEqual(g.view,'data_notice');self.assertFalse(g.usage.delivery_ready)
                     buttons=[w for w in g._menu.walk() if isinstance(w,Button)]

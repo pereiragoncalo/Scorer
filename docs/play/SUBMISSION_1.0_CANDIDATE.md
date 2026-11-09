@@ -60,3 +60,10 @@ See POLICY_AUDIT_1.0_2026-11-09.md: compliance remains unconfirmed.
 Official policy retrieval succeeded;13 focused safety tests passed.
 Policy wording/current Career records, public access, minors/data treatment,
 live moderation and rights evidence still require closure before public release.
+
+## Remediation candidate0.9.40
+
+The owner requested policy remediation after clarifying clubs are fictional.
+See POLICY_CLOSURE_0.9.40.md: this supersedes the frozen0.9.39 behavior for the
+planned1.0. Usage is optional/default-off; new public policy still needs deployment
+and external access verification. The0.9.39 APK remains historical QA evidence.

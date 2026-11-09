@@ -691,5 +691,13 @@
   "FEEDBACK": "反馈",
   "COPY EMAIL": "复制邮箱",
   "No email app is available. Send your suggestion to:": "没有可用的邮件应用。请将建议发送至：",
-  "COLLECTION": "收藏"
+  "COLLECTION": "收藏",
+  "Play your career locally. Usage statistics are optional and off by default; an adult can enable them separately in Help > Settings. Public records require separate adult controls and sharing. Read the Privacy Policy in Settings. I AGREE acknowledges this notice; it does not enable statistics or publish records. I DO NOT AGREE closes the game.": "生涯在本机游玩。使用统计为可选功能，默认关闭；成年人可在帮助 > 设置中单独启用。公开纪录需要另外的成人控制和分享操作。请阅读设置中的隐私政策。同意仅确认已阅读，不会启用统计或发布纪录。不同意会关闭游戏。",
+  "Optional usage statistics are off by default. An adult may allow nine numeric counters (openings, closes, careers, training, matches, goals and save/load failures) to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. Unsent counts expire after 7 days; server totals after 90 days. You can stop statistics and erase unsent counts at any time without affecting play.": "可选使用统计默认关闭。成年人可允许向stats.clemir.com发送九种数字计数（启动、关闭、生涯、训练、比赛、进球及保存/读取失败），用于改进游戏。不发送姓名、生涯文件或设备ID。Cloudflare处理IP和连接数据。未发送计数在7天后过期，服务器汇总在90天后过期。随时可停止统计并删除未发送计数，不影响游玩。",
+  "Stay safe online: other people can see shared names and records. Never share your real name, school, contact details or location. Ask a trusted adult for help with anything worrying; report or block unsafe entries.": "注意网络安全：其他人可以看到分享的名字和纪录。不要分享真实姓名、学校、联系方式或位置。遇到担心的事情，请向可信任的成年人求助，并举报或屏蔽不安全的条目。",
+  "Optional usage statistics": "可选使用统计",
+  "Statistics enabled": "统计已启用",
+  "Statistics disabled": "统计已关闭",
+  "STOP STATISTICS & ERASE UNSENT": "停止统计并清除待发送数据",
+  "ALLOW OPTIONAL STATISTICS": "允许可选统计"
 }

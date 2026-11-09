@@ -27,10 +27,10 @@ class FamilyTests(unittest.TestCase):
             for _ in range(3):self.assertFalse(f.unlock('654321'))
             again=FamilyControls(t,clock=lambda:1001);self.assertFalse(again.unlock('123456'));self.assertFalse(again.social)
             after=FamilyControls(t,clock=lambda:1301);self.assertTrue(after.set_social(True,'123456'))
-    def test_automatic_delivery_waits_for_notice_without_usage_off_switch(self):
+    def test_optional_delivery_requires_choice_and_notice(self):
         with tempfile.TemporaryDirectory() as t:
             u=create_statistics(False,t,endpoint='https://stats.example.com/v1/usage');u.begin_session();u._sender=lambda *_:self.fail('Sent before notice')
-            self.assertTrue(u.enabled);self.assertFalse(u.delivery_ready);self.assertFalse(u.flush_async());self.assertFalse(u.set_enabled(False))
+            self.assertFalse(u.enabled);self.assertFalse(u.delivery_ready);self.assertFalse(u.flush_async());self.assertTrue(u.set_enabled(True));self.assertFalse(u.flush_async());self.assertTrue(u.set_enabled(False))
             f=FamilyControls(t);f.acknowledge();self.assertFalse(create_statistics(False,t,endpoint='').delivery_ready)
 
 class TransferTests(unittest.TestCase):

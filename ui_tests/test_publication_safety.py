@@ -28,18 +28,18 @@ class PublicationUITests(unittest.TestCase):
 
     def test_first_run_notice_precedes_delivery_and_cannot_be_bypassed_by_back(self):
         with isolated_game(saved=True) as g:
-            with patch('anonymous_stats.APP_STATS_MANDATORY',True):g.usage=create_statistics(False,g.career.save_path.parent,endpoint='https://stats.example.com/v1/usage')
+            with patch('anonymous_stats.APP_NOTICE_REQUIRED',True):g.usage=create_statistics(False,g.career.save_path.parent,endpoint='https://stats.example.com/v1/usage')
             with patch.object(g.usage,'_sender',return_value=False) as sender:
                 app=type('App',(),{'root':g})();StrikerApp.on_start(app)
                 try:
                     g._activate_ui('splash_continue');self.assertEqual(g.view,'data_notice');self.assertFalse(g.usage.delivery_ready)
                     g.usage.flush_async();sender.assert_not_called()
                     g._activate_ui('notice_continue');self.assertEqual(g.view,'start');self.assertTrue(g.usage.delivery_ready);self.assertTrue(g.family.notice_seen)
-                    self.assertTrue(g.usage.enabled);self.assertFalse(g.usage.set_enabled(False))
+                    self.assertFalse(g.usage.enabled);self.assertTrue(g.usage.set_enabled(False))
                 finally:StrikerApp.on_stop(app)
     def test_guardian_setup_unlock_and_disable_stops_publication_without_disabling_usage(self):
         with isolated_game(saved=True) as g:
-            with patch('anonymous_stats.APP_STATS_MANDATORY',True):g.usage=create_statistics(False,g.career.save_path.parent,endpoint='')
+            with patch('anonymous_stats.APP_NOTICE_REQUIRED',True):g.usage=create_statistics(False,g.career.save_path.parent,endpoint='')
             with patch.object(g.leaderboard,'sync') as sync:
                 g._activate_ui('leaderboard');self.assertEqual(g.view,'leaderboard');sync.assert_not_called()
                 g._activate_ui('leaderboard_join');self.assertEqual(g.view,'family');sync.assert_not_called()
@@ -51,7 +51,7 @@ class PublicationUITests(unittest.TestCase):
                 g._activate_ui('family_controls');g._safety_draft={'pin':'123456'};g._activate_ui('adult_disable')
                 self.assertFalse(g.family.social);self.assertFalse(g.leaderboard.enabled);self.assertTrue(g.leaderboard.pending_withdrawal)
                 self.assertTrue(sync.call_args.kwargs.get('withdraw'))
-                self.assertTrue(g.usage.enabled);self.assertTrue(g.usage.mandatory);self.assertFalse(g.usage.set_enabled(False))
+                self.assertFalse(g.usage.enabled);self.assertFalse(g.usage.mandatory);self.assertTrue(g.usage.set_enabled(False))
     def test_phone_safety_forms_wrap_and_actions_fit_scroll_content(self):
         old=Window.size
         try:

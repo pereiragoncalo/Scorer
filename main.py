@@ -3058,11 +3058,11 @@ class StrikerGame(Widget):
         if app is not None:app.stop()
 
     def _request_record_sharing(self):
-        from online_safety import TERMS_TEXT
+        from online_safety import TERMS_TEXT,SAFETY_TEXT
         from kivy.uix.scrollview import ScrollView
         if self._records_popup is not None:return
         content=BoxLayout(orientation='vertical',spacing=dp(8),padding=dp(8))
-        scroll=ScrollView(do_scroll_x=False);text=FlowLabel(text=TERMS_TEXT);scroll.add_widget(text);content.add_widget(scroll)
+        scroll=ScrollView(do_scroll_x=False);text=FlowLabel(text=self.i18n.tr(SAFETY_TEXT)+'\n\n'+self.i18n.tr(TERMS_TEXT),localize=False);scroll.add_widget(text);content.add_widget(scroll)
         buttons=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(8))
         popup=Popup(title='Community rules and public sharing',content=content,size_hint=(.95,.9),auto_dismiss=False)
         buttons.add_widget(TouchButton('CANCEL',popup.dismiss))
@@ -3171,6 +3171,22 @@ class StrikerGame(Widget):
                 self.usage.begin_session();self.usage.flush_async();self.view='start'
             except OSError:self._safety_notice='Unable to save settings. Please try again.'
             self.draw();return
+        if action in ('enable_usage_stats','disable_usage_stats') and self.view=='privacy':
+            if action=='enable_usage_stats':
+                if not self.family.configured:
+                    self._safety_return='privacy';self.view='family'
+                    self._safety_notice='An adult must configure a PIN first.'
+                    self.draw();return
+                try:unlocked=self.family.unlock(self._safety_draft.get('analytics_pin',''))
+                except OSError:unlocked=False
+                if not unlocked:
+                    self._safety_notice='Check the adult PIN. After three failed attempts wait five minutes.'
+                    self.draw();return
+            ok=self.usage.set_enabled(action=='enable_usage_stats')
+            self._safety_draft.pop('analytics_pin',None)
+            self._safety_notice='' if ok else self.usage.last_error
+            if ok and self.usage.enabled:self.usage.flush_async()
+            self.draw();return
         if action=='family_controls' and self.view in ('privacy','leaderboard'):
             self._safety_return=self.view;self.view='family';self._safety_notice='';self.draw();return
         if action=='safety_back' and self.view in ('family','record_safety'):
@@ -3239,7 +3255,7 @@ class StrikerGame(Widget):
         if action == "splash_continue" and self.view == "splash":
             self.usage.begin_session()
             self.usage.flush_async()
-            self.view = 'data_notice' if self.usage.mandatory else 'start'
+            self.view = 'data_notice' if getattr(self.usage,'notice_required',False) else 'start'
         elif action == "select_mode" and self.view in ("start", "hub", "upgrade"):
             self._select_career_mode(str(value))
         elif action == "new_game" and self.view == "start":

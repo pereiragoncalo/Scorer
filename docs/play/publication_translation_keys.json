@@ -62,5 +62,13 @@
   "BEFORE YOU PLAY",
   "IMPORT NAMES FILE",
   "I AGREE",
-  "I DO NOT AGREE"
+  "I DO NOT AGREE",
+  "Play your career locally. Usage statistics are optional and off by default; an adult can enable them separately in Help > Settings. Public records require separate adult controls and sharing. Read the Privacy Policy in Settings. I AGREE acknowledges this notice; it does not enable statistics or publish records. I DO NOT AGREE closes the game.",
+  "Optional usage statistics are off by default. An adult may allow nine numeric counters (openings, closes, careers, training, matches, goals and save/load failures) to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. Unsent counts expire after 7 days; server totals after 90 days. You can stop statistics and erase unsent counts at any time without affecting play.",
+  "Stay safe online: other people can see shared names and records. Never share your real name, school, contact details or location. Ask a trusted adult for help with anything worrying; report or block unsafe entries.",
+  "Optional usage statistics",
+  "Statistics enabled",
+  "Statistics disabled",
+  "STOP STATISTICS & ERASE UNSENT",
+  "ALLOW OPTIONAL STATISTICS"
 ]

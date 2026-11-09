@@ -44,8 +44,8 @@ chosen name and team requires accepting the community rules and a separate Share
 action. New submissions are reviewed before appearing. Report, block and removal
 tools are available. Scores are self-reported, not verified competition results.
 
-The game has no advertising and no in-app purchases. Automatic aggregate usage
-counts are described in the Privacy Policy. Online functions require an
+The game has no advertising and no in-app purchases. Optional usage statistics
+are off by default and can be managed in Help > Settings. Online functions require an
 internet connection; offline careers do not.
 
 Use Feedback to open a support email draft and send suggestions through your own
@@ -55,7 +55,7 @@ Choose English, Portuguese, Spanish, German, Italian, Korean, Japanese, Simplifi
 Chinese or Vietnamese in the game. Public privacy, community and removal documents
 are provided in English.
 
-Scorer World is a striker-career simulation with editable club names and reference-based presentation.
+Scorer World uses fictional clubs with editable names. No official club affiliation is claimed.
 Competitions use the game’s published formats, with simulated qualifiers, league phases and knockout results. It is not a licensed
 current football database or a claim to reproduce every real-world regulation,
 continental competition or national-team tournament.
@@ -79,3 +79,9 @@ Android: career dashboard, a match opportunity, World browsing and names editor.
 Use fictional names and do not capture PINs/tokens or another player's identifying
 data. Desktop previews do not establish Android execution. Complete IARC/audience,
 Data Safety and any testing/production-access steps actually shown in Console.
+
+
+Current privacy behavior: statistics are off by default, require separate adult-managed
+opt-in in Help > Settings, and can be stopped there without affecting play.
+Launch agreement is an acknowledgment, not analytics consent. Clubs are fictional;
+custom names can be edited or imported locally. No official affiliation is claimed.

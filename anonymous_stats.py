@@ -13,7 +13,8 @@ EVENTS=frozenset(('sessions','sessions_ended','new_careers','careers_loaded','tr
                  'matches_completed','goals_scored','load_failures','save_failures'))
 MAX_COUNT=10000
 MAX_FILE=16384
-APP_STATS_MANDATORY=True
+APP_STATS_MANDATORY=False
+APP_NOTICE_REQUIRED=True
 
 
 def valid_endpoint(value):
@@ -63,7 +64,8 @@ def send_counts(endpoint,payload):
 
 
 class UsageStatistics(NoStatistics):
-    def __init__(self,directory,endpoint='',sender=send_counts,mandatory=False):
+    def __init__(self,directory,endpoint='',sender=send_counts,mandatory=False,consent_version=0):
+        self.consent_version=consent_version
         self.mandatory=bool(mandatory)
         self.path=Path(directory)/'scorer_usage.json'
         self.endpoint=endpoint if valid_endpoint(endpoint) else ''
@@ -79,7 +81,10 @@ class UsageStatistics(NoStatistics):
         try:
             if self.path.stat().st_size>MAX_FILE:return
             data=json.loads(self.path.read_text(encoding='utf8'))
-            if not isinstance(data,dict) or set(data)!={'schema','enabled','scope','day','counts'}:return
+            expected={'schema','enabled','scope','day','counts'}
+            if self.consent_version:expected.add('consent_version')
+            if not isinstance(data,dict) or set(data)!=expected:return
+            if self.consent_version and (type(data.get('consent_version')) is not int or data['consent_version']!=self.consent_version):return
             if type(data['schema']) is not int or data['schema']!=1 or type(data['enabled']) is not bool or data['scope']!=self._scope:return
             if not isinstance(data['counts'],dict) or set(data['counts'])-EVENTS:return
             if any(type(n) is not int or not 0<n<=MAX_COUNT for n in data['counts'].values()):return
@@ -97,6 +102,7 @@ class UsageStatistics(NoStatistics):
         try:
             self.path.parent.mkdir(parents=True,exist_ok=True)
             data={'schema':1,'enabled':self.enabled,'scope':self._scope,'day':self.day,'counts':self.counts}
+            if self.consent_version:data['consent_version']=self.consent_version
             with tempfile.NamedTemporaryFile(mode='w',dir=self.path.parent,prefix='.scorer-usage-',delete=False) as out:
                 temporary=Path(out.name);json.dump(data,out,separators=(',',':'));out.flush();os.fsync(out.fileno())
             os.replace(temporary,self.path);self.last_error='';return True
@@ -202,7 +208,9 @@ def create_statistics(world,directory,endpoint=None):
     if endpoint is None:
         from analytics_config import ENDPOINT
         endpoint=ENDPOINT
-    usage=UsageStatistics(directory,endpoint,mandatory=APP_STATS_MANDATORY)
-    if APP_STATS_MANDATORY:
-        usage.delivery_ready=False  # Each process must reach OK before any transmission.
+    # Old mandatory-enabled state is not voluntary permission. Only the new
+    # versioned choice may restore an opt-in; pending old counters are discarded.
+    usage=UsageStatistics(directory,endpoint,mandatory=False,consent_version=1)
+    usage.notice_required=APP_NOTICE_REQUIRED
+    usage.delivery_ready=not APP_NOTICE_REQUIRED
     return usage

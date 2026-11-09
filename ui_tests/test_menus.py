@@ -27,7 +27,7 @@ def settle():
 
 @contextmanager
 def isolated_game(saved=False, corrupt=False):
-    with tempfile.TemporaryDirectory() as root, patch.dict(os.environ, STRIKER_SAVE_DIR=root), patch('analytics_config.ENDPOINT',''), patch('online_config.ORIGIN',''), patch('anonymous_stats.APP_STATS_MANDATORY',False):
+    with tempfile.TemporaryDirectory() as root, patch.dict(os.environ, STRIKER_SAVE_DIR=root), patch('analytics_config.ENDPOINT',''), patch('online_config.ORIGIN',''), patch('anonymous_stats.APP_NOTICE_REQUIRED',False):
         c = CareerMode()
         if saved:
             c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting()
@@ -56,7 +56,7 @@ class MenuTests(unittest.TestCase):
         cls.env = patch.dict(os.environ, STRIKER_SAVE_DIR=cls.temp.name)
         cls.env.start()
         cls.local_usage=patch('analytics_config.ENDPOINT','');cls.local_usage.start()
-        cls.local_policy=patch('anonymous_stats.APP_STATS_MANDATORY',False);cls.local_policy.start()
+        cls.local_policy=patch('anonymous_stats.APP_NOTICE_REQUIRED',False);cls.local_policy.start()
         cls.local_ranking=patch('online_config.ORIGIN','');cls.local_ranking.start()
         cls.game = StrikerGame()
         assert not cls.game.usage.remote_available
