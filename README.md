@@ -1,3 +1,13 @@
+## Scorer World0.9.38 — situational finishing balance
+
+[Download World0.9.38 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.38/Scorer-World-0.9.38.apk)
+
+Substantially easier penalties, easier one-on-ones and modest help for close
+headers, through marker/time and goalkeeper reading/reaction adjustments.
+Normal shots and distant headers keep their previous balance. Physical launch
+and collision geometry are preserved. Physical Android playtest pending.
+[Scope and paired simulation](docs/RELEASE_0.9.38.md).
+
 ## Scorer World0.9.37 — player feedback
 
 [Download World0.9.37 APK](https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.37/Scorer-World-0.9.37.apk)
