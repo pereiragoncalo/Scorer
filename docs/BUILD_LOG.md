@@ -2798,3 +2798,21 @@ code changed. Existing publication safety13tests and installer3tests passed.
 Service update not applied remotely: no SSH/admin credential and owner lacks
 bastion access. Live v4/human moderation gate stays open. Prepared honest physical
 Android acceptance checklist; version/install confirmation requested asynchronously.
+
+
+## 2026-11-09 — visible build version0.9.42
+
+Owner reports all3requested physical0.9.41 smoke checks work (startup/policy,
+training/single-tap/unlock, match/save/reload), device/Android details unspecified.
+Added small version footer to entry and version in Help>Settings; reserve footer
+space, retain48dp controls. Main hub, splash/wordmark and gameplay unchanged.
+Staging emits VERSION_NAME from actual package versionName; production fixture
+asserts1.0, rehearsal metadata matches spec. No hardcoded UI version string.
+
+Focused editions6/release14/publication13tests passed; native start dialog4passed;
+66responsive entry/settings cases, zero findings. Native screenshots visually
+checked. Headless clipboard reports absent xclip/xsel providers, unused by these
+screens; captures complete. Initial command addressed a clean checkout before
+it existed; reran from source, then tested/staged the clean index successfully.
+APK build/signature/metadata verification and delivery evidence follow separately.
+No server update, signing key creation, production assertion or Play submission.

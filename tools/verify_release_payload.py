@@ -13,6 +13,8 @@ with zipfile.ZipFile(artifact) as z:
         assert r['DEVELOPER_NAME']=='Gonçalo Pereira' and r['SUPPORT_EMAIL']=='goncalo@clemir.com'
         assert r['PRIVACY_URL']=='https://pereiragoncalo.github.io/Scorer/privacy/'
         assert r['WORLD_LISTING_READY'] is False
+        assert isinstance(r['VERSION_NAME'],str) and r['VERSION_NAME']
+        print('Displayed version:',r['VERSION_NAME'])
         names=tar.getnames()
         assert not any(n.endswith("privacy_requests.pyc") or n.endswith("privacy_requests.py") for n in names), "Removed client workflow bundled"
         for required in ('online_safety','career_transfer','career_documents','defensive_difficulty','world_competitions','season_transitions','two_divisions'):

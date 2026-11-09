@@ -160,6 +160,7 @@ class StagingTests(unittest.TestCase):
             default_spec=configparser.ConfigParser();default_spec.read(default_stage/'buildozer.spec')
             self.assertEqual(default_spec['app']['version'],'1.0');self.assertEqual(default_spec['app']['android.numeric_version'],'1030000')
             ns={};exec((stage/'release_settings.py').read_text(),ns)
+            self.assertEqual(ns['VERSION_NAME'],'1.0')
             self.assertEqual(ns['CHANNEL'],'production');self.assertEqual(ns['SUPPORT_EMAIL'],'goncalo@clemir.com');self.assertFalse(ns['WORLD_LISTING_READY'])
             e={};exec((stage/'edition.py').read_text(),e);self.assertTrue(e['WORLD_BUILD']);self.assertFalse(e['WORLD_PREVIEW'])
             self.assertTrue((stage/'name_packs.py').is_file());self.assertTrue((stage/'android/worldsrc/com/clemir/striker/files/LocalNameFiles.java').is_file())

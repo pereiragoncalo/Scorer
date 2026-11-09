@@ -1,7 +1,10 @@
 # Android acceptance — Scorer World0.9.41
 
-Device results are **pending**. Existing automated/static evidence is not a phone
-pass. Use the current DEBUG QA APK, signed by the same existing QA key:
+The owner reports the three requested0.9.41 phone smoke checks **passed**:
+startup/policy, team talk/training/tap/unlock, and completed match/save/exit/reload.
+See docs/data/android_acceptance_0.9.41/owner-smoke.json. Model and Android version
+were not supplied. Extended checks and Play installation remain pending; existing
+automated/static evidence is not a substitute for them. Use the current DEBUG QA APK, signed by the same existing QA key:
 https://github.com/pereiragoncalo/Scorer/releases/download/qa-0.9.41/Scorer-World-0.9.41.apk
 
 Keep the existing installation/data. Export a private career recovery file before

@@ -28,6 +28,8 @@ class EditionTests(unittest.TestCase):
                 launch=json.loads(Path('release/world-launch.json').read_text())
                 self.assertEqual(spec['app']['version'],launch['next_test_version'])
                 self.assertEqual(spec['app']['android.numeric_version'],str(launch['next_test_version_code']))
+                metadata={};exec((root/'release_settings.py').read_text(),metadata)
+                self.assertEqual(metadata['VERSION_NAME'],spec['app']['version'])
                 products[product]=spec['app']['package.domain']+'.'+spec['app']['package.name']
                 self.assertEqual(spec['app']['title'],'Scorer World' if product=='world' else 'Scorer')
                 expected_icon='assets/icon_world.png' if product=='world' else 'assets/icon.png'

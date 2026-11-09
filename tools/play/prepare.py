@@ -89,6 +89,8 @@ def prepare(config, target, channel, source=ROOT):
         '\n\ndef is_store(): return True\ndef is_production(): return CHANNEL == "production"\n')
     spec = configparser.ConfigParser(interpolation=None)
     spec.read(target/'buildozer.spec'); app = spec['app']
+    metadata=target/'release_settings.py'
+    metadata.write_text(metadata.read_text()+f'\nVERSION_NAME = {app["version"]!r}\n')
     app['title'] = 'SCORER' if channel == 'production' else 'SCORER Play QA'
     app['package.domain'], app['package.name'] = 'com.clemir', 'striker'
     app['android.numeric_version'] = str(config['version_code'])

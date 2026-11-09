@@ -452,6 +452,7 @@ class CareerMenu(BoxLayout):
 
     def _privacy(self):
         card = self.card('PRIVACY')
+        card.label('v'+getattr(release_settings,'VERSION_NAME','dev'),muted=True,localize=False)
         card.label('Scorer World is free, with an included names editor. No advertising or in-app purchases.')
         self._privacy_contact(card)
         controls=self.card('ADULT CONTROLS');controls.add_widget(self._button('ADULT CONTROLS','family_controls'))
@@ -959,6 +960,8 @@ class EntryScreen(FloatLayout):
         self.panel.add_widget(actions)
         self.panel.canvas.before.remove(self.panel.edge)
         self.add_widget(self.panel)
+        self.version=BoundedLabel(text='v'+getattr(release_settings,'VERSION_NAME','dev'),localize=False,color=MUTED,font_size=sp(11),halign='right',size_hint=(None,None))
+        self.add_widget(self.version)
         self.bind(pos=self._fit, size=self._fit)
         self._fit()
 
@@ -966,7 +969,10 @@ class EntryScreen(FloatLayout):
         banner_fits = False  # No advertising and no empty banner reservation.
         self.menu.game.ads.entry_visible(banner_fits)
         self.banner_space = dp(64) if banner_fits else 0
-        available = self.height - self.banner_space
+        footer_space=dp(22)
+        available = self.height - self.banner_space-footer_space
+        self.version.size=(min(dp(120),max(1,self.width-dp(16))),dp(18))
+        self.version.pos=(self.right-self.version.width-dp(8),self.y+self.banner_space+dp(2))
         has_error = self.info.parent is self.panel
         compact = available < dp(280)
         margin=dp(8 if compact else 12)
@@ -981,7 +987,7 @@ class EntryScreen(FloatLayout):
         self.info.height=dp(32 if compact else 40)
         desired=dp(168 if compact else 184)+(self.info.height+dp(4) if has_error else 0)
         self.panel.size=(min(self.width-dp(24),dp(340)),min(available-header-dp(16),desired))
-        self.panel.center=(self.center_x,self.y+self.banner_space+(available-header)/2)
+        self.panel.center=(self.center_x,self.y+self.banner_space+footer_space+(available-header)/2)
 
 
 class MainDashboard(BoxLayout):

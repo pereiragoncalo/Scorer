@@ -1,5 +1,6 @@
 """Public build metadata, replaced only in isolated Play staging sources."""
 CHANNEL = 'beta'
+VERSION_NAME = '0.9.42'
 DEVELOPER_NAME = 'Gonçalo Pereira'
 SUPPORT_EMAIL = 'goncalo@clemir.com'
 PRIVACY_URL = 'https://pereiragoncalo.github.io/Scorer/privacy/'

@@ -1,0 +1,19 @@
+{
+  "version": "0.9.41",
+  "reported_by": "owner",
+  "date": "2026-11-09",
+  "status": "owner_reports_all_three_requested_checks_work",
+  "passed": [
+    "splash_one_touch_and_final_policy",
+    "team_talk_three_training_attempts_single_tap_and_play_unlock",
+    "completed_match_save_exit_reload_preserves_club_goals_money_progress"
+  ],
+  "device_model": null,
+  "android_version": null,
+  "not_inferred": [
+    "Play_install",
+    "16KB_device",
+    "full_extended_acceptance_checklist",
+    "v4_server_deployment"
+  ]
+}
