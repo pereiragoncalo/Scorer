@@ -50,3 +50,9 @@ recovery: the signatures differ, so ordinary in-place replacement will not work.
 
 No app creation, bundle upload, signing-key enrollment or rollout has been performed
 by this guide.
+
+## Public policy hosting
+
+Use https://pereiragoncalo.github.io/Scorer/privacy/ for the new candidate.
+Legal pages are independent of bastion; confirm live final HTML. Old0.9.40 still
+opens stats.clemir.com/privacy; use the updated candidate for the new destination.

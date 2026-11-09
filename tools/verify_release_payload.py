@@ -11,7 +11,7 @@ with zipfile.ZipFile(artifact) as z:
         assert e['WORLD_BUILD'] is (product=='world') and e['WORLD_PREVIEW'] is False
         assert r['CHANNEL']==channel
         assert r['DEVELOPER_NAME']=='Gonçalo Pereira' and r['SUPPORT_EMAIL']=='goncalo@clemir.com'
-        assert r['PRIVACY_URL']=='https://stats.clemir.com/privacy'
+        assert r['PRIVACY_URL']=='https://pereiragoncalo.github.io/Scorer/privacy/'
         assert r['WORLD_LISTING_READY'] is False
         names=tar.getnames()
         assert not any(n.endswith("privacy_requests.pyc") or n.endswith("privacy_requests.py") for n in names), "Removed client workflow bundled"

@@ -2,7 +2,7 @@
 CHANNEL = 'beta'
 DEVELOPER_NAME = 'Gonçalo Pereira'
 SUPPORT_EMAIL = 'goncalo@clemir.com'
-PRIVACY_URL = 'https://stats.clemir.com/privacy'
+PRIVACY_URL = 'https://pereiragoncalo.github.io/Scorer/privacy/'
 
 
 def is_store():

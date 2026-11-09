@@ -67,3 +67,10 @@ The owner requested policy remediation after clarifying clubs are fictional.
 See POLICY_CLOSURE_0.9.40.md: this supersedes the frozen0.9.39 behavior for the
 planned1.0. Usage is optional/default-off; new public policy still needs deployment
 and external access verification. The0.9.39 APK remains historical QA evidence.
+
+## Independent public policy host0.9.41
+
+Owner has no current bastion access. New candidate configurations use
+https://pereiragoncalo.github.io/Scorer/privacy/. See
+PUBLIC_POLICY_HOSTING_0.9.41.md for deployment/verification evidence. This does
+not deploy the game service or remove signing/device/Console requirements.

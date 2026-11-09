@@ -46,7 +46,7 @@ Transport and Cloudflare
 
 HTTPS validates certificates. The server is operated by the developer and uses Cloudflare Tunnel/CDN. Our collector suppresses IP, user-agent and raw-request logging. This does not mean the network provider processes no personal data.
 
-The developer has confirmed that Cloudflare is used only for Tunnel/proxy routing and protection for stats.clemir.com; Cloudflare Web Analytics, Logpush and other optional collection services are not enabled. Cloudflare necessarily processes IP addresses and connection/security information and may retain service data under its own published terms and privacy policy. Its role varies by data category, including processor for customer content and controller for some service data. Our collector does not retain raw request, IP or user-agent logs. We do not claim Cloudflare retains no logs or that its service-data retention equals our 90-day aggregate retention. No advertising, analytics SDK or third-party marketing tracker is embedded in the app.
+The developer has confirmed that Cloudflare is used only for Tunnel/proxy routing and protection for stats.clemir.com; Cloudflare Web Analytics, Logpush and other optional collection services are not enabled. Cloudflare necessarily processes IP addresses and connection/security information and may retain service data under its own published terms and privacy policy. Its role varies by data category, including processor for customer content and controller for some service data. Our collector does not retain raw request, IP or user-agent logs. We do not claim Cloudflare retains no logs or that its service-data retention equals our 90-day aggregate retention. No advertising, analytics SDK or third-party marketing tracker is embedded in the app. Public privacy, community and removal pages are also hosted on GitHub Pages at pereiragoncalo.github.io/Scorer. When you visit those pages, GitHub processes web request information, including IP addresses, under its own privacy statement. These static pages contain no advertising, embedded analytics, contact form or game-record uploads. This website hosting is separate from gameplay requests to stats.clemir.com.
 
 International processing
 
@@ -63,6 +63,8 @@ Changes
 Material changes will be reflected in this policy and, where required, an updated in-app notice before new processing. This policy is effective from the date above.
 
 Official references
+
+GitHub — Privacy statement
 
 Cloudflare — Privacy policy
 

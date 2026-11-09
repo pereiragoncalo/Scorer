@@ -23,7 +23,11 @@ do not automatically label all transfers sharing or all aggregates ephemeral.
 Classify each data type across all actual flows; optional usage does not make data required for an enabled online feature disappear. Usage payload's historical `app:scorer_free` is a common family constant, not
 an edition/platform/unique-player breakdown.
 
-Public policy URL: https://stats.clemir.com/privacy. The previously installed draft is not this final policy; install the new server and English policy using WORLD_LAUNCH_0.6.47.md. Confirm the live published marker after deployment. Console form classifications must match the actual shipped build and deployment. No SMTP service is activated.
+Public policy URL for the new candidate: https://pereiragoncalo.github.io/Scorer/privacy/.
+Public legal pages are hosted by GitHub Pages; GitHub receives site-request/IP data
+when a browser visits them, as disclosed in the policy. Gameplay requests still use
+stats.clemir.com/Cloudflare. The old server policy is not automatically updated by
+the independent website deployment. Verify final Pages availability before submission.
 
 
 ## Current candidate additions,9November2026

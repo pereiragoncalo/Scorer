@@ -6,6 +6,7 @@ from online_safety import TERMS_TEXT
 TERMS_PT='Usa uma alcunha, nunca o nome completo real, contactos ou escola. Não publiques abuso, ódio, conteúdo sexual, ameaças, usurpação de identidade ou spam. Nomes e equipas só ficam públicos após análise. Denuncia ou bloqueia entradas inseguras. Os moderadores podem remover recordes e suspender publicações. Os resultados são auto-reportados. Podes parar a partilha e remover os teus recordes a qualquer momento.'
 DETAIL_FIELDS=('legal_basis','provider_practices','children_practices','international_transfers')
 SOURCE_LINKS=(
+ ('GitHub — Privacy statement','https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement'),
  ('Cloudflare — Privacy policy','https://www.cloudflare.com/privacypolicy/'),
  ('Cloudflare — Data Processing Addendum','https://www.cloudflare.com/cloudflare-customer-dpa/'),
  ('Cloudflare — GDPR','https://www.cloudflare.com/trust-hub/gdpr/'),

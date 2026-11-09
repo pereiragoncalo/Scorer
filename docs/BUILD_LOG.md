@@ -2740,3 +2740,17 @@ Final0.9.40 indexed-source evidence:436core/3skips and235native Kivy passed;
 actual default-off factory, versioned opt-in, stop/erase and safety text all passed.
 Public standalone installer HTTP200/download hash verified. Owner must execute on
 bastion; latest live phone report is still the OLD draft/test policy.
+
+
+## 2026-11-09 — independent public legal pages0.9.41
+
+Prepared5public-only static files and separate minimal Pages workflow. Existing
+service untouched. Initial Pages activation API403; later reads confirmed enabled
+site, but legacy dynamic build and retry failed without jobs/logs. Custom workflow
+uses existing Pages environment/gh-pages branch policy and normal minimal scoped
+Pages permissions, no protection bypass. Public availability verification pending.
+
+Site generator2tests, public policy15tests, release staging14tests, editions6tests
+and native policy-link1test passed. Gameplay unchanged from0.9.40; no redundant
+full gameplay run. Changed release_settings/examples/compiled metadata check to
+canonical GitHub Pages privacy URL. Unrelated WIP remains excluded.
