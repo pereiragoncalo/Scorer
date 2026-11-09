@@ -2823,3 +2823,7 @@ archived only generated older staging/index snapshots to /tmp, preserving them,
 then118ELF and matching-hostpython metadata checks passed. Actual APK prints
 Displayed version:0.9.42, matching Android versionName/code1026942.
 No APK rebuild or gameplay change was needed after verification.
+
+0.9.42 QA delivery workflow42680414361 succeeded. Anonymous attachment download
+HTTP200/118313343bytes/SHA25675193fca9d47a72177fefb32b736c7067be0ef7dbcfc3fbb2007ca3749cf64a6
+verified against the tested APK. Temporary transfer branch removed after proof.
