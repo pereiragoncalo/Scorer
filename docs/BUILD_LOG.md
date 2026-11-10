@@ -2911,3 +2911,17 @@ SHA2562d44aa9197c3d97f37cad8569ed70ce1c5333882852276e7d44ef34283cc9730 and
 standalone signing helper5492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885fa6761
 HTTP200 verified. Signature still pending owner-side hidden password input. No
 production key/certificate enrollment or Play upload was performed by the cloud.
+
+##2026-11-10 — owner-reported real names / creation captions,1030001
+
+Acknowledged shipping-identity defect in1030000. Source equality gate was
+insufficient: World overlay/profile/status reference labels shipped. Build now
+creates fictional-only UID-identical presentation, strips real profile metadata,
+retains capacity/palettes/patterns/rating gameplay. Actual1030000 AAB regression
+fails new gate.25 focused release/catalogue/kit checks pass;5 clean-source native
+creation tests pass,90 full-caption measurements at5 sizes/densities/3 languages.
+Staged runtime8888active names canonical, saves and explicit aliases preserved.
+Rendered English form screenshot visually checked. Rebuild first completed before
+UI steering; final rebuild first attempt failed ENOSPC in disposable Docker layer.
+Preserved old generated1.0 staging/source under/tmp/scorer-signing-archives and
+restarted final build. No real keys in workspace; Play suspension owner-operated.

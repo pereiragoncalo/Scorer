@@ -801,6 +801,28 @@ class MenuTile(TouchButton):
         self.text_size = (max(1, self.width - dp(16)), max(1, self.height - dp(12)))
 
 
+class CreationTile(MenuTile):
+    """Creation fields keep their full caption inside a fixed touch target."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.shorten = False
+        self.max_lines = 0
+        self.bind(text=self._fit, font_name=self._fit, height=self._fit)
+        self._fit()
+
+    def _fit(self, *_):
+        width, height = max(1, self.width-dp(16)), max(1, self.height-dp(12))
+        size = sp(13)
+        while size > sp(9):
+            label = CoreLabel(text=self.text, text_size=(width, None), font_name=self.font_name,
+                              font_size=size, bold=self.bold, line_height=self.line_height)
+            label.refresh()
+            if label.texture.size[1] <= height: break
+            size -= sp(.5)
+        self.font_size = size
+        self.text_size = (width, height)
+
+
 class MenuLogo(FloatLayout):
     """One cohesive wordmark image; Free retains its original artwork."""
     def __init__(self,**kwargs):
@@ -1132,13 +1154,12 @@ class PlayerScreen(FloatLayout):
             choices = self.choices = BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
             self.country_buttons={}
             for field in ('nationality','country'):
-                button=MenuTile('',lambda key=field:self.choose_country(key),localize=False)
+                button=CreationTile('',lambda key=field:self.choose_country(key),localize=False)
                 self.country_buttons[field]=button;choices.add_widget(button)
             self.panel.add_widget(choices);self._country_labels()
-            from club_profiles import catalogue as club_profiles
             favourite=self.draft.get('favourite','');team=next((t for l in self.game.career.domestic_leagues() for t in l.clubs if t.uid==favourite),None) if favourite else None
-            label=club_profiles().get(favourite,{}).get('club',self.game.career.display_club(team)) if team else 'FAVOURITE CLUB'
-            self.favourite=MenuTile(label,self.choose_favourite,localize=not bool(team));choices.add_widget(self.favourite)
+            label=self.game.career.display_club(team) if team else 'FAVOURITE CLUB'
+            self.favourite=CreationTile(label,self.choose_favourite,localize=not bool(team));choices.add_widget(self.favourite)
         message = menu.game.career.message
         error = message if message.startswith(MENU_ERROR_PREFIXES) else ''
         self.helper = BoundedLabel(text=error,color=(1,.65,.45,1),font_size=sp(14),size_hint_y=None,height=dp(40))
@@ -1156,10 +1177,10 @@ class PlayerScreen(FloatLayout):
             from career_life import age
             self.contract_info=BoundedLabel(text=self.game.i18n.tr('Age {age} · Salary €{salary}/week',age=age(self.game.career),salary=self.game.career.life['salary']),localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(20))
             self.panel.add_widget(self.contract_info)
-        actions.add_widget(MenuTile('HELP', lambda: menu.action('help')))
-        actions.add_widget(MenuTile('CANCEL', lambda: menu.action('cancel_profile')))
+        actions.add_widget(CreationTile('HELP', lambda: menu.action('help')))
+        actions.add_widget(CreationTile('CANCEL', lambda: menu.action('cancel_profile')))
         self.actions=actions
-        actions.add_widget(MenuTile('SAVE' if existing else 'CONTINUE',
+        actions.add_widget(CreationTile('SAVE' if existing else 'CONTINUE',
                                     lambda: self.submit(), accent=True))
         self.panel.add_widget(actions)
         self.add_widget(self.panel)
@@ -1187,7 +1208,7 @@ class PlayerScreen(FloatLayout):
     def _country_labels(self):
         for field,button in self.country_buttons.items():
             button.text=self.game.i18n.tr('Nationality: {country}' if field=='nationality' else 'Starting country: {country}',
-                                         country=self.game.i18n.country(self.draft[field]))
+                                         country=self.game.i18n.country(self.draft[field])).replace(': ', ':\n', 1)
 
     @localized_call
     def choose_country(self,field):
@@ -1202,7 +1223,12 @@ class PlayerScreen(FloatLayout):
         compact = self.height < dp(310) if self.world_creation else self.height < dp(360)
         if self.world_creation:
             self.title_label.height=dp(24 if compact else 28)
-            self.name.height=self.choices.height=self.actions.height=dp(48 if compact else 52)
+            row_height=dp(48 if compact else 52)
+            stacked=self.width<dp(480) and self.height>dp(360)
+            self.choices.orientation='vertical' if stacked else 'horizontal'
+            self.name.height=self.actions.height=row_height
+            self.choices.height=row_height*3+dp(16) if stacked else row_height
+            for button in self.choices.children:button.height=row_height
             self.helper.height=0 if compact else dp(36)
             self.helper.opacity=0 if compact else 1
         if self.trophy_scroll is not None:
@@ -1211,7 +1237,7 @@ class PlayerScreen(FloatLayout):
             self.title_label.height=dp(24 if compact else 28)
         self.panel.padding = dp(8 if compact and self.world_creation else 10 if compact else 14)
         self.panel.spacing = dp(4 if compact and self.world_creation else 6 if compact else 8)
-        self.panel.size = (min(self.width - dp(24), dp(650 if self.trophy_scroll is not None else 420)), min(self.height - dp(16), self.panel.minimum_height))
+        self.panel.size = (min(self.width - dp(24), dp(720 if self.world_creation else 650 if self.trophy_scroll is not None else 420)), min(self.height - dp(16), self.panel.minimum_height))
         self.panel.center = self.center
 
 

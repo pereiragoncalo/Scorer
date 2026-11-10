@@ -82,6 +82,8 @@ def prepare(config, target, channel, source=ROOT):
                 (Path(n).suffix.lower() == '.json' and not ((Path(directory) == source/'assets/sprites' and n == 'manifest.json') or (Path(directory) == source/'assets/data' and n in {'world_clubs.json','club_kits.json','club_profiles.json','league_status.json','domestic_profiles.json','international_calendar.json','domestic_formats.json'}) or (Path(directory) == source/'assets/i18n' and n in {'en.json','pt.json','es.json','de.json','it.json','ko.json','ja.json','zh.json','vi.json','countries.json'}))))]
     for directory in ('assets', 'android', 'tools'):
         shutil.copytree(source/directory, target/directory, ignore=ignored)
+    from tools.play.fictional_clubs import stage_fictional_clubs
+    stage_fictional_clubs(target/'assets/data')
     (target/'edition.py').write_text((target/'edition.py').read_text().replace('WORLD_PREVIEW = True', 'WORLD_PREVIEW = False'))
     (target/'release_settings.py').write_text('\n'.join(f'{key} = {value!r}' for key, value in {
         'CHANNEL': channel, 'DEVELOPER_NAME': config['developer_name'], 'SUPPORT_EMAIL': config['support_email'],

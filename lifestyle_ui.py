@@ -67,8 +67,7 @@ class CatalogueScreen(BoxLayout):
 class FavouritePicker(LocalizedPopup):
  def __init__(self,screen):
   self.screen=screen;self.page=0;c=screen.game.career
-  from club_profiles import catalogue
-  profiles=catalogue();self.teams=sorted((profiles.get(t.uid,{}).get('club',c.display_club(t)),t.country,t.uid) for l in c.domestic_leagues() for t in l.clubs)
+  self.teams=sorted((c.display_club(t),t.country,t.uid) for l in c.domestic_leagues() for t in l.clubs)
   body=BoxLayout(orientation='vertical',spacing=dp(5));self.search=TextInput(multiline=False,hint_text='Search club',size_hint_y=None,height=dp(48));body.add_widget(self.search)
   self.grid=GridLayout(cols=2,spacing=dp(4));body.add_widget(self.grid);nav=BoxLayout(size_hint_y=None,height=dp(48));body.add_widget(nav)
   nav.add_widget(MenuTile('PREVIOUS',lambda:self.move(-1)));nav.add_widget(MenuTile('NEXT',lambda:self.move(1)));nav.add_widget(MenuTile('CANCEL',self.dismiss));self.search.bind(text=lambda *_:self.render(True))

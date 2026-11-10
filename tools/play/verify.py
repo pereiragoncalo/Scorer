@@ -8,6 +8,8 @@ import argparse
 import io
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 import tarfile
 import xml.etree.ElementTree as ET
 import zipfile
@@ -43,13 +45,9 @@ def inspect_manifest(text,expected_package='com.clemir.striker'):
 
 
 def verify_catalogue(raw,reference):
-    import json
-    data=json.loads(raw)
-    if data.get('version')!=1 or not isinstance(data.get('clubs'),dict) or not data['clubs']:
-        raise ValueError('World presentation catalogue missing or invalid')
-    if hashlib.sha256(raw).digest()!=hashlib.sha256(Path(reference).read_bytes()).digest():
-        raise ValueError('Bundled World catalogue differs from the reviewed source')
-    return len(data['clubs'])
+    from tools.play.fictional_clubs import verify_fictional_data
+    return verify_fictional_data('world_clubs', raw, Path(reference).parent)
+
 
 def verify(artifact, manifest, channel,expected_package='com.clemir.striker'):
     root, permissions = inspect_manifest(manifest,expected_package)
@@ -70,6 +68,10 @@ def verify(artifact, manifest, channel,expected_package='com.clemir.striker'):
             data_member = next(m for m in payload if m.name.endswith('assets/data/world_clubs.json'))
             import json
             catalogue_count=verify_catalogue(payload.extractfile(data_member).read(),Path('assets/data/world_clubs.json'))
+            from tools.play.fictional_clubs import verify_fictional_data
+            for dataset in ('club_profiles', 'league_status'):
+                member = next(m for m in payload if m.name.endswith('assets/data/'+dataset+'.json'))
+                verify_fictional_data(dataset, payload.extractfile(member).read(), Path('assets/data'))
             edition = next(m for m in payload if m.name.endswith('/edition.pyc') or m.name == 'edition.pyc')
             # Flag is checked separately with the built Python version; do not unmarshal untrusted input here.
             if edition.size > 16384: raise ValueError('Unexpected edition module')

@@ -28,6 +28,7 @@ class HomeKit(tuple):
 
 def shirt_pattern(club):
     from club_profiles import catalogue as profiles
-    name=profiles().get(club.uid,{}).get('club','')
-    solid={'Benfica','Sporting Braga','Braga','Liverpool','Arsenal','Chelsea','Manchester City','Manchester United','Everton','Tottenham Hotspur','Real Madrid','Sevilla','Valencia','Villarreal','Roma','Napoli','Fiorentina','Lazio','Bayern Munich','Bayern München','Borussia Dortmund','Hamburger SV','Paris Saint-Germain','Lyon','Marseille','Bordeaux','Cruzeiro','Santos','Corinthians','Independiente'}
-    return 'plain' if name in solid else 'striped'
+    row=profiles().get(club.uid,{})
+    if row.get('shirt_pattern') in ('plain','striped'):return row['shirt_pattern']
+    plain_uids = ('09746d7dd23654a57132', '0a57fa8e31a868f0b6e9', '1b90a5a7b45d01807901', '1dd757d88c0069bcd7cd', '2128f2b8f01e8eeecf3a', '25978b18d31edad02b79', '26d175cbef2faf758d99', '28287e8e6bd50eb49e5d', '2d8ed6622c1975e49c94', '3aafb272e8752af57673', '4279d0e1c7fb3bc28cff', '582cdd1845afc7c3faff', '5d27df05665c0406256b', '5f9f7033f562b3fe6218', '70016252382c95789326', '700e13942a34696fdae5', '79f1e283c133ea287c86', '7db45bcfc5d635bf6a33', '8e8904232485cb82559c', '9e90b993b2ca6783b176', 'a236192def0f049f14cd', 'a2fb9f1e2eb7fac49500', 'b1d1ccbb9e77bc53c029', 'c8d6431e000ec7467295', 'cbd600ef2f5d278ae21d', 'd1e35165727184231fcf', 'fd1111e5e54231a2a93f', 'fda9c90903e5a56a33bd')
+    return 'plain' if club.uid in plain_uids else 'striped'
