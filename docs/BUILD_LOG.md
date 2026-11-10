@@ -2925,3 +2925,11 @@ Rendered English form screenshot visually checked. Rebuild first completed befor
 UI steering; final rebuild first attempt failed ENOSPC in disposable Docker layer.
 Preserved old generated1.0 staging/source under/tmp/scorer-signing-archives and
 restarted final build. No real keys in workspace; Play suspension owner-operated.
+Final1030001 rebuilt successfully after preserving old generated staging. Actual
+AAB static gate passes fictional data, package/code1030001, nondebug, noad/billing,
+118ELFs16KB, bundletool/16KBZIP config/derivedAPK checks and compiled metadata1.0.
+Actual archive contains10598canonical fictional identities,352sanitized profiles
+and new CreationTile bytecode. Direct hostpython invocation outside container
+failed to locate stdlib (not used for results); container-native metadata audit
+passed.3standalone download/signing coordinator safety tests pass. Final signing
+remains on owner bastion; new Play installation pending.
