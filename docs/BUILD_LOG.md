@@ -2933,3 +2933,7 @@ and new CreationTile bytecode. Direct hostpython invocation outside container
 failed to locate stdlib (not used for results); container-native metadata audit
 passed.3standalone download/signing coordinator safety tests pass. Final signing
 remains on owner bastion; new Play installation pending.
+Delivery prepared with original upload cert pinned and fresh output path. Existing
+registered apk-delivery.yml is used on review branch because GitHub does not
+register workflow_dispatch for a new off-default workflow (404); no default-branch
+settings changed. Historical editor-name attachment job retained. Source7f70966.
