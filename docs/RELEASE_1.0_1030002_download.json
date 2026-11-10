@@ -1,0 +1,23 @@
+{
+  "workflow": 42923329696,
+  "files": [
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030002/Scorer-World-1.0-1030002-unsigned.aab",
+      "http": 200,
+      "bytes": 117177209,
+      "sha256": "2e30020eef7ddf264839221bc6ec74364908fc08490a40ed3c687aa814d8cd53"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030002/bastion_bundle_1030002.py",
+      "http": 200,
+      "bytes": 2344,
+      "sha256": "42f755e3c785cc2bd4b06d23c9449552c162bfc9b4a9f5c9e71e48ef92503f6e"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030002/sign_local_bundle.py",
+      "http": 200,
+      "bytes": 4668,
+      "sha256": "5492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885fa6761"
+    }
+  ]
+}

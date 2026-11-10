@@ -2966,3 +2966,10 @@ Actual archive matches reviewed10736local labels+registry,378sanitized profiles,
 499strengthrows.32focused checks (29core+3coordinator) and6native tests pass.
 Input117177209bytes SHA2562e30020eef7ddf264839221bc6ec74364908fc08490a40ed3c687aa814d8cd53.
 Original AAB unsigned; owner bastion signing/Play install remain pending.
+Delivery42923329696success. Independent full anonymousHTTPS200 downloads verified:
+AAB117177209bytes SHA2562e30020eef7ddf264839221bc6ec74364908fc08490a40ed3c687aa814d8cd53;
+coordinator2344bytes SHA25642f755e3c785cc2bd4b06d23c9449552c162bfc9b4a9f5c9e71e48ef92503f6e;
+signer4668bytes SHA2565492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885fa6761.
+1030001GitHub candidate marked superseded. Older generated AABs preserved in/tmp
+archive for disk headroom. User still signs only on bastion and uploads new
+internal Play release; no remote Play changes or physical acceptance inferred.
