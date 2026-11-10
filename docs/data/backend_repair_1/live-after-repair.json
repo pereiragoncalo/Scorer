@@ -1,0 +1,30 @@
+{
+  "checked_utc": "2026-11-10T17:46:06.212032+00:00",
+  "owner_reported_service_active": true,
+  "read_only": true,
+  "results": [
+    {
+      "check": "health",
+      "http": 200,
+      "schema": null,
+      "ok": true,
+      "category": null
+    },
+    {
+      "check": "season",
+      "http": 200,
+      "schema": 3,
+      "ok": null,
+      "category": null,
+      "entries_count": 0
+    },
+    {
+      "check": "career",
+      "http": 200,
+      "schema": 4,
+      "ok": null,
+      "category": "career",
+      "entries_count": 0
+    }
+  ]
+}

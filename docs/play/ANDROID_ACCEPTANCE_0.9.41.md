@@ -35,8 +35,9 @@ Record device/Android version and Pass/Fail for these checks:
    location, contacts or advertising-ID prompt should appear.
 9. Privacy controls: statistics initially off. Adult PIN required for separate
    opt-in; Stop Statistics & Erase Unsent needs no PIN and leaves career playable.
-   Do not publish personal information during QA. Career online server currently
-   returns404 until the bastion update; record that as a known service blocker.
+   Do not publish personal information during QA. Career service was repaired on2026-11-10 and now returns schema4; the earlier
+   404 deployment blocker is resolved. Public sharing still requires separate
+   adult controls and an explicit action.
 
 For internal Play acceptance repeat these checks on the Play-installed signed
 build, test debug-to-Play career export/import, capture genuine Android store

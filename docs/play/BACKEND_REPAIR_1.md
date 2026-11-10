@@ -21,3 +21,22 @@ checking its SHA256. It targets /opt/scorer/scorer-online/local8787, preserving
 existing service configuration, environment credentials, database, Tunnel and timer.
 The app remains0.9.42. Actual service/public v4 verification remains pending until
 owner execution. Private tokens must not be pasted into chat or committed.
+
+## Deployment confirmed —2026-11-10
+
+Owner screenshot confirms checksum/preflight success, installation, active systemd
+service and public schema4 response. Independent verified-HTTPS reads returned
+health200/ok:true, Season200/schema3 and Career200/schema4.
+
+Own disposable pending Career fixture then passed terms rejection, submit204,
+pre-approval invisibility, report204, invalid-reason rejection, withdrawal204,
+idempotent withdrawal and report-target absence after removal. Owner/reporter
+cleanup both204; no recovery credentials remain. No user records changed, no
+usage counters sent, no live admin approval performed. An initial probe completed
+cleanup but could not save evidence because an old /tmp report directory was
+absent; reran with persistent report path, all checks passed.
+
+Evidence: docs/data/backend_repair_1/live-after-repair.json and
+live-career-canary.json. The missing-v4/dependency/start-limit deployment blocker
+is resolved. Ongoing human moderation, production upload key/AAB, Console forms
+and Play acceptance are separate requirements; do not infer Google approval.

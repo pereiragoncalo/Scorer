@@ -80,3 +80,10 @@ moderator. The GitHub Pages final policy is already live and independent of this
 service; there is no need to undo that hosting change.
 
 Until then, keep this point open and continue independent Android acceptance.
+
+## Follow-up2026-11-10
+
+The owner applied Backend Repair1 successfully. Public v3/v4 now return200 and
+the pending Career submission/report/withdrawal live check passed with complete
+cleanup. The original missing-v4 deployment blocker is resolved. See
+BACKEND_REPAIR_1.md and docs/data/backend_repair_1 for current evidence.

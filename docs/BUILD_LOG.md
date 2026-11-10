@@ -2849,3 +2849,16 @@ checks pass with privacy modules deliberately removed/reproduced failure,6instal
 tests pass including missing-import preflight and reset-failed ordering. Python3.12
 locally; owner host journal shows3.13, not available for local execution. No remote
 service modification performed here, no secret read/printed, no APK/game changes.
+
+
+##2026-11-10 — owner backend repair succeeds, public v4 accepted
+
+Owner applied pinned Repair1: checksum/preflight/installation pass, systemd active,
+public schema4. Independent HTTPS health200, v3schema3 and v4schema4 confirmed.
+Own disposable pending Career fixture passed full safe lifecycle (terms, private
+unapproved submission, report, invalid reason, withdrawal, idempotency, removed
+report target), both owner/reporter cleanup204, no retained recovery credentials.
+No real user records, usage counters or live admin approval changed. First probe
+ran cleanup then lacked old /tmp report directory; repeated with persistent path
+and recorded passing evidence. No game/APK modifications. Deployment blocker closed;
+operator availability, production signing/Console/Play checks not inferred.
