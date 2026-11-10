@@ -69,7 +69,7 @@ def verify(artifact, manifest, channel,expected_package='com.clemir.striker'):
             import json
             catalogue_count=verify_catalogue(payload.extractfile(data_member).read(),Path('assets/data/world_clubs.json'))
             from tools.play.fictional_clubs import verify_fictional_data
-            for dataset in ('club_profiles', 'league_status'):
+            for dataset in ('club_profiles', 'league_status', 'fictional_names'):
                 member = next(m for m in payload if m.name.endswith('assets/data/'+dataset+'.json'))
                 verify_fictional_data(dataset, payload.extractfile(member).read(), Path('assets/data'))
             edition = next(m for m in payload if m.name.endswith('/edition.pyc') or m.name == 'edition.pyc')

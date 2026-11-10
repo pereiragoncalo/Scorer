@@ -61,6 +61,7 @@ class ReleaseTests(unittest.TestCase):
             (source/'assets/private.jks').write_text('must not copy')
             (source/'assets/data').mkdir()
             (source/'assets/data/world_clubs.json').write_text('{"version":1,"clubs":{}}')
+            (source/'assets/data/fictional_names.json').write_text('{"version":1,"identity":"fictional-local-v1","clubs":{}}')
             (source/'assets/data/private.json').write_text('must not copy')
             (source/'android/secret.pem').write_text('must not copy')
             (source/'striker_career.json').write_text('must not copy')

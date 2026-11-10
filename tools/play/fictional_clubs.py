@@ -13,15 +13,26 @@ def shipping_data(directory):
     world = read('world_clubs')
     if not world or world.get('version') != 1 or not isinstance(world.get('clubs'), dict):
         raise ValueError('Missing canonical fictional identities')
+    local = read('fictional_names')
+    if local is None:
+        raise ValueError('Missing reviewed local fictional names')
+    if local.get('identity') != 'fictional-local-v1' or not set(world['clubs']).issubset(local.get('clubs', {})):
+        raise ValueError('Incomplete local fictional names')
     names = {}
-    for uid, row in world['clubs'].items():
-        name = row.get('canonical')
+    canonicals = {}
+    for uid, row in local['clubs'].items():
+        name = world['clubs'].get(uid, row).get('canonical')
         if not isinstance(name, str) or not 2 <= len(name) <= 56:
             raise ValueError('Missing canonical fictional name: ' + uid)
-        names[uid] = name
-    result = {'world_clubs': {'version': 1, 'identity': 'fictional', 'clubs': {
-        uid: dict(canonical=name, name=name, **({'colours': world['clubs'][uid]['colours']} if 'colours' in world['clubs'][uid] else {}))
+        canonicals[uid] = name
+        label = local['clubs'][uid].get('name')
+        if not isinstance(label, str) or not 2 <= len(label) <= 56:
+            raise ValueError('Invalid local fictional name: '+uid)
+        names[uid] = label
+    result = {'world_clubs': {'version': 1, 'identity': 'fictional-local-v1', 'clubs': {
+        uid: dict(canonical=canonicals[uid], name=name, **({'colours': world['clubs'].get(uid, {})['colours']} if 'colours' in world['clubs'].get(uid, {}) else {}))
         for uid, name in names.items()}}}
+    result['fictional_names'] = local
     profiles = read('club_profiles')
     if profiles is not None:
         result['club_profiles'] = {'version': 1, 'identity': 'fictional', 'clubs': {}}
@@ -51,6 +62,4 @@ def verify_fictional_data(name, raw, reference_directory):
     expected = shipping_data(reference_directory)[name]
     if json.loads(raw) != expected:
         raise ValueError('Non-fictional or unreviewed club data in ' + name)
-    if name == 'world_clubs' and any(row['name'] != row['canonical'] for row in json.loads(raw)['clubs'].values()):
-        raise ValueError('Real-name presentation overlay must not ship')
     return len(expected.get('clubs', {}))

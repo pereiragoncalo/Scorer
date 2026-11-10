@@ -2943,3 +2943,15 @@ coordinator2336bytes SHA256f378c524f2376eccd11b770b289373874fc2aee6143b7a5974f1d
 unchanged signing helper4668bytes SHA2565492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885fa6761.
 AllHTTPS200. Original flawed GitHub candidate marked SUPERSEDED with corrected link.
 Owner still must sign and replace internal release; no Play changes claimed.
+
+##2026-11-10 — local fictional names and centred season heading,1030002
+
+1030001was culturally wrong for Portugal: English canonical fallback. Replaced
+with immutable10736UID local-name registry, explicit212country naming conventions,
+normalized known-reference/uniqueness checks. Full real-format runtime revealed
+138active UID gaps beyond old10598catalogue; first partial build stopped, coverage
+expanded to actual current+legacy. All8888current display names exactregistry,
+UIDs/save/custom aliases retained.378profile capacity/pattern+499rating rows covered.
+29focused tests pass;6clean-sourceKivy tests pass including90caption measurements
+and YOUR SEASON centre at2sizes. Old generated partial stages preserved under/tmp.
+Build1030002final running; signing/Play acceptance still owner-operated.

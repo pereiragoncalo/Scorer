@@ -31,3 +31,15 @@ class CreationFitTests(unittest.TestCase):
      if density_value==1.6 and size==(1280,640):
       g.i18n.choose('en');g.draw();settle();g.export_to_png('/workspace/striker-runtime/creation-fix-render.png')
   finally:Metrics.density=density;Window.size=old
+
+ def test_season_heading_is_centered_in_its_dashboard_panel(self):
+  old=Window.size
+  try:
+   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
+    g._select_career_mode('world');c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();g.view='hub'
+    for size in ((1280,591),(800,450)):
+     Window.size=size;g.size=size;g.draw();settle()
+     dashboard=g._menu.body;panel=dashboard.season
+     heading=next(w for w in panel.children if getattr(w,'text','')=='YOUR SEASON')
+     self.assertEqual(heading.halign,'center');self.assertAlmostEqual(heading.center_x,panel.center_x,delta=1)
+  finally:Window.size=old

@@ -79,7 +79,7 @@ def prepare(config, target, channel, source=ROOT):
     def ignored(directory, names):
         return [n for n in names if n == '__pycache__' or n.startswith('.') or
                 (Path(n).suffix.lower() in ('.jks', '.keystore', '.pem', '.p12', '.log') or
-                (Path(n).suffix.lower() == '.json' and not ((Path(directory) == source/'assets/sprites' and n == 'manifest.json') or (Path(directory) == source/'assets/data' and n in {'world_clubs.json','club_kits.json','club_profiles.json','league_status.json','domestic_profiles.json','international_calendar.json','domestic_formats.json'}) or (Path(directory) == source/'assets/i18n' and n in {'en.json','pt.json','es.json','de.json','it.json','ko.json','ja.json','zh.json','vi.json','countries.json'}))))]
+                (Path(n).suffix.lower() == '.json' and not ((Path(directory) == source/'assets/sprites' and n == 'manifest.json') or (Path(directory) == source/'assets/data' and n in {'fictional_names.json','world_clubs.json','club_kits.json','club_profiles.json','league_status.json','domestic_profiles.json','international_calendar.json','domestic_formats.json'}) or (Path(directory) == source/'assets/i18n' and n in {'en.json','pt.json','es.json','de.json','it.json','ko.json','ja.json','zh.json','vi.json','countries.json'}))))]
     for directory in ('assets', 'android', 'tools'):
         shutil.copytree(source/directory, target/directory, ignore=ignored)
     from tools.play.fictional_clubs import stage_fictional_clubs

@@ -11,11 +11,12 @@ class BundleCatalogueTests(unittest.TestCase):
   with self.assertRaisesRegex(ValueError,'Non-fictional'):verify_catalogue(path.read_bytes(),path)
  def test_every_shipped_name_is_canonical_and_all_uids_colours_survive(self):
   source=json.loads((ROOT/'assets/data/world_clubs.json').read_text());data=shipping_data(ROOT/'assets/data')
-  clubs=data['world_clubs']['clubs'];self.assertEqual(set(clubs),set(source['clubs']))
+  clubs=data['world_clubs']['clubs'];self.assertTrue(set(source['clubs']).issubset(clubs))
+  local=json.loads((ROOT/'assets/data/fictional_names.json').read_text())['clubs']
   for uid,row in clubs.items():
-   self.assertEqual(row['name'],source['clubs'][uid]['canonical']);self.assertEqual(row['name'],row['canonical'])
-   self.assertEqual(row.get('colours'),source['clubs'][uid].get('colours'))
-  self.assertEqual(verify_catalogue(json.dumps(data['world_clubs']).encode(),ROOT/'assets/data/world_clubs.json'),10598)
+   self.assertEqual(row['name'],local[uid]['name']);self.assertEqual(row['canonical'],source['clubs'].get(uid,local[uid])['canonical'])
+   self.assertEqual(row.get('colours'),source['clubs'].get(uid,{}).get('colours'))
+  self.assertEqual(verify_catalogue(json.dumps(data['world_clubs']).encode(),ROOT/'assets/data/world_clubs.json'),len(local))
   for row in data['club_profiles']['clubs'].values():
    self.assertEqual(set(row),{'club','capacity','shirt_pattern'})
   for row in data['league_status']['clubs'].values():
@@ -28,7 +29,7 @@ class BundleCatalogueTests(unittest.TestCase):
   import shutil
   with tempfile.TemporaryDirectory() as directory:
    target=Path(directory)
-   for name in ('world_clubs','club_profiles','league_status'):shutil.copyfile(ROOT/'assets/data'/(name+'.json'),target/(name+'.json'))
+   for name in ('world_clubs','club_profiles','league_status','fictional_names'):shutil.copyfile(ROOT/'assets/data'/(name+'.json'),target/(name+'.json'))
    before=json.loads((target/'club_profiles.json').read_text());status=json.loads((target/'league_status.json').read_text())
    stage_fictional_clubs(target);first={p.name:p.read_bytes() for p in target.glob('*.json')};stage_fictional_clubs(target)
    self.assertEqual(first,{p.name:p.read_bytes() for p in target.glob('*.json')})

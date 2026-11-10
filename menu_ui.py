@@ -1053,7 +1053,7 @@ class MainDashboard(BoxLayout):
         footer.add_widget(self.training);footer.add_widget(self.play);self.match.add_widget(footer)
         self.hero.add_widget(self.match)
         self.season = EdgePanel(orientation='vertical', size_hint_x=0.34)
-        self.season.add_widget(BoundedLabel(text='YOUR SEASON', color=GREEN, font_size=sp(10),
+        self.season.add_widget(BoundedLabel(text='YOUR SEASON', halign='center', color=GREEN, font_size=sp(10),
                                            bold=True, size_hint_y=None, height=dp(16)))
         numbers = BoxLayout(spacing=dp(8),size_hint_y=.36)
         for number, title in ((c.matches, 'MATCHES'), (c.goals, 'GOALS')):
