@@ -2960,3 +2960,9 @@ existing fixture label. Allowed full two-line wrapping in that fixture panel;
 added a real UI regression alongside centred YOUR SEASON check. No buttons moved.
 Final packaging rerun includes this small readability fix; previous partial builds
 were not delivered. No keys or credentials in source.
+Final1030002AAB compiled and inspected: bundletool, nondebugmanifest, target36/min26,
+118ELFs16KB/ZIP16KB, derivedinspectionAPK, compiledWorld/production/version1.0 pass.
+Actual archive matches reviewed10736local labels+registry,378sanitized profiles,
+499strengthrows.32focused checks (29core+3coordinator) and6native tests pass.
+Input117177209bytes SHA2562e30020eef7ddf264839221bc6ec74364908fc08490a40ed3c687aa814d8cd53.
+Original AAB unsigned; owner bastion signing/Play install remain pending.
