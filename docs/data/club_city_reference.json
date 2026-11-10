@@ -1,0 +1,3029 @@
+{
+  "version": 1,
+  "clubs": {
+    "c8d6431e000ec7467295": {
+      "club": "Benfica",
+      "country": "Portugal",
+      "city": "Lisboa",
+      "source": "https://en.wikipedia.org/wiki/S.L._Benfica",
+      "revision": 1383883690,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "00d46be2fe2f866aca10": {
+      "club": "Sporting CP",
+      "country": "Portugal",
+      "city": "Lisboa",
+      "source": "https://en.wikipedia.org/wiki/Sporting_CP",
+      "revision": 1383804910,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d3811223093359dac065": {
+      "club": "Porto",
+      "country": "Portugal",
+      "city": "Porto",
+      "source": "https://en.wikipedia.org/wiki/FC_Porto",
+      "revision": 1382491675,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "582cdd1845afc7c3faff": {
+      "club": "Braga",
+      "country": "Portugal",
+      "city": "Braga",
+      "source": "https://en.wikipedia.org/wiki/S.C._Braga",
+      "revision": 1383185598,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "ab3f115c251fea1b8d9f": {
+      "club": "Vitória de Guimarães",
+      "country": "Portugal",
+      "city": "Guimarães",
+      "source": "https://en.wikipedia.org/wiki/Vitória_S.C.",
+      "revision": 1383937266,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "560353d7b1b1b7d0be34": {
+      "club": "Rio Ave",
+      "country": "Portugal",
+      "city": "Vila do Conde",
+      "source": "https://en.wikipedia.org/wiki/Rio_Ave_F.C.",
+      "revision": 1380776374,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0e6753645198c3e1ed59": {
+      "club": "Marítimo",
+      "country": "Portugal",
+      "city": "Funchal",
+      "source": "https://en.wikipedia.org/wiki/C.S._Marítimo",
+      "revision": 1381186296,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "15fa5760aa5dfe54e687": {
+      "club": "Casa Pia",
+      "country": "Portugal",
+      "city": "Lisboa",
+      "source": "https://en.wikipedia.org/wiki/Casa_Pia_A.C.",
+      "revision": 1381922986,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "70bc983ce8d45360cfcb": {
+      "club": "Nacional",
+      "country": "Portugal",
+      "city": "Funchal",
+      "source": "https://en.wikipedia.org/wiki/C.D._Nacional",
+      "revision": 1378621856,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7f651ae64b829f05aa36": {
+      "club": "Moreirense",
+      "country": "Portugal",
+      "city": "Moreira de Cónegos",
+      "source": "https://en.wikipedia.org/wiki/Moreirense_F.C.",
+      "revision": 1380093716,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "947b9ef7af3a73650841": {
+      "club": "Arouca",
+      "country": "Portugal",
+      "city": "Arouca",
+      "source": "https://en.wikipedia.org/wiki/F.C._Arouca",
+      "revision": 1382694308,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "94fed88d3d0bb2a8c1ca": {
+      "club": "Estoril Praia",
+      "country": "Portugal",
+      "city": "Estoril",
+      "source": "https://en.wikipedia.org/wiki/G.D._Estoril_Praia",
+      "revision": 1382130820,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9b658898a7275eb40aac": {
+      "club": "Estrela da Amadora",
+      "country": "Portugal",
+      "city": "Amadora",
+      "source": "https://en.wikipedia.org/wiki/C.F._Estrela_da_Amadora",
+      "revision": 1382248519,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a65b749f4ee63dc63ed2": {
+      "club": "Gil Vicente",
+      "country": "Portugal",
+      "city": "Barcelos",
+      "source": "https://en.wikipedia.org/wiki/Gil_Vicente_F.C.",
+      "revision": 1382694472,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "aa01e74f52cb5da63d3f": {
+      "club": "Alverca",
+      "country": "Portugal",
+      "city": "Alverca",
+      "source": "https://en.wikipedia.org/wiki/F.C._Alverca",
+      "revision": 1383371132,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d1fd8dce9882f24d16b9": {
+      "club": "Santa Clara",
+      "country": "Portugal",
+      "city": "Ponta Delgada",
+      "source": "https://en.wikipedia.org/wiki/C.D._Santa_Clara",
+      "revision": 1383185957,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d51606eab1019fdf7281": {
+      "club": "Famalicão",
+      "country": "Portugal",
+      "city": "Famalicão",
+      "source": "https://en.wikipedia.org/wiki/F.C._Famalicão",
+      "revision": 1382132700,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "db7d1b4b9cc415545634": {
+      "club": "Académico de Viseu",
+      "country": "Portugal",
+      "city": "Viseu",
+      "source": "https://en.wikipedia.org/wiki/Académico_de_Viseu_F.C.",
+      "revision": 1382956231,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1fdc69c867e13ae1a659": {
+      "club": "Torreense",
+      "country": "Portugal",
+      "city": "Torres Vedras",
+      "source": "https://en.wikipedia.org/wiki/S.C.U._Torreense",
+      "revision": 1382677083,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "29b7e51552fc753bab79": {
+      "club": "AFS",
+      "country": "Portugal",
+      "city": "Vila das Aves",
+      "source": "https://en.wikipedia.org/wiki/AVS_Futebol_SAD",
+      "revision": 1376905951,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "404adb3453af4787c460": {
+      "club": "Feirense",
+      "country": "Portugal",
+      "city": "Santa Maria da Feira",
+      "source": "https://en.wikipedia.org/wiki/C.D._Feirense",
+      "revision": 1382694157,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "4af36bff0eaa37b64b2f": {
+      "club": "Felgueiras",
+      "country": "Portugal",
+      "city": "Felgueiras",
+      "source": "https://en.wikipedia.org/wiki/F.C._Felgueiras_(2006)",
+      "revision": 1376264144,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "5c3a9aa8eea2c6b6352e": {
+      "club": "Leixões",
+      "country": "Portugal",
+      "city": "Matosinhos",
+      "source": "https://en.wikipedia.org/wiki/Leixões_S.C.",
+      "revision": 1382227379,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "619c457865ab4e078d8c": {
+      "club": "Portimonense",
+      "country": "Portugal",
+      "city": "Portimão",
+      "source": "https://en.wikipedia.org/wiki/Portimonense_S.C.",
+      "revision": 1379202162,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "62611f28eca86577e20d": {
+      "club": "Vizela",
+      "country": "Portugal",
+      "city": "Vizela",
+      "source": "https://en.wikipedia.org/wiki/F.C._Vizela",
+      "revision": 1377500802,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6cf9f5cdbbe3296f7212": {
+      "club": "Tondela",
+      "country": "Portugal",
+      "city": "Tondela",
+      "source": "https://en.wikipedia.org/wiki/C.D._Tondela",
+      "revision": 1379364437,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6d0a94b6d9d584ce77e0": {
+      "club": "Académica",
+      "country": "Portugal",
+      "city": "Coimbra",
+      "source": "https://en.wikipedia.org/wiki/Académica_de_Coimbra_(football)",
+      "revision": 1383761704,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7fc18d19e24210fbb207": {
+      "club": "Amarante",
+      "country": "Portugal",
+      "city": "Amarante",
+      "source": "https://en.wikipedia.org/wiki/Amarante_F.C.",
+      "revision": 1383087915,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8c93a89e7dee6245a132": {
+      "club": "Penafiel",
+      "country": "Portugal",
+      "city": "Penafiel",
+      "source": "https://en.wikipedia.org/wiki/F.C._Penafiel",
+      "revision": 1376373352,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9e19e6a3f14749644d5c": {
+      "club": "Benfica B",
+      "country": "Portugal",
+      "city": "Lisboa",
+      "source": "https://en.wikipedia.org/wiki/S.L._Benfica_B",
+      "revision": 1378426051,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c269ef3642e47735d90e": {
+      "club": "Chaves",
+      "country": "Portugal",
+      "city": "Chaves",
+      "source": "https://en.wikipedia.org/wiki/G.D._Chaves",
+      "revision": 1380235449,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c8332ba3d0176138579a": {
+      "club": "Lusitânia Lourosa",
+      "country": "Portugal",
+      "city": "Lourosa",
+      "source": "https://en.wikipedia.org/wiki/Lusitânia_F.C.",
+      "revision": 1382715116,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d5d90872c6806e3ff34a": {
+      "club": "Farense",
+      "country": "Portugal",
+      "city": "Faro",
+      "source": "https://en.wikipedia.org/wiki/S.C._Farense",
+      "revision": 1382849986,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d9b5361477f978f1e161": {
+      "club": "Porto B",
+      "country": "Portugal",
+      "city": "Porto",
+      "source": "https://en.wikipedia.org/wiki/FC_Porto_B",
+      "revision": 1374875129,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e4823008bb7b58b4873d": {
+      "club": "União de Leiria",
+      "country": "Portugal",
+      "city": "Leiria",
+      "source": "https://en.wikipedia.org/wiki/U.D._Leiria",
+      "revision": 1382363633,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f27a8d5d873af11c5df0": {
+      "club": "Sporting CP B",
+      "country": "Portugal",
+      "city": "Lisboa",
+      "source": "https://en.wikipedia.org/wiki/Sporting_CP_B",
+      "revision": 1383436447,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0345b7df88d691d59fc3": {
+      "club": "Belenenses",
+      "country": "Portugal",
+      "city": "Belém",
+      "source": "https://en.wikipedia.org/wiki/C.F._Os_Belenenses",
+      "revision": 1382611370,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0e0ee8acc1b8ed3d41c9": {
+      "club": "Mafra",
+      "country": "Portugal",
+      "city": "Mafra",
+      "source": "https://en.wikipedia.org/wiki/C.D._Mafra",
+      "revision": 1382932798,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "39c56362a7b576c9b012": {
+      "club": "Oliveirense",
+      "country": "Portugal",
+      "city": "Oliveira de Azeméis",
+      "source": "https://en.wikipedia.org/wiki/U.D._Oliveirense",
+      "revision": 1376257898,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3d9fe6c0224c7c2862db": {
+      "club": "Paços de Ferreira",
+      "country": "Portugal",
+      "city": "Paços de Ferreira",
+      "source": "https://en.wikipedia.org/wiki/F.C._Paços_de_Ferreira",
+      "revision": 1377734814,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "5762fdd32b6efeb18b95": {
+      "club": "Leça",
+      "country": "Portugal",
+      "city": "Leça da Palmeira",
+      "source": "https://en.wikipedia.org/wiki/Leça_Futebol_Clube",
+      "revision": 1375789897,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6b6c08359d8173d073c1": {
+      "club": "Trofense",
+      "country": "Portugal",
+      "city": "Trofa",
+      "source": "https://en.wikipedia.org/wiki/C.D._Trofense",
+      "revision": 1375938091,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "956868dd3b0205f4f2bf": {
+      "club": "Varzim",
+      "country": "Portugal",
+      "city": "Póvoa de Varzim",
+      "source": "https://en.wikipedia.org/wiki/Varzim_S.C.",
+      "revision": 1375953829,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a59dac83815df1678c80": {
+      "club": "Fafe",
+      "country": "Portugal",
+      "city": "Fafe",
+      "source": "https://en.wikipedia.org/wiki/AD_Fafe",
+      "revision": 1375786253,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a7a4b6c8efda8cec705c": {
+      "club": "Marco 09",
+      "country": "Portugal",
+      "city": "Marco de Canaveses",
+      "source": "https://en.wikipedia.org/wiki/A.D._Marco_09",
+      "revision": 1375857382,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "ad8b7e33eb5a8b514f52": {
+      "club": "Paredes",
+      "country": "Portugal",
+      "city": "Paredes",
+      "source": "https://en.wikipedia.org/wiki/U.S.C._Paredes",
+      "revision": 1375918219,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "5d27df05665c0406256b": {
+      "club": "Arsenal",
+      "country": "England",
+      "city": "London",
+      "source": "https://en.wikipedia.org/wiki/Arsenal_F.C.",
+      "revision": 1383495856,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "fd1111e5e54231a2a93f": {
+      "club": "Manchester City",
+      "country": "England",
+      "city": "Manchester",
+      "source": "https://en.wikipedia.org/wiki/Manchester_City_F.C.",
+      "revision": 1383213267,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "79f1e283c133ea287c86": {
+      "club": "Liverpool",
+      "country": "England",
+      "city": "Liverpool",
+      "source": "https://en.wikipedia.org/wiki/Liverpool_F.C.",
+      "revision": 1383763487,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1dd757d88c0069bcd7cd": {
+      "club": "Chelsea",
+      "country": "England",
+      "city": "London",
+      "source": "https://en.wikipedia.org/wiki/Chelsea_F.C.",
+      "revision": 1381752924,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1b90a5a7b45d01807901": {
+      "club": "Manchester United",
+      "country": "England",
+      "city": "Manchester",
+      "source": "https://en.wikipedia.org/wiki/Manchester_United_F.C.",
+      "revision": 1383788382,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d1e35165727184231fcf": {
+      "club": "Tottenham Hotspur",
+      "country": "England",
+      "city": "Tottenham",
+      "source": "https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C.",
+      "revision": 1383884170,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "09746d7dd23654a57132": {
+      "club": "Everton",
+      "country": "England",
+      "city": "Liverpool",
+      "source": "https://en.wikipedia.org/wiki/Everton_F.C.",
+      "revision": 1381725608,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "130fb10fa80de3c38c54": {
+      "club": "Fulham",
+      "country": "England",
+      "city": "Fulham",
+      "source": "https://en.wikipedia.org/wiki/Fulham_F.C.",
+      "revision": 1382802134,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2ed2b73a3addfc479596": {
+      "club": "Aston Villa",
+      "country": "England",
+      "city": "Birmingham",
+      "source": "https://en.wikipedia.org/wiki/Aston_Villa_F.C.",
+      "revision": 1383840896,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "580564a18e7f9a8b3b5b": {
+      "club": "Crystal Palace",
+      "country": "England",
+      "city": "South London",
+      "source": "https://en.wikipedia.org/wiki/Crystal_Palace_F.C.",
+      "revision": 1383881265,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "598e41ea1bbbc63de2af": {
+      "club": "Newcastle United",
+      "country": "England",
+      "city": "Newcastle",
+      "source": "https://en.wikipedia.org/wiki/Newcastle_United_F.C.",
+      "revision": 1383913290,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8876c578731a7d91e847": {
+      "club": "Sunderland",
+      "country": "England",
+      "city": "Sunderland",
+      "source": "https://en.wikipedia.org/wiki/Sunderland_A.F.C.",
+      "revision": 1381562745,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8e39cfc3a668a6247f5e": {
+      "club": "Coventry City",
+      "country": "England",
+      "city": "Coventry",
+      "source": "https://en.wikipedia.org/wiki/Coventry_City_F.C.",
+      "revision": 1383033754,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9bd2bb2c62d7dfbb7720": {
+      "club": "Leeds United",
+      "country": "England",
+      "city": "Leeds",
+      "source": "https://en.wikipedia.org/wiki/Leeds_United_F.C.",
+      "revision": 1383212781,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9f377e619b036578e321": {
+      "club": "Hull City",
+      "country": "England",
+      "city": "Hull",
+      "source": "https://en.wikipedia.org/wiki/Hull_City_A.F.C.",
+      "revision": 1383042633,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "aacfc41ae5531e5d1966": {
+      "club": "Brentford",
+      "country": "England",
+      "city": "Brentford",
+      "source": "https://en.wikipedia.org/wiki/Brentford_F.C.",
+      "revision": 1383880994,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b248abb315678ece6735": {
+      "club": "Ipswich Town",
+      "country": "England",
+      "city": "Ipswich",
+      "source": "https://en.wikipedia.org/wiki/Ipswich_Town_F.C.",
+      "revision": 1383623886,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b5c77508adcea637c44b": {
+      "club": "Nottingham Forest",
+      "country": "England",
+      "city": "Nottingham",
+      "source": "https://en.wikipedia.org/wiki/Nottingham_Forest_F.C.",
+      "revision": 1383508248,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b898a96e6a03ee75030a": {
+      "club": "Bournemouth",
+      "country": "England",
+      "city": "Bournemouth",
+      "source": "https://en.wikipedia.org/wiki/AFC_Bournemouth",
+      "revision": 1383950257,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "fef17a257ddee7bd6283": {
+      "club": "Brighton & Hove Albion",
+      "country": "England",
+      "city": "Brighton",
+      "source": "https://en.wikipedia.org/wiki/Brighton_&_Hove_Albion_F.C.",
+      "revision": 1383881003,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "03492f3d574afdcabc8b": {
+      "club": "West Ham United",
+      "country": "England",
+      "city": "East London",
+      "source": "https://en.wikipedia.org/wiki/West_Ham_United_F.C.",
+      "revision": 1383919631,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "043b8d41e70dba2b6f79": {
+      "club": "Charlton Athletic",
+      "country": "England",
+      "city": "Charlton",
+      "source": "https://en.wikipedia.org/wiki/Charlton_Athletic_F.C.",
+      "revision": 1383914668,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "17a41d494bef0bfeff6f": {
+      "club": "Queens Park Rangers",
+      "country": "England",
+      "city": "West London",
+      "source": "https://en.wikipedia.org/wiki/Queens_Park_Rangers_F.C.",
+      "revision": 1383689856,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "17e7d6c9745778328371": {
+      "club": "Millwall",
+      "country": "England",
+      "city": "Bermondsey",
+      "source": "https://en.wikipedia.org/wiki/Millwall_F.C.",
+      "revision": 1383758401,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "29176aa614c07e08268e": {
+      "club": "Birmingham City",
+      "country": "England",
+      "city": "Birmingham",
+      "source": "https://en.wikipedia.org/wiki/Birmingham_City_F.C.",
+      "revision": 1381558607,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "29515561e3220d26fa78": {
+      "club": "Southampton",
+      "country": "England",
+      "city": "Southampton",
+      "source": "https://en.wikipedia.org/wiki/Southampton_F.C.",
+      "revision": 1383843348,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "48a9744961e6f9343224": {
+      "club": "Portsmouth",
+      "country": "England",
+      "city": "Portsmouth",
+      "source": "https://en.wikipedia.org/wiki/Portsmouth_F.C.",
+      "revision": 1381016368,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "592bdc9f7372c0cdc544": {
+      "club": "West Bromwich Albion",
+      "country": "England",
+      "city": "West Bromwich",
+      "source": "https://en.wikipedia.org/wiki/West_Bromwich_Albion_F.C.",
+      "revision": 1383483124,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "5e6fb51939396ab1d435": {
+      "club": "Wolverhampton Wanderers",
+      "country": "England",
+      "city": "Wolverhampton",
+      "source": "https://en.wikipedia.org/wiki/Wolverhampton_Wanderers_F.C.",
+      "revision": 1383801281,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6a193ff627b83966fe82": {
+      "club": "Blackburn Rovers",
+      "country": "England",
+      "city": "Blackburn",
+      "source": "https://en.wikipedia.org/wiki/Blackburn_Rovers_F.C.",
+      "revision": 1381941415,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7152e05946596e01d215": {
+      "club": "Burnley",
+      "country": "England",
+      "city": "Burnley",
+      "source": "https://en.wikipedia.org/wiki/Burnley_F.C.",
+      "revision": 1383456979,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "791190c891c0b5aa3dff": {
+      "club": "Middlesbrough",
+      "country": "England",
+      "city": "Middlesbrough",
+      "source": "https://en.wikipedia.org/wiki/Middlesbrough_F.C.",
+      "revision": 1382973261,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "794e427d3d70947c6ae2": {
+      "club": "Sheffield United",
+      "country": "England",
+      "city": "Sheffield",
+      "source": "https://en.wikipedia.org/wiki/Sheffield_United_F.C.",
+      "revision": 1383883610,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a0eb76b58586f17a8014": {
+      "club": "Preston North End",
+      "country": "England",
+      "city": "Preston",
+      "source": "https://en.wikipedia.org/wiki/Preston_North_End_F.C.",
+      "revision": 1382067161,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a59cc216be08f6392fba": {
+      "club": "Stoke City",
+      "country": "England",
+      "city": "Stoke",
+      "source": "https://en.wikipedia.org/wiki/Stoke_City_F.C.",
+      "revision": 1383654159,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "bf31722e94ef488a5429": {
+      "club": "Derby County",
+      "country": "England",
+      "city": "Derby",
+      "source": "https://en.wikipedia.org/wiki/Derby_County_F.C.",
+      "revision": 1383616121,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "bfa8e5d8320168fecf60": {
+      "club": "Norwich City",
+      "country": "England",
+      "city": "Norwich",
+      "source": "https://en.wikipedia.org/wiki/Norwich_City_F.C.",
+      "revision": 1383649963,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c1e91e1d684859f5854f": {
+      "club": "Bolton Wanderers",
+      "country": "England",
+      "city": "Bolton",
+      "source": "https://en.wikipedia.org/wiki/Bolton_Wanderers_F.C.",
+      "revision": 1383709848,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c3356217dfb0aad1f592": {
+      "club": "Watford",
+      "country": "England",
+      "city": "Watford",
+      "source": "https://en.wikipedia.org/wiki/Watford_F.C.",
+      "revision": 1380694201,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c6058a9b95413094e1d4": {
+      "club": "Bristol City",
+      "country": "England",
+      "city": "Bristol",
+      "source": "https://en.wikipedia.org/wiki/Bristol_City_F.C.",
+      "revision": 1383721018,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "cd7a4e6d166f1869a4b2": {
+      "club": "Cardiff City",
+      "country": "England",
+      "city": "Cardiff",
+      "source": "https://en.wikipedia.org/wiki/Cardiff_City_F.C.",
+      "revision": 1380580275,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e31f1e0740f0c812ec68": {
+      "club": "Lincoln City",
+      "country": "England",
+      "city": "Lincoln",
+      "source": "https://en.wikipedia.org/wiki/Lincoln_City_F.C.",
+      "revision": 1380986234,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f4790bfde2e8119578e5": {
+      "club": "Swansea City",
+      "country": "England",
+      "city": "Swansea",
+      "source": "https://en.wikipedia.org/wiki/Swansea_City_A.F.C.",
+      "revision": 1383807213,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f6d6ca20162ebbfab031": {
+      "club": "Wrexham",
+      "country": "England",
+      "city": "Wrexham",
+      "source": "https://en.wikipedia.org/wiki/Wrexham_A.F.C.",
+      "revision": 1383846187,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0e760392362a2b04cd96": {
+      "club": "AFC Wimbledon",
+      "country": "England",
+      "city": "Wimbledon",
+      "source": "https://en.wikipedia.org/wiki/AFC_Wimbledon",
+      "revision": 1382371508,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2b8aee981d487c7e24e8": {
+      "club": "Leyton Orient",
+      "country": "England",
+      "city": "Leyton",
+      "source": "https://en.wikipedia.org/wiki/Leyton_Orient_F.C.",
+      "revision": 1381423262,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3bbecd722a54b81c9fbe": {
+      "club": "Bromley",
+      "country": "England",
+      "city": "Bromley",
+      "source": "https://en.wikipedia.org/wiki/Bromley_F.C.",
+      "revision": 1383910945,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "49efa0ee7f006dad53e4": {
+      "club": "Blackpool",
+      "country": "England",
+      "city": "Blackpool",
+      "source": "https://en.wikipedia.org/wiki/Blackpool_F.C.",
+      "revision": 1383938469,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "65e090ca1885b3535a2e": {
+      "club": "Wigan Athletic",
+      "country": "England",
+      "city": "Wigan",
+      "source": "https://en.wikipedia.org/wiki/Wigan_Athletic_F.C.",
+      "revision": 1380439361,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "691e652eee9467a9f3fd": {
+      "club": "Stockport County",
+      "country": "England",
+      "city": "Stockport",
+      "source": "https://en.wikipedia.org/wiki/Stockport_County_F.C.",
+      "revision": 1383407046,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6a99ca790639293f9354": {
+      "club": "Leicester City",
+      "country": "England",
+      "city": "Leicester",
+      "source": "https://en.wikipedia.org/wiki/Leicester_City_F.C.",
+      "revision": 1383180379,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "790297270e078e729302": {
+      "club": "Bradford City",
+      "country": "England",
+      "city": "Bradford",
+      "source": "https://en.wikipedia.org/wiki/Bradford_City_A.F.C.",
+      "revision": 1383396714,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "79a0625a16c54bbe83d4": {
+      "club": "Huddersfield Town",
+      "country": "England",
+      "city": "Huddersfield",
+      "source": "https://en.wikipedia.org/wiki/Huddersfield_Town_A.F.C.",
+      "revision": 1383024546,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "88b22b411ac4759bc902": {
+      "club": "Sheffield Wednesday",
+      "country": "England",
+      "city": "Sheffield",
+      "source": "https://en.wikipedia.org/wiki/Sheffield_Wednesday_F.C.",
+      "revision": 1383898616,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0a57fa8e31a868f0b6e9": {
+      "club": "Real Madrid",
+      "country": "Spain",
+      "city": "Madrid",
+      "source": "https://en.wikipedia.org/wiki/Real_Madrid_CF",
+      "revision": 1383883331,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "ba2bfbd0a51871c48b80": {
+      "club": "Barcelona",
+      "country": "Spain",
+      "city": "Barcelona",
+      "source": "https://en.wikipedia.org/wiki/FC_Barcelona",
+      "revision": 1383451643,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6b74be0a0c0301dca0bf": {
+      "club": "Atlético Madrid",
+      "country": "Spain",
+      "city": "Madrid",
+      "source": "https://en.wikipedia.org/wiki/Atlético_Madrid",
+      "revision": 1383926791,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8679f789551c7cd079d6": {
+      "club": "Athletic Bilbao",
+      "country": "Spain",
+      "city": "Bilbao",
+      "source": "https://en.wikipedia.org/wiki/Athletic_Bilbao",
+      "revision": 1383865515,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a236192def0f049f14cd": {
+      "club": "Villarreal",
+      "country": "Spain",
+      "city": "Villarreal",
+      "source": "https://en.wikipedia.org/wiki/Villarreal_CF",
+      "revision": 1382410025,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "cda69a2ccf769147c70e": {
+      "club": "Real Sociedad",
+      "country": "Spain",
+      "city": "San Sebastián",
+      "source": "https://en.wikipedia.org/wiki/Real_Sociedad",
+      "revision": 1383840546,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0a42465910473e27fb78": {
+      "club": "Getafe",
+      "country": "Spain",
+      "city": "Getafe",
+      "source": "https://en.wikipedia.org/wiki/Getafe_CF",
+      "revision": 1382879757,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1ff36095147a8d097a96": {
+      "club": "Rayo Vallecano",
+      "country": "Spain",
+      "city": "Vallecas",
+      "source": "https://en.wikipedia.org/wiki/Rayo_Vallecano",
+      "revision": 1383505374,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2224dfac92112d65324f": {
+      "club": "Espanyol",
+      "country": "Spain",
+      "city": "Cornellà",
+      "source": "https://en.wikipedia.org/wiki/RCD_Espanyol",
+      "revision": 1383575187,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2ae1fdba3d80fa72b257": {
+      "club": "Deportivo A Coruña",
+      "country": "Spain",
+      "city": "A Coruña",
+      "source": "https://en.wikipedia.org/wiki/Deportivo_de_A_Coruña",
+      "revision": 1383820023,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "323630c553b2b55b9eb5": {
+      "club": "Celta Vigo",
+      "country": "Spain",
+      "city": "Vigo",
+      "source": "https://en.wikipedia.org/wiki/RC_Celta_de_Vigo",
+      "revision": 1383038076,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6fd0d82cbea00411d468": {
+      "club": "Málaga",
+      "country": "Spain",
+      "city": "Málaga",
+      "source": "https://en.wikipedia.org/wiki/Málaga_CF",
+      "revision": 1383731153,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "700e13942a34696fdae5": {
+      "club": "Sevilla",
+      "country": "Spain",
+      "city": "Sevilla",
+      "source": "https://en.wikipedia.org/wiki/Sevilla_FC",
+      "revision": 1383610850,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "758e6440964310000b18": {
+      "club": "Real Betis",
+      "country": "Spain",
+      "city": "Sevilla",
+      "source": "https://en.wikipedia.org/wiki/Real_Betis",
+      "revision": 1382439418,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8e8904232485cb82559c": {
+      "club": "Valencia",
+      "country": "Spain",
+      "city": "Valencia",
+      "source": "https://en.wikipedia.org/wiki/Valencia_CF",
+      "revision": 1383867100,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9a379d34a2761d2ec3f2": {
+      "club": "Levante",
+      "country": "Spain",
+      "city": "Valencia",
+      "source": "https://en.wikipedia.org/wiki/Levante_UD",
+      "revision": 1382880153,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "bf5c108fa4229b42d35b": {
+      "club": "Elche",
+      "country": "Spain",
+      "city": "Elche",
+      "source": "https://en.wikipedia.org/wiki/Elche_CF",
+      "revision": 1378902217,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "dcc53ffc992657a3a5cd": {
+      "club": "Alavés",
+      "country": "Spain",
+      "city": "Vitoria",
+      "source": "https://en.wikipedia.org/wiki/Deportivo_Alavés",
+      "revision": 1383820000,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1b67915201f9c0650021": {
+      "club": "Almería",
+      "country": "Spain",
+      "city": "Almería",
+      "source": "https://en.wikipedia.org/wiki/UD_Almería",
+      "revision": 1382410500,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "287017beb66d6aa94cd0": {
+      "club": "Cádiz",
+      "country": "Spain",
+      "city": "Cádiz",
+      "source": "https://en.wikipedia.org/wiki/Cádiz_CF",
+      "revision": 1381530627,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2a77e6d4b136e14aecf7": {
+      "club": "Granada",
+      "country": "Spain",
+      "city": "Granada",
+      "source": "https://en.wikipedia.org/wiki/Granada_CF",
+      "revision": 1378501242,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "36bbf4792586ead764ed": {
+      "club": "Córdoba",
+      "country": "Spain",
+      "city": "Córdoba",
+      "source": "https://en.wikipedia.org/wiki/Córdoba_CF",
+      "revision": 1378502827,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3c36d77419abd167f313": {
+      "club": "Castellón",
+      "country": "Spain",
+      "city": "Castellón",
+      "source": "https://en.wikipedia.org/wiki/CD_Castellón",
+      "revision": 1382862780,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "4283e4f9c8a54b4b1265": {
+      "club": "Eldense",
+      "country": "Spain",
+      "city": "Elda",
+      "source": "https://en.wikipedia.org/wiki/CD_Eldense",
+      "revision": 1380170817,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "524a000ba8e665156dd0": {
+      "club": "Sporting Gijón",
+      "country": "Spain",
+      "city": "Gijón",
+      "source": "https://en.wikipedia.org/wiki/Sporting_de_Gijón",
+      "revision": 1382862366,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7b15af2c47f099189d6a": {
+      "club": "Girona",
+      "country": "Spain",
+      "city": "Girona",
+      "source": "https://en.wikipedia.org/wiki/Girona_FC",
+      "revision": 1383866021,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "833fcf2f1a0ebee87526": {
+      "club": "Burgos",
+      "country": "Spain",
+      "city": "Burgos",
+      "source": "https://en.wikipedia.org/wiki/Burgos_CF",
+      "revision": 1382862167,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "83c93edbe115490df0dd": {
+      "club": "Albacete",
+      "country": "Spain",
+      "city": "Albacete",
+      "source": "https://en.wikipedia.org/wiki/Albacete_Balompié",
+      "revision": 1382117051,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "954ee5ab0cb586116b49": {
+      "club": "Andorra",
+      "country": "Spain",
+      "city": "Andorra la Vella",
+      "source": "https://en.wikipedia.org/wiki/FC_Andorra",
+      "revision": 1383663311,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a5118afe5b4e005dc42a": {
+      "club": "Celta Fortuna",
+      "country": "Spain",
+      "city": "Vigo",
+      "source": "https://en.wikipedia.org/wiki/RC_Celta_Fortuna",
+      "revision": 1382240548,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a9b465a15af9b3b612c7": {
+      "club": "Ceuta",
+      "country": "Spain",
+      "city": "Ceuta",
+      "source": "https://en.wikipedia.org/wiki/AD_Ceuta_FC",
+      "revision": 1382239842,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "be3737acc0434200d47e": {
+      "club": "Eibar",
+      "country": "Spain",
+      "city": "Eibar",
+      "source": "https://en.wikipedia.org/wiki/SD_Eibar",
+      "revision": 1382815855,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c14f58f27f9c54c4bf93": {
+      "club": "Las Palmas",
+      "country": "Spain",
+      "city": "Las Palmas",
+      "source": "https://en.wikipedia.org/wiki/UD_Las_Palmas",
+      "revision": 1382120873,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "da05a0e0cb6df34f908d": {
+      "club": "Leganés",
+      "country": "Spain",
+      "city": "Leganés",
+      "source": "https://en.wikipedia.org/wiki/CD_Leganés",
+      "revision": 1382131271,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f5cb961d9010cec54525": {
+      "club": "Mallorca",
+      "country": "Spain",
+      "city": "Palma",
+      "source": "https://en.wikipedia.org/wiki/RCD_Mallorca",
+      "revision": 1378902303,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f97028a20a75782b6cde": {
+      "club": "Oviedo",
+      "country": "Spain",
+      "city": "Oviedo",
+      "source": "https://en.wikipedia.org/wiki/Real_Oviedo",
+      "revision": 1382861076,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "013adfb05c2a1e3d9b59": {
+      "club": "Alcorcón",
+      "country": "Spain",
+      "city": "Alcorcón",
+      "source": "https://en.wikipedia.org/wiki/AD_Alcorcón",
+      "revision": 1383807580,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0a4abb38626da14e3a4d": {
+      "club": "Rayo Majadahonda",
+      "country": "Spain",
+      "city": "Majadahonda",
+      "source": "https://en.wikipedia.org/wiki/CF_Rayo_Majadahonda",
+      "revision": 1383857279,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0d03f9d60d6a9aeb90bc": {
+      "club": "Algeciras",
+      "country": "Spain",
+      "city": "Algeciras",
+      "source": "https://en.wikipedia.org/wiki/Algeciras_CF",
+      "revision": 1383812201,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "12628c943a93b544f8af": {
+      "club": "Racing Ferrol",
+      "country": "Spain",
+      "city": "Ferrol",
+      "source": "https://en.wikipedia.org/wiki/Racing_de_Ferrol",
+      "revision": 1383691691,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "14184fff1a8dec6a0bd6": {
+      "club": "Hércules",
+      "country": "Spain",
+      "city": "Alicante",
+      "source": "https://en.wikipedia.org/wiki/Hércules_CF",
+      "revision": 1383805786,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "33d5a68a9e390cee5d3a": {
+      "club": "Extremadura",
+      "country": "Spain",
+      "city": "Almendralejo",
+      "source": "https://en.wikipedia.org/wiki/CD_Extremadura",
+      "revision": 1383693500,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "4844fc1372c8c51e82e9": {
+      "club": "Mérida",
+      "country": "Spain",
+      "city": "Mérida",
+      "source": "https://en.wikipedia.org/wiki/Mérida_AD",
+      "revision": 1383854421,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "48663f43dd1c61f5c869": {
+      "club": "Mirandés",
+      "country": "Spain",
+      "city": "Miranda de Ebro",
+      "source": "https://en.wikipedia.org/wiki/CD_Mirandés",
+      "revision": 1383867174,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "48aa2645eb2f8d5c4ff3": {
+      "club": "Arenas",
+      "country": "Spain",
+      "city": "Getxo",
+      "source": "https://en.wikipedia.org/wiki/Arenas_Club_de_Getxo",
+      "revision": 1383796762,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "645a4224909a8de69e92": {
+      "club": "Avilés Industrial",
+      "country": "Spain",
+      "city": "Avilés",
+      "source": "https://en.wikipedia.org/wiki/Real_Avilés_Industrial_CF",
+      "revision": 1383783043,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "085a3eda94cb9cc5ad43": {
+      "club": "Osasuna",
+      "country": "Spain",
+      "city": "Pamplona",
+      "source": "https://en.wikipedia.org/wiki/CA_Osasuna",
+      "revision": 1381194472,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0b02cb72b153fc02a6de": {
+      "club": "Racing Santander",
+      "country": "Spain",
+      "city": "Santander",
+      "source": "https://en.wikipedia.org/wiki/Racing_de_Santander",
+      "revision": 1382863193,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "28a2b5605b26ac382f4c": {
+      "club": "Real Sociedad B",
+      "country": "Spain",
+      "city": "San Sebastián",
+      "source": "https://en.wikipedia.org/wiki/Real_Sociedad_B",
+      "revision": 1380175161,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8b1e1d2b215b2abe7919": {
+      "club": "Sabadell",
+      "country": "Spain",
+      "city": "Sabadell",
+      "source": "https://en.wikipedia.org/wiki/CE_Sabadell_FC",
+      "revision": 1383180095,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a652c76d5bc5319edc58": {
+      "club": "Tenerife",
+      "country": "Spain",
+      "city": "Santa Cruz",
+      "source": "https://en.wikipedia.org/wiki/CD_Tenerife",
+      "revision": 1383683886,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "fe827efc0763dc687de0": {
+      "club": "Valladolid",
+      "country": "Spain",
+      "city": "Valladolid",
+      "source": "https://en.wikipedia.org/wiki/Real_Valladolid",
+      "revision": 1382274119,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "28287e8e6bd50eb49e5d": {
+      "club": "Bayern Munich",
+      "country": "Germany",
+      "city": "München",
+      "source": "https://en.wikipedia.org/wiki/FC_Bayern_Munich",
+      "revision": 1383881584,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "26d175cbef2faf758d99": {
+      "club": "Borussia Dortmund",
+      "country": "Germany",
+      "city": "Dortmund",
+      "source": "https://en.wikipedia.org/wiki/Borussia_Dortmund",
+      "revision": 1383880979,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3b0ab4d6654dea65ca71": {
+      "club": "Bayer Leverkusen",
+      "country": "Germany",
+      "city": "Leverkusen",
+      "source": "https://en.wikipedia.org/wiki/Bayer_04_Leverkusen",
+      "revision": 1383917323,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7df49f2d8391ad4906db": {
+      "club": "RB Leipzig",
+      "country": "Germany",
+      "city": "Leipzig",
+      "source": "https://en.wikipedia.org/wiki/RB_Leipzig",
+      "revision": 1383715987,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d2a00f43a072dab65d46": {
+      "club": "Eintracht Frankfurt",
+      "country": "Germany",
+      "city": "Frankfurt",
+      "source": "https://en.wikipedia.org/wiki/Eintracht_Frankfurt",
+      "revision": 1383334036,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "dcee2ca6a0bab34f98e6": {
+      "club": "VfB Stuttgart",
+      "country": "Germany",
+      "city": "Stuttgart",
+      "source": "https://en.wikipedia.org/wiki/VfB_Stuttgart",
+      "revision": 1383645356,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "03edc6f8feb218f97a7a": {
+      "club": "1. FC Köln",
+      "country": "Germany",
+      "city": "Köln",
+      "source": "https://en.wikipedia.org/wiki/1._FC_Köln",
+      "revision": 1383335063,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "07f895571f3fae2eaa49": {
+      "club": "Schalke 04",
+      "country": "Germany",
+      "city": "Gelsenkirchen",
+      "source": "https://en.wikipedia.org/wiki/FC_Schalke_04",
+      "revision": 1383336689,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "355e795cd1a8bc9ecd8e": {
+      "club": "Borussia Mönchengladbach",
+      "country": "Germany",
+      "city": "Mönchengladbach",
+      "source": "https://en.wikipedia.org/wiki/Borussia_Mönchengladbach",
+      "revision": 1383867685,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "37c376b5cf4329e2aeb8": {
+      "club": "SC Paderborn",
+      "country": "Germany",
+      "city": "Paderborn",
+      "source": "https://en.wikipedia.org/wiki/SC_Paderborn_07",
+      "revision": 1383335349,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3997a0282d1ae63129f5": {
+      "club": "FC Augsburg",
+      "country": "Germany",
+      "city": "Augsburg",
+      "source": "https://en.wikipedia.org/wiki/FC_Augsburg",
+      "revision": 1383334429,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "4fbcd2cd7b55a72e8ed5": {
+      "club": "Union Berlin",
+      "country": "Germany",
+      "city": "Berlin",
+      "source": "https://en.wikipedia.org/wiki/1._FC_Union_Berlin",
+      "revision": 1383336085,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "66b79300d1bb4e30a515": {
+      "club": "Werder Bremen",
+      "country": "Germany",
+      "city": "Bremen",
+      "source": "https://en.wikipedia.org/wiki/SV_Werder_Bremen",
+      "revision": 1383730391,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6c5b21be99a4e0976cad": {
+      "club": "SV Elversberg",
+      "country": "Germany",
+      "city": "Spiesen-Elversberg",
+      "source": "https://en.wikipedia.org/wiki/SV_Elversberg",
+      "revision": 1383333899,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7520ce3ebf41a307e522": {
+      "club": "SC Freiburg",
+      "country": "Germany",
+      "city": "Freiburg",
+      "source": "https://en.wikipedia.org/wiki/SC_Freiburg",
+      "revision": 1383333294,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9e90b993b2ca6783b176": {
+      "club": "Hamburger SV",
+      "country": "Germany",
+      "city": "Hamburg",
+      "source": "https://en.wikipedia.org/wiki/Hamburger_SV",
+      "revision": 1383922085,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b9541fbe6c5c2b7c8697": {
+      "club": "TSG Hoffenheim",
+      "country": "Germany",
+      "city": "Sinsheim",
+      "source": "https://en.wikipedia.org/wiki/TSG_1899_Hoffenheim",
+      "revision": 1383481756,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "cb4ff0b96b2afccbaee5": {
+      "club": "Mainz 05",
+      "country": "Germany",
+      "city": "Mainz",
+      "source": "https://en.wikipedia.org/wiki/1._FSV_Mainz_05",
+      "revision": 1383334323,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1bc63634577a576d3b30": {
+      "club": "1. FC Nürnberg",
+      "country": "Germany",
+      "city": "Nürnberg",
+      "source": "https://en.wikipedia.org/wiki/1._FC_Nürnberg",
+      "revision": 1383890003,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1dd7344e0bca76751080": {
+      "club": "VfL Osnabrück",
+      "country": "Germany",
+      "city": "Osnabrück",
+      "source": "https://en.wikipedia.org/wiki/VfL_Osnabrück",
+      "revision": 1373024155,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2b95f9e7457be8d1d333": {
+      "club": "Hertha BSC",
+      "country": "Germany",
+      "city": "Berlin",
+      "source": "https://en.wikipedia.org/wiki/Hertha_BSC",
+      "revision": 1383881885,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2e86b284f1f019df8a43": {
+      "club": "Eintracht Braunschweig",
+      "country": "Germany",
+      "city": "Braunschweig",
+      "source": "https://en.wikipedia.org/wiki/Eintracht_Braunschweig",
+      "revision": 1377068880,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "4fc518cb365ae90e2712": {
+      "club": "Energie Cottbus",
+      "country": "Germany",
+      "city": "Cottbus",
+      "source": "https://en.wikipedia.org/wiki/FC_Energie_Cottbus",
+      "revision": 1383334076,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "60489765faae2422dda4": {
+      "club": "Darmstadt 98",
+      "country": "Germany",
+      "city": "Darmstadt",
+      "source": "https://en.wikipedia.org/wiki/SV_Darmstadt_98",
+      "revision": 1375011581,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8246f38c3dbde150bb63": {
+      "club": "Dynamo Dresden",
+      "country": "Germany",
+      "city": "Dresden",
+      "source": "https://en.wikipedia.org/wiki/Dynamo_Dresden",
+      "revision": 1381642717,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8778a051ccc43d9e40df": {
+      "club": "Greuther Fürth",
+      "country": "Germany",
+      "city": "Fürth",
+      "source": "https://en.wikipedia.org/wiki/SpVgg_Greuther_Fürth",
+      "revision": 1383334599,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a03e96d6f15095e779b0": {
+      "club": "Hannover 96",
+      "country": "Germany",
+      "city": "Hannover",
+      "source": "https://en.wikipedia.org/wiki/Hannover_96",
+      "revision": 1383333344,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b384e3de300c07221951": {
+      "club": "1. FC Heidenheim",
+      "country": "Germany",
+      "city": "Heidenheim",
+      "source": "https://en.wikipedia.org/wiki/1._FC_Heidenheim",
+      "revision": 1379906679,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b503761e89e23907040e": {
+      "club": "1. FC Kaiserslautern",
+      "country": "Germany",
+      "city": "Kaiserslautern",
+      "source": "https://en.wikipedia.org/wiki/1._FC_Kaiserslautern",
+      "revision": 1383334917,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b7c7e453a8818671f9a8": {
+      "club": "VfL Bochum",
+      "country": "Germany",
+      "city": "Bochum",
+      "source": "https://en.wikipedia.org/wiki/VfL_Bochum",
+      "revision": 1380493583,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c728a817ab84348331ea": {
+      "club": "Karlsruher SC",
+      "country": "Germany",
+      "city": "Karlsruhe",
+      "source": "https://en.wikipedia.org/wiki/Karlsruher_SC",
+      "revision": 1375621454,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d94737454ac063bc7859": {
+      "club": "Arminia Bielefeld",
+      "country": "Germany",
+      "city": "Bielefeld",
+      "source": "https://en.wikipedia.org/wiki/Arminia_Bielefeld",
+      "revision": 1380092068,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e184a8f98b4ec383df4a": {
+      "club": "Holstein Kiel",
+      "country": "Germany",
+      "city": "Kiel",
+      "source": "https://en.wikipedia.org/wiki/Holstein_Kiel",
+      "revision": 1378187854,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e226f6917a6abbee0980": {
+      "club": "1. FC Magdeburg",
+      "country": "Germany",
+      "city": "Magdeburg",
+      "source": "https://en.wikipedia.org/wiki/1._FC_Magdeburg",
+      "revision": 1377408850,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e6af2ba0f3e504de4326": {
+      "club": "FC St. Pauli",
+      "country": "Germany",
+      "city": "St. Pauli",
+      "source": "https://en.wikipedia.org/wiki/FC_St._Pauli",
+      "revision": 1379514197,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "fc20c10a9acd9781e1be": {
+      "club": "VfL Wolfsburg",
+      "country": "Germany",
+      "city": "Wolfsburg",
+      "source": "https://en.wikipedia.org/wiki/VfL_Wolfsburg",
+      "revision": 1378437521,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "09f4d4e2666ea72ee574": {
+      "club": "Würzburger Kickers",
+      "country": "Germany",
+      "city": "Würzburg",
+      "source": "https://en.wikipedia.org/wiki/FC_Würzburger_Kickers",
+      "revision": 1383199263,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0d9806e6e569154814b8": {
+      "club": "Fortuna Köln",
+      "country": "Germany",
+      "city": "Südstadt Köln",
+      "source": "https://en.wikipedia.org/wiki/SC_Fortuna_Köln",
+      "revision": 1383335444,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2bc7c86f26ecec0056ee": {
+      "club": "Viktoria Köln",
+      "country": "Germany",
+      "city": "Höhenberg Köln",
+      "source": "https://en.wikipedia.org/wiki/FC_Viktoria_Köln",
+      "revision": 1383336810,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "4b4f6c50cec6ecdb565f": {
+      "club": "Fortuna Düsseldorf",
+      "country": "Germany",
+      "city": "Düsseldorf",
+      "source": "https://en.wikipedia.org/wiki/Fortuna_Düsseldorf",
+      "revision": 1380879303,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "4d8e822c4e3338cd684e": {
+      "club": "MSV Duisburg",
+      "country": "Germany",
+      "city": "Duisburg",
+      "source": "https://en.wikipedia.org/wiki/MSV_Duisburg",
+      "revision": 1377525048,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "5df07d9f18bff1558c44": {
+      "club": "Rot-Weiss Essen",
+      "country": "Germany",
+      "city": "Essen",
+      "source": "https://en.wikipedia.org/wiki/Rot-Weiss_Essen",
+      "revision": 1383335147,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7172df3e51d79f56351f": {
+      "club": "SC Verl",
+      "country": "Germany",
+      "city": "Verl",
+      "source": "https://en.wikipedia.org/wiki/SC_Verl",
+      "revision": 1373116218,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "774a96b41a2b55c233e5": {
+      "club": "Preußen Münster",
+      "country": "Germany",
+      "city": "Münster",
+      "source": "https://en.wikipedia.org/wiki/SC_Preußen_Münster",
+      "revision": 1383333794,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9207b7748d20771eff64": {
+      "club": "Alemannia Aachen",
+      "country": "Germany",
+      "city": "Aachen",
+      "source": "https://en.wikipedia.org/wiki/Alemannia_Aachen",
+      "revision": 1383335540,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9379ad741fdcf79884af": {
+      "club": "1. FC Saarbrücken",
+      "country": "Germany",
+      "city": "Saarbrücken",
+      "source": "https://en.wikipedia.org/wiki/1._FC_Saarbrücken",
+      "revision": 1383334359,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0b0e55f7ce27b78e366b": {
+      "club": "Inter Milan",
+      "country": "Italy",
+      "city": "Milano",
+      "source": "https://en.wikipedia.org/wiki/Inter_Milan",
+      "revision": 1383848116,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e1e8a4498a1104be3486": {
+      "club": "AC Milan",
+      "country": "Italy",
+      "city": "Milano",
+      "source": "https://en.wikipedia.org/wiki/AC_Milan",
+      "revision": 1383880401,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1783c72961b1da9ec6ce": {
+      "club": "Juventus",
+      "country": "Italy",
+      "city": "Torino",
+      "source": "https://en.wikipedia.org/wiki/Juventus_FC",
+      "revision": 1383893876,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7db45bcfc5d635bf6a33": {
+      "club": "Napoli",
+      "country": "Italy",
+      "city": "Napoli",
+      "source": "https://en.wikipedia.org/wiki/SSC_Napoli",
+      "revision": 1383843463,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a2fb9f1e2eb7fac49500": {
+      "club": "Roma",
+      "country": "Italy",
+      "city": "Roma",
+      "source": "https://en.wikipedia.org/wiki/AS_Roma",
+      "revision": 1382888232,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "32960978137121dbb8a1": {
+      "club": "Atalanta",
+      "country": "Italy",
+      "city": "Bergamo",
+      "source": "https://en.wikipedia.org/wiki/Atalanta_BC",
+      "revision": 1383911674,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2128f2b8f01e8eeecf3a": {
+      "club": "Lazio",
+      "country": "Italy",
+      "city": "Roma",
+      "source": "https://en.wikipedia.org/wiki/SS_Lazio",
+      "revision": 1381564408,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "229e4a20bd05abd959f4": {
+      "club": "Udinese",
+      "country": "Italy",
+      "city": "Udine",
+      "source": "https://en.wikipedia.org/wiki/Udinese_Calcio",
+      "revision": 1383922896,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "22bf77ba37e1c174297c": {
+      "club": "Genoa",
+      "country": "Italy",
+      "city": "Genova",
+      "source": "https://en.wikipedia.org/wiki/Genoa_CFC",
+      "revision": 1381190946,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "677f801e826a1c28d08b": {
+      "club": "Monza",
+      "country": "Italy",
+      "city": "Monza",
+      "source": "https://en.wikipedia.org/wiki/AC_Monza",
+      "revision": 1381627109,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7ffa78f5eaccb968a9e8": {
+      "club": "Torino",
+      "country": "Italy",
+      "city": "Torino",
+      "source": "https://en.wikipedia.org/wiki/Torino_FC",
+      "revision": 1381399926,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "92cbc4a093020a2b10f5": {
+      "club": "Bologna",
+      "country": "Italy",
+      "city": "Bologna",
+      "source": "https://en.wikipedia.org/wiki/Bologna_FC_1909",
+      "revision": 1380845587,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a66d019af33c89e0619d": {
+      "club": "Sassuolo",
+      "country": "Italy",
+      "city": "Sassuolo",
+      "source": "https://en.wikipedia.org/wiki/US_Sassuolo_Calcio",
+      "revision": 1380962924,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b1d1ccbb9e77bc53c029": {
+      "club": "Fiorentina",
+      "country": "Italy",
+      "city": "Firenze",
+      "source": "https://en.wikipedia.org/wiki/ACF_Fiorentina",
+      "revision": 1382898748,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "cca8ede4bdb14b148a50": {
+      "club": "Venezia",
+      "country": "Italy",
+      "city": "Venezia",
+      "source": "https://en.wikipedia.org/wiki/Venezia_FC",
+      "revision": 1382366061,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "dbdeedafe5d0689d61e0": {
+      "club": "Cagliari",
+      "country": "Italy",
+      "city": "Cagliari",
+      "source": "https://en.wikipedia.org/wiki/Cagliari_Calcio",
+      "revision": 1378066784,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e62a871b1df919357911": {
+      "club": "Frosinone",
+      "country": "Italy",
+      "city": "Frosinone",
+      "source": "https://en.wikipedia.org/wiki/Frosinone_Calcio",
+      "revision": 1383796874,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "fa0022499b6625a794dc": {
+      "club": "Parma",
+      "country": "Italy",
+      "city": "Parma",
+      "source": "https://en.wikipedia.org/wiki/Parma_Calcio_1913",
+      "revision": 1383839227,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "01ad3f1b1ae3abf80357": {
+      "club": "Cremonese",
+      "country": "Italy",
+      "city": "Cremona",
+      "source": "https://en.wikipedia.org/wiki/US_Cremonese",
+      "revision": 1383026503,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "04174881d98fd5ce39b8": {
+      "club": "Hellas Verona",
+      "country": "Italy",
+      "city": "Verona",
+      "source": "https://en.wikipedia.org/wiki/Hellas_Verona_FC",
+      "revision": 1380790359,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "08cbe6fff42b0db62f58": {
+      "club": "Pisa",
+      "country": "Italy",
+      "city": "Pisa",
+      "source": "https://en.wikipedia.org/wiki/Pisa_SC",
+      "revision": 1383867964,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1c59e7de1e38bfd7fc9b": {
+      "club": "Ascoli",
+      "country": "Italy",
+      "city": "Ascoli Piceno",
+      "source": "https://en.wikipedia.org/wiki/Ascoli_Calcio_1898_FC",
+      "revision": 1380609213,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3e7664c32a09c63e3231": {
+      "club": "Palermo",
+      "country": "Italy",
+      "city": "Palermo",
+      "source": "https://en.wikipedia.org/wiki/Palermo_FC",
+      "revision": 1383797745,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "481c42937f172a47406f": {
+      "club": "Avellino",
+      "country": "Italy",
+      "city": "Avellino",
+      "source": "https://en.wikipedia.org/wiki/US_Avellino_1912",
+      "revision": 1380964057,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "64778226f8b756816059": {
+      "club": "Virtus Entella",
+      "country": "Italy",
+      "city": "Chiavari",
+      "source": "https://en.wikipedia.org/wiki/Virtus_Entella",
+      "revision": 1383884874,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "83001dde6d8ced2a44fe": {
+      "club": "Arezzo",
+      "country": "Italy",
+      "city": "Arezzo",
+      "source": "https://en.wikipedia.org/wiki/SS_Arezzo",
+      "revision": 1383892307,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "965017ed24fd0bc1b89c": {
+      "club": "Benevento",
+      "country": "Italy",
+      "city": "Benevento",
+      "source": "https://en.wikipedia.org/wiki/Benevento_Calcio",
+      "revision": 1382184515,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "994ac6d710072a1337ce": {
+      "club": "Carrarese",
+      "country": "Italy",
+      "city": "Carrara",
+      "source": "https://en.wikipedia.org/wiki/Carrarese_Calcio_1908",
+      "revision": 1383891239,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9a01f8964264e56b3d6b": {
+      "club": "Catanzaro",
+      "country": "Italy",
+      "city": "Catanzaro",
+      "source": "https://en.wikipedia.org/wiki/US_Catanzaro_1929",
+      "revision": 1383892054,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a9630ee6b10efe335596": {
+      "club": "Cesena",
+      "country": "Italy",
+      "city": "Cesena",
+      "source": "https://en.wikipedia.org/wiki/Cesena_FC",
+      "revision": 1383263216,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "ab499fc6e74fb3aa243a": {
+      "club": "Juve Stabia",
+      "country": "Italy",
+      "city": "Castellammare",
+      "source": "https://en.wikipedia.org/wiki/SS_Juve_Stabia",
+      "revision": 1383891902,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b36d57bd386034d10b76": {
+      "club": "Mantova",
+      "country": "Italy",
+      "city": "Mantova",
+      "source": "https://en.wikipedia.org/wiki/Mantova_1911",
+      "revision": 1377658044,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c4fc6984d183781b441c": {
+      "club": "Modena",
+      "country": "Italy",
+      "city": "Modena",
+      "source": "https://en.wikipedia.org/wiki/Modena_FC_2018",
+      "revision": 1380962524,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d131ea66b5567c4142d6": {
+      "club": "Padova",
+      "country": "Italy",
+      "city": "Padova",
+      "source": "https://en.wikipedia.org/wiki/Calcio_Padova",
+      "revision": 1380963826,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f603e65adef013ca0bf7": {
+      "club": "Empoli",
+      "country": "Italy",
+      "city": "Empoli",
+      "source": "https://en.wikipedia.org/wiki/Empoli_FC",
+      "revision": 1381160072,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f95925e3af500f7a0b6f": {
+      "club": "Sampdoria",
+      "country": "Italy",
+      "city": "Genova",
+      "source": "https://en.wikipedia.org/wiki/Sampdoria",
+      "revision": 1383426072,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0bc572c6dc37a97b5e7a": {
+      "club": "Cittadella",
+      "country": "Italy",
+      "city": "Cittadella",
+      "source": "https://en.wikipedia.org/wiki/AS_Cittadella",
+      "revision": 1383815663,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0c603059202dcd6f4ac3": {
+      "club": "Crotone",
+      "country": "Italy",
+      "city": "Crotone",
+      "source": "https://en.wikipedia.org/wiki/FC_Crotone",
+      "revision": 1380963403,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0d4f37774190ff41bab9": {
+      "club": "Bari",
+      "country": "Italy",
+      "city": "Bari",
+      "source": "https://en.wikipedia.org/wiki/SSC_Bari",
+      "revision": 1380961469,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0e813c129db07f76eb5d": {
+      "club": "Ravenna",
+      "country": "Italy",
+      "city": "Ravenna",
+      "source": "https://en.wikipedia.org/wiki/Ravenna_FC",
+      "revision": 1372390994,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1c5ee5896519f7cb7283": {
+      "club": "Novara",
+      "country": "Italy",
+      "city": "Novara",
+      "source": "https://en.wikipedia.org/wiki/Novara_FC",
+      "revision": 1383841031,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "36949ece4e635566c72b": {
+      "club": "Carpi",
+      "country": "Italy",
+      "city": "Carpi",
+      "source": "https://en.wikipedia.org/wiki/AC_Carpi",
+      "revision": 1383893533,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3763369b1ea5add9f0ac": {
+      "club": "Salernitana",
+      "country": "Italy",
+      "city": "Salerno",
+      "source": "https://en.wikipedia.org/wiki/US_Salernitana_1919",
+      "revision": 1383815339,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "388475a8bb31dcedfe30": {
+      "club": "Perugia",
+      "country": "Italy",
+      "city": "Perugia",
+      "source": "https://en.wikipedia.org/wiki/AC_Perugia_Calcio",
+      "revision": 1380963252,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "39bf17ff392b16b09f1c": {
+      "club": "Pescara",
+      "country": "Italy",
+      "city": "Pescara",
+      "source": "https://en.wikipedia.org/wiki/Delfino_Pescara_1936",
+      "revision": 1379477854,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3a0268f324efdce2abce": {
+      "club": "Pro Vercelli",
+      "country": "Italy",
+      "city": "Vercelli",
+      "source": "https://en.wikipedia.org/wiki/FC_Pro_Vercelli_1892",
+      "revision": 1380963960,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "410f1057829413702199": {
+      "club": "Como",
+      "country": "Italy",
+      "city": "Como",
+      "source": "https://en.wikipedia.org/wiki/Como_1907",
+      "revision": 1383909640,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9dea5415443e19d1dad9": {
+      "club": "Lecce",
+      "country": "Italy",
+      "city": "Lecce",
+      "source": "https://en.wikipedia.org/wiki/US_Lecce",
+      "revision": 1383796195,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a3d5cb202d9e1c1f2726": {
+      "club": "Südtirol",
+      "country": "Italy",
+      "city": "Bolzano",
+      "source": "https://en.wikipedia.org/wiki/FC_Südtirol",
+      "revision": 1381544535,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "fad5b0307cc1b5eb87c0": {
+      "club": "Vicenza",
+      "country": "Italy",
+      "city": "Vicenza",
+      "source": "https://en.wikipedia.org/wiki/LR_Vicenza",
+      "revision": 1383002920,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3aafb272e8752af57673": {
+      "club": "Paris Saint-Germain",
+      "country": "France",
+      "city": "Paris",
+      "source": "https://en.wikipedia.org/wiki/Paris_Saint-Germain_FC",
+      "revision": 1383883032,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "70016252382c95789326": {
+      "club": "Marseille",
+      "country": "France",
+      "city": "Marseille",
+      "source": "https://en.wikipedia.org/wiki/Olympique_de_Marseille",
+      "revision": 1383866654,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f29add313c45f046c569": {
+      "club": "Monaco",
+      "country": "France",
+      "city": "Monaco",
+      "source": "https://en.wikipedia.org/wiki/AS_Monaco_FC",
+      "revision": 1382771704,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "fda9c90903e5a56a33bd": {
+      "club": "Lyon",
+      "country": "France",
+      "city": "Lyon",
+      "source": "https://en.wikipedia.org/wiki/Olympique_Lyonnais",
+      "revision": 1383882985,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1677074cfcb68877beba": {
+      "club": "Lille",
+      "country": "France",
+      "city": "Lille",
+      "source": "https://en.wikipedia.org/wiki/Lille_OSC",
+      "revision": 1382895352,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8c754b0b5afac945a2c3": {
+      "club": "Lens",
+      "country": "France",
+      "city": "Lens",
+      "source": "https://en.wikipedia.org/wiki/RC_Lens",
+      "revision": 1383888739,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "10d54a40828b00dc35c1": {
+      "club": "Paris FC",
+      "country": "France",
+      "city": "Paris",
+      "source": "https://en.wikipedia.org/wiki/Paris_FC",
+      "revision": 1383884629,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "16ba2ee08fcbdfd5347c": {
+      "club": "Nice",
+      "country": "France",
+      "city": "Nice",
+      "source": "https://en.wikipedia.org/wiki/OGC_Nice",
+      "revision": 1383445272,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "24d2acf89cd421b12a7b": {
+      "club": "Rennes",
+      "country": "France",
+      "city": "Rennes",
+      "source": "https://en.wikipedia.org/wiki/Stade_Rennais_FC",
+      "revision": 1382144991,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "306f6155a6b00e2b6f71": {
+      "club": "Strasbourg",
+      "country": "France",
+      "city": "Strasbourg",
+      "source": "https://en.wikipedia.org/wiki/RC_Strasbourg_Alsace",
+      "revision": 1381293683,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "40d3a7943b8d71c78040": {
+      "club": "Toulouse",
+      "country": "France",
+      "city": "Toulouse",
+      "source": "https://en.wikipedia.org/wiki/Toulouse_FC",
+      "revision": 1378874802,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "465f5269db5b7754453f": {
+      "club": "Troyes",
+      "country": "France",
+      "city": "Troyes",
+      "source": "https://en.wikipedia.org/wiki/ES_Troyes_AC",
+      "revision": 1377254275,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "55744f20044991dcf6bd": {
+      "club": "Angers",
+      "country": "France",
+      "city": "Angers",
+      "source": "https://en.wikipedia.org/wiki/Angers_SCO",
+      "revision": 1382361035,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "62f0a8a7cacddd97c2f9": {
+      "club": "Auxerre",
+      "country": "France",
+      "city": "Auxerre",
+      "source": "https://en.wikipedia.org/wiki/AJ_Auxerre",
+      "revision": 1378873465,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6a5a99645fad7809bb02": {
+      "club": "Brest",
+      "country": "France",
+      "city": "Brest",
+      "source": "https://en.wikipedia.org/wiki/Stade_Brestois_29",
+      "revision": 1382561805,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "abc8e8bff221743ca3b4": {
+      "club": "Le Havre",
+      "country": "France",
+      "city": "Le Havre",
+      "source": "https://en.wikipedia.org/wiki/Le_Havre_AC",
+      "revision": 1383492530,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b9e082b5af8f268047f2": {
+      "club": "Lorient",
+      "country": "France",
+      "city": "Lorient",
+      "source": "https://en.wikipedia.org/wiki/FC_Lorient",
+      "revision": 1382369539,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c9b48f760695a3d96c47": {
+      "club": "Le Mans",
+      "country": "France",
+      "city": "Le Mans",
+      "source": "https://en.wikipedia.org/wiki/Le_Mans_FC",
+      "revision": 1376910711,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0ea667eba770279bcb4d": {
+      "club": "Red Star",
+      "country": "France",
+      "city": "Saint-Ouen",
+      "source": "https://en.wikipedia.org/wiki/Red_Star_FC",
+      "revision": 1374882039,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1aec775a1e0bbc0f4a0e": {
+      "club": "Nantes",
+      "country": "France",
+      "city": "Nantes",
+      "source": "https://en.wikipedia.org/wiki/FC_Nantes",
+      "revision": 1376732038,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1e6db57f0300984d527b": {
+      "club": "Metz",
+      "country": "France",
+      "city": "Metz",
+      "source": "https://en.wikipedia.org/wiki/FC_Metz",
+      "revision": 1380175903,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "28ef8b8ff55e67114af6": {
+      "club": "Boulogne",
+      "country": "France",
+      "city": "Boulogne",
+      "source": "https://en.wikipedia.org/wiki/US_Boulogne",
+      "revision": 1373708044,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "33d1544fd885ba9908b1": {
+      "club": "Saint-Étienne",
+      "country": "France",
+      "city": "Saint-Étienne",
+      "source": "https://en.wikipedia.org/wiki/AS_Saint-Étienne",
+      "revision": 1381944472,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "35f2a8362d8017836e91": {
+      "club": "Annecy",
+      "country": "France",
+      "city": "Annecy",
+      "source": "https://en.wikipedia.org/wiki/FC_Annecy",
+      "revision": 1382373716,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "40614e964673609022b4": {
+      "club": "Clermont",
+      "country": "France",
+      "city": "Clermont",
+      "source": "https://en.wikipedia.org/wiki/Clermont_Foot",
+      "revision": 1374436780,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6148c410fb3b2947879a": {
+      "club": "Dijon",
+      "country": "France",
+      "city": "Dijon",
+      "source": "https://en.wikipedia.org/wiki/Dijon_FCO",
+      "revision": 1376377581,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6b27acc4f4b1642294ea": {
+      "club": "Reims",
+      "country": "France",
+      "city": "Reims",
+      "source": "https://en.wikipedia.org/wiki/Stade_de_Reims",
+      "revision": 1379918017,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "70832772cce093cd3a3a": {
+      "club": "Dunkerque",
+      "country": "France",
+      "city": "Dunkerque",
+      "source": "https://en.wikipedia.org/wiki/USL_Dunkerque",
+      "revision": 1374847401,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7ae092360edc3159b422": {
+      "club": "Grenoble",
+      "country": "France",
+      "city": "Grenoble",
+      "source": "https://en.wikipedia.org/wiki/Grenoble_Foot_38",
+      "revision": 1375625020,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7c14a77b452dec3b13d8": {
+      "club": "Guingamp",
+      "country": "France",
+      "city": "Guingamp",
+      "source": "https://en.wikipedia.org/wiki/En_Avant_Guingamp",
+      "revision": 1374437042,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8fecb2f10590b7af1a16": {
+      "club": "Laval",
+      "country": "France",
+      "city": "Laval",
+      "source": "https://en.wikipedia.org/wiki/Stade_Lavallois",
+      "revision": 1374008850,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "bc7829e8d8fec431f856": {
+      "club": "Montpellier",
+      "country": "France",
+      "city": "Montpellier",
+      "source": "https://en.wikipedia.org/wiki/Montpellier_HSC",
+      "revision": 1381131664,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "bda1335ce63b00c23476": {
+      "club": "Nancy",
+      "country": "France",
+      "city": "Nancy",
+      "source": "https://en.wikipedia.org/wiki/AS_Nancy_Lorraine",
+      "revision": 1383880675,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "bdc88936c352b52f8afb": {
+      "club": "Pau",
+      "country": "France",
+      "city": "Pau",
+      "source": "https://en.wikipedia.org/wiki/Pau_FC",
+      "revision": 1373824847,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e0583863c302f2b70933": {
+      "club": "Rodez",
+      "country": "France",
+      "city": "Rodez",
+      "source": "https://en.wikipedia.org/wiki/Rodez_AF",
+      "revision": 1374436533,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e261747b2b6b6ae5ba27": {
+      "club": "Sochaux",
+      "country": "France",
+      "city": "Sochaux",
+      "source": "https://en.wikipedia.org/wiki/FC_Sochaux-Montbéliard",
+      "revision": 1373886988,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "032162d8688657493a2e": {
+      "club": "Versailles",
+      "country": "France",
+      "city": "Versailles",
+      "source": "https://en.wikipedia.org/wiki/FC_Versailles_78",
+      "revision": 1380957780,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "12619058e011694467d9": {
+      "club": "Amiens",
+      "country": "France",
+      "city": "Amiens",
+      "source": "https://en.wikipedia.org/wiki/Amiens_SC",
+      "revision": 1374437387,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3cfcf18d3a7061db626b": {
+      "club": "Caen",
+      "country": "France",
+      "city": "Caen",
+      "source": "https://en.wikipedia.org/wiki/Stade_Malherbe_Caen",
+      "revision": 1373425057,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "413624503d4c5353ee68": {
+      "club": "Orléans",
+      "country": "France",
+      "city": "Orléans",
+      "source": "https://en.wikipedia.org/wiki/US_Orléans",
+      "revision": 1373462749,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "428e7b40ab4c540c9d8b": {
+      "club": "Cannes",
+      "country": "France",
+      "city": "Cannes",
+      "source": "https://en.wikipedia.org/wiki/AS_Cannes",
+      "revision": 1381252941,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "45df509009642afc2a1b": {
+      "club": "Aubagne Air Bel",
+      "country": "France",
+      "city": "Aubagne",
+      "source": "https://en.wikipedia.org/wiki/SC_Aubagne_Air_Bel",
+      "revision": 1377642422,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "4f82bc1770c4504a31ab": {
+      "club": "Bourg-Péronnas",
+      "country": "France",
+      "city": "Bourg-en-Bresse",
+      "source": "https://en.wikipedia.org/wiki/Football_Bourg-en-Bresse_Péronnas_01",
+      "revision": 1373422956,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "67d2ffd991da3bba60b3": {
+      "club": "Valenciennes",
+      "country": "France",
+      "city": "Valenciennes",
+      "source": "https://en.wikipedia.org/wiki/Valenciennes_FC",
+      "revision": 1380851167,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7bc04adae9689875bcaf": {
+      "club": "Concarneau",
+      "country": "France",
+      "city": "Concarneau",
+      "source": "https://en.wikipedia.org/wiki/US_Concarneau",
+      "revision": 1373445980,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "979ba7e09f9dc55d79bd": {
+      "club": "Bastia",
+      "country": "France",
+      "city": "Bastia",
+      "source": "https://en.wikipedia.org/wiki/SC_Bastia",
+      "revision": 1383744956,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1811a02d3dea0e34d763": {
+      "club": "Flamengo",
+      "country": "Brazil",
+      "city": "Rio de Janeiro",
+      "source": "https://en.wikipedia.org/wiki/CR_Flamengo",
+      "revision": 1383881225,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b12c65334b70507f4c00": {
+      "club": "Palmeiras",
+      "country": "Brazil",
+      "city": "São Paulo",
+      "source": "https://en.wikipedia.org/wiki/SE_Palmeiras",
+      "revision": 1383883570,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "5f9f7033f562b3fe6218": {
+      "club": "Corinthians",
+      "country": "Brazil",
+      "city": "São Paulo",
+      "source": "https://en.wikipedia.org/wiki/SC_Corinthians_Paulista",
+      "revision": 1383883507,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0a06e2b7aeb94d18c23d": {
+      "club": "São Paulo",
+      "country": "Brazil",
+      "city": "São Paulo",
+      "source": "https://en.wikipedia.org/wiki/São_Paulo_FC",
+      "revision": 1380353598,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0a85927f40ff51c7b32e": {
+      "club": "Fluminense RJ",
+      "country": "Brazil",
+      "city": "Rio de Janeiro",
+      "source": "https://en.wikipedia.org/wiki/Fluminense_FC",
+      "revision": 1376181966,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e319d9e58a3c3f88a2b1": {
+      "club": "Grêmio",
+      "country": "Brazil",
+      "city": "Porto Alegre",
+      "source": "https://en.wikipedia.org/wiki/Grêmio_FBPA",
+      "revision": 1380626257,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2d8ed6622c1975e49c94": {
+      "club": "Santos",
+      "country": "Brazil",
+      "city": "Santos",
+      "source": "https://en.wikipedia.org/wiki/Santos_FC",
+      "revision": 1382900401,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3a89cb834dd44ff7f559": {
+      "club": "Mirassol",
+      "country": "Brazil",
+      "city": "Mirassol",
+      "source": "https://en.wikipedia.org/wiki/Mirassol_Futebol_Clube",
+      "revision": 1381060913,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7dbdb87d52a6ada5b5b4": {
+      "club": "Red Bull Bragantino",
+      "country": "Brazil",
+      "city": "Bragança Paulista",
+      "source": "https://en.wikipedia.org/wiki/Red_Bull_Bragantino",
+      "revision": 1383207966,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a1c5ad3a302e2042d43e": {
+      "club": "Botafogo",
+      "country": "Brazil",
+      "city": "Rio de Janeiro",
+      "source": "https://en.wikipedia.org/wiki/Botafogo_FR",
+      "revision": 1378964980,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "fcb25f741981fc120e77": {
+      "club": "Vasco da Gama",
+      "country": "Brazil",
+      "city": "Rio de Janeiro",
+      "source": "https://en.wikipedia.org/wiki/CR_Vasco_da_Gama",
+      "revision": 1383206678,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "fd542fd70c60524a3346": {
+      "club": "Atlético Mineiro",
+      "country": "Brazil",
+      "city": "Belo Horizonte",
+      "source": "https://en.wikipedia.org/wiki/Clube_Atlético_Mineiro",
+      "revision": 1383881127,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3fcfab4b5b52419961cf": {
+      "club": "Botafogo-SP",
+      "country": "Brazil",
+      "city": "Ribeirão Preto",
+      "source": "https://en.wikipedia.org/wiki/Botafogo_Futebol_Clube_(SP)",
+      "revision": 1382556043,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "46f103af27ea2450da0f": {
+      "club": "Ponte Preta",
+      "country": "Brazil",
+      "city": "Campinas",
+      "source": "https://en.wikipedia.org/wiki/Associação_Atlética_Ponte_Preta",
+      "revision": 1383205726,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "5261112a0e6cf315b415": {
+      "club": "Operário Ferroviário",
+      "country": "Brazil",
+      "city": "Ponta Grossa",
+      "source": "https://en.wikipedia.org/wiki/Operário_Ferroviário_Esporte_Clube",
+      "revision": 1377516769,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "637d11ae77f0ab027b3a": {
+      "club": "América Mineiro",
+      "country": "Brazil",
+      "city": "Belo Horizonte",
+      "source": "https://en.wikipedia.org/wiki/América_Futebol_Clube_(MG)",
+      "revision": 1378845743,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7c70035088e8dbc53515": {
+      "club": "Athletic",
+      "country": "Brazil",
+      "city": "São João del-Rei",
+      "source": "https://en.wikipedia.org/wiki/Athletic_Club_(MG)",
+      "revision": 1374879818,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7f05e5c2f2e87cee6e63": {
+      "club": "Atlético Goianiense",
+      "country": "Brazil",
+      "city": "Goiânia",
+      "source": "https://en.wikipedia.org/wiki/Atlético_Clube_Goianiense",
+      "revision": 1378593138,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a6a2c6ef7d3418a3bb65": {
+      "club": "Avaí",
+      "country": "Brazil",
+      "city": "Florianópolis",
+      "source": "https://en.wikipedia.org/wiki/Avaí_FC",
+      "revision": 1376371141,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c62677c4ebf4acf5e786": {
+      "club": "Ceará",
+      "country": "Brazil",
+      "city": "Fortaleza",
+      "source": "https://en.wikipedia.org/wiki/Ceará_Sporting_Club",
+      "revision": 1378240701,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d784b618657926f69d9a": {
+      "club": "CRB",
+      "country": "Brazil",
+      "city": "Maceió",
+      "source": "https://en.wikipedia.org/wiki/Clube_de_Regatas_Brasil",
+      "revision": 1382880148,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "dd2c0384360bb3d6cde8": {
+      "club": "Criciúma",
+      "country": "Brazil",
+      "city": "Criciúma",
+      "source": "https://en.wikipedia.org/wiki/Criciúma_Esporte_Clube",
+      "revision": 1382878564,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "dea575cbcedb1dbe8c56": {
+      "club": "Cuiabá",
+      "country": "Brazil",
+      "city": "Cuiabá",
+      "source": "https://en.wikipedia.org/wiki/Cuiabá_Esporte_Clube",
+      "revision": 1381372422,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "fc670f783b7d5938bbef": {
+      "club": "Fortaleza",
+      "country": "Brazil",
+      "city": "Fortaleza",
+      "source": "https://en.wikipedia.org/wiki/Fortaleza_Esporte_Clube",
+      "revision": 1383730249,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3eada2d1f193589b7b04": {
+      "club": "Guarani",
+      "country": "Brazil",
+      "city": "Campinas",
+      "source": "https://en.wikipedia.org/wiki/Guarani_FC",
+      "revision": 1383205654,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3fadceaf412aedaea3be": {
+      "club": "Ypiranga",
+      "country": "Brazil",
+      "city": "Erechim",
+      "source": "https://en.wikipedia.org/wiki/Ypiranga_Futebol_Clube",
+      "revision": 1378907295,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "444f0bb2369094dc1592": {
+      "club": "Figueirense",
+      "country": "Brazil",
+      "city": "Florianópolis",
+      "source": "https://en.wikipedia.org/wiki/Figueirense_FC",
+      "revision": 1383079837,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "6b635ff592ba6ab0f2ff": {
+      "club": "Amazonas",
+      "country": "Brazil",
+      "city": "Manaus",
+      "source": "https://en.wikipedia.org/wiki/Amazonas_Futebol_Clube",
+      "revision": 1381087238,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7dec948eb275cdb0ca09": {
+      "club": "Anápolis",
+      "country": "Brazil",
+      "city": "Anápolis",
+      "source": "https://en.wikipedia.org/wiki/Anápolis_Futebol_Clube",
+      "revision": 1378886580,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "872917a857e759ba7240": {
+      "club": "Barra",
+      "country": "Brazil",
+      "city": "Balneário Camboriú",
+      "source": "https://en.wikipedia.org/wiki/Barra_Futebol_Clube_(SC)",
+      "revision": 1365469411,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9da740fce76f8332ad59": {
+      "club": "Botafogo-PB",
+      "country": "Brazil",
+      "city": "João Pessoa",
+      "source": "https://en.wikipedia.org/wiki/Botafogo_Futebol_Clube_(PB)",
+      "revision": 1381523913,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "9f1f2eeb5d80231cb2fe": {
+      "club": "Brusque",
+      "country": "Brazil",
+      "city": "Brusque",
+      "source": "https://en.wikipedia.org/wiki/Brusque_Futebol_Clube",
+      "revision": 1378889768,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a424499ad11d52e6264a": {
+      "club": "Caxias",
+      "country": "Brazil",
+      "city": "Caxias do Sul",
+      "source": "https://en.wikipedia.org/wiki/Sociedade_Esportiva_e_Recreativa_Caxias_do_Sul",
+      "revision": 1353369912,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "bdd72d1dee8bba461b77": {
+      "club": "Confiança",
+      "country": "Brazil",
+      "city": "Aracaju",
+      "source": "https://en.wikipedia.org/wiki/Associação_Desportiva_Confiança",
+      "revision": 1378891735,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "034f78603cbe2e374ba3": {
+      "club": "Athletico Paranaense",
+      "country": "Brazil",
+      "city": "Curitiba",
+      "source": "https://en.wikipedia.org/wiki/Club_Athletico_Paranaense",
+      "revision": 1383205988,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "7347ae77d98a546baffd": {
+      "club": "Bahia",
+      "country": "Brazil",
+      "city": "Salvador",
+      "source": "https://en.wikipedia.org/wiki/Esporte_Clube_Bahia",
+      "revision": 1380914087,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8796954986da2abe149f": {
+      "club": "Chapecoense",
+      "country": "Brazil",
+      "city": "Chapecó",
+      "source": "https://en.wikipedia.org/wiki/Associação_Chapecoense_de_Futebol",
+      "revision": 1380105570,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "af03c4296240e8c0ced5": {
+      "club": "Coritiba",
+      "country": "Brazil",
+      "city": "Curitiba",
+      "source": "https://en.wikipedia.org/wiki/Coritiba_Foot_Ball_Club",
+      "revision": 1382175394,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "cbd600ef2f5d278ae21d": {
+      "club": "Cruzeiro",
+      "country": "Brazil",
+      "city": "Belo Horizonte",
+      "source": "https://en.wikipedia.org/wiki/Cruzeiro_EC",
+      "revision": 1381496002,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e2ab7caab9bdfafff220": {
+      "club": "Internacional",
+      "country": "Brazil",
+      "city": "Porto Alegre",
+      "source": "https://en.wikipedia.org/wiki/SC_Internacional",
+      "revision": 1383252733,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f22faf4641953a150b5d": {
+      "club": "Remo",
+      "country": "Brazil",
+      "city": "Belém",
+      "source": "https://en.wikipedia.org/wiki/Clube_do_Remo",
+      "revision": 1382280651,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f9554f2ce1ab5ff99892": {
+      "club": "Vitória BA",
+      "country": "Brazil",
+      "city": "Salvador",
+      "source": "https://en.wikipedia.org/wiki/Esporte_Clube_Vitória",
+      "revision": 1383670274,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "46ecc6a3f06df31240b8": {
+      "club": "Goiás",
+      "country": "Brazil",
+      "city": "Goiânia",
+      "source": "https://en.wikipedia.org/wiki/Goiás_Esporte_Clube",
+      "revision": 1382874481,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "5521d9a38206dee4bd7e": {
+      "club": "Juventude",
+      "country": "Brazil",
+      "city": "Caxias do Sul",
+      "source": "https://en.wikipedia.org/wiki/Esporte_Clube_Juventude",
+      "revision": 1383934010,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "708e4cb38af41f5e35eb": {
+      "club": "Londrina",
+      "country": "Brazil",
+      "city": "Londrina",
+      "source": "https://en.wikipedia.org/wiki/Londrina_Esporte_Clube",
+      "revision": 1380641697,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "ad6f1916152e9b0232ab": {
+      "club": "Náutico",
+      "country": "Brazil",
+      "city": "Recife",
+      "source": "https://en.wikipedia.org/wiki/Clube_Náutico_Capibaribe",
+      "revision": 1383207166,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "cf1c060c656ffe1088ee": {
+      "club": "Novorizontino",
+      "country": "Brazil",
+      "city": "Novo Horizonte",
+      "source": "https://en.wikipedia.org/wiki/Grêmio_Novorizontino",
+      "revision": 1376888234,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d0742326365967a7e3fb": {
+      "club": "São Bernardo",
+      "country": "Brazil",
+      "city": "São Bernardo",
+      "source": "https://en.wikipedia.org/wiki/São_Bernardo_Futebol_Clube",
+      "revision": 1377518876,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "eab9a98c92b1232a1f24": {
+      "club": "Sport",
+      "country": "Brazil",
+      "city": "Recife",
+      "source": "https://en.wikipedia.org/wiki/Sport_Club_do_Recife",
+      "revision": 1383206132,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f9190362450e78ab835e": {
+      "club": "Vila Nova",
+      "country": "Brazil",
+      "city": "Goiânia",
+      "source": "https://en.wikipedia.org/wiki/Vila_Nova_Futebol_Clube",
+      "revision": 1382875433,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "3145ed569b6a9aadd63d": {
+      "club": "River Plate",
+      "country": "Argentina",
+      "city": "Buenos Aires",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_River_Plate",
+      "revision": 1383523418,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "794dfa592f5ab59b07c2": {
+      "club": "Boca Juniors",
+      "country": "Argentina",
+      "city": "Buenos Aires",
+      "source": "https://en.wikipedia.org/wiki/Boca_Juniors",
+      "revision": 1383432699,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c0f4799cb1271c270fdc": {
+      "club": "Racing Club",
+      "country": "Argentina",
+      "city": "Avellaneda",
+      "source": "https://en.wikipedia.org/wiki/Racing_Club_de_Avellaneda",
+      "revision": 1381362390,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "25978b18d31edad02b79": {
+      "club": "Independiente",
+      "country": "Argentina",
+      "city": "Avellaneda",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_Independiente",
+      "revision": 1383318520,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "0d92151a68e6da614f20": {
+      "club": "San Lorenzo",
+      "country": "Argentina",
+      "city": "Buenos Aires",
+      "source": "https://en.wikipedia.org/wiki/San_Lorenzo_de_Almagro",
+      "revision": 1382434129,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c5228a533372536cd76e": {
+      "club": "Vélez Sarsfield",
+      "country": "Argentina",
+      "city": "Buenos Aires",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_Vélez_Sarsfield",
+      "revision": 1381421843,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "68b20d1ea15f4c77f241": {
+      "club": "Deportivo Riestra",
+      "country": "Argentina",
+      "city": "Buenos Aires",
+      "source": "https://en.wikipedia.org/wiki/Deportivo_Riestra",
+      "revision": 1376368039,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "965775a9e30df3b88ea5": {
+      "club": "Argentinos Juniors",
+      "country": "Argentina",
+      "city": "La Paternal",
+      "source": "https://en.wikipedia.org/wiki/Argentinos_Juniors",
+      "revision": 1382319587,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b0b525e63b6788ce2d80": {
+      "club": "Huracán",
+      "country": "Argentina",
+      "city": "Parque Patricios",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_Huracán",
+      "revision": 1378089548,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "c9b3ca4bfe01e9c0f6c5": {
+      "club": "Tigre",
+      "country": "Argentina",
+      "city": "Victoria",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_Tigre",
+      "revision": 1378048225,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e44cb2df00fb7f694ace": {
+      "club": "Lanús",
+      "country": "Argentina",
+      "city": "Lanús",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_Lanús",
+      "revision": 1375626674,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "e7de5631beeb6bb11c0f": {
+      "club": "Barracas Central",
+      "country": "Argentina",
+      "city": "Barracas",
+      "source": "https://en.wikipedia.org/wiki/Barracas_Central",
+      "revision": 1376363886,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "10f5ddeec065cca786d7": {
+      "club": "All Boys",
+      "country": "Argentina",
+      "city": "Floresta",
+      "source": "https://en.wikipedia.org/wiki/All_Boys",
+      "revision": 1363372562,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "2e875787392b8a13ca9b": {
+      "club": "Nueva Chicago",
+      "country": "Argentina",
+      "city": "Mataderos",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_Nueva_Chicago",
+      "revision": 1383463892,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "51abc0b1877e266067d2": {
+      "club": "Atlanta",
+      "country": "Argentina",
+      "city": "Villa Crespo",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_Atlanta",
+      "revision": 1346147566,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "69e5f87b8e3a1cb78c70": {
+      "club": "Ferro Carril Oeste",
+      "country": "Argentina",
+      "city": "Caballito",
+      "source": "https://en.wikipedia.org/wiki/Ferro_Carril_Oeste",
+      "revision": 1383467208,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "8e8e546098ac28a9b465": {
+      "club": "Temperley",
+      "country": "Argentina",
+      "city": "Temperley",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_Temperley",
+      "revision": 1344341313,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a36397528390ce73f609": {
+      "club": "Chacarita Juniors",
+      "country": "Argentina",
+      "city": "Villa Maipú",
+      "source": "https://en.wikipedia.org/wiki/Chacarita_Juniors",
+      "revision": 1374981603,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "bf0d1d564f9518b3464d": {
+      "club": "Quilmes",
+      "country": "Argentina",
+      "city": "Quilmes",
+      "source": "https://en.wikipedia.org/wiki/Quilmes_Atlético_Club",
+      "revision": 1381363578,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "ca6254bec4d1db868a3a": {
+      "club": "Agropecuario Argentino",
+      "country": "Argentina",
+      "city": "Carlos Casares",
+      "source": "https://en.wikipedia.org/wiki/Club_Agropecuario_Argentino",
+      "revision": 1355808163,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "d4f0801b8f86951ab741": {
+      "club": "Almagro",
+      "country": "Argentina",
+      "city": "José Ingenieros",
+      "source": "https://en.wikipedia.org/wiki/Club_Almagro",
+      "revision": 1355809012,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "eb9c5585a341f47c1cb3": {
+      "club": "Deportivo Morón",
+      "country": "Argentina",
+      "city": "Morón",
+      "source": "https://en.wikipedia.org/wiki/Deportivo_Morón",
+      "revision": 1350945114,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "efeee8a328d8df880cf1": {
+      "club": "Los Andes",
+      "country": "Argentina",
+      "city": "Lomas de Zamora",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_Los_Andes",
+      "revision": 1363262835,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f16440c710730c38eec5": {
+      "club": "Acassuso",
+      "country": "Argentina",
+      "city": "Boulogne Sur Mer",
+      "source": "https://en.wikipedia.org/wiki/Club_Atlético_Acassuso",
+      "revision": 1374990276,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "13f27f484a950e2b2fb9": {
+      "club": "Villa Dálmine",
+      "country": "Argentina",
+      "city": "Campana",
+      "source": "https://es.wikipedia.org/wiki/Club_Villa_Dálmine",
+      "revision": 1371633228,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "1455f448e9c4a4d11f0c": {
+      "club": "Argentino de Merlo",
+      "country": "Argentina",
+      "city": "Merlo",
+      "source": "https://en.wikipedia.org/wiki/Argentino_de_Merlo",
+      "revision": 1366344692,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "41ced4e8990a394a82cc": {
+      "club": "Argentino de Quilmes",
+      "country": "Argentina",
+      "city": "Quilmes",
+      "source": "https://es.wikipedia.org/wiki/Club_Atlético_Argentino_de_Quilmes",
+      "revision": 1381531454,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "4279d0e1c7fb3bc28cff": {
+      "club": "Arsenal",
+      "country": "Argentina",
+      "city": "Sarandí",
+      "source": "https://es.wikipedia.org/wiki/Arsenal_Fútbol_Club",
+      "revision": 1340950585,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "508f24590b47dcc47de5": {
+      "club": "Brown de Adrogué",
+      "country": "Argentina",
+      "city": "Adrogué",
+      "source": "https://es.wikipedia.org/wiki/Club_Atlético_Brown",
+      "revision": 1360085802,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "64906de3a92ea0189319": {
+      "club": "Comunicaciones",
+      "country": "Argentina",
+      "city": "Agronomía",
+      "source": "https://en.wikipedia.org/wiki/Club_Comunicaciones",
+      "revision": 1366415160,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "709f5a25c053d083efc6": {
+      "club": "Defensores Unidos",
+      "country": "Argentina",
+      "city": "Zárate",
+      "source": "https://es.wikipedia.org/wiki/Club_Atlético_Defensores_Unidos",
+      "revision": 1375175066,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "a09bbb924f41b1a66907": {
+      "club": "Deportivo Armenio",
+      "country": "Argentina",
+      "city": "Ingeniero Maschwitz",
+      "source": "https://es.wikipedia.org/wiki/Club_Deportivo_Armenio",
+      "revision": 1376879421,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "b5d2899a4ae69c061291": {
+      "club": "Deportivo Camioneros",
+      "country": "Argentina",
+      "city": "Esteban Echeverría",
+      "source": "https://es.wikipedia.org/wiki/Club_Atlético_Social_y_Deportivo_Camioneros",
+      "revision": 175386230,
+      "geography": "city or established district; distinguishes same-city clubs"
+    },
+    "f9608e1ae8e957996432": {
+      "club": "Deportivo Laferrere",
+      "country": "Argentina",
+      "city": "Laferrere",
+      "source": "https://en.wikipedia.org/wiki/Deportivo_Laferrere",
+      "revision": 1337361872,
+      "geography": "city or established district; distinguishes same-city clubs"
+    }
+  }
+}

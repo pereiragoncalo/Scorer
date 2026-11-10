@@ -2973,3 +2973,15 @@ signer4668bytes SHA2565492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885
 1030001GitHub candidate marked superseded. Older generated AABs preserved in/tmp
 archive for disk headroom. User still signs only on bastion and uploads new
 internal Play release; no remote Play changes or physical acceptance inferred.
+
+##2026-11-11 — selected city/colour style,1030003
+
+Owner explicitly selected city+colour aliases. Current378real club/name/city/kit
+identity checked against UID-bound home palettes;133old-reference conflicts must
+not set modern names. Chosen examples match, incl VitóriaBA SalvadorVermelho-Preto.
+All10736entries covered; 40extra representative palettes,10318geographic/existing
+palette rows remain explicitly NOT fully real-kit verified. RGB/patterns unchanged.
+33focused tests pass.6prior native tests pass; new four-club palette/label native
+case passes after fixture setup acknowledges coach (first setup redirected to
+CoachScreen). Citycolournative menu capture uses actual staged data. Real AAB
+built; static inspection/download and owner-only signing pending below.

@@ -1,0 +1,1100 @@
+{
+  "status": "owner selected city and colour; current identity takes precedence over obsolete references",
+  "current_identity_rows": 378,
+  "current_kit_rows_verified": 378,
+  "obsolete_reference_conflicts": [
+    {
+      "uid": "0e6753645198c3e1ed59",
+      "country": "Portugal",
+      "current_club": "Marítimo",
+      "current_identity": "Portugal:maritimo",
+      "obsolete_reference": "Os Belenenses",
+      "obsolete_identity": "Portugal:belenenses"
+    },
+    {
+      "uid": "70bc983ce8d45360cfcb",
+      "country": "Portugal",
+      "current_club": "Nacional",
+      "current_identity": "Portugal:nacional",
+      "obsolete_reference": "CD Mafra",
+      "obsolete_identity": "Portugal:mafra"
+    },
+    {
+      "uid": "7f651ae64b829f05aa36",
+      "country": "Portugal",
+      "current_club": "Moreirense",
+      "current_identity": "Portugal:moreirense",
+      "obsolete_reference": "SC União Torreense",
+      "obsolete_identity": "Portugal:torreense"
+    },
+    {
+      "uid": "a65b749f4ee63dc63ed2",
+      "country": "Portugal",
+      "current_club": "Gil Vicente",
+      "current_identity": "Portugal:gilvicente",
+      "obsolete_reference": "UD Oliveirense",
+      "obsolete_identity": "Portugal:oliveirense"
+    },
+    {
+      "uid": "d1fd8dce9882f24d16b9",
+      "country": "Portugal",
+      "current_club": "Santa Clara",
+      "current_identity": "Portugal:santaclara",
+      "obsolete_reference": "AVS Futebol",
+      "obsolete_identity": "Portugal:afs"
+    },
+    {
+      "uid": "d51606eab1019fdf7281",
+      "country": "Portugal",
+      "current_club": "Famalicão",
+      "current_identity": "Portugal:famalicao",
+      "obsolete_reference": "GD Chaves",
+      "obsolete_identity": "Portugal:chaves"
+    },
+    {
+      "uid": "db7d1b4b9cc415545634",
+      "country": "Portugal",
+      "current_club": "Académico de Viseu",
+      "current_identity": "Portugal:academicodeviseu",
+      "obsolete_reference": "CD Feirense",
+      "obsolete_identity": "Portugal:feirense"
+    },
+    {
+      "uid": "1fdc69c867e13ae1a659",
+      "country": "Portugal",
+      "current_club": "Torreense",
+      "current_identity": "Portugal:torreense",
+      "obsolete_reference": "Vitória de Setúbal",
+      "obsolete_identity": "Portugal:vitoriadesetubal"
+    },
+    {
+      "uid": "29b7e51552fc753bab79",
+      "country": "Portugal",
+      "current_club": "AFS",
+      "current_identity": "Portugal:afs",
+      "obsolete_reference": "CS Marítimo",
+      "obsolete_identity": "Portugal:maritimo"
+    },
+    {
+      "uid": "404adb3453af4787c460",
+      "country": "Portugal",
+      "current_club": "Feirense",
+      "current_identity": "Portugal:feirense",
+      "obsolete_reference": "CD Nacional Madeira",
+      "obsolete_identity": "Portugal:nacional"
+    },
+    {
+      "uid": "4af36bff0eaa37b64b2f",
+      "country": "Portugal",
+      "current_club": "Felgueiras",
+      "current_identity": "Portugal:felgueiras",
+      "obsolete_reference": "Moreirense FC",
+      "obsolete_identity": "Portugal:moreirense"
+    },
+    {
+      "uid": "5c3a9aa8eea2c6b6352e",
+      "country": "Portugal",
+      "current_club": "Leixões",
+      "current_identity": "Portugal:leixoes",
+      "obsolete_reference": "FC Paços de Ferreira",
+      "obsolete_identity": "Portugal:pacosdeferreira"
+    },
+    {
+      "uid": "7fc18d19e24210fbb207",
+      "country": "Portugal",
+      "current_club": "Amarante",
+      "current_identity": "Portugal:amarante",
+      "obsolete_reference": "FC Arouca",
+      "obsolete_identity": "Portugal:arouca"
+    },
+    {
+      "uid": "9e19e6a3f14749644d5c",
+      "country": "Portugal",
+      "current_club": "Benfica B",
+      "current_identity": "Portugal:benficab",
+      "obsolete_reference": "SC Beira-Mar",
+      "obsolete_identity": "Portugal:beiramar"
+    },
+    {
+      "uid": "c8332ba3d0176138579a",
+      "country": "Portugal",
+      "current_club": "Lusitânia Lourosa",
+      "current_identity": "Portugal:lusitanialourosa",
+      "obsolete_reference": "CF Estrela da Amadora",
+      "obsolete_identity": "Portugal:estreladaamadora"
+    },
+    {
+      "uid": "d9b5361477f978f1e161",
+      "country": "Portugal",
+      "current_club": "Porto B",
+      "current_identity": "Portugal:portob",
+      "obsolete_reference": "Gil Vicente FC",
+      "obsolete_identity": "Portugal:gilvicente"
+    },
+    {
+      "uid": "0345b7df88d691d59fc3",
+      "country": "Portugal",
+      "current_club": "Belenenses",
+      "current_identity": "Portugal:belenenses",
+      "obsolete_reference": "SC Salgueiros",
+      "obsolete_identity": "Portugal:salgueiros"
+    },
+    {
+      "uid": "0e0ee8acc1b8ed3d41c9",
+      "country": "Portugal",
+      "current_club": "Mafra",
+      "current_identity": "Portugal:mafra",
+      "obsolete_reference": "FC Tirsense",
+      "obsolete_identity": "Portugal:tirsense"
+    },
+    {
+      "uid": "3d9fe6c0224c7c2862db",
+      "country": "Portugal",
+      "current_club": "Paços de Ferreira",
+      "current_identity": "Portugal:pacosdeferreira",
+      "obsolete_reference": "FC Felgueiras",
+      "obsolete_identity": "Portugal:felgueiras"
+    },
+    {
+      "uid": "6b6c08359d8173d073c1",
+      "country": "Portugal",
+      "current_club": "Trofense",
+      "current_identity": "Portugal:trofense",
+      "obsolete_reference": "FC Alverca",
+      "obsolete_identity": "Portugal:alverca"
+    },
+    {
+      "uid": "a59dac83815df1678c80",
+      "country": "Portugal",
+      "current_club": "Fafe",
+      "current_identity": "Portugal:fafe",
+      "obsolete_reference": "Leixões SC",
+      "obsolete_identity": "Portugal:leixoes"
+    },
+    {
+      "uid": "09746d7dd23654a57132",
+      "country": "England",
+      "current_club": "Everton",
+      "current_identity": "England:everton",
+      "obsolete_reference": "West Ham United FC",
+      "obsolete_identity": "England:westhamunited"
+    },
+    {
+      "uid": "2ed2b73a3addfc479596",
+      "country": "England",
+      "current_club": "Aston Villa",
+      "current_identity": "England:astonvilla",
+      "obsolete_reference": "Charlton Athletic FC",
+      "obsolete_identity": "England:charltonathletic"
+    },
+    {
+      "uid": "598e41ea1bbbc63de2af",
+      "country": "England",
+      "current_club": "Newcastle United",
+      "current_identity": "England:newcastleunited",
+      "obsolete_reference": "Wimbledon FC",
+      "obsolete_identity": "England:wimbledon"
+    },
+    {
+      "uid": "8876c578731a7d91e847",
+      "country": "England",
+      "current_club": "Sunderland",
+      "current_identity": "England:sunderland",
+      "obsolete_reference": "AFC Wimbledon",
+      "obsolete_identity": "England:wimbledon"
+    },
+    {
+      "uid": "9bd2bb2c62d7dfbb7720",
+      "country": "England",
+      "current_club": "Leeds United",
+      "current_identity": "England:leedsunited",
+      "obsolete_reference": "Queens Park Rangers FC",
+      "obsolete_identity": "England:queensparkrangers"
+    },
+    {
+      "uid": "9f377e619b036578e321",
+      "country": "England",
+      "current_club": "Hull City",
+      "current_identity": "England:hullcity",
+      "obsolete_reference": "Millwall FC",
+      "obsolete_identity": "England:millwall"
+    },
+    {
+      "uid": "b248abb315678ece6735",
+      "country": "England",
+      "current_club": "Ipswich Town",
+      "current_identity": "England:ipswichtown",
+      "obsolete_reference": "Leyton Orient FC",
+      "obsolete_identity": "England:leytonorient"
+    },
+    {
+      "uid": "b5c77508adcea637c44b",
+      "country": "England",
+      "current_club": "Nottingham Forest",
+      "current_identity": "England:nottinghamforest",
+      "obsolete_reference": "Barnet FC",
+      "obsolete_identity": "England:barnet"
+    },
+    {
+      "uid": "fef17a257ddee7bd6283",
+      "country": "England",
+      "current_club": "Brighton & Hove Albion",
+      "current_identity": "England:brightonhovealbion",
+      "obsolete_reference": "Bromley FC",
+      "obsolete_identity": "England:bromley"
+    },
+    {
+      "uid": "17a41d494bef0bfeff6f",
+      "country": "England",
+      "current_club": "Queens Park Rangers",
+      "current_identity": "England:queensparkrangers",
+      "obsolete_reference": "Sutton United FC",
+      "obsolete_identity": "England:suttonunited"
+    },
+    {
+      "uid": "592bdc9f7372c0cdc544",
+      "country": "England",
+      "current_club": "West Bromwich Albion",
+      "current_identity": "England:westbromwichalbion",
+      "obsolete_reference": "Wealdstone FC",
+      "obsolete_identity": "England:wealdstone"
+    },
+    {
+      "uid": "5e6fb51939396ab1d435",
+      "country": "England",
+      "current_club": "Wolverhampton Wanderers",
+      "current_identity": "England:wolverhamptonwanderers",
+      "obsolete_reference": "Everton FC",
+      "obsolete_identity": "England:everton"
+    },
+    {
+      "uid": "791190c891c0b5aa3dff",
+      "country": "England",
+      "current_club": "Middlesbrough",
+      "current_identity": "England:middlesbrough",
+      "obsolete_reference": "Blackpool FC",
+      "obsolete_identity": "England:blackpool"
+    },
+    {
+      "uid": "a59cc216be08f6392fba",
+      "country": "England",
+      "current_club": "Stoke City",
+      "current_identity": "England:stokecity",
+      "obsolete_reference": "AFC Fylde",
+      "obsolete_identity": "England:fylde"
+    },
+    {
+      "uid": "bfa8e5d8320168fecf60",
+      "country": "England",
+      "current_club": "Norwich City",
+      "current_identity": "England:norwichcity",
+      "obsolete_reference": "Oldham Athletic AFC",
+      "obsolete_identity": "England:oldhamathletic"
+    },
+    {
+      "uid": "c3356217dfb0aad1f592",
+      "country": "England",
+      "current_club": "Watford",
+      "current_identity": "England:watford",
+      "obsolete_reference": "Wigan Athletic FC",
+      "obsolete_identity": "England:wiganathletic"
+    },
+    {
+      "uid": "cd7a4e6d166f1869a4b2",
+      "country": "England",
+      "current_club": "Cardiff City",
+      "current_identity": "England:cardiffcity",
+      "obsolete_reference": "Stockport County FC",
+      "obsolete_identity": "England:stockportcounty"
+    },
+    {
+      "uid": "f4790bfde2e8119578e5",
+      "country": "England",
+      "current_club": "Swansea City",
+      "current_identity": "England:swanseacity",
+      "obsolete_reference": "Rochdale AFC",
+      "obsolete_identity": "England:rochdale"
+    },
+    {
+      "uid": "f6d6ca20162ebbfab031",
+      "country": "England",
+      "current_club": "Wrexham",
+      "current_identity": "England:wrexham",
+      "obsolete_reference": "Altrincham FC",
+      "obsolete_identity": "England:altrincham"
+    },
+    {
+      "uid": "49efa0ee7f006dad53e4",
+      "country": "England",
+      "current_club": "Blackpool",
+      "current_identity": "England:blackpool",
+      "obsolete_reference": "Salford City FC",
+      "obsolete_identity": "England:salfordcity"
+    },
+    {
+      "uid": "65e090ca1885b3535a2e",
+      "country": "England",
+      "current_club": "Wigan Athletic",
+      "current_identity": "England:wiganathletic",
+      "obsolete_reference": "Aston Villa FC",
+      "obsolete_identity": "England:astonvilla"
+    },
+    {
+      "uid": "691e652eee9467a9f3fd",
+      "country": "England",
+      "current_club": "Stockport County",
+      "current_identity": "England:stockportcounty",
+      "obsolete_reference": "Birmingham City FC",
+      "obsolete_identity": "England:birminghamcity"
+    },
+    {
+      "uid": "6a99ca790639293f9354",
+      "country": "England",
+      "current_club": "Leicester City",
+      "current_identity": "England:leicestercity",
+      "obsolete_reference": "Newcastle United FC",
+      "obsolete_identity": "England:newcastleunited"
+    },
+    {
+      "uid": "2224dfac92112d65324f",
+      "country": "Spain",
+      "current_club": "Espanyol",
+      "current_identity": "Spain:espanyol",
+      "obsolete_reference": "AD Alcorcón",
+      "obsolete_identity": "Spain:alcorcon"
+    },
+    {
+      "uid": "323630c553b2b55b9eb5",
+      "country": "Spain",
+      "current_club": "Celta Vigo",
+      "current_identity": "Spain:celtavigo",
+      "obsolete_reference": "CF Rayo Majadahonda",
+      "obsolete_identity": "Spain:rayomajadahonda"
+    },
+    {
+      "uid": "8e8904232485cb82559c",
+      "country": "Spain",
+      "current_club": "Valencia",
+      "current_identity": "Spain:valencia",
+      "obsolete_reference": "Algeciras CF",
+      "obsolete_identity": "Spain:algeciras"
+    },
+    {
+      "uid": "9a379d34a2761d2ec3f2",
+      "country": "Spain",
+      "current_club": "Levante",
+      "current_identity": "Spain:levante",
+      "obsolete_reference": "UD Almería",
+      "obsolete_identity": "Spain:almeria"
+    },
+    {
+      "uid": "bf5c108fa4229b42d35b",
+      "country": "Spain",
+      "current_club": "Elche",
+      "current_identity": "Spain:elche",
+      "obsolete_reference": "Cádiz CF",
+      "obsolete_identity": "Spain:cadiz"
+    },
+    {
+      "uid": "dcc53ffc992657a3a5cd",
+      "country": "Spain",
+      "current_club": "Alavés",
+      "current_identity": "Spain:alaves",
+      "obsolete_reference": "Córdoba CF",
+      "obsolete_identity": "Spain:cordoba"
+    },
+    {
+      "uid": "3c36d77419abd167f313",
+      "country": "Spain",
+      "current_club": "Castellón",
+      "current_identity": "Spain:castellon",
+      "obsolete_reference": "RCD Espanyol",
+      "obsolete_identity": "Spain:espanyol"
+    },
+    {
+      "uid": "954ee5ab0cb586116b49",
+      "country": "Spain",
+      "current_club": "Andorra",
+      "current_identity": "Spain:andorra",
+      "obsolete_reference": "RCD La Coruña",
+      "obsolete_identity": "Spain:deportivoacoruna"
+    },
+    {
+      "uid": "a5118afe5b4e005dc42a",
+      "country": "Spain",
+      "current_club": "Celta Fortuna",
+      "current_identity": "Spain:celtafortuna",
+      "obsolete_reference": "RC Celta Vigo",
+      "obsolete_identity": "Spain:celtavigo"
+    },
+    {
+      "uid": "be3737acc0434200d47e",
+      "country": "Spain",
+      "current_club": "Eibar",
+      "current_identity": "Spain:eibar",
+      "obsolete_reference": "Racing Ferrol",
+      "obsolete_identity": "Spain:racingferrol"
+    },
+    {
+      "uid": "c14f58f27f9c54c4bf93",
+      "country": "Spain",
+      "current_club": "Las Palmas",
+      "current_identity": "Spain:laspalmas",
+      "obsolete_reference": "Valencia CF",
+      "obsolete_identity": "Spain:valencia"
+    },
+    {
+      "uid": "da05a0e0cb6df34f908d",
+      "country": "Spain",
+      "current_club": "Leganés",
+      "current_identity": "Spain:leganes",
+      "obsolete_reference": "Levante UD",
+      "obsolete_identity": "Spain:levante"
+    },
+    {
+      "uid": "f97028a20a75782b6cde",
+      "country": "Spain",
+      "current_club": "Oviedo",
+      "current_identity": "Spain:oviedo",
+      "obsolete_reference": "Hércules CF",
+      "obsolete_identity": "Spain:hercules"
+    },
+    {
+      "uid": "0a4abb38626da14e3a4d",
+      "country": "Spain",
+      "current_club": "Rayo Majadahonda",
+      "current_identity": "Spain:rayomajadahonda",
+      "obsolete_reference": "Elche CF",
+      "obsolete_identity": "Spain:elche"
+    },
+    {
+      "uid": "0d03f9d60d6a9aeb90bc",
+      "country": "Spain",
+      "current_club": "Algeciras",
+      "current_identity": "Spain:algeciras",
+      "obsolete_reference": "CD Castellón",
+      "obsolete_identity": "Spain:castellon"
+    },
+    {
+      "uid": "12628c943a93b544f8af",
+      "country": "Spain",
+      "current_club": "Racing Ferrol",
+      "current_identity": "Spain:racingferrol",
+      "obsolete_reference": "CD Eldense",
+      "obsolete_identity": "Spain:eldense"
+    },
+    {
+      "uid": "14184fff1a8dec6a0bd6",
+      "country": "Spain",
+      "current_club": "Hércules",
+      "current_identity": "Spain:hercules",
+      "obsolete_reference": "Deportivo Alavés",
+      "obsolete_identity": "Spain:alaves"
+    },
+    {
+      "uid": "4844fc1372c8c51e82e9",
+      "country": "Spain",
+      "current_club": "Mérida",
+      "current_identity": "Spain:merida",
+      "obsolete_reference": "Sporting Gijón",
+      "obsolete_identity": "Spain:sportinggijon"
+    },
+    {
+      "uid": "355e795cd1a8bc9ecd8e",
+      "country": "Germany",
+      "current_club": "Borussia Mönchengladbach",
+      "current_identity": "Germany:borussiamonchengladbach",
+      "obsolete_reference": "1. FC Nürnberg",
+      "obsolete_identity": "Germany:1nurnberg"
+    },
+    {
+      "uid": "b9541fbe6c5c2b7c8697",
+      "country": "Germany",
+      "current_club": "TSG Hoffenheim",
+      "current_identity": "Germany:tsghoffenheim",
+      "obsolete_reference": "Würzburger Kickers",
+      "obsolete_identity": "Germany:wurzburgerkickers"
+    },
+    {
+      "uid": "4fc518cb365ae90e2712",
+      "country": "Germany",
+      "current_club": "Energie Cottbus",
+      "current_identity": "Germany:energiecottbus",
+      "obsolete_reference": "1. FC Köln",
+      "obsolete_identity": "Germany:1koln"
+    },
+    {
+      "uid": "60489765faae2422dda4",
+      "country": "Germany",
+      "current_club": "Darmstadt 98",
+      "current_identity": "Germany:darmstadt98",
+      "obsolete_reference": "Fortuna Köln",
+      "obsolete_identity": "Germany:fortunakoln"
+    },
+    {
+      "uid": "8246f38c3dbde150bb63",
+      "country": "Germany",
+      "current_club": "Dynamo Dresden",
+      "current_identity": "Germany:dynamodresden",
+      "obsolete_reference": "FC Viktoria Köln",
+      "obsolete_identity": "Germany:viktoriakoln"
+    },
+    {
+      "uid": "8778a051ccc43d9e40df",
+      "country": "Germany",
+      "current_club": "Greuther Fürth",
+      "current_identity": "Germany:greutherfurth",
+      "obsolete_reference": "Fortuna Düsseldorf",
+      "obsolete_identity": "Germany:fortunadusseldorf"
+    },
+    {
+      "uid": "a03e96d6f15095e779b0",
+      "country": "Germany",
+      "current_club": "Hannover 96",
+      "current_identity": "Germany:hannover96",
+      "obsolete_reference": "FC Schalke 04",
+      "obsolete_identity": "Germany:schalke04"
+    },
+    {
+      "uid": "b384e3de300c07221951",
+      "country": "Germany",
+      "current_club": "1. FC Heidenheim",
+      "current_identity": "Germany:1heidenheim",
+      "obsolete_reference": "MSV Duisburg",
+      "obsolete_identity": "Germany:msvduisburg"
+    },
+    {
+      "uid": "b503761e89e23907040e",
+      "country": "Germany",
+      "current_club": "1. FC Kaiserslautern",
+      "current_identity": "Germany:1kaiserslautern",
+      "obsolete_reference": "Bor. Mönchengladbach",
+      "obsolete_identity": "Germany:borussiamonchengladbach"
+    },
+    {
+      "uid": "e184a8f98b4ec383df4a",
+      "country": "Germany",
+      "current_club": "Holstein Kiel",
+      "current_identity": "Germany:holsteinkiel",
+      "obsolete_reference": "Preußen Münster",
+      "obsolete_identity": "Germany:preuenmunster"
+    },
+    {
+      "uid": "fc20c10a9acd9781e1be",
+      "country": "Germany",
+      "current_club": "VfL Wolfsburg",
+      "current_identity": "Germany:wolfsburg",
+      "obsolete_reference": "Alemannia Aachen",
+      "obsolete_identity": "Germany:alemanniaaachen"
+    },
+    {
+      "uid": "09f4d4e2666ea72ee574",
+      "country": "Germany",
+      "current_club": "Würzburger Kickers",
+      "current_identity": "Germany:wurzburgerkickers",
+      "obsolete_reference": "SC Paderborn 07",
+      "obsolete_identity": "Germany:paderborn"
+    },
+    {
+      "uid": "229e4a20bd05abd959f4",
+      "country": "Italy",
+      "current_club": "Udinese",
+      "current_identity": "Italy:udinese",
+      "obsolete_reference": "US Cremonese",
+      "obsolete_identity": "Italy:cremonese"
+    },
+    {
+      "uid": "a66d019af33c89e0619d",
+      "country": "Italy",
+      "current_club": "Sassuolo",
+      "current_identity": "Italy:sassuolo",
+      "obsolete_reference": "Hellas Verona",
+      "obsolete_identity": "Italy:hellasverona"
+    },
+    {
+      "uid": "fa0022499b6625a794dc",
+      "country": "Italy",
+      "current_club": "Parma",
+      "current_identity": "Italy:parma",
+      "obsolete_reference": "Cittadella",
+      "obsolete_identity": "Italy:cittadella"
+    },
+    {
+      "uid": "01ad3f1b1ae3abf80357",
+      "country": "Italy",
+      "current_club": "Cremonese",
+      "current_identity": "Italy:cremonese",
+      "obsolete_reference": "Udinese Calcio",
+      "obsolete_identity": "Italy:udinese"
+    },
+    {
+      "uid": "08cbe6fff42b0db62f58",
+      "country": "Italy",
+      "current_club": "Pisa",
+      "current_identity": "Italy:pisa",
+      "obsolete_reference": "Genoa CFC",
+      "obsolete_identity": "Italy:genoa"
+    },
+    {
+      "uid": "64778226f8b756816059",
+      "country": "Italy",
+      "current_club": "Virtus Entella",
+      "current_identity": "Italy:virtusentella",
+      "obsolete_reference": "FC Crotone",
+      "obsolete_identity": "Italy:crotone"
+    },
+    {
+      "uid": "83001dde6d8ced2a44fe",
+      "country": "Italy",
+      "current_club": "Arezzo",
+      "current_identity": "Italy:arezzo",
+      "obsolete_reference": "Bari",
+      "obsolete_identity": "Italy:bari"
+    },
+    {
+      "uid": "994ac6d710072a1337ce",
+      "country": "Italy",
+      "current_club": "Carrarese",
+      "current_identity": "Italy:carrarese",
+      "obsolete_reference": "Ravenna FC",
+      "obsolete_identity": "Italy:ravenna"
+    },
+    {
+      "uid": "9a01f8964264e56b3d6b",
+      "country": "Italy",
+      "current_club": "Catanzaro",
+      "current_identity": "Italy:catanzaro",
+      "obsolete_reference": "Bologna FC",
+      "obsolete_identity": "Italy:bologna"
+    },
+    {
+      "uid": "a9630ee6b10efe335596",
+      "country": "Italy",
+      "current_club": "Cesena",
+      "current_identity": "Italy:cesena",
+      "obsolete_reference": "US Sassuolo Calcio",
+      "obsolete_identity": "Italy:sassuolo"
+    },
+    {
+      "uid": "b36d57bd386034d10b76",
+      "country": "Italy",
+      "current_club": "Mantova",
+      "current_identity": "Italy:mantova",
+      "obsolete_reference": "Carpi",
+      "obsolete_identity": "Italy:carpi"
+    },
+    {
+      "uid": "d131ea66b5567c4142d6",
+      "country": "Italy",
+      "current_club": "Padova",
+      "current_identity": "Italy:padova",
+      "obsolete_reference": "ACF Fiorentina",
+      "obsolete_identity": "Italy:fiorentina"
+    },
+    {
+      "uid": "0bc572c6dc37a97b5e7a",
+      "country": "Italy",
+      "current_club": "Cittadella",
+      "current_identity": "Italy:cittadella",
+      "obsolete_reference": "AC Pisa",
+      "obsolete_identity": "Italy:pisa"
+    },
+    {
+      "uid": "0c603059202dcd6f4ac3",
+      "country": "Italy",
+      "current_club": "Crotone",
+      "current_identity": "Italy:crotone",
+      "obsolete_reference": "Ascoli",
+      "obsolete_identity": "Italy:ascoli"
+    },
+    {
+      "uid": "0d4f37774190ff41bab9",
+      "country": "Italy",
+      "current_club": "Bari",
+      "current_identity": "Italy:bari",
+      "obsolete_reference": "Cagliari Calcio",
+      "obsolete_identity": "Italy:cagliari"
+    },
+    {
+      "uid": "0e813c129db07f76eb5d",
+      "country": "Italy",
+      "current_club": "Ravenna",
+      "current_identity": "Italy:ravenna",
+      "obsolete_reference": "Frosinone Calcio",
+      "obsolete_identity": "Italy:frosinone"
+    },
+    {
+      "uid": "36949ece4e635566c72b",
+      "country": "Italy",
+      "current_club": "Carpi",
+      "current_identity": "Italy:carpi",
+      "obsolete_reference": "Palermo FC",
+      "obsolete_identity": "Italy:palermo"
+    },
+    {
+      "uid": "3763369b1ea5add9f0ac",
+      "country": "Italy",
+      "current_club": "Salernitana",
+      "current_identity": "Italy:salernitana",
+      "obsolete_reference": "Parma Calcio",
+      "obsolete_identity": "Italy:parma"
+    },
+    {
+      "uid": "16ba2ee08fcbdfd5347c",
+      "country": "France",
+      "current_club": "Nice",
+      "current_identity": "France:nice",
+      "obsolete_reference": "Red Star FC",
+      "obsolete_identity": "France:redstar"
+    },
+    {
+      "uid": "306f6155a6b00e2b6f71",
+      "country": "France",
+      "current_club": "Strasbourg",
+      "current_identity": "France:strasbourg",
+      "obsolete_reference": "FC Versailles",
+      "obsolete_identity": "France:versailles"
+    },
+    {
+      "uid": "40d3a7943b8d71c78040",
+      "country": "France",
+      "current_club": "Toulouse",
+      "current_identity": "France:toulouse",
+      "obsolete_reference": "Amiens SC",
+      "obsolete_identity": "France:amiens"
+    },
+    {
+      "uid": "6a5a99645fad7809bb02",
+      "country": "France",
+      "current_club": "Brest",
+      "current_identity": "France:brest",
+      "obsolete_reference": "Stade Malherbe Caen",
+      "obsolete_identity": "France:caen"
+    },
+    {
+      "uid": "c9b48f760695a3d96c47",
+      "country": "France",
+      "current_club": "Le Mans",
+      "current_identity": "France:lemans",
+      "obsolete_reference": "FC Metz",
+      "obsolete_identity": "France:metz"
+    },
+    {
+      "uid": "1e6db57f0300984d527b",
+      "country": "France",
+      "current_club": "Metz",
+      "current_identity": "France:metz",
+      "obsolete_reference": "OGC Nice",
+      "obsolete_identity": "France:nice"
+    },
+    {
+      "uid": "28ef8b8ff55e67114af6",
+      "country": "France",
+      "current_club": "Boulogne",
+      "current_identity": "France:boulogne",
+      "obsolete_reference": "Stade Rennais FC",
+      "obsolete_identity": "France:rennes"
+    },
+    {
+      "uid": "35f2a8362d8017836e91",
+      "country": "France",
+      "current_club": "Annecy",
+      "current_identity": "France:annecy",
+      "obsolete_reference": "RC Strasbourg",
+      "obsolete_identity": "France:strasbourg"
+    },
+    {
+      "uid": "40614e964673609022b4",
+      "country": "France",
+      "current_club": "Clermont",
+      "current_identity": "France:clermont",
+      "obsolete_reference": "Toulouse FC",
+      "obsolete_identity": "France:toulouse"
+    },
+    {
+      "uid": "6148c410fb3b2947879a",
+      "country": "France",
+      "current_club": "Dijon",
+      "current_identity": "France:dijon",
+      "obsolete_reference": "ES Troyes AC",
+      "obsolete_identity": "France:troyes"
+    },
+    {
+      "uid": "8fecb2f10590b7af1a16",
+      "country": "France",
+      "current_club": "Laval",
+      "current_identity": "France:laval",
+      "obsolete_reference": "AJ Auxerre",
+      "obsolete_identity": "France:auxerre"
+    },
+    {
+      "uid": "bda1335ce63b00c23476",
+      "country": "France",
+      "current_club": "Nancy",
+      "current_identity": "France:nancy",
+      "obsolete_reference": "Stade Brestois 29",
+      "obsolete_identity": "France:brest"
+    },
+    {
+      "uid": "e261747b2b6b6ae5ba27",
+      "country": "France",
+      "current_club": "Sochaux",
+      "current_identity": "France:sochaux",
+      "obsolete_reference": "Le Havre AC",
+      "obsolete_identity": "France:lehavre"
+    },
+    {
+      "uid": "032162d8688657493a2e",
+      "country": "France",
+      "current_club": "Versailles",
+      "current_identity": "France:versailles",
+      "obsolete_reference": "FC Lorient",
+      "obsolete_identity": "France:lorient"
+    },
+    {
+      "uid": "3a89cb834dd44ff7f559",
+      "country": "Brazil",
+      "current_club": "Mirassol",
+      "current_identity": "Brazil:mirassol",
+      "obsolete_reference": "Ponte Preta",
+      "obsolete_identity": "Brazil:pontepreta"
+    },
+    {
+      "uid": "fd542fd70c60524a3346",
+      "country": "Brazil",
+      "current_club": "Atlético Mineiro",
+      "current_identity": "Brazil:atleticomineiro",
+      "obsolete_reference": "Portuguesa",
+      "obsolete_identity": "Brazil:portuguesa"
+    },
+    {
+      "uid": "46f103af27ea2450da0f",
+      "country": "Brazil",
+      "current_club": "Ponte Preta",
+      "current_identity": "Brazil:pontepreta",
+      "obsolete_reference": "Guarani FC",
+      "obsolete_identity": "Brazil:guarani"
+    },
+    {
+      "uid": "c62677c4ebf4acf5e786",
+      "country": "Brazil",
+      "current_club": "Ceará",
+      "current_identity": "Brazil:ceara",
+      "obsolete_reference": "São José",
+      "obsolete_identity": "Brazil:saojose"
+    },
+    {
+      "uid": "dd2c0384360bb3d6cde8",
+      "country": "Brazil",
+      "current_club": "Criciúma",
+      "current_identity": "Brazil:criciuma",
+      "obsolete_reference": "Mirassol FC SP",
+      "obsolete_identity": "Brazil:mirassol"
+    },
+    {
+      "uid": "fc670f783b7d5938bbef",
+      "country": "Brazil",
+      "current_club": "Fortaleza",
+      "current_identity": "Brazil:fortaleza",
+      "obsolete_reference": "Botafogo RJ",
+      "obsolete_identity": "Brazil:botafogo"
+    },
+    {
+      "uid": "3eada2d1f193589b7b04",
+      "country": "Brazil",
+      "current_club": "Guarani",
+      "current_identity": "Brazil:guarani",
+      "obsolete_reference": "CR Vasco da Gama",
+      "obsolete_identity": "Brazil:vascodagama"
+    },
+    {
+      "uid": "444f0bb2369094dc1592",
+      "country": "Brazil",
+      "current_club": "Figueirense",
+      "current_identity": "Brazil:figueirense",
+      "obsolete_reference": "Atlético MG",
+      "obsolete_identity": "Brazil:atleticomineiro"
+    },
+    {
+      "uid": "6b635ff592ba6ab0f2ff",
+      "country": "Brazil",
+      "current_club": "Amazonas",
+      "current_identity": "Brazil:amazonas",
+      "obsolete_reference": "Cruzeiro MG",
+      "obsolete_identity": "Brazil:cruzeiro"
+    },
+    {
+      "uid": "9f1f2eeb5d80231cb2fe",
+      "country": "Brazil",
+      "current_club": "Brusque",
+      "current_identity": "Brazil:brusque",
+      "obsolete_reference": "Betim FC",
+      "obsolete_identity": "Brazil:betim"
+    },
+    {
+      "uid": "a424499ad11d52e6264a",
+      "country": "Brazil",
+      "current_club": "Caxias",
+      "current_identity": "Brazil:caxias",
+      "obsolete_reference": "Tombense FC",
+      "obsolete_identity": "Brazil:tombense"
+    },
+    {
+      "uid": "bdd72d1dee8bba461b77",
+      "country": "Brazil",
+      "current_club": "Confiança",
+      "current_identity": "Brazil:confianca",
+      "obsolete_reference": "Internacional Porto Alegre",
+      "obsolete_identity": "Brazil:internacional"
+    },
+    {
+      "uid": "68b20d1ea15f4c77f241",
+      "country": "Argentina",
+      "current_club": "Deportivo Riestra",
+      "current_identity": "Argentina:deportivoriestra",
+      "obsolete_reference": "All Boys",
+      "obsolete_identity": "Argentina:allboys"
+    },
+    {
+      "uid": "c9b3ca4bfe01e9c0f6c5",
+      "country": "Argentina",
+      "current_club": "Tigre",
+      "current_identity": "Argentina:tigre",
+      "obsolete_reference": "Nueva Chicago",
+      "obsolete_identity": "Argentina:nuevachicago"
+    },
+    {
+      "uid": "e44cb2df00fb7f694ace",
+      "country": "Argentina",
+      "current_club": "Lanús",
+      "current_identity": "Argentina:lanus",
+      "obsolete_reference": "Atlanta",
+      "obsolete_identity": "Argentina:atlanta"
+    },
+    {
+      "uid": "2e875787392b8a13ca9b",
+      "country": "Argentina",
+      "current_club": "Nueva Chicago",
+      "current_identity": "Argentina:nuevachicago",
+      "obsolete_reference": "Deportivo Riestra",
+      "obsolete_identity": "Argentina:deportivoriestra"
+    },
+    {
+      "uid": "8e8e546098ac28a9b465",
+      "country": "Argentina",
+      "current_club": "Temperley",
+      "current_identity": "Argentina:temperley",
+      "obsolete_reference": "CA Tigre",
+      "obsolete_identity": "Argentina:tigre"
+    },
+    {
+      "uid": "a36397528390ce73f609",
+      "country": "Argentina",
+      "current_club": "Chacarita Juniors",
+      "current_identity": "Argentina:chacaritajuniors",
+      "obsolete_reference": "Deportivo Español",
+      "obsolete_identity": "Argentina:deportivoespanol"
+    },
+    {
+      "uid": "ca6254bec4d1db868a3a",
+      "country": "Argentina",
+      "current_club": "Agropecuario Argentino",
+      "current_identity": "Argentina:agropecuarioargentino",
+      "obsolete_reference": "CA Lanús",
+      "obsolete_identity": "Argentina:lanus"
+    },
+    {
+      "uid": "eb9c5585a341f47c1cb3",
+      "country": "Argentina",
+      "current_club": "Deportivo Morón",
+      "current_identity": "Argentina:deportivomoron",
+      "obsolete_reference": "Estudiantes LP",
+      "obsolete_identity": "Argentina:estudianteslp"
+    },
+    {
+      "uid": "efeee8a328d8df880cf1",
+      "country": "Argentina",
+      "current_club": "Los Andes",
+      "current_identity": "Argentina:losandes",
+      "obsolete_reference": "Gimnasia y Esgrima LP",
+      "obsolete_identity": "Argentina:gimnasiayesgrimalp"
+    },
+    {
+      "uid": "41ced4e8990a394a82cc",
+      "country": "Argentina",
+      "current_club": "Argentino de Quilmes",
+      "current_identity": "Argentina:argentinodequilmes",
+      "obsolete_reference": "Defensa y Justicia",
+      "obsolete_identity": "Argentina:defensayjusticia"
+    },
+    {
+      "uid": "508f24590b47dcc47de5",
+      "country": "Argentina",
+      "current_club": "Brown de Adrogué",
+      "current_identity": "Argentina:browndeadrogue",
+      "obsolete_reference": "Sarmiento Junín",
+      "obsolete_identity": "Argentina:sarmientoj"
+    },
+    {
+      "uid": "64906de3a92ea0189319",
+      "country": "Argentina",
+      "current_club": "Comunicaciones",
+      "current_identity": "Argentina:comunicaciones",
+      "obsolete_reference": "Temperley",
+      "obsolete_identity": "Argentina:temperley"
+    },
+    {
+      "uid": "709f5a25c053d083efc6",
+      "country": "Argentina",
+      "current_club": "Defensores Unidos",
+      "current_identity": "Argentina:defensoresunidos",
+      "obsolete_reference": "Chacarita Juniors",
+      "obsolete_identity": "Argentina:chacaritajuniors"
+    },
+    {
+      "uid": "a09bbb924f41b1a66907",
+      "country": "Argentina",
+      "current_club": "Deportivo Armenio",
+      "current_identity": "Argentina:deportivoarmenio",
+      "obsolete_reference": "Agropecuario Argentino",
+      "obsolete_identity": "Argentina:agropecuarioargentino"
+    },
+    {
+      "uid": "b5d2899a4ae69c061291",
+      "country": "Argentina",
+      "current_club": "Deportivo Camioneros",
+      "current_identity": "Argentina:deportivocamioneros",
+      "obsolete_reference": "Almagro",
+      "obsolete_identity": "Argentina:almagro"
+    }
+  ],
+  "examples": {
+    "c8d6431e000ec7467295": {
+      "real_club": "Benfica",
+      "option_city_colour": "Lisboa Vermelho",
+      "option_nickname": "Águias de Lisboa",
+      "shirt": "red",
+      "shorts": "white",
+      "socks": "red",
+      "pattern": "plain"
+    },
+    "00d46be2fe2f866aca10": {
+      "real_club": "Sporting CP",
+      "option_city_colour": "Lisboa Verde",
+      "option_nickname": "Leões de Lisboa",
+      "shirt": "green and white",
+      "shorts": "black",
+      "socks": "white",
+      "pattern": "hoops"
+    },
+    "d3811223093359dac065": {
+      "real_club": "Porto",
+      "option_city_colour": "Porto Azul",
+      "option_nickname": "Dragões do Porto",
+      "shirt": "blue and white",
+      "shorts": "blue",
+      "socks": "white",
+      "pattern": "stripes"
+    }
+  }
+}

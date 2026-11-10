@@ -1,20 +1,21 @@
 import json,unittest
 from pathlib import Path
-from tools.play.local_club_names import build,norm,COUNTRY_FAMILY,PLACES
+from tools.play.local_club_names import norm,COUNTRY_FAMILY
+from tools.play.city_colour_names import build
 from tools.play.fictional_clubs import shipping_data,verify_fictional_data
 ROOT=Path(__file__).resolve().parents[1]
 
 class LocalClubNameTests(unittest.TestCase):
  def test_all_countries_covered_reproducibly_with_unique_country_appropriate_names(self):
   local=json.loads((ROOT/'assets/data/fictional_names.json').read_text())
-  self.assertEqual(build(ROOT),local)
+  self.assertEqual(build(ROOT)[0],local)
   self.assertEqual(len({r['country'] for r in local['clubs'].values()}),212)
   used={}
   for row in local['clubs'].values():
    self.assertEqual(row['family'],COUNTRY_FAMILY[row['country']]);self.assertTrue(2<=len(row['name'])<=56)
    keys=used.setdefault(row['country'],set());self.assertNotIn(norm(row['name']),keys);keys.add(norm(row['name']))
    if row['country']=='Portugal':
-    self.assertTrue(any(place in row['name'] for place in PLACES['pt']))
+    self.assertNotIn('Valedouro',row['name'])
     self.assertFalse(any(word in row['name'] for word in ('Wanderers','United','Town','Rovers','Athletic','City')))
  def test_old_english_fallback_fails_shipping_gate(self):
   expected=shipping_data(ROOT/'assets/data')['world_clubs'];uid=next(iter(expected['clubs']));expected['clubs'][uid]['name']=expected['clubs'][uid]['canonical']

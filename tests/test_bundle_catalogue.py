@@ -46,6 +46,7 @@ class BundleCatalogueTests(unittest.TestCase):
     self.assertEqual(row['rating'],status['clubs'][uid]['rating']);self.assertEqual(len(row['seasons']),len(status['clubs'][uid]['seasons']))
  def test_released_1030000_bundle_fails_new_name_gate(self):
   artifact=ROOT.parent/'Scorer-World-1.0-unsigned.aab'
+  if not artifact.exists():artifact=Path('/tmp/scorer-signing-archives/Scorer-World-1.0-unsigned.aab')
   if not artifact.exists():self.skipTest('Old artifact not available')
   with zipfile.ZipFile(artifact) as z:
    with tarfile.open(fileobj=io.BytesIO(z.read(next(n for n in z.namelist() if n.endswith('assets/private.tar'))))) as payload:

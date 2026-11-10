@@ -16,7 +16,7 @@ def shipping_data(directory):
     local = read('fictional_names')
     if local is None:
         raise ValueError('Missing reviewed local fictional names')
-    if local.get('identity') != 'fictional-local-v1' or not set(world['clubs']).issubset(local.get('clubs', {})):
+    if local.get('identity') != 'city-colour-v1' or not set(world['clubs']).issubset(local.get('clubs', {})):
         raise ValueError('Incomplete local fictional names')
     names = {}
     canonicals = {}
@@ -29,7 +29,7 @@ def shipping_data(directory):
         if not isinstance(label, str) or not 2 <= len(label) <= 56:
             raise ValueError('Invalid local fictional name: '+uid)
         names[uid] = label
-    result = {'world_clubs': {'version': 1, 'identity': 'fictional-local-v1', 'clubs': {
+    result = {'world_clubs': {'version': 1, 'identity': 'city-colour-v1', 'clubs': {
         uid: dict(canonical=canonicals[uid], name=name, **({'colours': world['clubs'].get(uid, {})['colours']} if 'colours' in world['clubs'].get(uid, {}) else {}))
         for uid, name in names.items()}}}
     result['fictional_names'] = local
