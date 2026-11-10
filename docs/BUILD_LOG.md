@@ -2905,3 +2905,9 @@ JDK and disposable signing-only fixture (not runnable Android), no secret argv,
 wrong input/cert/already-signed/output refusal. Tests use no real production key.
 Archived only known generated QA artifacts/source snapshots to /tmp for space;
 originals preserved, no user work or signing material moved.
+
+Unsigned1.0 delivery workflow42882040459 succeeded; anonymous AAB116946453bytes
+SHA2562d44aa9197c3d97f37cad8569ed70ce1c5333882852276e7d44ef34283cc9730 and
+standalone signing helper5492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885fa6761
+HTTP200 verified. Signature still pending owner-side hidden password input. No
+production key/certificate enrollment or Play upload was performed by the cloud.
