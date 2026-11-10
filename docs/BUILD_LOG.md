@@ -2937,3 +2937,9 @@ Delivery prepared with original upload cert pinned and fresh output path. Existi
 registered apk-delivery.yml is used on review branch because GitHub does not
 register workflow_dispatch for a new off-default workflow (404); no default-branch
 settings changed. Historical editor-name attachment job retained. Source7f70966.
+Delivery42913734812 succeeded. Anonymous full downloads independently verified:
+AAB116837994bytes SHA256e0dda65b3f97ca2ff684595be8b31f7870cf070d3bb20449290823b12774eabc;
+coordinator2336bytes SHA256f378c524f2376eccd11b770b289373874fc2aee6143b7a5974f1d113cbb3e509;
+unchanged signing helper4668bytes SHA2565492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885fa6761.
+AllHTTPS200. Original flawed GitHub candidate marked SUPERSEDED with corrected link.
+Owner still must sign and replace internal release; no Play changes claimed.
