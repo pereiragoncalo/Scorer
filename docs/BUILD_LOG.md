@@ -2955,3 +2955,8 @@ UIDs/save/custom aliases retained.378profile capacity/pattern+499rating rows cov
 29focused tests pass;6clean-sourceKivy tests pass including90caption measurements
 and YOUR SEASON centre at2sizes. Old generated partial stages preserved under/tmp.
 Build1030002final running; signing/Play acceptance still owner-operated.
+Final native hub screenshot showed a long Portuguese name being ellipsized by the
+existing fixture label. Allowed full two-line wrapping in that fixture panel;
+added a real UI regression alongside centred YOUR SEASON check. No buttons moved.
+Final packaging rerun includes this small readability fix; previous partial builds
+were not delivered. No keys or credentials in source.

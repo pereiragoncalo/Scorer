@@ -1040,6 +1040,8 @@ class MainDashboard(BoxLayout):
         teams.add_widget(BoundedLabel(text='VS' if fixture else '', font_size=sp(11), color=MUTED,
                                      halign='center', size_hint_x=0.18))
         teams.add_widget(BoundedLabel(text=away, localize=False, font_size=sp(18), bold=True, halign='center'))
+        for label in teams.children:
+            label.shorten=False  # Local club names may wrap to the second line.
         self.match.add_widget(teams)
         footer = self.footer = FloatLayout(size_hint_y=None, height=dp(52))
         self.training = MenuTile('TRAINING', lambda: menu.action('training'), accent=not c.trained_this_week)

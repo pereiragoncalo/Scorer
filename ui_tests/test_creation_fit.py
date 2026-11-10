@@ -42,4 +42,8 @@ class CreationFitTests(unittest.TestCase):
      dashboard=g._menu.body;panel=dashboard.season
      heading=next(w for w in panel.children if getattr(w,'text','')=='YOUR SEASON')
      self.assertEqual(heading.halign,'center');self.assertAlmostEqual(heading.center_x,panel.center_x,delta=1)
+     c=g.career;fixture=c.next_match()
+     for name in (c.display_club(fixture[1]),c.display_club(fixture[2])):
+      label=next(w for w in dashboard.match.walk() if getattr(w,'text',None)==name)
+      self.assertFalse(label.shorten)
   finally:Window.size=old
