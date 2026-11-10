@@ -2827,3 +2827,25 @@ No APK rebuild or gameplay change was needed after verification.
 0.9.42 QA delivery workflow42680414361 succeeded. Anonymous attachment download
 HTTP200/118313343bytes/SHA25675193fca9d47a72177fefb32b736c7067be0ef7dbcfc3fbb2007ca3749cf64a6
 verified against the tested APK. Temporary transfer branch removed after proof.
+
+
+## Backend repair1 — missing privacy dependencies on bastion
+
+Owner journal shows ImportError server.privacy_cases, then systemd StartLimitHit,
+after old standalone installer rollback. The old payload omitted privacy_cases.py
+and its root privacy_requests.py dependency; prior20-check rehearsal started from
+a complete v3 checkout and did not exercise the damaged deployment. Acknowledged
+installer packaging defect. Old immutable0.9.40 download is retained as historical
+evidence, not the repair recommendation.
+
+Repair payload includes explicit server package and complete startup modules,
+legacy privacy reference dependency, aggregate validator, record helpers and admin
+HTML. Preflight isolated Python import/Collector initialization/public-policy render
+uses ONLY bundled files and a disposable DB before service stop. Start clears
+systemd failed/start-limit state. Rollback error preserves original failure too.
+Initial local repair preflight caught a missing sys import in the new helper; fixed
+before publishing. --check now passes,22real isolated migration/moderation/deletion
+checks pass with privacy modules deliberately removed/reproduced failure,6installer
+tests pass including missing-import preflight and reset-failed ordering. Python3.12
+locally; owner host journal shows3.13, not available for local execution. No remote
+service modification performed here, no secret read/printed, no APK/game changes.

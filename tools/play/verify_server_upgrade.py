@@ -9,8 +9,8 @@ OLD_FILES=('anonymous_stats.py','online_safety.py','privacy_requests.py','season
  'server/configure_public.py','server/dashboard.html')
 ADMIN='isolated-test-only'
 
-def verify(report_path,baseline='qa-0.9.33'):
- installer_file=ROOT/'docs/data/server/Scorer-Play-Policy-0.9.40.py'
+def verify(report_path,baseline='qa-0.9.33',installer_path=None,missing_dependencies=False):
+ installer_file=Path(installer_path) if installer_path else ROOT/'docs/data/server/Scorer-Backend-Repair-1.py'
  installer=runpy.run_path(str(installer_file),run_name='installer_for_test')
  checks=[];process=None;port=None
  def passed(name,condition=True):
@@ -64,7 +64,14 @@ def verify(report_path,baseline='qa-0.9.33'):
    with sqlite3.connect(db) as connection:
     connection.execute("INSERT INTO totals VALUES(date('now'),'sessions',42)")
     passed('baseline_has_no_career_table',not connection.execute("SELECT 1 FROM sqlite_master WHERE name='career_records'").fetchone())
+   if missing_dependencies:
+    stop()
+    for name in ('server/privacy_cases.py','privacy_requests.py'):(target/name).unlink()
+    env=dict(os.environ,PYTHONPATH=str(target))
+    failed=subprocess.run([sys.executable,'-B','-c','from server.usage_collector import Collector'],cwd=target,env=env,capture_output=True,text=True)
+    passed('reproduces_missing_privacy_cases_import_failure',failed.returncode!=0 and 'privacy_cases' in failed.stderr)
    installer['apply'](target,installer['sources'](),stop,start,lambda:installer['verify'](port))
+   if missing_dependencies:passed('missing_dependencies_repaired',(target/'server/privacy_cases.py').is_file() and (target/'privacy_requests.py').is_file())
    passed('real_bundled_installer_verifies_public_pages_and_v3_v4')
    passed('existing_season_record_preserved',call(query(3),expect=200)['entries']==[dict(baseline_row,publisher=old_publisher,record_id=call(query(3),expect=200)['entries'][0]['record_id'])])
    passed('new_career_board_empty',call(query(4),expect=200)['entries']==[])
@@ -104,4 +111,4 @@ def verify(report_path,baseline='qa-0.9.33'):
  print('PASS:',len(checks),'isolated migration/moderation/deletion checks')
  return result
 if __name__=='__main__':
- parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--report',type=Path,required=True);args=parser.parse_args();verify(args.report)
+ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--report',type=Path,required=True);parser.add_argument('--installer',type=Path);parser.add_argument('--missing-dependencies',action='store_true');args=parser.parse_args();verify(args.report,installer_path=args.installer,missing_dependencies=args.missing_dependencies)
