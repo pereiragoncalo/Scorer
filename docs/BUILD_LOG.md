@@ -2878,3 +2878,30 @@ without key creation, real disposable JDK PKCS12 generation/export/fingerprint/
 permissions and no secret in argv. All test identities removed with temp directory.
 No production key generated, no AAB signed/submitted, no publication flags faked.
 Asked who operates moderation before declaring that production readiness field.
+
+
+## World1.0 unsigned release candidate
+
+Owner created private upload key on bastion and sent PUBLIC SHA256 screenshot;
+no private key/password received. Pin stored as owner-reported, not Console-enrolled.
+Owner explicitly confirmed Gonçalo Pereira operates moderation. Recorded engineering
+data/Families/provider review with published policy and live backend evidence; no
+external legal counsel or Google approval claim. Production gate accepts the actual
+review config, example placeholders unchanged. Clean indexed source excludes WIP.
+
+Built release AAB world1.0/code1030000; original has no signature entries. First
+static audit failed an obsolete fixed9896club count. Actual source/stage/bundle
+all have10598entries and identical SHA2569a308fcaaf885f832c4dd817d9a26afffe9308dbfa33d3915f41ae5c13c6e1f7.
+Replaced fixed count with exact reviewed-source hash+schema validation,2regression
+tests pass. Re-ran full unsigned inspection: bundletool, production manifest,
+forbidden SDK/permissions/private-data checks,118ELF16KB,16KB ZIP request, matching
+hostpython edition/channel/version1.0 and derived DEBUG inspection APK pass.
+No AAB production signature or Play upload performed.
+
+New owner-side signing helper: pin unsigned SHA and expected public certificate,
+hidden existing password, JDK env selectors, no overwrite, signed-JAR verification
+and actual certificate comparison, exclusive final commit.2tests passed with full
+JDK and disposable signing-only fixture (not runnable Android), no secret argv,
+wrong input/cert/already-signed/output refusal. Tests use no real production key.
+Archived only known generated QA artifacts/source snapshots to /tmp for space;
+originals preserved, no user work or signing material moved.

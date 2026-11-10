@@ -3,6 +3,7 @@
 Manifest XML must come from bundletool dump manifest (AAB) or apkanalyzer (APK).
 This does not replace upload signing, Play pre-launch reports or device tests.
 """
+import hashlib
 import argparse
 import io
 import json
@@ -41,6 +42,15 @@ def inspect_manifest(text,expected_package='com.clemir.striker'):
     return root, sorted(permissions)
 
 
+def verify_catalogue(raw,reference):
+    import json
+    data=json.loads(raw)
+    if data.get('version')!=1 or not isinstance(data.get('clubs'),dict) or not data['clubs']:
+        raise ValueError('World presentation catalogue missing or invalid')
+    if hashlib.sha256(raw).digest()!=hashlib.sha256(Path(reference).read_bytes()).digest():
+        raise ValueError('Bundled World catalogue differs from the reviewed source')
+    return len(data['clubs'])
+
 def verify(artifact, manifest, channel,expected_package='com.clemir.striker'):
     root, permissions = inspect_manifest(manifest,expected_package)
     with zipfile.ZipFile(artifact) as archive:
@@ -59,14 +69,12 @@ def verify(artifact, manifest, channel,expected_package='com.clemir.striker'):
                 raise ValueError('Private state or server/signing material packaged')
             data_member = next(m for m in payload if m.name.endswith('assets/data/world_clubs.json'))
             import json
-            data = json.load(payload.extractfile(data_member))
-            if data.get('version') != 1 or len(data.get('clubs', {})) != 9896:
-                raise ValueError('World presentation catalogue missing or incomplete')
+            catalogue_count=verify_catalogue(payload.extractfile(data_member).read(),Path('assets/data/world_clubs.json'))
             edition = next(m for m in payload if m.name.endswith('/edition.pyc') or m.name == 'edition.pyc')
             # Flag is checked separately with the built Python version; do not unmarshal untrusted input here.
             if edition.size > 16384: raise ValueError('Unexpected edition module')
     return {'package':root.get('package'), 'version_code':root.get(ANDROID+'versionCode'),
-            'channel':channel,'permissions':permissions,'static_checks':'pass',
+            'channel':channel,'permissions':permissions,'catalogue_clubs':catalogue_count,'static_checks':'pass',
             'device_tests':'pending','in_app_billing':'absent','production_signing':'not established'}
 
 

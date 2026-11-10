@@ -1,0 +1,34 @@
+{
+  "automatic_usage_legal_review": true,
+  "children_social_review": true,
+  "moderation_operator_ready": true,
+  "public_policy_live": true,
+  "cloudflare_practices_reviewed": true,
+  "legal_basis": "Optional usage is default-off and separately enabled by an adult after disclosure, with withdrawal and unsent-data erasure without affecting play; launch acknowledgment is not consent. Optional pseudonymous Season/Career sharing requires adult controls, community terms and explicit Share with pre-publication review. Necessary security and moderation support the requested service; applicable child-protection, parental-authorization and data-protection rights take precedence. No advertising, profiling, location, contacts or advertising identifiers.",
+  "reviewed_at": "2026-11-10",
+  "review_scope": "Engineering review of actual implementation and published policy against Google Play User Data/Families/UGC requirements; not external legal advice or Google approval.",
+  "moderator": {
+    "name": "Gonçalo Pereira",
+    "confirmation": "Owner explicitly confirmed responsibility for pending names and reports on2026-11-10"
+  },
+  "evidence": {
+    "policy_https": [
+      {
+        "url": "https://pereiragoncalo.github.io/Scorer/privacy/",
+        "http": 200
+      },
+      {
+        "url": "https://pereiragoncalo.github.io/Scorer/terms/",
+        "http": 200
+      },
+      {
+        "url": "https://pereiragoncalo.github.io/Scorer/delete/",
+        "http": 200
+      }
+    ],
+    "backend": "Owner Repair1 installed; independent health/v3/v4 HTTPS checks and private Career report/withdraw checks passed.",
+    "provider": "Owner confirms Cloudflare Tunnel/proxy only, no Web Analytics/Logpush. Collector suppresses raw request/IP logs. GitHub Pages hosting/request processing disclosed. Provider account itself not independently audited.",
+    "audience": "Includes minors, owner confirmed. Local adult DOB/PIN is an access safeguard, not verified parental identity; no prohibited IDs/ad SDKs.",
+    "phone": "Owner reports three0.9.41 smoke checks passed; extended/internal Play/16KB physical checks still pending."
+  }
+}
