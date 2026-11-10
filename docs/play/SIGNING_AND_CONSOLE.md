@@ -8,7 +8,7 @@ into chat or commit them. No new production key was generated in the cloud.
    existing signing identity. Existing apps must follow their registered upload
    key/reset procedure; do not generate a replacement by assumption.
 2. For genuinely new enrollment, run tools/play/create_upload_key.py on the owner's
-   laptop with a fresh protected keystore path. It prompts twice without echo,
+   bastion or computer with a fresh protected keystore path. It prompts twice without echo,
    uses keytool env password handling, file0600 and refuses overwrite. Back up
    key+password securely in separate safe storage. The public upload certificate
    can be shared/enrolled; the private key cannot.
@@ -37,3 +37,8 @@ into chat or commit them. No new production key was generated in the cloud.
 9. Confirm final artifact, checksums, source, policy, operator/moderation readiness,
    countries and release notes; obtain owner approval for the concrete upload and
    rollout. No Console submission or publication is performed by these scripts.
+
+For the current phone+bastion workflow see BASTION_UPLOAD_KEY.md. The helper now
+exports a public PEM/fingerprint, refuses both pre-existing outputs, uses private
+directory permissions and commits the key exclusively. No private key/password
+should be sent to the assistant.

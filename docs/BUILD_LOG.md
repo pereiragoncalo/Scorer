@@ -2862,3 +2862,19 @@ No real user records, usage counters or live admin approval changed. First probe
 ran cleanup then lacked old /tmp report directory; repeated with persistent path
 and recorded passing evidence. No game/APK modifications. Deployment blocker closed;
 operator availability, production signing/Console/Play checks not inferred.
+
+
+## Upload-key preparation on owner bastion
+
+Owner authorized upload-key/AAB preparation. New-app status was already confirmed;
+no production key in cloud. Hardened standalone key helper: hidden double password
+prompt,12+ASCII rule for PKCS12 compatibility, no password argv/history,4096RSA
+SHA256/10000days, private directory/0600 key, exclusive no-overwrite commit, public
+PEM/SHA256 export. Does not change permissions of existing non-private directories;
+rejects them rather than altering an unrelated directory.
+
+3tests passed: no overwrite of existing key/certificate, invalid secret rejected
+without key creation, real disposable JDK PKCS12 generation/export/fingerprint/
+permissions and no secret in argv. All test identities removed with temp directory.
+No production key generated, no AAB signed/submitted, no publication flags faked.
+Asked who operates moderation before declaring that production readiness field.
