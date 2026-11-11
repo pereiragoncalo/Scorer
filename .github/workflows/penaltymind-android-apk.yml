@@ -69,12 +69,12 @@ jobs:
         run: |
           set -euo pipefail
           godot --headless --path PenaltyMind_Godot --export-debug Android PenaltyMind-debug.apk
-          ls -lh PenaltyMind-debug.apk
-          sha256sum PenaltyMind-debug.apk
+          ls -lh PenaltyMind_Godot/PenaltyMind-debug.apk
+          sha256sum PenaltyMind_Godot/PenaltyMind-debug.apk
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: PenaltyMind-Android-APK
-          path: PenaltyMind-debug.apk
+          path: PenaltyMind_Godot/PenaltyMind-debug.apk
           if-no-files-found: error
           retention-days: 30
