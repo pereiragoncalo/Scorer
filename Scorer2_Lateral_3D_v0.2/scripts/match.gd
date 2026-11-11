@@ -129,10 +129,8 @@ func _build_stadium() -> void:
     crowd = Audience.new()
     crowd.name = "InstancedAnimatedStadiumAudience"
     add_child(crowd)
-    # Camera-side advertising hoardings stay low to avoid blocking players.
-    for i in range(12):
-        var x: float = -55.0 + float(i) * 10.0
-        _box("NearAdvertising", Vector3(x, 0.32, 31.1), Vector3(9.2, 0.63, 0.18), Color("#0e3c51") if i % 2 == 0 else Color("#193b46"))
+    # Camera-side advertising boards omitted in the opportunity view.
+    # Foreground props may never conceal the aiming zone or shot trajectory.
 
 func _goal(direction: float) -> void:
     var x: float = direction * FIELD_HALF_X
