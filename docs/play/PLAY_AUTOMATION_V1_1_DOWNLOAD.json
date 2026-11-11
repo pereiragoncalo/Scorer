@@ -1,0 +1,24 @@
+{
+  "workflow": 43022476258,
+  "files": [
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.1/bastion_play_internal.py",
+      "http": 200,
+      "bytes": 18691,
+      "sha256": "4547252192d2ee1fe70c661fe8699882541655ba90c4cae92e9becf8e60f3476"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.1/BASTION_PLAY_AUTOMATION.md",
+      "http": 200,
+      "bytes": 7433,
+      "sha256": "b24103aa0f13bf50f02c734b38d8d8239ae96ed0624bad3d208e5f5d983c90e8"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.1/BASTION_PLAY_AUTOMATION.sha256",
+      "http": 200,
+      "bytes": 91,
+      "sha256": "bbf5b4d1f6587092f14045dd9cc816468eeee58a73ea41493d2b213a29e3a7f5"
+    }
+  ],
+  "owner_commit_rerun": "pending"
+}

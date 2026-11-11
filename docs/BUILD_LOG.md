@@ -3039,3 +3039,8 @@ Existing signedAABandGoogle/P12keys reused.24local tests:23pass,1unchanged JDKcr
 fixture skipped onhost (previous fullJDKfixture pass); new regression simulates
 exact automatic-review400 and reuses uploaded matching bundle without upload.
 Commit/Play delivery still pending owner rerun. No credential received in cloud.
+Uploader1.1delivery43022476258passed CI24cases (portable source lacks approved-AAB
+localpath only). Independent anonymousHTTPS200 script/docs/SHA downloads match
+source; publisherSHA2564547252192d2ee1fe70c661fe8699882541655ba90c4cae92e9becf8e60f3476.
+Public update preserves existing private JSON/P12/signedAAB; owner rerun required.
+No successful commit or Play install inferred from this fix/delivery.
