@@ -39,7 +39,7 @@ var clock_label: Label
 var chance_label: Label
 var power_readout: Label
 var instruction: Label
-var camera_focus: Vector3 = Vector3(48.0, 1.4, 0.0)
+var camera_focus: Vector3 = Vector3(50.0, 1.4, 0.0)
 var current_keeper: Node3D
 var all_players: Array[Node3D] = []
 
@@ -264,7 +264,7 @@ func _build_camera() -> void:
     camera.near = 0.1
     camera.far = 180.0
     add_child(camera)
-    camera_focus = Vector3(48.0, 1.4, 0.0)
+    camera_focus = Vector3(50.0, 1.4, 0.0)
     camera.position = camera_focus + CAMERA_OFFSET
     camera.look_at(camera_focus, Vector3.UP)
 
@@ -273,7 +273,7 @@ func _update_camera_composition(delta: float) -> void:
         return
     # During match simulation, show the goalmouth and penalty area, not the
     # mostly empty half-pitch. The side-on angle stays identical for all stages.
-    var target_focus: Vector3 = Vector3(48.0, 1.4, 0.0)
+    var target_focus: Vector3 = Vector3(50.0, 1.4, 0.0)
     var target_size: float = 10.8
     if stage in [Stage.AIM, Stage.FLIGHT, Stage.REVIEW]:
         # Frame the shot origin AND both posts. Hard free kicks need a wider
