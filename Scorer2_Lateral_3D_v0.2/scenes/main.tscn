@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://scripts/match.gd" id="1_match"]
+[ext_resource type="Script" path="res://scripts/opportunities.gd" id="1_match"]
 
 [node name="Scorer2_Match" type="Node3D"]
 script = ExtResource("1_match")
