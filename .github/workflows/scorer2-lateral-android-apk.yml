@@ -1,0 +1,90 @@
+name: Scorer2 Lateral v0.2 Android APK
+on:
+  push:
+    branches:
+      - experiments/scorer2-lateral-v0.2
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout isolated test branch
+        uses: actions/checkout@v4
+      - name: Verify standalone source project
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f Scorer2_Lateral_3D_v0.2/project.godot
+          test -f Scorer2_Lateral_3D_v0.2/scripts/net.gd
+          test -f Scorer2_Lateral_3D_v0.2/scripts/crowd.gd
+          grep -q 'com.clemir.scorer2.lateral' Scorer2_Lateral_3D_v0.2/export_presets.cfg
+      - name: Install Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Godot 4.7.2 and Android templates
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: true
+      - name: Install Android SDK components
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)"
+          if [ -z "$SDKMANAGER" ]; then echo "Missing sdkmanager"; exit 1; fi
+          "$SDKMANAGER" --sdk_root="$ANDROID_HOME" "platform-tools" "build-tools;35.0.1" "platforms;android-35"
+      - name: Import game scripts and configure Godot Android SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --editor --path Scorer2_Lateral_3D_v0.2 --quit
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          paths = sorted((Path.home()/".config/godot").glob("editor_settings-4*.tres"))
+          if not paths:
+              raise RuntimeError("Godot editor settings missing")
+          p = paths[-1]
+          data = p.read_text()
+          inject = ('export/android/android_sdk_path = "' + os.environ['ANDROID_HOME'] + '"\n' +
+                    'export/android/java_sdk_path = "' + os.environ['JAVA_HOME'] + '"\n')
+          if "[resource]" not in data:
+              raise RuntimeError("Godot config invalid")
+          p.write_text(data.replace("[resource]", "[resource]\n" + inject))
+          PY
+      - name: Headless runtime script validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path Scorer2_Lateral_3D_v0.2 --quit-after 60 > runtime.log 2>&1 || { cat runtime.log; exit 1; }
+          tail -40 runtime.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' runtime.log; then exit 1; fi
+      - name: Create dedicated Scorer2 test keystore
+        shell: bash
+        run: |
+          set -euo pipefail
+          keytool -genkeypair -keystore "$RUNNER_TEMP/scorer2-debug.keystore" -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Scorer2 Test,O=CLEMiR,C=PT"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$RUNNER_TEMP/scorer2-debug.keystore" >> "$GITHUB_ENV"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey" >> "$GITHUB_ENV"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android" >> "$GITHUB_ENV"
+      - name: Export Android debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p Scorer2_Lateral_3D_v0.2/build
+          godot --headless --path Scorer2_Lateral_3D_v0.2 --export-debug Android build/Scorer2-Lateral-v0.2.apk
+          test -s Scorer2_Lateral_3D_v0.2/build/Scorer2-Lateral-v0.2.apk
+          ls -lh Scorer2_Lateral_3D_v0.2/build/Scorer2-Lateral-v0.2.apk
+          sha256sum Scorer2_Lateral_3D_v0.2/build/Scorer2-Lateral-v0.2.apk
+      - name: Upload signed APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Scorer2-Lateral-v0.2-APK
+          path: Scorer2_Lateral_3D_v0.2/build/Scorer2-Lateral-v0.2.apk
+          if-no-files-found: error
+          retention-days: 30
