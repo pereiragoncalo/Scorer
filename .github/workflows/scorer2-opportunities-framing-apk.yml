@@ -73,7 +73,8 @@ jobs:
           script = Path("Scorer2_Lateral_3D_v0.2/scripts/opportunities.gd").read_text()
           stadium = Path("Scorer2_Lateral_3D_v0.2/scripts/crowd.gd").read_text()
           assert "Vector3(50.0, 1.4, 0.0)" in script
-          assert "PROJECTION_ORTHOGONAL" in script\n          assert "func _update_camera_composition" in script
+          assert "PROJECTION_ORTHOGONAL" in script
+          assert "func _update_camera_composition" in script
           assert 'anchor.name = "WaveFlag"' not in stadium
           eye = (28.0, 10.2, 31.0)
           target = (50.0, 1.4, 0.0)
