@@ -238,8 +238,9 @@ def publish(client,path,signed_sha,check_only=False):
         client.api('POST',edit_url+':validate')
         print('Bundle and internal release validated; committing internal edit',flush=True)
         commit_attempted=True
-        # Never cancel a review or automatically send pending app changes for review.
-        query=urlencode({'changesNotSentForReview':'true','changesInReviewBehavior':'ERROR_IF_IN_REVIEW'})
+        # Internal testing uses this app's automatic review mode. The owner-observed
+        #400 explicitly forbids changesNotSentForReview; omit it, but NEVER cancel a review.
+        query=urlencode({'changesInReviewBehavior':'ERROR_IF_IN_REVIEW'})
         try:client.api('POST',edit_url+':commit?'+query)
         except (URLError,TimeoutError,OSError,APIError) as error:
             if isinstance(error,APIError) and error.status<500:raise

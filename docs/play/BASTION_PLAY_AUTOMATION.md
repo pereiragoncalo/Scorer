@@ -40,8 +40,8 @@ Use the exact verified checksum in BASTION_PLAY_AUTOMATION.sha256:
 (
 set -eu
 scorer_setup=$(mktemp -d /root/scorer-play-api.XXXXXX)
-curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1/bastion_play_internal.py -o "$scorer_setup/uploader.py"
-printf '%s  %s\n' 1c20d328ceaaeb97f063e926d3203fa4e125eaf3f85d64d6ce6d388b373b455a "$scorer_setup/uploader.py" | sha256sum -c -
+curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.1/bastion_play_internal.py -o "$scorer_setup/uploader.py"
+printf '%s  %s\n' 4547252192d2ee1fe70c661fe8699882541655ba90c4cae92e9becf8e60f3476 "$scorer_setup/uploader.py" | sha256sum -c -
 install -m700 "$scorer_setup/uploader.py" /root/scorer-signing/play-internal.py
 python3 /root/scorer-signing/play-internal.py --setup-folder
 )
@@ -91,11 +91,13 @@ existing version with another hash stops. Both --check/--publish hold the same
 local lock. Errors before commit clean only this program's edit. Uncertain commit
 responses are not blindly retried or reported as definitely unpublished.
 
-Commit uses changesNotSentForReview=true and changesInReviewBehavior=ERROR_IF_IN_REVIEW
-according to the current Google discovery schema. It NEVER drops those flags on
-error or cancels an ongoing review. If Google rejects the review option or needs
-manual review, stop and inspect the public error/Console. Review/publishing timing
-and actual device delivery are controlled by Google, not guaranteed by a200commit.
+Owner's first real upload/validation succeeded, but Google rejected the final commit:
+"Changes are sent for review automatically. The query parameter changesNotSentForReview
+must not be set." Version1.1 therefore omits that incompatible parameter. Commit
+retains changesInReviewBehavior=ERROR_IF_IN_REVIEW and stops on ongoing-review
+errors; it never retries with a review-cancelling mode. Only internal is mutated.
+Normal Google automatic review handling applies to this owner-authorized internal
+release; delivery timing remains controlled by Google.
 Grant no production permission to this service account.
 
 The service JSON stays on bastion; OAuth tokens are transient in memory; temporary
@@ -114,10 +116,11 @@ Resumable path uses documented/resumable/upload/androidpublisher/v3/.../bundles.
 Official commit/review semantics:
 https://developers.google.com/android-publisher/api-ref/rest/v3/edits/commit
 
-23local test scenarios cover internal-only transaction ordering, validation failure,
+24local test scenarios cover internal-only transaction ordering, validation failure,
 cleanup/idempotency/downgrade/hash guards, lost commit/chunk acknowledgments,
 trusted upload hosts, redirect/credential redaction, private install/no-overwrite,
 real disposable RSA JWT and full-JDK fixture signatures/payload tamper detection.
-Host and fullJDKcontainer together cover all23 (each environment skips the single
-fixture unavailable there). No test authenticates to Google. Actual owner-side
-credential installation, --check and first real --publish remain pending.
+Host and fullJDKcontainer together cover all24 (each environment skips the single
+fixture unavailable there). No test authenticates to Google. Owner installed the Google credential on bastion; live --check returned internal1030002.
+The first --publish verified/signed/uploaded1030003andvalidated the edit, then got
+the specific400above. No commit success is claimed until owner reruns1.1.

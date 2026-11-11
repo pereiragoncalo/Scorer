@@ -3025,3 +3025,17 @@ Owner screenshot confirms serviceaccount scorer-play-uploader@scorer-publishing.
 created/enabled. Guided owner to Play Users/permissions, Scorer-only read/testing
 release permissions, no Admin/production. Grant, privateJSON/SFTP install, live
 --check and first realpublish still pending. No API credentials received here.
+
+##2026-11-11 — owner live upload success, Google automatic-review commit400
+
+Owner --check authenticated and read internal1030002; serviceJSONinstalled privately
+on bastion. First --publish localcert/payload checks, full resumable upload and
+Google validation passed. Finalcommit rejected400 with explicit instruction NOT
+to set changesNotSentForReview because this app sends review changes automatically.
+Prepared uploader1.1: omit that unsupported optional flag; retain ERROR_IF_IN_REVIEW
+(no review cancellation), internal-only track+same limited accountpermissions and
+all existing code/hash/signature guards. No fallback retries after review errors.
+Existing signedAABandGoogle/P12keys reused.24local tests:23pass,1unchanged JDKcrypto
+fixture skipped onhost (previous fullJDKfixture pass); new regression simulates
+exact automatic-review400 and reuses uploaded matching bundle without upload.
+Commit/Play delivery still pending owner rerun. No credential received in cloud.

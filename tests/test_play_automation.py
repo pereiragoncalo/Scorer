@@ -28,7 +28,7 @@ class PublisherTests(unittest.TestCase):
   self.assertEqual(put['track'],'internal');self.assertEqual(put['releases'][0]['versionCodes'],['1030003'])
   self.assertEqual(put['releases'][0]['status'],'completed')
   self.assertTrue(methods[-2][1].endswith(':validate'));self.assertIn(':commit?',methods[-1][1])
-  self.assertIn('changesNotSentForReview=true',methods[-1][1]);self.assertIn('ERROR_IF_IN_REVIEW',methods[-1][1])
+  self.assertNotIn('changesNotSentForReview',methods[-1][1]);self.assertIn('ERROR_IF_IN_REVIEW',methods[-1][1])
   self.assertFalse(any('/production' in url for _,url in methods))
  def test_check_only_does_not_upload_update_validate_or_commit(self):
   client=FakeClient()
@@ -67,6 +67,18 @@ class PublisherTests(unittest.TestCase):
   client=FakeClient(fail=':commit?')
   with patch.object(p,'upload',return_value={'versionCode':p.VERSION,'sha256':'abc'}),self.assertRaises(p.APIError):p.publish(client,Path('fixture'),'abc')
   self.assertEqual(sum(':commit?' in u for _,u,_ in client.calls),1)
+
+ def test_automatic_review_mode_accepts_commit_without_unsupported_parameter(self):
+  client=FakeClient(bundles=[{'versionCode':p.VERSION,'sha256':'abc'}]);original=client.api
+  def google_mode(method,url,body=None):
+   if ':commit?' in url and 'changesNotSentForReview' in url:
+    raise p.APIError(400,'Changes are sent for review automatically. The query parameter changesNotSentForReview must not be set.')
+   return original(method,url,body)
+  client.api=google_mode
+  with patch.object(p,'upload') as upload:
+   self.assertEqual(p.publish(client,Path('fixture'),'abc'),'committed');upload.assert_not_called()
+  commit=next(u for _,u,_ in client.calls if ':commit?' in u)
+  self.assertIn('ERROR_IF_IN_REVIEW',commit)
 
 class ResumableTests(unittest.TestCase):
  def test_chunking_and_acknowledged_offsets(self):

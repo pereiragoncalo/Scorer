@@ -40,6 +40,12 @@
     }
   },
   "production_allowed": false,
-  "live_google_account_verified": false,
-  "private_key_received": false
+  "live_google_account_verified": true,
+  "private_key_received": false,
+  "owner_upload_validation_verified": true,
+  "owner_commit_verified": false,
+  "effective_commit_query": {
+    "changesInReviewBehavior": "ERROR_IF_IN_REVIEW"
+  },
+  "omitted_parameter_reason": "Owner Google400: Changes are sent for review automatically. The query parameter changesNotSentForReview must not be set."
 }
