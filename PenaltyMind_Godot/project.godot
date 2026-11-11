@@ -1,0 +1,21 @@
+; PenaltyMind — prototipo de aprendizagem para Scorer 2
+config_version=5
+
+[application]
+config/name="PenaltyMind"
+run/main_scene="res://scenes/main.tscn"
+config/description="Jogo offline de penaltis contra um guarda-redes adaptativo"
+
+[display]
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/size/window_width_override=540
+window/size/window_height_override=960
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+window/handheld/orientation=1
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=true
