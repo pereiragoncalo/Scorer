@@ -1,0 +1,45 @@
+{
+  "package": "com.clemir.scorerworld",
+  "track": "internal",
+  "version_code": 1030003,
+  "discovery_url": "https://androidpublisher.googleapis.com/$discovery/rest?version=v3",
+  "discovery_sha256": "9d2b7db45d63a0bd62c18d607d558392f8b63276bfb227ee1f2a5926f1ed5419",
+  "resumable_path": "/resumable/upload/androidpublisher/v3/applications/{packageName}/edits/{editId}/bundles",
+  "commit_parameters": {
+    "editId": {
+      "required": true,
+      "location": "path",
+      "type": "string",
+      "description": "Identifier of the edit."
+    },
+    "packageName": {
+      "location": "path",
+      "type": "string",
+      "description": "Package name of the app.",
+      "required": true
+    },
+    "changesNotSentForReview": {
+      "type": "boolean",
+      "location": "query",
+      "description": "When a rejection happens, the parameter will make sure that the changes in this edit won't be reviewed until they are explicitly sent for review from within the Google Play Console UI. These changes will be added to any other changes that are not yet sent for review."
+    },
+    "changesInReviewBehavior": {
+      "description": "Optional. Specify how the API should behave if there are changes currently in review. If this value is not set, it will default to \"CANCEL_IN_REVIEW_AND_SUBMIT\", which will cancel the changes in review and then send all the changes for publishing.",
+      "enum": [
+        "CHANGES_IN_REVIEW_BEHAVIOR_TYPE_UNSPECIFIED",
+        "CANCEL_IN_REVIEW_AND_SUBMIT",
+        "ERROR_IF_IN_REVIEW"
+      ],
+      "location": "query",
+      "type": "string",
+      "enumDescriptions": [
+        "Defaults to CANCEL_IN_REVIEW_AND_SUBMIT.",
+        "If there are changes already in review, then this will cancel that review first and then send all the changes for publishing.",
+        "If there are changes in review, then this will return an error. Please refer to the error message sample that is returned when this happens. Note that this won't invalidate the edit. If there aren't any changes in review, then this will continue and send the new changes for publishing."
+      ]
+    }
+  },
+  "production_allowed": false,
+  "live_google_account_verified": false,
+  "private_key_received": false
+}

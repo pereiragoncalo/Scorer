@@ -1,13 +1,18 @@
-name: Deliver fictional World 1.0 replacement
+name: Deliver verified Scorer artifacts
 on:
   workflow_dispatch:
     inputs:
       transfer_commit:
-        description: Immutable commit containing the verified transfer parts
-        required: true
+        description: Immutable commit containing the verified transfer parts (bundle delivery only)
+        required: false
         type: string
       deliver_names:
         description: Deliver the checked editor JSON files instead of an APK
+        required: false
+        default: false
+        type: boolean
+      deliver_automation:
+        description: Deliver owner-side internal Play uploader only (no Google secrets)
         required: false
         default: false
         type: boolean
@@ -15,7 +20,7 @@ permissions:
   contents: write
 jobs:
   deliver:
-    if: ${{ !inputs.deliver_names }}
+    if: ${{ !inputs.deliver_names && !inputs.deliver_automation }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -114,3 +119,24 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release upload real-names-0.9.10 docs/data/name-packs/Scorer-World-Real-Names-0.9.10.json docs/data/name-packs/Scorer-World-Real-Names-Compatible.json --clobber
+
+  automation:
+    if: ${{ inputs.deliver_automation && !inputs.deliver_names }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test owner-side uploader with disposable fixtures only
+        run: python3 -m unittest tests.test_play_automation -q
+      - name: Verify public uploader checksum
+        run: |
+          cd tools/play
+          sha256sum -c ../../docs/play/BASTION_PLAY_AUTOMATION.sha256
+      - name: Attach public uploader (no service-account keys or Play API invocation)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view play-automation-v1 >/dev/null 2>&1; then
+            gh release create play-automation-v1 --target "$GITHUB_SHA" --prerelease --title "Scorer - bastion to Play internal uploader" --notes-file docs/RELEASE_PLAY_AUTOMATION_V1.md
+          fi
+          gh release upload play-automation-v1 tools/play/bastion_play_internal.py docs/play/BASTION_PLAY_AUTOMATION.md docs/play/BASTION_PLAY_AUTOMATION.sha256 --clobber

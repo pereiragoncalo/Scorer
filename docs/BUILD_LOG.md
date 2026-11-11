@@ -3000,3 +3000,20 @@ Delivery43002791031succeeded. Full anonymousHTTPS200 downloads verified:
 signs only on bastion; existing certificate pinned; no key generation or Play
 upload by cloud. Actual phone/Play update still pending. Reference colour coverage
 limits (378current+40extra vs10318existing-game palettes) explicitly retained.
+
+##2026-11-11 — owner-authorized bastion→Play internal automation
+
+Prepared standalone stdlib/OpenSSL/JDK publisher. FixedScorerpackage/internaltrack,
+1030003payload digest+owner cert pins, Google version/SHA validation, private
+credential install/nooverwrite,0700SFTPsetupdir/0600key, private snapshot of verified
+AAB, lock, resumable8MiB upload with offset recovery, edit validate/commit. Existing
+P12/password never leave bastion; no service key received by this cloud.
+Google live discovery contract confirms resumable path and2026commit review flags;
+ERROR_IF_IN_REVIEW+changesNotSentForReview=true never silently removed. Noproduction,
+listing,tester,financial or user-management writes. Uncertain commits not blindly
+retried.23scenarios locally covered: host22pass/1JDKskip; fullJDKcontainer22pass/1
+approved-AAB-pathskip. Together cover RSAJWT signature, actual JDK fixture signing,
+approved real AABpayloadpin, transaction/recovery/security/idempotency boundaries.
+Owner screenshot confirms ScorerPublishing project/APIEnabled. Service account,
+Play per-app read/testing grant, privateJSONinstall, live --check/first --publish
+remain pending. Game/APK/AAB unchanged1030003; preserve unrelated WIP.
