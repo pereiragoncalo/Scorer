@@ -3017,3 +3017,11 @@ approved real AABpayloadpin, transaction/recovery/security/idempotency boundarie
 Owner screenshot confirms ScorerPublishing project/APIEnabled. Service account,
 Play per-app read/testing grant, privateJSONinstall, live --check/first --publish
 remain pending. Game/APK/AAB unchanged1030003; preserve unrelated WIP.
+Public automation delivery43006706958succeeded with CI fixtures (23cases, portable
+source skips approved-AAB localpath only). Independent anonymous downloads of
+public script/docs/SHA file match localbytes (HTTPS200). Publisherfile SHA256
+1c20d328ceaaeb97f063e926d3203fa4e125eaf3f85d64d6ce6d388b373b455a.
+Owner screenshot confirms serviceaccount scorer-play-uploader@scorer-publishing.iam.gserviceaccount.com
+created/enabled. Guided owner to Play Users/permissions, Scorer-only read/testing
+release permissions, no Admin/production. Grant, privateJSON/SFTP install, live
+--check and first realpublish still pending. No API credentials received here.

@@ -1,0 +1,24 @@
+{
+  "workflow": 43006706958,
+  "files": [
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1/bastion_play_internal.py",
+      "http": 200,
+      "bytes": 18632,
+      "sha256": "1c20d328ceaaeb97f063e926d3203fa4e125eaf3f85d64d6ce6d388b373b455a"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1/BASTION_PLAY_AUTOMATION.md",
+      "http": 200,
+      "bytes": 7139,
+      "sha256": "9f605538323a29d2978e31ccdfe338b271cb336b584e401d6d565e994c225ce9"
+    },
+    {
+      "url": "https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1/BASTION_PLAY_AUTOMATION.sha256",
+      "http": 200,
+      "bytes": 91,
+      "sha256": "9ff0a9efa3ceeed342b0204ebdf0b3f958e986b1e9bfe644585cf8270fb21c80"
+    }
+  ],
+  "live_google_authorization": "pending owner service-account setup"
+}
