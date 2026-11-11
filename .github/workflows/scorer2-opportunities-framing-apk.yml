@@ -89,6 +89,24 @@ jobs:
               assert abs(x) < half_width-0.5, (label, x, half_width)
           print("Fixed camera framing checks passed")
           PY
+      - name: Capture gameplay previews on virtual display
+        shell: bash
+        continue-on-error: true
+        run: |
+          mkdir -p Scorer2_Lateral_3D_v0.2/build
+          if command -v xvfb-run >/dev/null 2>&1; then
+            timeout 40s xvfb-run -a godot --path Scorer2_Lateral_3D_v0.2 --rendering-driver opengl3 --resolution 1280x720 --script res://tests/capture_frame.gd > preview.log 2>&1 || true
+            tail -35 preview.log
+          else
+            echo "No virtual display available"
+          fi
+      - name: Upload gameplay previews
+        uses: actions/upload-artifact@v4
+        with:
+          name: Scorer2-v0.3.2-Preview
+          path: Scorer2_Lateral_3D_v0.2/build/frame_*.png
+          if-no-files-found: warn
+          retention-days: 7
       - name: Create dedicated Scorer2 test keystore
         shell: bash
         run: |
