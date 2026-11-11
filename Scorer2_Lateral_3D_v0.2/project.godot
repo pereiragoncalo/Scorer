@@ -2,9 +2,9 @@
 config_version=5
 
 [application]
-config/name="Scorer 2 - Football Evolution"
+config/name="Scorer 2 - Oportunidades"
 run/main_scene="res://scenes/main.tscn"
-config/description="Scorer 2 lateral 2.5D - jogadores 3D, publico e redes dinamicas"
+config/description="Scorer 2 opportunities / shot challenge / fixed 3D stadium"
 
 [display]
 window/size/viewport_width=1280
