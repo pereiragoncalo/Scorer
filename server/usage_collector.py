@@ -115,6 +115,14 @@ class Handler(BaseHTTPRequestHandler):
         except (ValueError,UnicodeError,TimeoutError,OSError):self.reply(400,{'error':'invalid'})
         except Exception:self.reply(503,{'error':'unavailable'})
     def do_GET(self):
+        if self.path=='/v1/app-version':
+            if not self.server.allow():self.reply(429,{'error':'busy'});return
+            try:
+                from version_policy import read
+                from server.version_updates import policy_path
+                self.reply(200,read(policy_path(self.server.public_config)))
+            except (OSError,ValueError,TypeError):self.reply(503,{'error':'version_policy_unavailable'})
+            return
         if self.path in ('/privacy','/terms','/delete'):
             from server.public_pages import page
             status,body=page(self.path,self.server.public_config)

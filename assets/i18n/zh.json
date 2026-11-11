@@ -699,5 +699,11 @@
   "Statistics enabled": "统计已启用",
   "Statistics disabled": "统计已关闭",
   "STOP STATISTICS & ERASE UNSENT": "停止统计并清除待发送数据",
-  "ALLOW OPTIONAL STATISTICS": "允许可选统计"
+  "ALLOW OPTIONAL STATISTICS": "允许可选统计",
+  "Checking for updates": "正在检查更新",
+  "Update required": "需要更新",
+  "Please wait.": "请稍候。",
+  "A newer version of Scorer is required to continue.": "请更新至较新版本的Scorer以继续。",
+  "UPDATE": "更新",
+  "RETRY": "重试"
 }

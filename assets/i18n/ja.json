@@ -699,5 +699,11 @@
   "Statistics enabled": "統計は有効",
   "Statistics disabled": "統計は無効",
   "STOP STATISTICS & ERASE UNSENT": "統計停止・未送信データ削除",
-  "ALLOW OPTIONAL STATISTICS": "任意の統計を許可"
+  "ALLOW OPTIONAL STATISTICS": "任意の統計を許可",
+  "Checking for updates": "更新を確認中",
+  "Update required": "更新が必要です",
+  "Please wait.": "しばらくお待ちください。",
+  "A newer version of Scorer is required to continue.": "続けるにはScorerを最新バージョンに更新してください。",
+  "UPDATE": "更新",
+  "RETRY": "再試行"
 }

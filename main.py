@@ -1330,6 +1330,7 @@ class StrikerGame(Widget):
 
 
     def update(self, dt: float) -> None:
+        if getattr(self,'_update_gate',None) is not None and self._update_gate.locked:return
         # Não deita fora tempo quando o desenho demora mais num telemóvel.
         # O limite evita saltos gigantes ao regressar de segundo plano; a
         # física continua dividida em passos de 1/60 s para não atravessar
@@ -2939,6 +2940,7 @@ class StrikerGame(Widget):
             app.stop()
 
     def _on_key_down(self, _window, key, _scancode, codepoint, _modifiers):
+        if getattr(self,'_update_gate',None) is not None and self._update_gate.locked:return True
         if self._context_help is not None:
             if key==27:self._context_help.dismiss()
             return True
@@ -3009,6 +3011,7 @@ class StrikerGame(Widget):
 
 
     def on_touch_down(self, touch):
+        if getattr(self,'_update_gate',None) is not None and self._update_gate.locked:return True
         if self._context_help is not None or self._exit_popup is not None:return True
         # Handle the first delivered touch at the root, even before the splash
         # widget has completed its initial Kivy layout.
@@ -3098,6 +3101,7 @@ class StrikerGame(Widget):
 
     @localized_call
     def _activate_ui(self, action: str, value: object = None) -> None:
+        if getattr(self,'_update_gate',None) is not None and self._update_gate.locked:return
         import time
         if action=='leaderboard_category' and value in ('season','career'):
             if not self.leaderboard.busy:
@@ -5483,7 +5487,13 @@ class StrikerApp(App):
             if board.pending_withdrawal and not board.busy:
                 board.sync(self.root.career,edition.is_world(),withdraw=True)
 
+    def _check_app_update(self):
+        gate=getattr(self.root,'_update_gate',None) if self.root else None
+        if gate:gate.check()
+
     def on_start(self):
+        self._check_app_update()
+        self._update_check_event=Clock.schedule_interval(lambda _:self._check_app_update() if self.root and self.root.view in ('start','hub','offers','world') else None,900)
         if self.root is not None:
             self.root.usage.begin_session()
             self.root.usage.flush_async()
@@ -5497,6 +5507,7 @@ class StrikerApp(App):
         return True
 
     def on_resume(self):
+        self._check_app_update()
         if self.root is not None:
             self.root.usage.begin_session()
             self.root.usage.flush_async()
@@ -5514,6 +5525,10 @@ class StrikerApp(App):
                     field.text=text;field.cursor=cursor;field.focus=focus
 
     def on_stop(self):
+        update_event=getattr(self,'_update_check_event',None)
+        if update_event:update_event.cancel()
+        gate=getattr(self.root,'_update_gate',None) if self.root else None
+        if gate:gate.close()
         event=getattr(self,'_usage_flush_event',None)
         if event is not None:event.cancel()
         if self.root is not None:
@@ -5523,7 +5538,11 @@ class StrikerApp(App):
 
     def build(self):
         force_android_landscape()
-        return StrikerGame()
+        game=StrikerGame()
+        if platform=='android' and edition.is_world() and release_settings.is_production():
+            from update_ui import UpdateGate
+            game._update_gate=UpdateGate(self,Path(self.user_data_dir)/'version-policy-cache.json')
+        return game
 
 
 

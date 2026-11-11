@@ -77,3 +77,7 @@ Google Play — User Data
 Google Play — Families
 
 Privacy Policy · Community Rules · Data and Record Removal
+
+## App version compatibility
+
+Scorer requests a public minimum-version policy from stats.clemir.com at startup, on resume and occasionally in menus. Comparison with the installed version happens locally. This request sends no player name, career, usage counters, advertising ID or unique device identifier. Cloudflare handles connection information as described above. The policy is cached locally; offline play is allowed unless a known minimum requires an update. The update button opens Google Play; Scorer does not install APK files itself. This is separate from optional usage statistics.

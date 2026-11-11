@@ -699,5 +699,11 @@
   "Statistics enabled": "Statistics enabled",
   "Statistics disabled": "Statistics disabled",
   "STOP STATISTICS & ERASE UNSENT": "STOP STATISTICS & ERASE UNSENT",
-  "ALLOW OPTIONAL STATISTICS": "ALLOW OPTIONAL STATISTICS"
+  "ALLOW OPTIONAL STATISTICS": "ALLOW OPTIONAL STATISTICS",
+  "Checking for updates": "Checking for updates",
+  "Update required": "Update required",
+  "Please wait.": "Please wait.",
+  "A newer version of Scorer is required to continue.": "A newer version of Scorer is required to continue.",
+  "UPDATE": "UPDATE",
+  "RETRY": "RETRY"
 }

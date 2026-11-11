@@ -699,5 +699,11 @@
   "Statistics enabled": "통계 켜짐",
   "Statistics disabled": "통계 꺼짐",
   "STOP STATISTICS & ERASE UNSENT": "통계 중지 및 미전송 데이터 삭제",
-  "ALLOW OPTIONAL STATISTICS": "선택적 통계 허용"
+  "ALLOW OPTIONAL STATISTICS": "선택적 통계 허용",
+  "Checking for updates": "업데이트 확인 중",
+  "Update required": "업데이트 필요",
+  "Please wait.": "잠시 기다려 주세요.",
+  "A newer version of Scorer is required to continue.": "계속하려면 Scorer를 최신 버전으로 업데이트하세요.",
+  "UPDATE": "업데이트",
+  "RETRY": "다시 시도"
 }

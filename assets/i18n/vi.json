@@ -699,5 +699,11 @@
   "Statistics enabled": "Đã bật thống kê",
   "Statistics disabled": "Đã tắt thống kê",
   "STOP STATISTICS & ERASE UNSENT": "DỪNG THỐNG KÊ VÀ XÓA DỮ LIỆU CHƯA GỬI",
-  "ALLOW OPTIONAL STATISTICS": "CHO PHÉP THỐNG KÊ TÙY CHỌN"
+  "ALLOW OPTIONAL STATISTICS": "CHO PHÉP THỐNG KÊ TÙY CHỌN",
+  "Checking for updates": "Đang kiểm tra cập nhật",
+  "Update required": "Cần cập nhật",
+  "Please wait.": "Vui lòng chờ.",
+  "A newer version of Scorer is required to continue.": "Cần phiên bản Scorer mới hơn để tiếp tục.",
+  "UPDATE": "CẬP NHẬT",
+  "RETRY": "THỬ LẠI"
 }

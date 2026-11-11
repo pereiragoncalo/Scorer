@@ -43,8 +43,8 @@ def prepare_edition(product, target, source=ROOT, analytics_endpoint=None, chann
     app['version'] = launch['production_version'] if channel=='production' else launch['next_test_version']
     app['android.numeric_version'] = str(config['version_code'])
     metadata=target/'release_settings.py'
-    lines=[line for line in metadata.read_text().splitlines() if not line.startswith(('VERSION_NAME =','WORLD_LISTING_READY ='))]
-    metadata.write_text('\n'.join(lines)+f'\nVERSION_NAME = {app["version"]!r}\nWORLD_LISTING_READY = False\n')
+    lines=[line for line in metadata.read_text().splitlines() if not line.startswith(('VERSION_NAME =','VERSION_CODE =','WORLD_LISTING_READY ='))]
+    metadata.write_text('\n'.join(lines)+f'\nVERSION_NAME = {app["version"]!r}\nVERSION_CODE = {config["version_code"]}\nWORLD_LISTING_READY = False\n')
     # Both products share a Python/Kivy native distribution, not an Android identity.
     app['p4a.extra_args'] = '--dist_name=striker'
     app['scorer.shared_native_dist'] = 'striker'

@@ -699,5 +699,11 @@
   "Statistics enabled": "Estatísticas ativadas",
   "Statistics disabled": "Estatísticas desativadas",
   "STOP STATISTICS & ERASE UNSENT": "PARAR ESTATÍSTICAS E APAGAR PENDENTES",
-  "ALLOW OPTIONAL STATISTICS": "PERMITIR ESTATÍSTICAS OPCIONAIS"
+  "ALLOW OPTIONAL STATISTICS": "PERMITIR ESTATÍSTICAS OPCIONAIS",
+  "Checking for updates": "A verificar atualizações",
+  "Update required": "Atualização necessária",
+  "Please wait.": "Aguarda um momento.",
+  "A newer version of Scorer is required to continue.": "É necessária uma versão mais recente do Scorer para continuar.",
+  "UPDATE": "ATUALIZAR",
+  "RETRY": "TENTAR NOVAMENTE"
 }
