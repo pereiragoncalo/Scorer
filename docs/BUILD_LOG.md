@@ -2992,3 +2992,11 @@ checks passed (sixexisting+newfourclub case). Screenshot actual staged hub shows
 PortoAzul/LisboaVermelho and correct red clubbutton/centred YOURSEASON.
 AAB117212326bytesSHA25614a143d6f879d2bc11def5cf35d32fc5e8fe11fefb2112baf7690d26edf076bb.
 Owner-only signing/Play install remain pending. Transfercommitf38cd05bf564c2d67043c301a8d05a760551f01f.
+Delivery43002791031succeeded. Full anonymousHTTPS200 downloads verified:
+117212326byteAAB SHA25614a143d6f879d2bc11def5cf35d32fc5e8fe11fefb2112baf7690d26edf076bb;
+2352bytecoordinator SHA2569960b8b6349e0b9ea68f633db5e852252f2bc85fa1caa536b5acc74e03a979a1;
+4668bytesigner SHA2565492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885fa6761.
+1030002candidate marked superseded by owner-selected city/colour1030003. Owner
+signs only on bastion; existing certificate pinned; no key generation or Play
+upload by cloud. Actual phone/Play update still pending. Reference colour coverage
+limits (378current+40extra vs10318existing-game palettes) explicitly retained.
