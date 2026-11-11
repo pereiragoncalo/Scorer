@@ -27,7 +27,7 @@ func _create_stands() -> void:
     _box("StandUpperRail", Vector3(0, 13.1, -55.3), Vector3(118, 0.23, 0.22), Color("#c7dce8"))
     for x in [-56.0, -37.0, -18.0, 0.0, 18.0, 37.0, 56.0]:
         _box("Stairway", Vector3(x, 6.5, -44.0), Vector3(1.2, 0.2, 24), Color("#97a2b0"))
-    _box("CameraSideRailing", Vector3(0, 0.45, 32.4), Vector3(115, 0.75, 0.16), Color("#c2d0d6"))
+    # Never create a camera-side rail: it occludes the field in lateral views.
     for i in range(4):
         var x: float = -50.0 if i % 2 == 0 else 50.0
         var z: float = -42.0 if i < 2 else 42.0
@@ -83,14 +83,8 @@ func _create_spectators() -> void:
     head_instance.material_override = material
     head_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
     add_child(head_instance)
-    for n in range(7):
-        var anchor: Node3D = Node3D.new()
-        anchor.name = "WaveFlag"
-        anchor.position = Vector3(-40.0 + float(n) * 13, 6 + float(n % 3) * 2, -43)
-        add_child(anchor)
-        waving_flags.append(anchor)
-        _box("FlagPole", Vector3(0, 0.7, 0), Vector3(0.06, 1.5, 0.06), Color("#d7e1eb"), anchor)
-        _box("TeamFlag", Vector3(0.42, 1.13, 0), Vector3(0.85, 0.54, 0.035), Color("#45a7db") if n % 2 == 0 else Color("#f2ba49"), anchor)
+    # No giant waving flags close to the camera. Stadium props must not
+    # cover the goal or shooting lane, especially on a small phone display.
 
 func _create_ads() -> void:
     for i in range(12):
