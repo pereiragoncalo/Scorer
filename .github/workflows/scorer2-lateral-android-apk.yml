@@ -1,8 +1,8 @@
-name: Scorer2 Lateral v0.2 Android APK
+name: Scorer2 Shooting Opportunities v0.3 Android APK
 on:
   push:
     branches:
-      - experiments/scorer2-lateral-v0.2
+      - experiments/scorer2-opportunities-v0.3
   workflow_dispatch:
 
 jobs:
@@ -17,9 +17,9 @@ jobs:
         run: |
           set -euo pipefail
           test -f Scorer2_Lateral_3D_v0.2/project.godot
-          test -f Scorer2_Lateral_3D_v0.2/scripts/net.gd
+          test -f Scorer2_Lateral_3D_v0.2/scripts/opportunities.gd
           test -f Scorer2_Lateral_3D_v0.2/scripts/crowd.gd
-          grep -q 'com.clemir.scorer2.lateral' Scorer2_Lateral_3D_v0.2/export_presets.cfg
+          grep -q 'com.clemir.scorer2.opportunities' Scorer2_Lateral_3D_v0.2/export_presets.cfg
       - name: Install Java 17
         uses: actions/setup-java@v4
         with:
@@ -77,14 +77,14 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p Scorer2_Lateral_3D_v0.2/build
-          godot --headless --path Scorer2_Lateral_3D_v0.2 --export-debug Android build/Scorer2-Lateral-v0.2.apk
-          test -s Scorer2_Lateral_3D_v0.2/build/Scorer2-Lateral-v0.2.apk
-          ls -lh Scorer2_Lateral_3D_v0.2/build/Scorer2-Lateral-v0.2.apk
-          sha256sum Scorer2_Lateral_3D_v0.2/build/Scorer2-Lateral-v0.2.apk
+          godot --headless --path Scorer2_Lateral_3D_v0.2 --export-debug Android build/Scorer2-Opportunities-v0.3.apk
+          test -s Scorer2_Lateral_3D_v0.2/build/Scorer2-Opportunities-v0.3.apk
+          ls -lh Scorer2_Lateral_3D_v0.2/build/Scorer2-Opportunities-v0.3.apk
+          sha256sum Scorer2_Lateral_3D_v0.2/build/Scorer2-Opportunities-v0.3.apk
       - name: Upload signed APK
         uses: actions/upload-artifact@v4
         with:
-          name: Scorer2-Lateral-v0.2-APK
-          path: Scorer2_Lateral_3D_v0.2/build/Scorer2-Lateral-v0.2.apk
+          name: Scorer2-Opportunities-v0.3-APK
+          path: Scorer2_Lateral_3D_v0.2/build/Scorer2-Opportunities-v0.3.apk
           if-no-files-found: error
           retention-days: 30
