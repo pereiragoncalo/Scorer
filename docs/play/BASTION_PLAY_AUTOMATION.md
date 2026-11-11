@@ -1,3 +1,5 @@
+Current target: World 1.0 / 1030004. Existing configured owners use [the update instructions](UPDATE_GATE_1030004.md); setup below is only for a new machine.
+
 # Bastion → Google Play internal test
 
 Owner explicitly authorized automated download/sign/upload after successfully
@@ -40,8 +42,8 @@ Use the exact verified checksum in BASTION_PLAY_AUTOMATION.sha256:
 (
 set -eu
 scorer_setup=$(mktemp -d /root/scorer-play-api.XXXXXX)
-curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.1/bastion_play_internal.py -o "$scorer_setup/uploader.py"
-printf '%s  %s\n' 4547252192d2ee1fe70c661fe8699882541655ba90c4cae92e9becf8e60f3476 "$scorer_setup/uploader.py" | sha256sum -c -
+curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.2/bastion_play_internal.py -o "$scorer_setup/uploader.py"
+printf '%s  %s\n' e31c71b2fc4c4499584ba69e223c710b532fe7a3f492510f8fb8200c3e8e8719 "$scorer_setup/uploader.py" | sha256sum -c -
 install -m700 "$scorer_setup/uploader.py" /root/scorer-signing/play-internal.py
 python3 /root/scorer-signing/play-internal.py --setup-folder
 )
