@@ -137,6 +137,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if ! gh release view play-automation-v1.2 >/dev/null 2>&1; then
-            gh release create play-automation-v1.2 --target "$GITHUB_SHA" --prerelease --title "Scorer - Play internal uploader, automatic-review fix" --notes-file docs/RELEASE_PLAY_AUTOMATION_V1.md
+            gh release create play-automation-v1.2 --target "$GITHUB_SHA" --prerelease --title "Scorer - Play internal uploader for 1030004" --notes-file docs/RELEASE_PLAY_AUTOMATION_V1_2.md
           fi
           gh release upload play-automation-v1.2 tools/play/bastion_play_internal.py docs/play/BASTION_PLAY_AUTOMATION.md docs/play/BASTION_PLAY_AUTOMATION.sha256 --clobber
