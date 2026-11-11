@@ -7,6 +7,8 @@ enum Stage { MATCH, OPPORTUNITY, AIM, FLIGHT, REVIEW, HALF_TIME, FINAL }
 const OPPORTUNITY_TIMES: Array[float] = [14.0, 41.0, 76.0]
 const GOAL_X: float = 52.0
 const FLIGHT_SECONDS: float = 0.82
+# Constant sideline camera offset: perspective never follows dribbling.
+const CAMERA_OFFSET: Vector3 = Vector3(-22.0, 8.8, 31.0)
 
 var stage: Stage = Stage.MATCH
 var clock_min: float = 0.0
@@ -37,6 +39,7 @@ var clock_label: Label
 var chance_label: Label
 var power_readout: Label
 var instruction: Label
+var camera_focus: Vector3 = Vector3(48.0, 1.4, 0.0)
 var current_keeper: Node3D
 var all_players: Array[Node3D] = []
 
@@ -80,6 +83,7 @@ func _physics_process(delta: float) -> void:
                 _end_chance()
         _:
             pass
+    _update_camera_composition(delta)
     _refresh_ui()
 
 func _new_match() -> void:
@@ -254,18 +258,41 @@ func _hide_actors() -> void:
 func _build_camera() -> void:
     camera = Camera3D.new()
     camera.current = true
-    camera.name = "FixedStadiumOpportunityView"
-    # Place the camera outside the stands (positive Z), not inside the crowd.
-    # Fixed elevated diagonal shot toward the goal. Framing is intentionally
-    # independent of the player; the Scorer 1 opportunity mechanic is unchanged.
-    # Orthographic projection makes screen-space aiming stable on Android.
+    camera.name = "OpportunityFramingFixedSideline"
     camera.projection = Camera3D.PROJECTION_ORTHOGONAL
-    camera.size = 16.8
-    camera.position = Vector3(20.0, 9.5, 32.0)
+    camera.size = 10.8
     camera.near = 0.1
     camera.far = 180.0
     add_child(camera)
-    camera.look_at(Vector3(43.0, 1.2, 0.0), Vector3.UP)
+    camera_focus = Vector3(48.0, 1.4, 0.0)
+    camera.position = camera_focus + CAMERA_OFFSET
+    camera.look_at(camera_focus, Vector3.UP)
+
+func _update_camera_composition(delta: float) -> void:
+    if camera == null:
+        return
+    # During match simulation, show the goalmouth and penalty area, not the
+    # mostly empty half-pitch. The side-on angle stays identical for all stages.
+    var target_focus: Vector3 = Vector3(48.0, 1.4, 0.0)
+    var target_size: float = 10.8
+    if stage in [Stage.AIM, Stage.FLIGHT, Stage.REVIEW]:
+        # Frame the shot origin AND both posts. Hard free kicks need a wider
+        # field of view; close headers can be shown much larger.
+        var shooter: Vector3 = ball.position if stage == Stage.AIM else shot_start
+        target_focus = Vector3((shooter.x + GOAL_X) * 0.5, 1.3, shooter.z * 0.5)
+        var side_right: Vector3 = Vector3(CAMERA_OFFSET.z, 0.0, -CAMERA_OFFSET.x).normalized()
+        var left_u: float = side_right.dot(shooter)
+        var post_a_u: float = side_right.dot(Vector3(GOAL_X, 1.0, -GOAL_HALF_W))
+        var post_b_u: float = side_right.dot(Vector3(GOAL_X, 1.0, GOAL_HALF_W))
+        var span: float = maxf(left_u, maxf(post_a_u, post_b_u)) - minf(left_u, minf(post_a_u, post_b_u))
+        var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+        var aspect: float = maxf(1.3, viewport_size.x / maxf(1.0, viewport_size.y))
+        target_size = clampf(maxf(9.4, span * 1.40 / aspect), 9.4, 18.0)
+    var smooth: float = minf(1.0, delta * 5.0)
+    camera_focus = camera_focus.lerp(target_focus, smooth)
+    camera.size = lerpf(camera.size, target_size, smooth)
+    camera.position = camera_focus + CAMERA_OFFSET
+    camera.look_at(camera_focus, Vector3.UP)
 
 func _build_ui() -> void:
     var l: CanvasLayer = CanvasLayer.new()
