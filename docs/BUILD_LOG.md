@@ -2985,3 +2985,10 @@ palette rows remain explicitly NOT fully real-kit verified. RGB/patterns unchang
 case passes after fixture setup acknowledges coach (first setup redirected to
 CoachScreen). Citycolournative menu capture uses actual staged data. Real AAB
 built; static inspection/download and owner-only signing pending below.
+1030003final inspection passes bundletool/nondebug/target36/min26,118ELFs16KB,
+16KBZIP, derivedinspectionAPK and compiledWorld/production/version1.0. ActualAAB
+matches all4reviewed city-colour datasets.33focused+3coordinator safety+7native UI
+checks passed (sixexisting+newfourclub case). Screenshot actual staged hub shows
+PortoAzul/LisboaVermelho and correct red clubbutton/centred YOURSEASON.
+AAB117212326bytesSHA25614a143d6f879d2bc11def5cf35d32fc5e8fe11fefb2112baf7690d26edf076bb.
+Owner-only signing/Play install remain pending. Transfercommitf38cd05bf564c2d67043c301a8d05a760551f01f.
