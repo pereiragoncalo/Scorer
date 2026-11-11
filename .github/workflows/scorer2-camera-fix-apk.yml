@@ -74,7 +74,7 @@ jobs:
           stadium = Path("Scorer2_Lateral_3D_v0.2/scripts/crowd.gd").read_text()
           assert "Vector3(20.0, 9.5, 32.0)" in script
           assert "PROJECTION_ORTHOGONAL" in script
-          assert "anchor.name = \\"WaveFlag\\"" not in stadium
+          assert 'anchor.name = "WaveFlag"' not in stadium
           eye = (20.0, 9.5, 32.0)
           target = (43.0, 1.2, 0.0)
           f = tuple(target[i] - eye[i] for i in range(3))
