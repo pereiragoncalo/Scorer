@@ -255,13 +255,17 @@ func _build_camera() -> void:
     camera = Camera3D.new()
     camera.current = true
     camera.name = "FixedStadiumOpportunityView"
-    camera.projection = Camera3D.PROJECTION_PERSPECTIVE
-    camera.fov = 46.0
-    camera.position = Vector3(10.0, 9.5, -46.0)
+    # Place the camera outside the stands (positive Z), not inside the crowd.
+    # Fixed elevated diagonal shot toward the goal. Framing is intentionally
+    # independent of the player; the Scorer 1 opportunity mechanic is unchanged.
+    # Orthographic projection makes screen-space aiming stable on Android.
+    camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+    camera.size = 16.8
+    camera.position = Vector3(20.0, 9.5, 32.0)
     camera.near = 0.1
     camera.far = 180.0
     add_child(camera)
-    camera.look_at(Vector3(43.0, 1.1, 0.0), Vector3.UP)
+    camera.look_at(Vector3(43.0, 1.2, 0.0), Vector3.UP)
 
 func _build_ui() -> void:
     var l: CanvasLayer = CanvasLayer.new()
