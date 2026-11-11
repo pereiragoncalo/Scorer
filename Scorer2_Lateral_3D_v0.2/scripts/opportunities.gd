@@ -279,8 +279,17 @@ func _build_ui() -> void:
     instruction.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     chance_label = _ui_label(ui, "", Vector2(24, 609), Vector2(550, 40), 25, Color.WHITE)
     power_readout = _ui_label(ui, "", Vector2(25, 653), Vector2(545, 35), 22, Color("#d0f1b9"))
-    shot_button = _hud_button(ui, "JOGAR OPORTUNIDADE", Vector2(935, 576),
-                               Vector2(320, 105), Color("#dd8e42"), _main_button)
+    shot_button = Button.new()
+    shot_button.text = "JOGAR OPORTUNIDADE"
+    shot_button.position = Vector2(935, 576)
+    shot_button.size = Vector2(320, 105)
+    shot_button.add_theme_font_size_override("font_size", 26)
+    var shot_style: StyleBoxFlat = StyleBoxFlat.new()
+    shot_style.bg_color = Color("#dd8e42")
+    shot_style.set_corner_radius_all(14)
+    shot_button.add_theme_stylebox_override("normal", shot_style)
+    shot_button.pressed.connect(_main_button)
+    ui.add_child(shot_button)
     _hud_button(ui, "NOVO JOGO", Vector2(1050, 20), Vector2(205, 65), Color("#24556a"), _new_match)
 
 func _refresh_ui() -> void:
