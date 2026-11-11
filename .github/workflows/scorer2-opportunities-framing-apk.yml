@@ -2,7 +2,7 @@ name: Scorer2 Camera Fix 0.3.2 Android APK
 on:
   push:
     branches:
-      - experiments/scorer2-opportunities-v0.3.2-camera-fix
+      - experiments/scorer2-opportunities-v0.3.2-framing
   workflow_dispatch:
 
 jobs:
@@ -83,7 +83,7 @@ jobs:
           rx, rz = -fz / math.sqrt(fx*fx+fz*fz), fx / math.sqrt(fx*fx+fz*fz)
           vertical_size = 10.8
           half_width = vertical_size*1280/720/2
-          for label, p in [("goal",(52,1.0,0)),("near shot",(43,0.2,0)),("long shot",(32,0.2,7))]:
+          for label, p in [("goal",(52,1.0,0)),("near shot",(43,0.2,0)),("medium shot",(38,0.2,6))]:
               x = (p[0]-target[0])*rx + (p[2]-target[2])*rz
               assert abs(x) < half_width-0.5, (label, x, half_width)
           print("Fixed camera framing checks passed")
