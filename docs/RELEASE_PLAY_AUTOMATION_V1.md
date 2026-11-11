@@ -1,19 +1,18 @@
-Uploader1.1: fix owner-observed Google400 at final commit. Omit incompatible
-changesNotSentForReview; retain ERROR_IF_IN_REVIEW/internal-only writes. Existing
-Google service credential, upload key, signed1030003file and payload pins unchanged.
-Owner live --check/upload/validation passed; commit success remains pending rerun.
+Scorer Play internal uploader1.1 fixes the Google400 observed on owner bastion:
+"Changes are sent for review automatically. The query parameter
+changesNotSentForReview must not be set."
 
-Owner-side Scorer → Google Play INTERNAL uploader. No changes to the game/AAB.
+Only that incompatible optional parameter is omitted. ERROR_IF_IN_REVIEW and the
+internal-only target remain, with no review-cancelling retry or production/listing/
+tester changes. Existing service credential, upload key and signed1030003file stay
+in place; original certificate/payload/version/SHA256 guards remain.
 
-Python stdlib + OpenSSL + fullJDK. One-time Google service-account authorization
-is required, scoped only to Scorer's read/testing release permissions. Keys and
-passwords remain on owner bastion. Google Cloud project creation/API enablement
-are being performed by owner; no live credentials or API upload from this cloud.
+Owner live API connection,1030003signature checks, resumable upload and validation
+passed. Final commit must be retried with this version; successful commit/device
+availability have not yet been observed.24local cases cover the regression and
+reusing a matching already-uploaded bundle. No Google credentials received or used
+by this cloud/GitHub; private files stay on owner bastion.
 
-Program pins the approved1030003 content and original upload certificate, performs
-resumable uploads, validates the edit and commits only internal. Ongoing-review protection stays enabled; no production/listing/tester changes or automatic review
-cancellation. Existing/newer-version/hash guards and local lock prevent mistakes.
-
-24local scenarios pass across host/fullJDK fixtures. Live account connection and
-first real Google API upload still require owner setup; see attached instructions.
-Never upload the P12, its password, or service-account JSON to chat/GitHub.
+Update ONLY the public program, then rerun --publish. No new key, account, AABbuild,
+or repeated credential setup is required. Normal Google automatic review applies
+to this explicitly authorized internal release; ongoing reviews are never cancelled.
