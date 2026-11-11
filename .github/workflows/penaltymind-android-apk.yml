@@ -28,7 +28,13 @@ jobs:
         run: |
           set -euo pipefail
           echo "Android SDK at: $ANDROID_HOME"
-          sdkmanager --sdk_root="$ANDROID_HOME" "platform-tools" "build-tools;35.0.1" "platforms;android-35"
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)"
+          if [ -z "$SDKMANAGER" ]; then
+            echo "No sdkmanager found under $ANDROID_HOME/cmdline-tools"
+            find "$ANDROID_HOME" -maxdepth 3 -type d | head -50
+            exit 1
+          fi
+          "$SDKMANAGER" --sdk_root="$ANDROID_HOME" "platform-tools" "build-tools;35.0.1" "platforms;android-35" "ndk;28.1.13356709" "cmake;3.10.2.4988404"
       - name: Configure Godot Android SDK
         shell: bash
         run: |
