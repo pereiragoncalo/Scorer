@@ -1,0 +1,114 @@
+name: Scorer2 Camera Fix 0.3.2 Android APK
+on:
+  push:
+    branches:
+      - experiments/scorer2-opportunities-v0.3.2-camera-fix
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout isolated test branch
+        uses: actions/checkout@v4
+      - name: Verify standalone source project
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f Scorer2_Lateral_3D_v0.2/project.godot
+          test -f Scorer2_Lateral_3D_v0.2/scripts/opportunities.gd
+          test -f Scorer2_Lateral_3D_v0.2/scripts/crowd.gd
+          grep -q 'com.clemir.scorer2.opportunities.camfit' Scorer2_Lateral_3D_v0.2/export_presets.cfg
+      - name: Install Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Godot 4.7.2 and Android templates
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: true
+      - name: Install Android SDK components
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)"
+          if [ -z "$SDKMANAGER" ]; then echo "Missing sdkmanager"; exit 1; fi
+          "$SDKMANAGER" --sdk_root="$ANDROID_HOME" "platform-tools" "build-tools;35.0.1" "platforms;android-35"
+      - name: Import game scripts and configure Godot Android SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --editor --path Scorer2_Lateral_3D_v0.2 --quit
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          paths = sorted((Path.home()/".config/godot").glob("editor_settings-4*.tres"))
+          if not paths:
+              raise RuntimeError("Godot editor settings missing")
+          p = paths[-1]
+          data = p.read_text()
+          inject = ('export/android/android_sdk_path = "' + os.environ['ANDROID_HOME'] + '"\n' +
+                    'export/android/java_sdk_path = "' + os.environ['JAVA_HOME'] + '"\n')
+          if "[resource]" not in data:
+              raise RuntimeError("Godot config invalid")
+          p.write_text(data.replace("[resource]", "[resource]\n" + inject))
+          PY
+      - name: Headless runtime script validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot --headless --path Scorer2_Lateral_3D_v0.2 --quit-after 60 > runtime.log 2>&1 || { cat runtime.log; exit 1; }
+          tail -40 runtime.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' runtime.log; then exit 1; fi
+      - name: Verify goal and player camera framing
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import math
+          from pathlib import Path
+          script = Path("Scorer2_Lateral_3D_v0.2/scripts/opportunities.gd").read_text()
+          stadium = Path("Scorer2_Lateral_3D_v0.2/scripts/crowd.gd").read_text()
+          assert "Vector3(50.0, 1.4, 0.0)" in script
+          assert "PROJECTION_ORTHOGONAL" in script\n          assert "func _update_camera_composition" in script
+          assert 'anchor.name = "WaveFlag"' not in stadium
+          eye = (28.0, 10.2, 31.0)
+          target = (50.0, 1.4, 0.0)
+          f = tuple(target[i] - eye[i] for i in range(3))
+          n = math.sqrt(sum(x*x for x in f))
+          fx, fy, fz = (x/n for x in f)
+          rx, rz = -fz / math.sqrt(fx*fx+fz*fz), fx / math.sqrt(fx*fx+fz*fz)
+          vertical_size = 10.8
+          half_width = vertical_size*1280/720/2
+          for label, p in [("goal",(52,1.0,0)),("near shot",(43,0.2,0)),("long shot",(32,0.2,7))]:
+              x = (p[0]-target[0])*rx + (p[2]-target[2])*rz
+              assert abs(x) < half_width-0.5, (label, x, half_width)
+          print("Fixed camera framing checks passed")
+          PY
+      - name: Create dedicated Scorer2 test keystore
+        shell: bash
+        run: |
+          set -euo pipefail
+          keytool -genkeypair -keystore "$RUNNER_TEMP/scorer2-debug.keystore" -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Scorer2 Test,O=CLEMiR,C=PT"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$RUNNER_TEMP/scorer2-debug.keystore" >> "$GITHUB_ENV"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey" >> "$GITHUB_ENV"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android" >> "$GITHUB_ENV"
+      - name: Export Android debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p Scorer2_Lateral_3D_v0.2/build
+          godot --headless --path Scorer2_Lateral_3D_v0.2 --export-debug Android build/Scorer2-Opportunities-v0.3.2.apk
+          test -s Scorer2_Lateral_3D_v0.2/build/Scorer2-Opportunities-v0.3.2.apk
+          ls -lh Scorer2_Lateral_3D_v0.2/build/Scorer2-Opportunities-v0.3.2.apk
+          sha256sum Scorer2_Lateral_3D_v0.2/build/Scorer2-Opportunities-v0.3.2.apk
+      - name: Upload signed APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Scorer2-Opportunities-v0.3.2-APK
+          path: Scorer2_Lateral_3D_v0.2/build/Scorer2-Opportunities-v0.3.2.apk
+          if-no-files-found: error
+          retention-days: 30
