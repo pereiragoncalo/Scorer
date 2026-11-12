@@ -11,7 +11,9 @@ not objects); corrected to use a league opponent, then passes. Actual production
 start_training entry with10900chairs renders successfully; screenshot inspected.
 25publisher cases:24pass/one existing full-JDK-only skip. No assets, saves, physics,
 package/key changes. Main/stand/crowd batching only; visible version remains.
-Actual1030012AAB built. Static audit/public delivery results follow. Exact device
+Actual1030012AAB built. Bundletool/static/code1030012/production,118ELF16KB,
+derived APK, all248frames/35sheets and exact compiled main/stadium runtime pass.
+Public delivery results follow. Exact device
 crash resolution remains pending owner handset test; keep minimum0until acceptance.
 
 ## 2026-11-12 — uploader1.10 fixes owner-observed1030011 release-name400

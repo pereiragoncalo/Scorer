@@ -1,0 +1,66 @@
+CAPACITY 2500 CHAIRS 2112 MAX_INDICES 25344 MAX_VERTICES 16896
+CAPACITY 20000 CHAIRS 3383 MAX_INDICES 40596 MAX_VERTICES 27064
+CAPACITY 40000 CHAIRS 4450 MAX_INDICES 53400 MAX_VERTICES 35600
+CAPACITY 70000 CHAIRS 8842 MAX_INDICES 53400 MAX_VERTICES 35600
+CAPACITY 100000 CHAIRS 9724 MAX_INDICES 63288 MAX_VERTICES 42192
+CAPACITY 150000 CHAIRS 10900 MAX_INDICES 77400 MAX_VERTICES 51600
+Mesh(**kwargs)
+A 2d mesh.
+
+    In OpenGL ES 2.0 and in our graphics implementation, you cannot have more
+    than 65535 indices.
+
+    A list of vertices is described as::
+
+        vertices = [x1, y1, u1, v1, x2, y2, u2, v2, ...]
+                    |            |  |            |
+                    +---- i1 ----+  +---- i2 ----+
+
+    If you want to draw a triangle, add 3 vertices. You can then make an
+    indices list as follows:
+
+        indices = [0, 1, 2]
+
+    .. versionadded:: 1.1.0
+
+    :Parameters:
+        `vertices`: iterable
+            List of vertices in the format (x1, y1, u1, v1, x2, y2, u2, v2...).
+        `indices`: iterable
+            List of indices in the format (i1, i2, i3...).
+        `mode`: str
+            Mode of the vbo. Check :attr:`mode` for more information. Defaults to
+            'points'.
+        `fmt`: list
+            The format for vertices, by default, each vertex is described by 2D
+            coordinates (x, y) and 2D texture coordinate (u, v).
+            Each element of the list should be a tuple or list, of the form
+
+                (variable_name, size, type)
+
+            which will allow mapping vertex data to the glsl instructions.
+
+                [(b'v_pos', 2, 'float'), (b'v_tc', 2, 'float'),]
+
+            will allow using
+
+                attribute vec2 v_pos;
+                attribute vec2 v_tc;
+
+            in glsl's vertex shader.
+
+    .. versionchanged:: 1.8.1
+        Before, `vertices` and `indices` would always be converted to a list,
+        now, they are only converted to a list if they do not implement the
+        buffer interface. So e.g. numpy arrays, python arrays etc. are used
+        in place, without creating any additional copies. However, the
+        buffers cannot be readonly (even though they are not changed, due to
+        a cython limitation) and must be contiguous in memory.
+
+    .. note::
+        When passing a memoryview or a instance that implements the buffer
+        interface, `vertices` should be a buffer of floats (`'f'` code in
+        python array) and `indices` should be a buffer of unsigned short (`'H'`
+        code in python array). Arrays in other formats will still have to be
+        converted internally, negating any potential gain.
+    
