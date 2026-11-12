@@ -1,3 +1,18 @@
+## 2026-11-12 — World1.0 / 1030010 stadium seats
+
+Runtime sourceb9e08908e3147afc531e4a8d80eba449003cea92. Individual permanent
+chairs in the home primary colour throughout the ground, including visitors.
+Training uses own-club chairs with no spectators/stewards. Three original atlas
+bands form a seated torso/thigh/shin pose; scoring fans rise into their existing
+cheer frames and return. Original PNGs/current scale, occupancy, aisles and physics
+unchanged. Cached chair geometry and bounded4500-fan mesh batches retain GLES
+unsigned-short indices.30native stadium/seat/celebration/attendance cases pass;
+actual match/training screenshots inspected. Preview fixture initially used Free;
+reran explicitly in World.24publisher scenarios:23pass and existing full-JDK fixture
+skip on host; actual new pinned AAB payload matches. Android AAB compiled; static
+inspection/public download checks are recorded below when completed. Owner-side
+signing/Play submission/minimum activation/phone playtest remain pending.
+
 1030009delivery verified: workflows43237779081(bundle) and43237703376(publisher)
 succeeded. Anonymous full downloads matched all four local files: AAB117229442bytes,
 SHA25676e41903488e56f1a1755551783214a6ab64f85f84ca287dd7d2edbb4f931505;
