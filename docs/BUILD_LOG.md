@@ -1,3 +1,19 @@
+## 2026-11-12 — World1.0 / 1030012 bounded mobile graphics
+
+Owner reports crash on training entry. Actual installed code/club asked and pending;
+no device crash stack yet. A concrete stress defect is reproduced:150000-capacity
+training generates77400indices in one chair batch, above Kivy's65535COUNT limit.
+Prior tests checked only maximum index VALUE and missed this. All stand batches
+now split at24000indices; crowd1024fans => maximum18432indices. Source3965523.
+20existing native seat/stadium/celebration/attendance cases pass. The new maximum
+training/full-attendance regression initially used a wrong Offer fixture (strings,
+not objects); corrected to use a league opponent, then passes. Actual production
+start_training entry with10900chairs renders successfully; screenshot inspected.
+25publisher cases:24pass/one existing full-JDK-only skip. No assets, saves, physics,
+package/key changes. Main/stand/crowd batching only; visible version remains.
+Actual1030012AAB built. Static audit/public delivery results follow. Exact device
+crash resolution remains pending owner handset test; keep minimum0until acceptance.
+
 ## 2026-11-12 — uploader1.10 fixes owner-observed1030011 release-name400
 
 The prepared name had51characters; Google permits50. Shortened to23characters

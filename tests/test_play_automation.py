@@ -35,7 +35,7 @@ class PublisherTests(unittest.TestCase):
   with patch.object(p,'upload',return_value={'versionCode':p.VERSION,'sha256':'abc'}):self.assertEqual(p.publish(client,Path('fixture'),'abc'),'committed')
   methods=[(method,url) for method,url,_ in client.calls]
   put=next(body for method,url,body in client.calls if method=='PUT')
-  self.assertEqual(put['track'],'internal');self.assertEqual(put['releases'][0]['versionCodes'],['1030011'])
+  self.assertEqual(put['track'],'internal');self.assertEqual(put['releases'][0]['versionCodes'],['1030012'])
   self.assertEqual(put['releases'][0]['status'],'completed')
   self.assertTrue(methods[-2][1].endswith(':validate'));self.assertIn(':commit?',methods[-1][1])
   self.assertNotIn('changesNotSentForReview',methods[-1][1]);self.assertIn('ERROR_IF_IN_REVIEW',methods[-1][1])
@@ -50,7 +50,7 @@ class PublisherTests(unittest.TestCase):
   with patch.object(p,'upload',return_value={'versionCode':p.VERSION,'sha256':'abc'}),self.assertRaises(p.APIError):p.publish(client,Path('fixture'),'abc')
   self.assertEqual(client.calls[-1][0],'DELETE');self.assertFalse(any(':commit' in u for _,u,_ in client.calls))
  def test_already_committed_same_bundle_is_idempotent(self):
-  client=FakeClient(track={'track':'internal','releases':[{'versionCodes':['1030011'],'status':'completed'}]},bundles=[{'versionCode':p.VERSION,'sha256':'abc'}])
+  client=FakeClient(track={'track':'internal','releases':[{'versionCodes':['1030012'],'status':'completed'}]},bundles=[{'versionCode':p.VERSION,'sha256':'abc'}])
   with patch.object(p,'upload') as upload:self.assertEqual(p.publish(client,Path('fixture'),'abc'),'unchanged');upload.assert_not_called()
   self.assertFalse(any(m=='PUT' or ':commit' in u for m,u,_ in client.calls))
  def test_existing_version_other_hash_cannot_be_reused(self):
@@ -58,7 +58,7 @@ class PublisherTests(unittest.TestCase):
   with self.assertRaisesRegex(p.Stop,'another SHA256'):p.publish(client,Path('fixture'),'abc')
   self.assertEqual(client.calls[-1][0],'DELETE')
  def test_newer_internal_release_cannot_be_downgraded(self):
-  client=FakeClient(track={'releases':[{'versionCodes':['1030012']}]})
+  client=FakeClient(track={'releases':[{'versionCodes':['1030013']}]})
   with self.assertRaisesRegex(p.Stop,'newer'):p.publish(client,Path('fixture'),'abc')
  def test_google_wrong_version_or_hash_never_reaches_track_update(self):
   for result in ({'versionCode':p.VERSION-1,'sha256':'abc'},{'versionCode':p.VERSION,'sha256':'wrong'}):
@@ -161,7 +161,7 @@ class CryptoTests(unittest.TestCase):
    result=subprocess.run(['openssl','dgst','-sha256','-verify',str(public),'-signature',str(signature_file)],input=(header+'.'+claims).encode(),capture_output=True)
    self.assertEqual(result.returncode,0)
  def test_actual_approved_unsigned_payload_matches_pinned_payload(self):
-  path=Path('/workspace/Scorer-World-1.0-1030011-unsigned.aab')
+  path=Path('/workspace/Scorer-World-1.0-1030012-unsigned.aab')
   if not path.exists():self.skipTest('Approved build is not part of portable source fixtures')
   self.assertEqual(p.payload_digest(path),p.PAYLOAD)
  @unittest.skipUnless(shutil.which('jarsigner') and shutil.which('keytool'),'Full JDK required for fixture signing')
