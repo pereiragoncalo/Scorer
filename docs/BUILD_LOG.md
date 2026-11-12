@@ -11,7 +11,9 @@ Actual new unsigned AAB built.24publisher scenarios:23pass, one existing full-JD
 fixture skip. Minimum stays0during delivery verification; latest may become1030011.
 Higher mandatory minimum requires confirmed Play installation/availability. This
 rebuild does not establish or promise resolution of Play propagation/account issues.
-Static/public download evidence follows when completed; owner signs/commits on bastion.
+Bundletool/static World-production/code1030011,118ELF16KB, derived inspection APK,
+all248frames/35sheets and exact compiled runtime including the new menu pass.
+Public download evidence follows; owner signs/commits on bastion.
 
 1030010public delivery verified: bundle workflow43241501384 and publisher43241431680
 succeeded. Anonymous complete downloads of AAB/coordinator/signing helper/uploader
