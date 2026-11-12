@@ -1,0 +1,20 @@
+name: Deliver statistics installer repair
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rehearse source and shipped installer with real isolated HTTP
+        run: |
+          python3 -m unittest tests.test_stats_agreement_installer -q
+          python3 docs/data/server/Scorer-Statistics-Agreement-Backend-Repair-1.py --check
+          printf '%s  %s\n' 5c8d54c88e507490eb0cce421307449d44ed691f5ed97cf8a76ae6e0e0694f22 docs/data/server/Scorer-Statistics-Agreement-Backend-Repair-1.py | sha256sum -c -
+      - name: Publish public repair only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload world-1.0-1030005 docs/data/server/Scorer-Statistics-Agreement-Backend-Repair-1.py docs/play/STATISTICS_1030005.md --clobber
