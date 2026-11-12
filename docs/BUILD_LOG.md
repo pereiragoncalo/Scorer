@@ -9,10 +9,12 @@ Header hold/contact uses the forehead at1.65m. Original240PNGframes unchanged.
 native keeper/header/opportunity/difficulty/portrait cases and11asset/opportunity
 cases pass. Actual staged screenshots reviewed. Initial tip test fixture missed the
 central bound; corrected to an actual central-jump phase, then physical integration
-crossed above the bar.24publisher scenarios pass with one full-JDK signing skip on
-host (no jarsigner); portable real signing fixture needs full JDK.
+crossed above the bar.24publisher scenarios pass across host and full-JDK Docker runs: the host checks
+the actual pinned AAB; Docker checks the disposable real-signing fixture. Each run
+skips only the other environment’s unavailable fixture.
 Actual combined unsigned AAB built; bundletool/static/World-production/version1.0,
-code1030009,118ELF16KB and derived inspection APK pass. Owner signing, internal
+code1030009,118ELF16KB and derived inspection APK pass. All248frames/35sheets
+and exact compiled keeper/header/portrait runtime match the staged sources. Owner signing, internal
 Play commit, phone acceptance and minimum activation remain owner-side.
 
 ## 2026-11-09 — World0.9.39 training touch and estate portrait
