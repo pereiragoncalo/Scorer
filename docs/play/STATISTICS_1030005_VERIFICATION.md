@@ -27,3 +27,18 @@ accept the startup notice and verify new aggregate counts in the private admin
 panel. No live backend install, owner signing/Play commit or actual-device smoke
 is claimed from this cloud environment. Existing unrelated WIP preserved in the
 original /workspace/Scorer worktree; implementation is isolated on its branch.
+
+## Backend repair1 after owner execution
+
+Original installer failed on owner bastion because verify() still required the
+obsolete "off by default" sentence. Earlier installer tests mocked the final HTTP
+check and missed this mismatch. Fixed required markers to match1030005 agreement
+and decline disclosure. Added real source AND shipped-bundle installation tests
+in fresh isolated child processes, actual HTTP verification and preservation of
+existing totals17, operator minimum1030006 and private token fixtures.3tests pass,
+plus shipped --check. No app/AAB/publisher rebuild or checksum change.
+Repair-only delivery43204949617 and anonymous public download verified; new asset
+Scorer-Statistics-Agreement-Backend-Repair-1.py SHA256
+5c8d54c88e507490eb0cce421307449d44ed691f5ed97cf8a76ae6e0e0694f22.
+Original asset retained to avoid invalidating earlier pinned downloads. Live
+health and app-version still respond; owner must rerun repaired installation.
