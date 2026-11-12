@@ -9,8 +9,9 @@ unchanged. Cached chair geometry and bounded4500-fan mesh batches retain GLES
 unsigned-short indices.30native stadium/seat/celebration/attendance cases pass;
 actual match/training screenshots inspected. Preview fixture initially used Free;
 reran explicitly in World.24publisher scenarios:23pass and existing full-JDK fixture
-skip on host; actual new pinned AAB payload matches. Android AAB compiled; static
-inspection/public download checks are recorded below when completed. Owner-side
+skip on host; actual new pinned AAB payload matches. Android AAB compiled; bundletool/static production/code1030010 checks,118ELF16KB,
+derived APK, all248frames/35sheets and exact compiled stadium/portrait/keeper/header
+runtime pass. Public download results recorded separately below. Owner-side
 signing/Play submission/minimum activation/phone playtest remain pending.
 
 1030009delivery verified: workflows43237779081(bundle) and43237703376(publisher)
