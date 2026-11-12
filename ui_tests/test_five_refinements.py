@@ -27,7 +27,7 @@ class RefinementsTests(unittest.TestCase):
      self.assertFalse(any(isinstance(w,ScrollView) for w in panel.walk()))
      for w in (panel.name,panel.actions,panel.objectives,panel.contract_info):
       self.assertGreaterEqual(w.y,-1);self.assertLessEqual(w.top,g.height+1)
-     text=' '.join(w.text for w in panel.walk() if isinstance(w,Label));self.assertIn('CAREER MILESTONES',text);self.assertIn('/month',text)
+     text=' '.join(w.text for w in panel.walk() if isinstance(w,Label));self.assertIn('CAREER STATS',text);self.assertIn('Monthly salary',text);self.assertNotIn('/',text)
   finally:Window.size=old
  def test_new_player_portrait_has_no_unowned_home_or_car(self):
   from estate_portrait import EstatePortrait

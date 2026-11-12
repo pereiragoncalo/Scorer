@@ -15,7 +15,7 @@ class DevelopmentUI(unittest.TestCase):
   with isolated_game() as g:
    c=self.sign(g);g._activate_ui('profile');g.draw();settle()
    p=g._menu.body;text=' '.join(w.text for w in p.walk() if isinstance(w,Label))
-   self.assertIn('Club goals:',text);self.assertIn('CAREER MILESTONES',text)
+   self.assertIn('Club goals:',text);self.assertIn('CAREER STATS',text)
    for forbidden in ('TRAINING FOCUS','PLAYER DEVELOPMENT','Tracking began','Earlier seasons','HOW TRUST CHANGES','TROPHIES'):
     self.assertNotIn(forbidden,text)
    self.assertEqual(sum(isinstance(w,EdgePanel) for w in p.walk()),1)

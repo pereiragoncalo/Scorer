@@ -712,5 +712,14 @@
   "€{salary}/month": "€{salary}/mês",
   "LONG SHOT": "REMATE DE LONGE",
   "A pass outside the box. Shoot from distance.": "Um passe fora da área. Remata de longe.",
-  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "O salário mensal do contrato é pago uma vez quando o calendário da carreira entra num novo mês. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder."
+  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "O salário mensal do contrato é pago uma vez quando o calendário da carreira entra num novo mês. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.",
+  "PLAYER STATS": "ESTATÍSTICAS DO JOGADOR",
+  "SEASON STATS": "ESTATÍSTICAS DA ÉPOCA",
+  "CAREER STATS": "ESTATÍSTICAS DA CARREIRA",
+  "Age {age} · Monthly salary €{salary}": "Idade {age} · Salário mensal €{salary}",
+  "Club goals: {goals}": "Golos pelo clube: {goals}",
+  "Best coach trust: {trust}": "Melhor confiança do treinador: {trust}",
+  "Tracked club goals: {goals}": "Golos pelo clube registados: {goals}",
+  "Transfers: {count}": "Transferências: {count}",
+  "International appearances: {count}": "Internacionalizações: {count}"
 }

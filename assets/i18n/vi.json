@@ -712,5 +712,14 @@
   "€{salary}/month": "€{salary}/tháng",
   "LONG SHOT": "SÚT XA",
   "A pass outside the box. Shoot from distance.": "Đường chuyền ngoài vòng cấm. Sút từ xa.",
-  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "Lương hợp đồng hàng tháng được trả một lần khi lịch sự nghiệp sang tháng mới. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder."
+  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "Lương hợp đồng hàng tháng được trả một lần khi lịch sự nghiệp sang tháng mới. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.",
+  "PLAYER STATS": "THỐNG KÊ CẦU THỦ",
+  "SEASON STATS": "THỐNG KÊ MÙA GIẢI",
+  "CAREER STATS": "THỐNG KÊ SỰ NGHIỆP",
+  "Age {age} · Monthly salary €{salary}": "Tuổi {age} · Lương tháng €{salary}",
+  "Club goals: {goals}": "Bàn cho CLB: {goals}",
+  "Best coach trust: {trust}": "Niềm tin HLV cao nhất: {trust}",
+  "Tracked club goals: {goals}": "Bàn CLB đã theo dõi: {goals}",
+  "Transfers: {count}": "Chuyển nhượng: {count}",
+  "International appearances: {count}": "Lần khoác áo tuyển: {count}"
 }

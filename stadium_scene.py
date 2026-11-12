@@ -119,8 +119,8 @@ def build_crowd(g,spectators,ctx=None):
         elif len(spectator)==4:x,y,z,code=spectator;team='home';tier=0
         else:continue
         foot=g.project(x,y,z+.03);scale=g.pixels_per_meter(x,y,z+.2)
-        # Increase supporters 25% at every distance, preserving feet and sprite ratio.
-        height=max(5.,min(38.75,scale*.90));width=height*2/3
+        # Increase supporters another 10% at every distance, preserving feet and sprite ratio.
+        height=max(5.5,min(42.625,scale*.99));width=height*2/3
         if not(g.x-width<=foot[0]<=g.right+width and g.y-height<=foot[1]<=g.top+height):continue
         visible+=1;team_counts[team]+=1;noise=seat_noise(x,y,z,code,ctx['crowd_seed']);column=noise%18
         body=((foot[0]-width/2,foot[1]),(foot[0]+width/2,foot[1]),(foot[0]+width/2,foot[1]+height),(foot[0]-width/2,foot[1]+height))

@@ -712,5 +712,14 @@
   "€{salary}/month": "월급 €{salary}",
   "LONG SHOT": "중거리 슛",
   "A pass outside the box. Shoot from distance.": "페널티 지역 밖으로 온 패스입니다. 멀리서 슛하세요.",
-  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "계약 월급은 커리어 달력이 새 달에 들어갈 때 한 번 지급됩니다. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder."
+  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "계약 월급은 커리어 달력이 새 달에 들어갈 때 한 번 지급됩니다. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.",
+  "PLAYER STATS": "선수 통계",
+  "SEASON STATS": "시즌 통계",
+  "CAREER STATS": "커리어 통계",
+  "Age {age} · Monthly salary €{salary}": "나이 {age} · 월급 €{salary}",
+  "Club goals: {goals}": "클럽 득점: {goals}",
+  "Best coach trust: {trust}": "최고 감독 신뢰: {trust}",
+  "Tracked club goals: {goals}": "기록된 클럽 득점: {goals}",
+  "Transfers: {count}": "이적: {count}",
+  "International appearances: {count}": "국가대표 출전: {count}"
 }

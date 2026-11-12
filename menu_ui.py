@@ -1174,12 +1174,12 @@ class PlayerScreen(FloatLayout):
             from development_ui import ObjectivesSummary
             self.objective_scroll=None
             self.objectives=ObjectivesSummary(menu)
-            if not error:self.title_label.text='OBJECTIVES'
+            if not error:self.title_label.text='PLAYER STATS'
             self.panel.add_widget(self.objectives)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         if existing:
             from career_life import age
-            self.contract_info=BoundedLabel(text=self.game.i18n.tr('Age {age} · Salary €{salary}/month',age=age(self.game.career),salary=self.game.career.life['salary']),localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(20))
+            self.contract_info=BoundedLabel(text=self.game.i18n.tr('Age {age} · Monthly salary €{salary}',age=age(self.game.career),salary=self.game.career.life['salary']),localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(20))
             self.panel.add_widget(self.contract_info)
         actions.add_widget(CreationTile('HELP', lambda: menu.action('help')))
         actions.add_widget(CreationTile('CANCEL', lambda: menu.action('cancel_profile')))

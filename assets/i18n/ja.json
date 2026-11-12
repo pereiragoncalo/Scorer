@@ -712,5 +712,14 @@
   "€{salary}/month": "月給 €{salary}",
   "LONG SHOT": "ロングシュート",
   "A pass outside the box. Shoot from distance.": "ペナルティエリア外へのパス。遠くからシュート。",
-  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "契約の月給はキャリアの暦が新しい月に入ると一度支払われます。"
+  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "契約の月給はキャリアの暦が新しい月に入ると一度支払われます。",
+  "PLAYER STATS": "選手の成績",
+  "SEASON STATS": "シーズン成績",
+  "CAREER STATS": "キャリア成績",
+  "Age {age} · Monthly salary €{salary}": "年齢 {age} · 月給 €{salary}",
+  "Club goals: {goals}": "クラブ得点：{goals}",
+  "Best coach trust: {trust}": "監督の最高信頼：{trust}",
+  "Tracked club goals: {goals}": "記録したクラブ得点：{goals}",
+  "Transfers: {count}": "移籍：{count}",
+  "International appearances: {count}": "代表出場：{count}"
 }

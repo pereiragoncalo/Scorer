@@ -712,5 +712,14 @@
   "€{salary}/month": "€{salary}/month",
   "LONG SHOT": "LONG SHOT",
   "A pass outside the box. Shoot from distance.": "A pass outside the box. Shoot from distance.",
-  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder."
+  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.",
+  "PLAYER STATS": "PLAYER STATS",
+  "SEASON STATS": "SEASON STATS",
+  "CAREER STATS": "CAREER STATS",
+  "Age {age} · Monthly salary €{salary}": "Age {age} · Monthly salary €{salary}",
+  "Club goals: {goals}": "Club goals: {goals}",
+  "Best coach trust: {trust}": "Best coach trust: {trust}",
+  "Tracked club goals: {goals}": "Tracked club goals: {goals}",
+  "Transfers: {count}": "Transfers: {count}",
+  "International appearances: {count}": "International appearances: {count}"
 }

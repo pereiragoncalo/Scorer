@@ -10,30 +10,27 @@ from ui_localization import LocalizedPopup
 from player_development import FOCI,NAMES,needed
 
 class ObjectivesSummary(GridLayout):
-    """Two compact columns; every milestone stays visible without scrolling."""
+    """Actual season and career statistics, without goal denominators or bars."""
     def __init__(self,menu):
         from menu_ui import DashboardField
         super().__init__(cols=2,spacing=dp(10),size_hint_y=None,height=dp(170))
         c=menu.game.career;loc=menu.game.i18n;d=c._ensure_development()
         def section(title):
-            box=BoxLayout(orientation='vertical',spacing=dp(2))
+            box=BoxLayout(orientation='vertical',spacing=dp(4))
             box.add_widget(DashboardField(text=loc.tr(title),compact_text=loc.tr(title),localize=False,color=GREEN,font_size=sp(12),max_lines=2))
             self.add_widget(box);return box
-        def item(box,text,value,maximum,complete):
-            box.add_widget(DashboardField(text=text,compact_text=text,localize=False,color=GREEN if complete else INK,font_size=sp(11),max_lines=2))
-            box.add_widget(ProgressBar(max=max(1,maximum),value=min(maximum,value),size_hint_y=None,height=dp(4)))
-        season=section('SEASON GOALS')
-        item(season,loc.tr('Club goals: {goals}/{target}',goals=d['season_goals'],target=d['goal_target']),d['season_goals'],d['goal_target'],'goals'in d['season_earned'])
-        item(season,loc.tr('Best coach trust: {trust}/70',trust=d['peak_trust']),d['peak_trust'],70,'trust'in d['season_earned'])
+        def stat(box,text):
+            box.add_widget(DashboardField(text=text,compact_text=text,localize=False,color=INK,font_size=sp(12),max_lines=2))
+        season=section('SEASON STATS')
+        stat(season,loc.tr('Club goals: {goals}',goals=d['season_goals']))
+        stat(season,loc.tr('Best coach trust: {trust}',trust=d['peak_trust']))
         goals=c.current_league.scorer_goals.get(c.player_name,0)
         rank=1+sum(g>goals for name,g in c.current_league.scorer_goals.items() if name!=c.player_name)
-        for text in (loc.tr('Top-three league finish'),loc.tr('League scorer rank: {rank}',rank=rank if goals else '—')):
-            season.add_widget(DashboardField(text=text,compact_text=text,localize=False,font_size=sp(11),max_lines=2))
-        career=section('CAREER MILESTONES')
-        for target in (50,100):
-            item(career,loc.tr('Tracked club goals: {goals}/{target}',goals=d['career_goals'],target=target),d['career_goals'],target,d['career_goals']>=target)
-        item(career,loc.tr('Transfers: {count}/1',count=d['transfers']),d['transfers'],1,d['transfers']>=1)
-        item(career,loc.tr('International appearances: {count}/1',count=c.international_caps),c.international_caps,1,c.international_caps>=1)
+        stat(season,loc.tr('League scorer rank: {rank}',rank=rank if goals else '—'))
+        career=section('CAREER STATS')
+        stat(career,loc.tr('Tracked club goals: {goals}',goals=d['career_goals']))
+        stat(career,loc.tr('Transfers: {count}',count=d['transfers']))
+        stat(career,loc.tr('International appearances: {count}',count=c.international_caps))
 
 class DevelopmentScreen(BoxLayout):
     """The coach-trust view contains values only."""

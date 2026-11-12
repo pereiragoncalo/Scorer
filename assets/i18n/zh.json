@@ -712,5 +712,14 @@
   "€{salary}/month": "月薪 €{salary}",
   "LONG SHOT": "远射",
   "A pass outside the box. Shoot from distance.": "禁区外接到传球。尝试远射。",
-  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "合同月薪在生涯日历进入新月份时支付一次。"
+  "Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.": "合同月薪在生涯日历进入新月份时支付一次。",
+  "PLAYER STATS": "球员统计",
+  "SEASON STATS": "赛季统计",
+  "CAREER STATS": "生涯统计",
+  "Age {age} · Monthly salary €{salary}": "年龄 {age} · 月薪 €{salary}",
+  "Club goals: {goals}": "俱乐部进球：{goals}",
+  "Best coach trust: {trust}": "最高教练信任：{trust}",
+  "Tracked club goals: {goals}": "已记录的俱乐部进球：{goals}",
+  "Transfers: {count}": "转会：{count}",
+  "International appearances: {count}": "国家队出场：{count}"
 }
