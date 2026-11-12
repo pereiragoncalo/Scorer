@@ -1,3 +1,18 @@
+## 2026-11-12 — World1.0 / 1030011 rebuild and installed build label
+
+Owner APK Analyzer proves installed1030009, despite Console advertising1030010.
+Owner explicitly requests rebuild/commit11. New numeric code1030011; package,
+owner certificate, saves and1030010chairs/earlier fixes retained. Entry and Settings
+show v1.0 (actual installed versionCode), using Android PackageManager with staged
+fallback. Footer width220dp to fit code; bounded labels stay inside the viewport.
+14native stadium/seat/update-gate cases pass; staged production footer checked at
+1280x591/960x540density1.6 and640x360density1.0; screenshot visually inspected.
+Actual new unsigned AAB built.24publisher scenarios:23pass, one existing full-JDK
+fixture skip. Minimum stays0during delivery verification; latest may become1030011.
+Higher mandatory minimum requires confirmed Play installation/availability. This
+rebuild does not establish or promise resolution of Play propagation/account issues.
+Static/public download evidence follows when completed; owner signs/commits on bastion.
+
 1030010public delivery verified: bundle workflow43241501384 and publisher43241431680
 succeeded. Anonymous complete downloads of AAB/coordinator/signing helper/uploader
 match local SHA256/byte counts. AAB117231830bytes, SHA256

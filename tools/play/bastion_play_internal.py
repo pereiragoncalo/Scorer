@@ -10,18 +10,18 @@ from urllib.parse import urlencode,urlsplit,quote
 from urllib.request import Request,build_opener,HTTPRedirectHandler
 
 PACKAGE='com.clemir.scorerworld'
-VERSION=1030010
+VERSION=1030011
 TRACK='internal'
 BASE='https://androidpublisher.googleapis.com/androidpublisher/v3/applications/'+PACKAGE+'/edits'
 TOKEN_URL='https://oauth2.googleapis.com/token'
 SCOPE='https://www.googleapis.com/auth/androidpublisher'
 CERT='2259de229b49bb40e158d3c015fe1e0d2426becb4e1a4f110dbcd183b51e59a0'
-PAYLOAD='3e4b3dbf5b38fe4876217c4da171fa5156b172c974c0169cd76dd03a4280b00b'
-SIGNED=Path('/home/clemir/Scorer-World-1.0-1030010.aab')
+PAYLOAD='da17771e3c4ef5422c343f29e07728b5734f4871c2862f5c7af7c087ed340cf9'
+SIGNED=Path('/home/clemir/Scorer-World-1.0-1030011.aab')
 PRIVATE=Path('/root/scorer-signing')
 CREDENTIALS=PRIVATE/'google-play-service-account.json'
-BOOTSTRAP_URL='https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030010/bastion_bundle_1030010.py'
-BOOTSTRAP_SHA='10b84b92ff97e537a1212f6c84d39fa72a0a4ccc7138496e62004680c7f9cc7f'
+BOOTSTRAP_URL='https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030011/bastion_bundle_1030011.py'
+BOOTSTRAP_SHA='3da383dc3f56f8308d3bf0d652dd51f235dcf328671af34081cd0e00a9fc85e0'
 CHUNK=8*1024*1024  # Multiple of256KiB; never send an entire117MiB request.
 
 class Stop(RuntimeError):pass
@@ -138,7 +138,7 @@ def payload_digest(path):
 def verify_signed(path):
     path=Path(path)
     if not path.is_file() or path.is_symlink():raise Stop('Signed AAB not found: '+str(path))
-    if payload_digest(path)!=PAYLOAD:raise Stop('AAB payload is not the approved1030010 build')
+    if payload_digest(path)!=PAYLOAD:raise Stop('AAB payload is not the approved1030011 build')
     for tool in ('jarsigner','keytool'):
         if not shutil.which(tool):raise Stop('Full JDK required: missing '+tool)
     result=subprocess.run(['jarsigner','-verify',str(path)],capture_output=True,text=True)
@@ -212,7 +212,7 @@ def version_codes(track):
 
 
 def internal_release():
-    return {'track':TRACK,'releases':[{'name':'1.0 (1030010) - home-colour stadium seats','versionCodes':[str(VERSION)],'status':'completed','releaseNotes':[{'language':'en-US','text':'Individual stadium chairs in the home club colour. Seated spectators rise for celebrations; training shows empty seats.'}]}]}
+    return {'track':TRACK,'releases':[{'name':'1.0 (1030011) - rebuild with installed version code','versionCodes':[str(VERSION)],'status':'completed','releaseNotes':[{'language':'en-US','text':'Rebuilt with visible installed version code. Retains home-colour chairs, seated fans and empty training seats.'}]}]}
 
 
 def publish(client,path,signed_sha,check_only=False):
@@ -226,9 +226,9 @@ def publish(client,path,signed_sha,check_only=False):
         bundles=client.api('GET',edit_url+'/bundles').get('bundles',[])
         existing=next((row for row in bundles if int(row['versionCode'])==VERSION),None)
         if existing:
-            if existing.get('sha256','').lower()!=signed_sha:raise Stop('Version1030010 already exists with another SHA256; do not reuse a version code')
+            if existing.get('sha256','').lower()!=signed_sha:raise Stop('Version1030011 already exists with another SHA256; do not reuse a version code')
             if any(str(VERSION) in release.get('versionCodes',[]) and release.get('status')=='completed' for release in track.get('releases',[])):
-                print('Version1030010 is already committed to internal; no change made');return 'unchanged'
+                print('Version1030011 is already committed to internal; no change made');return 'unchanged'
             result=existing
         else:result=upload(client,edit,path)
         if int(result.get('versionCode',0))!=VERSION or result.get('sha256','').lower()!=signed_sha:
@@ -245,7 +245,7 @@ def publish(client,path,signed_sha,check_only=False):
         except (URLError,TimeoutError,OSError,APIError) as error:
             if isinstance(error,APIError) and error.status<500:raise
             raise Stop('Commit response was lost: outcome uncertain. Check internal track in Console before retrying') from None
-        print('Committed INTERNAL version1030010. Play availability/review timing is controlled by Google.')
+        print('Committed INTERNAL version1030011. Play availability/review timing is controlled by Google.')
         return 'committed'
     finally:
         if not commit_attempted:
