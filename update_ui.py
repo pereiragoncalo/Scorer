@@ -49,7 +49,7 @@ class UpdateGate:
             if self.hint is None:
                 from kivy.core.window import Window
                 from kivy.uix.label import Label
-                self.hint=Label(text=self.app.root.i18n.tr('Checking for updates'),color=(1,1,1,1),font_size=sp(11),halign='left',valign='middle',size_hint=(None,None),pos=(dp(12),dp(8)))
+                self.hint=Label(text=self.app.root.i18n.tr('Checking for updates'),color=(1,1,1,1),font_name=self.app.root.i18n.legacy_font('Checking for updates'),font_size=sp(11),halign='left',valign='middle',size_hint=(None,None),pos=(dp(12),dp(8)))
                 Window.add_widget(self.hint);self.hint_event=Clock.schedule_interval(self._hint,.2)
             self._hint();return
         self._clear_hint()
