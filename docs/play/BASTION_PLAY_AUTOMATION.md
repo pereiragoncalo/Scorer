@@ -126,3 +126,27 @@ Host and fullJDKcontainer together cover all24 (each environment skips the singl
 fixture unavailable there). No test authenticates to Google. Owner installed the Google credential on bastion; live --check returned internal1030002.
 The first --publish verified/signed/uploaded1030003andvalidated the edit, then got
 the specific400above. No commit success is claimed until owner reruns1.1.
+
+## Required step in every release handoff: activate update policy
+
+The owner requires this step with EVERY new release. Upload/commit to Play alone
+does not update the game's version policy. Each handoff must supply the exact
+new numeric code in the server command, including when no backend deployment is
+otherwise needed. Do not mark the rollout complete until the public policy is
+verified. Keep this activation separate from the upload: wait until the new build
+is available in Play to every intended player before raising the shared minimum.
+An internal-only build must not become mandatory for production players.
+
+For the current1030006, after that availability check, run as root on bastion:
+
+```bash
+python3 /opt/scorer/server/version_updates.py \
+  --minimum 1030006 \
+  --latest 1030006 \
+  --name 1.0
+curl -f https://stats.clemir.com/v1/app-version
+```
+
+Verify both minimum_version_code and latest_version_code equal1030006. On the
+next release, replace BOTH values with its actual code. Then open the older app
+online and confirm that the mandatory update screen appears.

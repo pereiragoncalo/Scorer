@@ -38,7 +38,20 @@ python3 /root/scorer-signing/play-internal.py --publish
 
 Uses existing installed Google service account and owner upload key. Downloads,
 checks and signs the approved1030006 locally, then publishes INTERNAL only.
-After Play makes it available, update the phone and verify the five changes.
+After Play makes it available to every intended player, activate the update
+policy on bastion before calling this rollout complete:
+
+```bash
+python3 /opt/scorer/server/version_updates.py \
+  --minimum 1030006 \
+  --latest 1030006 \
+  --name 1.0
+curl -f https://stats.clemir.com/v1/app-version
+```
+
+Confirm both codes in the public response are1030006, then reopen the old app
+online, use Update and verify the five changes on the phone. An internal-only
+version must not become mandatory for production players.
 
 ## Verification
 
