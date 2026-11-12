@@ -1,3 +1,10 @@
+1030009delivery verified: workflows43237779081(bundle) and43237703376(publisher)
+succeeded. Anonymous full downloads matched all four local files: AAB117229442bytes,
+SHA25676e41903488e56f1a1755551783214a6ab64f85f84ca287dd7d2edbb4f931505;
+coordinator285ae4a0254f9ad38fac6bb9c263d5e5580179f34193ba7b1744e9b59182deb2;
+uploader1.7SHA25655d323d6b915e916111d9913d6b075289a94405a5b7c12b556eb163e5e6cbdbe.
+Owner-side signing/Play commit/update-policy activation/phone validation are pending.
+
 ## 2026-11-12 — World1.0 / 1030009 portrait, keeper and header candidate
 
 Runtime source03c076a. Three-column player stats/white-T-shirt passport portrait
