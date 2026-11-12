@@ -1,3 +1,10 @@
+1030010public delivery verified: bundle workflow43241501384 and publisher43241431680
+succeeded. Anonymous complete downloads of AAB/coordinator/signing helper/uploader
+match local SHA256/byte counts. AAB117231830bytes, SHA256
+c74b72170da47e7f99a25d1c1514ae61d2482e8ef6ec1f6898293833f49e7bf3.
+Uploader1.8SHA2561192051a22a4326ac620642396acccf9b1832834f9ccb093c4e233ebe42b1234.
+Owner signs/publishes internally, confirms availability, then activates minimum/latest1030010.
+
 ## 2026-11-12 — World1.0 / 1030010 stadium seats
 
 Runtime sourceb9e08908e3147afc531e4a8d80eba449003cea92. Individual permanent
