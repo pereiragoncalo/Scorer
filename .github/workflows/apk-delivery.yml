@@ -91,7 +91,7 @@ jobs:
           SOURCE_COMMIT: ${{ steps.download.outputs.source_commit }}
         run: |
           if ! gh release view world-1.0-1030006 >/dev/null 2>&1; then
-            gh release create world-1.0-1030006 --target "$SOURCE_COMMIT" --prerelease --title "Scorer World 1.0 (1030006) - menu and match refinements" --notes-file docs/RELEASE_1.0_1030006.md
+            gh release create world-1.0-1030006 --target "$GITHUB_SHA" --prerelease --title "Scorer World 1.0 (1030006) - menu and match refinements" --notes-file docs/RELEASE_1.0_1030006.md
           fi
           gh release upload world-1.0-1030006 Scorer-World-1.0-1030006-unsigned.aab docs/RELEASE_1.0_1030006_artifacts.json tools/play/sign_local_bundle.py tools/play/bastion_bundle_1030006.py docs/play/REFINEMENTS_1030006.md --clobber
 
