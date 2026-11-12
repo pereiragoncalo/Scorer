@@ -1,3 +1,11 @@
+1030011delivery verified: bundle workflow43251993116 and publisher43251841246
+succeeded. Anonymous full AAB/coordinator/signing-helper/uploader downloads match
+local SHA256/byte counts. AAB117232041bytes, SHA256
+0e7161dfd8997f36841abb3bdb2e5e17857f1ebc4f1eb2e8fb7e9c6fdbee6324.
+Uploader1.9SHA25680ad62b16fe5bb4d43619b1c98d2dd22988fda0552cf624cdb8434a1a1f048f2.
+Owner bastion signing/internal commit pending; minimum remains0until actual Play
+availability/install is verified. No claim that rebuild fixes Play delivery.
+
 ## 2026-11-12 — World1.0 / 1030011 rebuild and installed build label
 
 Owner APK Analyzer proves installed1030009, despite Console advertising1030010.
