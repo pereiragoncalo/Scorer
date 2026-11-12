@@ -1,3 +1,20 @@
+## 2026-11-12 — World1.0 / 1030009 portrait, keeper and header candidate
+
+Runtime source03c076a. Three-column player stats/white-T-shirt passport portrait
+and editable name/age/monthly-salary captions. Forward-foreshortened frontal catches
+retain physical glove attachment. Real jumping central glove contacts tip the active
+ball above the crossbar; new original contact sprite plus existing recovery frames.
+Header hold/contact uses the forehead at1.65m. Original240PNGframes unchanged.
+14portrait/refinement/creation cases, three responsive save/layout sizes,17combined
+native keeper/header/opportunity/difficulty/portrait cases and11asset/opportunity
+cases pass. Actual staged screenshots reviewed. Initial tip test fixture missed the
+central bound; corrected to an actual central-jump phase, then physical integration
+crossed above the bar.24publisher scenarios pass with one full-JDK signing skip on
+host (no jarsigner); portable real signing fixture needs full JDK.
+Actual combined unsigned AAB built; bundletool/static/World-production/version1.0,
+code1030009,118ELF16KB and derived inspection APK pass. Owner signing, internal
+Play commit, phone acceptance and minimum activation remain owner-side.
+
 ## 2026-11-09 — World0.9.39 training touch and estate portrait
 
 Public APK verified HTTP200/attachment:118304435bytes, SHA2569ef4d290b6b24b54913e960c39d1b37a945c2caa5a3b46d6169322b177a88d4f. Workflow42623550381 succeeded. Both original generated PNGs, compiled portrait/selection source and all packed regression checks passed. Temporary transfer branch removed.
