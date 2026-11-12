@@ -98,6 +98,7 @@ def build(g,ctx):
             g._cache_stand_world_polyline((.7,.73,.7,1),[(-36.2,front,base),(36.2,front,base)],1.4)
             x=36.2+depth
             quad(((x,-4,base-1.35),(x,32,base-1.35),(x,32,base-.1),(x,-4,base-.1)),fascia)
+    build_seats(g,g._crowd_specs,ctx)
     g._stand_mesh_cache=[(color,vertices,indices) for (_,color),(vertices,indices) in g._stand_mesh_builders.items() if indices]
     g._stand_mesh_builders=None
     g.crowd_available=len(g._crowd_specs)
@@ -107,9 +108,49 @@ def build(g,ctx):
     build_stewards(g)
     g._crowd_specs=None
 
+def build_seats(g,seats,ctx):
+    """Permanent moulded seats, including all unoccupied/training positions."""
+    primary=tuple(ctx['home_kit'][0][:3])
+    g.stadium_seat_colour=primary+(1.,);g.stadium_seat_count=len(seats)
+    shades=[tuple(max(.025,min(1.,c*f+.025)) for c in primary)+(1.,) for f in (.48,.85,1.15)]
+    for x,y,z,code,team,tier in seats:
+        # Face the pitch along the straight stands and around the curved corner.
+        if x>36.2 and y< -4:
+            dx,dy=36.2-x,-4-y;length=math.hypot(dx,dy);dx,dy=dx/length,dy/length
+        elif x>36.2:dx,dy=-1.,0.
+        else:dx,dy=0.,1.
+        rx,ry=dy,-dx
+        def point(side,depth,height):return g.project(x+rx*side+dx*depth,y+ry*side+dy*depth,z+height)
+        def quad(colour,points):g._cache_stand_quad(colour,tuple(point(*v) for v in points))
+        g._stand_cache_section='seats:'+str(tier)
+        # Separate back shell, sitting pan, front lip and a dark support pedestal.
+        quad(shades[0],[(-.06,-.06,.02),(.06,-.06,.02),(.06,-.06,.32),(-.06,-.06,.32)])
+        quad(shades[1],[(-.19,-.17,.31),(.19,-.17,.31),(.18,-.21,.65),(-.18,-.21,.65)])
+        quad(shades[2],[(-.19,-.17,.32),(.19,-.17,.32),(.19,.18,.32),(-.19,.18,.32)])
+        quad(shades[0],[(-.19,.18,.27),(.19,.18,.27),(.19,.18,.32),(-.19,.18,.32)])
+
+
+def supporter_body(foot,width,height,seated):
+    """Three atlas bands bend the knees; original art/celebration frames retained."""
+    x,y=foot
+    if seated:
+        # Torso lowers onto the pan; thighs project forward, shins reach the tread.
+        bands=((0.,3/18,0.,.16,.08), (3/18,5/18,.16,.25,.08), (5/18,1.,.25,.84,0.))
+    else:bands=((0.,3/18,0.,3/18,0.),(3/18,5/18,3/18,5/18,0.),(5/18,1.,5/18,1.,0.))
+    return [((x-width/2+offset*width,y+lo*height),(x+width/2+offset*width,y+lo*height),
+             (x+width/2,y+hi*height),(x-width/2,y+hi*height)) for _,_,lo,hi,offset in bands]
+
+
+def supporter_uv(texture,column,frame):
+    coords=uv(texture,column,frame,18,6);u0,v0,u1,_,_,v1,_,_=coords
+    return [(u0,v0+(v1-v0)*lo,u1,v0+(v1-v0)*lo,u1,v0+(v1-v0)*hi,u0,v0+(v1-v0)*hi)
+            for lo,hi in ((0.,3/18),(3/18,5/18),(5/18,1.))]
+
+
 def build_crowd(g,spectators,ctx=None):
     from celebrations import crowd_profile
     ctx=ctx or context(g);batches={};g._crowd_textures={}
+    g._crowd_standing=[]
     visible=0;team_counts={'home':0,'away':0};g._crowd_motions=[];g._crowd_motion_scales=[];g._crowd_cells=[]
     for team in ('home','away'):
         kit=ctx['away_kit'] if team=='away' else ctx['home_kit']
@@ -123,16 +164,19 @@ def build_crowd(g,spectators,ctx=None):
         height=max(5.5,min(42.625,scale*.99));width=height*2/3
         if not(g.x-width<=foot[0]<=g.right+width and g.y-height<=foot[1]<=g.top+height):continue
         visible+=1;team_counts[team]+=1;noise=seat_noise(x,y,z,code,ctx['crowd_seed']);column=noise%18
-        body=((foot[0]-width/2,foot[1]),(foot[0]+width/2,foot[1]),(foot[0]+width/2,foot[1]+height),(foot[0]-width/2,foot[1]+height))
-        vertices,indices=batches.setdefault(team,([],[]));start=len(vertices);g._append_mesh_quad(vertices,indices,body)
-        texture=g._crowd_textures[team];frame=(noise>>8)&1;coords=uv(texture,column,frame,18,6)
-        for j in range(4):vertices[start+j*4+2:start+j*4+4]=coords[j*2:j*2+2]
-        baseline=tuple(p[1] for p in body)
-        # Preserve the motion contract, with head and body now one sprite quad.
+        bodies=supporter_body(foot,width,height,True);standing=supporter_body(foot,width,height,False)
+        bucket=(team,visible//4500)
+        vertices,indices=batches.setdefault(bucket,([],[]));start=len(vertices)
+        texture=g._crowd_textures[team];frame=(noise>>8)&1
+        for body,coords in zip(bodies,supporter_uv(texture,column,frame)):
+            offset=len(vertices);g._append_mesh_quad(vertices,indices,body)
+            for j in range(4):vertices[offset+j*4+2:offset+j*4+4]=coords[j*2:j*2+2]
+        baseline=tuple(p[1] for body in bodies for p in body)
         g._crowd_motions.append((team,crowd_profile(noise),vertices,start,baseline,vertices,start,baseline))
         g._crowd_motion_scales.append(scale/30.);g._crowd_cells.append((column,frame,noise))
+        g._crowd_standing.append(tuple(p[1] for body in standing for p in body))
     g.crowd_total=len(spectators);g.crowd_visible=visible;g.crowd_team_counts=team_counts
-    g._crowd_mesh_cache=[((1,1,1,1),v,i,0,team) for team,(v,i) in batches.items() if i]
+    g._crowd_mesh_cache=[((1,1,1,1),v,i,0,team) for (team,bucket),(v,i) in batches.items() if i]
     g._crowd_motion_offsets=[0.]*len(g._crowd_motions);g._crowd_motion_active=False
 
 def cheering(g):
@@ -168,13 +212,13 @@ def animate_crowd(g):
         column,previous,noise=g._crowd_cells[index]
         frame=2+int(max(0.,age-profile[3])*profile[0]*.6+profile[1])%4 if side==team and age>profile[3] else (noise>>8)&1
         if frame!=previous:
-            coords=uv(g._crowd_textures[team],column,frame,18,6)
-            for j in range(4):bv[bs+j*4+2:bs+j*4+4]=coords[j*2:j*2+2]
+            for band,coords in enumerate(supporter_uv(g._crowd_textures[team],column,frame)):
+                for j in range(4):bv[bs+(band*4+j)*4+2:bs+(band*4+j)*4+4]=coords[j*2:j*2+2]
             g._crowd_cells[index]=(column,frame,noise)
-        if amount==g._crowd_motion_offsets[index]:continue
-        for j in range(4):
-            bv[bs+j*4+1]=by[j]+amount
-            hv[hs+j*4+1]=hy[j]+amount
+        standing=frame>=2
+        baseline=g._crowd_standing[index] if standing else by
+        for j,value in enumerate(baseline):
+            bv[bs+j*4+1]=value+amount
         g._crowd_motion_offsets[index]=amount
     g._crowd_motion_active=side is not None
 
