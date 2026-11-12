@@ -38,7 +38,7 @@ def away_seat(x,y,tier=0,section='goal',capacity=40000):
 
 def build(g,ctx):
     spec=ctx['ground'];g.stadium_tiers=spec.tiers;g.stadium_capacity=spec.capacity
-    g._crowd_specs=[];g._stand_mesh_builders={}
+    g._crowd_specs=[];g._stand_mesh_builders={};g._stand_mesh_chunks={}
     sector=ctx['away_sector'];g.away_sector_extended=sector.extended
     g.steward_positions=[]
     edge=(.42,.46,.44,1);tread=(.25,.28,.27,1);riser=(.12,.16,.16,1)
@@ -165,7 +165,7 @@ def build_crowd(g,spectators,ctx=None):
         if not(g.x-width<=foot[0]<=g.right+width and g.y-height<=foot[1]<=g.top+height):continue
         visible+=1;team_counts[team]+=1;noise=seat_noise(x,y,z,code,ctx['crowd_seed']);column=noise%18
         bodies=supporter_body(foot,width,height,True);standing=supporter_body(foot,width,height,False)
-        bucket=(team,visible//4500)
+        bucket=(team,visible//1024)
         vertices,indices=batches.setdefault(bucket,([],[]));start=len(vertices)
         texture=g._crowd_textures[team];frame=(noise>>8)&1
         for body,coords in zip(bodies,supporter_uv(texture,column,frame)):

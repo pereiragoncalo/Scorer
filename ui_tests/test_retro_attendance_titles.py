@@ -17,7 +17,7 @@ class RetroSceneTests(unittest.TestCase):
             t=textures.get('ball.png');pixels=bytes(t.pixels);textures._reload(t);self.assertEqual(bytes(t.pixels),pixels);self.assertEqual(t.mag_filter,'nearest')
     def test_crowd_is_two_textured_batches_and_opponents_and_stewards_stay_still(self):
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
-            self.prepare(g);g._draw_stadium_stands();self.assertEqual(set(g._crowd_textures),{'home','away'});self.assertLessEqual(len(g._crowd_mesh_cache),4)
+            self.prepare(g);g._draw_stadium_stands();self.assertEqual(set(g._crowd_textures),{'home','away'});self.assertTrue(g._crowd_mesh_cache);self.assertTrue(all(len(row[2])<=24000 for row in g._crowd_mesh_cache))
             self.assertLess(g.crowd_total,g.crowd_available);guard=copy.deepcopy(g._steward_mesh_cache)
             g._record_report_goal('away',30);g.elapsed+=.4;animate_crowd(g)
             self.assertTrue(all(g._crowd_motion_offsets[i]==0 for i,m in enumerate(g._crowd_motions) if m[0]=='home'));self.assertEqual(g._steward_mesh_cache,guard)

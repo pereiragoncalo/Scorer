@@ -4554,9 +4554,17 @@ class StrikerGame(Widget):
         """Acrescenta uma face ao lote estático da secção atual."""
         if self._stand_mesh_builders is None:
             return
-        key = (self._stand_cache_section, color)
-        vertices, indices = self._stand_mesh_builders.setdefault(key, ([], []))
-        self._append_mesh_quad(vertices, indices, points)
+        # Kivy limits the NUMBER of indices as well as their 16-bit values.
+        if not hasattr(self,'_stand_mesh_chunks'):self._stand_mesh_chunks={}
+        base=(self._stand_cache_section,color)
+        chunk=self._stand_mesh_chunks.get(base,0)
+        key=((self._stand_cache_section,chunk),color)
+        vertices,indices=self._stand_mesh_builders.setdefault(key,([],[]))
+        if len(indices)+6>24000:
+            chunk+=1;self._stand_mesh_chunks[base]=chunk
+            key=((self._stand_cache_section,chunk),color)
+            vertices,indices=self._stand_mesh_builders.setdefault(key,([],[]))
+        self._append_mesh_quad(vertices,indices,points)
 
 
     def _cache_stand_segment(
