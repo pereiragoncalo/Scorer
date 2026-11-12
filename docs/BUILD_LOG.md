@@ -13,7 +13,9 @@ same seeds: tier1long shots4→15goals/50, tier4long10→19/50; first-time45/50u
 in both tiers. Exact targets isolate keeper tuning, not human conversion/quotas.
 Results and reproducible calibrate_placement.py retained.25publisher scenarios:
 24pass/one existing full-JDK-only fixture skip. Actual unsigned1030013AAB compiled;
-static/public download verification follows. Owner signing/Play commit/phone
+bundletool/static/code1030013/production,118ELF16KB, derived APK, all248frames/35sheets
+and exact compiled main/career/finishing runtime pass. Public download checks follow.
+Owner signing/Play commit/phone
 acceptance pending; minimum stays0until availability and acceptance.
 
 1030012delivery verified: bundle workflow43307506227 and publisher43307488869

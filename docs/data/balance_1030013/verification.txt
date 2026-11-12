@@ -1,0 +1,12 @@
+59 core cases and15 native cases passed.24publisher cases passed; one existing full-JDK-only fixture skipped.
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/work/cache/java-cacerts -Dhttp.proxyHost=172.31.0.125 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=172.31.0.125 -Dhttps.proxyPort=8080 -Djava.io.tmpdir=/work/verify-space
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/work/cache/java-cacerts -Dhttp.proxyHost=172.31.0.125 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=172.31.0.125 -Dhttps.proxyPort=8080 -Djava.io.tmpdir=/work/verify-space
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/work/cache/java-cacerts -Dhttp.proxyHost=172.31.0.125 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=172.31.0.125 -Dhttps.proxyPort=8080 -Djava.io.tmpdir=/work/verify-space
+PASS: AAB requests 16KiB native ZIP alignment
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/work/cache/java-cacerts -Dhttp.proxyHost=172.31.0.125 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=172.31.0.125 -Dhttps.proxyPort=8080 -Djava.io.tmpdir=/work/verify-space
+Compiled edition verified: World
+Displayed version: 1.0
+Compiled edition/channel/public metadata/safety/transfer modules verified: world production
+PASS: original AAB remains unsigned; derived inspection APK is not a Play upload
+Unsigned candidate static audit passed. Owner signing and Play acceptance remain pending.
+Original revision2 base plus requested celebrations/high tip: 248 frames, 35 sheets, exact compiled rendering/runtime source; no sprite-lab build tools.
