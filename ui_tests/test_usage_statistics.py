@@ -34,29 +34,29 @@ class UsageStatisticsUITests(unittest.TestCase):
             for key in ('sessions','new_careers','trainings_completed','matches_completed','goals_scored'):self.assertEqual(counts[key],1,key)
             data=g.usage.path.read_text();self.assertNotIn('Private Example',data);self.assertNotIn(g.career.club_name,data)
             self.assertEqual(set(json.loads(data)['counts']),set(counts))
-    def test_world_startup_agreement_does_not_enable_statistics_or_sharing(self):
+    def test_world_startup_agreement_enables_statistics_but_not_sharing(self):
         from anonymous_stats import create_statistics
         with patch('edition.WORLD_BUILD',True),isolated_game() as g:
             with patch('anonymous_stats.APP_NOTICE_REQUIRED',True):
                 g.usage=create_statistics(True,g.career.save_path.parent,endpoint='')
             g._activate_ui('splash_continue');self.assertEqual(g.view,'data_notice')
             g._activate_ui('notice_continue');self.assertEqual(g.view,'start')
-            self.assertFalse(g.usage.enabled);self.assertFalse(g.leaderboard.enabled)
-            self.assertEqual(g.usage.counts,{})
+            self.assertTrue(g.usage.enabled);self.assertFalse(g.leaderboard.enabled)
+            self.assertEqual(g.usage.counts,{'sessions':1})
     def test_known_save_load_failures_use_fixed_numeric_events_only(self):
         with isolated_game(corrupt=True) as g:
             g.usage.set_enabled(True);g._activate_ui('splash_continue');g._activate_ui('load_game');self.assertEqual(g.usage.counts['load_failures'],1)
             g._career_started=True
-            with patch.object(g.career,'save',return_value=False):StrikerApp.on_pause(type('App',(),{'root':g})())
+            with patch.object(g.career,'save',return_value=False):StrikerApp.on_pause(type('App',(),{'root':g,'_check_app_update':lambda _:None})())
             self.assertEqual(g.usage.counts['save_failures'],1)
             g.usage.set_enabled(False)
-            with patch.object(g.career,'save',return_value=False):StrikerApp.on_stop(type('App',(),{'root':g})())
+            with patch.object(g.career,'save',return_value=False):StrikerApp.on_stop(type('App',(),{'root':g,'_check_app_update':lambda _:None})())
             self.assertEqual(g.usage.counts,{})
 
     def test_background_does_not_end_session_normal_stop_counts_once(self):
         with isolated_game() as g:
             g.usage.set_enabled(True);g._activate_ui('splash_continue')
-            app=type('App',(),{'root':g})()
+            app=type('App',(),{'root':g,'_check_app_update':lambda _:None})()
             StrikerApp.on_pause(app);self.assertNotIn('sessions_ended',g.usage.counts)
             StrikerApp.on_stop(app);StrikerApp.on_stop(app)
             self.assertEqual(g.usage.counts['sessions'],1);self.assertEqual(g.usage.counts['sessions_ended'],1)
@@ -72,12 +72,12 @@ class UsageStatisticsUITests(unittest.TestCase):
                 g._confirm_exit()
                 self.assertEqual([c[0] for c in calls],['flush','stop'])
                 self.assertTrue(all(c[1]['sessions_ended']==1 for c in calls))
-                StrikerApp.on_stop(type('App',(),{'root':g})())
+                StrikerApp.on_stop(type('App',(),{'root':g,'_check_app_update':lambda _:None})())
                 self.assertEqual(g.usage.counts['sessions_ended'],1)
 
     def test_open_before_splash_then_background_reopen_counts_two(self):
         with isolated_game() as g:
-            g.usage.set_enabled(True);app=type('App',(),{'root':g})()
+            g.usage.set_enabled(True);app=type('App',(),{'root':g,'_check_app_update':lambda _:None})()
             StrikerApp.on_start(app)
             try:
                 self.assertEqual(g.view,'splash');self.assertEqual(g.usage.counts['sessions'],1)

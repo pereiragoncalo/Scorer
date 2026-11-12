@@ -4,8 +4,8 @@
   "moderation_operator_ready": true,
   "public_policy_live": true,
   "cloudflare_practices_reviewed": true,
-  "legal_basis": "Optional usage is default-off and separately enabled by an adult after disclosure, with withdrawal and unsent-data erasure without affecting play; launch acknowledgment is not consent. Optional pseudonymous Season/Career sharing requires adult controls, community terms and explicit Share with pre-publication review. Necessary security and moderation support the requested service; applicable child-protection, parental-authorization and data-protection rights take precedence. No advertising, profiling, location, contacts or advertising identifiers.",
-  "reviewed_at": "2026-11-10",
+  "legal_basis": "Engineering review of startup I AGREE enabling the nine disclosed aggregate counters, I DO NOT AGREE closing without upload, settings stop/erase and explicit public-record sharing. This bundled startup choice is not proof of freely given or parental consent. Applicable child-protection and data-protection requirements still apply. No advertising or profiling.",
+  "reviewed_at": "2026-11-12",
   "review_scope": "Engineering review of actual implementation and published policy against Google Play User Data/Families/UGC requirements; not external legal advice or Google approval.",
   "moderator": {
     "name": "Gonçalo Pereira",

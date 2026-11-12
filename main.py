@@ -3171,6 +3171,11 @@ class StrikerGame(Widget):
         if action=='notice_exit' and self.view=='data_notice':self._reject_notice();return
         if action=='notice_continue' and self.view=='data_notice':
             try:
+                # Agreement explicitly enables aggregate counters, as disclosed.
+                # Persist the choice before allowing delivery or entering play.
+                if not self.usage.set_enabled(True):
+                    self._safety_notice=self.usage.last_error
+                    self.draw();return
                 self.family.acknowledge();self.usage.delivery_ready=True
                 self.usage.begin_session();self.usage.flush_async();self.view='start'
             except OSError:self._safety_notice='Unable to save settings. Please try again.'

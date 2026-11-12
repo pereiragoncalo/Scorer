@@ -3,12 +3,12 @@ from datetime import date
 import hashlib,hmac,json,os,secrets,tempfile,time
 from pathlib import Path
 
-NOTICE_VERSION=2
+NOTICE_VERSION=3
 TERMS_VERSION=1
 TERMS_TEXT=('Use a nickname, never a real full name, contact details or school. Do not publish abuse, hate, sexual content, threats, impersonation or spam. Names and teams are public only after review. Report or block unsafe entries. Moderators may remove records and suspend publishing. Scores are self-reported. You can stop sharing and remove your records at any time.')
 SAFETY_TEXT='Stay safe online: other people can see shared names and records. Never share your real name, school, contact details or location. Ask a trusted adult for help with anything worrying; report or block unsafe entries.'
-USAGE_TEXT='Optional usage statistics are off by default. An adult may allow nine numeric counters (openings, closes, careers, training, matches, goals and save/load failures) to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. Unsent counts expire after 7 days; server totals after 90 days. You can stop statistics and erase unsent counts at any time without affecting play.'
-NOTICE_TEXT='Play your career locally. Usage statistics are optional and off by default; an adult can enable them separately in Help > Settings. Public records require separate adult controls and sharing. Read the Privacy Policy in Settings. I AGREE acknowledges this notice; it does not enable statistics or publish records. I DO NOT AGREE closes the game.'
+USAGE_TEXT='I AGREE on the startup notice enables nine aggregate usage counters (openings, closes, careers, training, matches, goals and save/load failures) sent to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. Unsent counts expire after 7 days; server totals after 90 days. You can stop statistics and erase unsent counts here without affecting play. Accepting the startup notice again enables statistics again. Public record sharing is separate.'
+NOTICE_TEXT='Play your career locally. I AGREE enables nine aggregate usage counters (openings, closes, careers, training, matches, goals and save/load failures) sent to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. I DO NOT AGREE closes the game without sending statistics. You can stop statistics and erase unsent counts in Help > Settings. Public records require separate adult controls and sharing. Read the Privacy Policy in Settings.'
 
 
 def atomic_json(path,data):

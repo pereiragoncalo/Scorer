@@ -158,7 +158,7 @@ class StagingTests(unittest.TestCase):
             self.assertEqual(spec['app']['version'],'1.0');self.assertEqual(spec['app']['android.numeric_version'],'1030000')
             default_stage=prepare_edition('world',Path(t)/'production-default',channel='production',publication=review)
             default_spec=configparser.ConfigParser();default_spec.read(default_stage/'buildozer.spec')
-            self.assertEqual(default_spec['app']['version'],'1.0');self.assertEqual(default_spec['app']['android.numeric_version'],'1030000')
+            self.assertEqual(default_spec['app']['version'],'1.0');self.assertEqual(default_spec['app']['android.numeric_version'],str(json.loads((ROOT/'release/play.production.example.json').read_text())['version_code']))
             ns={};exec((stage/'release_settings.py').read_text(),ns)
             self.assertEqual(ns['VERSION_NAME'],'1.0')
             self.assertEqual(ns['CHANNEL'],'production');self.assertEqual(ns['SUPPORT_EMAIL'],'goncalo@clemir.com');self.assertFalse(ns['WORLD_LISTING_READY'])

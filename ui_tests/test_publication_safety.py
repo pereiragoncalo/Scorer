@@ -30,12 +30,12 @@ class PublicationUITests(unittest.TestCase):
         with isolated_game(saved=True) as g:
             with patch('anonymous_stats.APP_NOTICE_REQUIRED',True):g.usage=create_statistics(False,g.career.save_path.parent,endpoint='https://stats.example.com/v1/usage')
             with patch.object(g.usage,'_sender',return_value=False) as sender:
-                app=type('App',(),{'root':g})();StrikerApp.on_start(app)
+                app=type('App',(),{'root':g,'_check_app_update':lambda _:None})();StrikerApp.on_start(app)
                 try:
                     g._activate_ui('splash_continue');self.assertEqual(g.view,'data_notice');self.assertFalse(g.usage.delivery_ready)
                     g.usage.flush_async();sender.assert_not_called()
                     g._activate_ui('notice_continue');self.assertEqual(g.view,'start');self.assertTrue(g.usage.delivery_ready);self.assertTrue(g.family.notice_seen)
-                    self.assertFalse(g.usage.enabled);self.assertTrue(g.usage.set_enabled(False))
+                    self.assertTrue(g.usage.enabled);self.assertTrue(g.usage.set_enabled(False))
                 finally:StrikerApp.on_stop(app)
     def test_guardian_setup_unlock_and_disable_stops_publication_without_disabling_usage(self):
         with isolated_game(saved=True) as g:
@@ -79,7 +79,7 @@ class PublicationUITests(unittest.TestCase):
         with isolated_game(saved=True) as g:
             g.family.social=False;g.leaderboard.pending_withdrawal=True
             with patch.object(g.leaderboard,'sync') as sync:
-                StrikerApp._flush_usage(type('App',(),{'root':g})())
+                StrikerApp._flush_usage(type('App',(),{'root':g,'_check_app_update':lambda _:None})())
                 sync.assert_called_once_with(g.career,False,withdraw=True)
                 self.assertFalse(g.family.social);self.assertFalse(g.leaderboard.enabled)
 
