@@ -607,7 +607,7 @@ class WorldLeague:
     clubs: list[CareerClub]
     round_index: int = 0
     scorer_goals: dict[str, int] = field(default_factory=dict)
-    schedule_version: int = 2
+    schedule_version: int = 3
     format_key: str = ""
     format_groups: Optional[list] = None
 
@@ -625,7 +625,7 @@ class WorldLeague:
         count = len(self.clubs)
         if count < 2:
             return 0
-        return (count if self.schedule_version == 2 and count % 2 else count - 1) * 2
+        return (count if self.schedule_version >= 2 and count % 2 else count - 1) * 2
 
 
     def table(self) -> list[CareerClub]:
@@ -647,16 +647,19 @@ class WorldLeague:
             return pairings(self,self.round_index if round_number is None else round_number)
         count = len(self.clubs)
         requested = self.round_index if round_number is None else round_number
+        if self.schedule_version>=3:
+            from mirrored_schedule import supported,pairings
+            if supported(count):return pairings(self.clubs,requested)
         if count < 2 or requested < 0 or requested >= self.total_rounds:
             return []
         indexes = list(range(count))
         if count % 2:
             # A fixed bye leaves odd-sized leagues alternating between played
             # fixtures too. Preserve the old rotating bye in legacy seasons.
-            indexes = [-1] + indexes if self.schedule_version == 2 else indexes + [-1]
+            indexes = [-1] + indexes if self.schedule_version >= 2 else indexes + [-1]
             count += 1
         phase, rotation = divmod(requested, count - 1)
-        if self.schedule_version == 2 and phase:
+        if self.schedule_version >= 2 and phase:
             # Reverse and offset return rounds by two. This also limits breaks
             # counted across the leg boundary, without an immediate rematch
             # in leagues with at least four clubs.
@@ -670,7 +673,7 @@ class WorldLeague:
             if left < 0 or right < 0:
                 continue
             flip = ((rotation % 2 if index == 0 else index % 2)
-                    if self.schedule_version == 2 else (rotation + index) % 2)
+                    if self.schedule_version >= 2 else (rotation + index) % 2)
             if flip:
                 left, right = right, left
             if phase:
@@ -2150,7 +2153,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.message=f'Season finished in position {position}. New season {self.season}/{str(self.season+1)[-2:]}.'
         self.international_status={}
         for l in self.leagues.values():
-            random.Random(f'{self.world_seed}:{self.season}:{l.key}').shuffle(l.clubs);l.schedule_version=2;l.round_index=0;l.scorer_goals.clear();l.format_groups=None
+            random.Random(f'{self.world_seed}:{self.season}:{l.key}').shuffle(l.clubs);l.schedule_version=3;l.round_index=0;l.scorer_goals.clear();l.format_groups=None
             for c in l.clubs:c.played=c.won=c.drawn=c.lost=c.goals_for=c.goals_against=c.points=0
         self.matches=self.goals=self.missed_chances=0;self.form_goals.clear()
         if released:self._release_contract(RELEGATED_MESSAGE,club)
@@ -2235,7 +2238,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.national_cup_winners={}
         for world_league in self.leagues.values():
             random.Random(f"{self.world_seed}:{self.season}:{world_league.key}").shuffle(world_league.clubs)
-            world_league.schedule_version = 2
+            world_league.schedule_version = 3
             world_league.round_index = 0
             world_league.scorer_goals.clear()
             for club in world_league.clubs:
@@ -2597,7 +2600,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             ][:5]
             self.last_offer_week = int(data.get("last_offer_week", -99))
             schedule_version = int(data.get("schedule_version", 1))
-            if schedule_version not in (1, 2):
+            if schedule_version not in (1, 2, 3):
                 raise ValueError("Unsupported saved schedule")
             for world_league in self.leagues.values():
                 world_league.schedule_version = schedule_version
@@ -2660,8 +2663,10 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                     other.scorer_goals = {str(k): int(v) for k, v in state['scorers'].items()}
                     other.name = str(state.get('name', other.name))
                     other.schedule_version = int(state.get('schedule', 2))
-                    if not 0 <= other.round_index <= other.total_rounds or other.schedule_version not in (1, 2):
+                    if not 0 <= other.round_index <= other.total_rounds or other.schedule_version not in (1, 2, 3):
                         raise ValueError('Invalid World progress')
+            from mirrored_schedule import upgrade_if_compatible
+            for scheduled_league in self.leagues.values():upgrade_if_compatible(scheduled_league)
             aliases = data.get('display_aliases', {})
             if self.world_unlocked and aliases and any(aliases.get(k) for k in ('clubs', 'leagues', 'players')):
                 from name_packs import validate_pack

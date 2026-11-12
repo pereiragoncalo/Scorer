@@ -46,7 +46,7 @@ def prepare_split(league):
         # Finland's final round: the upper half host five, lower half four.
         ids=groups[0];clubs={c.uid:c for c in ranked};counts={uid:0 for uid in ids}
         for r in range(len(ids)-1):
-            for home,away in round_robin([clubs[uid] for uid in ids],r,1):counts[home.uid]+=1
+            for home,away in round_robin([clubs[uid] for uid in ids],r,1,league.schedule_version):counts[home.uid]+=1
         high=[i for i,uid in enumerate(ids) if counts[uid]==len(ids)//2]
         low=[i for i,uid in enumerate(ids) if counts[uid]==len(ids)//2-1]
         reordered=[None]*len(ids)
@@ -69,7 +69,10 @@ def table(league):
     if {uid for group in league.format_groups for uid in group}!=set(clubs):return raw_table(league.clubs)
     return [c for group in league.format_groups for c in raw_table([clubs[uid] for uid in group])]
 
-def round_robin(clubs,round_number,legs):
+def round_robin(clubs,round_number,legs,version=2):
+    if version>=3:
+        from mirrored_schedule import supported,pairings
+        if supported(len(clubs)):return pairings(clubs,round_number,legs)
     n=len(clubs);leg,rotation=divmod(round_number,n-1)
     if leg>=legs:return []
     # Match the existing balanced two-leg schedule, alternating venues per pair
@@ -86,11 +89,11 @@ def round_robin(clubs,round_number,legs):
 def pairings(league,requested):
     spec=specification(league);first=spec['phases'][0];boundary=phase_rounds(first)
     if requested<0 or requested>=total_rounds(league):return []
-    if requested<boundary:return round_robin(league.clubs,requested,first['legs'])
+    if requested<boundary:return round_robin(league.clubs,requested,first['legs'],league.schedule_version)
     # Calendar previews cannot draw groups from an unfinished table.
     if league.round_index<boundary:return []
     prepare_split(league);phase=spec['phases'][1];clubs={c.uid:c for c in league.clubs};legs=phase['legs'];legs=legs if isinstance(legs,list) else [legs]*len(league.format_groups)
-    return [pair for ids,count in zip(league.format_groups,legs) for pair in round_robin([clubs[uid] for uid in ids],requested-boundary,count)]
+    return [pair for ids,count in zip(league.format_groups,legs) for pair in round_robin([clubs[uid] for uid in ids],requested-boundary,count,league.schedule_version)]
 
 def player_finished(league,uid):
     spec=specification(league)

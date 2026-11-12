@@ -681,7 +681,7 @@ class CareerTests(unittest.TestCase):
         for count in range(2, 33):
             with self.subTest(clubs=count):
                 clubs=[career.CareerClub(str(i),'England','Test',4,60) for i in range(count)]
-                league=career.WorldLeague('England','Test',4,clubs)
+                league=career.WorldLeague('England','Test',4,clubs,schedule_version=2)
                 half=league.total_rounds//2
                 venues={club.name:['',''] for club in clubs}
                 opponents=[Counter(),Counter()]
@@ -747,7 +747,7 @@ class CareerTests(unittest.TestCase):
                 data=json.loads(c.save_path.read_text());data['career'].pop('schedule_version')
                 c.save_path.write_text(json.dumps(data))
                 restored=career.CareerMode()
-                self.assertEqual(restored.current_league.schedule_version,2 if played<=1 else 1)
+                self.assertEqual(restored.current_league.schedule_version,3 if played<=1 else 1)
                 self.assertEqual((restored.goals,restored.matches,restored.week,restored.club.points),stats)
                 self.assertEqual(restored.fixture_history,history)
                 after=fixtures(restored.current_league)
@@ -755,10 +755,10 @@ class CareerTests(unittest.TestCase):
                 if played>=2:
                     self.assertEqual(after,before)
                     restored._finish_season()
-                    self.assertTrue(all(league.schedule_version==2 for league in restored.leagues.values()))
+                    self.assertTrue(all(league.schedule_version==3 for league in restored.leagues.values()))
                 restored.save()
                 loaded=career.CareerMode()
-                self.assertEqual(loaded.current_league.schedule_version,2)
+                self.assertEqual(loaded.current_league.schedule_version,3)
                 self.assertEqual(fixtures(loaded.current_league),fixtures(restored.current_league))
 
     def test_unknown_saved_calendar_version_does_not_replace_active_career(self):

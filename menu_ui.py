@@ -180,6 +180,9 @@ class CareerMenu(BoxLayout):
             self.padding=dp(12);self.spacing=dp(6);self.scroll=None
             from lifestyle_ui import LifestyleScreen,CatalogueScreen,EstateScreen
             self.body=LifestyleScreen(self) if self.game.view=='lifestyle' else EstateScreen(self) if self.game.view=='possessions' else CatalogueScreen(self,owned=self.game.view=='collection');self.add_widget(self.body);return
+        if self.game.view=='training':
+            from training_ui import TrainingScreen
+            self.padding=self.spacing=0;self.scroll=None;self.body=TrainingScreen(self);self.add_widget(self.body);return
         if self.game.view in ('coach','title_coach','private_coach'):
             from coach_ui import CoachScreen
             self.padding=self.spacing=0;self.scroll=None;self.body=CoachScreen(self);self.add_widget(self.body);return

@@ -7,16 +7,18 @@ class FinishingBalance:
     reaction_delay:float=0.
     reading_error:float=1.
 NEUTRAL=FinishingBalance()
-PENALTY=FinishingBalance(.60,2.2,.18,2.5)
-ONE_ON_ONE=FinishingBalance(.80,1.5,.09,1.6)
+PENALTY=FinishingBalance(.50,2.6,.24,2.9)
+ONE_ON_ONE=FinishingBalance(.65,2.0,.18,2.2)
+OPEN_PLAY=FinishingBalance(.75,1.6,.09,1.45)
+HEADER=FinishingBalance(.78,1.6,.08,1.4)
 def finishing_balance(shot_type,one_on_one,distance):
     if shot_type=='penalty':return PENALTY
     if shot_type=='header':
         close=max(0.,min(1.,(10.-distance)/3.))
-        if not close:return NEUTRAL
-        return FinishingBalance(1.-.05*close,1.+.12*close,.015*close,1.+.08*close)
+        if not close:return HEADER
+        return FinishingBalance(HEADER.aim_speed*(1.-.05*close),HEADER.decision_time*(1.+.12*close),HEADER.reaction_delay+.015*close,HEADER.reading_error*(1.+.08*close))
     if one_on_one:return ONE_ON_ONE
-    return NEUTRAL
+    return OPEN_PLAY if shot_type in ('kick','free_kick') else NEUTRAL
 
 PENALTY_PROBABILITY=.08
 
