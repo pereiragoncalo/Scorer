@@ -21,6 +21,7 @@ from __future__ import annotations
 from match_moments import match_stakes, late_opportunity, chance_moment
 from opportunity_sequences import plan_opportunities, make_delivery, TEXT as OPPORTUNITY_TEXT, TIMING as OPPORTUNITY_TIMING
 from coach import REQUIRED as COACH_REQUIRED
+from finishing_balance import PENALTY_PROBABILITY
 
 
 import json
@@ -883,7 +884,7 @@ class StrikerGame(Widget):
         self.match_chance_index = 0
         self.match_easy_chance_index = self.career.rng.randrange(len(self.match_chance_minutes)) if self.match_chance_minutes and self.career.rng.random() < chance_profile.clear_chance_probability else -1
         penalty_slots=[i for i in range(chance_total) if i!=self.match_easy_chance_index] or list(range(chance_total))
-        self.match_penalty_chance_index=self.career.rng.choice(penalty_slots) if penalty_slots and self.career.rng.random()<0.05 else -1
+        self.match_penalty_chance_index=self.career.rng.choice(penalty_slots) if penalty_slots and self.career.rng.random()<PENALTY_PROBABILITY else -1
         self._attendance_snapshot=None
         self.match_opportunity_seed=(self.career.world_seed,self.career.season,self.career.week,self.match_competition,self.match_home.uid,self.match_away.uid)
         self.match_opportunities=plan_opportunities(chance_total,self.match_easy_chance_index,self.match_penalty_chance_index,self.match_opportunity_seed)
@@ -901,7 +902,7 @@ class StrikerGame(Widget):
             home_mean, away_mean = self.career.fixture_goal_means(self.match_home, self.match_away)
         # Reserve the expected personal contribution from the team budget,
         # rather than adding it on top of a full team's simulated goals.
-        personal_mean = expected_highlight_goals(chance_total, chance_profile.clear_chance_probability, 0.05)
+        personal_mean = expected_highlight_goals(chance_total, chance_profile.clear_chance_probability, PENALTY_PROBABILITY)
         if player_home:
             home_mean = max(0.05, home_mean - personal_mean)
         else:
@@ -2032,6 +2033,10 @@ class StrikerGame(Widget):
         balance=self._finishing_balance()
         self.goalkeeper_read_error*=balance.reading_error
         reaction_low+=balance.reaction_delay;reaction_high+=balance.reaction_delay
+        from finishing_balance import placed_keeper_balance
+        delay,spread,bias=placed_keeper_balance(self.shot_type,destination_x,self.goal_half_width)
+        self.goalkeeper_read_error=self.goalkeeper_read_error*spread+bias
+        reaction_low+=delay;reaction_high+=delay
         self.goalkeeper_target_x=clamp(destination_x+self.goalkeeper_read_error,-self.goal_half_width+.62,self.goal_half_width-.62)
         self.goalkeeper_vertical_error=random.gauss(0.0,.16)
         self.goalkeeper_reaction = random.uniform(reaction_low, reaction_high) * (1.0 - .25*clamp((destination_z-1.4)/.7,0.0,1.0))

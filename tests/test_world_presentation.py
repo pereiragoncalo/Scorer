@@ -28,7 +28,7 @@ class WorldPresentationTests(unittest.TestCase):
                 c.morale=morale
                 with patch.object(c.rng,'gauss',return_value=-100):self.assertEqual(c.chance_count(strong),floor)
                 with patch.object(c.rng,'gauss',return_value=100):self.assertLessEqual(c.chance_count(strong),3)
-                self.assertEqual(c.opponent_chance_profile(strong).clear_chance_probability,0.06)
+                self.assertEqual(c.opponent_chance_profile(strong).clear_chance_probability,0.08)
 
     def test_world_aim_speed_increases_after_each_promotion_and_free_is_unchanged(self):
         world=CareerMode(Access(),autoload=False,starter_country='England',save_slot='world')

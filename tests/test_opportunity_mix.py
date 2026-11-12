@@ -10,7 +10,7 @@ class OpportunityMix(unittest.TestCase):
         for rating in (45,70,95):
             p=c.opponent_chance_profile(CareerClub('Opponent','Germany','Test',1,rating,uid='test'))
             probabilities.append(p.clear_chance_probability)
-            self.assertGreaterEqual(p.clear_chance_probability,.06);self.assertLessEqual(p.clear_chance_probability,.22)
+            self.assertGreaterEqual(p.clear_chance_probability,.08);self.assertLessEqual(p.clear_chance_probability,.28)
         self.assertEqual(probabilities,sorted(probabilities,reverse=True))
     def test_penalty_contribution_is_reserved_without_double_counting_single_chance(self):
         self.assertEqual(expected_highlight_goals(0,1,1),0)

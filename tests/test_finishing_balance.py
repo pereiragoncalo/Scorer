@@ -10,3 +10,14 @@ class FinishingBalanceTests(unittest.TestCase):
   for kind in ('kick','free_kick'):
    for distance in (5,10,25):self.assertIs(finishing_balance(kind,False,distance),NEUTRAL)
   for distance in (10,12,25):self.assertIs(finishing_balance('header',False,distance),NEUTRAL)
+
+ def test_corner_help_is_symmetric_progressive_and_leaves_other_shots_alone(self):
+  from finishing_balance import placed_keeper_balance
+  centre=placed_keeper_balance('kick',0,3.66);self.assertEqual(centre,(0.,1.,0.))
+  left=placed_keeper_balance('kick',-3.2,3.66);right=placed_keeper_balance('kick',3.2,3.66)
+  self.assertEqual(left[:2],right[:2]);self.assertEqual(left[2],-right[2])
+  self.assertTrue(0<right[0]<=.06);self.assertTrue(1<right[1]<=1.35);self.assertLess(right[2],0)
+  self.assertLess(placed_keeper_balance('kick',2.0,3.66)[0],right[0])
+  for kind in ('penalty','header'):
+   self.assertEqual(placed_keeper_balance(kind,3.2,3.66),centre)
+  self.assertEqual(placed_keeper_balance('kick',4,3.66),centre)

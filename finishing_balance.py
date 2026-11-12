@@ -17,3 +17,13 @@ def finishing_balance(shot_type,one_on_one,distance):
         return FinishingBalance(1.-.05*close,1.+.12*close,.015*close,1.+.08*close)
     if one_on_one:return ONE_ON_ONE
     return NEUTRAL
+
+PENALTY_PROBABILITY=.08
+
+def placed_keeper_balance(shot_type,target_x,goal_half_width):
+    """Slightly later, less precise reads of clean shots towards either corner."""
+    if shot_type not in ('kick','free_kick') or goal_half_width<=0 or abs(target_x)>goal_half_width-.12:
+        return 0.,1.,0.
+    strength=max(0.,min(1.,(abs(target_x)/goal_half_width-.45)/.40))
+    bias=(-1. if target_x>0 else 1.)*.16*strength
+    return .06*strength,1.+.35*strength,bias

@@ -1575,7 +1575,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
     def opponent_chance_profile(self, opponent: Optional[CareerClub] = None) -> OpponentChanceProfile:
         """Combine opponent quality with its own league position, once at kick-off."""
         if opponent is None:
-            return OpponentChanceProfile(0.0, 3, 0.18)
+            return OpponentChanceProfile(0.0, 3, 0.22)
         quality = clamp((opponent.rating - 45.0) / 45.0, 0.0, 1.0)
         rank_strength, rank_weight, played = 0.0, 0.0, 0
         for league in self.leagues.values():
@@ -1596,10 +1596,10 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         if quality >= 0.88 or (played >= 5 and rank_strength >= 0.85):
             pressure = max(0.80, pressure)
         if pressure >= 0.72:
-            return OpponentChanceProfile(pressure, 1, 0.06)
+            return OpponentChanceProfile(pressure, 1, 0.08)
         if pressure >= 0.50:
-            return OpponentChanceProfile(pressure, 2, 0.12)
-        return OpponentChanceProfile(pressure, 3, 0.22 - 0.08 * pressure / 0.72)
+            return OpponentChanceProfile(pressure, 2, 0.16)
+        return OpponentChanceProfile(pressure, 3, 0.28 - 0.10 * pressure / 0.72)
 
     def chance_count(self, opponent: Optional[CareerClub] = None) -> int:
         from injuries import active

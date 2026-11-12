@@ -199,7 +199,7 @@ assert c.post_match_stage=='newspaper'
 state=c.honours;assert c.load() and c.honours==state and c.post_match_stage=='newspaper'
 print('Actual APK: observed cup-final participation awards a saved personal trophy and persists the newspaper queue')
 strong=career.CareerClub('Penalty opponent','France','Test',1,95)
-assert c.opponent_chance_profile(strong).clear_chance_probability==.35
+assert c.opponent_chance_profile(strong).clear_chance_probability==.08
 assert abs(career.expected_highlight_goals(3,.6,.18)-.867)<1e-9
 report=dict(score=[2,1],events=[dict(minute=32,half=1,side='home'),dict(minute=51,half=2,side='away'),dict(minute=90,half=2,side='home')],goals=1,negative_run=0)
 compact=news.single_page_story(report,Localizer(False).tr,'Alex')
