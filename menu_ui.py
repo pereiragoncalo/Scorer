@@ -27,6 +27,13 @@ import release_settings
 from localization import current, using, LANGUAGES
 from ui_localization import LocalizedText, localized_call, LocalizedInput as TextInput, LocalizedPopup
 
+def build_label():
+    from app_updates import installed_version
+    name=getattr(release_settings,'VERSION_NAME','dev')
+    code=installed_version()
+    return f'v{name} ({code})' if code>0 else 'v'+name
+
+
 INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
@@ -452,7 +459,7 @@ class CareerMenu(BoxLayout):
 
     def _privacy(self):
         card = self.card('PRIVACY')
-        card.label('v'+getattr(release_settings,'VERSION_NAME','dev'),muted=True,localize=False)
+        card.label(build_label(),muted=True,localize=False)
         card.label('Scorer World is free, with an included names editor. No advertising or in-app purchases.')
         self._privacy_contact(card)
         controls=self.card('ADULT CONTROLS');controls.add_widget(self._button('ADULT CONTROLS','family_controls'))
@@ -982,7 +989,7 @@ class EntryScreen(FloatLayout):
         self.panel.add_widget(actions)
         self.panel.canvas.before.remove(self.panel.edge)
         self.add_widget(self.panel)
-        self.version=BoundedLabel(text='v'+getattr(release_settings,'VERSION_NAME','dev'),localize=False,color=MUTED,font_size=sp(11),halign='right',size_hint=(None,None))
+        self.version=BoundedLabel(text=build_label(),localize=False,color=MUTED,font_size=sp(11),halign='right',size_hint=(None,None))
         self.add_widget(self.version)
         self.bind(pos=self._fit, size=self._fit)
         self._fit()
@@ -993,7 +1000,7 @@ class EntryScreen(FloatLayout):
         self.banner_space = dp(64) if banner_fits else 0
         footer_space=dp(22)
         available = self.height - self.banner_space-footer_space
-        self.version.size=(min(dp(120),max(1,self.width-dp(16))),dp(18))
+        self.version.size=(min(dp(220),max(1,self.width-dp(16))),dp(18))
         self.version.pos=(self.right-self.version.width-dp(8),self.y+self.banner_space+dp(2))
         has_error = self.info.parent is self.panel
         compact = available < dp(280)
