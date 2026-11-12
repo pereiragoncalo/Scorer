@@ -1,3 +1,30 @@
+## 2026-11-12 — World1.0 / 1030014 calendar, locker room and accessibility
+
+Owner requests easier play, two-leg round robin in identical opponent order and
+maxTWOhome/away streaks for all clubs, then adds seated-player locker-room training.
+117core cases pass, covering frozen v3fixtures2–64except4 (mathematically incompatible
+compact4-team mirror+max2, unused regular size), same return order/reversed venues,
+all pair counts, first-leg balance and saved-prefix compatibility. Current regular
+sizes10–24and split groups6+supported; existing official3/4leg/split structures stay.
+Early v2seasons upgrade only if all played fixtures identical; others retain old
+schedule to rollover. No runtime solver; frozen version3digest is save compatibility.
+Normal aim*.75/decision*1.6, header*.78/*1.6plus close aid, stronger duel/penalty aids
+and keeper-only delay/read spread; launch/collision geometry unchanged. Paired480
+exact-corner shots compare13/14: long-shot goals tier1 10→15/30, tier4 9→16/30;
+other exact-target types already almost all goals. This is not human conversion.
+
+New original room and reference-character seated art, shader club palette, no scroll,
+48dp controls, current XP/progress/energy and start/resume/coach gate retained. Native
+responsive/font checks4languages×3sizes, start/resume and real atomic-save-failure
+pass. Initial FloatLayout composition looked wrong despite valid bounds; replaced
+with BoxLayout and actual screenshots checked. Initial save mock omitted the real
+error message; os.replace failure fixture now exercises real rollback and passes.
+7native finishing/launch cases pass.25publisher cases:24pass/one full-JDK-only skip.
+Actual AAB compiled, bundletool/static1030014/production/118ELF16KB/derived APK and
+exact compiled new modules/art/all248frames/35sheets pass. Runtime sources match
+361b3a1(test fix only after staged runtime commitdd28ba5). Public delivery follows;
+owner signing/Play commit/phone acceptance/conditional minimum remain pending.
+
 1030013delivery verified: bundle workflow43314926835 and publisher43314890916
 succeeded. Anonymous full AAB/coordinator/signing-helper/uploader downloads match
 all local bytes/SHA256. AAB117232899bytes,
