@@ -1173,14 +1173,12 @@ class PlayerScreen(FloatLayout):
         if existing:
             from development_ui import ObjectivesSummary
             self.objective_scroll=None
-            self.objectives=ObjectivesSummary(menu)
+            self.panel.remove_widget(self.name)
+            self.objectives=ObjectivesSummary(menu,self.name)
+            self.contract_info=self.objectives.contract_info
             if not error:self.title_label.text='PLAYER STATS'
             self.panel.add_widget(self.objectives)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
-        if existing:
-            from career_life import age
-            self.contract_info=BoundedLabel(text=self.game.i18n.tr('Age {age} · Monthly salary €{salary}',age=age(self.game.career),salary=self.game.career.life['salary']),localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(20))
-            self.panel.add_widget(self.contract_info)
         actions.add_widget(CreationTile('HELP', lambda: menu.action('help')))
         actions.add_widget(CreationTile('CANCEL', lambda: menu.action('cancel_profile')))
         self.actions=actions
@@ -1236,11 +1234,13 @@ class PlayerScreen(FloatLayout):
             self.helper.height=0 if compact else dp(36)
             self.helper.opacity=0 if compact else 1
         if self.objectives is not None:
-            self.objectives.height=max(dp(50),min(dp(220),self.height-dp(206)))
-            self.name.height=self.actions.height=dp(48 if compact else 52)
-            self.title_label.height=dp(24 if compact else 28)
+            self.objectives.height=max(dp(130),min(dp(330),self.height-dp(128)))
+            self.name.height=self.actions.height=dp(48)
+            self.title_label.height=dp(24)
         self.panel.padding = dp(8 if compact and self.world_creation else 10 if compact else 14)
         self.panel.spacing = dp(4 if compact and self.world_creation else 6 if compact else 8)
+        if self.objectives is not None:
+            self.panel.padding=dp(10);self.panel.spacing=dp(6)
         self.panel.size = (min(self.width - dp(24), dp(720 if self.world_creation else 650 if self.objectives is not None else 420)), min(self.height - dp(16), self.panel.minimum_height))
         self.panel.center = self.center
 

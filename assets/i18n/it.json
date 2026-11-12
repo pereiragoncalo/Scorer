@@ -721,5 +721,7 @@
   "Best coach trust: {trust}": "Massima fiducia del mister: {trust}",
   "Tracked club goals: {goals}": "Gol con il club registrati: {goals}",
   "Transfers: {count}": "Trasferimenti: {count}",
-  "International appearances: {count}": "Presenze in nazionale: {count}"
+  "International appearances: {count}": "Presenze in nazionale: {count}",
+  "Age {age}": "Età {age}",
+  "Monthly salary €{salary}": "Stipendio mensile €{salary}"
 }

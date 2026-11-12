@@ -11,9 +11,9 @@ from player_development import FOCI,NAMES,needed
 
 class ObjectivesSummary(GridLayout):
     """Actual season and career statistics, without goal denominators or bars."""
-    def __init__(self,menu):
+    def __init__(self,menu,name_field=None):
         from menu_ui import DashboardField
-        super().__init__(cols=2,spacing=dp(10),size_hint_y=None,height=dp(170))
+        super().__init__(cols=3,spacing=dp(10),size_hint_y=None,height=dp(300))
         c=menu.game.career;loc=menu.game.i18n;d=c._ensure_development()
         def section(title):
             box=BoxLayout(orientation='vertical',spacing=dp(4))
@@ -31,6 +31,22 @@ class ObjectivesSummary(GridLayout):
         stat(career,loc.tr('Tracked club goals: {goals}',goals=d['career_goals']))
         stat(career,loc.tr('Transfers: {count}',count=d['transfers']))
         stat(career,loc.tr('International appearances: {count}',count=c.international_caps))
+        from player_portrait import PlayerPortrait
+        from career_life import age
+        photo_column=BoxLayout(orientation='vertical',spacing=dp(4))
+        self.add_widget(photo_column)
+        self.portrait=PlayerPortrait();photo_column.add_widget(self.portrait)
+        self.name_caption=name_field or DashboardField(text=c.player_name,compact_text=c.player_name,localize=False,font_size=sp(15))
+        self.name_caption.size_hint_y=None;self.name_caption.height=dp(48)
+        if name_field is not None:name_field.halign='center';name_field.font_size=sp(15)
+        photo_column.add_widget(self.name_caption)
+        text=loc.tr('Age {age}',age=age(c))
+        self.age_info=DashboardField(text=text,compact_text=text,localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(18))
+        photo_column.add_widget(self.age_info)
+        text=loc.tr('Monthly salary €{salary}',salary=c.life['salary'])
+        self.contract_info=DashboardField(text=text,compact_text=text,localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(30),max_lines=2)
+        photo_column.add_widget(self.contract_info)
+
 
 class DevelopmentScreen(BoxLayout):
     """The coach-trust view contains values only."""

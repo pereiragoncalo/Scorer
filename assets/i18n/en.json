@@ -721,5 +721,7 @@
   "Best coach trust: {trust}": "Best coach trust: {trust}",
   "Tracked club goals: {goals}": "Tracked club goals: {goals}",
   "Transfers: {count}": "Transfers: {count}",
-  "International appearances: {count}": "International appearances: {count}"
+  "International appearances: {count}": "International appearances: {count}",
+  "Age {age}": "Age {age}",
+  "Monthly salary €{salary}": "Monthly salary €{salary}"
 }

@@ -721,5 +721,7 @@
   "Best coach trust: {trust}": "Niềm tin HLV cao nhất: {trust}",
   "Tracked club goals: {goals}": "Bàn CLB đã theo dõi: {goals}",
   "Transfers: {count}": "Chuyển nhượng: {count}",
-  "International appearances: {count}": "Lần khoác áo tuyển: {count}"
+  "International appearances: {count}": "Lần khoác áo tuyển: {count}",
+  "Age {age}": "Tuổi {age}",
+  "Monthly salary €{salary}": "Lương tháng €{salary}"
 }

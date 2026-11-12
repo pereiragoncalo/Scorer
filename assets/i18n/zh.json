@@ -721,5 +721,7 @@
   "Best coach trust: {trust}": "最高教练信任：{trust}",
   "Tracked club goals: {goals}": "已记录的俱乐部进球：{goals}",
   "Transfers: {count}": "转会：{count}",
-  "International appearances: {count}": "国家队出场：{count}"
+  "International appearances: {count}": "国家队出场：{count}",
+  "Age {age}": "年龄 {age}",
+  "Monthly salary €{salary}": "月薪 €{salary}"
 }

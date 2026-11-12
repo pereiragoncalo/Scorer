@@ -721,5 +721,7 @@
   "Best coach trust: {trust}": "監督の最高信頼：{trust}",
   "Tracked club goals: {goals}": "記録したクラブ得点：{goals}",
   "Transfers: {count}": "移籍：{count}",
-  "International appearances: {count}": "代表出場：{count}"
+  "International appearances: {count}": "代表出場：{count}",
+  "Age {age}": "年齢 {age}",
+  "Monthly salary €{salary}": "月給 €{salary}"
 }

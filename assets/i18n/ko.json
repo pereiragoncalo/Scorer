@@ -721,5 +721,7 @@
   "Best coach trust: {trust}": "최고 감독 신뢰: {trust}",
   "Tracked club goals: {goals}": "기록된 클럽 득점: {goals}",
   "Transfers: {count}": "이적: {count}",
-  "International appearances: {count}": "국가대표 출전: {count}"
+  "International appearances: {count}": "국가대표 출전: {count}",
+  "Age {age}": "나이 {age}",
+  "Monthly salary €{salary}": "월급 €{salary}"
 }
