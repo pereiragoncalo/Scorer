@@ -1,3 +1,21 @@
+## 2026-11-12 — World1.0 / 1030013 modest finishing ease
+
+Owner requests a little more penalties/one-on-ones and less effective keepers for
+placed shots. Runtime sourcefc6de19. Penalties5→8%per fixture, shared scheduling/
+NPC goal-reservation constant. Clear chances6–22→8–28%by opponent pressure, still
+at most one and unchanged personal chance counts. Clean outer kick/free-kick
+shots add up to60ms read delay,35%read spread and16cm centreward misread. Smooth/
+symmetric, central/off-target/header/penalty placement neutral; existing controls,
+ballistics, physical collisions and saves unchanged. Graphics fix retained.
+59core cases and15native cases pass; paired central reads and launch vectors are
+identical.400physical exact-corner shots compare placement help off/on with the
+same seeds: tier1long shots4→15goals/50, tier4long10→19/50; first-time45/50unchanged
+in both tiers. Exact targets isolate keeper tuning, not human conversion/quotas.
+Results and reproducible calibrate_placement.py retained.25publisher scenarios:
+24pass/one existing full-JDK-only fixture skip. Actual unsigned1030013AAB compiled;
+static/public download verification follows. Owner signing/Play commit/phone
+acceptance pending; minimum stays0until availability and acceptance.
+
 1030012delivery verified: bundle workflow43307506227 and publisher43307488869
 succeeded. Anonymous complete AAB/coordinator/signing-helper/uploader downloads
 match all local bytes/SHA256. AAB117232260bytes,
