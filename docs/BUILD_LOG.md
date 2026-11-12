@@ -1,3 +1,11 @@
+1030012delivery verified: bundle workflow43307506227 and publisher43307488869
+succeeded. Anonymous complete AAB/coordinator/signing-helper/uploader downloads
+match all local bytes/SHA256. AAB117232260bytes,
+39805b189c10f8d751e0e2110156eac05d04a2ef16080892087790105c23d85a;
+uploader1.11SHA2569c4c7c7a8f8a5ff1eb3e037cb94260645d973f80bdcf58bcbfdb553bf2876350.
+Owner signing/internal commit, actual handset crash acceptance and conditional
+minimum activation remain pending. Preserve minimum0through verification.
+
 ## 2026-11-12 — World1.0 / 1030012 bounded mobile graphics
 
 Owner reports crash on training entry. Actual installed code/club asked and pending;
