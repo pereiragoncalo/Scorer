@@ -10,18 +10,18 @@ from urllib.parse import urlencode,urlsplit,quote
 from urllib.request import Request,build_opener,HTTPRedirectHandler
 
 PACKAGE='com.clemir.scorerworld'
-VERSION=1030006
+VERSION=1030007
 TRACK='internal'
 BASE='https://androidpublisher.googleapis.com/androidpublisher/v3/applications/'+PACKAGE+'/edits'
 TOKEN_URL='https://oauth2.googleapis.com/token'
 SCOPE='https://www.googleapis.com/auth/androidpublisher'
 CERT='2259de229b49bb40e158d3c015fe1e0d2426becb4e1a4f110dbcd183b51e59a0'
-PAYLOAD='ffdeedd783029ca48dddf98c505b88e1ced71452e1f52247b82a0a02dd9e7843'
-SIGNED=Path('/home/clemir/Scorer-World-1.0-1030006.aab')
+PAYLOAD='d01cd26bf47041a1f1d27fc46de8f1897315e0e4b8def6d8290ee19356d05fc5'
+SIGNED=Path('/home/clemir/Scorer-World-1.0-1030007.aab')
 PRIVATE=Path('/root/scorer-signing')
 CREDENTIALS=PRIVATE/'google-play-service-account.json'
-BOOTSTRAP_URL='https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030006/bastion_bundle_1030006.py'
-BOOTSTRAP_SHA='e9efeacd16e7060827cc4e3a07474c4773f0b003612593ae4dadebf3210776f2'
+BOOTSTRAP_URL='https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030007/bastion_bundle_1030007.py'
+BOOTSTRAP_SHA='55ff87d0286cb3bacebd7d7ac07961479e282b96e48e4165808855345cbb0eae'
 CHUNK=8*1024*1024  # Multiple of256KiB; never send an entire117MiB request.
 
 class Stop(RuntimeError):pass
@@ -138,7 +138,7 @@ def payload_digest(path):
 def verify_signed(path):
     path=Path(path)
     if not path.is_file() or path.is_symlink():raise Stop('Signed AAB not found: '+str(path))
-    if payload_digest(path)!=PAYLOAD:raise Stop('AAB payload is not the approved1030006 build')
+    if payload_digest(path)!=PAYLOAD:raise Stop('AAB payload is not the approved1030007 build')
     for tool in ('jarsigner','keytool'):
         if not shutil.which(tool):raise Stop('Full JDK required: missing '+tool)
     result=subprocess.run(['jarsigner','-verify',str(path)],capture_output=True,text=True)
@@ -212,7 +212,7 @@ def version_codes(track):
 
 
 def internal_release():
-    return {'track':TRACK,'releases':[{'name':'1.0 (1030006) - menu and match refinements','versionCodes':[str(VERSION)],'status':'completed','releaseNotes':[{'language':'en-US','text':'Quiet update checks, monthly salaries, compact player milestones, empty starting assets and varied match situations.'}]}]}
+    return {'track':TRACK,'releases':[{'name':'1.0 (1030007) - larger supporters','versionCodes':[str(VERSION)],'status':'completed','releaseNotes':[{'language':'en-US','text':'Supporter sprites are 25 percent larger; includes previous menu and match refinements.'}]}]}
 
 
 def publish(client,path,signed_sha,check_only=False):
@@ -226,9 +226,9 @@ def publish(client,path,signed_sha,check_only=False):
         bundles=client.api('GET',edit_url+'/bundles').get('bundles',[])
         existing=next((row for row in bundles if int(row['versionCode'])==VERSION),None)
         if existing:
-            if existing.get('sha256','').lower()!=signed_sha:raise Stop('Version1030006 already exists with another SHA256; do not reuse a version code')
+            if existing.get('sha256','').lower()!=signed_sha:raise Stop('Version1030007 already exists with another SHA256; do not reuse a version code')
             if any(str(VERSION) in release.get('versionCodes',[]) and release.get('status')=='completed' for release in track.get('releases',[])):
-                print('Version1030006 is already committed to internal; no change made');return 'unchanged'
+                print('Version1030007 is already committed to internal; no change made');return 'unchanged'
             result=existing
         else:result=upload(client,edit,path)
         if int(result.get('versionCode',0))!=VERSION or result.get('sha256','').lower()!=signed_sha:
@@ -245,7 +245,7 @@ def publish(client,path,signed_sha,check_only=False):
         except (URLError,TimeoutError,OSError,APIError) as error:
             if isinstance(error,APIError) and error.status<500:raise
             raise Stop('Commit response was lost: outcome uncertain. Check internal track in Console before retrying') from None
-        print('Committed INTERNAL version1030006. Play availability/review timing is controlled by Google.')
+        print('Committed INTERNAL version1030007. Play availability/review timing is controlled by Google.')
         return 'committed'
     finally:
         if not commit_attempted:
@@ -301,6 +301,9 @@ def main():
             bundle=snapshot_signed(SIGNED,directory);digest=verify_signed(bundle)
             print('Local signature, original upload certificate and approved payload verified',flush=True)
             publish(client,bundle,digest)
+            print('After Play makes this build available to every intended player, activate the update policy on bastion:')
+            print(f'python3 /opt/scorer/server/version_updates.py --minimum {VERSION} --latest {VERSION} --name 1.0')
+            print('Verify: curl -f https://stats.clemir.com/v1/app-version')
 
 if __name__=='__main__':
     try:main()
