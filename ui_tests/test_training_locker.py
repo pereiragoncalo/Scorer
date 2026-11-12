@@ -50,6 +50,6 @@ class TrainingLocker(unittest.TestCase):
    if c.club is None:c.accept_starting_offer(c.offers[0])
    c.attend_coach_meeting();g._career_started=True;g.view='training';g.draw();settle()
    before=(c.training_session_week,c.training_shots_taken,c.stamina)
-   with patch.object(c,'save',return_value=False):g._menu.body.start.dispatch('on_release')
+   with patch('career.os.replace',side_effect=OSError('fixture write failure')):g._menu.body.start.dispatch('on_release')
    settle();self.assertEqual(g.view,'training');self.assertEqual((c.training_session_week,c.training_shots_taken,c.stamina),before)
    p=g._menu.body;self.assertTrue(p.error_label);self.assertGreaterEqual(p.start.y,p.y)
