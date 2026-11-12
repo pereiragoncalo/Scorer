@@ -44,12 +44,11 @@ def hero_pose(game,flipped=False):
     if game.state==game.STATE_AIMING:
         # Wind-up occurs before launch. Launch is still immediate at the real
         # physics event; the first post-launch frame is the authored contact.
-        frame=min(1 if state=='HEADER' else 2,int(game.state_age*10))
+        frame=0 if state=='HEADER' else min(2,int(game.state_age*10))
     else:
-        # Existing headers arrive at 1.31m. At the new 1.80m standing size,
-        # meet these low balls crouched, rather than jumping above them.
-        contact=5 if state=='HEADER' else 3
-        frame=min(7,contact+int(game.player_kick_progress*(3 if state=='HEADER' else 5)))
+        # Authored contact frame; forehead is aligned to the real launch point.
+        contact=3
+        frame=min(7,contact+int(game.player_kick_progress*(4 if state=='HEADER' else 5)))
     return Pose(state,frame=frame,view='back',flipped=flipped)
 
 
@@ -82,6 +81,9 @@ def field_pose(game,player,flipped=False):
 def keeper_pose(game,right_on_screen=True):
     if game.goalkeeper_holding:
         return Pose('CATCH',game.goalkeeper_catch_age)
+    tip_age=getattr(game,'goalkeeper_tip_age',-1.)
+    if tip_age>=0:
+        return Pose('TIP_OVER',tip_age,flipped=not right_on_screen) if tip_age<.65 else Pose('READY',tip_age)
     if game.goalkeeper_is_diving:
         if game.state==game.STATE_RESULT and not game.ball.active and game.state_age>1.0:
             return Pose('RECOVER',game.state_age-1.)
@@ -121,7 +123,7 @@ class RetroSprites:
         for key in list(self.clocks):
             if isinstance(key,int) and key not in live_keys:del self.clocks[key]
 
-    def draw(self,game,key,role,pose,position,world_height,colours,joint=None,target=None,rotation=0.):
+    def draw(self,game,key,role,pose,position,world_height,colours,joint=None,target=None,rotation=0.,vertical_scale=1.):
         character,clip,frame=self.sample(key,role,pose)
         texture,uv=self.cache.frame(character,clip,pose.view,frame,colours)
         w,h=character['canvas'];ax,ay=character['anchor']
@@ -142,5 +144,5 @@ class RetroSprites:
         Color(1,1,1,1)
         PushMatrix();Translate(sx,sy,0)
         if rotation:Rotate(angle=rotation,axis=(0,0,1))
-        Rectangle(texture=texture,tex_coords=uv,pos=(-ax*scale,-(h-ay)*scale),size=(w*scale,h*scale))
+        Rectangle(texture=texture,tex_coords=uv,pos=(-ax*scale,-(h-ay)*scale*vertical_scale),size=(w*scale,h*scale*vertical_scale))
         PopMatrix()

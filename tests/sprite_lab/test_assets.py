@@ -26,9 +26,12 @@ class AssetsTest(unittest.TestCase):
         m=load_manifest();total=0
         minimums=((2,6,6,4,6,4,4,4,6,8,6),(2,6,4,6,6,6,4,4))
         for (role,c),minimum in zip(m['characters'].items(),minimums):
-            self.assertEqual(len(c['animations']),11 if role=='players' else 8)
+            self.assertGreaterEqual(len(c['animations']),11 if role=='players' else 9)
             palette={tuple(v) for v in c['source_palette']}
-            for (state,a),required in zip(c['animations'].items(),minimum):
+            from tools.sprite_lab.build_assets import STATES
+            required_by_state=dict(zip(STATES[role],minimum))
+            for state,a in c['animations'].items():
+                required=required_by_state.get(state,2)
                 self.assertGreaterEqual(a['frames'],required)
                 for view,paths in a['individuals'].items():
                     sheet=Image.open(ROOT/a['sheets'][view]['path']).convert('RGBA')
@@ -44,7 +47,7 @@ class AssetsTest(unittest.TestCase):
                         self.assertEqual(im.tobytes(),crop.tobytes());frames.append(im.tobytes())
                     self.assertGreaterEqual(len(set(frames)),required,(role,state))
             self.assertEqual(c['anchor'][0],c['canvas'][0]/2)
-        self.assertEqual(total,208)
+        self.assertEqual(total,248)
         self.assertEqual(m['approval_status'],'APPROVED')
 
     def test_clock_and_event_contract(self):

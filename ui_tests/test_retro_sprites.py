@@ -26,9 +26,9 @@ class RetroSpriteIntegration(unittest.TestCase):
             g._start_opportunity('corner',42)
             while g.state==g.STATE_BUILDUP:g.update(.1)
             g.state_age=.3
-            self.assertEqual(hero_pose(g).frame,1)
+            self.assertEqual(hero_pose(g).frame,0)
             height=g.ball.z;g.shoot(2.,1.)
-            self.assertEqual(hero_pose(g).frame,5)
+            self.assertEqual(hero_pose(g).frame,3)
             self.assertEqual(g.ball.z,height)
 
     def test_recoloured_pixels_restore_after_context_reload_and_eviction_is_bounded(self):
@@ -68,9 +68,9 @@ class RetroSpriteIntegration(unittest.TestCase):
                     for player in g.field_players+g.buildup_actors:
                         self.assertIn(field_pose(g,player).state,('RUN','DRIBBLE','PASS','SHOOT','TACKLE','IDLE'))
                 g.state=g.STATE_AIMING;g.state_age=.3;g.draw()
-                self.assertEqual(hero_pose(g).frame,1 if g.shot_type=='header' else 2)
+                self.assertEqual(hero_pose(g).frame,0 if g.shot_type=='header' else 2)
                 g.shoot(2.,1.)
-                self.assertEqual(hero_pose(g).frame,5 if g.shot_type=='header' else 3)
+                self.assertEqual(hero_pose(g).frame,3)
                 self.assertTrue(g.ball.active)
                 before=self.physics(g);g.draw();self.assertEqual(self.physics(g),before)
             for state in (g.STATE_SHOT,g.STATE_RESULT):

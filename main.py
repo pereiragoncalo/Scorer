@@ -210,6 +210,8 @@ class StrikerGame(Widget):
         self.goalkeeper_dive_age = 0.0
         self.goalkeeper_holding = False
         self.goalkeeper_catch_age = 0.0
+        self.goalkeeper_tip_age = -1.0
+        self.goalkeeper_tip_contact = None
         self.goalkeeper_dive_speed = 2.2
         self.goalkeeper_read_error = 0.0
         self.goalkeeper_vertical_error = 0.0
@@ -1768,6 +1770,8 @@ class StrikerGame(Widget):
         self.goalkeeper_save_height = None
         self.goalkeeper_save_x = None
         self.goalkeeper_dive_age = 0.0
+        self.goalkeeper_tip_age = -1.0
+        self.goalkeeper_tip_contact = None
 
 
     def _move_goalkeeper_towards(
@@ -1800,6 +1804,7 @@ class StrikerGame(Widget):
 
 
     def _update_goalkeeper_shot(self, dt: float) -> None:
+        if self.goalkeeper_tip_age>=0:self.goalkeeper_tip_age+=dt
         if self.goalkeeper_holding:
             self.goalkeeper_catch_age += dt
             self._attach_held_ball()
@@ -1978,6 +1983,8 @@ class StrikerGame(Widget):
         self.goalkeeper_save_height = None
         self.goalkeeper_save_x = None
         self.goalkeeper_dive_age = 0.0
+        self.goalkeeper_tip_age = -1.0
+        self.goalkeeper_tip_contact = None
 
 
         # Distância medida à linha de golo: de perto o remate é mais preciso
@@ -2333,6 +2340,7 @@ class StrikerGame(Widget):
         ball = self.ball
         if (
             ball.vy >= 0.0
+            or 0<=self.goalkeeper_tip_age<.5
             or ball.y < GOALKEEPER_Y - 0.36
             or ball.y > GOALKEEPER_Y + 0.36
         ):
@@ -2367,11 +2375,29 @@ class StrikerGame(Widget):
         if not self.goalkeeper_is_diving and ball.z <= 1.85 and abs(ball.x - self.goalkeeper_x) <= 0.55:
             self.goalkeeper_holding = True
             self.goalkeeper_catch_age = 0.0
+            self.goalkeeper_tip_age = -1.0
+            self.goalkeeper_tip_contact = None
             self.goalkeeper_vx = 0.0
             ball.goalkeeper_touched = True
             ball.active = False
             self._attach_held_ball()
             self._register_non_goal()
+            return True
+        high_central=(self.goalkeeper_is_diving and self.goalkeeper_high_reach>.55
+                      and self.goalkeeper_dive_amount<.4 and ball.z>=self.goal_height*.70
+                      and abs(ball.x-self.goalkeeper_x)<=.75)
+        glove_contact=min(math.hypot(ball.x-pose[key][0],ball.z-pose[key][1]) for key in ('hand_l','hand_r'))<=ball.radius+.24*self.goalkeeper_scale+.04
+        if high_central and glove_contact:
+            # A real high glove contact redirects the ball behind/above the bar.
+            # Keep the ball active: scoring/woodwork still follow its trajectory.
+            self.goalkeeper_tip_age=0.
+            self.goalkeeper_tip_contact=(ball.x,ball.y,ball.z)
+            incoming=abs(ball.vy);ball.y=GOALKEEPER_Y+.32
+            duration=clamp(ball.y/max(2.5,incoming*.28),.20,.45)
+            from shot_trajectory import launch_velocity
+            target=(ball.x+ball.vx*.04,self.goal_height+ball.radius+.22)
+            ball.vx,ball.vy,ball.vz=launch_velocity((ball.x,ball.y,ball.z),target,duration)
+            ball.goalkeeper_touched=True
             return True
         ball.y = GOALKEEPER_Y + 0.32
         # A luva amortece e desvia a bola para fora do corpo. Defesas baixas
@@ -2811,6 +2837,8 @@ class StrikerGame(Widget):
         self.current_opportunity=None;self.buildup_actors=[];self.buildup_blocker=None;self.onside_defender=None;self.frozen_scene_time=None
         self.goalkeeper_holding = False
         self.goalkeeper_catch_age = 0.0
+        self.goalkeeper_tip_age = -1.0
+        self.goalkeeper_tip_contact = None
         self._randomize_aim_pattern()
         self._choose_shot_origin()
         self.ripples.clear()
@@ -2829,6 +2857,8 @@ class StrikerGame(Widget):
         self.goalkeeper_save_height = None
         self.goalkeeper_save_x = None
         self.goalkeeper_dive_age = 0.0
+        self.goalkeeper_tip_age = -1.0
+        self.goalkeeper_tip_contact = None
         self.goalkeeper_vx = 0.0
 
 
@@ -5230,7 +5260,7 @@ class StrikerGame(Widget):
         # O jogador começa atrás da bola e termina o gesto depois
         # do contacto. O apoio mantém-se plantado enquanto a perna remata.
         is_header = self.shot_type == "header"
-        distance_from_ball = 0.12 if is_header else 0.52
+        distance_from_ball = 0.18 if is_header else 0.52
         player_x = self.shot_origin_x - forward_x * distance_from_ball * PLAYER_SCALE
         player_y = self.shot_origin_y - forward_y * distance_from_ball * PLAYER_SCALE
         if self.state==self.STATE_BUILDUP:
@@ -5241,9 +5271,15 @@ class StrikerGame(Widget):
         from retro_sprites import hero_pose,kit_palette,PLAYER_HEIGHT_METRES
         player_kit,_=self._match_outfield_kits()
         facing=self.project(player_x+forward_x,player_y+forward_y,0.)[0]<self.project(player_x,player_y,0.)[0]
+        joint=None;target=None
+        if is_header and (self.state==self.STATE_AIMING or (self.state==self.STATE_SHOT and self.player_kick_progress<.55)):
+            # Pause just before forehead contact, then meet the ball on release.
+            lead=self.ball.radius+(.025 if self.state==self.STATE_AIMING else 0.)
+            target=self.project(self.shot_origin_x-forward_x*lead,self.shot_origin_y-forward_y*lead,HEADER_BALL_HEIGHT)
+            joint='forehead'
         self._retro_renderer().draw(self,'hero','players',hero_pose(self,facing),
                                    (player_x,player_y,0.),PLAYER_HEIGHT_METRES,
-                                   kit_palette(player_kit))
+                                   kit_palette(player_kit),joint=joint,target=target)
 
 
     def _draw_goalkeeper(self) -> None:
@@ -5254,25 +5290,21 @@ class StrikerGame(Widget):
         selection=keeper_pose(self,right)
         shirt,shorts=self._goalkeeper_kit()
         colours=kit_palette((shirt,shorts,shirt,(.94,.96,.88,1.)))
-        target=None;joint=None;rotation=0.
+        target=None;joint=None;rotation=0.;vertical_scale=1.
         if self.goalkeeper_holding:
-            # Ball remains attached by the original physics function. Match
-            # the drawn gloves to that position, rotating the complete sprite
-            # through the original forward fall without stretching its limbs.
+            # Foreshorten a forward fall, never roll the frontal sprite sideways.
             joint=('wrist_0','wrist_1')
             target=self.project(*tuple((a+b)/2 for a,b in zip(world_pose['hand_l'],world_pose['hand_r'])))
-            hip=self.project(*tuple((a+b)/2 for a,b in zip(world_pose['hip_l'],world_pose['hip_r'])))
-            shoulder=self.project(*tuple((a+b)/2 for a,b in zip(world_pose['shoulder_l'],world_pose['shoulder_r'])))
-            character,clip,frame=renderer.sample('keeper','goalkeeper',selection)
-            joints=clip['joints']['front'][frame]
-            source=joints['hip'];end=joints['shoulder']
-            rotation=math.degrees(math.atan2(shoulder[1]-hip[1],shoulder[0]-hip[0])-math.atan2(source[1]-end[1],end[0]-source[0]))
+            fall=clamp((self.goalkeeper_catch_age-.12)/.65,0.,1.)
+            vertical_scale=1.-.62*fall*fall*(3.-2.*fall)
+        elif selection.state=='TIP_OVER' and self.goalkeeper_tip_age<.25:
+            joint='wrist_1';target=self.project(*self.goalkeeper_tip_contact)
         elif self.goalkeeper_is_diving and selection.state!='RECOVER':
             joint='hip'
             target=self.project(*tuple((a+b)/2 for a,b in zip(world_pose['hip_l'],world_pose['hip_r'])))
         renderer.draw(self,'keeper','goalkeeper',selection,
                       (self.goalkeeper_x,GOALKEEPER_Y,0.),PLAYER_HEIGHT_METRES,
-                      colours,joint=joint,target=target,rotation=rotation)
+                      colours,joint=joint,target=target,rotation=rotation,vertical_scale=vertical_scale)
 
 
     def _ball_behind_keeper(self):

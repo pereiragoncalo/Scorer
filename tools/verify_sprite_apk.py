@@ -33,6 +33,6 @@ with zipfile.ZipFile(artifact) as archive:
             assert data('assets/lifestyle/'+item+'.png')==(stage/'assets/lifestyle'/(item+'.png')).read_bytes()
         for name in ('outfits.png','forecourt.png'):
             path='assets/lifestyle/scene/'+name;assert data(path)==(stage/path).read_bytes()
-        assert frames==240 and sheets==34
+        assert frames==248 and sheets==35
         assert not any('/tools/sprite_lab/' in name for name in members)
-print('Original revision2 base plus requested celebrations:',frames,'frames,',sheets,'sheets, exact compiled rendering/runtime source; no sprite-lab build tools.')
+print('Original revision2 base plus requested celebrations/high tip:',frames,'frames,',sheets,'sheets, exact compiled rendering/runtime source; no sprite-lab build tools.')

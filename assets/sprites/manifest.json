@@ -3632,6 +3632,10 @@
                 "wrist_1": [
                   41,
                   29
+                ],
+                "forehead": [
+                  32,
+                  16
                 ]
               },
               {
@@ -3670,6 +3674,10 @@
                 "wrist_1": [
                   41,
                   29
+                ],
+                "forehead": [
+                  32,
+                  19
                 ]
               },
               {
@@ -3708,6 +3716,10 @@
                 "wrist_1": [
                   41,
                   26
+                ],
+                "forehead": [
+                  32,
+                  13
                 ]
               },
               {
@@ -3746,6 +3758,10 @@
                 "wrist_1": [
                   41,
                   22
+                ],
+                "forehead": [
+                  36,
+                  9
                 ]
               },
               {
@@ -3784,6 +3800,10 @@
                 "wrist_1": [
                   41,
                   24
+                ],
+                "forehead": [
+                  36,
+                  11
                 ]
               },
               {
@@ -3822,6 +3842,10 @@
                 "wrist_1": [
                   41,
                   29
+                ],
+                "forehead": [
+                  32,
+                  19
                 ]
               },
               {
@@ -3860,6 +3884,10 @@
                 "wrist_1": [
                   41,
                   29
+                ],
+                "forehead": [
+                  32,
+                  16
                 ]
               },
               {
@@ -3898,6 +3926,10 @@
                 "wrist_1": [
                   37,
                   33
+                ],
+                "forehead": [
+                  32,
+                  16
                 ]
               }
             ],
@@ -3938,6 +3970,10 @@
                 "wrist_1": [
                   41,
                   29
+                ],
+                "forehead": [
+                  32,
+                  16
                 ]
               },
               {
@@ -3976,6 +4012,10 @@
                 "wrist_1": [
                   41,
                   29
+                ],
+                "forehead": [
+                  32,
+                  19
                 ]
               },
               {
@@ -4014,6 +4054,10 @@
                 "wrist_1": [
                   41,
                   26
+                ],
+                "forehead": [
+                  32,
+                  13
                 ]
               },
               {
@@ -4052,6 +4096,10 @@
                 "wrist_1": [
                   41,
                   22
+                ],
+                "forehead": [
+                  36,
+                  9
                 ]
               },
               {
@@ -4090,6 +4138,10 @@
                 "wrist_1": [
                   41,
                   24
+                ],
+                "forehead": [
+                  36,
+                  11
                 ]
               },
               {
@@ -4128,6 +4180,10 @@
                 "wrist_1": [
                   41,
                   29
+                ],
+                "forehead": [
+                  32,
+                  19
                 ]
               },
               {
@@ -4166,6 +4222,10 @@
                 "wrist_1": [
                   41,
                   29
+                ],
+                "forehead": [
+                  32,
+                  16
                 ]
               },
               {
@@ -4204,6 +4264,10 @@
                 "wrist_1": [
                   37,
                   33
+                ],
+                "forehead": [
+                  32,
+                  16
                 ]
               }
             ]
@@ -10314,6 +10378,345 @@
             ]
           },
           "contact_frames": []
+        },
+        "TIP_OVER": {
+          "frames": 8,
+          "fps": 12,
+          "loop": false,
+          "sheets": {
+            "front": {
+              "path": "assets/sprites/goalkeeper/tip_over/front/sheet.png",
+              "columns": 4,
+              "rows": 2
+            }
+          },
+          "individuals": {
+            "front": [
+              "assets/sprites/goalkeeper/tip_over/front/frame_00.png",
+              "assets/sprites/goalkeeper/tip_over/front/frame_01.png",
+              "assets/sprites/goalkeeper/tip_over/front/frame_02.png",
+              "assets/sprites/goalkeeper/tip_over/front/frame_03.png",
+              "assets/sprites/goalkeeper/tip_over/front/frame_04.png",
+              "assets/sprites/goalkeeper/tip_over/front/frame_05.png",
+              "assets/sprites/goalkeeper/tip_over/front/frame_06.png",
+              "assets/sprites/goalkeeper/tip_over/front/frame_07.png"
+            ]
+          },
+          "contacts": {},
+          "joints": {
+            "front": [
+              {
+                "ankle_0": [
+                  47,
+                  49
+                ],
+                "knee_0": [
+                  44,
+                  43
+                ],
+                "ankle_1": [
+                  50,
+                  49
+                ],
+                "knee_1": [
+                  52,
+                  43
+                ],
+                "hip": [
+                  48,
+                  37
+                ],
+                "shoulder": [
+                  48,
+                  28
+                ],
+                "head": [
+                  48,
+                  22
+                ],
+                "wrist_0": [
+                  41,
+                  24
+                ],
+                "wrist_1": [
+                  54,
+                  11
+                ]
+              },
+              {
+                "ankle_0": [
+                  47,
+                  49
+                ],
+                "knee_0": [
+                  44,
+                  43
+                ],
+                "ankle_1": [
+                  50,
+                  49
+                ],
+                "knee_1": [
+                  52,
+                  43
+                ],
+                "hip": [
+                  48,
+                  37
+                ],
+                "shoulder": [
+                  48,
+                  28
+                ],
+                "head": [
+                  48,
+                  22
+                ],
+                "wrist_0": [
+                  41,
+                  24
+                ],
+                "wrist_1": [
+                  54,
+                  11
+                ]
+              },
+              {
+                "ankle_0": [
+                  47,
+                  49
+                ],
+                "knee_0": [
+                  44,
+                  43
+                ],
+                "ankle_1": [
+                  50,
+                  49
+                ],
+                "knee_1": [
+                  52,
+                  43
+                ],
+                "hip": [
+                  48,
+                  37
+                ],
+                "shoulder": [
+                  48,
+                  28
+                ],
+                "head": [
+                  48,
+                  22
+                ],
+                "wrist_0": [
+                  41,
+                  24
+                ],
+                "wrist_1": [
+                  54,
+                  11
+                ]
+              },
+              {
+                "ankle_0": [
+                  44,
+                  51
+                ],
+                "knee_0": [
+                  39,
+                  45
+                ],
+                "ankle_1": [
+                  52,
+                  50
+                ],
+                "knee_1": [
+                  57,
+                  44
+                ],
+                "hip": [
+                  48,
+                  40
+                ],
+                "shoulder": [
+                  48,
+                  28
+                ],
+                "head": [
+                  48,
+                  23
+                ],
+                "wrist_0": [
+                  44,
+                  17
+                ],
+                "wrist_1": [
+                  52,
+                  17
+                ]
+              },
+              {
+                "ankle_0": [
+                  44,
+                  56
+                ],
+                "knee_0": [
+                  40,
+                  49
+                ],
+                "ankle_1": [
+                  52,
+                  56
+                ],
+                "knee_1": [
+                  56,
+                  49
+                ],
+                "hip": [
+                  48,
+                  44
+                ],
+                "shoulder": [
+                  48,
+                  31
+                ],
+                "head": [
+                  48,
+                  26
+                ],
+                "wrist_0": [
+                  42,
+                  30
+                ],
+                "wrist_1": [
+                  54,
+                  30
+                ]
+              },
+              {
+                "ankle_0": [
+                  44,
+                  56
+                ],
+                "knee_0": [
+                  40,
+                  49
+                ],
+                "ankle_1": [
+                  52,
+                  56
+                ],
+                "knee_1": [
+                  56,
+                  49
+                ],
+                "hip": [
+                  48,
+                  44
+                ],
+                "shoulder": [
+                  48,
+                  32
+                ],
+                "head": [
+                  48,
+                  27
+                ],
+                "wrist_0": [
+                  41,
+                  37
+                ],
+                "wrist_1": [
+                  55,
+                  37
+                ]
+              },
+              {
+                "ankle_0": [
+                  44,
+                  56
+                ],
+                "knee_0": [
+                  40,
+                  49
+                ],
+                "ankle_1": [
+                  52,
+                  56
+                ],
+                "knee_1": [
+                  56,
+                  49
+                ],
+                "hip": [
+                  48,
+                  44
+                ],
+                "shoulder": [
+                  48,
+                  32
+                ],
+                "head": [
+                  48,
+                  27
+                ],
+                "wrist_0": [
+                  41,
+                  37
+                ],
+                "wrist_1": [
+                  55,
+                  37
+                ]
+              },
+              {
+                "ankle_0": [
+                  44,
+                  56
+                ],
+                "knee_0": [
+                  40,
+                  49
+                ],
+                "ankle_1": [
+                  52,
+                  56
+                ],
+                "knee_1": [
+                  56,
+                  49
+                ],
+                "hip": [
+                  48,
+                  44
+                ],
+                "shoulder": [
+                  48,
+                  32
+                ],
+                "head": [
+                  48,
+                  27
+                ],
+                "wrist_0": [
+                  41,
+                  37
+                ],
+                "wrist_1": [
+                  55,
+                  37
+                ]
+              }
+            ]
+          },
+          "contact_frames": [
+            0,
+            1,
+            2
+          ],
+          "source": "Owner-requested generated fingertip pose, original HIGH_SAVE transition frames; base approved art revision2 preserved"
         }
       }
     }
