@@ -557,13 +557,13 @@ class CareerTests(unittest.TestCase):
         opponent.rating = 90
         high_quality = c.opponent_chance_profile(opponent)
         self.assertGreater(high_quality.pressure, weak_quality.pressure)
-        self.assertEqual((high_quality.max_chances, high_quality.clear_chance_probability), (1, 0.35))
+        self.assertEqual((high_quality.max_chances, high_quality.clear_chance_probability), (1, 0.06))
         opponent.rating, opponent.points = 60, 0
         bottom = c.opponent_chance_profile(opponent)
         opponent.points = 36
         top = c.opponent_chance_profile(opponent)
         self.assertGreater(top.pressure, bottom.pressure)
-        self.assertEqual((top.max_chances, top.clear_chance_probability), (1, 0.35))
+        self.assertEqual((top.max_chances, top.clear_chance_probability), (1, 0.06))
         c.stamina, c.morale = 20, 10
         opponent.rating, opponent.points = 45, 0
         c.rng.seed(17000)
@@ -589,10 +589,10 @@ class CareerTests(unittest.TestCase):
             club.played, club.points = 8, 8
         opponent.points = 24
         cup_profile = c.opponent_chance_profile(opponent)
-        self.assertEqual((cup_profile.max_chances, cup_profile.clear_chance_probability), (1, 0.35))
+        self.assertEqual((cup_profile.max_chances, cup_profile.clear_chance_probability), (1, 0.06))
         national = career.CareerClub('National opponent', 'Germany', 'National Team', 1, 95)
         self.assertEqual(c.opponent_chance_profile(national).max_chances, 1)
-        self.assertEqual(c.opponent_chance_profile(national).clear_chance_probability, 0.35)
+        self.assertEqual(c.opponent_chance_profile(national).clear_chance_probability, 0.06)
 
     def test_completed_training_guarantees_a_chance_even_against_elite_opponents(self):
         c = self.signed()
@@ -610,7 +610,7 @@ class CareerTests(unittest.TestCase):
             self.assertTrue(all(1 <= count <= cap for count in counts))
             if rating == 95:
                 self.assertEqual(set(counts), {1})
-                self.assertEqual(c.opponent_chance_profile(opponent).clear_chance_probability, 0.35)
+                self.assertEqual(c.opponent_chance_profile(opponent).clear_chance_probability, 0.06)
         # Older completed saves without training counters also receive the floor.
         c.training_session_week = -1
         self.assertGreaterEqual(c.chance_count(), 1)

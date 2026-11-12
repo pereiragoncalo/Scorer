@@ -218,12 +218,13 @@ with tempfile.TemporaryDirectory() as tmp:
     os.environ['STRIKER_SAVE_DIR']=tmp
     c=career.CareerMode(edition.entitlement_provider(),autoload=False,save_slot='world');c.accept_starting_offer(c.offers[0])
     assert life.age(c)==18 and c.life['salary']>0 and len(prestige.data()['countries'])==212
-    wage=c.life['salary'];c.week+=1;assert c.save() and c.life['balance']==wage
+    wage=c.life['salary'];c.week+=1;assert c.save() and c.life['balance']==0
+    c.week+=2;assert c.save() and c.life['balance']==wage
     assert c.save() and c.life['balance']==wage and c.load() and c.life['balance']==wage
     c.life['balance']=100000;assert life.purchase(c,'studio') and c.life['balance']==20000 and c.load() and 'studio' in c.life['owned']
     c.season+=20;assert life.retirement_due(c) and life.retirement(c,False) and not life.retirement_due(c)
     c.season+=1;assert life.retirement_due(c) and life.decline(c)>1 and life.retirement(c,True) and c.next_match() is None
-print('Actual APK: weekly wage deduplication, local purchases, age18, yearly retirement38+, progressive decline and212 league-status entries verified')
+print('Actual APK: monthly wage deduplication, local purchases, age18, yearly retirement38+, progressive decline and212 league-status entries verified')
 
 with tempfile.TemporaryDirectory() as tmp:
     os.environ['STRIKER_SAVE_DIR']=tmp

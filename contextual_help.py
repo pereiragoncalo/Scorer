@@ -23,7 +23,7 @@ def topics(game):
         'world_league':(('STANDINGS',TABLE),),'scorers':(('TOP SCORERS',SCORERS),),
         'calendar':(('FIXTURES',CALENDAR),),'agent':(('AGENT',AGENT),),
         'world':(base[3],),'world_country':(base[3],),'editor':(base[3],),
-        'lifestyle':(('LIFESTYLE','Your weekly contract salary is paid once per career week. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.'),),
+        'lifestyle':(('LIFESTYLE','Your monthly contract salary is paid once when the career calendar enters a new month. Buy homes, cars, clothes and gifts for your girlfriend using local career money. Purchases do not improve your finishing. From age 38, choose whether to retire each season; continuing makes finishing progressively harder.'),),
         'shopping':(('SHOPPING','Use career money to buy homes, cars, clothes and gifts. Owned items appear in My Assets.'),),
         'possessions':(('MY ASSETS','Your portrait shows your best owned home, outfit and car. Open Collection to browse every purchase.'),),
         'collection':(('COLLECTION','Browse only the purchases already acquired in this career. The displayed value is the purchase price.'),),

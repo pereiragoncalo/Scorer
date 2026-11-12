@@ -8,8 +8,9 @@ class LifeTests(unittest.TestCase):
  def setUp(self):
   t=tempfile.TemporaryDirectory();self.addCleanup(t.cleanup);p=patch.dict(os.environ,STRIKER_SAVE_DIR=t.name);p.start();self.addCleanup(p.stop)
   self.c=CareerMode(autoload=False);self.c.accept_starting_offer(self.c.offers[0]);self.c.attend_coach_meeting()
- def test_contract_wage_one_payment_per_week_and_reload(self):
-  c=self.c;self.assertGreater(c.life['salary'],0);w=c.life['salary'];c.week+=1;c.save();self.assertEqual(c.life['balance'],w)
+ def test_contract_wage_one_payment_per_month_and_reload(self):
+  c=self.c;self.assertGreater(c.life['salary'],0);w=c.life['salary'];c.week+=1;c.save();self.assertEqual(c.life['balance'],0)
+  c.week+=2;c.save();self.assertEqual(c.life['balance'],w)
   for _ in range(3):c.save()
   self.assertEqual(c.life['balance'],w);self.assertTrue(c.load());self.assertEqual(c.life['balance'],w);c.save();self.assertEqual(c.life['balance'],w)
  def test_purchases_price_inventory_repetition_and_failed_save(self):
@@ -70,3 +71,16 @@ class InstallerTests(unittest.TestCase):
     for version in (3,4):
      with urllib.request.urlopen(base+f'/v{version}/records?edition=world&country=England&division=1') as response:self.assertEqual(json.load(response)['schema'],version)
    finally:server.shutdown();server.server_close();thread.join()
+
+class MonthlyMigrationTests(unittest.TestCase):
+ def test_old_contract_migrates_once_preserving_owned_assets_and_annual_pay(self):
+  from career_life import clean,fresh
+  c=CareerMode(autoload=False);old=fresh(c);old.update(version=1,balance=100,salary=1200,owned={'studio':1})
+  migrated=clean(old,c);self.assertEqual(migrated['version'],2);self.assertEqual(migrated['salary'],5200);self.assertEqual(migrated['balance'],100);self.assertEqual(migrated['owned'],{'studio':1});self.assertEqual(clean(migrated,c),migrated)
+ def test_regular_opportunities_favour_crosses_free_kicks_and_long_shots(self):
+  from opportunity_sequences import plan_opportunities,make_delivery
+  counts={}
+  for seed in range(3000):
+   for kind in plan_opportunities(3,-1,-1,seed):counts[kind]=counts.get(kind,0)+1
+  favoured=sum(counts[k] for k in ('cross','long_cross','corner','free_kick','long_shot'));self.assertGreater(favoured/9000,.70)
+  for seed in range(50):self.assertGreater(make_delivery('long_shot',seed).contact[1],21)

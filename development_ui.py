@@ -10,38 +10,30 @@ from ui_localization import LocalizedPopup
 from player_development import FOCI,NAMES,needed
 
 class ObjectivesSummary(GridLayout):
-    """Plain contents inside the player's single outer panel."""
+    """Two compact columns; every milestone stays visible without scrolling."""
     def __init__(self,menu):
-        super().__init__(cols=2,spacing=dp(14),size_hint_y=None)
-        self.bind(minimum_height=self.setter('height'))
-        self.bind(width=lambda _,w:setattr(self,'cols',2 if w>=dp(400) else 1),cols=self._align_sections)
+        from menu_ui import DashboardField
+        super().__init__(cols=2,spacing=dp(10),size_hint_y=None,height=dp(170))
         c=menu.game.career;loc=menu.game.i18n;d=c._ensure_development()
         def section(title):
-            box=BoxLayout(orientation='vertical',spacing=dp(5),size_hint_y=None)
-            box.bind(minimum_height=self._align_sections)
-            box.add_widget(FlowLabel(text=title,bold=True,color=GREEN,font_size=sp(13)))
+            box=BoxLayout(orientation='vertical',spacing=dp(2))
+            box.add_widget(DashboardField(text=loc.tr(title),compact_text=loc.tr(title),localize=False,color=GREEN,font_size=sp(12),max_lines=2))
             self.add_widget(box);return box
         def item(box,text,value,maximum,complete):
-            box.add_widget(FlowLabel(text=text,localize=False,color=GREEN if complete else INK,font_size=sp(12)))
-            box.add_widget(ProgressBar(max=max(1,maximum),value=min(maximum,value),size_hint_y=None,height=dp(6)))
+            box.add_widget(DashboardField(text=text,compact_text=text,localize=False,color=GREEN if complete else INK,font_size=sp(11),max_lines=2))
+            box.add_widget(ProgressBar(max=max(1,maximum),value=min(maximum,value),size_hint_y=None,height=dp(4)))
         season=section('SEASON GOALS')
         item(season,loc.tr('Club goals: {goals}/{target}',goals=d['season_goals'],target=d['goal_target']),d['season_goals'],d['goal_target'],'goals'in d['season_earned'])
         item(season,loc.tr('Best coach trust: {trust}/70',trust=d['peak_trust']),d['peak_trust'],70,'trust'in d['season_earned'])
         goals=c.current_league.scorer_goals.get(c.player_name,0)
         rank=1+sum(g>goals for name,g in c.current_league.scorer_goals.items() if name!=c.player_name)
-        season.add_widget(FlowLabel(text='Top-three league finish',color=GREEN if 'top3'in d['season_earned'] else INK,font_size=sp(12)))
-        season.add_widget(FlowLabel(text=loc.tr('League scorer rank: {rank}',rank=rank if goals else '—'),font_size=sp(12)))
+        for text in (loc.tr('Top-three league finish'),loc.tr('League scorer rank: {rank}',rank=rank if goals else '—')):
+            season.add_widget(DashboardField(text=text,compact_text=text,localize=False,font_size=sp(11),max_lines=2))
         career=section('CAREER MILESTONES')
         for target in (50,100):
             item(career,loc.tr('Tracked club goals: {goals}/{target}',goals=d['career_goals'],target=target),d['career_goals'],target,d['career_goals']>=target)
         item(career,loc.tr('Transfers: {count}/1',count=d['transfers']),d['transfers'],1,d['transfers']>=1)
         item(career,loc.tr('International appearances: {count}/1',count=c.international_caps),c.international_caps,1,c.international_caps>=1)
-        for box in self.children:box.add_widget(Widget())
-        self._align_sections()
-
-    def _align_sections(self,*_):
-        height=max((box.minimum_height for box in self.children),default=0)
-        for box in self.children:box.height=height if self.cols==2 else box.minimum_height
 
 class DevelopmentScreen(BoxLayout):
     """The coach-trust view contains values only."""

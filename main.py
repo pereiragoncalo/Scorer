@@ -881,7 +881,7 @@ class StrikerGame(Widget):
         self.match_chance_index = 0
         self.match_easy_chance_index = self.career.rng.randrange(len(self.match_chance_minutes)) if self.match_chance_minutes and self.career.rng.random() < chance_profile.clear_chance_probability else -1
         penalty_slots=[i for i in range(chance_total) if i!=self.match_easy_chance_index] or list(range(chance_total))
-        self.match_penalty_chance_index=self.career.rng.choice(penalty_slots) if penalty_slots and self.career.rng.random()<0.18 else -1
+        self.match_penalty_chance_index=self.career.rng.choice(penalty_slots) if penalty_slots and self.career.rng.random()<0.05 else -1
         self._attendance_snapshot=None
         self.match_opportunity_seed=(self.career.world_seed,self.career.season,self.career.week,self.match_competition,self.match_home.uid,self.match_away.uid)
         self.match_opportunities=plan_opportunities(chance_total,self.match_easy_chance_index,self.match_penalty_chance_index,self.match_opportunity_seed)
@@ -899,7 +899,7 @@ class StrikerGame(Widget):
             home_mean, away_mean = self.career.fixture_goal_means(self.match_home, self.match_away)
         # Reserve the expected personal contribution from the team budget,
         # rather than adding it on top of a full team's simulated goals.
-        personal_mean = expected_highlight_goals(chance_total, chance_profile.clear_chance_probability, 0.18)
+        personal_mean = expected_highlight_goals(chance_total, chance_profile.clear_chance_probability, 0.05)
         if player_home:
             home_mean = max(0.05, home_mean - personal_mean)
         else:

@@ -8,8 +8,9 @@ import math
 import random
 from career import BALL_RADIUS, HEADER_BALL_HEIGHT
 
-KINDS=('cross','long_cross','corner','cutback','first_time','rebound','free_kick')
+KINDS=('cross','long_cross','corner','cutback','first_time','rebound','free_kick','long_shot')
 TEXT={
+ 'long_shot':('LONG SHOT','A pass outside the box. Shoot from distance.'),
  'cross':('CROSS','A high cross is coming. Meet it with a header.'),
  'long_cross':('DEEP CROSS','A cross from deep on the wing. Attack the ball with a header.'),
  'corner':('CORNER','A corner into the box. Lose your marker and head towards goal.'),
@@ -20,11 +21,13 @@ TEXT={
  'through_ball':('THROUGH BALL','A through ball puts you one on one with the goalkeeper.'),
  'penalty':('PENALTY','You have been chosen to take the penalty.'),
 }
-TIMING={'cross':.95,'long_cross':1.0,'corner':1.0,'cutback':1.0,'first_time':.85,'rebound':.90,'free_kick':1.10,'through_ball':1.0,'penalty':1.0}
+TIMING={'cross':.95,'long_cross':1.0,'corner':1.0,'cutback':1.0,'first_time':.85,'rebound':.90,'free_kick':1.10,'through_ball':1.0,'penalty':1.0,'long_shot':1.0}
 
 def plan_opportunities(count,clear_index,penalty_index,seed):
     rng=random.Random('scorer-opportunities-v1:'+str(seed))
-    pool=list(KINDS);rng.shuffle(pool)
+    # Weighted variety without repeated ordinary situations in a three-shot match.
+    weights={'cross':3,'long_cross':3,'corner':2,'free_kick':3,'long_shot':4}
+    pool=sorted(KINDS,key=lambda kind:rng.random()**(1/weights.get(kind,1)),reverse=True)
     return tuple('penalty' if i==penalty_index else 'through_ball' if i==clear_index else pool[i%len(pool)] for i in range(max(0,count)))
 
 @dataclass(frozen=True)
@@ -82,6 +85,9 @@ def make_delivery(kind,seed):
     if kind=='rebound':
         end=(x,rng.uniform(13.,16.),radius)
         return Delivery(kind,'kick',((-side*5.,17.,radius),(side*1.5,6.,.65),end),2.4,(.35,.65))
+    if kind=='long_shot':
+        end=(side*rng.uniform(2.,9.),rng.uniform(22.,29.),radius)
+        return Delivery(kind,'kick',((side*15.,31.,radius),end),1.8,(.15,))
     if kind=='free_kick':
         end=(side*rng.uniform(1.,6.),rng.uniform(18.5,23.),radius)
         return Delivery(kind,'free_kick',(end,end),1.1,(0.,))

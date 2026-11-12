@@ -23,7 +23,7 @@ class EstatePortrait(Widget):
     def __init__(self,career,**kwargs):
         super().__init__(**kwargs);self.selection=best_assets(career)
         self.scene_items={kind:row[0] if row else None for kind,row in self.selection.items()}
-        self.house=texture('assets/lifestyle/'+(self.scene_items['home'] or 'studio')+'.png')
+        self.house=texture('assets/lifestyle/'+self.scene_items['home']+'.png') if self.scene_items['home'] else None
         self.car=texture('assets/lifestyle/'+self.scene_items['car']+'.png') if self.scene_items['car'] else None
         self.person=outfit_texture(OUTFITS[self.scene_items['clothes']]);self.background=background_texture()
         self.bind(pos=self.render,size=self.render);self.render()
@@ -33,9 +33,9 @@ class EstatePortrait(Widget):
         with self.canvas:
             Color(1,1,1,1);StencilPush();Rectangle(pos=(x,y),size=(width,height));StencilUse()
             Rectangle(texture=self.background,pos=(x,y),size=(width,height))
-            house_height=height*.96;house_width=house_height*self.house.width/self.house.height
+            house_height=height*.96;house_width=house_height*self.house.width/self.house.height if self.house else width*.5
             hx=x+width*.035;hy=y+height*.08
-            Rectangle(texture=self.house,pos=(hx,hy),size=(house_width,house_height))
+            if self.house:Rectangle(texture=self.house,pos=(hx,hy),size=(house_width,house_height))
             if self.car:
                 cw=width*.39;ch=cw*self.car.height/self.car.width
                 Rectangle(texture=self.car,pos=(x+width*.56,y+height*.04),size=(cw,ch))

@@ -13,7 +13,7 @@ class LifestyleScreen(BoxLayout):
   header=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(6));self.add_widget(header)
   header.add_widget(BoundedLabel(text='LIFESTYLE',halign='center',font_size=sp(20),color=GREEN))
   help=MenuTile('HELP',lambda:menu.action('help'));help.size_hint_x=None;help.width=dp(80);header.add_widget(help)
-  text=tr('Age {age} · Salary €{salary}/week',age=age(c),salary=f"{c.life['salary']:,}".replace(',',' '))+'\n'+tr('Balance €{balance}',balance=f"{c.life['balance']:,}".replace(',',' '))
+  text=tr('Age {age} · Salary €{salary}/month',age=age(c),salary=f"{c.life['salary']:,}".replace(',',' '))+'\n'+tr('Balance €{balance}',balance=f"{c.life['balance']:,}".replace(',',' '))
   summary=DashboardField(compact_text=text.replace('\n',' · '),text=text,localize=False,halign='center',font_size=sp(16));self.add_widget(summary)
   buttons=BoxLayout(spacing=dp(12),size_hint_y=None,height=dp(64));self.add_widget(buttons)
   buttons.add_widget(MenuTile('SHOPPING',lambda:menu.action('shopping'),accent=True));buttons.add_widget(MenuTile('MY ASSETS',lambda:menu.action('possessions')))

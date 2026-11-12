@@ -4,13 +4,13 @@ from career import CareerMode,CareerClub,expected_highlight_goals
 from newspaper import single_page_story,clock
 from localization import Localizer
 class OpportunityMix(unittest.TestCase):
-    def test_quality_caps_remain_but_even_elite_allows_a_clear_chance(self):
+    def test_clear_chances_are_rare_and_decrease_with_opponent_quality(self):
         c=CareerMode(autoload=False)
         probabilities=[]
         for rating in (45,70,95):
             p=c.opponent_chance_profile(CareerClub('Opponent','Germany','Test',1,rating,uid='test'))
             probabilities.append(p.clear_chance_probability)
-            self.assertGreaterEqual(p.clear_chance_probability,.35);self.assertLessEqual(p.clear_chance_probability,.9)
+            self.assertGreaterEqual(p.clear_chance_probability,.06);self.assertLessEqual(p.clear_chance_probability,.22)
         self.assertEqual(probabilities,sorted(probabilities,reverse=True))
     def test_penalty_contribution_is_reserved_without_double_counting_single_chance(self):
         self.assertEqual(expected_highlight_goals(0,1,1),0)

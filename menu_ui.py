@@ -321,7 +321,7 @@ class CareerMenu(BoxLayout):
         for club in self.game.career.offers:
             from career_life import quote
             team=next(t for t in c.current_league.clubs if t.name==club)
-            label=c.display_text(club)+'\n'+self.game.i18n.tr('€{salary}/week',salary=quote(c,team))
+            label=c.display_text(club)+'\n'+self.game.i18n.tr('€{salary}/month',salary=quote(c,team))
             grid.add_widget(self._button(label, 'accept_offer', club, accent=True))
 
     def _coach(self):
@@ -554,7 +554,7 @@ class CareerMenu(BoxLayout):
         for club, key in c.agent_offers:
             from career_life import quote
             team=next(t for t in c.leagues[key].clubs if t.name==club)
-            label=c.display_text(f'{club} · {c.leagues[key].name}',c.leagues[key].country)+'\n'+self.game.i18n.tr('€{salary}/week',salary=quote(c,team))
+            label=c.display_text(f'{club} · {c.leagues[key].name}',c.leagues[key].country)+'\n'+self.game.i18n.tr('€{salary}/month',salary=quote(c,team))
             card.add_widget(self._button(label,'transfer',(club,key)))
         card.add_widget(self._button('FIND OFFERS', 'agent_refresh'))
         if c.free_agent:card.add_widget(TouchButton('EXIT',self.game._request_exit))
@@ -1169,15 +1169,17 @@ class PlayerScreen(FloatLayout):
         if self.world_creation and error:
             self.title_label.text=error;self.title_label.font_size=sp(11)
         self.trophy_scroll = None
+        self.objectives = None
         if existing:
             from development_ui import ObjectivesSummary
-            self.objective_scroll=self.trophy_scroll=ScrollView(do_scroll_x=False,size_hint_y=None,height=dp(150))
+            self.objective_scroll=None
+            self.objectives=ObjectivesSummary(menu)
             if not error:self.title_label.text='OBJECTIVES'
-            self.objective_scroll.add_widget(ObjectivesSummary(menu));self.panel.add_widget(self.objective_scroll)
+            self.panel.add_widget(self.objectives)
         actions = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(8))
         if existing:
             from career_life import age
-            self.contract_info=BoundedLabel(text=self.game.i18n.tr('Age {age} · Salary €{salary}/week',age=age(self.game.career),salary=self.game.career.life['salary']),localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(20))
+            self.contract_info=BoundedLabel(text=self.game.i18n.tr('Age {age} · Salary €{salary}/month',age=age(self.game.career),salary=self.game.career.life['salary']),localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(20))
             self.panel.add_widget(self.contract_info)
         actions.add_widget(CreationTile('HELP', lambda: menu.action('help')))
         actions.add_widget(CreationTile('CANCEL', lambda: menu.action('cancel_profile')))
@@ -1233,13 +1235,13 @@ class PlayerScreen(FloatLayout):
             for button in self.choices.children:button.height=row_height
             self.helper.height=0 if compact else dp(36)
             self.helper.opacity=0 if compact else 1
-        if self.trophy_scroll is not None:
-            self.trophy_scroll.height=max(dp(32),min(dp(240),self.height-dp(200)))
+        if self.objectives is not None:
+            self.objectives.height=max(dp(50),min(dp(220),self.height-dp(206)))
             self.name.height=self.actions.height=dp(48 if compact else 52)
             self.title_label.height=dp(24 if compact else 28)
         self.panel.padding = dp(8 if compact and self.world_creation else 10 if compact else 14)
         self.panel.spacing = dp(4 if compact and self.world_creation else 6 if compact else 8)
-        self.panel.size = (min(self.width - dp(24), dp(720 if self.world_creation else 650 if self.trophy_scroll is not None else 420)), min(self.height - dp(16), self.panel.minimum_height))
+        self.panel.size = (min(self.width - dp(24), dp(720 if self.world_creation else 650 if self.objectives is not None else 420)), min(self.height - dp(16), self.panel.minimum_height))
         self.panel.center = self.center
 
 
