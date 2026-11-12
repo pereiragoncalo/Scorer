@@ -1,4 +1,4 @@
-Current target: World 1.0 / 1030005. Existing configured owners use [the update instructions](STATISTICS_1030005.md); setup below is only for a new machine.
+Current target: World 1.0 / 1030006. Existing configured owners use [the update instructions](REFINEMENTS_1030006.md); setup below is only for a new machine.
 
 # Bastion → Google Play internal test
 
@@ -42,8 +42,8 @@ Use the exact verified checksum in BASTION_PLAY_AUTOMATION.sha256:
 (
 set -eu
 scorer_setup=$(mktemp -d /root/scorer-play-api.XXXXXX)
-curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.3/bastion_play_internal.py -o "$scorer_setup/uploader.py"
-printf '%s  %s\n' a8f5465690aaf7346600d210f8252a03a9044f31d7969d0e48c909f793bd7cb7 "$scorer_setup/uploader.py" | sha256sum -c -
+curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.4/bastion_play_internal.py -o "$scorer_setup/uploader.py"
+printf '%s  %s\n' 299d8c82bf649a2aad8480b5f3c282f65164deb51f29a5cb01d796e73e79f3a9 "$scorer_setup/uploader.py" | sha256sum -c -
 install -m700 "$scorer_setup/uploader.py" /root/scorer-signing/play-internal.py
 python3 /root/scorer-signing/play-internal.py --setup-folder
 )
