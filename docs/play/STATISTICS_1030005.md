@@ -27,8 +27,8 @@ No private keys or credential files are downloaded from this release.
 (
 set -eu
 scorer_stats=$(mktemp -d /root/scorer-stats.XXXXXX)
-curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030005/Scorer-Statistics-Agreement-Backend.py -o "$scorer_stats/backend.py"
-printf '%s  %s\n' ccce2737de67a522a389d8beba1f5b156c26315be6dfdb8d4d8db4094d4bcde3 "$scorer_stats/backend.py" | sha256sum -c -
+curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030005/Scorer-Statistics-Agreement-Backend-Repair-1.py -o "$scorer_stats/backend.py"
+printf '%s  %s\n' 5c8d54c88e507490eb0cce421307449d44ed691f5ed97cf8a76ae6e0e0694f22 "$scorer_stats/backend.py" | sha256sum -c -
 python3 "$scorer_stats/backend.py"
 curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.3/bastion_play_internal.py -o "$scorer_stats/uploader.py"
 printf '%s  %s\n' a8f5465690aaf7346600d210f8252a03a9044f31d7969d0e48c909f793bd7cb7 "$scorer_stats/uploader.py" | sha256sum -c -
@@ -55,3 +55,5 @@ Publisher fixture tests and AAB audit recorded in release evidence.
 After Play update: accept the notice, play with internet, wait at least10seconds,
 then check https://stats.clemir.com/admin. Server dates use UTC receipt day.
 Aggregate totals can contain other testers; no unique-player identifiers exist.
+
+Repair1: original installer rejected the new policy because its HTTP assertion still required the obsolete off-by-default sentence. The repaired checker validates the actual1030005 agreement/decline disclosure. Source and shipped installer rehearsed with a real isolated HTTP service, preserved historical totals and operator minimum. No app/signing/publisher change required.

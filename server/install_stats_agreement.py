@@ -38,7 +38,9 @@ def verify(port=8787):
     with client.open(f'http://127.0.0.1:{port}/'+path,timeout=3) as r:
      text=r.read(131073).decode('utf8')
      if r.status!=200 or len(text)>131072:raise ValueError('Invalid public page')
-     if path=='privacy' and ('data-publication-status="published"' not in text or 'off by default' not in text or 'Career category' not in text):raise ValueError('Policy version mismatch')
+     if path=='privacy':
+      required=('data-publication-status="published"','From version code 1030005, I AGREE on the startup notice enables aggregate usage statistics.','I DO NOT AGREE closes the game without sending statistics.','Career category')
+      if not all(marker in text for marker in required):raise ValueError('Policy version mismatch')
    with client.open(f'http://127.0.0.1:{port}/v1/app-version',timeout=3) as r:
     d=json.loads(r.read(4097))
     if d.get('package')!='com.clemir.scorerworld' or type(d.get('minimum_version_code'))is not int:raise ValueError('Version endpoint failed')

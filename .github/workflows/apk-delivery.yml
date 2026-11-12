@@ -88,7 +88,7 @@ jobs:
           if ! gh release view world-1.0-1030005 >/dev/null 2>&1; then
             gh release create world-1.0-1030005 --target "$SOURCE_COMMIT" --prerelease --title "Scorer World 1.0 (1030005) - startup statistics fix" --notes-file docs/RELEASE_1.0_1030005.md
           fi
-          gh release upload world-1.0-1030005 Scorer-World-1.0-1030005-unsigned.aab docs/RELEASE_1.0_1030005_artifacts.json tools/play/sign_local_bundle.py tools/play/bastion_bundle_1030005.py docs/play/STATISTICS_1030005.md docs/data/server/Scorer-Statistics-Agreement-Backend.py --clobber
+          gh release upload world-1.0-1030005 Scorer-World-1.0-1030005-unsigned.aab docs/RELEASE_1.0_1030005_artifacts.json tools/play/sign_local_bundle.py tools/play/bastion_bundle_1030005.py docs/play/STATISTICS_1030005.md docs/data/server/Scorer-Statistics-Agreement-Backend-Repair-1.py --clobber
 
   names:
     if: ${{ inputs.deliver_names }}
