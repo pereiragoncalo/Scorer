@@ -1,3 +1,14 @@
+## 2026-11-12 — uploader1.10 fixes owner-observed1030011 release-name400
+
+The prepared name had51characters; Google permits50. Shortened to23characters
+and added preflight length validation before signing and before any publish API
+edit/upload.25publisher scenarios:24pass/one host full-JDK-only fixture skipped;
+50accepted,51/empty rejected with zeroAPIcalls. Original1030011AAB/payload/signing
+certificate unchanged. Reuse the already signed bastion AAB/account/key; retry1.10.
+Workflow43253335634succeeded and anonymous uploader download matched SHA256
+33d0133451f61b8ac09ce0a5a604e0d6799aeb0381d1f373559524c55d012a91.
+Owner retry/livecommit pending; do not raise minimum until Play delivery verified.
+
 1030011delivery verified: bundle workflow43251993116 and publisher43251841246
 succeeded. Anonymous full AAB/coordinator/signing-helper/uploader downloads match
 local SHA256/byte counts. AAB117232041bytes, SHA256
