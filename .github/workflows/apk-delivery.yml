@@ -141,10 +141,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view play-automation-v1.9 >/dev/null 2>&1; then
-            gh release create play-automation-v1.9 --target "$GITHUB_SHA" --prerelease --title "Scorer - Play internal uploader for 1030011" --notes-file docs/RELEASE_PLAY_AUTOMATION_V1_9.md
+          if ! gh release view play-automation-v1.10 >/dev/null 2>&1; then
+            gh release create play-automation-v1.10 --target "$GITHUB_SHA" --prerelease --title "Scorer - Play internal uploader for 1030011" --notes-file docs/RELEASE_PLAY_AUTOMATION_V1_10.md
           fi
-          gh release upload play-automation-v1.9 tools/play/bastion_play_internal.py docs/play/BASTION_PLAY_AUTOMATION.md docs/play/BASTION_PLAY_AUTOMATION.sha256 --clobber
+          gh release upload play-automation-v1.10 tools/play/bastion_play_internal.py docs/play/BASTION_PLAY_AUTOMATION.md docs/play/BASTION_PLAY_AUTOMATION.sha256 --clobber
 
   statistics_repair:
     if: ${{ inputs.deliver_statistics_repair }}

@@ -211,11 +211,15 @@ def version_codes(track):
     return [int(code) for release in track.get('releases',[]) for code in release.get('versionCodes',[])]
 
 
+RELEASE_NAME='1.0 (1030011) - rebuild'
+
 def internal_release():
-    return {'track':TRACK,'releases':[{'name':'1.0 (1030011) - rebuild with installed version code','versionCodes':[str(VERSION)],'status':'completed','releaseNotes':[{'language':'en-US','text':'Rebuilt with visible installed version code. Retains home-colour chairs, seated fans and empty training seats.'}]}]}
+    if not isinstance(RELEASE_NAME,str) or not 1<=len(RELEASE_NAME)<=50:raise Stop('Release name must contain 1 to 50 characters')
+    return {'track':TRACK,'releases':[{'name':RELEASE_NAME,'versionCodes':[str(VERSION)],'status':'completed','releaseNotes':[{'language':'en-US','text':'Rebuilt with visible installed version code. Retains home-colour chairs, seated fans and empty training seats.'}]}]}
 
 
 def publish(client,path,signed_sha,check_only=False):
+    if not check_only:internal_release()
     edit=client.api('POST',BASE,{})['id'];edit_url=BASE+'/'+quote(edit,safe='');commit_attempted=False
     try:
         track=client.api('GET',edit_url+'/tracks/'+TRACK)
@@ -296,6 +300,7 @@ def main():
         try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         except BlockingIOError:raise Stop('Another internal upload is running') from None
         if args.check:publish(client,None,'',check_only=True);return
+        internal_release()
         prepare_signed()
         with tempfile.TemporaryDirectory(prefix='play-upload-',dir=PRIVATE) as directory:
             bundle=snapshot_signed(SIGNED,directory);digest=verify_signed(bundle)

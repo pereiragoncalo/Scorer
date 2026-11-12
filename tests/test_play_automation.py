@@ -20,6 +20,16 @@ class FakeClient:
   return {'id':'fixture-edit'}
 
 class PublisherTests(unittest.TestCase):
+ def test_release_name_limit_is_validated_before_any_api_calls(self):
+  self.assertLessEqual(len(p.internal_release()['releases'][0]['name']),50)
+  for name,valid in (('x'*50,True),('x'*51,False),('',False)):
+   client=FakeClient()
+   with patch.object(p,'RELEASE_NAME',name):
+    if valid:self.assertEqual(p.internal_release()['releases'][0]['name'],name)
+    else:
+     with self.assertRaises(p.Stop):p.publish(client,Path('fixture'),'abc')
+     self.assertEqual(client.calls,[])
+
  def test_publish_only_internal_validates_then_commits_without_cancelling_review(self):
   client=FakeClient()
   with patch.object(p,'upload',return_value={'versionCode':p.VERSION,'sha256':'abc'}):self.assertEqual(p.publish(client,Path('fixture'),'abc'),'committed')

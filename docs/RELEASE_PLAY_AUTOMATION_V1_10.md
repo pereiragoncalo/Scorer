@@ -1,0 +1,1 @@
+Fix owner-observed Google400: release name was51characters, maximum50. Use22character name; validate length before signing/upload/API edit. Same1030011AAB/payload/key/account, no rebuild. Boundary regression covers50accepted/51rejected before API calls.
