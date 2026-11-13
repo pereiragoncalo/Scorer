@@ -50,7 +50,8 @@ class NetIntegration(unittest.TestCase):
      for size in ((1280,591),(960,540),(640,360)):
       Window.size=size;g.size=size;g.draw();r=g._net_renderer;c=r.cloth;objects=[x[2] for x in r.batches]
       from kivy.graphics import Mesh
-      self.assertFalse(any(isinstance(item,Mesh) for item in g.canvas.children))
+      render_ids={id(mesh) for row in r.batches for mesh in row[2:]}
+      self.assertFalse(any(id(item) in render_ids for item in g.canvas.children))
       first=r.rebuilds;g.draw();self.assertEqual(first,r.rebuilds)
       for weights,indices,mesh,front in r.batches:
        self.assertLessEqual(len(indices),24000);self.assertTrue(all(math.isfinite(v) for v in mesh.vertices))

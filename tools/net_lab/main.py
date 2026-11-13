@@ -15,9 +15,9 @@ Config.set('graphics','width','1280');Config.set('graphics','height','760')
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.core.window import Window
-from kivy.graphics import Color,Rectangle,Line,Ellipse
+from kivy.graphics import Color,Rectangle,Line,Ellipse,Canvas
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
+from kivy.uix.stencilview import StencilView
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.spinner import Spinner
@@ -32,13 +32,13 @@ from goal_nets import draw_box_frame,NetStyle
 from career import CAMERA_VERTICAL_FOV
 from tools.net_lab.scenarios import PRESETS,Replay
 
-class Scene(Widget):
+class Scene(StencilView):
     def __init__(self,**kwargs):
-        super().__init__(**kwargs);self.debug_mesh=False;self.renderer=None;self.mesh=args.mesh
+        super().__init__(**kwargs);self.paint=Canvas();self.canvas.add(self.paint);self.debug_mesh=False;self.renderer=None;self.mesh=args.mesh
         self.bind(pos=lambda *_:self.draw(),size=lambda *_:self.draw())
     def project(self,x,y,z):
         # Same camera position/axes; crop/zoom only for close inspection.
-        focal=self.height/(2*math.tan(math.radians(CAMERA_VERTICAL_FOV)/2))*4.6
+        focal=self.height/(2*math.tan(math.radians(CAMERA_VERTICAL_FOV)/2))*4.6*min(1.,self.width/max(1.,self.height*1.85))
         origin=project_point(0,-1,1,0,0,focal)
         a,b=project_point(x,y,z,0,0,focal)
         return self.center_x+a-origin[0],self.center_y+b-origin[1]
@@ -51,8 +51,8 @@ class Scene(Widget):
         if not hasattr(self,'replay'):return
         r=self.replay
         if self.renderer is None or self.renderer.cloth is not r.cloth or self.renderer.kind!=self.mesh:self.renderer=NetRenderer(r.cloth,self.mesh)
-        self.canvas.clear()
-        with self.canvas:
+        self.paint.clear()
+        with self.paint:
             Color(.025,.06,.08,1);Rectangle(pos=self.pos,size=self.size)
             Color(.035,.24,.12,1)
             from kivy.graphics import Mesh
@@ -60,21 +60,21 @@ class Scene(Widget):
             Mesh(vertices=[n for x,y in corners for n in (x,y,0,0)],indices=[0,1,2,0,2,3],mode='triangles')
             Color(.5,.7,.5,.4);Line(points=[*self.project(-12,0,.01),*self.project(12,0,.01)],width=1)
         key=(tuple(self.pos),tuple(self.size))
-        self.renderer.draw(self.canvas,self.project,key,r.ball if r.hit else None)
-        with self.canvas:
+        self.renderer.draw(self.paint,self.project,key,r.ball if r.hit else None)
+        with self.paint:
             bx,by=self.project(*r.ball);scale=self.pixels_per_meter(*r.ball);radius=max(4,.115*scale)
             Color(.98,.98,.9,1);Ellipse(pos=(bx-radius,by-radius),size=(radius*2,radius*2))
             Color(.1,.13,.15,1);Line(circle=(bx,by,radius),width=1)
             Line(points=[bx-radius*.6,by,bx+radius*.6,by],width=.8)
-        self.renderer.draw(self.canvas,self.project,key,r.ball if r.hit else None,foreground=True)
-        with self.canvas:
+        self.renderer.draw(self.paint,self.project,key,r.ball if r.hit else None,foreground=True)
+        with self.paint:
             if r.geometry.structure=='box':draw_box_frame(self)
             else:
                 hw,h=self.goal_half_width,self.goal_height
                 Color(.96,.98,.98,1)
                 Line(points=[*self.project(-hw,0,0),*self.project(-hw,0,h),*self.project(hw,0,h),*self.project(hw,0,0)],width=3)
                 for x in (-hw,hw):Line(points=[*self.project(x,0,h),*self.project(x,-.55,h)],width=2)
-        if self.debug_mesh:self.renderer.debug(self.canvas,self.project)
+        if self.debug_mesh:self.renderer.debug(self.paint,self.project)
 
 class Lab(App):
     def build(self):
