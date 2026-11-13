@@ -41,6 +41,19 @@ class ClothTests(unittest.TestCase):
     back=c.grids['back'][2]
     side_ids={i for row in c.grids[side][2] for i in row}
     self.assertTrue(all(row[edge] in side_ids for row in back))
+ def test_dynamic_seams_remain_closed_at_every_interpolated_point(self):
+  for geometry in (NetGeometry('box'),NetGeometry('veil'),NetGeometry('box',7.32*1.12,2.44*1.10)):
+   for coarse in (True,False):
+    c=NetCloth(geometry,coarse=coarse)
+    c.impact('back',geometry.point('back',.1,.7),(-10,-30,0))
+    for _ in range(30):c.advance(1/120)
+    for side,edge in (('left',0),('right',1)):
+     for i in range(101):
+      v=i/100;y,z=geometry.profile(v)
+      u_side=-y/geometry.depth if geometry.structure=='box' else v
+      top=geometry.height if geometry.structure=='box' else z
+      point=c.sample(side,u_side,z/max(.000001,top))
+      self.assertLess(math.dist(c.sample('back',edge,v),point),.00001)
  def test_config_roundtrip_and_invalid_inputs(self):
   with tempfile.TemporaryDirectory() as tmp:
    path=Path(tmp)/'config.json';r=Replay('veil',preset='Top Corner');r.save(path);other=Replay.load(path)

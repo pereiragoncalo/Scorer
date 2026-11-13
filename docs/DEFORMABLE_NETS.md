@@ -24,8 +24,8 @@ folga e sag sob gravidade; o integrador calcula perturbações em torno desse
 estado carregado. Molas e restrições distribuem o impulso local e limitam a
 extensão. A simulação usa 1/120 s, limita subpassos e adormece após estabilizar.
 
-O Android usa 218 partículas na caixa / 223 no véu; o perfil Windows usa a
-resolução fina de 446 / 453. É o mesmo algoritmo em ambas. O laboratório permite
+O Android usa 262 partículas na caixa / 223 no véu; o perfil Windows usa a
+resolução fina de 536 / 453. É o mesmo algoritmo em ambas. O laboratório permite
 escolher `mobile` ou `full`; não existe uma segunda física de demonstração.
 A densidade gráfica também baixa quando a baliza ocupa poucos píxeis.
 
@@ -105,7 +105,7 @@ ffmpeg -framerate 60 -pattern_type glob -i '/tmp/net-normal/frame-*.png' \
 
 Não há ffmpeg, exportador ou dependências adicionais no APK/AAB.
 
-Evidência em `docs/data/deformable_nets_1030016/`:
+Evidência em `docs/data/deformable_nets_1030017/`:
 
 - `near-post-normal.mp4`: contacto, bolsa, oscilações e recuperação a 100%.
 - `near-post-quarter-speed.mp4`: aproximação e bolsa a 25%.
@@ -129,7 +129,7 @@ PYTHONPATH=ui_tests:. python -m unittest ui_tests.test_net_cloth \
   ui_tests.test_retro_sprites ui_tests.test_opportunity_sequences -q
 ```
 
-Foram executados 58 testes da lógica/empacotamento e 30 nativos Kivy. Incluem os
+Foram executados 59 testes da lógica/empacotamento e 30 nativos Kivy. Incluem os
 sete presets nas duas geometrias, forças, fixações, recuperação completa, estados
 finitos, impactos repetidos, costuras, JSON, A/B, pausa/passo, 30/60/120 FPS e
 100/50/25%, projeção original, caches, redimensionamento, 120 redesenhos sem acumular grupos e limites de índices. Vinte pares de jogadas
@@ -141,7 +141,7 @@ véu, adormecendo cerca de 4.2 s após o disparo. A mediana CPU foi ~1.16–1.30
 passo de 1/120 s; inclui a leitura de métricas do laboratório. Não é uma medição
 de FPS Android nem do custo total do jogo/GPU.
 
-AAB 1030016 compilado e auditado separadamente; o laboratório não foi incluído.
+AAB 1030017 compilado e auditado separadamente; o laboratório não foi incluído.
 Os 248 frames/35 folhas originais dos sprites mantiveram-se intactos. As dimensões
 Windows foram testadas no Kivy do Linux; não foi executado um binário Windows
 nativo nem feito um teste físico de Android. Os 60 FPS em hardware modesto

@@ -95,12 +95,16 @@ class NetCloth:
         # Include the roof/back hinge exactly, not a diagonal across a box corner.
         path=sorted(set([i/nv for i in range(nv+1)]+[geometry.hinge]))
         if geometry.structure=='veil':path=sorted(set(path+[(geometry.top_depth+geometry.slope)/geometry.path]))
+        if geometry.structure=='box':
+            # Conforming rear seam: side height rows must also be rows of the
+            # unrolled roof/back sheet. No independent hanging edge particles.
+            path=sorted(set(path+[(geometry.depth+geometry.height*(1-i/side_v))/geometry.path for i in range(side_v+1)]))
         across=[i/nu for i in range(nu+1)];side=[i/side_v for i in range(side_v+1)]
         self._grid('back',across,path)
         side_us=path
         if geometry.structure=='box':
             side_us=sorted(set(round(-geometry.profile(v)[0]/geometry.depth,8) for v in path))
-            side=sorted(set([round(geometry.profile(v)[1]/geometry.height,8) for v in path]+side))
+            side=sorted(set([round(geometry.profile(v)[1]/geometry.height,8) for v in path]))
         self._grid('left',side_us,side);self._grid('right',side_us,side)
         self.reset()
 
@@ -130,6 +134,12 @@ class NetCloth:
                 if surface!='back':
                     anchor=(i==len(us)-1 if g.structure=='box' else abs(u-g.hinge)<1e-8)
                     if anchor and j==len(vs)-1:pinned=True
+                if key not in self._lookup and (i in (0,len(us)-1) or j in (0,len(vs)-1)):
+                    # Algebraically identical Windows seam coordinates may
+                    # straddle a decimal rounding boundary. Weld by tolerance,
+                    # never leave a separate particle a few nanometres away.
+                    match=next((index for position,index in self._lookup.items() if math.dist(position,p)<1e-6),None)
+                    if match is not None:self._lookup[key]=match
                 if key in self._lookup:
                     index=self._lookup[key];self.pinned[index]|=pinned
                 else:
