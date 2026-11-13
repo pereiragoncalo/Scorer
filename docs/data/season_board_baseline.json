@@ -1,6 +1,8 @@
 {
   "server/usage_collector.py": [
-    "045107081aa21f0b848340bf1d85ba494a45d5d30546b8c2b27b2c7841c35561"
+    "045107081aa21f0b848340bf1d85ba494a45d5d30546b8c2b27b2c7841c35561",
+    "e433049129a83637a616b7b96e3d1c33349fcc6da948319713f74399744f1c82",
+    "e5f1d1c0f5203ad7efa90ebe8afca4ad0787f8f32cd2345c916507c023c305a3"
   ],
   "server/moderation.py": [
     "14783b6e268afe73a2049ff07fc64833119b5a082f9b2172b241f7bd35734964"
@@ -8,7 +10,10 @@
   "server/division_records.py": [],
   "division_records.py": [],
   "server/public_pages.py": [
-    "53a248b543f5912e3e5308a738b76dc2b96ae62eaa5ad42ebf62c78ea73c77f9"
+    "53a248b543f5912e3e5308a738b76dc2b96ae62eaa5ad42ebf62c78ea73c77f9",
+    "d5472201d971332af763af7bbfa044d989143d9ba6c5117cecd3cb6655d0ff10",
+    "0675a2c4f0eab1969c3fd73a5799aef71c519dbcc899a39beadc607ad3b05b1a",
+    "da022d25c39a14e6800739520f802c885b342a5c3a85c27a1abdf264dfd71002"
   ],
   "server/maintenance.py": [
     "dd373ace6c0eb7e133b7ee2a88e6e13f1b9e008959635bd16c8cb5141a1e1ba1",

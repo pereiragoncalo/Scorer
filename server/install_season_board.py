@@ -30,14 +30,15 @@ def preflight(payload):
  for name,raw in payload.items():compile(raw,name,'exec')
 
 def apply(root,payload,stop,start,check,baseline=None):
- root=Path(root).resolve();preflight(payload);previous={}
+ root=Path(root).resolve();preflight(payload);previous={};unknown=[]
  for name,raw in payload.items():
   path=root/name
   if path.is_symlink() or path.parent.resolve() not in (root,root/'server'):raise ValueError('Unsafe target')
   previous[name]=path.read_bytes() if path.exists() else None
   if baseline is not None and previous[name] is not None:
    digest=hashlib.sha256(previous[name]).hexdigest()
-   if digest not in (*baseline.get(name,[]),hashlib.sha256(raw).hexdigest()):raise ValueError('Installed file differs from known version; nothing changed: '+name+' (SHA256 '+digest+')')
+   if digest not in (*baseline.get(name,[]),hashlib.sha256(raw).hexdigest()):unknown.append(name+' (SHA256 '+digest+')')
+ if unknown:raise ValueError('Installed files differ from known versions; nothing changed: '+'; '.join(unknown))
  if any(previous[n] is None for n in FILES[:2]):raise ValueError('Existing Scorer service required')
  if all(previous[n]==payload[n] for n in FILES):check();return None
  backup=Path(tempfile.mkdtemp(prefix='scorer-season-board-backup-',dir=root.parent));os.chmod(backup,0o700)

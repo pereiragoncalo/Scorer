@@ -1,3 +1,5 @@
+Backend-only Repair2: complete whitelist of known shipped backend sources, including observed1030005collector e5f1d1c0f5203ad7efa90ebe8afca4ad0787f8f32cd2345c916507c023c305a3. Entire old-payload HTTP rehearsal upgrades with initial maintenance, retains totals/policy/config and v3/v4, adds v5.29tests pass; no APK/AAB change.
+
 1030020 backend-only Repair1: accept exact original maintenance.py shipped by initial install_online, preserving source pinning and rollback. Original failed preflight changed nothing. Android AAB remains unchanged; backend repair published separately.
 
 1030020 final AAB regenerated after replacing the obsolete adult-controls startup clause with per-season consent in all9languages. Seven additional native publication/notice tests pass (32native total). Exact compiled online_safety/runtime/sprite verification rerun against this final artifact.

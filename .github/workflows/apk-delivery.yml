@@ -202,10 +202,10 @@ jobs:
       - name: Verify known legacy maintenance upgrade and rollback
         run: |
           python3 -m unittest tests.test_season_board_legacy tests.test_division_board -q
-          python3 docs/data/server/Scorer-Season-Leaderboard-Backend-Repair-1.py --check
-          echo 'a63ffd36b221bd295122098fd157aa034fb8e66480c14e5206bc599d3951e94e  docs/data/server/Scorer-Season-Leaderboard-Backend-Repair-1.py' | sha256sum -c -
+          python3 docs/data/server/Scorer-Season-Leaderboard-Backend-Repair-2.py --check
+          echo 'befaa13310e4f7064219a68d7b93c3182e780dd62272e8755e6be0985531e48d  docs/data/server/Scorer-Season-Leaderboard-Backend-Repair-2.py' | sha256sum -c -
       - name: Publish backend-only compatibility repair
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release upload world-1.0-1030020 docs/data/server/Scorer-Season-Leaderboard-Backend-Repair-1.py docs/play/NET_VARIANTS_1030020.md docs/RELEASE_1.0_1030020_artifacts.json --clobber
+          gh release upload world-1.0-1030020 docs/data/server/Scorer-Season-Leaderboard-Backend-Repair-2.py docs/play/NET_VARIANTS_1030020.md docs/RELEASE_1.0_1030020_artifacts.json --clobber

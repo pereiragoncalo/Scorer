@@ -8,8 +8,8 @@ retaining old APIs and counters, with a file backup and rollback on failed check
 (
 set -eu
 scorer_release=$(mktemp -d /root/scorer-release.XXXXXX)
-curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030020/Scorer-Season-Leaderboard-Backend-Repair-1.py -o "$scorer_release/backend.py"
-printf '%s  %s\n' a63ffd36b221bd295122098fd157aa034fb8e66480c14e5206bc599d3951e94e "$scorer_release/backend.py" | sha256sum -c -
+curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030020/Scorer-Season-Leaderboard-Backend-Repair-2.py -o "$scorer_release/backend.py"
+printf '%s  %s\n' befaa13310e4f7064219a68d7b93c3182e780dd62272e8755e6be0985531e48d "$scorer_release/backend.py" | sha256sum -c -
 python3 "$scorer_release/backend.py"
 curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030020/bastion_play_internal.py -o "$scorer_release/uploader.py"
 printf '%s  %s\n' d346ae5d2d10c28a9d6cf2538320dedfbcebabf61e75070562683df92479e14b "$scorer_release/uploader.py" | sha256sum -c -

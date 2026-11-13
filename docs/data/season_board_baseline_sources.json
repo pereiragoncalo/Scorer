@@ -1,0 +1,39 @@
+{
+  "server/usage_collector.py": {
+    "e433049129a83637a616b7b96e3d1c33349fcc6da948319713f74399744f1c82": [
+      "Scorer-Backend-Repair-1.py",
+      "Scorer-Play-Policy-0.9.40.py",
+      "Scorer-Career-Board-0.9.34.py"
+    ],
+    "e5f1d1c0f5203ad7efa90ebe8afca4ad0787f8f32cd2345c916507c023c305a3": [
+      "Scorer-Statistics-Agreement-Backend.py",
+      "Scorer-Statistics-Agreement-Backend-Repair-1.py",
+      "Scorer-Version-Gate-Backend.py"
+    ]
+  },
+  "server/moderation.py": {
+    "14783b6e268afe73a2049ff07fc64833119b5a082f9b2172b241f7bd35734964": [
+      "Scorer-Backend-Repair-1.py",
+      "Scorer-Play-Policy-0.9.40.py",
+      "Scorer-Statistics-Agreement-Backend.py",
+      "Scorer-Statistics-Agreement-Backend-Repair-1.py",
+      "Scorer-Version-Gate-Backend.py",
+      "Scorer-Career-Board-0.9.34.py"
+    ]
+  },
+  "server/public_pages.py": {
+    "d5472201d971332af763af7bbfa044d989143d9ba6c5117cecd3cb6655d0ff10": [
+      "Scorer-Backend-Repair-1.py"
+    ],
+    "0675a2c4f0eab1969c3fd73a5799aef71c519dbcc899a39beadc607ad3b05b1a": [
+      "Scorer-Play-Policy-0.9.40.py"
+    ],
+    "53a248b543f5912e3e5308a738b76dc2b96ae62eaa5ad42ebf62c78ea73c77f9": [
+      "Scorer-Statistics-Agreement-Backend.py",
+      "Scorer-Statistics-Agreement-Backend-Repair-1.py"
+    ],
+    "da022d25c39a14e6800739520f802c885b342a5c3a85c27a1abdf264dfd71002": [
+      "Scorer-Version-Gate-Backend.py"
+    ]
+  }
+}

@@ -42,3 +42,45 @@ class LegacyMaintenanceUpgrade(unittest.TestCase):
    def fail():raise RuntimeError('failed health')
    with self.assertRaises(RuntimeError):apply(root,payload,lambda:calls.append('stop'),lambda:calls.append('start'),fail,baseline)
    self.assertEqual((root/'server/maintenance.py').read_bytes(),legacy);self.assertEqual(calls,['stop','start','stop','start'])
+
+class ObservedBastionUpgrade(unittest.TestCase):
+ def test_complete_released_statistics_backend_with_initial_maintenance_upgrades_over_real_http(self):
+  import runpy,subprocess,os,selectors
+  from urllib.request import urlopen
+  from urllib.error import HTTPError
+  from server.install_season_board import verify
+  with tempfile.TemporaryDirectory() as temp:
+   root=Path(temp);old=runpy.run_path(str(ROOT/'docs/data/server/Scorer-Statistics-Agreement-Backend-Repair-1.py'),run_name='old_fixture')['sources']()
+   observed='e5f1d1c0f5203ad7efa90ebe8afca4ad0787f8f32cd2345c916507c023c305a3'
+   self.assertEqual(hashlib.sha256(old['server/usage_collector.py']).hexdigest(),observed)
+   old['server/maintenance.py']=(ROOT/'tests/fixtures/maintenance-initial.txt').read_bytes()
+   for name,raw in old.items():
+    path=root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(raw)
+   process=None;port=None
+   def stop():
+    nonlocal process
+    if process:
+     process.terminate();process.wait(timeout=5);process.stdout.close();process.stderr.close();process=None
+   def start():
+    nonlocal process,port
+    code="from server.usage_collector import Collector;s=Collector(('127.0.0.1',0),'fixture.sqlite','fixture-admin','public.json');print(s.server_port,flush=True);s.serve_forever()"
+    process=subprocess.Popen([__import__('sys').executable,'-B','-u','-c',code],cwd=root,env=dict(os.environ,PYTHONPATH=str(root)),stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
+    with selectors.DefaultSelector() as select:
+     select.register(process.stdout,selectors.EVENT_READ)
+     if not select.select(8):raise RuntimeError('Fixture startup timed out')
+    line=process.stdout.readline().strip()
+    if not line.isdigit():raise RuntimeError(process.stderr.read())
+    port=int(line)
+   def get(path):
+    with urlopen(f'http://127.0.0.1:{port}'+path,timeout=3) as r:return json.load(r)
+   try:
+    start();self.assertTrue(get('/health')['ok'])
+    with self.assertRaises(HTTPError):get('/v5/records?division=1')
+    with sqlite3.connect(root/'fixture.sqlite') as db:db.execute("INSERT INTO totals VALUES(date('now'),'sessions',17)")
+    policy=(root/'version-policy.json').read_bytes();config=(root/'public.json').read_bytes()
+    apply(root,sources(),stop,start,lambda:verify(port),json.loads((ROOT/'docs/data/season_board_baseline.json').read_text()))
+    self.assertEqual(get('/v5/records?division=1')['schema'],5);self.assertEqual(get('/v5/records?division=2')['schema'],5)
+    self.assertEqual(get('/v3/records?edition=world&country=England&division=1')['schema'],3)
+    with sqlite3.connect(root/'fixture.sqlite') as db:self.assertEqual(db.execute("SELECT count FROM totals WHERE event='sessions'").fetchone()[0],17)
+    self.assertEqual((root/'version-policy.json').read_bytes(),policy);self.assertEqual((root/'public.json').read_bytes(),config)
+   finally:stop()
