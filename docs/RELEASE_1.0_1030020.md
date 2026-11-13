@@ -20,3 +20,13 @@ Same app package and owner signing identity; update without uninstalling.
 Internal test candidate. Compilation is not Google Play availability. Keep the
 mandatory minimum at zero until the owner confirms this exact version is offered
 on all intended handsets/tracks. No advertising or billing SDKs are included.
+
+Verified delivery: GitHub Actions43472018018 published the final118230081-byte AAB
+with SHA2569f526ebf2c40b2f71de346591cbeadf2ebf9859ff0829183770341c4be346f9c.
+Actions43472216781 published uploader1.19. Downloaded bootstrap, uploader, signer
+and backend hashes match the pinned metadata. Updated public privacy pages are
+HTTP200 and describe per-season publication. Bastion backend installation, owner
+signing, Play commit and handset availability remain owner-side steps.
+
+Download: https://github.com/pereiragoncalo/Scorer/releases/tag/world-1.0-1030020
+Commands: docs/play/NET_VARIANTS_1030020.md
