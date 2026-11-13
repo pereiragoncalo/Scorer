@@ -42,8 +42,8 @@ Use the exact verified checksum in BASTION_PLAY_AUTOMATION.sha256:
 (
 set -eu
 scorer_setup=$(mktemp -d /root/scorer-play-api.XXXXXX)
-curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.18/bastion_play_internal.py -o "$scorer_setup/uploader.py"
-printf '%s  %s\n' ec1404c13051b6faa41f7e03d81663a7a09651bc1163d8a40c29bf6ab4df5649 "$scorer_setup/uploader.py" | sha256sum -c -
+curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.19/bastion_play_internal.py -o "$scorer_setup/uploader.py"
+printf '%s  %s\n' d346ae5d2d10c28a9d6cf2538320dedfbcebabf61e75070562683df92479e14b "$scorer_setup/uploader.py" | sha256sum -c -
 install -m700 "$scorer_setup/uploader.py" /root/scorer-signing/play-internal.py
 python3 /root/scorer-signing/play-internal.py --setup-folder
 )
