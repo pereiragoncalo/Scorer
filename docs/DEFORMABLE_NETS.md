@@ -129,10 +129,10 @@ PYTHONPATH=ui_tests:. python -m unittest ui_tests.test_net_cloth \
   ui_tests.test_retro_sprites ui_tests.test_opportunity_sequences -q
 ```
 
-Foram executados 58 testes da lógica/empacotamento e 28 nativos Kivy. Incluem os
+Foram executados 58 testes da lógica/empacotamento e 30 nativos Kivy. Incluem os
 sete presets nas duas geometrias, forças, fixações, recuperação completa, estados
 finitos, impactos repetidos, costuras, JSON, A/B, pausa/passo, 30/60/120 FPS e
-100/50/25%, projeção original, caches e limites de índices. Vinte pares de jogadas
+100/50/25%, projeção original, caches, redimensionamento, 120 redesenhos sem acumular grupos e limites de índices. Vinte pares de jogadas
 (40 trajetórias físicas) com a apresentação ligada/desligada tiveram os mesmos
 estados físicos da bola, golos e pontos de passagem pela linha.
 
