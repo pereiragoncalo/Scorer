@@ -8,7 +8,7 @@ import urllib.request
 
 BASE='https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030020/'
 BUNDLE='Scorer-World-1.0-1030020-unsigned.aab'
-BUNDLE_SHA='923f4804168d491a1cc6f9e14f00ab164a9f7392a03676f7b1b3d9557a80af8c'
+BUNDLE_SHA='9f526ebf2c40b2f71de346591cbeadf2ebf9859ff0829183770341c4be346f9c'
 HELPER_SHA='5492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885fa6761'
 CERT='2259de229b49bb40e158d3c015fe1e0d2426becb4e1a4f110dbcd183b51e59a0'
 OUTPUT=Path('/home/clemir/Scorer-World-1.0-1030020.aab')

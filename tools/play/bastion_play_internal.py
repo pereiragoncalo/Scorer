@@ -16,12 +16,12 @@ BASE='https://androidpublisher.googleapis.com/androidpublisher/v3/applications/'
 TOKEN_URL='https://oauth2.googleapis.com/token'
 SCOPE='https://www.googleapis.com/auth/androidpublisher'
 CERT='2259de229b49bb40e158d3c015fe1e0d2426becb4e1a4f110dbcd183b51e59a0'
-PAYLOAD='980d87420231969c3d121b2c78e3fb468fe2aad0b4add31bce6b8b10b1003325'
+PAYLOAD='1b73c85ac6a16ac373b7c8729c01b3959fdd3ae588673c3587c24147043b5193'
 SIGNED=Path('/home/clemir/Scorer-World-1.0-1030020.aab')
 PRIVATE=Path('/root/scorer-signing')
 CREDENTIALS=PRIVATE/'google-play-service-account.json'
 BOOTSTRAP_URL='https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030020/bastion_bundle_1030020.py'
-BOOTSTRAP_SHA='f1be53763346da767e892b36a79c28a46dbf43184b72c902d12011246f49e88f'
+BOOTSTRAP_SHA='0e7fd1a71110c8ec5a593280927b5817923013856a1b6331ef0dbaa65a4bb19a'
 CHUNK=8*1024*1024  # Multiple of256KiB; never send an entire117MiB request.
 
 class Stop(RuntimeError):pass

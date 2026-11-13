@@ -12,7 +12,7 @@ curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/wo
 printf '%s  %s\n' 293489f6ccb1026dc991c3ae4cee989b4509caf8d249722e1ac18a1702b2a5d5 "$scorer_release/backend.py" | sha256sum -c -
 python3 "$scorer_release/backend.py"
 curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030020/bastion_play_internal.py -o "$scorer_release/uploader.py"
-printf '%s  %s\n' 2a0cfd8c69308970737db631354ba8ed3623b0177a7ef857deb4879203c2c83b "$scorer_release/uploader.py" | sha256sum -c -
+printf '%s  %s\n' d346ae5d2d10c28a9d6cf2538320dedfbcebabf61e75070562683df92479e14b "$scorer_release/uploader.py" | sha256sum -c -
 install -m700 "$scorer_release/uploader.py" /root/scorer-signing/play-internal.py
 python3 /root/scorer-signing/play-internal.py --publish
 python3 /opt/scorer/server/version_updates.py --minimum 0 --latest 1030020 --name 1.0
