@@ -3316,3 +3316,12 @@ existing host-JDK fixture skipped. No Google Play API called from cloud. Existin
 safety settings and update-gate behaviour retained. Bastion handoff pins the new
 bundle/payload and original upload certificate; public minimum must stay zero
 until intended testers actually receive this build through Play.
+
+Delivery complete: GitHub uploader workflow43441065999 and AAB workflow43441193408
+both succeeded on codex/net18-in-game. Anonymous HTTPS downloads of the full
+118192605-byte AAB, pinned bootstrap, signing helper, metadata, owner guide and
+uploader matched local SHA256 bytes. Temporary aab-upload-1.0-1030018 transfer
+branch removed after release verification. Public uploader SHA256:
+333f3a7a4c99978aa27a32c14e8be0af1818f6b9e894c9a98e12a60f70d9831a.
+Cloud did not invoke Google Play, sign with an owner key or activate a mandatory
+minimum; those exact existing-bastion commands are in the delivered guide.
