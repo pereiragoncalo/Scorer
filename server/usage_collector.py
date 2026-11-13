@@ -17,6 +17,18 @@ from server import season_records as records
 from server import moderation,privacy_cases
 from urllib.parse import urlsplit,parse_qs
 
+def activity(db,today=None):
+    """Thirty UTC receipt dates, inclusive of today, with zero-filled rows."""
+    today=today or datetime.now(timezone.utc).date()
+    start=today-timedelta(days=29)
+    rows=db.execute("SELECT day,event,count FROM totals WHERE day BETWEEN ? AND ? AND event IN ('sessions','sessions_ended')",(start.isoformat(),today.isoformat())).fetchall()
+    counts={(day,event):count for day,event,count in rows}
+    days=[{'day':(today-timedelta(days=i)).isoformat(),
+           'opens':counts.get(((today-timedelta(days=i)).isoformat(),'sessions'),0),
+           'closes':counts.get(((today-timedelta(days=i)).isoformat(),'sessions_ended'),0)} for i in range(30)]
+    return {'schema':1,'timezone':'UTC','start':start.isoformat(),'end':today.isoformat(),
+            'opens':sum(d['opens'] for d in days),'closes':sum(d['closes'] for d in days),'days':days}
+
 class Collector(ThreadingHTTPServer):
     daemon_threads=True
     def __init__(self,address,database,admin_token='',public_config=None):
@@ -140,8 +152,15 @@ class Handler(BaseHTTPRequestHandler):
             except ValueError:self.reply(400,{'error':'invalid'})
             except Exception:self.reply(503,{'error':'unavailable'})
             return
-        if self.path=='/admin':
-            body=(Path(__file__).parent/'dashboard.html').read_bytes()
+        if self.path=='/v1/activity':
+            if not self.authorized():self.reply(404,{'error':'not_found'});return
+            try:
+                with self.server.db() as db:data=activity(db)
+                self.reply(200,data)
+            except Exception:self.reply(503,{'error':'unavailable'})
+            return
+        if self.path in ('/admin','/admin/manage'):
+            body=(Path(__file__).parent/('dashboard.html' if self.path=='/admin' else 'management.html')).read_bytes()
             self.send_response(200);self.send_header('Content-Type','text/html; charset=utf-8')
             self.send_header('Cache-Control','no-store');self.send_header('X-Frame-Options','DENY')
             self.send_header('Content-Security-Policy',"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'")

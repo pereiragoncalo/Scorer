@@ -2,7 +2,7 @@
 import argparse,base64,gzip,hashlib,json,os,subprocess,sys,tempfile,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-FILES=('server/__init__.py','server/usage_collector.py','server/leaderboard.py','server/season_records.py','server/moderation.py','server/career_records.py','server/privacy_cases.py','privacy_requests.py','anonymous_stats.py','career_records.py','season_records.py','server/public_pages.py','server/configure_public.py','server/dashboard.html','online_safety.py','public.json','version_policy.py','server/version_updates.py','version-policy.json')
+FILES=('server/__init__.py','server/usage_collector.py','server/leaderboard.py','server/season_records.py','server/moderation.py','server/career_records.py','server/privacy_cases.py','privacy_requests.py','anonymous_stats.py','career_records.py','season_records.py','server/public_pages.py','server/configure_public.py','server/dashboard.html','server/management.html','online_safety.py','public.json','version_policy.py','server/version_updates.py','version-policy.json')
 PAYLOAD=None
 
 def sources():
@@ -56,7 +56,7 @@ def preflight(payload):
   elif name=='version-policy.json':
    config=json.loads(raw)
    if config.get('schema')!=1 or config.get('package')!='com.clemir.scorerworld' or type(config.get('minimum_version_code'))is not int or not 0<=config['minimum_version_code']<=config.get('latest_version_code',-1):raise ValueError('Invalid minimum version policy')
-  elif name=='server/dashboard.html':raw.decode('utf8')
+  elif name in ('server/dashboard.html','server/management.html'):raw.decode('utf8')
   else:raise ValueError('Unexpected payload file')
  # A syntax check alone cannot detect a missing imported module. Use ONLY the
  # delivered files in a fresh isolated Python, without the source checkout.

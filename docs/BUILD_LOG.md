@@ -1,3 +1,9 @@
+## 2026-11-13 — 30-day openings/closes dashboard
+
+Owner requests only totals of openings/closes in last30days and a daily breakdown. /admin now shows two totals and30descending UTC receipt-day rows including today/zeros. Existing sessions/sessions_ended mapped to openings/normal closes; background/resume/forced-stop and delayed/offline delivery semantics unchanged, disclosed inline. No invented events, no new game build or collection setting change. Authenticated /v1/activity limits the report to the two counters; existing /v1/totals stays compatible. Moderation/privacy controls remain at /admin/manage. Update other backend packagers to include the separated management page.
+
+Real Chromium via Playwright: desktop/mobile390px, correct101/81fixture totals,30rows including zero days, bad/cleared token, separate management, no JS errors/horizontal overflow. Screenshots are synthetic fixture data. New HTTP/window/leap-day/rollback/unknown-version checks pass. Broader20case run:19pass and one existing stale legal-policy assertion expecting “voluntary”, contradicted by owner1030005startup agreement and unchanged baseline config; no policy change in this task. Focused collector/current-installer suite passes. Standalone three-file installer passes --check; pinned installed-source guard, private backup and rollback; no credential/database/minimum changes. Live deployment awaits owner bastion execution.
+
 ## 2026-11-13 — 1030015 training opportunities and stadium nets
 
 Training reuses make_delivery/_start_opportunity for all ten match types; local weekly seed preserves opportunity on resume. Three shots, coach focus, atomic reservation/reward rules unchanged. Five per side (including hero/keeper), fluorescent sleeveless bib recolouring over pale sleeves; no source art changes. Home stadium empty seats retained.

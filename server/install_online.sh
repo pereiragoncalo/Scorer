@@ -11,7 +11,7 @@ install -d -m 700 /etc/scorer
 # Retire the old raw database backup: the new backup process copies totals only.
 if [ -f /var/lib/scorer/online.backup.sqlite ]; then rm /var/lib/scorer/online.backup.sqlite; fi
 install -m 644 "$scorer_install_source/anonymous_stats.py" "$scorer_install_source/season_records.py" "$scorer_install_source/online_safety.py" "$scorer_install_source/privacy_requests.py" /opt/scorer/
-for scorer_file in usage_collector.py leaderboard.py season_records.py moderation.py privacy_cases.py maintenance.py public_pages.py configure_public.py dashboard.html; do install -m 644 "$scorer_install_source/server/$scorer_file" /opt/scorer/server/; done
+for scorer_file in usage_collector.py leaderboard.py season_records.py moderation.py privacy_cases.py maintenance.py public_pages.py configure_public.py dashboard.html management.html; do install -m 644 "$scorer_install_source/server/$scorer_file" /opt/scorer/server/; done
 if [ ! -f /etc/scorer/online.env ]; then
     python3 - <<'PY'
 import os,secrets

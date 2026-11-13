@@ -1,33 +1,38 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Scorer usage</title>
-<style>body{font:18px system-ui;max-width:850px;margin:40px auto;padding:16px;background:#071820;color:#eef}button,input{font:inherit;padding:12px}td,th{padding:8px;text-align:left}small{color:#abc}</style>
-<h1>Scorer usage</h1><p>Private aggregate counters. These are events, not unique players.</p>
-<form id="form"><input id="token" type="password" autocomplete="off" placeholder="Administrator token" required><button>Load totals</button></form>
-<p id="status"></p><table><thead><tr><th>UTC day</th><th>Event</th><th>Count</th></tr></thead><tbody id="rows"></tbody></table>
-<script>document.getElementById('form').onsubmit=async e=>{e.preventDefault();const t=document.getElementById('token');try{const r=await fetch('/v1/totals',{headers:{Authorization:'Bearer '+t.value},cache:'no-store'});t.value='';if(!r.ok)throw Error();const d=await r.json();const rows=document.getElementById('rows');rows.replaceChildren();for(const x of d.totals){const tr=document.createElement('tr');for(const v of [x.day,x.event,x.count]){const td=document.createElement('td');td.textContent=v;tr.append(td)}rows.append(tr)}document.getElementById('status').textContent='Loaded'}catch(_){document.getElementById('status').textContent='Unavailable or incorrect token'}}</script>
-<h2>Public records and reports</h2><p>New names stay private until approved. Review reports, reject unsafe names or suspend a publisher. Never request an ownership token.</p>
-<form id="moderation-form"><input id="moderation-token" type="password" autocomplete="off" placeholder="Administrator token" required><button>Load moderation</button></form>
-<p id="moderation-status"></p><div id="moderation"></div>
+<!doctype html>
+<html lang="pt"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>Scorer — aberturas e fechos</title>
+<style>
+body{font:17px system-ui;max-width:760px;margin:32px auto;padding:16px;background:#071820;color:#eef}
+h1{font-size:1.7rem}button,input{font:inherit;padding:12px;box-sizing:border-box}form{display:flex;gap:8px;flex-wrap:wrap}input{flex:1;min-width:180px}button{cursor:pointer}
+.cards{display:flex;gap:16px;flex-wrap:wrap}.card{flex:1;background:#173742;border-radius:12px;padding:20px;min-width:170px}.value{display:block;font-size:2.4rem;font-weight:700}
+table{width:100%;border-collapse:collapse;margin-top:24px}td,th{padding:12px 8px;border-bottom:1px solid #34515a;text-align:right}td:first-child,th:first-child{text-align:left}small{color:#b9cbd0}a{color:#b9cbd0}
+</style>
+<h1>Aberturas e fechos do jogo</h1>
+<p>Últimos 30 dias, incluindo hoje.</p>
+<form id="form"><input id="token" type="password" autocomplete="off" placeholder="Token de administrador" aria-label="Token de administrador" required><button>Carregar</button></form>
+<p id="status" role="status"></p>
+<section id="stats" hidden>
+<div class="cards"><div class="card">Aberturas <span class="value" id="opens"></span></div><div class="card">Fechos <span class="value" id="closes"></span></div></div>
+<p id="period"></p>
+<table><thead><tr><th scope="col">Dia</th><th scope="col">Aberturas</th><th scope="col">Fechos</th></tr></thead><tbody id="rows"></tbody></table>
+<p><small>Datas em UTC, pelo dia de receção. Fechos normais registados; encerramentos forçados pelo Android podem não ser contados.</small></p>
+</section>
+<p><small><a href="/admin/manage">Gestão</a></small></p>
 <script>
-const mt=document.getElementById('moderation-token');let admin='';let moderationOffset=0;
-const api=async(path,data)=>{const r=await fetch(path,{method:data?'POST':'GET',headers:{Authorization:'Bearer '+admin,'Content-Type':'application/json'},body:data?JSON.stringify(data):undefined,cache:'no-store'});if(!r.ok)throw Error('Unavailable');return r.status===204?{}:r.json()};
-const loadModeration=async()=>{const d=await api('/v1/moderation?offset='+moderationOffset);const box=document.getElementById('moderation');box.replaceChildren();const count=document.createElement('p');count.textContent=d.reports.length+' report groups; '+d.banned.length+' suspended publishers';box.append(count);
-for(const [label,offset] of [['Previous',Math.max(0,d.offset-100)],['Next',d.next]]){const b=document.createElement('button');b.textContent=label;b.disabled=offset===null||offset===d.offset;b.onclick=async()=>{moderationOffset=offset;try{await loadModeration()}catch(_){document.getElementById('moderation-status').textContent='Page unavailable'}};box.append(b)}
-for(const x of d.entries){const card=document.createElement('section');const text=document.createElement('p');text.textContent=[x.player,x.team,x.country,x.division,x.goals,x.state,'terms '+x.terms,x.publisher].join(' · ');card.append(text);const reports=d.reports.filter(y=>y.publisher===x.publisher);for(const y of reports){const p=document.createElement('p');p.textContent='Report: '+y.reason+' ('+y.count+')';card.append(p)}
-for(const action of ['approve','reject','ban','unban','erase']){const b=document.createElement('button');b.textContent=action;b.type='button';b.disabled=action==='approve'&&x.terms!==1;b.onclick=async()=>{if(!confirm(action+' this publisher?'))return;try{await api('/v1/moderation',{publisher:x.publisher,action});await loadModeration()}catch(_){document.getElementById('moderation-status').textContent='Action failed'}};card.append(b)}box.append(card)}
-for(const publisher of d.banned){if(d.entries.some(x=>x.publisher===publisher))continue;const b=document.createElement('button');b.textContent='Lift suspension '+publisher;b.onclick=async()=>{try{await api('/v1/moderation',{publisher,action:'unban'});await loadModeration()}catch(_){document.getElementById('moderation-status').textContent='Action failed'}};box.append(b)}document.getElementById('moderation-status').textContent='Loaded';};
-document.getElementById('moderation-form').onsubmit=async e=>{e.preventDefault();admin=mt.value;mt.value='';try{await loadModeration()}catch(_){admin='';document.getElementById('moderation-status').textContent='Unavailable or incorrect token'}};
-window.addEventListener('pagehide',()=>{admin=''});setInterval(()=>{admin='';document.getElementById('moderation-status').textContent='For security, enter the token again before the next action'},10*60*1000);
-</script>
-
-<h2>Privacy requests</h2><p>Pending requests suspend automatic usage on the requesting device. Grant an applicable objection; only the requester can withdraw it. For correspondence, use the public case reference, never ask for its secret token.</p>
-<form id="rights-form"><input id="rights-token" type="password" autocomplete="off" placeholder="Administrator token" required><button>Load privacy requests</button></form>
-<p id="rights-status"></p><div id="rights"></div>
-<script>
-let rightsAdmin='',rightsOffset=0;
-const rightsApi=async(data)=>{const r=await fetch('/v1/privacy/admin'+(data?'':'?offset='+rightsOffset),{method:data?'POST':'GET',headers:{Authorization:'Bearer '+rightsAdmin,'Content-Type':'application/json'},body:data?JSON.stringify(data):undefined,cache:'no-store'});if(!r.ok)throw Error();return r.status===204?{}:r.json()};
-const loadRights=async()=>{const d=await rightsApi();const box=document.getElementById('rights');box.replaceChildren();for(const [label,offset] of [['Previous',Math.max(0,d.offset-100)],['Next',d.next]]){const b=document.createElement('button');b.textContent=label;b.disabled=offset===null||offset===d.offset;b.onclick=async()=>{rightsOffset=offset;try{await loadRights()}catch(_){document.getElementById('rights-status').textContent='Unavailable'}};box.append(b)}for(const x of d.entries){const p=document.createElement('p');p.textContent=[x.reference,x.status,x.created,x.updated].join(' · ');box.append(p);if(x.status==='pending'){const b=document.createElement('button');b.textContent='Grant objection';b.onclick=async()=>{if(!confirm('Grant '+x.reference+'? Collection stays suspended.'))return;try{await rightsApi({reference:x.reference,action:'grant'});await loadRights()}catch(_){document.getElementById('rights-status').textContent='Action failed'}};box.append(b)}}document.getElementById('rights-status').textContent='Loaded '+d.total+' requests'};
-document.getElementById('rights-form').onsubmit=async e=>{e.preventDefault();const t=document.getElementById('rights-token');rightsAdmin=t.value;t.value='';try{await loadRights()}catch(_){rightsAdmin='';document.getElementById('rights-status').textContent='Unavailable or incorrect token'}};
-window.addEventListener('pagehide',()=>{rightsAdmin=''});setInterval(()=>{rightsAdmin='';document.getElementById('rights-status').textContent='Enter the token again before the next action'},10*60*1000);
-</script>
-
-</html>
+const number=new Intl.NumberFormat('pt-PT');
+const day=s=>{const [y,m,d]=s.split('-');return d+'/'+m+'/'+y};
+document.getElementById('form').onsubmit=async e=>{
+ e.preventDefault();const token=document.getElementById('token');const secret=token.value;token.value='';
+ const status=document.getElementById('status');const stats=document.getElementById('stats');stats.hidden=true;status.textContent='A carregar…';
+ try{
+  const r=await fetch('/v1/activity',{headers:{Authorization:'Bearer '+secret},cache:'no-store'});
+  if(!r.ok)throw Error();const data=await r.json();
+  document.getElementById('opens').textContent=number.format(data.opens);
+  document.getElementById('closes').textContent=number.format(data.closes);
+  document.getElementById('period').textContent=day(data.start)+' a '+day(data.end)+' · UTC';
+  const rows=document.getElementById('rows');rows.replaceChildren();
+  for(const item of data.days){const tr=document.createElement('tr');for(const value of [day(item.day),number.format(item.opens),number.format(item.closes)]){const td=document.createElement('td');td.textContent=value;tr.append(td)}rows.append(tr)}
+  stats.hidden=false;status.textContent='';
+ }catch(_){status.textContent='Não foi possível carregar. Verifica o token e tenta novamente.'}
+};
+</script></html>
