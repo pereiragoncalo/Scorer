@@ -98,7 +98,7 @@ jobs:
           if ! gh release view world-1.0-1030017 >/dev/null 2>&1; then
             gh release create world-1.0-1030017 --target "$GITHUB_SHA" --prerelease --title "Scorer World 1.0 (1030017) - deformable near-post nets" --notes-file docs/RELEASE_1.0_1030017.md
           fi
-          gh release upload world-1.0-1030017 Scorer-World-1.0-1030017-unsigned.aab docs/RELEASE_1.0_1030017_artifacts.json tools/play/sign_local_bundle.py tools/play/bastion_bundle_1030017.py docs/play/DEFORMABLE_NETS_1030017.md --clobber
+          gh release upload world-1.0-1030017 Scorer-World-1.0-1030017-unsigned.aab docs/RELEASE_1.0_1030017_artifacts.json tools/play/sign_local_bundle.py tools/play/bastion_bundle_1030017.py docs/play/DEFORMABLE_NETS_1030017.md docs/DEFORMABLE_NETS.md docs/data/deformable_nets_1030017/near-post-normal.mp4 docs/data/deformable_nets_1030017/near-post-quarter-speed.mp4 docs/data/deformable_nets_1030017/pocket.png docs/data/deformable_nets_1030017/simulator.png --clobber
 
   names:
     if: ${{ inputs.deliver_names }}
