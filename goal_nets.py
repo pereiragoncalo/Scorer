@@ -49,7 +49,7 @@ def box_point(g,surface,u,v):
     return g.project(x-left+right,y-rear,z+roof)
 
 @lru_cache(maxsize=32)
-def lattice(width,height,mesh):
+def lattice(width,height,mesh,cell=.24):
     """Unique physical line segments, clipped to a rectangular unrolled sheet."""
     edges={}
     def add(a,b):
@@ -63,7 +63,7 @@ def lattice(width,height,mesh):
         if lo>=hi:return
         aa=(round(a[0]+dx*lo,7),round(a[1]+dy*lo,7));bb=(round(a[0]+dx*hi,7),round(a[1]+dy*hi,7))
         if aa!=bb:edges[tuple(sorted((aa,bb)))]=(aa,bb)
-    size=.15
+    size=cell*.625
     if mesh=='hexagon':
         step=math.sqrt(3)*size
         for column in range(-1,math.ceil(width/(1.5*size))+2):
@@ -72,10 +72,10 @@ def lattice(width,height,mesh):
                 points=tuple((cx+size*math.cos(i*math.pi/3),cy+size*math.sin(i*math.pi/3)) for i in range(6))
                 for i in range(6):add(points[i],points[(i+1)%6])
     else:
-        for i in range(math.ceil(width/.24)+1):
-            x=width*i/math.ceil(width/.24);add((x,0),(x,height))
-        for i in range(math.ceil(height/.24)+1):
-            y=height*i/math.ceil(height/.24);add((0,y),(width,y))
+        for i in range(math.ceil(width/cell)+1):
+            x=width*i/math.ceil(width/cell);add((x,0),(x,height))
+        for i in range(math.ceil(height/cell)+1):
+            y=height*i/math.ceil(height/cell);add((0,y),(width,y))
     return tuple(edges.values())
 
 def draw_net(g):

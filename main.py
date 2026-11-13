@@ -492,17 +492,8 @@ class StrikerGame(Widget):
 
     def project(self, x: float, y: float, z: float) -> tuple[float, float]:
         """Projeção perspetiva vista da bancada central elevada."""
-        center_x, center_y, focal = self.camera_values()
-        relative = (
-            x - CAMERA_POSITION[0],
-            y - CAMERA_POSITION[1],
-            z - CAMERA_POSITION[2],
-        )
-        depth = max(0.05, dot3(relative, CAMERA_FORWARD))
-        return (
-            center_x + focal * dot3(relative, CAMERA_RIGHT) / depth,
-            center_y + focal * dot3(relative, CAMERA_UP) / depth,
-        )
+        from goal_projection import project_point
+        return project_point(x,y,z,*self.camera_values())
 
 
     def unproject_goal(self, sx: float, sy: float) -> tuple[float, float]:
@@ -1359,6 +1350,9 @@ class StrikerGame(Widget):
         frame_dt = clamp(dt, 0.0, 0.12)
         self.elapsed += frame_dt
         self.state_age += frame_dt
+        from net_presentation import advance as advance_net
+        if self.view!='shot' or self.state in (self.STATE_AIMING,self.STATE_BUILDUP):
+            advance_net(self,frame_dt)
         if self._career_started and self.elapsed >= self._next_reward_poll:
             self._next_reward_poll = self.elapsed + 1.0
             self._poll_ad_reward()
@@ -1398,6 +1392,7 @@ class StrikerGame(Widget):
                 self._update_goalkeeper_shot(physics_dt)
                 if self.ball.active:
                     self._update_ball(physics_dt)
+                advance_net(self,physics_dt)
                 remaining -= physics_dt
 
 
@@ -2633,6 +2628,7 @@ class StrikerGame(Widget):
         old_y: Optional[float] = None,
         old_z: Optional[float] = None,
     ) -> None:
+        self._net_impact_velocity=(self.ball.vx,self.ball.vy,self.ball.vz)
         if self.goal_net_style.structure=="box":
             from goal_nets import collide_box
             collide_box(self,old_x,old_y,old_z);return
@@ -2800,6 +2796,9 @@ class StrikerGame(Widget):
         self.ripples.append(
             NetRipple(surface, clamp(u, 0.0, 1.0), clamp(v, 0.0, 1.0), amplitude)
         )
+        from net_presentation import impact
+        impact(self,surface,(self.ball.x,self.ball.y,self.ball.z),
+               getattr(self,'_net_impact_velocity',(self.ball.vx,self.ball.vy,self.ball.vz)))
 
 
     # ------------------------------------------------------------------
@@ -2865,6 +2864,8 @@ class StrikerGame(Widget):
         self._randomize_aim_pattern()
         self._choose_shot_origin()
         self.ripples.clear()
+        from net_presentation import reset as reset_net
+        reset_net(self)
         self.state = self.STATE_AIMING
         self.state_age = 0.0
         self.result_text = ""
@@ -5108,23 +5109,21 @@ class StrikerGame(Widget):
 
 
     def _draw_goal_net(self) -> None:
-        if self.goal_net_style.structure=="box" or self.goal_net_style.mesh=="hexagon":
-            from goal_nets import draw_net
-            draw_net(self);return
-        # Véu contínuo: recua horizontalmente nos pequenos ferros dos cantos e
-        # só depois cai na diagonal até ao relvado, sem fundo vertical.
-        # Fio claro e fino. A opacidade anterior acumulava-se nas dezenas de
-        # linhas e fazia a rede parecer uma superfície azul preenchida.
-        Color(*((0.87, 0.94, 0.98, 0.52) if self.desktop_windows else (0.96, 0.97, 0.93, 0.84)))
-        # Células de cerca de 24 cm: mais visíveis no telemóvel e mais leves
-        # de animar do que a antiga malha excessivamente fina.
-        self._draw_net_surface("back", math.ceil(self.goal_width/.26) if self.desktop_windows else 30, 15)
+        from net_presentation import ensure,ball_position
+        from net_render import NetRenderer
+        cloth=ensure(self)
+        low=math.dist(self.project(-self.goal_half_width,0,0),self.project(self.goal_half_width,0,0))<160
+        key=(id(cloth),self.goal_net_style.mesh,low)
+        if getattr(self,'_net_render_key',None)!=key:
+            self._net_renderer=NetRenderer(cloth,self.goal_net_style.mesh,low);self._net_render_key=key
+        ball=ball_position(self) if self.result_text=='GOAL!' and cloth.contact else None
+        self._net_renderer.draw(self.canvas,self.project,(self.pos,self.size,self.desktop_windows),ball)
 
-
-        # As laterais repetem o perfil completo, em vez de serem triângulos.
-        Color(*((0.78, 0.88, 0.92, 0.48) if self.desktop_windows else (0.94, 0.95, 0.91, 0.86)))
-        self._draw_side_net("left")
-        self._draw_side_net("right")
+    def _draw_net_foreground(self):
+        renderer=getattr(self,'_net_renderer',None)
+        if renderer is not None and renderer.cloth.contact and self.result_text=='GOAL!':
+            from net_presentation import ball_position
+            renderer.draw(self.canvas,self.project,(self.pos,self.size,self.desktop_windows),ball_position(self),foreground=True)
 
 
     def _draw_net_surface(self, surface: str, u_steps: int, v_steps: int) -> None:
@@ -5361,9 +5360,11 @@ class StrikerGame(Widget):
             from celebrations import active
             if active(self):return
         ball = self.ball
-        bx, by = self.project(ball.x, ball.y, ball.z)
-        ground_x, ground_y = self.project(ball.x, ball.y, 0.01)
-        scale = self.pixels_per_meter(ball.x, ball.y, ball.z)
+        from net_presentation import ball_position
+        x,y,z=ball_position(self)
+        bx, by = self.project(x,y,z)
+        ground_x, ground_y = self.project(x,y,0.01)
+        scale = self.pixels_per_meter(x,y,z)
         radius = max(3.5 if self.desktop_windows else 6.0, ball.radius * scale)
 
 
@@ -5371,6 +5372,7 @@ class StrikerGame(Widget):
         Ellipse(pos=(ground_x - radius * 1.15, ground_y - radius * 0.35), size=(radius * 2.3, radius * 0.70))
         from retro_props import ball as draw_ball_sprite
         draw_ball_sprite(self,bx,by,radius)
+        self._draw_net_foreground()
 
 
     def _draw_aim_marker(self) -> None:
