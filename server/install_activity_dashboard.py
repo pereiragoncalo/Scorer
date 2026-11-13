@@ -1,5 +1,5 @@
 """Install only the 30-day activity dashboard on the existing bastion service."""
-import argparse,base64,gzip,hashlib,json,os,shutil,subprocess,tempfile,time
+import argparse,base64,hashlib,json,os,shutil,subprocess,tempfile,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 FILES=('server/usage_collector.py','server/dashboard.html','server/management.html')
@@ -8,7 +8,7 @@ BASELINE=None
 
 def sources():
  if PAYLOAD is None:return {name:(ROOT/name).read_bytes() for name in FILES}
- packed=json.loads(gzip.decompress(base64.b64decode(PAYLOAD)));data={k:base64.b64decode(v['data']) for k,v in packed.items()}
+ packed=json.loads(base64.b64decode(PAYLOAD));data={k:base64.b64decode(v['data']) for k,v in packed.items()}
  if set(data)!=set(FILES):raise ValueError('Unexpected file list')
  for name,raw in data.items():
   if hashlib.sha256(raw).hexdigest()!=packed[name]['sha256']:raise ValueError('Payload mismatch')
