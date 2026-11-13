@@ -3306,3 +3306,13 @@ research, saves and signing materials. Retry produced unsigned 1030018 AAB,
 Full Android static audit and owner Play/phone acceptance recorded separately.
 Primary workspace main.py/.gitignore/menu-test/mode-state WIP excluded by using
 an isolated clean worktree and production staging.
+
+1030018 full audit passed: bundletool validation, com.clemir.scorerworld/version
+1030018, INTERNET/ACCESS_NETWORK_STATE only, 118 aligned ELF libraries and 16 KB
+ZIP request, unsigned owner-signing candidate, and exact compiled runtime source
+(including net_drape/net_presentation/goal_nets). All original 248 sprite frames /
+35 sheets matched staged bytes. Publisher fixtures: 25 cases, 24 passed and the
+existing host-JDK fixture skipped. No Google Play API called from cloud. Existing
+safety settings and update-gate behaviour retained. Bastion handoff pins the new
+bundle/payload and original upload certificate; public minimum must stay zero
+until intended testers actually receive this build through Play.

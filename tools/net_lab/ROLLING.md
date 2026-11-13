@@ -84,3 +84,11 @@ near the left post at mid height. Verified first side contact at .125 s, rear
 contact at .192 s, then descent and rolling to rest inside the goal. Base pins
 and rear tie limits are unchanged. The video uses 50% playback and has no game
 build or integration side effects.
+
+### World 1030018 integration
+
+After owner approval, the same solver moved to root `net_drape.py`. This lab
+module is now a compatibility import of that implementation. `net_presentation`
+uses a separate read-only-to-game-state display sphere after a legal goal. The
+lab UI/presets/capture files remain excluded from the Android package. Earlier
+simulation-only notes above describe those earlier deliveries, not this release.
