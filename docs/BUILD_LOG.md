@@ -3371,3 +3371,12 @@ bytecode matches staged source including both corrected net modules; 248 sprite
 frames/35 sheets unchanged. No simulator UI, reference captures, signing keys or
 service-account credentials in the Android package. Physical phone test remains
 the owner's next step after internal Play delivery.
+
+1030019 delivery complete: uploader workflow43445374100 and AAB workflow43445536170
+succeeded. Anonymous HTTPS downloads of full118193176-byte AAB, pinned bootstrap,
+signing helper, metadata, handoff and uploader match local SHA256 bytes. Uploader
+SHA256 ec1404c13051b6faa41f7e03d81663a7a09651bc1163d8a40c29bf6ab4df5649.
+Temporary aab-upload-1.0-1030019 branch removed after verification. No live Play
+API, owner key/signature or version-policy change performed by cloud. Owner's
+existing-bastion upload and after-availability mandatory activation commands are
+included in the public handoff. Primary unrelated WIP remains preserved.
