@@ -47,13 +47,21 @@ class View(StencilView):
    Color(.95,.97,.98,1);Line(points=[*self.project(-hw,0,0),*self.project(-hw,0,h),*self.project(hw,0,h),*self.project(hw,0,0)],width=3)
    for x in (-hw-.35,0,hw+.35):
     Color(.38,.45,.46,1);Line(points=[*self.project(x,-g.depth-1,0),*self.project(x,-g.depth-1,h+.65)],width=2)
-    Color(.8,.85,.81,.8);Line(points=[*self.project(x,-g.depth-1,h+.6),*self.project(max(-hw,min(hw,x)),-g.depth,h)],width=.7)
+    Color(.8,.85,.81,.8)
+    if hasattr(r.cloth,'tethers'):
+     tie=min(r.cloth.tethers,key=lambda item:abs(item[1][0]-x));index,endpoint,_=tie
+     end=r.cloth.positions[index]
+     # Fixed pole end, moving net end; the cord bows slightly between them.
+     midpoint=tuple((endpoint[i]+end[i])*.5-(.035 if i==2 else 0.) for i in range(3))
+     Line(points=[*self.project(*endpoint),*self.project(*midpoint),*self.project(*end)],width=1.)
+     Color(1,.7,.22,1);Ellipse(pos=tuple(q-2 for q in self.project(*endpoint)),size=(4,4))
+    else:Line(points=[*self.project(x,-g.depth-1,h+.6),*self.project(max(-hw,min(hw,x)),-g.depth,h)],width=.7)
 
 class Demo(App):
  def build(self):
   self.replays=([RollingReplay('sagged',speed,height) for height in (.22,1.1,2.05) for speed in (4.,9.,18.)] if options.matrix else [RollingReplay('tight'),RollingReplay('slack')]);self.views=[];self.frame=0;self.acc=0.
   root=BoxLayout(orientation='vertical',padding=8,spacing=6)
-  root.add_widget(Label(text=('MALHA '+('HEXAGONAL' if options.matrix=='hexagon' else 'QUADRADA')+' · MAIS FOLGA · BASE FIXA NA RELVA' if options.matrix else 'BASE FIXA NA RELVA · FOLGA APENAS NA MALHA SUSPENSA'),size_hint_y=None,height=32,font_size=17))
+  root.add_widget(Label(text=('MALHA '+('HEXAGONAL' if options.matrix=='hexagon' else 'QUADRADA')+' · MAIS DEFORMAÇÃO · BASE FIXA · CORDAS FLEXÍVEIS' if options.matrix else 'BASE FIXA NA RELVA · FOLGA APENAS NA MALHA SUSPENSA'),size_hint_y=None,height=32,font_size=17))
   panels=GridLayout(cols=3,spacing=8) if options.matrix else BoxLayout(spacing=10)
   for index,r in enumerate(self.replays):
    column=BoxLayout(orientation='vertical');column.add_widget(Label(text=((('BAIXA','MÉDIA','ALTA')[index//3]+' · '+('LENTA 4 m/s','MÉDIA 9 m/s','RÁPIDA 18 m/s')[index%3]) if options.matrix else r.material.label),size_hint_y=None,height=36,font_size=17 if options.matrix else 22))
@@ -74,7 +82,7 @@ class Demo(App):
   if self.frame>=options.frames:
    Clock.unschedule(self.update)
    data=[]
-   for r in self.replays:data.append({'material':r.material.label,'final_position':r.ball,'peak_deformation':r.peak,'stop_time':r.stop_time,'history':r.history})
+   for r in self.replays:data.append({'material':r.material.label,'final_position':r.ball,'peak_deformation':r.peak,'tie_yield':getattr(r.cloth,'tie_peak',0.),'stop_time':r.stop_time,'history':r.history})
    (options.capture/'metrics.json').write_text(json.dumps(data,indent=2));Clock.schedule_once(lambda _:self.stop(),.05)
 
 if __name__=='__main__':Demo().run()

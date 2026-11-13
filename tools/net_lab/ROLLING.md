@@ -36,3 +36,18 @@ impulses are enabled. The sagged profile uses .45 slack (previous slack profile:
 use the same continuum cloth solver and material parameters so the comparison
 isolates mesh appearance; it does not model different cord-level tensile
 properties for the two knitting patterns. Videos play at 50% speed.
+
+### Flexible rear ties / deeper pockets
+
+The `sagged` experiment now adds extra hanging fabric between boundary supports,
+allows larger link extension and uses softer wave transmission. The three rear
+upper support particles are elastic rather than hard pins. Each tie has an
+immutable pole endpoint and a net endpoint with at most 12 cm yield; a stiff
+restoring spring returns that attachment. Turf-contact vertices and the front
+frame remain exact hard pins. The renderer connects each fixed pole endpoint to
+the actual moving cloth particle, marking the fixed end in amber. Interior
+fabric may deform much further than the ties. This is a qualitative soft-tie
+constraint model, not a separate rope-particle simulation.
+
+Updated captures are in `docs/data/net_flexible_ties/`. No production module,
+Android version, save or game asset changes are involved.

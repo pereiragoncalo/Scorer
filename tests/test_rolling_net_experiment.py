@@ -47,3 +47,16 @@ class RollingExperiment(unittest.TestCase):
       if 'back' in r.contacts and contact_height is None:contact_height=r.ball[2]
      self.assertIsNotNone(contact_height)
      self.assertLess(abs(contact_height-height),.20)
+ def test_soft_ties_have_fixed_pole_ends_and_bounded_net_end_yield(self):
+  r=RollingReplay('sagged',18.,2.05);c=r.cloth
+  endpoints=tuple(tie[1] for tie in c.tethers)
+  for _ in range(240):
+   r.one_step()
+   self.assertEqual(tuple(tie[1] for tie in c.tethers),endpoints)
+   for index,endpoint,length in c.tethers:
+    self.assertFalse(c.pinned[index])
+    self.assertLessEqual(math.dist(c.positions[index],c.rest[index]),c.TIE_YIELD+1e-9)
+    self.assertLessEqual(math.dist(c.positions[index],endpoint),length+c.TIE_YIELD+1e-9)
+  self.assertGreater(c.tie_peak,.001)
+  # The suspended cloth can form a deep pocket while ties give only slightly.
+  self.assertGreater(r.peak,c.tie_peak*5)

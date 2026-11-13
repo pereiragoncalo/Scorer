@@ -3242,3 +3242,20 @@ localpath only). Independent anonymousHTTPS200 script/docs/SHA downloads match
 source; publisherSHA2564547252192d2ee1fe70c661fe8699882541655ba90c4cae92e9becf8e60f3476.
 Public update preserves existing private JSON/P12/signedAAB; owner rerun required.
 No successful commit or Play install inferred from this fix/delivery.
+
+## 2026-11-13 — simulation-only deeper cloth deformation and compliant ties
+
+Owner correction: keep all turf points fixed, increase interior net deformation,
+and let rear suspension cords yield only slightly at the net while their pole
+ends remain fixed. Added a lab-only cloth subclass with extra suspended sag,
+softer link transmission/larger stretch reserve and three elastic rear ties
+limited to 12 cm displacement. Rendered cords follow the actual cloth support
+particles; fixed external ends are marked. Square/hexagonal matrices preserve
+three speeds and three impact heights at 50% playback. No production integration,
+Android compilation, version increment, signing or upload.
+
+Validation: `python -m unittest tests.test_rolling_net_experiment -q` — four tests
+passed. Covers all nine speed/height trajectories, exact turf pins, immutable
+external tie endpoints, bounded net-end displacement and nonzero elastic yield.
+`python -m py_compile tools/net_lab/rolling_contact.py tools/net_lab/rolling_demo.py`
+and `git diff --check` passed.

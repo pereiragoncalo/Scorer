@@ -13,16 +13,57 @@ class Material:
 
 MATERIALS={
  'tight':Material('REDE ESTICADA',NetConfig(net_slack=.015,net_stiffness=78,net_damping=2.,net_max_stretch=1.16,net_wave_propagation=115),.08,.25,.35),
- 'sagged':Material('REDE COM MAIS FOLGA',NetConfig(net_slack=.45,net_stiffness=8,net_damping=11.5,net_max_stretch=2.0,net_wave_propagation=18),.75,.025),
+ 'sagged':Material('REDE COM MAIS FOLGA',NetConfig(net_slack=.45,net_stiffness=8,net_damping=10.5,net_max_stretch=2.5,net_wave_propagation=8),.75,.025),
  'slack':Material('REDE SOLTA',NetConfig(net_slack=.38,net_stiffness=10,net_damping=11.5,net_max_stretch=2.0,net_wave_propagation=18),.75,.025),
 }
+
+class TetheredCloth(NetCloth):
+    """Lab-only soft rear ties; turf and front goal frame remain hard pins."""
+    TIE_YIELD=.12
+
+    def _rest_point(self,surface,u,v):
+        point=list(super()._rest_point(surface,u,v))
+        # More hanging fabric between supports, with zero offset at boundaries.
+        envelope=math.sin(math.pi*u)*math.sin(math.pi*v)
+        point[2]=max(0.,point[2]-.16*envelope)
+        if surface=='back':point[1]-=.16*envelope
+        else:point[0]+=(-1 if surface=='left' else 1)*.16*envelope
+        return tuple(point)
+
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        g=self.geometry;self.tethers=[];self.tie_peak=0.
+        for x in (-g.width/2,0.,g.width/2):
+            index=min(range(len(self.rest)),key=lambda i:math.dist(self.rest[i],(x,-g.depth,g.height)))
+            self.pinned[index]=False
+            endpoint=(x+(-.35 if x<0 else .35 if x>0 else 0),-g.depth-1,g.height+.6)
+            self.tethers.append((index,endpoint,math.dist(self.rest[index],endpoint)))
+
+    def constrain_tethers(self):
+        for index,endpoint,length in self.tethers:
+            point=self.positions[index];rest=self.rest[index]
+            offset=math.dist(point,rest)
+            if offset>self.TIE_YIELD:
+                for axis in range(3):
+                    correction=(rest[axis]+(point[axis]-rest[axis])*self.TIE_YIELD/offset)-point[axis]
+                    point[axis]+=correction;self.previous[index][axis]+=correction
+            self.tie_peak=max(self.tie_peak,math.dist(point,rest))
+
+    def _step(self):
+        super()._step()
+        # Stiff elastic ties give slightly at the net end. Their pole ends are
+        # immutable world coordinates, independent of the moving net particles.
+        for index,endpoint,length in self.tethers:
+            for axis in range(3):
+                self.previous[index][axis]+=(self.positions[index][axis]-self.rest[index][axis])*140*self.STEP**2
+        self.constrain_tethers()
 
 class RollingReplay:
     STEP=1/120
     def __init__(self,variant='slack',speed=6.8,height=None):
         self.airborne=height is not None
         self.material=MATERIALS[variant];self.geometry=NetGeometry('box')
-        self.cloth=NetCloth(self.geometry,self.material.config,coarse=False)
+        self.cloth=(TetheredCloth if variant=='sagged' else NetCloth)(self.geometry,self.material.config,coarse=False)
         # Every point touching the turf is an anchor, for both materials.
         # Slack belongs to the suspended mesh, never a sliding ground hem.
         self.ground_anchors=tuple(i for i,p in enumerate(self.cloth.rest) if abs(p[2])<1e-6)
@@ -111,6 +152,7 @@ class RollingReplay:
             surface,normal,weights,gap,_=item;u,w=self.geometry.uv_at(surface,b)
             c.contact={'surface':surface,'u':u,'v':w,'normal':normal,'point':tuple(b),'time':c.time,'radius':self.radius,'speed':horizontal}
             c.generation+=1
+        if isinstance(c,TetheredCloth):c.constrain_tethers()
         self.tick+=1;self.ball=tuple(b);self.contacts=sorted(set(x[0] for x in contacts))
         travel=math.dist(old,b);self.distance+=travel;self.roll+=-(b[1]-old[1])/self.radius
         displacement=c.displacement
