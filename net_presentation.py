@@ -5,7 +5,7 @@ from net_drape import MATERIALS,ReferenceCloth,RollingReplay
 
 def ensure(game):
     config=getattr(game,'_net_config',MATERIALS['reference'].config)
-    geometry=NetGeometry(game.goal_net_style.structure,game.goal_width,game.goal_height)
+    geometry=NetGeometry(game.goal_net_style.structure,game.goal_width,game.goal_height,depth=game.goal_net_depth)
     coarse=not game.desktop_windows
     key=(geometry,config,coarse)
     if getattr(game,'_net_cloth_key',None)!=key:

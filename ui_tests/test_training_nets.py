@@ -83,3 +83,22 @@ class TrainingNets(unittest.TestCase):
       for item in g.canvas.children:
        if isinstance(item,Mesh):self.assertLessEqual(len(item.indices),24000)
   finally:Window.size=old
+
+ def test_new_depths_align_visible_mesh_cloth_and_ball_contacts(self):
+  from net_presentation import ensure
+  with isolated_game() as g:
+   g.draw=lambda:None
+   for style in (NetStyle('box','square',1.80),NetStyle('veil','hexagon',3.50)):
+    g._goal_net_style_override=style
+    cloth=ensure(g)
+    self.assertEqual(cloth.geometry.depth,style.depth)
+    self.assertAlmostEqual(g._veil_profile(1)[0],-style.depth)
+    self.assertTrue(all(endpoint[1]<-style.depth for _,endpoint,_ in cloth.tethers))
+    if style.structure=='box':
+     b=g.ball;b.x,b.y,b.z=0,-8,1;b.vx,b.vy,b.vz=0,-60,0
+     g._collide_net(0,-.1,1)
+     self.assertAlmostEqual(b.y,-style.depth+b.radius);self.assertGreater(b.vy,0)
+    else:
+     self.assertAlmostEqual(g.veil_touch_depth,3.)
+     self.assertGreater(g._veil_height_at_y(-2.2),0)
+     self.assertAlmostEqual(g._veil_amount_at_y(-style.depth),1.)

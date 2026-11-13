@@ -388,21 +388,33 @@ class StrikerGame(Widget):
         from goal_nets import stadium_style
         return stadium_style(self)
 
+    @property
+    def goal_net_depth(self):return self.goal_net_style.depth
+
+    @property
+    def veil_touch_depth(self):return self.goal_net_depth-(GOAL_DEPTH-VEIL_TOUCH_DEPTH)
+
+    @property
+    def veil_slope_length(self):return math.hypot(self.veil_touch_depth-VEIL_TOP_DEPTH,self.goal_height)
+
+    @property
+    def veil_path_length(self):return VEIL_TOP_DEPTH+self.veil_slope_length+(GOAL_DEPTH-VEIL_TOUCH_DEPTH)
+
     def _veil_profile(self, amount: float) -> tuple[float, float]:
         """Perfil do teto curto e da queda do véu, medido pela malha."""
         if self.goal_net_style.structure=="box":
             from goal_nets import box_profile
-            return box_profile(amount,self.goal_height)
-        distance = clamp(amount, 0.0, 1.0) * self.goal_geometry.veil_path_length
+            return box_profile(amount,self.goal_height,self.goal_net_depth)
+        distance = clamp(amount, 0.0, 1.0) * self.veil_path_length
         if distance <= VEIL_TOP_DEPTH:
             return -distance, self.goal_height
 
 
-        if distance <= VEIL_TOP_DEPTH + self.goal_geometry.veil_slope_length:
-            slope_amount = (distance - VEIL_TOP_DEPTH) / self.goal_geometry.veil_slope_length
+        if distance <= VEIL_TOP_DEPTH + self.veil_slope_length:
+            slope_amount = (distance - VEIL_TOP_DEPTH) / self.veil_slope_length
             return (
                 -VEIL_TOP_DEPTH
-                - (VEIL_TOUCH_DEPTH - VEIL_TOP_DEPTH) * slope_amount,
+                - (self.veil_touch_depth - VEIL_TOP_DEPTH) * slope_amount,
                 self.goal_height * (1.0 - slope_amount)
                 - VEIL_SAG * math.sin(math.pi * slope_amount),
             )
@@ -410,20 +422,20 @@ class StrikerGame(Widget):
 
         # A malha não termina esticada no primeiro contacto com o relvado:
         # sobra uma faixa pousada no chão, como tecido com folga.
-        ground_amount = distance - VEIL_TOP_DEPTH - self.goal_geometry.veil_slope_length
-        return -VEIL_TOUCH_DEPTH - ground_amount, 0.0
+        ground_amount = distance - VEIL_TOP_DEPTH - self.veil_slope_length
+        return -self.veil_touch_depth - ground_amount, 0.0
 
 
     def _veil_height_at_y(self, y: float) -> float:
         """Altura superior da rede num corte lateral da baliza."""
-        depth = clamp(-y, 0.0, GOAL_DEPTH)
+        depth = clamp(-y, 0.0, self.goal_net_depth)
         if self.goal_net_style.structure=="box":return self.goal_height
         if depth <= VEIL_TOP_DEPTH:
             return self.goal_height
-        if depth >= VEIL_TOUCH_DEPTH:
+        if depth >= self.veil_touch_depth:
             return 0.0
         slope_amount = (depth - VEIL_TOP_DEPTH) / (
-            VEIL_TOUCH_DEPTH - VEIL_TOP_DEPTH
+            self.veil_touch_depth - VEIL_TOP_DEPTH
         )
         return (
             self.goal_height * (1.0 - slope_amount)
@@ -433,22 +445,22 @@ class StrikerGame(Widget):
 
     def _veil_amount_at_y(self, y: float) -> float:
         """Converte profundidade física na coordenada contínua da malha."""
-        depth = clamp(-y, 0.0, GOAL_DEPTH)
+        depth = clamp(-y, 0.0, self.goal_net_depth)
         if depth <= VEIL_TOP_DEPTH:
             distance = depth
-        elif depth >= VEIL_TOUCH_DEPTH:
+        elif depth >= self.veil_touch_depth:
             distance = (
                 VEIL_TOP_DEPTH
-                + self.goal_geometry.veil_slope_length
+                + self.veil_slope_length
                 + depth
-                - VEIL_TOUCH_DEPTH
+                - self.veil_touch_depth
             )
         else:
             slope_amount = (depth - VEIL_TOP_DEPTH) / (
-                VEIL_TOUCH_DEPTH - VEIL_TOP_DEPTH
+                self.veil_touch_depth - VEIL_TOP_DEPTH
             )
-            distance = VEIL_TOP_DEPTH + slope_amount * self.goal_geometry.veil_slope_length
-        return clamp(distance / self.goal_geometry.veil_path_length, 0.0, 1.0)
+            distance = VEIL_TOP_DEPTH + slope_amount * self.veil_slope_length
+        return clamp(distance / self.veil_path_length, 0.0, 1.0)
 
 
     def _veil_depth_at_height(self, z: float) -> float:
@@ -456,11 +468,11 @@ class StrikerGame(Widget):
         if z >= self.goal_height:
             return VEIL_TOP_DEPTH
         if z <= 0.0:
-            return VEIL_TOUCH_DEPTH
+            return self.veil_touch_depth
 
 
         low = VEIL_TOP_DEPTH
-        high = VEIL_TOUCH_DEPTH
+        high = self.veil_touch_depth
         for _ in range(26):
             middle = (low + high) * 0.5
             if self._veil_height_at_y(-middle) > z:
@@ -2140,7 +2152,7 @@ class StrikerGame(Widget):
         # Bola que saiu claramente da zona útil.
         if not self.outcome_registered:
             if (
-                ball.y < -GOAL_DEPTH - 1.2
+                ball.y < -self.goal_net_depth - 1.2
                 or abs(ball.x) > 22.0
                 or ball.y > self.shot_origin_y + 4.0
             ):
@@ -2649,11 +2661,11 @@ class StrikerGame(Widget):
                 sample_y = old_y + (ball.y - old_y) * amount
                 sample_z = old_z + (ball.z - old_z) * amount
                 valid = (
-                    -VEIL_TOUCH_DEPTH <= sample_y <= -VEIL_TOP_DEPTH
+                    -self.veil_touch_depth <= sample_y <= -VEIL_TOP_DEPTH
                     and abs(sample_x) <= hw + ball.radius
                 )
                 if valid:
-                    slope_run = VEIL_TOUCH_DEPTH - VEIL_TOP_DEPTH
+                    slope_run = self.veil_touch_depth - VEIL_TOP_DEPTH
                     slope_amount = clamp(
                         (-sample_y - VEIL_TOP_DEPTH) / slope_run,
                         0.0,
@@ -2712,10 +2724,10 @@ class StrikerGame(Widget):
 
 
         if (
-            -VEIL_TOUCH_DEPTH <= ball.y <= -VEIL_TOP_DEPTH
+            -self.veil_touch_depth <= ball.y <= -VEIL_TOP_DEPTH
             and within_width
         ):
-            slope_run = VEIL_TOUCH_DEPTH - VEIL_TOP_DEPTH
+            slope_run = self.veil_touch_depth - VEIL_TOP_DEPTH
             slope_amount = clamp(
                 (-ball.y - VEIL_TOP_DEPTH) / slope_run, 0.0, 1.0
             )
@@ -2749,7 +2761,7 @@ class StrikerGame(Widget):
         # As laterais seguem o perfil poste–ferro curto–queda do véu.
         veil_height = self._veil_height_at_y(ball.y)
         within_side = (
-            -GOAL_DEPTH <= ball.y <= 0.0
+            -self.goal_net_depth <= ball.y <= 0.0
             and 0.0 <= ball.z <= veil_height + ball.radius
         )
         if within_side and ball.x <= -hw + ball.radius and ball.vx < 0.0:
@@ -5125,9 +5137,9 @@ class StrikerGame(Widget):
 
 
         # Fios verticais, distribuídos uniformemente em profundidade.
-        depth_steps = math.ceil(GOAL_DEPTH / mesh_size)
+        depth_steps = math.ceil(self.goal_net_depth / mesh_size)
         for depth_index in range(depth_steps + 1):
-            depth = GOAL_DEPTH * depth_index / depth_steps
+            depth = self.goal_net_depth * depth_index / depth_steps
             y = -depth
             top_z = self._veil_height_at_y(y)
             if top_z < 0.01:
@@ -5148,7 +5160,7 @@ class StrikerGame(Widget):
             z = self.goal_height * height_index / height_steps
             if z < 1e-8:
                 # A última fiada acompanha também a folga pousada no relvado.
-                max_depth = GOAL_DEPTH
+                max_depth = self.goal_net_depth
             else:
                 max_depth = self._veil_depth_at_height(z)
             horizontal_steps = max(1, math.ceil(max_depth / mesh_size))
