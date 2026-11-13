@@ -1,2 +1,4 @@
 
 Simulation-only correction: fixed every net vertex touching the turf in both rolling-contact profiles. Sag and deformation remain confined to the suspended mesh. Two simulation tests pass, including exact anchor positions throughout contact. Regenerated normal-speed and 50% comparison videos. No Android build, version change, or production integration.
+
+Simulation only: square/hexagonal appearance comparison using a more sagged profile, fixed turf anchors, three back-net target heights and three launch speeds (18 cases). Added gravity and vertical contact impulses to the development replay. All three experiment tests pass, including finite trajectories, contact-height checks and immovable turf anchors for all nine physical cases. Captured both matrices at 50% speed; both patterns share the continuum material model. No game build, version bump or upload.

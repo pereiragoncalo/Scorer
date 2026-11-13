@@ -2,15 +2,16 @@
 import argparse,json,math,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
-p=argparse.ArgumentParser(description=__doc__);p.add_argument('--capture',type=Path,required=True);p.add_argument('--frames',type=int,default=300);p.add_argument('--playback',type=float,default=1.);options=p.parse_args();sys.argv=[sys.argv[0]]
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--capture',type=Path,required=True);p.add_argument('--frames',type=int,default=300);p.add_argument('--playback',type=float,default=1.);p.add_argument('--matrix',choices=['square','hexagon']);options=p.parse_args();sys.argv=[sys.argv[0]]
 from kivy.config import Config
-Config.set('graphics','width','1280');Config.set('graphics','height','720')
+Config.set('graphics','width','1280');Config.set('graphics','height','1080' if options.matrix else '720')
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.core.image import Image as CoreImage
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.stencilview import StencilView
 from kivy.graphics import Canvas,Color,Rectangle,Line,Ellipse
 from net_render import NetRenderer
@@ -21,7 +22,7 @@ from tools.net_lab.rolling_contact import RollingReplay
 
 class View(StencilView):
  def __init__(self,replay,**kwargs):
-  super().__init__(**kwargs);self.replay=replay;self.paint=Canvas();self.canvas.add(self.paint);self.renderer=NetRenderer(replay.cloth,'square')
+  super().__init__(**kwargs);self.replay=replay;self.paint=Canvas();self.canvas.add(self.paint);self.renderer=NetRenderer(replay.cloth,options.matrix or 'square')
   self.texture=CoreImage(str(ROOT/'assets/sprites/scene/ball.png')).texture;self.texture.mag_filter=self.texture.min_filter='nearest'
  def project(self,x,y,z):
   focal=self.height/(2*math.tan(math.radians(CAMERA_VERTICAL_FOV)/2))*4.7
@@ -50,12 +51,12 @@ class View(StencilView):
 
 class Demo(App):
  def build(self):
-  self.replays=[RollingReplay('tight'),RollingReplay('slack')];self.views=[];self.frame=0;self.acc=0.
+  self.replays=([RollingReplay('sagged',speed,height) for height in (.22,1.1,2.05) for speed in (4.,9.,18.)] if options.matrix else [RollingReplay('tight'),RollingReplay('slack')]);self.views=[];self.frame=0;self.acc=0.
   root=BoxLayout(orientation='vertical',padding=8,spacing=6)
-  root.add_widget(Label(text='BASE FIXA NA RELVA · FOLGA APENAS NA MALHA SUSPENSA',size_hint_y=None,height=32,font_size=17))
-  panels=BoxLayout(spacing=10)
-  for r in self.replays:
-   column=BoxLayout(orientation='vertical');column.add_widget(Label(text=r.material.label,size_hint_y=None,height=36,font_size=22))
+  root.add_widget(Label(text=('MALHA '+('HEXAGONAL' if options.matrix=='hexagon' else 'QUADRADA')+' · MAIS FOLGA · BASE FIXA NA RELVA' if options.matrix else 'BASE FIXA NA RELVA · FOLGA APENAS NA MALHA SUSPENSA'),size_hint_y=None,height=32,font_size=17))
+  panels=GridLayout(cols=3,spacing=8) if options.matrix else BoxLayout(spacing=10)
+  for index,r in enumerate(self.replays):
+   column=BoxLayout(orientation='vertical');column.add_widget(Label(text=((('BAIXA','MÉDIA','ALTA')[index//3]+' · '+('LENTA 4 m/s','MÉDIA 9 m/s','RÁPIDA 18 m/s')[index%3]) if options.matrix else r.material.label),size_hint_y=None,height=36,font_size=17 if options.matrix else 22))
    view=View(r);self.views.append(view);column.add_widget(view);panels.add_widget(column)
   root.add_widget(panels)
   self.info=Label(size_hint_y=None,height=30,font_size=15);root.add_widget(self.info)

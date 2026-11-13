@@ -13,12 +13,14 @@ class Material:
 
 MATERIALS={
  'tight':Material('REDE ESTICADA',NetConfig(net_slack=.015,net_stiffness=78,net_damping=2.,net_max_stretch=1.16,net_wave_propagation=115),.08,.25,.35),
+ 'sagged':Material('REDE COM MAIS FOLGA',NetConfig(net_slack=.45,net_stiffness=8,net_damping=11.5,net_max_stretch=2.0,net_wave_propagation=18),.75,.025),
  'slack':Material('REDE SOLTA',NetConfig(net_slack=.38,net_stiffness=10,net_damping=11.5,net_max_stretch=2.0,net_wave_propagation=18),.75,.025),
 }
 
 class RollingReplay:
     STEP=1/120
-    def __init__(self,variant='slack',speed=6.8):
+    def __init__(self,variant='slack',speed=6.8,height=None):
+        self.airborne=height is not None
         self.material=MATERIALS[variant];self.geometry=NetGeometry('box')
         self.cloth=NetCloth(self.geometry,self.material.config,coarse=False)
         # Every point touching the turf is an anchor, for both materials.
@@ -31,6 +33,10 @@ class RollingReplay:
         # side first and keeps its longitudinal momentum towards the rear seam.
         self.position=[-self.geometry.width/2+.27,.65,self.radius]
         self.velocity=[-.75,-speed,0.];self.ball=tuple(self.position)
+        if self.airborne:
+            flight=.9/speed
+            self.position=[-3.,-self.geometry.depth+.9,height+4.905*flight*flight]
+            self.velocity=[0.,-speed,0.];self.ball=tuple(self.position)
         self.roll=0.;self.distance=0.;self.contacts=[];self.history=[];self.stop_time=None
 
     def _contact(self,surface):
@@ -62,8 +68,12 @@ class RollingReplay:
         resistance=.55
         if horizontal:
             scale=max(0.,1-resistance*dt/horizontal);v[0]*=scale;v[1]*=scale
-        for axis in range(2):b[axis]+=v[axis]*dt
-        b[2]=self.radius
+        if self.airborne:v[2]-=9.81*dt
+        for axis in range(3 if self.airborne else 2):b[axis]+=v[axis]*dt
+        if b[2]<=self.radius:
+            b[2]=self.radius
+            if self.airborne:v[2]=max(0.,-v[2]*.12)
+        if not self.airborne:b[2]=self.radius
         c.advance(dt)
         contacts=[]
         for _ in range(4):
@@ -84,17 +94,17 @@ class RollingReplay:
             closing=sum(relative[i]*normal[i] for i in range(3))
             if closing<=0:continue
             impulse=(1+self.material.restitution)*closing/denominator
-            for axis in range(2):corrected[axis]-=normal[axis]*impulse/self.mass
+            for axis in range(3 if self.airborne else 2):corrected[axis]-=normal[axis]*impulse/self.mass
             for index,weight in free.items():
-                for axis in range(2):c.previous[index][axis]-=normal[axis]*impulse*weight/self.material.node_mass*dt
+                for axis in range(3 if self.airborne else 2):c.previous[index][axis]-=normal[axis]*impulse*weight/self.material.node_mass*dt
             tangent=[relative[i]-normal[i]*closing for i in range(3)]
             length=math.sqrt(sum(x*x for x in tangent))
             if length:
                 friction=min(length/denominator,self.material.friction*impulse)
-                for axis in range(2):corrected[axis]-=tangent[axis]/length*friction/self.mass
+                for axis in range(3 if self.airborne else 2):corrected[axis]-=tangent[axis]/length*friction/self.mass
                 for index,weight in free.items():
-                    for axis in range(2):c.previous[index][axis]+=tangent[axis]/length*friction*weight/self.material.node_mass*dt
-        self.velocity=[corrected[0],corrected[1],0.]
+                    for axis in range(3 if self.airborne else 2):c.previous[index][axis]+=tangent[axis]/length*friction*weight/self.material.node_mass*dt
+        self.velocity=[corrected[0],corrected[1],corrected[2] if self.airborne else 0.]
         if contacts:
             self.hit=True;c.active=True;c.quiet=0.
             item=next((x for x in contacts if x[0]=='left'),contacts[-1])
