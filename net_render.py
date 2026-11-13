@@ -10,8 +10,8 @@ from goal_nets import lattice
 class NetRenderer:
     def __init__(self,cloth,mesh='square',low_detail=False):
         self.cloth=cloth;self.kind=mesh;self.low_detail=low_detail
-        self.group=InstructionGroup();self.front=InstructionGroup()
-        self.group.add(Color(.94,.97,.92,.76));self.front.add(Color(.97,.99,.95,.86))
+        self.group=InstructionGroup(noadd=True);self.front=InstructionGroup(noadd=True)
+        self.group.add(Color(.94,.97,.92,.76,noadd=True));self.front.add(Color(.97,.99,.95,.86,noadd=True))
         self.batches=[];self._stamp=None;self.rebuilds=0
         g=cloth.geometry;cell=.28 if low_detail else .20
         for surface in ('back','left','right'):
@@ -40,8 +40,8 @@ class NetRenderer:
             # Kivy has a uint16/count limit. Current largest panel is <12000;
             # reject a future pathological topology before touching GLES.
             if len(edges)>24000 or len(weights)>16000:raise ValueError('Net mesh exceeds mobile batch budget')
-            mesh_object=Mesh(vertices=[0.]*(len(weights)*4),indices=edges,mode='lines')
-            front_object=Mesh(vertices=[0.]*(len(weights)*4),indices=[],mode='lines')
+            mesh_object=Mesh(vertices=[0.]*(len(weights)*4),indices=edges,mode='lines',noadd=True)
+            front_object=Mesh(vertices=[0.]*(len(weights)*4),indices=[],mode='lines',noadd=True)
             self.group.add(mesh_object);self.front.add(front_object)
             self.batches.append((weights,edges,mesh_object,front_object))
 

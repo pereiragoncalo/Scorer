@@ -49,6 +49,8 @@ class NetIntegration(unittest.TestCase):
      g._goal_net_style_override=style
      for size in ((1280,591),(960,540),(640,360)):
       Window.size=size;g.size=size;g.draw();r=g._net_renderer;c=r.cloth;objects=[x[2] for x in r.batches]
+      from kivy.graphics import Mesh
+      self.assertFalse(any(isinstance(item,Mesh) for item in g.canvas.children))
       first=r.rebuilds;g.draw();self.assertEqual(first,r.rebuilds)
       for weights,indices,mesh,front in r.batches:
        self.assertLessEqual(len(indices),24000);self.assertTrue(all(math.isfinite(v) for v in mesh.vertices))
