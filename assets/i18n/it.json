@@ -754,5 +754,6 @@
   "Enter a valid public name.": "Inserisci un nome pubblico valido.",
   "No published records yet.": "Nessun record pubblicato.",
   "Offline. Try again when connected.": "Non in linea. Riprova quando sei connesso.",
-  "Saved to send when connected.": "Salvato per inviarlo quando sarai connesso."
+  "Saved to send when connected.": "Salvato per inviarlo quando sarai connesso.",
+  "Play your career locally. I AGREE enables nine aggregate usage counters (openings, closes, careers, training, matches, goals and save/load failures) sent to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. I DO NOT AGREE closes the game without sending statistics. You can stop statistics and erase unsent counts in Help > Settings. Public records require a separate choice at the end of each season. Read the Privacy Policy in Settings.": "ACCETTO attiva nove contatori aggregati (aperture, chiusure, carriere, allenamenti, partite, gol ed errori di salvataggio/caricamento), inviati a stats.clemir.com per migliorare il gioco. Non vengono inviati nomi, file carriera o identificativi del dispositivo. Cloudflare elabora IP e dati di connessione. NON ACCETTO chiude il gioco senza inviare statistiche. Puoi fermare le statistiche ed eliminare i conteggi non inviati in Aiuto > Impostazioni. I record pubblici richiedono una scelta separata alla fine di ogni stagione. Leggi l’Informativa sulla privacy nelle Impostazioni."
 }

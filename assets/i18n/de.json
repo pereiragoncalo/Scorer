@@ -754,5 +754,6 @@
   "Enter a valid public name.": "Gib einen gültigen öffentlichen Namen ein.",
   "No published records yet.": "Noch keine veröffentlichten Einträge.",
   "Offline. Try again when connected.": "Offline. Versuche es mit Verbindung erneut.",
-  "Saved to send when connected.": "Zum Senden bei Verbindung gespeichert."
+  "Saved to send when connected.": "Zum Senden bei Verbindung gespeichert.",
+  "Play your career locally. I AGREE enables nine aggregate usage counters (openings, closes, careers, training, matches, goals and save/load failures) sent to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. I DO NOT AGREE closes the game without sending statistics. You can stop statistics and erase unsent counts in Help > Settings. Public records require a separate choice at the end of each season. Read the Privacy Policy in Settings.": "ICH STIMME ZU aktiviert neun zusammengefasste Zähler (Öffnen, Schließen, Karrieren, Training, Spiele, Tore und Speicher-/Ladefehler), die zur Verbesserung des Spiels an stats.clemir.com gesendet werden. Namen, Karrieredateien und Gerätekennungen werden nicht gesendet. Cloudflare verarbeitet IP- und Verbindungsdaten. ICH STIMME NICHT ZU schließt das Spiel, ohne Statistiken zu senden. Unter Hilfe > Einstellungen kannst du Statistiken stoppen und ungesendete Zähler löschen. Öffentliche Einträge erfordern am Ende jeder Saison eine eigene Entscheidung. Lies die Datenschutzerklärung in den Einstellungen."
 }

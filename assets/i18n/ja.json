@@ -754,5 +754,6 @@
   "Enter a valid public name.": "有効な公開名を入力してください。",
   "No published records yet.": "公開された記録はまだありません。",
   "Offline. Try again when connected.": "オフラインです。接続後に再試行してください。",
-  "Saved to send when connected.": "接続時に送信するため保存しました。"
+  "Saved to send when connected.": "接続時に送信するため保存しました。",
+  "Play your career locally. I AGREE enables nine aggregate usage counters (openings, closes, careers, training, matches, goals and save/load failures) sent to stats.clemir.com to improve the game. No names, career files or device IDs are sent. Cloudflare processes IP and connection data. I DO NOT AGREE closes the game without sending statistics. You can stop statistics and erase unsent counts in Help > Settings. Public records require a separate choice at the end of each season. Read the Privacy Policy in Settings.": "「同意する」で、ゲーム改善のため9種類の集計カウンター（起動、正常終了、キャリア、練習、試合、得点、保存・読込エラー）を有効にし、stats.clemir.comに送信します。名前、キャリアファイル、端末IDは送信しません。CloudflareはIPと接続情報を処理します。 「同意しない」で統計を送信せずゲームを終了します。ヘルプ > 設定で統計を停止し、未送信のカウンターを削除できます。公開記録にはシーズン終了ごとに別の選択が必要です。設定のプライバシーポリシーをご覧ください。"
 }
