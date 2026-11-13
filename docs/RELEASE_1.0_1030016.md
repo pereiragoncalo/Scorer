@@ -1,3 +1,5 @@
+> Superseded by1030017: corrected dynamic side/back seam continuity. Use1030017 and Play uploader1.16.
+
 # Scorer World 1.0 (1030016) — deformable nets
 
 Near-post pockets, propagated waves and damped recovery, with stable anchors and

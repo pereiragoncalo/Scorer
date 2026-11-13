@@ -38,3 +38,5 @@ Compiled edition/channel/public metadata/safety/transfer modules verified: world
 PASS: original AAB remains unsigned; derived inspection APK is not a Play upload
 Unsigned candidate static audit passed. Owner signing and Play acceptance remain pending.
 Original revision2 base plus requested celebrations/high tip: 248 frames, 35 sheets, exact compiled rendering/runtime source; no sprite-lab build tools.
+
+Exact derived APK archive inspected: no net_lab, reference JSON or demonstration videos.
