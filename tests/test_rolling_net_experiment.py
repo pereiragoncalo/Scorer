@@ -109,3 +109,21 @@ class RollingExperiment(unittest.TestCase):
   self.assertLess(r.ball[1],-2.)
   self.assertEqual(r.ball[2],r.radius)
   self.assertLess(math.hypot(*r.velocity[:2]),.03)
+ def test_unloaded_reference_hangs_down_without_outward_pockets(self):
+  from net_drape import ReferenceCloth,MATERIALS
+  from net_cloth import NetGeometry
+  for shape in ('box','veil'):
+   for coarse in (False,True):
+    c=ReferenceCloth(NetGeometry(shape),MATERIALS['reference'].config,coarse)
+    sag_peak=0.
+    for surface,(us,vs,grid) in c.grids.items():
+     for j,v in enumerate(vs):
+      for i,u in enumerate(us):
+       base=c.geometry.point(surface,u,v);rest=c.rest[grid[j][i]]
+       self.assertAlmostEqual(rest[0],base[0],places=6)
+       self.assertAlmostEqual(rest[1],base[1],places=6)
+       self.assertLessEqual(rest[2],base[2]+1e-6)
+       sag_peak=max(sag_peak,base[2]-rest[2])
+    self.assertGreater(sag_peak,.1)
+    self.assertEqual(c.displacement,0.)
+    self.assertFalse(c.active)

@@ -3325,3 +3325,24 @@ branch removed after release verification. Public uploader SHA256:
 333f3a7a4c99978aa27a32c14e8be0af1818f6b9e894c9a98e12a60f70d9831a.
 Cloud did not invoke Google Play, sign with an owner key or activate a mandatory
 minimum; those exact existing-bastion commands are in the delivered guide.
+
+## 2026-11-13 — correct unloaded side-net shape after owner feedback
+
+1030018's rest shape stacked three outward offsets: side midpoint ~60.75 cm
+outside its undeformed plane, giving an unloaded goal a permanent impact pocket.
+Reference rest geometry now uses one downward-only world-space field, with the
+same front/turf pins and upper cord supports. X/Y coordinates stay on the unloaded
+panels; gravity droops the top edges between supports without preforming a ball
+pocket. Shared roof/side seams use the same field. Broad impact coupling retained.
+
+Preview before/after uses the previous rest field as an explicit lab fixture,
+90 frames without a ball/contact and then the same strong side-first shot at
+50% playback. Eight existing pure rolling tests passed (33.766 s); new rest-shape
+regression passes for box/veil and full/mobile grids. Initial native recovery
+check exposed microscopic ground/net overlaps keeping the veil awake after a
+stopped ball; the presentation adapter now lets the cloth recover separately
+once the display sphere has genuinely settled at turf level. All seven native
+net tests passed (23.294 s), including physical-state equivalence and reset.
+Syntax/whitespace checks pass. No Android build, version increment, signing,
+public release or update-policy change for this visual correction yet. Existing
+main/menu/badge/mode-state WIP preserved unstaged.

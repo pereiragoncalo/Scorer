@@ -63,14 +63,17 @@ class TetheredCloth(NetCloth):
 class ReferenceCloth(TetheredCloth):
     """Broad load transfer through hanging fabric, including the welded seam."""
     def _rest_point(self,surface,u,v):
-        point=list(super()._rest_point(surface,u,v))
-        envelope=math.sin(math.pi*u)*math.sin(math.pi*v)
-        # Extra cloth falls into broad folds between supports, not long elastic
-        # strands stretched only at the four particles nearest the football.
-        point[2]=max(0.,point[2]-.25*envelope)
-        if surface=='back':point[1]-=.20*envelope
-        else:point[0]+=(-1 if surface=='left' else 1)*.20*envelope
-        return tuple(point)
+        g=self.geometry
+        x,y,z=g.point(surface,u,v)
+        # Unloaded fabric hangs DOWN between supports. The previous sum of
+        # three outward offsets made a permanent ~61 cm impact-shaped bulge.
+        # Use one world-space rest field so shared roof/side seams agree.
+        support_depth=g.depth if g.structure=='box' else g.top_depth
+        depth=max(0.,min(1.,-y/support_depth))
+        across=(x+g.width/2)/g.width
+        sag=(self.config.net_slack*.5*math.sin(math.pi*depth)
+             +.20*math.sin(2*math.pi*across)**2*depth)
+        return (x,y,max(0.,z-sag*z/g.height))
 
     def load_weights(self,weights):
         center=tuple(sum(self.rest[i][axis]*w for i,w in weights) for axis in range(3))

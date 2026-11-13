@@ -35,7 +35,15 @@ def advance(game,dt):
     cloth=getattr(game,'_net_cloth',None)
     replay=getattr(game,'_net_replay',None)
     if replay is not None:
-        if cloth.active or replay.stop_time is None:replay.advance(dt)
+        # A settled display ball must not keep waking the cloth on microscopic
+        # ground/net overlaps. Let the unloaded fabric recover and sleep.
+        resting=(replay.stop_time is not None
+                 and replay.ball[2]<=replay.radius+.0001
+                 and sum(v*v for v in replay.velocity)<.05**2)
+        if resting:
+            replay.position[2]=replay.radius;replay.ball=tuple(replay.position)
+            cloth.advance(dt)
+        elif cloth.active or replay.stop_time is None:replay.advance(dt)
     elif cloth is not None:cloth.advance(dt)
 
 

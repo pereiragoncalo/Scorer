@@ -2,7 +2,7 @@
 import argparse,json,math,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
-p=argparse.ArgumentParser(description=__doc__);p.add_argument('--capture',type=Path,required=True);p.add_argument('--frames',type=int,default=300);p.add_argument('--playback',type=float,default=1.);p.add_argument('--matrix',choices=['square','hexagon']);p.add_argument('--reference',action='store_true');p.add_argument('--side-shot',action='store_true');options=p.parse_args();sys.argv=[sys.argv[0]]
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--capture',type=Path,required=True);p.add_argument('--frames',type=int,default=300);p.add_argument('--playback',type=float,default=1.);p.add_argument('--matrix',choices=['square','hexagon']);p.add_argument('--reference',action='store_true');p.add_argument('--side-shot',action='store_true');p.add_argument('--rest-compare',action='store_true');options=p.parse_args();sys.argv=[sys.argv[0]]
 from kivy.config import Config
 Config.set('graphics','width','1280');Config.set('graphics','height','1080' if options.matrix else '720')
 from kivy.app import App
@@ -19,10 +19,21 @@ from goal_projection import project_point
 from career import CAMERA_VERTICAL_FOV
 from retro_props import uv
 from tools.net_lab.rolling_contact import RollingReplay
+from net_drape import ReferenceCloth,TetheredCloth
+
+class PreviousRestCloth(ReferenceCloth):
+ def _rest_point(self,surface,u,v):
+  point=list(TetheredCloth._rest_point(self,surface,u,v))
+  envelope=math.sin(math.pi*u)*math.sin(math.pi*v)
+  point[2]=max(0.,point[2]-.25*envelope)
+  if surface=='back':point[1]-=.20*envelope
+  else:point[0]+=(-1 if surface=='left' else 1)*.20*envelope
+  return tuple(point)
+
 
 class View(StencilView):
  def __init__(self,replay,**kwargs):
-  super().__init__(**kwargs);self.replay=replay;self.paint=Canvas();self.canvas.add(self.paint);self.renderer=NetRenderer(replay.cloth,'hexagon' if options.side_shot else options.matrix or 'square')
+  super().__init__(**kwargs);self.replay=replay;self.paint=Canvas();self.canvas.add(self.paint);self.renderer=NetRenderer(replay.cloth,'hexagon' if options.side_shot or options.rest_compare else options.matrix or 'square')
   self.texture=CoreImage(str(ROOT/'assets/sprites/scene/ball.png')).texture;self.texture.mag_filter=self.texture.min_filter='nearest'
  def project(self,x,y,z):
   focal=self.height/(2*math.tan(math.radians(CAMERA_VERTICAL_FOV)/2))*4.7
@@ -38,8 +49,8 @@ class View(StencilView):
   with self.paint:
    x,y=self.project(*r.ball);sx,sy=self.project(r.ball[0],r.ball[1],.005)
    scale=math.dist(self.project(r.ball[0],r.ball[1],0),self.project(r.ball[0],r.ball[1],1));radius=max(5,r.radius*scale)
-   Color(0,0,0,.35);Ellipse(pos=(sx-radius*.95,sy-radius*.22),size=(radius*1.9,radius*.44))
-   Color(1,1,1,1);frame=int(r.roll/(2*math.pi)*8)%8
+   Color(0,0,0,0. if options.rest_compare and r.tick==0 else .35);Ellipse(pos=(sx-radius*.95,sy-radius*.22),size=(radius*1.9,radius*.44))
+   Color(1,1,1,0. if options.rest_compare and r.tick==0 else 1.);frame=int(r.roll/(2*math.pi)*8)%8
    Rectangle(texture=self.texture,tex_coords=uv(self.texture,frame,0,8,1),pos=(x-radius,y-radius),size=(radius*2,radius*2))
   self.renderer.draw(self.paint,self.project,key,r.ball if r.hit else None,foreground=True)
   with self.paint:
@@ -60,19 +71,23 @@ class View(StencilView):
 class Demo(App):
  def build(self):
   self.replays=([RollingReplay('reference' if options.reference else 'sagged',speed,height) for height in (.22,1.1,2.05) for speed in (4.,9.,18.)] if options.matrix else [RollingReplay('sagged',12.,.9),RollingReplay('reference',12.,.9)] if options.reference else [RollingReplay('tight'),RollingReplay('slack')]);self.replays=[RollingReplay.strong_side_shot()] if options.side_shot else self.replays;self.views=[];self.frame=0;self.acc=0.
+  if options.rest_compare:
+   before=RollingReplay.strong_side_shot()
+   before.cloth=PreviousRestCloth(before.geometry,before.material.config)
+   self.replays=[before,RollingReplay.strong_side_shot()]
   root=BoxLayout(orientation='vertical',padding=8,spacing=6)
   title='REMATE FORTE · REDE HEXAGONAL · LATERAL E FUNDO' if options.side_shot else ('MALHA '+('HEXAGONAL' if options.matrix=='hexagon' else 'QUADRADA')+(' · BOLSA LARGA · REFERÊNCIA 1990 · BASE FIXA' if options.reference else ' · MAIS DEFORMAÇÃO · BASE FIXA · CORDAS FLEXÍVEIS') if options.matrix else 'ANTES E DEPOIS · BOLSA MAIS LARGA · MESMA BOLA E FIXAÇÕES' if options.reference else 'BASE FIXA NA RELVA · FOLGA APENAS NA MALHA SUSPENSA')
-  root.add_widget(Label(text=title,size_hint_y=None,height=32,font_size=17))
+  root.add_widget(Label(text=('EM REPOUSO: FOLGA PARA BAIXO · IMPACTO: BOLSA DINÂMICA' if options.rest_compare else title),size_hint_y=None,height=32,font_size=17))
   panels=GridLayout(cols=3,spacing=8) if options.matrix else BoxLayout(spacing=10)
   for index,r in enumerate(self.replays):
-   column=BoxLayout(orientation='vertical');column.add_widget(Label(text=('MEIA ALTURA · 68 km/h · FIXAÇÕES PRESERVADAS' if options.side_shot else (('BAIXA','MÉDIA','ALTA')[index//3]+' · '+('LENTA 4 m/s','MÉDIA 9 m/s','RÁPIDA 18 m/s')[index%3]) if options.matrix else ('ANTES · DEFORMAÇÃO LOCAL' if index==0 else 'DEPOIS · DOBRA LARGA') if options.reference else r.material.label),size_hint_y=None,height=36,font_size=17 if options.matrix else 22))
+   column=BoxLayout(orientation='vertical');column.add_widget(Label(text=(('ANTES · BARRIGA PERMANENTE' if index==0 else 'DEPOIS · LATERAL SEM BARRIGA') if options.rest_compare else 'MEIA ALTURA · 68 km/h · FIXAÇÕES PRESERVADAS' if options.side_shot else (('BAIXA','MÉDIA','ALTA')[index//3]+' · '+('LENTA 4 m/s','MÉDIA 9 m/s','RÁPIDA 18 m/s')[index%3]) if options.matrix else ('ANTES · DEFORMAÇÃO LOCAL' if index==0 else 'DEPOIS · DOBRA LARGA') if options.reference else r.material.label),size_hint_y=None,height=36,font_size=17 if options.matrix else 22))
    view=View(r);self.views.append(view);column.add_widget(view);panels.add_widget(column)
   root.add_widget(panels)
   self.info=Label(size_hint_y=None,height=30,font_size=15);root.add_widget(self.info)
   options.capture.mkdir(parents=True,exist_ok=True);Clock.schedule_interval(self.update,1/60)
   return root
  def update(self,_dt):
-  self.acc+=options.playback/60
+  self.acc+=(0. if options.rest_compare and self.frame<90 else options.playback/60)
   while self.acc+1e-12>=RollingReplay.STEP:
    for r in self.replays:r.one_step()
    self.acc-=RollingReplay.STEP

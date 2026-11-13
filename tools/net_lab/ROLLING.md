@@ -92,3 +92,11 @@ module is now a compatibility import of that implementation. `net_presentation`
 uses a separate read-only-to-game-state display sphere after a legal goal. The
 lab UI/presets/capture files remain excluded from the Android package. Earlier
 simulation-only notes above describe those earlier deliveries, not this release.
+
+### Unloaded side-pocket correction
+
+    python tools/net_lab/rolling_demo.py --rest-compare --capture /tmp/rest-compare --frames 450 --playback .5
+
+Left shows 1030018's previous stacked outward rest offsets; right shows the new
+single downward-only rest field. First 90 frames show unloaded nets without a
+ball, then the same side-first shot. Preview: `docs/data/net_rest_shape/`.
