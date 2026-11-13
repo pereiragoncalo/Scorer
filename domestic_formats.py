@@ -69,7 +69,11 @@ def table(league):
     if {uid for group in league.format_groups for uid in group}!=set(clubs):return raw_table(league.clubs)
     return [c for group in league.format_groups for c in raw_table([clubs[uid] for uid in group])]
 
-def round_robin(clubs,round_number,legs,version=2):
+def round_robin(clubs,round_number,legs,version=2,variant=0):
+    if version>=4:
+        from alternating_schedule import pairings
+        from mirrored_schedule import supported
+        if supported(len(clubs)):return pairings(clubs,round_number,legs,variant)
     if version>=3:
         from mirrored_schedule import supported,pairings
         if supported(len(clubs)):return pairings(clubs,round_number,legs)
@@ -89,7 +93,7 @@ def round_robin(clubs,round_number,legs,version=2):
 def pairings(league,requested):
     spec=specification(league);first=spec['phases'][0];boundary=phase_rounds(first)
     if requested<0 or requested>=total_rounds(league):return []
-    if requested<boundary:return round_robin(league.clubs,requested,first['legs'],league.schedule_version)
+    if requested<boundary:return round_robin(league.clubs,requested,first['legs'],league.schedule_version,league.schedule_variant)
     # Calendar previews cannot draw groups from an unfinished table.
     if league.round_index<boundary:return []
     prepare_split(league);phase=spec['phases'][1];clubs={c.uid:c for c in league.clubs};legs=phase['legs'];legs=legs if isinstance(legs,list) else [legs]*len(league.format_groups)

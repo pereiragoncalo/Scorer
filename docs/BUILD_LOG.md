@@ -3427,3 +3427,36 @@ with clearly synthetic fixture data. Recorded updated local-contact hex-net
 simulation. No new Android version/build/signing/publishing or server-policy
 change yet; currently delivered AAB remains1030019. Primary unrelated main/badge/
 menu-test/mode WIP is preserved.
+
+## 2026-11-13 — reduce frequent paired venues, Portugal2 owner report
+
+Owner specifies repeated two-home/two-away blocks in Portugal Division2. v3
+bounded run length but did not minimise repeated venue transitions. Added frozen
+v4 orientations with mostly alternating venues, same-order mirrored legs and
+max-two runs. Eighteen clubs improve164→48repeats globally, worst club12→3in34
+matches. Offline found/validated the fixed construction for every even6–64:
+3n−6total repeats and max3per club, balanced home/away, each opponent once per leg.
+V3 data frozen/unchanged; odd sizes and4team exception keep existing fallback.
+
+Added persisted optional schedule_variant for prevalidated18team v3 completed
+prefixes. Load migrates only when every completed match retains its opponent/
+venue and remaining repetition count strictly improves globally without making
+the active player's count worse. Incompatible/return-leg saves retain existing
+calendar until next season. This avoids another correction that only reaches
+new careers. Future fixtures are stable after save/reload; no solver or gameplay
+RNG in runtime. Original official multi-phase/3/4leg formats retained.
+
+69calendar/career/domestic-format tests passed (40.880s);27World/two-division/
+season-review regressions passed (40.529s). Focused save migration/variant checks
+and native calendar-vs-dashboard agreement recorded below. Offline generator
+lives in tools, excluded from packaging; added runtime module to compiled-source
+verifier. Candidate construction and per-prefix optimisation are not run on the
+phone. New data hash frozen in regression. No Android build/version increment,
+Google Play publish or update policy change yet; delivered remains1030019.
+
+Focused6cases passed (2.350s): all even sizes6–64, true Portugal2 save migration,
+exact old completed prefix, stable persisted continuation, incompatible return
+leg left untouched, frozen v4 identity, and invalid variant rejection without
+replacing the active career. Native calendar/dashboard fixture agreement passed
+(1case/1.631s). Syntax/whitespace checks passed. Demonstrative C/F audit stored
+with old/new full34game sequences for all18slots. Primary unrelated WIP untouched.

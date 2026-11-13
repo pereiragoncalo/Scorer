@@ -747,7 +747,7 @@ class CareerTests(unittest.TestCase):
                 data=json.loads(c.save_path.read_text());data['career'].pop('schedule_version')
                 c.save_path.write_text(json.dumps(data))
                 restored=career.CareerMode()
-                self.assertEqual(restored.current_league.schedule_version,3 if played<=1 else 1)
+                self.assertEqual(restored.current_league.schedule_version,4 if played==0 else 3 if played==1 else 1)
                 self.assertEqual((restored.goals,restored.matches,restored.week,restored.club.points),stats)
                 self.assertEqual(restored.fixture_history,history)
                 after=fixtures(restored.current_league)
@@ -755,10 +755,10 @@ class CareerTests(unittest.TestCase):
                 if played>=2:
                     self.assertEqual(after,before)
                     restored._finish_season()
-                    self.assertTrue(all(league.schedule_version==3 for league in restored.leagues.values()))
+                    self.assertTrue(all(league.schedule_version==4 for league in restored.leagues.values()))
                 restored.save()
                 loaded=career.CareerMode()
-                self.assertEqual(loaded.current_league.schedule_version,3)
+                self.assertEqual(loaded.current_league.schedule_version,restored.current_league.schedule_version)
                 self.assertEqual(fixtures(loaded.current_league),fixtures(restored.current_league))
 
     def test_unknown_saved_calendar_version_does_not_replace_active_career(self):

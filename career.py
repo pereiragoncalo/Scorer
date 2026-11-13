@@ -607,9 +607,10 @@ class WorldLeague:
     clubs: list[CareerClub]
     round_index: int = 0
     scorer_goals: dict[str, int] = field(default_factory=dict)
-    schedule_version: int = 3
+    schedule_version: int = 4
     format_key: str = ""
     format_groups: Optional[list] = None
+    schedule_variant: int = 0
 
 
     @property
@@ -647,6 +648,10 @@ class WorldLeague:
             return pairings(self,self.round_index if round_number is None else round_number)
         count = len(self.clubs)
         requested = self.round_index if round_number is None else round_number
+        if self.schedule_version>=4:
+            from mirrored_schedule import supported
+            from alternating_schedule import pairings
+            if supported(count):return pairings(self.clubs,requested,variant=self.schedule_variant)
         if self.schedule_version>=3:
             from mirrored_schedule import supported,pairings
             if supported(count):return pairings(self.clubs,requested)
@@ -2159,7 +2164,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.message=f'Season finished in position {position}. New season {self.season}/{str(self.season+1)[-2:]}.'
         self.international_status={}
         for l in self.leagues.values():
-            random.Random(f'{self.world_seed}:{self.season}:{l.key}').shuffle(l.clubs);l.schedule_version=3;l.round_index=0;l.scorer_goals.clear();l.format_groups=None
+            random.Random(f'{self.world_seed}:{self.season}:{l.key}').shuffle(l.clubs);l.schedule_version=4;l.schedule_variant=0;l.round_index=0;l.scorer_goals.clear();l.format_groups=None
             for c in l.clubs:c.played=c.won=c.drawn=c.lost=c.goals_for=c.goals_against=c.points=0
         self.matches=self.goals=self.missed_chances=0;self.form_goals.clear()
         if released:self._release_contract(RELEGATED_MESSAGE,club)
@@ -2248,7 +2253,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.national_cup_winners={}
         for world_league in self.leagues.values():
             random.Random(f"{self.world_seed}:{self.season}:{world_league.key}").shuffle(world_league.clubs)
-            world_league.schedule_version = 3
+            world_league.schedule_version = 4
+            world_league.schedule_variant = 0
             world_league.round_index = 0
             world_league.scorer_goals.clear()
             for club in world_league.clubs:
@@ -2301,7 +2307,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             "free_start_key": self.free_start_key,
             "display_aliases": self.display_aliases if self.world_unlocked else {},
             "world_state": {k: {'clubs': [asdict(c) for c in v.clubs], 'round': v.round_index,
-                                 'scorers': v.scorer_goals, 'name': v.name, 'schedule': v.schedule_version, 'domestic_schedule': __import__('domestic_formats').state(v)}
+                                 'scorers': v.scorer_goals, 'name': v.name, 'schedule': v.schedule_version, 'schedule_variant': v.schedule_variant, 'domestic_schedule': __import__('domestic_formats').state(v)}
                             for k, v in self.leagues.items()
                             if self.world_unlocked and (v.country in self._active_world_countries or self.world_run_in) and k != self.league_key},
             "completed_records": self.completed_records,
@@ -2348,6 +2354,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             "last_offer_week": self.last_offer_week,
             "league_round": league.round_index,
             "schedule_version": league.schedule_version,
+            "schedule_variant": league.schedule_variant,
             "league_name": league.name,
             "clubs": [asdict(club) for club in league.clubs],
             "scorers": league.scorer_goals,
@@ -2613,7 +2620,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             ][:5]
             self.last_offer_week = int(data.get("last_offer_week", -99))
             schedule_version = int(data.get("schedule_version", 1))
-            if schedule_version not in (1, 2, 3):
+            if schedule_version not in (1, 2, 3, 4):
                 raise ValueError("Unsupported saved schedule")
             for world_league in self.leagues.values():
                 world_league.schedule_version = schedule_version
@@ -2637,6 +2644,9 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             for club in league.clubs:
                 ensure_club_uid(club)
             league.round_index = int(data.get("league_round", 0))
+            league.schedule_variant=data.get("schedule_variant",0)
+            from alternating_schedule import valid_variant
+            if not valid_variant(len(league.clubs),league.schedule_version,league.schedule_variant):raise ValueError("Invalid schedule variant")
             from domestic_formats import restore
             restore(league,data.get("domestic_schedule"))
             if schedule_version == 1:
@@ -2676,10 +2686,16 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                     other.scorer_goals = {str(k): int(v) for k, v in state['scorers'].items()}
                     other.name = str(state.get('name', other.name))
                     other.schedule_version = int(state.get('schedule', 2))
-                    if not 0 <= other.round_index <= other.total_rounds or other.schedule_version not in (1, 2, 3):
+                    other.schedule_variant=state.get('schedule_variant',0)
+                    if not valid_variant(len(other.clubs),other.schedule_version,other.schedule_variant):raise ValueError('Invalid schedule variant')
+                    if not 0 <= other.round_index <= other.total_rounds or other.schedule_version not in (1, 2, 3, 4):
                         raise ValueError('Invalid World progress')
             from mirrored_schedule import upgrade_if_compatible
             for scheduled_league in self.leagues.values():upgrade_if_compatible(scheduled_league)
+            from alternating_schedule import upgrade_if_compatible as improve_alternation
+            active_uid=self.club.uid if self.club else None
+            for scheduled_league in self.leagues.values():
+                improve_alternation(scheduled_league,active_uid if scheduled_league is self.current_league else None)
             aliases = data.get('display_aliases', {})
             if self.world_unlocked and aliases and any(aliases.get(k) for k in ('clubs', 'leagues', 'players')):
                 from name_packs import validate_pack
