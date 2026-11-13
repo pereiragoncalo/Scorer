@@ -1,4 +1,4 @@
-Current target: World 1.0 / 1030019. Existing configured owners use [the update instructions](DEFORMABLE_NETS_1030019.md); setup below is only for a new machine.
+Current target: World 1.0 / 1030020. Existing configured owners use [the update instructions](NET_VARIANTS_1030020.md); setup below is only for a new machine.
 
 # Bastion → Google Play internal test
 
@@ -137,16 +137,16 @@ verified. Keep this activation separate from the upload: wait until the new buil
 is available in Play to every intended player before raising the shared minimum.
 An internal-only build must not become mandatory for production players.
 
-For the current1030019, after that availability check, run as root on bastion:
+For the current1030020, after that availability check, run as root on bastion:
 
 ```bash
 python3 /opt/scorer/server/version_updates.py \
-  --minimum 1030019 \
-  --latest 1030019 \
+  --minimum 1030020 \
+  --latest 1030020 \
   --name 1.0
 curl -f https://stats.clemir.com/v1/app-version
 ```
 
-Verify both minimum_version_code and latest_version_code equal1030019. On the
+Verify both minimum_version_code and latest_version_code equal1030020. On the
 next release, replace BOTH values with its actual code. Then open the older app
 online and confirm that the mandatory update screen appears.
