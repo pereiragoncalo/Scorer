@@ -3365,3 +3365,9 @@ INTERNET/ACCESS_NETWORK_STATE, 16 KB ZIP request and 118 aligned ELF libraries.
 Owner signing/Play/phone acceptance remain pending. No owner credentials entered
 cloud; public uploader pins original certificate and this exact payload. Code
 preserves the existing update gate; minimum stays zero until Play availability.
+
+1030019 exact-source/sprite audit completed successfully: actual packaged
+bytecode matches staged source including both corrected net modules; 248 sprite
+frames/35 sheets unchanged. No simulator UI, reference captures, signing keys or
+service-account credentials in the Android package. Physical phone test remains
+the owner's next step after internal Play delivery.
