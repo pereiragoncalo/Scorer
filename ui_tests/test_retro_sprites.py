@@ -104,7 +104,8 @@ class RetroSpriteIntegration(unittest.TestCase):
             self.assertEqual({p.team for p in g.field_players+g.buildup_actors},{'attacker','defender'})
             from training_opportunities import BIB_KITS
             self.assertEqual(g._match_outfield_kits(),BIB_KITS)
-            self.assertEqual(set(g._retro_renderer().clocks),{'hero','keeper'})
+            self.assertTrue({'hero','keeper'}.issubset(g._retro_renderer().clocks))
+            self.assertEqual({id(p) for p in g.field_players+g.buildup_actors}, {k for k in g._retro_renderer().clocks if isinstance(k,int)})
             renderer=g._retro_renderer();before=renderer.cache.allocations
             for _ in range(100):g.draw()
             self.assertEqual(renderer.cache.allocations,before)
