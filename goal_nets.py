@@ -113,7 +113,13 @@ def draw_box_frame(g):
     # cords tension the upper edge. No iron stanchions extend from the goal.
     for x in (-hw-.35,0.,hw+.35):
         Color(.43,.48,.49,1);line(((x,-GOAL_DEPTH-1.,0),(x,-GOAL_DEPTH-1.,h+.65)),tube*.55)
-        Color(.85,.88,.82,.9);line(((x,-GOAL_DEPTH-1.,h+.60),(clamp(x,-hw,hw),-GOAL_DEPTH,h)),max(.6,tube*.22))
+        Color(.85,.88,.82,.9)
+        cloth=getattr(g,'_net_cloth',None)
+        if cloth is not None and hasattr(cloth,'tethers'):
+            index,endpoint,_=min(cloth.tethers,key=lambda tie:abs(tie[1][0]-x))
+            end=tuple(cloth.positions[index]);mid=tuple((endpoint[i]+end[i])*.5-(.035 if i==2 else 0.) for i in range(3))
+            line((endpoint,mid,end),max(.6,tube*.22))
+        else:line(((x,-GOAL_DEPTH-1.,h+.60),(clamp(x,-hw,hw),-GOAL_DEPTH,h)),max(.6,tube*.22))
     Color(.94,.97,.98,1)
     line(((-hw,0,0),(-hw,0,h),(hw,0,h),(hw,0,0)),tube)
     Color(.89,.92,.86,.85)

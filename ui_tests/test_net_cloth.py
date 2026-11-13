@@ -76,3 +76,24 @@ class NetIntegration(unittest.TestCase):
       self.assertEqual(before,(vars(b),g.goals,g.attempts))
       self.assertTrue(c.active);c.reset();g.result_text=''
   finally:Window.size=old
+
+class DrapedGameIntegration(unittest.TestCase):
+ def test_approved_side_first_path_is_display_only_and_resets(self):
+  from net_presentation import reset
+  with isolated_game() as g:
+   g._goal_net_style_override=NetStyle('box','hexagon');g.result_text='GOAL!'
+   b=g.ball;b.x,b.y,b.z=-g.goal_half_width+b.radius,-.10,1.25
+   before=copy.deepcopy(vars(b));goals=g.goals
+   self.assertTrue(impact(g,'left',(b.x,b.y,b.z),(-6.,-18.,0.)))
+   cloth=ensure(g);ends=tuple(t[1] for t in cloth.tethers)
+   for _ in range(360):advance(g,1/120)
+   replay=g._net_replay
+   self.assertLess(replay.first_contacts['left'],replay.first_contacts['back'])
+   self.assertLess(ball_position(g)[1],-1.)
+   self.assertEqual(vars(b),before);self.assertEqual(g.goals,goals)
+   self.assertEqual(tuple(t[1] for t in cloth.tethers),ends)
+   for i,pinned in enumerate(cloth.pinned):
+    if pinned:self.assertEqual(cloth.positions[i],cloth.rest[i])
+   self.assertFalse(impact(g,'back',(b.x,b.y,b.z),(0.,-18.,0.)))
+   reset(g);self.assertIsNone(g._net_replay)
+   self.assertEqual(ball_position(g),(b.x,b.y,b.z))

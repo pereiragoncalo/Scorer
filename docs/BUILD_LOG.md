@@ -3284,3 +3284,25 @@ Added lab-only `--side-shot` capture: 68 km/h at mid height, first left-sheet
 contact .125 s, then back .192 s, descending into the pocket and rolling to rest
 inside. Focused trajectory/anchor regression passed (1.753 s). Existing cloth,
 material and renderer physics retained. No Android build or production change.
+
+## 2026-11-13 — World 1.0 / 1030018 in-game draped nets
+
+Owner approved the side-first hexagonal shot and requested a fresh Android test
+build. Promoted the identical lab solver into net_drape.py; the lab imports that
+shared runtime implementation. The game creates a separate presentation sphere
+only after its original legal-goal/net collision. Broad side/back folds, fixed
+turf points and compliant rear ties apply to both stadium mesh patterns; cord
+rendering follows its actual net attachment. Original ball, collision, goals,
+training progression and saves are never written by this adapter. Reset clears
+the display trajectory. Veil structure uses its own upper-support depth.
+
+Eight pure rolling tests passed (36.609 s); 24 native net/training/seat tests
+passed (31.816 s), including paired authoritative-ball equivalence across styles
+and the new in-game side-first regression. Syntax/diff checks passed. First
+build failed on Docker disk pressure; removed only reproducible temporary frame
+captures and old downloaded build copies, preserving committed previews/videos,
+research, saves and signing materials. Retry produced unsigned 1030018 AAB,
+118192605 bytes, SHA256 05e9635ec0e452e346ef6c31ae7f385e578316eb80e7135cdc8388a5e7852b70.
+Full Android static audit and owner Play/phone acceptance recorded separately.
+Primary workspace main.py/.gitignore/menu-test/mode-state WIP excluded by using
+an isolated clean worktree and production staging.
