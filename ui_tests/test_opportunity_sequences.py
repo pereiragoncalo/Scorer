@@ -43,13 +43,14 @@ class OpportunityScenes(unittest.TestCase):
             self.assertEqual(g.state,g.STATE_BUILDUP)
             g.result_text='SAVED';g._advance_after_shot();self.assertEqual(g.view,'match')
             self.assertIsNone(g.current_opportunity);self.assertEqual(g.buildup_actors,[])
-    def test_training_has_no_build_up_or_extra_players_and_penalty_is_preserved(self):
+    def test_training_reuses_delivery_teams_and_match_penalty_is_preserved(self):
         with isolated_game() as g:
             self.sign(g);g._start_opportunity('penalty',8)
             self.assertEqual(g.state,g.STATE_AIMING);self.assertEqual((g.ball.x,g.ball.y),(0,11));self.assertEqual(len(g.field_players),8)
             g.shot_context='training';g._prepare_next_shot()
-            self.assertEqual(g.state,g.STATE_AIMING);self.assertIsNone(g.current_opportunity)
-            self.assertEqual(g.field_players,[]);self.assertEqual(g.buildup_actors,[])
+            self.assertIn(g.state,(g.STATE_AIMING,g.STATE_BUILDUP));self.assertIsNotNone(g.current_opportunity)
+            self.assertEqual({p.team for p in g.field_players},{'attacker','defender'})
+            self.assertFalse(g._show_stadium_crowd())
     def test_onside_defender_is_visible_at_release_and_stays_behind_at_reception(self):
         with isolated_game() as g:
             self.sign(g)
