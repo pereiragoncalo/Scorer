@@ -10,7 +10,7 @@ from goal_nets import lattice
 class NetRenderer:
     def __init__(self,cloth,mesh='square',low_detail=False):
         self.cloth=cloth;self.kind=mesh;self.low_detail=low_detail
-        self.group=InstructionGroup(noadd=True);self.front=InstructionGroup(noadd=True)
+        self.group=InstructionGroup();self.front=InstructionGroup()
         self.group.add(Color(.94,.97,.92,.76,noadd=True));self.front.add(Color(.97,.99,.95,.86,noadd=True))
         self.batches=[];self._stamp=None;self.rebuilds=0
         g=cloth.geometry;cell=.28 if low_detail else .20
@@ -75,7 +75,12 @@ class NetRenderer:
 
     def draw(self,canvas,project,camera_key,ball=None,foreground=False):
         self.sync(project,camera_key,ball)
-        canvas.add(self.front if foreground else self.group)
+        group=self.front if foreground else self.group
+        # A newly built group may be auto-added by an active Kivy canvas.
+        # Normal groups must remain clearable; noadd=True would keep stale
+        # groups across Canvas.clear() and leak/repaint them every frame.
+        while group in canvas.children:canvas.remove(group)
+        canvas.add(group)
 
     def debug(self,canvas,project):
         with canvas:

@@ -40,6 +40,13 @@ class NetIntegration(unittest.TestCase):
    self.assertTrue(impact(g,'left',p,(-30,-10,0)))
    for _ in range(90):g.update(.1)
    self.assertFalse(c.active);self.assertEqual(c.displacement,0.)
+ def test_cached_groups_never_accumulate_across_canvas_clear(self):
+  with isolated_game() as g:
+   for _ in range(120):
+    g.canvas.clear()
+    with g.canvas:g._draw_goal_net()
+    self.assertEqual(sum(x is g._net_renderer.group for x in g.canvas.children),1)
+    self.assertLessEqual(len(g.canvas.children),3)
  def test_idle_cache_reprojects_mutable_kivy_position_and_size(self):
   with isolated_game() as g:
    g.view='shot';g.draw();r=g._net_renderer;before=tuple(r.batches[0][2].vertices);count=r.rebuilds
