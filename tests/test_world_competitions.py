@@ -73,6 +73,7 @@ class CareerCompetitionTests(unittest.TestCase):
         self.assertTrue(c.competition_archive[-1]['winners']);self.assertTrue(c.competition_archive[-1]['movements'])
         self.assertEqual(c.qualification_snapshot['season'],2027);self.assertEqual(len(c.qualification_snapshot['entries']['ucl']),36)
         c.save();d=CareerMode(Access(),save_slot='world');self.assertEqual(d.club.uid,uid);self.assertEqual(d.world_membership,c.world_membership)
+        self.assertEqual(d.season_review,c.season_review);self.assertEqual(d.season_review['season'],2026);self.assertTrue(d.season_review['pending'])
         d._ensure_competitions();self.assertEqual(set(d.world_competitions.tournaments['ucl'].teams),{t['uid'] for t in c.qualification_snapshot['entries']['ucl']})
     def test_corrupt_new_state_cannot_replace_career_or_import_partial_history(self):
         from career_transfer import export_career,validated_import

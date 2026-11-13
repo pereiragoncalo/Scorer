@@ -86,17 +86,6 @@ class RollingExperiment(unittest.TestCase):
       for i,endpoint,length in c.tethers:
        self.assertLessEqual(math.dist(c.positions[i],c.rest[i]),c.TIE_YIELD+1e-9)
      self.assertIn('back',r.first_contacts)
- def test_reference_load_is_shared_across_the_side_back_seam(self):
-  r=RollingReplay('reference',12.,1.1);c=r.cloth
-  u,v=r.geometry.uv_at('back',(-3.,-r.geometry.depth,1.1))
-  support=c.load_weights(c.weights('back',u,v))
-  self.assertAlmostEqual(sum(w for _,w in support),1.)
-  self.assertTrue(all(w>0 and not c.pinned[i] for i,w in support))
-  side={i for row in c.grids['left'][2] for i in row}
-  back={i for row in c.grids['back'][2] for i in row}
-  participating={i for i,_ in support}
-  self.assertTrue(participating & (side-back))
-  self.assertTrue(participating & (back-side))
  def test_strong_hex_demo_shot_touches_side_before_rear_and_stays_inside(self):
   r=RollingReplay.strong_side_shot();height_at_side=None
   for _ in range(600):
@@ -127,3 +116,25 @@ class RollingExperiment(unittest.TestCase):
     self.assertGreater(sag_peak,.1)
     self.assertEqual(c.displacement,0.)
     self.assertFalse(c.active)
+
+ def test_stationary_penetration_does_not_inflate_the_net(self):
+  r=RollingReplay('reference',height=.115);r.position=[-r.geometry.width/2-.025,-1.,r.radius];r.velocity=[0.,0.,0.]
+  before=[p[:] for p in r.cloth.positions]
+  self.assertIsNotNone(r._contact('left'))
+  self.assertEqual(r.cloth.positions,before)
+  self.assertEqual(r.cloth.previous,before)
+ def test_free_flight_does_not_move_cloth_before_real_contact(self):
+  r=RollingReplay.strong_side_shot()
+  for _ in range(600):
+   r.one_step()
+   if not r.hit:self.assertEqual(r.cloth.displacement,0.)
+  self.assertLess(r.first_contacts['left'],r.first_contacts['back'])
+ def test_ball_pushes_only_the_strands_in_direct_contact(self):
+  r=RollingReplay('reference',height=1.)
+  r.position=[-r.geometry.width/2+.08,-1.,1.];r.velocity=[-6.,-10.,0.]
+  u,v=r.geometry.uv_at('left',r.position)
+  touched={i for i,w in r.cloth.weights('left',u,v) if w and not r.cloth.pinned[i]}
+  before=[p[:] for p in r.cloth.positions]
+  self.assertIsNotNone(r._contact('left'))
+  moved={i for i,(a,b) in enumerate(zip(before,r.cloth.positions)) if a!=b}
+  self.assertTrue(moved);self.assertLessEqual(moved,touched)

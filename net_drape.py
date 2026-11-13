@@ -75,16 +75,6 @@ class ReferenceCloth(TetheredCloth):
              +.20*math.sin(2*math.pi*across)**2*depth)
         return (x,y,max(0.,z-sag*z/g.height))
 
-    def load_weights(self,weights):
-        center=tuple(sum(self.rest[i][axis]*w for i,w in weights) for axis in range(3))
-        support=[]
-        for i,point in enumerate(self.rest):
-            distance=math.dist(point,center)
-            if distance<1.2 and not self.pinned[i]:
-                support.append((i,math.exp(-2.0*(distance/.80)**2)))
-        total=sum(w for _,w in support)
-        return [(i,w/total) for i,w in support] if total else []
-
 class RollingReplay:
     STEP=1/120
     def __init__(self,variant='slack',speed=6.8,height=None,geometry=None,coarse=False):
@@ -125,8 +115,12 @@ class RollingReplay:
         gap=sum((b[i]-point[i])*normal[i] for i in range(3))+self.radius
         if gap<=0:return None
         free={}
-        for index,weight in (c.load_weights(weights) if isinstance(c,ReferenceCloth) else weights):
+        for index,weight in weights:
             if not c.pinned[index] and weight>0:free[index]=free.get(index,0)+weight
+        # Position correction may separate an idle ball, but must not create
+        # a new pocket without incoming ball motion. Only touched strands
+        # receive the load; neighboring fabric follows through its springs.
+        if sum(self.velocity[i]*normal[i] for i in range(3))<=.02:free={}
         inv_ball=1/self.mass;inv_node=1/self.material.node_mass
         denom=inv_ball+inv_node*sum(w*w for w in free.values())
         impulse=gap/denom
@@ -162,7 +156,7 @@ class RollingReplay:
             if surface in handled:continue
             handled.add(surface)
             free={}
-            for index,weight in (c.load_weights(weights) if isinstance(c,ReferenceCloth) else weights):
+            for index,weight in weights:
                 if not c.pinned[index] and weight>0:free[index]=free.get(index,0)+weight
             denominator=1/self.mass+sum(w*w/self.material.node_mass for w in free.values())
             sheet_velocity=[sum((c.positions[idx][axis]-c.previous[idx][axis])*weight/dt for idx,weight in (free.items() if isinstance(c,ReferenceCloth) else weights)) for axis in range(3)]
@@ -193,7 +187,7 @@ class RollingReplay:
         displacement=c.displacement
         if displacement>self.peak:self.peak=displacement;self.peak_time=self.tick*dt;self.peak_ball=self.ball
         for surface in self.contacts:self.first_contacts.setdefault(surface,self.tick*dt)
-        if math.hypot(*self.velocity[:2])<.03 and self.stop_time is None and self.tick*dt>1:self.stop_time=self.tick*dt
+        if b[2]<=self.radius+.0001 and math.sqrt(sum(v*v for v in self.velocity))<.03 and self.stop_time is None and self.tick*dt>1:self.stop_time=self.tick*dt
         if self.tick%12==0:self.history.append({'t':self.tick*dt,'position':self.ball,'speed':math.hypot(*self.velocity[:2]),'contacts':self.contacts,'deformation':displacement})
 
     def advance(self,dt):

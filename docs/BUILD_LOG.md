@@ -3380,3 +3380,50 @@ Temporary aab-upload-1.0-1030019 branch removed after verification. No live Play
 API, owner key/signature or version-policy change performed by cloud. Owner's
 existing-bastion upload and after-availability mandatory activation commands are
 included in the public handoff. Primary unrelated WIP remains preserved.
+
+## 2026-11-13 — local-contact net correction and season-end review
+
+Owner reports a stopped ball with apparently independent net deformation and
+requests an end-of-season review. Removed the broad direct-contact kernel: only
+barycentrically touched free strands receive position correction/impulses;
+adjacent cloth follows connected tensile springs. A stationary ball's geometric
+overlap can separate the ball but cannot inject a new cloth pocket. Preserved
+post-impact damped recovery, fixed turf/front vertices, compliant rear ties and
+the legal-goal-only/read-only-to-authoritative-ball presentation boundary. Fixed
+an old horizontal-speed stop marker freezing an airborne display sphere when
+cloth slept: airborne motion continues until a real grounded rest.
+
+New optional frozen season_review save extension is captured before either
+Free/World season resets tables, scorers or the coach context. Records best/worst
+club results by goal difference then goals scored (season-filtered, nationals
+excluded), final league position/points, season club stats, top-five league
+scorers and the player's own competition rank even outside the displayed leaders,
+the actual completed-season coach portrait, team assessment and scoring-target
+assessment. Next season's goal target comes from the existing development engine;
+coach trust70 uses its existing threshold. Team improvement/title defence are
+coach recommendations, not invented rewards. Captured results retain provenance
+and player club across subsequent transfers. Missing legacy results are shown as
+missing, never reconstructed from invented scores.
+
+A full-screen menu panel appears after existing newspaper/title flows and before
+normal hub/coach/agent/training controls. Continue atomically dismisses the report;
+a failed save leaves it pending. Closing/reloading preserves it. Original season
+rollover, qualification, promotion/relegation, saves and rewards remain in charge.
+All nine locales include the new text. Compact mode shows top three plus own
+rank; larger mode shows top five. Uses existing coach portrait assets, no artwork
+changes. New runtime modules added to future compiled-payload verifier.
+
+Validation: 92 pure career/coach/development/records/net regressions passed
+(61.748s); 9 native net/review cases passed (21.281s); focused promotion and released
+World rollovers roundtrip the frozen report (2cases/12.503s); review data tests
+cover exact results/rank/portrait, save/load/dismiss rollback, invalid optional
+extension and unchanged gameplay RNG/counters. Nine-language review layouts at
+1280x720,640x360,640x295 passed (2UIcases/9.111s). Direct-strand-only contact and
+stationary-overlap regressions pass. Initial runs caught a friendly's absent cup
+object and an overly specific final resting-Y assertion; fixed the friendly
+classification and require inside-goal containment rather than a target point.
+Syntax/whitespace checks pass. Reviewed native large/compact Portuguese previews
+with clearly synthetic fixture data. Recorded updated local-contact hex-net
+simulation. No new Android version/build/signing/publishing or server-policy
+change yet; currently delivered AAB remains1030019. Primary unrelated main/badge/
+menu-test/mode WIP is preserved.

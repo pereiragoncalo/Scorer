@@ -100,3 +100,13 @@ simulation-only notes above describe those earlier deliveries, not this release.
 Left shows 1030018's previous stacked outward rest offsets; right shows the new
 single downward-only rest field. First 90 frames show unloaded nets without a
 ball, then the same side-first shot. Preview: `docs/data/net_rest_shape/`.
+
+### Local contact follows the ball
+
+Following handset feedback after1030019, contact correction and momentum now
+use the same four local interpolation weights. The wide radius load footprint
+is removed; only the touched strands receive direct loading, with movement
+spreading through connected springs. A stationary sphere's overlap cannot push
+cloth outward. Old horizontal-only stop markers no longer freeze a ball in the
+air. See `docs/data/season_review_contact/rede-contacto.mp4`. No new Android build
+has yet been made for this correction.

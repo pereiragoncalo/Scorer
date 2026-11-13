@@ -43,7 +43,7 @@ def advance(game,dt):
         if resting:
             replay.position[2]=replay.radius;replay.ball=tuple(replay.position)
             cloth.advance(dt)
-        elif cloth.active or replay.stop_time is None:replay.advance(dt)
+        else:replay.advance(dt)
     elif cloth is not None:cloth.advance(dt)
 
 

@@ -35,6 +35,7 @@ class TwoDivisionTests(unittest.TestCase):
             self.assertEqual((len(c.leagues[country+'|1'].clubs),len(c.leagues[country+'|2'].clubs)),initial[country]);self.assertEqual(len(c.relegation_pools[country]),10)
         self.assertTrue(all((club.played,club.won,club.drawn,club.lost,club.points)==(0,0,0,0,0) for l in c.leagues.values() for club in l.clubs))
         self.assertTrue(c.save());d=CareerMode(Access(),autoload=False,save_slot='world');self.assertTrue(d.load());self.assertEqual(d.relegation_pools,c.relegation_pools);self.assertTrue(d.free_agent)
+        self.assertEqual(d.season_review,c.season_review);self.assertIsNone(d.season_review['next_goal_target']);self.assertTrue(d.season_review['pending'])
     def test_bad_pool_fails_load_without_touching_career(self):
         c=self.career();c.save();data=json.loads(c.save_path.read_text());data['career']['relegation_pools']['Portugal'][0]=c.club.uid;c.save_path.write_text(json.dumps(data));name=c.club_name;self.assertFalse(c.load());self.assertEqual(c.club_name,name)
     def test_actual_v093_saves_migrate_with_history_and_first_write_backup(self):

@@ -89,7 +89,7 @@ class DrapedGameIntegration(unittest.TestCase):
    for _ in range(360):advance(g,1/120)
    replay=g._net_replay
    self.assertLess(replay.first_contacts['left'],replay.first_contacts['back'])
-   self.assertLess(ball_position(g)[1],-1.)
+   self.assertLess(ball_position(g)[1],0.)
    self.assertEqual(vars(b),before);self.assertEqual(g.goals,goals)
    self.assertEqual(tuple(t[1] for t in cloth.tethers),ends)
    for i,pinned in enumerate(cloth.pinned):
@@ -97,3 +97,10 @@ class DrapedGameIntegration(unittest.TestCase):
    self.assertFalse(impact(g,'back',(b.x,b.y,b.z),(0.,-18.,0.)))
    reset(g);self.assertIsNone(g._net_replay)
    self.assertEqual(ball_position(g),(b.x,b.y,b.z))
+ def test_old_stop_marker_does_not_freeze_a_ball_still_above_the_turf(self):
+  with isolated_game() as g:
+   g._goal_net_style_override=NetStyle('box','hexagon');g.result_text='GOAL!'
+   self.assertTrue(impact(g,'back',(0.,-1.,.8),(0.,0.,0.)))
+   r=g._net_replay;r.stop_time=1.;r.cloth.active=False
+   advance(g,.1)
+   self.assertLess(r.ball[2],.8)

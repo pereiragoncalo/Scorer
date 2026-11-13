@@ -146,7 +146,8 @@ class CareerMenu(BoxLayout):
     def sync(self):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
-        signature = (tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,getattr(self.game,'standings_key',''),getattr(self.game,'standings_group',0),getattr(self.game,'standings_tab','auto'),getattr(self.game.leaderboard,'category','season'),getattr(self.game.leaderboard,'career_enabled',False),self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
+        from season_review import visible as review_visible
+        signature = (review_visible(self.game),tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,getattr(self.game,'standings_key',''),getattr(self.game,'standings_group',0),getattr(self.game,'standings_tab','auto'),getattr(self.game.leaderboard,'category','season'),getattr(self.game.leaderboard,'career_enabled',False),self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      str(c.life),c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required,str(c.title_events), str(c.coach_state), str(c.press_state), str(c.development),getattr(self.game,'development_tab','objectives'),
@@ -160,6 +161,11 @@ class CareerMenu(BoxLayout):
         return bool(getattr(release_settings, 'DESKTOP_WINDOWS', False)) and self.game.width >= dp(780) and self.game.height >= dp(520)
 
     def action(self, name, value=None):
+        if name=='season_review_done':
+            from season_review import dismiss
+            if dismiss(self.game.career):self._signature=None
+            elif hasattr(self.body,'error'):self.body.error.text=self.game.i18n.tr('Unable to save your career. Please try again.')
+            self.game.draw();return
         self.game._activate_ui(name, value)
         self.game.draw()
 
@@ -172,6 +178,10 @@ class CareerMenu(BoxLayout):
         if self.game.view != 'start':
             self.game.ads.entry_visible(False)
         self.clear_widgets()
+        from season_review import visible as review_visible
+        if review_visible(self.game):
+            from season_review_ui import SeasonReviewScreen
+            self.padding=self.spacing=0;self.scroll=None;self.body=SeasonReviewScreen(self);self.add_widget(self.body);return
         self._shade.a = 1 if self.game.view == 'splash' else 0.62
         if self.game.view=='newspaper':
             from newspaper_ui import NewspaperScreen

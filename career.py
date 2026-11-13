@@ -764,6 +764,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.entitlements = EntitlementManager(entitlement_provider)
         self._locked_world_career: Optional[dict[str, object]] = None
         self.completed_records = []
+        self.season_review = None
         self.player_name = "Alex Silva"
         self.nationality = "Portugal"
         self.season = 2026
@@ -1257,6 +1258,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.fixture_history.append({'date':match_date(self.season,cup,f).isoformat(),'competition':title,'country':self.current_league.country,
                                      'home':home.name,'away':away.name,'home_uid':home.uid,'away_uid':away.uid,'status':f'{score[0]}-{score[1]}{decision}','played':True,'moments':clean_moments(moments)})
         self.fixture_history[-1]['player_played']=not absent
+        self.fixture_history[-1].update(season=self.season,player_club=self.club_name,club_match=not national)
         self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,actor,score,player_goals,player_misses,moments,report_events)
         self.fixture_history=self.fixture_history[-128:]
         if key.startswith('domestic:'):
@@ -1710,6 +1712,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 "played": True,
             })
             self.fixture_history[-1]['player_played']=not absent
+            self.fixture_history[-1].update(season=self.season,player_club=self.club_name,club_match=False)
             self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,home.uid,(portugal_goals,opponent_goals),player_goals,player_misses,moments,report_events)
             self.fixture_history = self.fixture_history[-128:]
             self.post_match_stage='newspaper'
@@ -1811,6 +1814,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             "played": True,
         })
         self.fixture_history[-1]['player_played']=not absent
+        self.fixture_history[-1].update(season=self.season,player_club=self.club_name,club_match=True)
         self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,self.club.uid,score,player_goals,player_misses,moments,report_events)
         self.fixture_history = self.fixture_history[-128:]
         if competition == "league":
@@ -2109,6 +2113,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         from season_records import completed_snapshot,keep_best
         from season_transitions import exchange_pyramid
         self._ensure_competitions();self._prepare_world_run_in();book=self.world_competitions;book.complete()
+        from season_review import capture
+        capture(self)
         self.completed_records=keep_best(self.completed_records,completed_snapshot(self))
         honours.collect_season(self,book)
         self.finish_development_season()
@@ -2157,10 +2163,14 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             for c in l.clubs:c.played=c.won=c.drawn=c.lost=c.goals_for=c.goals_against=c.points=0
         self.matches=self.goals=self.missed_chances=0;self.form_goals.clear()
         if released:self._release_contract(RELEGATED_MESSAGE,club)
+        from season_review import finalize
+        finalize(self)
 
     def _finish_season(self) -> None:
         if self.world_unlocked:
             self._finish_world_season();return
+        from season_review import capture
+        capture(self)
         from season_records import completed_snapshot,keep_best
         self.completed_records=keep_best(self.completed_records,completed_snapshot(self))
         league = self.current_league
@@ -2248,6 +2258,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.matches = 0
         self.missed_chances = 0
         self.form_goals.clear()
+        from season_review import finalize
+        finalize(self)
 
 
     def save(self) -> bool:
@@ -2293,6 +2305,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                             for k, v in self.leagues.items()
                             if self.world_unlocked and (v.country in self._active_world_countries or self.world_run_in) and k != self.league_key},
             "completed_records": self.completed_records,
+            "season_review": self.season_review,
             "player_name": self.player_name,
             "nationality": self.nationality,
             "season": self.season,
@@ -2734,6 +2747,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                     for home, away in other_league.pairings():
                         other_league.simulate_fixture(home, away, self.rng)
                     other_league.advance_round()
+            from season_review import clean as clean_review
+            self.season_review=clean_review(data.get('season_review'))
             self.development=clean_development(data.get('development'),self.season,self.goals,self.matches)
             self._ensure_development();self._recognise_development()
             if self.training_session_week!=self.week:self.development['session']=None
