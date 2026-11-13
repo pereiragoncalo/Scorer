@@ -3355,3 +3355,13 @@ Production staging bumps only versionCode to 1030019, retaining package, origina
 signing handoff, saves, fixed anchors and post-goal-only presentation. Runtime
 changes are the downward-only unloaded rest field and settled-ball cloth sleep
 fix committed in fb78e1c. Build/audit/test/delivery results follow below.
+
+1030019 results: 9 pure rolling/rest-shape tests passed (29.626 s), 24 native
+net/training/seat tests passed (41.168 s), 25 publisher fixture cases with 24 pass /
+one existing host-JDK skip. Actual unsigned AAB: 118193176 bytes, SHA256
+a4b2bd5b884aca7527996fba0cbba9eb1ee97de2696654b2cb88fb6524f8bc27.
+Bundletool/static audit passed for com.clemir.scorerworld/version1030019, only
+INTERNET/ACCESS_NETWORK_STATE, 16 KB ZIP request and 118 aligned ELF libraries.
+Owner signing/Play/phone acceptance remain pending. No owner credentials entered
+cloud; public uploader pins original certificate and this exact payload. Code
+preserves the existing update gate; minimum stays zero until Play availability.

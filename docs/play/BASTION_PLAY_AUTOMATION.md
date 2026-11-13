@@ -1,4 +1,4 @@
-Current target: World 1.0 / 1030018. Existing configured owners use [the update instructions](DEFORMABLE_NETS_1030018.md); setup below is only for a new machine.
+Current target: World 1.0 / 1030019. Existing configured owners use [the update instructions](DEFORMABLE_NETS_1030019.md); setup below is only for a new machine.
 
 # Bastion → Google Play internal test
 
@@ -42,8 +42,8 @@ Use the exact verified checksum in BASTION_PLAY_AUTOMATION.sha256:
 (
 set -eu
 scorer_setup=$(mktemp -d /root/scorer-play-api.XXXXXX)
-curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.17/bastion_play_internal.py -o "$scorer_setup/uploader.py"
-printf '%s  %s\n' 333f3a7a4c99978aa27a32c14e8be0af1818f6b9e894c9a98e12a60f70d9831a "$scorer_setup/uploader.py" | sha256sum -c -
+curl -fL --retry 2 https://github.com/pereiragoncalo/Scorer/releases/download/play-automation-v1.18/bastion_play_internal.py -o "$scorer_setup/uploader.py"
+printf '%s  %s\n' ec1404c13051b6faa41f7e03d81663a7a09651bc1163d8a40c29bf6ab4df5649 "$scorer_setup/uploader.py" | sha256sum -c -
 install -m700 "$scorer_setup/uploader.py" /root/scorer-signing/play-internal.py
 python3 /root/scorer-signing/play-internal.py --setup-folder
 )
@@ -137,16 +137,16 @@ verified. Keep this activation separate from the upload: wait until the new buil
 is available in Play to every intended player before raising the shared minimum.
 An internal-only build must not become mandatory for production players.
 
-For the current1030018, after that availability check, run as root on bastion:
+For the current1030019, after that availability check, run as root on bastion:
 
 ```bash
 python3 /opt/scorer/server/version_updates.py \
-  --minimum 1030018 \
-  --latest 1030018 \
+  --minimum 1030019 \
+  --latest 1030019 \
   --name 1.0
 curl -f https://stats.clemir.com/v1/app-version
 ```
 
-Verify both minimum_version_code and latest_version_code equal1030018. On the
+Verify both minimum_version_code and latest_version_code equal1030019. On the
 next release, replace BOTH values with its actual code. Then open the older app
 online and confirm that the mandatory update screen appears.
