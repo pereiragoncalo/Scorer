@@ -40,6 +40,13 @@ class NetIntegration(unittest.TestCase):
    self.assertTrue(impact(g,'left',p,(-30,-10,0)))
    for _ in range(90):g.update(.1)
    self.assertFalse(c.active);self.assertEqual(c.displacement,0.)
+ def test_idle_cache_reprojects_mutable_kivy_position_and_size(self):
+  with isolated_game() as g:
+   g.view='shot';g.draw();r=g._net_renderer;before=tuple(r.batches[0][2].vertices);count=r.rebuilds
+   g.x+=80;g.draw()
+   self.assertIs(r,g._net_renderer);self.assertGreater(r.rebuilds,count)
+   self.assertAlmostEqual(r.batches[0][2].vertices[0]-before[0],80)
+   count=r.rebuilds;g.width+=60;g.draw();self.assertGreater(r.rebuilds,count)
  def test_renderer_reuses_mesh_objects_and_sleeps_and_fits_mobile_batches(self):
   old=Window.size
   try:

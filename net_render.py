@@ -46,6 +46,9 @@ class NetRenderer:
             self.batches.append((weights,edges,mesh_object,front_object))
 
     def sync(self,project,camera_key,ball=None):
+        # Kivy pos/size are mutable ObservableReferenceLists; retain values,
+        # never aliases, or an idle mesh silently ignores resize/reposition.
+        camera_key=(tuple(camera_key[0]),tuple(camera_key[1]),*camera_key[2:])
         stamp=(self.cloth.generation,camera_key,ball)
         if stamp==self._stamp:return
         self._stamp=stamp;self.rebuilds+=1
