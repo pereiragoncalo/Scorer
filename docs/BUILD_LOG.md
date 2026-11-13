@@ -3259,3 +3259,21 @@ passed. Covers all nine speed/height trajectories, exact turf pins, immutable
 external tie endpoints, bounded net-end displacement and nonzero elastic yield.
 `python -m py_compile tools/net_lab/rolling_contact.py tools/net_lab/rolling_demo.py`
 and `git diff --check` passed.
+
+## 2026-11-13 — broad draped pocket based on owner reference stills
+
+Simulation-only reference profile: extra hanging fabric, distributed normalized
+contact load across neighboring welded side/back vertices, stronger tensile
+propagation and less local link extension. Preserved hard turf/front pins and
+existing 12 cm bounded rear ties with fixed pole endpoints. Added a same-shot
+before/after capture and square/hexagonal 3x3 height/speed captures at 50% speed.
+No production net code, version, Android compilation, signing or upload changes.
+
+Validation: six rolling-experiment tests passed (48.529 s), including all nine
+reference trajectories, exact hard pins/cord endpoints, bounded tie yield and a
+broad-patch regression (58 vs 23 vertices displaced at least 15 cm in the fast
+mid-net case). A seventh focused test passed for normalized contact load shared
+across both sides of the welded seam. Syntax compilation and diff whitespace
+checks passed. Before/after frame inspection confirms a broad rounded pocket in
+place of the previous narrow spike; stills guide shape rather than calibrated
+physical timing.

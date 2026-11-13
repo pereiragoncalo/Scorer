@@ -13,6 +13,7 @@ class Material:
 
 MATERIALS={
  'tight':Material('REDE ESTICADA',NetConfig(net_slack=.015,net_stiffness=78,net_damping=2.,net_max_stretch=1.16,net_wave_propagation=115),.08,.25,.35),
+ 'reference':Material('REDE DRAPEADA · REFERÊNCIA',NetConfig(net_slack=.45,net_stiffness=8,net_damping=6.5,net_max_stretch=1.65,net_wave_propagation=95),.85,.015,.035),
  'sagged':Material('REDE COM MAIS FOLGA',NetConfig(net_slack=.45,net_stiffness=8,net_damping=10.5,net_max_stretch=2.5,net_wave_propagation=8),.75,.025),
  'slack':Material('REDE SOLTA',NetConfig(net_slack=.38,net_stiffness=10,net_damping=11.5,net_max_stretch=2.0,net_wave_propagation=18),.75,.025),
 }
@@ -58,12 +59,34 @@ class TetheredCloth(NetCloth):
                 self.previous[index][axis]+=(self.positions[index][axis]-self.rest[index][axis])*140*self.STEP**2
         self.constrain_tethers()
 
+class ReferenceCloth(TetheredCloth):
+    """Broad load transfer through hanging fabric, including the welded seam."""
+    def _rest_point(self,surface,u,v):
+        point=list(super()._rest_point(surface,u,v))
+        envelope=math.sin(math.pi*u)*math.sin(math.pi*v)
+        # Extra cloth falls into broad folds between supports, not long elastic
+        # strands stretched only at the four particles nearest the football.
+        point[2]=max(0.,point[2]-.25*envelope)
+        if surface=='back':point[1]-=.20*envelope
+        else:point[0]+=(-1 if surface=='left' else 1)*.20*envelope
+        return tuple(point)
+
+    def load_weights(self,weights):
+        center=tuple(sum(self.rest[i][axis]*w for i,w in weights) for axis in range(3))
+        support=[]
+        for i,point in enumerate(self.rest):
+            distance=math.dist(point,center)
+            if distance<1.2 and not self.pinned[i]:
+                support.append((i,math.exp(-2.0*(distance/.80)**2)))
+        total=sum(w for _,w in support)
+        return [(i,w/total) for i,w in support] if total else []
+
 class RollingReplay:
     STEP=1/120
     def __init__(self,variant='slack',speed=6.8,height=None):
         self.airborne=height is not None
         self.material=MATERIALS[variant];self.geometry=NetGeometry('box')
-        self.cloth=(TetheredCloth if variant=='sagged' else NetCloth)(self.geometry,self.material.config,coarse=False)
+        self.cloth=(ReferenceCloth if variant=='reference' else TetheredCloth if variant=='sagged' else NetCloth)(self.geometry,self.material.config,coarse=False)
         # Every point touching the turf is an anchor, for both materials.
         # Slack belongs to the suspended mesh, never a sliding ground hem.
         self.ground_anchors=tuple(i for i,p in enumerate(self.cloth.rest) if abs(p[2])<1e-6)
@@ -90,7 +113,7 @@ class RollingReplay:
         gap=sum((b[i]-point[i])*normal[i] for i in range(3))+self.radius
         if gap<=0:return None
         free={}
-        for index,weight in weights:
+        for index,weight in (c.load_weights(weights) if isinstance(c,ReferenceCloth) else weights):
             if not c.pinned[index] and weight>0:free[index]=free.get(index,0)+weight
         inv_ball=1/self.mass;inv_node=1/self.material.node_mass
         denom=inv_ball+inv_node*sum(w*w for w in free.values())
@@ -127,10 +150,10 @@ class RollingReplay:
             if surface in handled:continue
             handled.add(surface)
             free={}
-            for index,weight in weights:
+            for index,weight in (c.load_weights(weights) if isinstance(c,ReferenceCloth) else weights):
                 if not c.pinned[index] and weight>0:free[index]=free.get(index,0)+weight
             denominator=1/self.mass+sum(w*w/self.material.node_mass for w in free.values())
-            sheet_velocity=[sum((c.positions[idx][axis]-c.previous[idx][axis])*weight/dt for idx,weight in weights) for axis in range(3)]
+            sheet_velocity=[sum((c.positions[idx][axis]-c.previous[idx][axis])*weight/dt for idx,weight in (free.items() if isinstance(c,ReferenceCloth) else weights)) for axis in range(3)]
             relative=[corrected[i]-sheet_velocity[i] for i in range(3)]
             closing=sum(relative[i]*normal[i] for i in range(3))
             if closing<=0:continue

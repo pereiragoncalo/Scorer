@@ -2,7 +2,7 @@
 import argparse,json,math,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
-p=argparse.ArgumentParser(description=__doc__);p.add_argument('--capture',type=Path,required=True);p.add_argument('--frames',type=int,default=300);p.add_argument('--playback',type=float,default=1.);p.add_argument('--matrix',choices=['square','hexagon']);options=p.parse_args();sys.argv=[sys.argv[0]]
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--capture',type=Path,required=True);p.add_argument('--frames',type=int,default=300);p.add_argument('--playback',type=float,default=1.);p.add_argument('--matrix',choices=['square','hexagon']);p.add_argument('--reference',action='store_true');options=p.parse_args();sys.argv=[sys.argv[0]]
 from kivy.config import Config
 Config.set('graphics','width','1280');Config.set('graphics','height','1080' if options.matrix else '720')
 from kivy.app import App
@@ -59,12 +59,12 @@ class View(StencilView):
 
 class Demo(App):
  def build(self):
-  self.replays=([RollingReplay('sagged',speed,height) for height in (.22,1.1,2.05) for speed in (4.,9.,18.)] if options.matrix else [RollingReplay('tight'),RollingReplay('slack')]);self.views=[];self.frame=0;self.acc=0.
+  self.replays=([RollingReplay('reference' if options.reference else 'sagged',speed,height) for height in (.22,1.1,2.05) for speed in (4.,9.,18.)] if options.matrix else [RollingReplay('sagged',12.,.9),RollingReplay('reference',12.,.9)] if options.reference else [RollingReplay('tight'),RollingReplay('slack')]);self.views=[];self.frame=0;self.acc=0.
   root=BoxLayout(orientation='vertical',padding=8,spacing=6)
-  root.add_widget(Label(text=('MALHA '+('HEXAGONAL' if options.matrix=='hexagon' else 'QUADRADA')+' · MAIS DEFORMAÇÃO · BASE FIXA · CORDAS FLEXÍVEIS' if options.matrix else 'BASE FIXA NA RELVA · FOLGA APENAS NA MALHA SUSPENSA'),size_hint_y=None,height=32,font_size=17))
+  root.add_widget(Label(text=('MALHA '+('HEXAGONAL' if options.matrix=='hexagon' else 'QUADRADA')+(' · BOLSA LARGA · REFERÊNCIA 1990 · BASE FIXA' if options.reference else ' · MAIS DEFORMAÇÃO · BASE FIXA · CORDAS FLEXÍVEIS') if options.matrix else 'ANTES E DEPOIS · BOLSA MAIS LARGA · MESMA BOLA E FIXAÇÕES' if options.reference else 'BASE FIXA NA RELVA · FOLGA APENAS NA MALHA SUSPENSA'),size_hint_y=None,height=32,font_size=17))
   panels=GridLayout(cols=3,spacing=8) if options.matrix else BoxLayout(spacing=10)
   for index,r in enumerate(self.replays):
-   column=BoxLayout(orientation='vertical');column.add_widget(Label(text=((('BAIXA','MÉDIA','ALTA')[index//3]+' · '+('LENTA 4 m/s','MÉDIA 9 m/s','RÁPIDA 18 m/s')[index%3]) if options.matrix else r.material.label),size_hint_y=None,height=36,font_size=17 if options.matrix else 22))
+   column=BoxLayout(orientation='vertical');column.add_widget(Label(text=((('BAIXA','MÉDIA','ALTA')[index//3]+' · '+('LENTA 4 m/s','MÉDIA 9 m/s','RÁPIDA 18 m/s')[index%3]) if options.matrix else ('ANTES · DEFORMAÇÃO LOCAL' if index==0 else 'DEPOIS · DOBRA LARGA') if options.reference else r.material.label),size_hint_y=None,height=36,font_size=17 if options.matrix else 22))
    view=View(r);self.views.append(view);column.add_widget(view);panels.add_widget(column)
   root.add_widget(panels)
   self.info=Label(size_hint_y=None,height=30,font_size=15);root.add_widget(self.info)
@@ -82,7 +82,7 @@ class Demo(App):
   if self.frame>=options.frames:
    Clock.unschedule(self.update)
    data=[]
-   for r in self.replays:data.append({'material':r.material.label,'final_position':r.ball,'peak_deformation':r.peak,'tie_yield':getattr(r.cloth,'tie_peak',0.),'stop_time':r.stop_time,'history':r.history})
+   for r in self.replays:data.append({'material':r.material.label,'final_position':r.ball,'peak_deformation':r.peak,'tie_yield':getattr(r.cloth,'tie_peak',0.),'stop_time':r.stop_time,'reference':options.reference,'history':r.history})
    (options.capture/'metrics.json').write_text(json.dumps(data,indent=2));Clock.schedule_once(lambda _:self.stop(),.05)
 
 if __name__=='__main__':Demo().run()

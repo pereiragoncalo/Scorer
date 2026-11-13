@@ -60,3 +60,40 @@ class RollingExperiment(unittest.TestCase):
   self.assertGreater(c.tie_peak,.001)
   # The suspended cloth can form a deep pocket while ties give only slightly.
   self.assertGreater(r.peak,c.tie_peak*5)
+ def test_reference_moves_a_broad_patch_instead_of_a_local_spike(self):
+  involved=[]
+  for variant in ('sagged','reference'):
+   r=RollingReplay(variant,18.,1.1);largest=0
+   for _ in range(240):
+    r.one_step()
+    largest=max(largest,sum(math.dist(p,q)>.15 for p,q in zip(r.cloth.positions,r.cloth.rest)))
+   involved.append(largest)
+  self.assertGreater(involved[1],involved[0]*1.8)
+ def test_reference_matrix_preserves_ground_and_tie_anchors(self):
+  for height in (.22,1.1,2.05):
+   for speed in (4.,9.,18.):
+    with self.subTest(height=height,speed=speed):
+     r=RollingReplay('reference',speed,height);c=r.cloth
+     fixed={i:c.rest[i][:] for i,pinned in enumerate(c.pinned) if pinned}
+     ends=tuple(tie[1] for tie in c.tethers)
+     for _ in range(360):
+      r.one_step()
+      self.assertTrue(all(math.isfinite(x) for x in (*r.ball,*r.velocity)))
+      for i,point in fixed.items():
+       self.assertEqual(c.positions[i],point)
+       self.assertEqual(c.previous[i],point)
+      self.assertEqual(tuple(tie[1] for tie in c.tethers),ends)
+      for i,endpoint,length in c.tethers:
+       self.assertLessEqual(math.dist(c.positions[i],c.rest[i]),c.TIE_YIELD+1e-9)
+     self.assertIn('back',r.first_contacts)
+ def test_reference_load_is_shared_across_the_side_back_seam(self):
+  r=RollingReplay('reference',12.,1.1);c=r.cloth
+  u,v=r.geometry.uv_at('back',(-3.,-r.geometry.depth,1.1))
+  support=c.load_weights(c.weights('back',u,v))
+  self.assertAlmostEqual(sum(w for _,w in support),1.)
+  self.assertTrue(all(w>0 and not c.pinned[i] for i,w in support))
+  side={i for row in c.grids['left'][2] for i in row}
+  back={i for row in c.grids['back'][2] for i in row}
+  participating={i for i,_ in support}
+  self.assertTrue(participating & (side-back))
+  self.assertTrue(participating & (back-side))

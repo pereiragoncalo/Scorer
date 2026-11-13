@@ -51,3 +51,26 @@ constraint model, not a separate rope-particle simulation.
 
 Updated captures are in `docs/data/net_flexible_ties/`. No production module,
 Android version, save or game asset changes are involved.
+
+### Broad folded pocket from the supplied 1990 match stills
+
+    python tools/net_lab/rolling_demo.py --reference --capture /tmp/reference-compare --frames 360 --playback .5
+    python tools/net_lab/rolling_demo.py --reference --matrix square --capture /tmp/reference-square --frames 360 --playback .5
+    python tools/net_lab/rolling_demo.py --reference --matrix hexagon --capture /tmp/reference-hexagon --frames 360 --playback .5
+
+The reference profile hangs more fabric between the same hard front/turf pins
+and compliant rear ties. A smooth finite load footprint (80 cm scale, cut off at
+1.2 m) distributes contact over neighboring welded cloth vertices, including
+both sheets at the side/back seam. The impulse is normalized over that support;
+it is not independently duplicated at every vertex. Contact still samples the
+local sheet for penetration; broad support is a development approximation to
+force transfer through the loose fabric. Smaller allowed link extension and
+stronger tension propagation reduce the narrow, locally stretched spike.
+
+The before/after uses identical initial ball state (12 m/s, .90 m target height),
+fixed external tie endpoints and grounded boundaries. More vertices move, rather
+than just increasing peak displacement. A regression checks that a fast mid-net
+shot moves at least 1.8 times as many vertices by 15 cm as the previous profile.
+The square/hexagonal grids still share one continuum material model. The stills
+provide shape references, not measured force, timing or damping calibration.
+Artifacts are in `docs/data/net_reference_drape/`. These are simulations only.
