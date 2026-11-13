@@ -11,7 +11,7 @@ class TrainingTouchTests(unittest.TestCase):
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
    c=self.prepare(g);self.assertIsNotNone(g._menu);g._register_miss('MISS!');g.state=g.STATE_RESULT
    touch=UnitTestTouch(*g.center);g.on_touch_down(touch);g.on_touch_up(touch)
-   self.assertEqual(c.training_shots_taken,1);self.assertEqual(g.view,'shot');self.assertEqual(g.state,g.STATE_AIMING);self.assertFalse(g.outcome_registered);self.assertIsNone(g._menu);self.assertEqual(g.attempts,0)
+   self.assertEqual(c.training_shots_taken,1);self.assertEqual(g.view,'shot');self.assertIn(g.state,(g.STATE_AIMING,g.STATE_BUILDUP));self.assertFalse(g.outcome_registered);self.assertIsNone(g._menu);self.assertEqual(g.attempts,0)
  def test_training_waits_for_tap_and_third_tap_shows_summary_immediately(self):
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
    c=self.prepare(g);g.draw();real_draw=g.draw

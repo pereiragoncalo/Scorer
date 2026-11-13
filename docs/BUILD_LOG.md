@@ -1,3 +1,11 @@
+## 2026-11-13 — 1030015 training opportunities and stadium nets
+
+Training reuses make_delivery/_start_opportunity for all ten match types; local weekly seed preserves opportunity on resume. Three shots, coach focus, atomic reservation/reward rules unchanged. Five per side (including hero/keeper), fluorescent sleeveless bib recolouring over pale sleeves; no source art changes. Home stadium empty seats retained.
+
+Four stable UID-based net dressings: square/hexagon × legacy veil/stanchions or box/three detached rear posts and cords. Box swept rear/roof/side collisions match rendered dimensions; shared deformation field seals seams. Original goal mouth and line scoring retained. GLES2 line meshes kept below24000indices.
+
+91 core regressions passed. Native training/save/geometry/mesh/balance checks and actual Kivy screenshots recorded with release evidence. Initial tests found a missing no-club fallback and zero-duration opportunity retaining prior buildup state; corrected. Focus fixture updated to use reserved session state. Android build/audit and public attachment verification follow.
+
 ## 2026-11-12 — World1.0 / 1030014 calendar, locker room and accessibility
 
 Owner requests easier play, two-leg round robin in identical opponent order and

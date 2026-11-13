@@ -48,9 +48,34 @@ class TextureCache:
         role = 'goalkeeper' if '/goalkeeper/' in path else 'players'
         mapping = palette_map(self.manifest, colours, role)
         result = bytearray(pixels)
+        bib=None
+        if role=='players' and len(colours)==6:
+            # Recolour torso ink as a sleeveless vest over a pale training top.
+            # Original frame/joints/skin/alpha stay intact, including arm motion.
+            character=self.manifest['characters'][role]
+            for clip in character['animations'].values():
+                for view,sheet in clip['sheets'].items():
+                    if sheet['path']==path:
+                        bib=(character['canvas'],sheet,clip['joints'][view])
+                        break
+                if bib:break
+            sleeves=rgb(colours[5])
+            shirt_ink={tuple(character['source_palette'][self.manifest['palette_roles'].index(k)][:3]) for k in ('shirt','shirt_dark')}
+
         for offset in range(0,len(result),4):
             if result[offset+3] and tuple(result[offset:offset+3]) in mapping:
-                result[offset:offset+3] = bytes(mapping[tuple(result[offset:offset+3])])
+                original=tuple(result[offset:offset+3])
+                target=mapping[original]
+                if bib and original in shirt_ink:
+                    (fw,fh),sheet,joints=bib
+                    px=(offset//4)%size[0];py=(offset//4)//size[0]
+                    frame=(py//fh)*sheet['columns']+px//fw
+                    if frame<len(joints):
+                        joint=joints[frame];shoulder=joint['shoulder'];hip=joint['hip']
+                        local_y=py%fh;amount=max(0.,min(1.,(local_y-shoulder[1])/max(1.,hip[1]-shoulder[1])))
+                        centre=shoulder[0]+(hip[0]-shoulder[0])*amount
+                        if abs(px%fw-centre)>3.7:target=sleeves
+                result[offset:offset+3] = bytes(target)
         texture = Texture.create(size=size, colorfmt='rgba')
         payload = bytes(result)
         texture.blit_buffer(payload, colorfmt='rgba', bufferfmt='ubyte')

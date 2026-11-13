@@ -33,8 +33,9 @@ def kit_palette(kit):
     def colour(rgba):
         return ''.join(f'{max(0,min(255,round(c*255))):02X}' for c in rgba[:3])
     shirt,shorts,socks,trim=kit
-    if getattr(kit,"pattern",None)=="plain":trim=shirt
-    return (colour(shirt),colour(trim),colour(shorts),colour(socks),'F9FDF1')
+    if getattr(kit,"pattern",None) in ("plain","training_bib"):trim=shirt
+    palette=(colour(shirt),colour(trim),colour(shorts),colour(socks),'F9FDF1')
+    return palette+('F2F6F9',) if getattr(kit,'pattern',None)=='training_bib' else palette
 
 
 def hero_pose(game,flipped=False):

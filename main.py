@@ -383,8 +383,16 @@ class StrikerGame(Widget):
         return self.goal_width / 2.0
 
 
+    @property
+    def goal_net_style(self):
+        from goal_nets import stadium_style
+        return stadium_style(self)
+
     def _veil_profile(self, amount: float) -> tuple[float, float]:
         """Perfil do teto curto e da queda do véu, medido pela malha."""
+        if self.goal_net_style.structure=="box":
+            from goal_nets import box_profile
+            return box_profile(amount,self.goal_height)
         distance = clamp(amount, 0.0, 1.0) * self.goal_geometry.veil_path_length
         if distance <= VEIL_TOP_DEPTH:
             return -distance, self.goal_height
@@ -409,6 +417,7 @@ class StrikerGame(Widget):
     def _veil_height_at_y(self, y: float) -> float:
         """Altura superior da rede num corte lateral da baliza."""
         depth = clamp(-y, 0.0, GOAL_DEPTH)
+        if self.goal_net_style.structure=="box":return self.goal_height
         if depth <= VEIL_TOP_DEPTH:
             return self.goal_height
         if depth >= VEIL_TOUCH_DEPTH:
@@ -761,6 +770,9 @@ class StrikerGame(Widget):
 
 
     def _match_outfield_kits(self):
+        if self.shot_context == "training":
+            from training_opportunities import BIB_KITS
+            return BIB_KITS
         # Training must not inherit the opponent/national team from the last match.
         training = self.shot_context == 'training'
         international = self.match_is_international and not training
@@ -1099,9 +1111,9 @@ class StrikerGame(Widget):
         self.one_on_one=kind in ('through_ball','penalty')
         self.ball.reset(self.shot_origin_x,self.shot_origin_y,z)
         self._generate_field_players()
-        if kind=='penalty' and self.shot_context=='match':
+        if kind=='penalty' and self.shot_context in ('match','training'):
             self.field_players=[FieldPlayer(x,17.,team,float(i)) for team,positions in (('attacker',(-12,-8,8,12)),('defender',(-10,-7.3,7.3,10))) for i,x in enumerate(positions)]
-        elif self.shot_context=='match' and kind in ('corner','long_cross','cross'):
+        elif self.shot_context in ('match','training') and kind in ('corner','long_cross','cross'):
             count=3 if kind=='corner' else 1
             self.field_players.extend(FieldPlayer(-5+i*3,7+i*.7,'attacker',float(i)) for i in range(count))
         self.shot_time_limit=max(2.7,self.shot_time_limit*OPPORTUNITY_TIMING[kind])
@@ -1124,11 +1136,15 @@ class StrikerGame(Widget):
                 x,y,_=delivery.points[1]
                 self.buildup_blocker=FieldPlayer(x,y,'defender',1.)
                 self.field_players[-1]=self.buildup_blocker
+        if self.shot_context=='training':
+            from training_opportunities import add_training_teams
+            add_training_teams(self)
         if delivery.duration:
             self.state=self.STATE_BUILDUP;self.state_age=0.
             self.ball.x,self.ball.y,self.ball.z=delivery.position(0)
             self.goalkeeper_x=self._aligned_goalkeeper_x()
         else:
+            self.state=self.STATE_AIMING;self.state_age=0.
             self.frozen_scene_time=self.elapsed
 
     def _update_buildup(self,dt):
@@ -1467,7 +1483,7 @@ class StrikerGame(Widget):
         if self.auto_aim:
             aim_speed = (
                 self.current_aim_speed
-                if self.shot_context == "match"
+                if self.shot_context in ("match","training")
                 else 2.20
             )
             pulse = 0.82 + 0.30 * (
@@ -1481,14 +1497,13 @@ class StrikerGame(Widget):
 
 
     def _choose_shot_origin(self) -> None:
-        if self.shot_context=='training' and self.career.training_focus in ('heading','penalties'):
-            focus=self.career.training_focus;rng=self.career.rng
-            self.shot_type='header' if focus=='heading' else 'penalty'
-            self.one_on_one=focus=='penalties'
-            self.shot_origin_x,self.shot_origin_y=(rng.uniform(-1.8,1.8),rng.uniform(5.,7.)) if focus=='heading' else PENALTY_ORIGIN
-            self.ball.reset(self.shot_origin_x,self.shot_origin_y,HEADER_BALL_HEIGHT if focus=='heading' else None)
+        if self.shot_context=='training':
+            # The shared delivery is installed after the complete shot reset.
+            self.shot_type='kick';self.one_on_one=False
+            self.shot_origin_x,self.shot_origin_y=PENALTY_ORIGIN
+            self.ball.reset(self.shot_origin_x,self.shot_origin_y)
             self.field_players=[];self.player_kick_progress=0.;self.last_field_collision=None
-            self.goalkeeper_x=self._aligned_goalkeeper_x();self.goalkeeper_vx=0.;return
+            return
         if self.shot_context=="match" and self.current_chance_difficulty=="penalty":
             self.one_on_one=True;self.shot_type="penalty";self.last_origin_index=-2
             self.shot_origin_x,self.shot_origin_y=PENALTY_ORIGIN
@@ -1601,7 +1616,7 @@ class StrikerGame(Widget):
 
     def _generate_field_players(self) -> None:
         """Cria equipas variáveis, com no máximo cinco jogadores de cada lado."""
-        if self.shot_context == "training" or (self.shot_context=="match" and self.current_chance_difficulty in ("easy","penalty")):
+        if self.current_chance_difficulty in ("easy","penalty") and self.shot_context in ("match","training"):
             self.field_players = []
             return
         defenders = (
@@ -2118,7 +2133,7 @@ class StrikerGame(Widget):
         if (
             ball.y < 0.0
             and self.result_text == "GOAL!"
-            and abs(ball.x) <= self.goal_half_width + 0.35
+            and (abs(ball.x) <= self.goal_half_width + 0.35 or abs(old_x) <= self.goal_half_width + 0.35)
         ):
             self._collide_net(old_x, old_y, old_z)
 
@@ -2618,6 +2633,9 @@ class StrikerGame(Widget):
         old_y: Optional[float] = None,
         old_z: Optional[float] = None,
     ) -> None:
+        if self.goal_net_style.structure=="box":
+            from goal_nets import collide_box
+            collide_box(self,old_x,old_y,old_z);return
         ball = self.ball
         hw = self.goal_half_width
         impact_speed = max(1.0, ball.speed)
@@ -2865,6 +2883,9 @@ class StrikerGame(Widget):
         self.goalkeeper_tip_age = -1.0
         self.goalkeeper_tip_contact = None
         self.goalkeeper_vx = 0.0
+        if self.shot_context=='training':
+            from training_opportunities import prepare
+            prepare(self)
 
 
     def reset_statistics(self) -> None:
@@ -5032,6 +5053,9 @@ class StrikerGame(Widget):
 
 
     def _net_point(self, surface: str, u: float, v: float) -> tuple[float, float]:
+        if self.goal_net_style.structure=="box":
+            from goal_nets import box_point
+            return box_point(self,surface,u,v)
         hw = self.goal_half_width
         # No véu principal, v percorre primeiro o pequeno teto horizontal e só
         # depois a diagonal até ao relvado. Nas laterais, u segue esse mesmo
@@ -5084,6 +5108,9 @@ class StrikerGame(Widget):
 
 
     def _draw_goal_net(self) -> None:
+        if self.goal_net_style.structure=="box" or self.goal_net_style.mesh=="hexagon":
+            from goal_nets import draw_net
+            draw_net(self);return
         # Véu contínuo: recua horizontalmente nos pequenos ferros dos cantos e
         # só depois cai na diagonal até ao relvado, sem fundo vertical.
         # Fio claro e fino. A opacidade anterior acumulava-se nas dezenas de
@@ -5162,6 +5189,9 @@ class StrikerGame(Widget):
 
 
     def _draw_goal_frame(self) -> None:
+        if self.goal_net_style.structure=="box":
+            from goal_nets import draw_box_frame
+            draw_box_frame(self);return
         if self.desktop_windows:
             self._draw_desktop_goal_frame()
             return
@@ -5426,7 +5456,7 @@ class StrikerGame(Widget):
             )
 
 
-        if self.shot_context=='training' and self.state==self.STATE_AIMING:
+        if self.shot_context=='training' and self.state==self.STATE_AIMING and self.current_opportunity is None:
             from player_development import NAMES
             self._draw_text(NAMES[self.career.training_focus],self.center_x,self.y+dp(38),max(11,int(self.height*.022)),(.94,.98,.91,1),'center',max_width=self.width-dp(100))
         if self.current_opportunity is not None and self.state in (self.STATE_BUILDUP,self.STATE_AIMING):

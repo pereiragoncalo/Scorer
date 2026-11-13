@@ -9,6 +9,8 @@ class WindowsGoalTests(unittest.TestCase):
         with patch('release_settings.DESKTOP_WINDOWS',True,create=True),isolated_game() as g:
             self.assertAlmostEqual(g.goal_width,GOAL_WIDTH*1.12);self.assertAlmostEqual(g.goal_height,GOAL_HEIGHT*1.10)
             self.assertAlmostEqual(g.aim_center_z,g.goal_height*.5)
+            from goal_nets import NetStyle
+            g._goal_net_style_override=NetStyle('veil','square')
             self.assertEqual(g._veil_profile(0),(0,g.goal_height))
             self.assertAlmostEqual(g._veil_profile(1)[1],0)
             self.assertAlmostEqual(g._veil_height_at_y(-.2),g.goal_height)
