@@ -1,3 +1,5 @@
+2026-11-13 World1.0/code1030021 built and audited: immediate explicit-season publication and pending20migration, correct division/refresh, aligned compact season-review panels, motion-facing retrieval/static idle actors, centre penalty keeper and60%opposite commitment, shared thin posts.55core/policy/HTTP cases inclreal20pending migration,28native and25publisher/1hostJDKskip. Exact runtime/safety/sprites248/35,118ELF16KB and bundletool audits pass. Owner signing/Play/backend installation still required; no private key in cloud.
+
 Backend-only Repair2: complete whitelist of known shipped backend sources, including observed1030005collector e5f1d1c0f5203ad7efa90ebe8afca4ad0787f8f32cd2345c916507c023c305a3. Entire old-payload HTTP rehearsal upgrades with initial maintenance, retains totals/policy/config and v3/v4, adds v5.29tests pass; no APK/AAB change.
 
 1030020 backend-only Repair1: accept exact original maintenance.py shipped by initial install_online, preserving source pinning and rollback. Original failed preflight changed nothing. Android AAB remains unchanged; backend repair published separately.

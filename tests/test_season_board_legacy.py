@@ -45,6 +45,10 @@ class LegacyMaintenanceUpgrade(unittest.TestCase):
 
 class ObservedBastionUpgrade(unittest.TestCase):
  def test_complete_released_statistics_backend_with_initial_maintenance_upgrades_over_real_http(self):
+  self.rehearse(False)
+ def test_installed_1030020_pending_season_becomes_visible_without_resending(self):
+  self.rehearse(True)
+ def rehearse(self,existing_v5):
   import runpy,subprocess,os,selectors
   from urllib.request import urlopen
   from urllib.error import HTTPError
@@ -54,6 +58,7 @@ class ObservedBastionUpgrade(unittest.TestCase):
    observed='e5f1d1c0f5203ad7efa90ebe8afca4ad0787f8f32cd2345c916507c023c305a3'
    self.assertEqual(hashlib.sha256(old['server/usage_collector.py']).hexdigest(),observed)
    old['server/maintenance.py']=(ROOT/'tests/fixtures/maintenance-initial.txt').read_bytes()
+   if existing_v5:old.update(runpy.run_path(str(ROOT/'docs/data/server/Scorer-Season-Leaderboard-Backend-Repair-2.py'),run_name='v5_fixture')['sources']())
    for name,raw in old.items():
     path=root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(raw)
    process=None;port=None
@@ -75,12 +80,18 @@ class ObservedBastionUpgrade(unittest.TestCase):
     with urlopen(f'http://127.0.0.1:{port}'+path,timeout=3) as r:return json.load(r)
    try:
     start();self.assertTrue(get('/health')['ok'])
-    with self.assertRaises(HTTPError):get('/v5/records?division=1')
+    if existing_v5:self.assertEqual(get('/v5/records?division=2')['entries'],[])
+    else:
+     with self.assertRaises(HTTPError):get('/v5/records?division=1')
     with sqlite3.connect(root/'fixture.sqlite') as db:db.execute("INSERT INTO totals VALUES(date('now'),'sessions',17)")
+    if existing_v5:
+     with sqlite3.connect(root/'fixture.sqlite') as db:db.execute("INSERT INTO division_records VALUES(?,2,2027,'Published fixture',40,'pending',1,datetime('now'))",('a'*64,))
+     self.assertEqual(get('/v5/records?division=2')['entries'],[])
     policy=(root/'version-policy.json').read_bytes();config=(root/'public.json').read_bytes()
     apply(root,sources(),stop,start,lambda:verify(port),json.loads((ROOT/'docs/data/season_board_baseline.json').read_text()))
     self.assertEqual(get('/v5/records?division=1')['schema'],5);self.assertEqual(get('/v5/records?division=2')['schema'],5)
     self.assertEqual(get('/v3/records?edition=world&country=England&division=1')['schema'],3)
+    if existing_v5:self.assertEqual(get('/v5/records?division=2')['entries'][0]['player'],'Published fixture')
     with sqlite3.connect(root/'fixture.sqlite') as db:self.assertEqual(db.execute("SELECT count FROM totals WHERE event='sessions'").fetchone()[0],17)
     self.assertEqual((root/'version-policy.json').read_bytes(),policy);self.assertEqual((root/'public.json').read_bytes(),config)
    finally:stop()
