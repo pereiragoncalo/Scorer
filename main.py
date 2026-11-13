@@ -883,7 +883,8 @@ class StrikerGame(Widget):
         first=self.match_entry_minute+(self.match_first_stoppage if self.match_entry_minute>=45 else 0)
         last=self.match_exit_minute+(self.match_first_stoppage if self.match_exit_minute>45 else 0)+(self.match_stoppage if self.match_exit_minute==90 else 0)
         available=range(max(3,first+1),last)
-        self.match_chance_minutes = sorted(self.career.rng.sample(available,min(chance_total,len(available))))
+        from goal_timing import spaced_minutes,goal_events as spaced_goal_events
+        self.match_chance_minutes = spaced_minutes(self.career.rng,available,min(chance_total,len(available)))
         self.match_chance_index = 0
         self.match_easy_chance_index = self.career.rng.randrange(len(self.match_chance_minutes)) if self.match_chance_minutes and self.career.rng.random() < chance_profile.clear_chance_probability else -1
         penalty_slots=[i for i in range(chance_total) if i!=self.match_easy_chance_index] or list(range(chance_total))
@@ -912,14 +913,6 @@ class StrikerGame(Widget):
             away_mean = max(0.05, away_mean - personal_mean)
         home_ai = poisson_goal(self.career.rng, home_mean)
         away_ai = poisson_goal(self.career.rng, away_mean)
-        goal_events = [
-            (self.career.rng.randint(2, final_minute), "home")
-            for _ in range(home_ai)
-        ] + [
-            (self.career.rng.randint(2, final_minute), "away")
-            for _ in range(away_ai)
-        ]
-        self.match_goal_events = sorted(goal_events, key=lambda event: event[0])
         self.match_stakes = match_stakes(self.career, self.match_competition, self.match_home, self.match_away)
         if self.match_exit_minute==90:
             self.match_chance_minutes = late_opportunity(
@@ -927,6 +920,7 @@ class StrikerGame(Widget):
                 (self.career.world_seed, self.career.season, self.career.week,
                  self.match_competition, self.match_home.uid, self.match_away.uid),
                 bool(self.match_stakes['kind']))
+        self.match_goal_events=spaced_goal_events(self.career.rng,home_ai,away_ai,final_minute,self.match_chance_minutes)
         self.match_finished = False
         self.match_summary = ""
         self.match_moment = ""
@@ -1050,8 +1044,7 @@ class StrikerGame(Widget):
             report_events=self.match_report_events,
         )
         self.match_finished = True
-        if self.leaderboard.enabled and self.family.social:
-            self.leaderboard.sync(self.career,edition.is_world())
+        # Public records are sent only after this completed season is approved by the player.
         self.usage.record('matches_completed')
         if self.match_player_goals:self.usage.record('goals_scored',self.match_player_goals)
         self.ads.match_completed((self.career.season, self.career.week, self.career.last_result, self.match_competition))
@@ -3160,10 +3153,14 @@ class StrikerGame(Widget):
     def _activate_ui(self, action: str, value: object = None) -> None:
         if getattr(self,'_update_gate',None) is not None and self._update_gate.locked:return
         import time
-        if action=='leaderboard_category' and value in ('season','career'):
-            if not self.leaderboard.busy:
-                self.leaderboard.category=value;self.leaderboard.entries=[];self._activate_ui('leaderboard_refresh')
-            return
+        if action in ('leaderboard','leaderboard_refresh','leaderboard_division'):
+            division=int(value) if action=='leaderboard_division' else getattr(self.leaderboard,'division',1)
+            if self.leaderboard.busy:return
+            self.view='leaderboard';self.leaderboard.entries=[]
+            self.leaderboard.refresh_division(division,lambda:Clock.schedule_once(lambda _:self.draw(),0));self.draw();return
+        if action in ('leaderboard_join','leaderboard_confirm_join','leaderboard_category'):return
+        if action=='leaderboard_leave':
+            self.leaderboard.withdraw_all(lambda:Clock.schedule_once(lambda _:self.draw(),0));self.draw();return
         if action=='feedback' and self.view in ('hub','start'):
             from feedback import compose,unavailable
             compose(lambda:unavailable(self));return
@@ -3272,8 +3269,8 @@ class StrikerGame(Widget):
                 else:self._safety_notice='Check the adult details or PIN. After three failed PINs wait five minutes.'
             except OSError:self._safety_notice='Unable to save settings. Please try again.'
             self.draw();return
-        if action=='record_safety' and self.view=='leaderboard':
-            self._safety_return='leaderboard';self._safety_notice='';self.view='record_safety';self.draw();return
+        if action=='record_safety' and self.view in ('leaderboard','privacy'):
+            self._safety_return=self.view;self._safety_notice='';self.view='record_safety';self.draw();return
         if action in ('record_report','record_block','record_unblock_all') and self.view=='record_safety':
             if action=='record_unblock_all':
                 self.leaderboard.blocked.clear();self.leaderboard.save();self._safety_notice='Blocked names cleared. Refresh the leaderboard.'
@@ -3296,27 +3293,6 @@ class StrikerGame(Widget):
                 text=export_career(self.career) if action=='career_export' else None
                 self._career_documents.pick(text)
             except (ValueError,OSError):self._safety_notice='No saved career to export.'
-            self.draw();return
-        if action in ('leaderboard','leaderboard_refresh','leaderboard_join','leaderboard_confirm_join','leaderboard_leave'):
-            from online_leaderboard import valid_origin
-            board=self.leaderboard
-            if action in ('leaderboard_join','leaderboard_confirm_join') and not self.family.social:
-                self._safety_return='leaderboard';self.view='family';self._safety_notice='An adult must enable public features first.';self.draw();return
-            self.view='leaderboard'
-            if action in ('leaderboard_join','leaderboard_confirm_join') and time.monotonic()>self._adult_unlocked_until:
-                self._safety_return='leaderboard';self.view='family';self._safety_notice='Enter the adult PIN before sharing.';self.draw();return
-            if action=='leaderboard_join' and valid_origin(board.origin):
-                self._request_record_sharing();return
-            if action=='leaderboard_confirm_join' and valid_origin(board.origin):
-                if self._records_popup is None:return
-                self.family.accept_terms();self._records_popup.dismiss();board.enabled=True;board.career_enabled=board.career_enabled or getattr(board,'category','season')=='career';board.terms_version=1;board.sent={};board.save()
-            if action=='leaderboard_leave':
-                board.enabled=False;board.career_enabled=False;board.pending_withdrawal=True;board.save()
-            if valid_origin(board.origin):
-                board.sync(self.career,edition.is_world(),
-                    lambda:Clock.schedule_once(lambda _:self.draw(),0),
-                    withdraw=board.pending_withdrawal)
-            else:board.status='Online service is not configured yet.'
             self.draw();return
         if action == "splash_continue" and self.view == "splash":
             self.usage.begin_session()
@@ -5566,8 +5542,7 @@ class StrikerApp(App):
         if self.root is not None:
             self.root.usage.flush_async()
             board=self.root.leaderboard
-            if board.pending_withdrawal and not board.busy:
-                board.sync(self.root.career,edition.is_world(),withdraw=True)
+            board.flush_approved(lambda:Clock.schedule_once(lambda _:self.root.draw() if self.root else None,0))
 
     def _check_app_update(self):
         gate=getattr(self.root,'_update_gate',None) if self.root else None

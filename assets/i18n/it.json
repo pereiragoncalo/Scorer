@@ -744,5 +744,15 @@
   "Improve the league finish.": "Migliorare la posizione in campionato.",
   "Defend the title.": "Difendere il titolo.",
   "You met your scoring target.": "Hai raggiunto il tuo obiettivo di gol.",
-  "Your scoring fell short of the target.": "Non hai raggiunto il tuo obiettivo di gol."
+  "Your scoring fell short of the target.": "Non hai raggiunto il tuo obiettivo di gol.",
+  "PUBLISH THIS SEASON": "PUBBLICA QUESTA STAGIONE",
+  "DO NOT PUBLISH": "NON PUBBLICARE",
+  "PUBLISH": "PUBBLICA",
+  "Only your chosen name and league goals will appear publicly. This choice applies to this season only.": "Saranno pubblici solo il nome scelto e i gol in campionato. Questa scelta vale solo per questa stagione.",
+  "Name for the leaderboard": "Nome per la classifica",
+  "Publish this season?": "Pubblicare questa stagione?",
+  "Enter a valid public name.": "Inserisci un nome pubblico valido.",
+  "No published records yet.": "Nessun record pubblicato.",
+  "Offline. Try again when connected.": "Non in linea. Riprova quando sei connesso.",
+  "Saved to send when connected.": "Salvato per inviarlo quando sarai connesso."
 }

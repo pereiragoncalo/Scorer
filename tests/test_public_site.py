@@ -18,7 +18,7 @@ class PublicSiteTests(unittest.TestCase):
     self.assertNotIn('<script',text.lower())
     self.assertNotIn('DRAFT UNDER REVIEW',text)
    privacy=(site/'privacy/index.html').read_text()
-   for expected in ('off by default','Career category','GitHub Pages','github-general-privacy-statement'):
+   for expected in ('choose whether to publish that season','Division 1 and Division 2','GitHub Pages','github-general-privacy-statement'):
     self.assertIn(expected,privacy)
  def test_draft_cannot_be_deployed(self):
   with tempfile.TemporaryDirectory() as directory:

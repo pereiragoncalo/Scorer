@@ -1,3 +1,5 @@
+2026-11-13 source pending next build: global division leaderboard with one-season opt-in/name-only publication; read-only two-column tables. v5 records additive/moderated, historical APIs and removal retained; atomic local queue and installer rollback. Private tier ledger records league goals across country transfers, excluding cups and national teams. Soft spacing reduces goal bursts while retaining goal counts; 3000 four-goal fixtures: close gaps (<=2 minutes) 947 -> 67. 68 pure/HTTP/policy/installer tests and 12 native UI/match checks passed, including nine review languages. No Android build/version increment/deployment. Current delivered AAB remains1030019.
+
 
 Simulation-only correction: fixed every net vertex touching the turf in both rolling-contact profiles. Sag and deformation remain confined to the suspended mesh. Two simulation tests pass, including exact anchor positions throughout contact. Regenerated normal-speed and 50% comparison videos. No Android build, version change, or production integration.
 

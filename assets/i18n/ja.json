@@ -744,5 +744,15 @@
   "Improve the league finish.": "リーグ順位の向上。",
   "Defend the title.": "連覇を目指す。",
   "You met your scoring target.": "得点目標を達成しました。",
-  "Your scoring fell short of the target.": "得点目標には届きませんでした。"
+  "Your scoring fell short of the target.": "得点目標には届きませんでした。",
+  "PUBLISH THIS SEASON": "今シーズンを公開",
+  "DO NOT PUBLISH": "公開しない",
+  "PUBLISH": "公開",
+  "Only your chosen name and league goals will appear publicly. This choice applies to this season only.": "選んだ名前とリーグ得点だけが公開されます。この選択は今シーズンにのみ適用されます。",
+  "Name for the leaderboard": "ランキング用の名前",
+  "Publish this season?": "今シーズンを公開しますか？",
+  "Enter a valid public name.": "有効な公開名を入力してください。",
+  "No published records yet.": "公開された記録はまだありません。",
+  "Offline. Try again when connected.": "オフラインです。接続後に再試行してください。",
+  "Saved to send when connected.": "接続時に送信するため保存しました。"
 }

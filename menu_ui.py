@@ -147,7 +147,7 @@ class CareerMenu(BoxLayout):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
         from season_review import visible as review_visible
-        signature = (review_visible(self.game),tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,getattr(self.game,'standings_key',''),getattr(self.game,'standings_group',0),getattr(self.game,'standings_tab','auto'),getattr(self.game.leaderboard,'category','season'),getattr(self.game.leaderboard,'career_enabled',False),self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
+        signature = (review_visible(self.game),tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,getattr(self.game,'standings_key',''),getattr(self.game,'standings_group',0),getattr(self.game,'standings_tab','auto'),getattr(self.game.leaderboard,'division',1),getattr(self.game.leaderboard,'category','season'),getattr(self.game.leaderboard,'career_enabled',False),self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      str(c.life),c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required,str(c.title_events), str(c.coach_state), str(c.press_state), str(c.development),getattr(self.game,'development_tab','objectives'),
@@ -161,6 +161,11 @@ class CareerMenu(BoxLayout):
         return bool(getattr(release_settings, 'DESKTOP_WINDOWS', False)) and self.game.width >= dp(780) and self.game.height >= dp(520)
 
     def action(self, name, value=None):
+        if name=='season_decline':
+            from season_sharing import decline
+            if decline(self.game.career):self._signature=None
+            elif hasattr(self.body,'error'):self.body.error.text=self.game.i18n.tr('Unable to save your career. Please try again.')
+            self.game.draw();return
         if name=='season_review_done':
             from season_review import dismiss
             if dismiss(self.game.career):self._signature=None
@@ -475,7 +480,7 @@ class CareerMenu(BoxLayout):
         card.label(build_label(),muted=True,localize=False)
         card.label('Scorer World is free, with an included names editor. No advertising or in-app purchases.')
         self._privacy_contact(card)
-        controls=self.card('ADULT CONTROLS');controls.add_widget(self._button('ADULT CONTROLS','family_controls'))
+        controls=self.card('LEADERBOARD');controls.add_widget(self._button('REPORT / BLOCK','record_safety'))
         controls.add_widget(self._button('STOP SHARING & REMOVE','leaderboard_leave'))
         from online_safety import TERMS_TEXT
         terms=self.card('COMMUNITY RULES');terms.label(TERMS_TEXT)
@@ -1519,52 +1524,23 @@ class BrandMark(BoxLayout):
 
 
 class SeasonRecordsScreen(BoxLayout):
-    """Table and actions have separate constrained layout regions; no nested scroll."""
+    """Read-only global division tables; publishing belongs to season review."""
     def __init__(self,menu):
         super().__init__(orientation='vertical',spacing=dp(6))
-        g=menu.game;b=g.leaderboard;c=g.career
-        from season_records import scope
-        category=getattr(b,'category','season')
-        self.tabs=tabs=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(6));self.category_buttons=[]
-        for key,label in (('season','SEASON'),('career','CAREER')):
-            button=MenuTile(label,lambda k=key:menu.action('leaderboard_category',k),accent=category==key);tabs.add_widget(button);self.category_buttons.append(button)
-        self.add_widget(tabs)
-        kind,country,division=scope(c,edition.is_world())
-        heading=(g.i18n.country(country)+' · '+g.i18n.tr('Division {tier}',tier=division)) if kind=='world' else 'SCORER LEAGUE'
-        self.scope_label=BoundedLabel(text=heading+' · '+g.i18n.tr('CAREER RECORDS' if category=='career' else 'SEASON RECORDS'),localize=False,bold=True,color=GREEN,
-                                      font_size=sp(17),size_hint_y=None,height=dp(28))
-        self.add_widget(self.scope_label)
-        status=b.status or ('No published records in this division yet.' if not b.entries else '')
-        if b.pending_withdrawal:status='Removal pending. Refresh when connected.'
-        self.status=BoundedLabel(text=status,font_size=sp(12),color=MUTED,size_hint_y=None,height=dp(24),max_lines=1)
-        self.add_widget(self.status)
-        self.actions=BoxLayout(size_hint_y=None,height=dp(52),spacing=dp(8))
-        sharing=b.enabled and (category!='career' or b.career_enabled)
-        for title,action in [('STOP SHARING & REMOVE' if sharing else 'SHARE CAREER RECORDS' if category=='career' else 'SHARE SEASON RECORDS','leaderboard_leave' if sharing else 'leaderboard_join'),('REFRESH','leaderboard_refresh'),('REPORT OR BLOCK','record_safety')]:
-            self.actions.add_widget(MenuTile(title,lambda a=action:menu.action(a)))
-        self.add_widget(self.actions)
-        rows=[(i+1,e['player'],e['team'],str(e['season'])+'/'+str(e['season']+1)[-2:],e['goals'])
-              for i,e in enumerate(b.entries) if (e.get('edition'),e.get('country'),e.get('division'))==(kind,country,division)]
-        self.table=SeasonRecordTable('CAREER RECORDS' if category=='career' else 'BEST COMPLETED SEASONS',('POS','PLAYER','TEAM','MATCHES' if category=='career' else 'SEASON','GOALS'),[(r[:3]+(b.entries[i]['matches'],)+r[4:]) if category=='career' else r for i,r in enumerate(rows)],
-                                 focus=c.player_name,summary=(0,1,4),detail=(0,2,3,4))
+        g=menu.game;b=g.leaderboard
+        tabs=BoxLayout(size_hint_y=None,height=dp(48),spacing=dp(8));self.category_buttons=[]
+        for division in (1,2):
+            button=MenuTile(g.i18n.tr('Division {tier}',tier=division),lambda d=division:menu.action('leaderboard_division',d),accent=b.division==division)
+            tabs.add_widget(button);self.category_buttons.append(button)
+        self.add_widget(tabs);self.tabs=tabs
+        self.status=BoundedLabel(text=b.status,color=MUTED,font_size=sp(12),size_hint_y=None,height=dp(24));self.add_widget(self.status)
+        self.table=SeasonRecordTable('LEADERBOARD',('PLAYER','GOALS'),[(e['player'],e['goals'])for e in b.entries],summary=(0,1),focus='')
         self.add_widget(self.table)
-        self.bind(size=self._fit);self._fit()
+        self.bind(height=self._fit_board);self._fit_board()
 
-    def _fit(self,*_):
-        short=self.height<dp(320);tiny=self.height<dp(200)
-        self.spacing=dp(2 if tiny else 4 if short else 6)
-        self.actions.spacing=dp(4 if tiny else 8);self.actions.height=dp(48 if tiny else 52)
-        for button in self.actions.children:button.height=self.actions.height
-        for button in self.category_buttons:button.height=self.actions.height if tiny else dp(48)
-        if tiny and self.tabs.parent is self:
-            self.remove_widget(self.tabs)
-            for button in reversed(self.category_buttons):self.tabs.remove_widget(button);self.actions.add_widget(button,index=len(self.actions.children))
-        elif not tiny and self.tabs.parent is None:
-            for button in self.category_buttons:self.actions.remove_widget(button);self.tabs.add_widget(button)
-            self.add_widget(self.tabs,index=len(self.children))
-        self.scope_label.height=0 if tiny else dp(24 if short else 28);self.scope_label.opacity=0 if tiny else 1
-        self.status.height=0 if tiny else dp(20 if short else 24);self.status.opacity=0 if tiny else 1
-
+    def _fit_board(self,*_):
+        self.spacing=dp(2 if self.height<dp(190) else 6)
+        self.status.height=0 if self.height<dp(170) and not self.status.text else dp(24)
 
 class SeasonRecordTable(CompactTable):
     def _render(self,*_):

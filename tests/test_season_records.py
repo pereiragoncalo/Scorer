@@ -43,7 +43,7 @@ class SeasonRecordTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as t:
             Path(t,'leaderboard.json').write_text(json.dumps(dict(token='a'*64,alias='Striker-123',enabled=True,origin='https://stats.example.com')))
             b=Leaderboard(t,'https://stats.example.com');self.assertFalse(b.enabled)
-            b.enabled=True;b.save();self.assertTrue(Leaderboard(t,b.origin).enabled)
+            b.enabled=True;b.save();self.assertFalse(Leaderboard(t,b.origin).enabled)
     def test_v2_http_filters_and_legacy_tables_survive(self):
         with tempfile.TemporaryDirectory() as t:
             service=Collector(('127.0.0.1',0),Path(t)/'stats.sqlite','secret')
@@ -71,8 +71,8 @@ class SeasonRecordTests(unittest.TestCase):
                 b.sync(c,False,done.set);self.assertTrue(done.wait(3));self.assertEqual(request.call_count,1)
             c.completed_records=[self.row(edition='free',country='Scorer',division=1)];done.clear()
             with patch.object(b,'request',return_value={'schema':3,'entries':[]}) as request:
-                b.sync(c,False,done.set);self.assertTrue(done.wait(3));self.assertEqual(request.call_args_list[0].args[0],'/v3/records')
-                done.clear();b.sync(c,False,done.set);self.assertTrue(done.wait(3));self.assertEqual(request.call_count,3)
+                b.sync(c,False,done.set);self.assertTrue(done.wait(3));self.assertTrue(request.call_args_list[0].args[0].startswith('/v3/records?'))
+                done.clear();b.sync(c,False,done.set);self.assertTrue(done.wait(3));self.assertEqual(request.call_count,2)
 
     def test_world_season_record_keeps_old_division_when_promoted(self):
         import os,edition

@@ -28,7 +28,7 @@ class PublicPolicyTests(unittest.TestCase):
             code,body=page(path,config);self.assertEqual(code,200)
             self.assertIn(b'lang="en"',body);self.assertNotIn(b'DRAFT UNDER REVIEW',body)
         body=page('/privacy',config)[1].decode()
-        for phrase in ('data-publication-status="published"','launch acknowledgment does not enable them','Tunnel/proxy','advertising SDKs or in-app purchases','included local names editor','off by default','separate voluntary adult-managed opt-in','Career category','Local purchases and feedback'):
+        for phrase in ('data-publication-status="published"','I AGREE on the startup notice enables aggregate usage statistics','Tunnel/proxy','advertising SDKs or in-app purchases','included local names editor','No choice authorizes future seasons','no birth date or PIN','Division 1 and Division 2','Local purchases and feedback'):
             self.assertIn(phrase,body)
         self.assertNotIn('Proposal for assessment',body)
         self.assertNotIn('Open Privacy &gt; Privacy rights',body)

@@ -26,6 +26,7 @@ class SeasonReviewUI(unittest.TestCase):
  def test_all_nine_languages_fit_the_review_panel(self):
   with isolated_game() as g:
    c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();c._finish_season()
+   c.season_review['public_records']=[dict(division=2,season=c.season-1,player=c.player_name,goals=6)]
    c.post_match_stage='';c.title_events['queue']=[];c.life['private_meeting']='';g.view='hub';g._career_started=True
    g.i18n.world=True
    for language in ('en','pt','es','de','it','ko','ja','zh','vi'):

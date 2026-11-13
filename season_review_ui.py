@@ -12,7 +12,12 @@ class SeasonReviewScreen(FloatLayout):
         super().__init__();self.menu=menu;self.loc=menu.game.i18n;self.report=menu.game.career.season_review
         self.items=[]
         self.photo=Image(source=PORTRAITS[self.report['portrait']],fit_mode='contain',size_hint=(None,None));self.add_widget(self.photo)
-        self.continue_button=MenuTile('CONTINUE',lambda:menu.action('season_review_done'),accent=True);self.continue_button.size_hint=(None,None);self.add_widget(self.continue_button)
+        self.can_share=bool(self.report.get('public_records'))
+        self.continue_button=MenuTile('DO NOT PUBLISH' if self.can_share else 'CONTINUE',lambda:menu.action('season_decline' if self.can_share else 'season_review_done'),accent=not self.can_share);self.continue_button.size_hint=(None,None);self.add_widget(self.continue_button)
+        self.publish_button=None
+        if self.can_share:
+            from season_sharing import ask_name
+            self.publish_button=MenuTile('PUBLISH THIS SEASON',lambda:ask_name(menu),accent=True);self.publish_button.size_hint=(None,None);self.add_widget(self.publish_button)
         self.error=self.label('',(1,.65,.45,1))
         with self.canvas.before:
             Color(.025,.08,.10,.98);self.panel=RoundedRectangle(radius=[dp(12)])
@@ -25,7 +30,7 @@ class SeasonReviewScreen(FloatLayout):
         self.add_widget(w);return w
     def fit(self,*_):
         for widget in self.items:self.remove_widget(widget)
-        self.items=[];r=self.report;t=self.loc.tr;m=dp(12);gap=dp(14)
+        self.items=[];r=self.report;t=self.loc.tr;dense=self.height<dp(330);m=dp(8 if dense and self.can_share else 12);gap=dp(14)
         self.panel.pos=(self.x+m/2,self.y+m/2);self.panel.size=(max(1,self.width-m),max(1,self.height-m))
         left=self.x+m;top=self.top-m;width=max(1,self.width-2*m);col=(width-2*gap)/3
         small=self.height<dp(390);dense=self.height<dp(330);fs=10 if dense else 11 if small else 14;row=dp(20 if small else 31)
@@ -37,7 +42,7 @@ class SeasonReviewScreen(FloatLayout):
         top-=row
         text(t('League finish: {position}/{teams} · {points} pts',**r),left,top,col*2+gap,row)
         text(t('Goals: {goals} · Matches: {matches}',**r),left,top-row,col*2+gap,row)
-        stats_top=top-row*2-dp(8)
+        stats_top=top-row*2-dp(0 if dense and self.can_share else 8)
         def result(key,caption,y):
             text(t(caption),left,y,col,row,heading=True);item=r[key]
             value=t('No recorded result') if not item else f"{item['home']} {item['score']} {item['away']}\n{item['competition']} · {item['date']}"
@@ -46,7 +51,7 @@ class SeasonReviewScreen(FloatLayout):
         x=left+col+gap
         text(t('LEAGUE TOP SCORERS'),x,stats_top,col,row,heading=True)
         y=stats_top-row
-        for scorer in r['leaders'][:3 if small else 5]:
+        for scorer in r['leaders'][:2 if dense and self.can_share else 3 if small else 5]:
             text(f"{scorer['rank']}. {scorer['name']} · {scorer['goals']}",x,y,col,row*1.7);y-=row*1.7
         rank=t('Not ranked') if r['player_rank'] is None else str(r['player_rank'])
         text(t('YOUR POSITION')+f": {rank}\n{r['player']} · {r['player_goals']}",x,y-dp(4),col,row*2,fs)
@@ -67,4 +72,8 @@ class SeasonReviewScreen(FloatLayout):
         objectives=t('Choose a club before setting next season\'s targets.') if target is None else t('{goals} goals · Coach trust 70/100',goals=target)+('' if dense else '\n'+t('Defend the title.' if r['position']==1 else 'Improve the league finish.'))
         text(objectives,x,y,col,row*(2 if dense else 3 if small else 2.3))
         self.continue_button.pos=(self.right-m-dp(190),self.y+m);self.continue_button.size=(dp(190),dp(48))
-        self.error.pos=(left,self.y+m);self.error.size=(max(1,width-dp(205)),dp(48));self.error.text_size=self.error.size;self.error.font_size=sp(fs)
+        if self.publish_button is not None:
+            button_width=min(dp(215),(width-dp(8))/2)
+            self.continue_button.size=(button_width,dp(48));self.continue_button.pos=(self.right-m-button_width,self.y+m)
+            self.publish_button.size=(button_width,dp(48));self.publish_button.pos=(self.right-m-2*button_width-dp(8),self.y+m)
+        self.error.pos=(left,self.y+m);self.error.size=(max(1,width-(2*self.continue_button.width+dp(16)if self.can_share else dp(205))),dp(48));self.error.text_size=self.error.size;self.error.font_size=sp(fs)

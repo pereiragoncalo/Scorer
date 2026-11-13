@@ -24,12 +24,14 @@ def capture(c):
     key=lambda f:(f['difference'],f['goals'])
     from coach import appearance_for
     d=c._ensure_development()
+    from division_records import snapshots
+    public_records=snapshots(c)
     c.season_review=dict(version=1,season=c.season,pending=True,club=c.display_club(club),player=c.player_name,
         league=c.display_league(league),position=position,teams=len(table),points=club.points,
         matches=c.matches,goals=c.goals,best=max(matches,key=key) if matches else None,worst=min(matches,key=key) if matches else None,
         leaders=leaders,player_goals=goals,player_rank=rank(goals) if goals else None,
         portrait=appearance_for(club.uid,c.coach_appearance)['portrait'],target=d['goal_target'],target_met=c.goals>=d['goal_target'],
-        assessment='strong' if position<=3 else 'poor' if position>len(table)*.75 else 'mixed',next_goal_target=None)
+        share_choice='unasked',public_records=public_records,assessment='strong' if position<=3 else 'poor' if position>len(table)*.75 else 'mixed',next_goal_target=None)
 
 def finalize(c):
     report=getattr(c,'season_review',None)
@@ -58,7 +60,10 @@ def clean(raw):
         for item in raw['leaders']:
             if not isinstance(item['name'],str) or len(item['name'])>200 or not item['name'].isprintable():return None
             if any(type(item[k])is not int or not 1<=item[k]<=100000 for k in ('rank','goals')):return None
-        return copy.deepcopy(raw)
+        from division_records import valid_record
+        if raw.get('share_choice','unasked')not in ('unasked','declined','queued'):return None
+        if not isinstance(raw.get('public_records',[]),list) or len(raw.get('public_records',[]))>2 or any(not valid_record(r)for r in raw.get('public_records',[])):return None
+        result=copy.deepcopy(raw);result.setdefault('share_choice','unasked');result.setdefault('public_records',[]);return result
     except (ValueError,KeyError,TypeError,OverflowError):return None
 
 def visible(game):

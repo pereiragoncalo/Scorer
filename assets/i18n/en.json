@@ -744,5 +744,15 @@
   "Improve the league finish.": "Improve the league finish.",
   "Defend the title.": "Defend the title.",
   "You met your scoring target.": "You met your scoring target.",
-  "Your scoring fell short of the target.": "Your scoring fell short of the target."
+  "Your scoring fell short of the target.": "Your scoring fell short of the target.",
+  "PUBLISH THIS SEASON": "PUBLISH THIS SEASON",
+  "DO NOT PUBLISH": "DO NOT PUBLISH",
+  "PUBLISH": "PUBLISH",
+  "Only your chosen name and league goals will appear publicly. This choice applies to this season only.": "Only your chosen name and league goals will appear publicly. This choice applies to this season only.",
+  "Name for the leaderboard": "Name for the leaderboard",
+  "Publish this season?": "Publish this season?",
+  "Enter a valid public name.": "Enter a valid public name.",
+  "No published records yet.": "No published records yet.",
+  "Offline. Try again when connected.": "Offline. Try again when connected.",
+  "Saved to send when connected.": "Saved to send when connected."
 }

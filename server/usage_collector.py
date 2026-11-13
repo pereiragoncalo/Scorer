@@ -15,6 +15,7 @@ from anonymous_stats import valid_payload
 from server.leaderboard import initialize,submit,leaders,withdraw
 from server import season_records as records
 from server import moderation,privacy_cases
+from server import division_records as division_boards
 from urllib.parse import urlsplit,parse_qs
 
 def activity(db,today=None):
@@ -93,7 +94,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         if self.path in ('/v1/leaderboard','/v2/records'):
             self.reply(426,{'error':'app_update_required'});return
-        if self.path not in ('/v1/usage','/v1/leaderboard','/v1/leaderboard/withdraw','/v2/records','/v2/records/withdraw','/v3/records','/v3/records/withdraw','/v4/records','/v4/records/withdraw','/v3/reports','/v1/privacy/request'):self.reply(404,{'error':'not_found'});return
+        if self.path not in ('/v5/records','/v5/records/withdraw','/v1/usage','/v1/leaderboard','/v1/leaderboard/withdraw','/v2/records','/v2/records/withdraw','/v3/records','/v3/records/withdraw','/v4/records','/v4/records/withdraw','/v3/reports','/v1/privacy/request'):self.reply(404,{'error':'not_found'});return
         if not self.server.allow():self.reply(429,{'error':'busy'});return
         try:length=int(self.headers.get('Content-Length','0'))
         except ValueError:self.reply(400,{'error':'invalid'});return
@@ -109,6 +110,7 @@ class Handler(BaseHTTPRequestHandler):
                     if self.path.endswith('/withdraw'):
                         if not isinstance(data,dict) or set(data)!={'token'}:raise ValueError('invalid')
                         moderation.withdraw(db,data['token'])
+                    elif self.path=='/v5/records':division_boards.submit(db,data)
                     elif self.path=='/v4/records':
                         from server.career_records import submit as submit_career
                         submit_career(db,data)
@@ -165,6 +167,16 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header('Cache-Control','no-store');self.send_header('X-Frame-Options','DENY')
             self.send_header('Content-Security-Policy',"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'")
             self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body);return
+        if self.path.startswith('/v5/records?'):
+            if not self.server.allow():self.reply(429,{'error':'busy'});return
+            try:
+                q=parse_qs(urlsplit(self.path).query,strict_parsing=True)
+                if set(q)!={'division'} or any(len(v)!=1 for v in q.values()):raise ValueError('Invalid division')
+                with self.server.db() as db:data=division_boards.leaders(db,int(q['division'][0]))
+                self.reply(200,data)
+            except (ValueError,KeyError):self.reply(400,{'error':'invalid'})
+            except Exception:self.reply(503,{'error':'unavailable'})
+            return
         if self.path.startswith('/v4/records?'):
             if not self.server.allow():self.reply(429,{'error':'busy'});return
             try:

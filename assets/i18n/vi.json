@@ -744,5 +744,15 @@
   "Improve the league finish.": "Cải thiện thứ hạng giải đấu.",
   "Defend the title.": "Bảo vệ chức vô địch.",
   "You met your scoring target.": "Bạn đã đạt mục tiêu ghi bàn.",
-  "Your scoring fell short of the target.": "Bạn chưa đạt mục tiêu ghi bàn."
+  "Your scoring fell short of the target.": "Bạn chưa đạt mục tiêu ghi bàn.",
+  "PUBLISH THIS SEASON": "CÔNG BỐ MÙA NÀY",
+  "DO NOT PUBLISH": "KHÔNG CÔNG BỐ",
+  "PUBLISH": "CÔNG BỐ",
+  "Only your chosen name and league goals will appear publicly. This choice applies to this season only.": "Chỉ tên bạn chọn và bàn thắng ở giải quốc nội được công khai. Lựa chọn này chỉ áp dụng cho mùa này.",
+  "Name for the leaderboard": "Tên trên bảng xếp hạng",
+  "Publish this season?": "Công bố mùa này?",
+  "Enter a valid public name.": "Nhập tên công khai hợp lệ.",
+  "No published records yet.": "Chưa có thành tích công khai.",
+  "Offline. Try again when connected.": "Đang ngoại tuyến. Hãy thử lại khi có mạng.",
+  "Saved to send when connected.": "Đã lưu để gửi khi có kết nối."
 }

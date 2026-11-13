@@ -45,7 +45,7 @@ class OnlineTests(unittest.TestCase):
         self.assertTrue(valid_origin('https://stats.example.com'))
         with tempfile.TemporaryDirectory() as t:
             b=Leaderboard(t,'https://stats.example.com');self.assertFalse(b.enabled)
-            b.enabled=True;b.save();self.assertTrue(Leaderboard(t,b.origin).enabled)
+            b.enabled=True;b.save();self.assertFalse(Leaderboard(t,b.origin).enabled)
             self.assertFalse(Leaderboard(t,'https://different.example.com').enabled)
             self.assertNotIn('Alex',b.alias)
             with self.assertRaises(ValueError):Leaderboard(t,'').request('/v1/leaderboard')

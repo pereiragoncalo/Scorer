@@ -744,5 +744,15 @@
   "Improve the league finish.": "提高联赛排名。",
   "Defend the title.": "卫冕冠军。",
   "You met your scoring target.": "你达成了进球目标。",
-  "Your scoring fell short of the target.": "你未能达成进球目标。"
+  "Your scoring fell short of the target.": "你未能达成进球目标。",
+  "PUBLISH THIS SEASON": "发布本赛季",
+  "DO NOT PUBLISH": "不发布",
+  "PUBLISH": "发布",
+  "Only your chosen name and league goals will appear publicly. This choice applies to this season only.": "仅公开你选择的名字和联赛进球数。此选择仅适用于本赛季。",
+  "Name for the leaderboard": "排行榜上的名字",
+  "Publish this season?": "发布本赛季？",
+  "Enter a valid public name.": "请输入有效的公开名字。",
+  "No published records yet.": "暂无公开记录。",
+  "Offline. Try again when connected.": "当前离线，请连接网络后重试。",
+  "Saved to send when connected.": "已保存，联网后发送。"
 }

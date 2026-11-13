@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse,os,sqlite3,time
 from server.moderation import prune
 from server import privacy_cases
-PRIVATE_TABLES=('leaderboard','season_records','moderation','reports','banned_publishers')
+PRIVATE_TABLES=('leaderboard','season_records','division_records','moderation','reports','banned_publishers')
 def backup(database,target):
     target=Path(target)
     if target.exists():raise ValueError('Use a fresh backup path')

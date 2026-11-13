@@ -770,6 +770,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self._locked_world_career: Optional[dict[str, object]] = None
         self.completed_records = []
         self.season_review = None
+        self.division_stats = None
         self.player_name = "Alex Silva"
         self.nationality = "Portugal"
         self.season = 2026
@@ -1822,6 +1823,9 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self.fixture_history[-1].update(season=self.season,player_club=self.club_name,club_match=True)
         self.press_state=newspaper.make_report(self.press_state,self.fixture_history[-1],home,away,self.club.uid,score,player_goals,player_misses,moments,report_events)
         self.fixture_history = self.fixture_history[-128:]
+        if competition == "league" and not absent:
+            from division_records import record_match as record_division_match
+            record_division_match(self,player_goals)
         if competition == "league":
             self._simulate_world_round()
         self.post_match_stage='newspaper'
@@ -2312,6 +2316,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                             if self.world_unlocked and (v.country in self._active_world_countries or self.world_run_in) and k != self.league_key},
             "completed_records": self.completed_records,
             "season_review": self.season_review,
+            "division_stats": self.division_stats,
             "player_name": self.player_name,
             "nationality": self.nationality,
             "season": self.season,
@@ -2765,6 +2770,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                     other_league.advance_round()
             from season_review import clean as clean_review
             self.season_review=clean_review(data.get('season_review'))
+            from division_records import clean as clean_divisions
+            self.division_stats=clean_divisions(data.get('division_stats'),self)
             self.development=clean_development(data.get('development'),self.season,self.goals,self.matches)
             self._ensure_development();self._recognise_development()
             if self.training_session_week!=self.week:self.development['session']=None

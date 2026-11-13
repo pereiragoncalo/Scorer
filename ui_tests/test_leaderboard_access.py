@@ -9,16 +9,15 @@ from menu_ui import SeasonRecordsScreen
 class LeaderboardAccessTests(unittest.TestCase):
     def test_locked_sharing_still_fetches_and_displays_public_rows_without_a_post(self):
         with isolated_game(saved=True) as g:
-            kind,country,division=scope(g.career,False)
-            entry=dict(edition=kind,country=country,division=division,season=2026,player='Published Player',team='Published Club',matches=46,goals=30,publisher='a'*32,record_id='b'*32)
+            entry=dict(player='Published Player',goals=30,publisher='a'*32)
             g.leaderboard.origin='https://stats.example.com';self.assertFalse(g.family.social)
-            with patch.object(g.leaderboard,'request',return_value={'schema':3,'entries':[entry]}) as request:
+            with patch.object(g.leaderboard,'request',return_value={'schema':5,'division':1,'entries':[entry]}) as request:
                 g.view='hub';g._activate_ui('leaderboard')
                 until=time.monotonic()+3
                 while g.leaderboard.busy and time.monotonic()<until:time.sleep(.01)
                 settle();g.draw();settle()
                 self.assertEqual(g.view,'leaderboard');self.assertIsInstance(g._menu.body,SeasonRecordsScreen)
-                request.assert_called_once();self.assertTrue(request.call_args.args[0].startswith('/v3/records?'))
+                request.assert_called_once();self.assertTrue(request.call_args.args[0].startswith('/v5/records?'))
                 self.assertEqual(len(request.call_args.args),1);self.assertFalse(g.leaderboard.enabled)
                 text=' '.join(w.text for w in g._menu.walk() if isinstance(w,Label))
                 self.assertIn('Published Player',text);self.assertNotIn('Adult PIN',text);self.assertNotIn('automatic usage',text)
