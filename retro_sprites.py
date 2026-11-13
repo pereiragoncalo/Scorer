@@ -76,6 +76,8 @@ def field_pose(game,player,flipped=False):
         age=game.state_age-delivery.duration*.5
         if -.18<=age<=.45:
             return Pose('TACKLE',max(0.,age+.18),flipped=flipped)
+    if player is game.buildup_blocker:return Pose('IDLE',game.state_age+player.phase,flipped=flipped)
+    if game.buildup_progress>=1:return Pose('IDLE',game.state_age+player.phase,flipped=flipped)
     return Pose('RUN',game.state_age+player.phase,flipped=flipped)
 
 

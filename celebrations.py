@@ -69,6 +69,7 @@ class GoalCelebration:
         delay=.18*index
         arrive=run+slide+.65+index*.07
         t=max(0.,min(1.,(age-delay)/(arrive-delay)))
+        if age<=delay:return start,'IDLE',age
         if t<1:return mix(start,target,t),'RUN',max(0.,age-delay)
         return target,'HUG',age-arrive
 
@@ -99,6 +100,14 @@ def active(game):
     c=getattr(game,'goal_celebration',None)
     return c is not None and game.view=='shot' and game.shot_context=='match' and game.elapsed<c.started+c.duration
 
+def motion(celebration,age,index=0):
+    position=celebration.actor(age,index)[0]
+    before=celebration.actor(max(0.,age-.025),index)[0]
+    after=celebration.actor(age+.025,index)[0]
+    dx,dy=after[0]-before[0],after[1]-before[1]
+    moving=math.hypot(dx,dy)>.0025
+    return ((position[0]+dx,position[1]+dy) if moving else celebration.fans),moving
+
 def draw(game):
     from retro_sprites import Pose,PLAYER_HEIGHT_METRES,kit_palette
     celebration=getattr(game,'goal_celebration',None)
@@ -108,12 +117,11 @@ def draw(game):
     actors=[]
     for index in range(1 if celebration.retrieving else 4):
         (x,y),state,clock=celebration.actor(age,index)
-        if state=='RUN':target=celebration.target
-        elif index==0:target=celebration.fans
-        else:target=celebration.target
+        target,moving=motion(celebration,age,index)
+        if state in ('RUN','BALL_RUN') and not moving:state='CARRY' if state=='BALL_RUN' else 'IDLE'
         origin=game.project(x,y,0);destination=game.project(*target,0)
         flip=destination[0]<origin[0]
-        view=('back' if target[1]<y else 'front') if index==0 else 'front'
+        view=('back' if target[1]<y else 'front')
         actors.append((y,index,x,Pose(state,age=clock,view=view,flipped=flip)))
     for y,index,x,pose in sorted(actors):
         renderer.draw(game,'celebration_'+str(index),'players',pose,(x,y,0.),PLAYER_HEIGHT_METRES,colours)

@@ -18,8 +18,7 @@ class ServerDivisionBoard(unittest.TestCase):
   publisher=moderation.public_id(season_records.identity(token));moderation.moderate(self.db,dict(publisher=publisher,action='approve'));return publisher
  def test_two_global_divisions_are_separate_and_public_fields_are_minimal(self):
   self.submit('a'*64,1,player='Ana',goals=12);self.submit('b'*64,1,player='Bruno',goals=15);self.submit('c'*64,2,player='Carlos',goals=30)
-  self.assertEqual(dbrecords.leaders(self.db,1)['entries'],[])
-  for t in ('a','b','c'):self.approve(t*64)
+  self.assertEqual(len(dbrecords.leaders(self.db,1)['entries']),2)
   one=dbrecords.leaders(self.db,1)['entries'];two=dbrecords.leaders(self.db,2)['entries']
   self.assertEqual([(r['player'],r['goals'])for r in one],[('Bruno',15),('Ana',12)])
   self.assertEqual([(r['player'],r['goals'])for r in two],[('Carlos',30)])
@@ -32,6 +31,17 @@ class ServerDivisionBoard(unittest.TestCase):
   self.assertEqual(moderation.queue(self.db)['total'],2)
   moderation.withdraw(self.db,'a'*64);self.assertEqual(dbrecords.leaders(self.db,1)['entries'],[])
   with self.assertRaises(ValueError):dbrecords.submit(self.db,dict(token='a'*64,record=dict(division=1,season=2026,player='Name',goals=1)))
+ def test_pending_choices_become_public_but_rejected_and_banned_records_stay_hidden(self):
+  for token in ('a','b','c'):self.submit(token*64)
+  self.db.execute("UPDATE division_records SET state='pending'")
+  self.db.execute("UPDATE division_records SET state='rejected' WHERE owner=?",(season_records.identity('b'*64),))
+  self.db.execute("UPDATE division_records SET consent=0 WHERE owner=?",(season_records.identity('c'*64),))
+  dbrecords.initialize(self.db)
+  self.assertEqual(len(dbrecords.leaders(self.db,1)['entries']),1)
+  publisher=moderation.public_id(season_records.identity('a'*64))
+  moderation.moderate(self.db,dict(publisher=publisher,action='ban'))
+  self.assertEqual(dbrecords.leaders(self.db,1)['entries'],[])
+  with self.assertRaises(PermissionError):self.submit('b'*64)
  def test_reports_ban_and_erase_include_new_records(self):
   self.submit('a'*64);publisher=self.approve('a'*64)
   moderation.report(self.db,dict(token='b'*64,publisher=publisher,reason='abuse'))

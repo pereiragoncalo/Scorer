@@ -6,15 +6,19 @@ from server.season_records import identity
 
 def initialize(db):
     db.execute('''CREATE TABLE IF NOT EXISTS division_records(owner TEXT,division INTEGER,season INTEGER,player TEXT,goals INTEGER,state TEXT NOT NULL,consent INTEGER NOT NULL,updated TEXT NOT NULL,PRIMARY KEY(owner,division,season))''')
+    # Existing explicit season choices become visible; rejected records stay removed.
+    db.execute("UPDATE division_records SET state='approved' WHERE state='pending' AND consent=1")
 
 def submit(db,payload):
     if not isinstance(payload,dict) or set(payload)!={'token','record','consent_version'} or type(payload['consent_version'])is not int or payload['consent_version']!=1 or not valid_record(payload['record']):raise ValueError('Invalid season consent')
     from server.moderation import public_id
     owner=identity(payload['token']);r=payload['record'];publisher=public_id(owner)
     if db.execute('SELECT 1 FROM banned_publishers WHERE publisher=?',(publisher,)).fetchone():raise PermissionError('Suspended')
-    old=db.execute('SELECT player,goals FROM division_records WHERE owner=? AND division=? AND season=?',(owner,r['division'],r['season'])).fetchone()
-    if old==(r['player'],r['goals']):return
-    db.execute("INSERT INTO division_records VALUES(?,?,?,?,?,'pending',1,?) ON CONFLICT(owner,division,season) DO UPDATE SET player=excluded.player,goals=excluded.goals,state='pending',consent=1,updated=excluded.updated",(owner,r['division'],r['season'],r['player'],r['goals'],datetime.now(timezone.utc).isoformat()))
+    old=db.execute('SELECT player,goals,state FROM division_records WHERE owner=? AND division=? AND season=?',(owner,r['division'],r['season'])).fetchone()
+    if old and old[:2]==(r['player'],r['goals']):
+        if old[2]=='rejected':raise PermissionError('Record removed')
+        return
+    db.execute("INSERT INTO division_records VALUES(?,?,?,?,?,'approved',1,?) ON CONFLICT(owner,division,season) DO UPDATE SET player=excluded.player,goals=excluded.goals,state='approved',consent=1,updated=excluded.updated",(owner,r['division'],r['season'],r['player'],r['goals'],datetime.now(timezone.utc).isoformat()))
 
 def leaders(db,division):
     if type(division)is not int or division not in (1,2):raise ValueError('Invalid division')

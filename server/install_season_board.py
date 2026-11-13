@@ -2,7 +2,7 @@
 import argparse,base64,hashlib,json,os,shutil,subprocess,tempfile,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-FILES=('server/usage_collector.py','server/moderation.py','server/division_records.py','division_records.py','server/public_pages.py','server/maintenance.py')
+FILES=('server/usage_collector.py','server/moderation.py','server/division_records.py','division_records.py','server/public_pages.py','server/maintenance.py','online_safety.py')
 PAYLOAD=None
 BASELINE=None
 

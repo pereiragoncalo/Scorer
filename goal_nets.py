@@ -127,14 +127,20 @@ def draw_rear_supports(g):
             line((endpoint,mid,end),max(.6,tube*.22))
         else:line(((x,-depth-1.,h+.60),(clamp(x,-hw,hw),-net_depth,h)),max(.6,tube*.22))
 
+def draw_front_frame(g):
+    from kivy.graphics import Color,Line
+    hw,h=g.goal_half_width,g.goal_height
+    tube=max(1.4,g.pixels_per_meter(0,0,h*.5)*.055)
+    Color(.94,.97,.98,1)
+    Line(points=[n for p in ((-hw,0,0),(-hw,0,h),(hw,0,h),(hw,0,0)) for n in g.project(*p)],width=tube)
+
 def draw_box_frame(g):
     from kivy.graphics import Color,Line
     hw,h=g.goal_half_width,g.goal_height
     tube=max(1.4,g.pixels_per_meter(0,0,h*.5)*.055)
     def line(points,width):Line(points=[n for p in points for n in g.project(*p)],width=width)
     draw_rear_supports(g)
-    Color(.94,.97,.98,1)
-    line(((-hw,0,0),(-hw,0,h),(hw,0,h),(hw,0,0)),tube)
+    draw_front_frame(g)
     Color(.89,.92,.86,.85)
     line(((-hw,0,h),(-hw,-g.goal_net_depth,h),(hw,-g.goal_net_depth,h),(hw,0,h)),max(.6,tube*.22))
     line(((-hw,0,0),(-hw,-g.goal_net_depth,0),(hw,-g.goal_net_depth,0),(hw,0,0)),max(.6,tube*.22))

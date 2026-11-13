@@ -215,6 +215,7 @@ class StrikerGame(Widget):
         self.goalkeeper_tip_contact = None
         self.goalkeeper_dive_speed = 2.2
         self.goalkeeper_read_error = 0.0
+        self.penalty_dive_target = None
         self.goalkeeper_vertical_error = 0.0
         self.goalkeeper_vx = 0.0
         self.shot_distance_factor = 0.5
@@ -1103,6 +1104,8 @@ class StrikerGame(Widget):
         self.current_opportunity=delivery
         self.current_chance_difficulty='penalty' if kind=='penalty' else 'easy' if kind=='through_ball' else 'hard'
         self.shot_type=delivery.shot_type
+        self.penalty_dive_target=None
+        if kind=='penalty':self.goalkeeper_x=0.;self.goalkeeper_vx=0.;self.goalkeeper_target_x=0.
         self.shot_origin_x,self.shot_origin_y,z=delivery.contact
         self.one_on_one=kind in ('through_ball','penalty')
         self.ball.reset(self.shot_origin_x,self.shot_origin_y,z)
@@ -1773,6 +1776,7 @@ class StrikerGame(Widget):
 
 
     def _update_goalkeeper_idle(self, dt: float) -> None:
+        if self.shot_type=='penalty':self.goalkeeper_x=0.;self.goalkeeper_vx=0.
         # Pequenos passos laterais em vez de saltar diretamente para o eixo.
         self._move_goalkeeper_towards(
             self._aligned_goalkeeper_x(), dt, max_speed=1.65, acceleration=8.2
@@ -1849,7 +1853,7 @@ class StrikerGame(Widget):
         if self.goalkeeper_reaction > 0.0:
             # Enquanto lê a trajetória, ajusta os apoios e mantém-se alinhado
             # com a posição lateral atual da bola.
-            reading_target = self._aligned_goalkeeper_x()
+            reading_target = 0. if self.shot_type=='penalty' else self._aligned_goalkeeper_x()
             self._move_goalkeeper_towards(
                 reading_target,
                 dt,
@@ -1871,7 +1875,7 @@ class StrikerGame(Widget):
             abs(intercept_x) <= self.goal_half_width + 0.20
             and -0.10 <= intercept_z <= self.goal_height + 0.20
         )
-        perceived_x=intercept_x+self.goalkeeper_read_error
+        perceived_x=self.penalty_dive_target if self.shot_type=='penalty' and self.penalty_dive_target is not None else intercept_x+self.goalkeeper_read_error
         horizontal_gap = perceived_x - self.goalkeeper_x
 
 
@@ -1881,7 +1885,7 @@ class StrikerGame(Widget):
         # defesa; anteriormente algumas passavam rente ao braço sem mergulho.
         body_width = 0.49 if intercept_z < 1.65 else 0.39
         needs_high_jump = intercept_z > 1.68
-        self.goalkeeper_should_dive = threatens_goal and (
+        self.goalkeeper_should_dive = self.shot_type=='penalty' or threatens_goal and (
             abs(horizontal_gap) > body_width or needs_high_jump
         )
         if not self.goalkeeper_should_dive:
@@ -1909,7 +1913,7 @@ class StrikerGame(Widget):
         # da baliza, evitando lançamentos precoces e deslocações impossíveis.
         if time_to_keeper > profile.commitment_time + .10*clamp((intercept_z-1.4)/.7,0.0,1.0):
             step_target = clamp(
-                perceived_x,
+                0. if self.shot_type=='penalty' else perceived_x,
                 -self.goal_half_width + 0.42,
                 self.goal_half_width - 0.42,
             )
@@ -2070,6 +2074,12 @@ class StrikerGame(Widget):
         )
         self.goalkeeper_is_diving = False
         self.goalkeeper_vx = 0.0
+        self.penalty_dive_target=None
+        if self.shot_type=='penalty':
+            from finishing_balance import penalty_dive_target
+            self.goalkeeper_x=0.;self.goalkeeper_dive_start_x=0.
+            self.penalty_dive_target=penalty_dive_target(random,destination_x,self.goal_half_width)
+            self.goalkeeper_reaction=random.uniform(.08,.16)
 
 
     def _update_ball(self, dt: float) -> None:
@@ -3168,6 +3178,10 @@ class StrikerGame(Widget):
         if action in ('leaderboard','leaderboard_refresh','leaderboard_division'):
             division=int(value) if action=='leaderboard_division' else getattr(self.leaderboard,'division',1)
             if self.leaderboard.busy:return
+            if action=='leaderboard' and not self.leaderboard.has_division_preference:
+                report=getattr(self.career,'season_review',None) or {}
+                records=report.get('public_records',[]) if report.get('share_choice')=='queued' else []
+                if records:division=records[-1]['division']
             self.view='leaderboard';self.leaderboard.entries=[]
             self.leaderboard.refresh_division(division,lambda:Clock.schedule_once(lambda _:self.draw(),0));self.draw();return
         if action in ('leaderboard_join','leaderboard_confirm_join','leaderboard_category'):return
@@ -5176,51 +5190,13 @@ class StrikerGame(Widget):
 
 
     def _draw_goal_frame(self) -> None:
-        if self.goal_net_style.structure=="box":
-            from goal_nets import draw_box_frame
-            draw_box_frame(self);return
-        from goal_nets import draw_rear_supports
-        draw_rear_supports(self)
-        if self.desktop_windows:
-            self._draw_desktop_goal_frame()
-            return
-        hw = self.goal_half_width
-        left_bottom = self.project(-hw, 0.0, 0.0)
-        left_top = self.project(-hw, 0.0, self.goal_height)
-        right_bottom = self.project(hw, 0.0, 0.0)
-        right_top = self.project(hw, 0.0, self.goal_height)
-
-        Color(0.04, 0.08, 0.09, 0.38)
-        Line(points=[left_bottom[0] + 3, left_bottom[1] - 3, left_top[0] + 3, left_top[1] - 3], width=5.6)
-        Line(points=[right_bottom[0] + 3, right_bottom[1] - 3, right_top[0] + 3, right_top[1] - 3], width=5.6)
-        Line(points=[left_top[0] + 3, left_top[1] - 3, right_top[0] + 3, right_top[1] - 3], width=5.6)
-        Color(0.96, 0.98, 1.0, 1.0)
-        Line(points=[*left_bottom, *left_top], width=4.0)
-        Line(points=[*right_bottom, *right_top], width=4.0)
-        Line(points=[*left_top, *right_top], width=4.0)
+        from goal_nets import draw_box_frame,draw_rear_supports,draw_front_frame
+        if self.goal_net_style.structure=='box':draw_box_frame(self)
+        else:draw_rear_supports(self);draw_front_frame(self)
 
     def _draw_desktop_goal_frame(self):
-        """Projected round white tubes with subtle depth, joints and turf shade."""
-        hw,height=self.goal_half_width,self.goal_height
-        lb,lt=self.project(-hw,0,0),self.project(-hw,0,height)
-        rb,rt=self.project(hw,0,0),self.project(hw,0,height)
-        tube=max(1.25,POST_RADIUS*self.pixels_per_meter(0,0,height*.5))
-        # Ground contact/shadows stay on the turf; no opaque net surface.
-        Color(0.01,0.035,0.025,0.35)
-        for x in (-hw,hw):
-            self._world_polyline([(x,0,.018),(x+.32,-.75,.018)],width=tube*1.5)
-        path=[*lb,*lt,*rt,*rb]
-        Color(0.08,0.13,0.15,0.9)
-        Line(points=path,width=tube+1,cap='round',joint='round')
-        Color(0.70,0.79,0.83,1)
-        Line(points=path,width=tube,cap='round',joint='round')
-        Color(0.98,0.99,0.97,1)
-        Line(points=[lb[0]-.45,lb[1],lt[0]-.45,lt[1]-.3,rt[0]-.45,rt[1]-.3,rb[0]-.45,rb[1]],
-             width=max(.7,tube*.58),cap='round',joint='round')
-        for point in (lt,rt):
-            Color(0.96,0.98,0.97,1)
-            Ellipse(pos=(point[0]-tube*.7,point[1]-tube*.7),size=(tube*1.4,tube*1.4))
-
+        from goal_nets import draw_front_frame
+        draw_front_frame(self)
 
     def _retro_renderer(self):
         if not hasattr(self,'_retro_sprites'):
@@ -5530,7 +5506,14 @@ class StrikerApp(App):
         if self.root is not None:
             self.root.usage.flush_async()
             board=self.root.leaderboard
-            board.flush_approved(lambda:Clock.schedule_once(lambda _:self.root.draw() if self.root else None,0))
+            def completed():
+                def show(_):
+                    if self.root is None:return
+                    if self.root.view=='leaderboard' and not board.approved_seasons and not board.pending_withdrawal:
+                        board.refresh_division(board.division,lambda:Clock.schedule_once(lambda _:self.root.draw() if self.root else None,0))
+                    else:self.root.draw()
+                Clock.schedule_once(show,0)
+            board.flush_approved(completed)
 
     def _check_app_update(self):
         gate=getattr(self.root,'_update_gate',None) if self.root else None

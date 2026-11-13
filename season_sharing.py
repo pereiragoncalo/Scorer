@@ -34,8 +34,12 @@ def ask_name(menu):
         try:
             if not approve(g.career,g.leaderboard,field.text):error.text=t('Unable to save your career. Please try again.');return
         except (ValueError,OSError):error.text=t('Enter a valid public name.');return
-        popup.dismiss();menu._signature=None;g.draw()
-        g.leaderboard.flush_approved(lambda:Clock.schedule_once(lambda _:g.draw(),0))
+        popup.dismiss();menu._signature=None;g.view='leaderboard'
+        g.leaderboard.status='Saved to send when connected.';g.draw()
+        def completed():
+            if g.leaderboard.approved_seasons:g.draw();return
+            g.leaderboard.refresh_division(g.leaderboard.division,lambda:Clock.schedule_once(lambda _:g.draw(),0))
+        g.leaderboard.flush_approved(lambda:Clock.schedule_once(lambda _:completed(),0))
     buttons.add_widget(TouchButton(t('CANCEL'),popup.dismiss));buttons.add_widget(TouchButton(t('PUBLISH'),confirm,accent=True))
     popup.name_field=field;popup.confirm=confirm
     popup.bind(on_dismiss=lambda *_:setattr(g,'_season_share_popup',None));g._season_share_popup=popup;popup.open()

@@ -24,11 +24,13 @@ class Leaderboard:
     def __init__(self,directory,origin=''):
         self.path=Path(directory)/'leaderboard.json';self.origin=origin
         self.pending_withdrawal=False;self.enabled=False;self.career_enabled=False;self.alias='';self.token='';self.entries=[];self.status='';self.busy=False;self.sent={};self.blocked=set();self.terms_version=0
-        self.division=1;self.approved_seasons=[];self.next_retry=0;self._pending_lock=threading.RLock()
+        self.division=1;self.has_division_preference=False;self.approved_seasons=[];self.next_retry=0;self._pending_lock=threading.RLock()
         try:
             d=json.loads(self.path.read_text());self.token=d['token'];self.alias=d['alias']
             self.enabled=d['enabled'] is True and d.get('origin')==origin and d.get('consent_version')==3
             self.career_enabled=d.get('career_enabled') is True and self.enabled
+            self.has_division_preference=type(d.get('division'))is int and d['division']in (1,2)
+            self.division=d['division'] if self.has_division_preference else 1
             self.sent=d.get('sent',{}) if isinstance(d.get('sent'),dict) else {}
             self.pending_withdrawal=d.get('pending_withdrawal') is True
             self.terms_version=1 if d.get('terms_version')==1 else 0
@@ -49,7 +51,7 @@ class Leaderboard:
         self.path.parent.mkdir(parents=True,exist_ok=True)
         fd,name=tempfile.mkstemp(dir=self.path.parent)
         try:
-            with os.fdopen(fd,'w') as f:json.dump(dict(approved_seasons=self.approved_seasons,career_enabled=self.career_enabled,token=self.token,alias=self.alias,enabled=self.enabled,origin=self.origin,pending_withdrawal=self.pending_withdrawal,consent_version=3,sent=self.sent,terms_version=self.terms_version,blocked=sorted(self.blocked)),f)
+            with os.fdopen(fd,'w') as f:json.dump(dict(division=self.division,approved_seasons=self.approved_seasons,career_enabled=self.career_enabled,token=self.token,alias=self.alias,enabled=self.enabled,origin=self.origin,pending_withdrawal=self.pending_withdrawal,consent_version=3,sent=self.sent,terms_version=self.terms_version,blocked=sorted(self.blocked)),f)
             os.replace(name,self.path)
         finally:
             try:os.unlink(name)
@@ -99,7 +101,7 @@ class Leaderboard:
                 if result.get('schema')!=(4 if category=='career' else 3) or not isinstance(entries,list) or len(entries)>100:raise ValueError('Invalid records')
                 if any(not valid_public_entry(e,category) or (e['edition'],e['country'],e['division'])!=(edition,country,division) for e in entries):raise ValueError('Wrong division')
                 self.entries=[e for e in entries if e['publisher'] not in self.blocked]
-                self.status='Submitted for moderator review.' if sent else 'Completed-season records updated.'
+                self.status='Season published.' if sent else 'Completed-season records updated.'
             except HTTPError as error:
                 self.status='Server update required.' if error.code in (404,426) else 'Service unavailable. Refresh to retry.'
             except Exception:self.status='Offline. Completed records are kept on this device.'
@@ -120,9 +122,10 @@ class Leaderboard:
             if key not in self.sent and not any(j['key']==key for j in self.approved_seasons):jobs.append(dict(key=key,record=row,consent_version=1))
         if not records:raise ValueError('No completed league season to publish.')
         with self._pending_lock:
-            old=list(self.approved_seasons);self.approved_seasons+=jobs
+            old=list(self.approved_seasons);old_division=self.division;self.approved_seasons+=jobs
+            self.division=records[-1]['division']
             try:self.save()
-            except OSError:self.approved_seasons=old;raise
+            except OSError:self.approved_seasons=old;self.division=old_division;raise
         return [j['key']for j in jobs]
 
     def cancel_jobs(self,keys):
@@ -131,13 +134,15 @@ class Leaderboard:
     def refresh_division(self,division,callback=None):
         if type(division)is not int or division not in (1,2):raise ValueError('Invalid division')
         if self.busy:return False
-        self.division=division;self.busy=True
+        self.division=division;self.has_division_preference=True;self.busy=True
+        try:self.save()
+        except OSError:pass
         def work():
             try:
                 result=self.request('/v5/records?division='+str(division));entries=result.get('entries')
                 if result.get('schema')!=5 or result.get('division')!=division or not isinstance(entries,list) or len(entries)>100 or any(not valid_division_entry(e)for e in entries):raise ValueError('Invalid classification')
                 self.entries=[e for e in entries if e['publisher']not in self.blocked]
-                self.status='' if self.entries else 'No published records yet.'
+                self.status='Saved to send when connected.' if self.approved_seasons else '' if self.entries else 'No published records yet.'
             except HTTPError as error:self.status='Server update required.' if error.code in (404,426) else 'Service unavailable. Refresh to retry.'
             except Exception:self.status='Offline. Try again when connected.'
             finally:
@@ -159,7 +164,7 @@ class Leaderboard:
                         self.sent[job['key']]=True
                         if job in self.approved_seasons:self.approved_seasons.remove(job)
                         self.save()
-                self.status='Submitted for moderator review.'
+                self.status='Season published.'
             except HTTPError as error:
                 self.next_retry=time.monotonic()+60
                 self.status='Server update required.' if error.code in (404,426) else 'Saved to send when connected.'

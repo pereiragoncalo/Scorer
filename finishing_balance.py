@@ -29,3 +29,9 @@ def placed_keeper_balance(shot_type,target_x,goal_half_width):
     strength=max(0.,min(1.,(abs(target_x)/goal_half_width-.45)/.40))
     bias=(-1. if target_x>0 else 1.)*.16*strength
     return .06*strength,1.+.35*strength,bias
+
+def penalty_dive_target(rng,target_x,goal_half_width):
+    """Commit once: 60% opposite to a lateral penalty; central shots pick a side."""
+    side=1. if target_x>0 else -1. if target_x<0 else (-1. if rng.random()<.5 else 1.)
+    if rng.random()<.60:side=-side
+    return side*max(.95,min(goal_half_width-.62,abs(target_x)))
