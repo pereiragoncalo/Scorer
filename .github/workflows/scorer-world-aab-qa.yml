@@ -1,0 +1,323 @@
+name: Scorer World 0.9.36 - unsigned AAB QA
+
+# Runs manually, or on changes to the single QA trigger text file.
+# Does not sign, publish a release, or contact Google Play Console.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - docs/play/TRIGGER_SCORER_WORLD_0936_AAB.txt
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorer-world-0936-unsigned-aab-qa
+  cancel-in-progress: false
+
+jobs:
+  build-world-aab:
+    name: Build and inspect an unsigned World AAB
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    env:
+      SCORER_STAGE: /tmp/scorer-world-aab-stage
+      STRIKER_BUILD_CACHE: /tmp/scorer-buildozer-cache
+      PYTHONFORANDROID_PREREQUISITES_INSTALL_INTERACTIVE: "0"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+    steps:
+      - name: Checkout the exact source revision
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: cb2f7fd9036fabea7f5f6132bca2385bbdbd85c5
+
+      - name: Verify exact Scorer World 0.9.36 source commit
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "cb2f7fd9036fabea7f5f6132bca2385bbdbd85c5"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          launch=json.loads(Path("release/world-launch.json").read_text())
+          assert launch["next_test_version"] == "0.9.36"
+          assert launch["next_test_version_code"] == 1026936
+          assert launch["package"] == "com.clemir.scorerworld"
+          print("Pinned Scorer World source and version verified.")
+          PY
+
+      - name: Free runner disk space
+        run: |
+          set -euo pipefail
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/share/powershell
+          df -h .
+
+      - name: Install Linux build prerequisites
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            git zip unzip autoconf automake libtool libtool-bin pkg-config \
+            cmake ninja-build ccache libffi-dev libltdl-dev libssl-dev zlib1g-dev \
+            libncurses-dev patch gettext autopoint
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Reuse hosted Android SDK command-line tools
+        run: |
+          set -euo pipefail
+          sdk_root="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$sdk_root"
+          tool=""
+          for candidate in "$sdk_root/cmdline-tools/latest/bin" "$sdk_root/cmdline-tools/16.0/bin"; do
+            if test -x "$candidate/sdkmanager"; then
+              tool="$candidate"
+              break
+            fi
+          done
+          test -n "$tool" || { echo "Android sdkmanager not found" >&2; exit 1; }
+          echo "ANDROID_HOME=$sdk_root" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$sdk_root" >> "$GITHUB_ENV"
+          echo "$tool" >> "$GITHUB_PATH"
+          "$tool/sdkmanager" --version
+          # Buildozer 1.5.0 still checks the legacy tools/bin/sdkmanager path.
+          # Bridge to the actual installed command-line tools without downloading
+          # the removed Android SDK "tools" package.
+          sudo mkdir -p "$sdk_root/tools/bin"
+          sudo ln -sfn "$tool/sdkmanager" "$sdk_root/tools/bin/sdkmanager"
+          test -x "$sdk_root/tools/bin/sdkmanager"
+
+      - name: Install API 36, build-tools and NDK 28c
+        run: |
+          set -euo pipefail
+          sdkmanager --install \
+            "platforms;android-36" \
+            "build-tools;36.0.0" \
+            "ndk;28.2.13676358"
+          test -x "$ANDROID_HOME/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-readelf"
+
+      - name: Install pinned Scorer build tools
+        run: |
+          set -euo pipefail
+          python -m pip install \
+            buildozer==1.5.0 \
+            Cython==0.29.37 \
+            setuptools==75.8.2 \
+            virtualenv==20.36.1 \
+            packaging==26.3
+
+      - name: Stage World QA source outside the repository
+        run: |
+          set -euo pipefail
+          python tools/prepare_editions.py \
+            --edition world \
+            --channel rehearsal \
+            --output "$SCORER_STAGE"
+          # The existing staging helper links to a shared Codex container.
+          # That container does not exist on a GitHub-hosted runner.
+          test -L "$SCORER_STAGE/.buildozer/android/platform"
+          rm "$SCORER_STAGE/.buildozer/android/platform"
+          python - <<'PY'
+          import configparser
+          import os
+          from pathlib import Path
+
+          spec = Path(os.environ["SCORER_STAGE"]) / "buildozer.spec"
+          cfg = configparser.ConfigParser(interpolation=None)
+          cfg.read(spec)
+          app = cfg["app"]
+          assert app["package.domain"] == "com.clemir"
+          assert app["package.name"] == "scorerworld"
+          assert app["android.api"] == "36"
+          assert app["android.minapi"] == "26"
+          assert app["android.archs"] == "arm64-v8a"
+          assert app["android.release_artifact"] == "aab"
+          assert app["android.ndk"] == "28c"
+          assert app["p4a.extra_args"] == "--dist_name=striker"
+          assert app["android.numeric_version"] == "1026936"
+          # SDK licences are accepted for the ephemeral CI build only.
+          app["android.accept_sdk_license"] = "True"
+          with spec.open("w", encoding="utf-8") as out:
+              cfg.write(out)
+          print("Isolated World 0.9.36 rehearsal configuration verified.")
+          PY
+
+      - name: Build release-format AAB without production credentials
+        env:
+          APP_ANDROID_SKIP_UPDATE: "1"
+        run: |
+          set -euo pipefail
+          export APP_ANDROID_SDK_PATH="$ANDROID_HOME"
+          export APP_ANDROID_NDK_PATH="$ANDROID_HOME/ndk/28.2.13676358"
+          # Fetch the historical OpenSSL release from established mirrors.
+          # The original source redirects to an unavailable release asset.
+          # Only the exact upstream-verified bytes are accepted.
+          openssl_sha="777cd596284c883375a2a7a11bf5d2786fc5413255efab20c50d6ffe6d020b7e"
+          cache_dir="$SCORER_STAGE/native-source-cache"
+          mkdir -p "$cache_dir"
+          archive="$cache_dir/openssl-3.3.1.tar.gz"
+          verified=false
+          for source_url in \
+            "https://mirror.viaduck.org/openssl/openssl-3.3.1.tar.gz" \
+            "https://mirrors.lzu.edu.cn/buildroot/libopenssl/openssl-3.3.1.tar.gz" \
+            "https://github.com/openssl/openssl/releases/download/openssl-3.3.1/openssl-3.3.1.tar.gz"
+          do
+            rm -f "$archive"
+            echo "Trying authenticated TLS archive mirror: $source_url"
+            if curl --fail --location --retry 2 --connect-timeout 12 --max-time 90 \
+              --silent --show-error --output "$archive" "$source_url" &&
+              echo "$openssl_sha  $archive" | sha256sum --check --status; then
+              verified=true
+              break
+            fi
+          done
+          if [[ "$verified" != true ]]; then
+            echo "Unable to retrieve SHA256-matching OpenSSL 3.3.1 source archive" >&2
+            exit 1
+          fi
+          # The p4a libffi recipe's GitHub tag archive returns HTTP 504.
+          # Fetch the upstream libffi 3.4.2 *release* tarball instead.
+          # Hash independently documented by the Buildroot project.
+          libffi_sha="540fb721619a6aba3bdeef7d940d8e9e0e6d2c193595bc243241b77ff9e93620"
+          libffi_archive="$cache_dir/libffi-3.4.2.tar.gz"
+          libffi_verified=false
+          for source_url in \
+            "https://ftp.fau.de/macports/distfiles/libffi/libffi-3.4.2.tar.gz" \
+            "https://mirrors.mit.edu/macports/distfiles/libffi/libffi-3.4.2.tar.gz" \
+            "https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz" \
+            "https://macports.distfiles.ionic.de/libffi/libffi-3.4.2.tar.gz"
+          do
+            rm -f "$libffi_archive"
+            echo "Trying libffi 3.4.2 release mirror: $source_url"
+            if curl --fail --location --retry 2 --connect-timeout 12 --max-time 90 \
+              --silent --show-error --output "$libffi_archive" "$source_url" &&
+              echo "$libffi_sha  $libffi_archive" | sha256sum --check --status; then
+              libffi_verified=true
+              break
+            fi
+          done
+          if [[ "$libffi_verified" != true ]]; then
+            echo "Unable to retrieve SHA256-matching libffi 3.4.2 release archive" >&2
+            exit 1
+          fi
+          tar -tzf "$libffi_archive" >/dev/null
+          echo "libffi 3.4.2 archive checksum and structure verified"
+          # p4a's existing HTTPS downloader has no file:// support. Serve the
+          # checksum-verified archives over localhost, only during this step.
+          python -m http.server 18763 --bind 127.0.0.1 --directory "$cache_dir" \
+            >/tmp/scorer-qa-source-server.log 2>&1 &
+          source_server=$!
+          trap 'kill "$source_server" 2>/dev/null || true' EXIT
+          for attempt in 1 2 3 4 5; do
+            if curl --fail --silent --head "http://127.0.0.1:18763/openssl-3.3.1.tar.gz" >/dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent --head "http://127.0.0.1:18763/openssl-3.3.1.tar.gz" >/dev/null
+          export URL_openssl="http://127.0.0.1:18763/openssl-3.3.1.tar.gz"
+          export URL_libffi="http://127.0.0.1:18763/libffi-3.4.2.tar.gz"
+          curl --fail --silent --head "$URL_libffi" >/dev/null
+          cd "$SCORER_STAGE"
+          python tools/build_android.py android release
+          echo "$openssl_sha  .buildozer/android/platform/build-arm64-v8a/packages/openssl/openssl-3.3.1.tar.gz" | sha256sum --check
+          echo "$libffi_sha  .buildozer/android/platform/build-arm64-v8a/packages/libffi/libffi-3.4.2.tar.gz" | sha256sum --check
+          find bin -maxdepth 1 -type f -name '*.aab' -ls
+
+      - name: Validate bundle and produce audit reports
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          bundles=("$SCORER_STAGE"/bin/*.aab)
+          if (( ${#bundles[@]} != 1 )); then
+            echo "Expected exactly one unsigned AAB; found ${#bundles[@]}." >&2
+            exit 1
+          fi
+          aab="${bundles[0]}"
+          curl --fail --location --retry 3 --silent --show-error \
+            -o /tmp/bundletool-all-1.18.1.jar \
+            https://github.com/google/bundletool/releases/download/1.18.1/bundletool-all-1.18.1.jar
+          java -jar /tmp/bundletool-all-1.18.1.jar validate --bundle="$aab"
+          java -jar /tmp/bundletool-all-1.18.1.jar dump manifest \
+            --bundle="$aab" --module=base > "$SCORER_STAGE/bundle-manifest.xml"
+          java -jar /tmp/bundletool-all-1.18.1.jar dump config \
+            --bundle="$aab" > "$SCORER_STAGE/bundle-config.json"
+          # The game source stays pinned; use the separately reviewed QA verifier fix.
+          git -C "$GITHUB_WORKSPACE" fetch --no-tags --depth=1 origin fd60bed14d96acfc593c4c15b873cbe2e755ba6f
+          git -C "$GITHUB_WORKSPACE" show fd60bed14d96acfc593c4c15b873cbe2e755ba6f:tools/play/verify.py > "$SCORER_STAGE/tools/play/verify.py"
+          cd "$SCORER_STAGE"
+          python tools/play/verify.py "$aab" \
+            --manifest "$SCORER_STAGE/bundle-manifest.xml" \
+            --channel rehearsal --package com.clemir.scorerworld \
+            --expected-catalogue "$SCORER_STAGE/assets/data/world_clubs.json" \
+            > "$SCORER_STAGE/static-audit.json"
+          python tools/android/verify_elf_alignment.py "$aab" \
+            --readelf "$ANDROID_HOME/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-readelf" \
+            > "$SCORER_STAGE/elf-audit.txt"
+          AAB_PATH="$aab" python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          from zipfile import ZipFile
+
+          path = Path(os.environ["AAB_PATH"])
+          with ZipFile(path) as bundle:
+              assert bundle.testzip() is None, "Corrupt AAB"
+              names = bundle.namelist()
+              assert "BundleConfig.pb" in names
+              assert "base/manifest/AndroidManifest.xml" in names
+              signatures = [
+                  n for n in names
+                  if n.upper().startswith("META-INF/")
+                  and n.upper().endswith((".SF", ".RSA", ".DSA", ".EC"))
+              ]
+              assert not signatures, "AAB unexpectedly signed; refusing QA release"
+          config = json.loads(Path("bundle-config.json").read_text())
+          alignment = config["optimizations"]["uncompressNativeLibraries"]["alignment"]
+          assert alignment == "PAGE_ALIGNMENT_16K", f"Expected 16KB alignment: {alignment}"
+          digest = hashlib.sha256(path.read_bytes()).hexdigest()
+          report = {
+              "purpose": "unsigned QA AAB, not suitable for Google Play upload",
+              "package": "com.clemir.scorerworld",
+              "rehearsal_version": "0.9.36",
+              "source_sha": "cb2f7fd9036fabea7f5f6132bca2385bbdbd85c5",
+              "sha256": digest,
+              "size_bytes": path.stat().st_size,
+              "bundletool_validated": True,
+              "alignment": alignment,
+              "native_elf_alignment": "see elf-audit.txt",
+              "production_signed": False,
+              "tested_on_real_device": False,
+              "google_play_uploaded": False
+          }
+          Path("qa-aab-report.json").write_text(json.dumps(report, indent=2) + "\n")
+          Path("SHA256SUMS").write_text(f"{digest}  {path.name}\n")
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Retain unsigned QA AAB and available reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scorer-world-0936-unsigned-aab-qa
+          path: |
+            /tmp/scorer-world-aab-stage/bin/*.aab
+            /tmp/scorer-world-aab-stage/qa-aab-report.json
+            /tmp/scorer-world-aab-stage/SHA256SUMS
+            /tmp/scorer-world-aab-stage/bundle-manifest.xml
+            /tmp/scorer-world-aab-stage/bundle-config.json
+            /tmp/scorer-world-aab-stage/static-audit.json
+            /tmp/scorer-world-aab-stage/elf-audit.txt
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0

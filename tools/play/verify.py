@@ -49,7 +49,7 @@ def verify_catalogue(raw,reference):
     return verify_fictional_data('world_clubs', raw, Path(reference).parent)
 
 
-def verify(artifact, manifest, channel,expected_package='com.clemir.striker'):
+def verify(artifact, manifest, channel,expected_package='com.clemir.striker',expected_catalogue=None):
     root, permissions = inspect_manifest(manifest,expected_package)
     with zipfile.ZipFile(artifact) as archive:
         names = archive.namelist()
@@ -67,7 +67,11 @@ def verify(artifact, manifest, channel,expected_package='com.clemir.striker'):
                 raise ValueError('Private state or server/signing material packaged')
             data_member = next(m for m in payload if m.name.endswith('assets/data/world_clubs.json'))
             import json
-            catalogue_count=verify_catalogue(payload.extractfile(data_member).read(),Path('assets/data/world_clubs.json'))
+            raw_catalogue=payload.extractfile(data_member).read()
+            if expected_catalogue is not None:
+                import hashlib
+                if hashlib.sha256(raw_catalogue).digest()!=hashlib.sha256(Path(expected_catalogue).read_bytes()).digest():raise ValueError('Packaged World catalogue differs from the pinned source')
+            catalogue_count=verify_catalogue(raw_catalogue,Path('assets/data/world_clubs.json'))
             from tools.play.fictional_clubs import verify_fictional_data
             for dataset in ('club_profiles', 'league_status', 'fictional_names'):
                 member = next(m for m in payload if m.name.endswith('assets/data/'+dataset+'.json'))
@@ -85,5 +89,6 @@ if __name__ == '__main__':
     parser.add_argument('artifact',type=Path);parser.add_argument('--manifest',required=True,type=Path)
     parser.add_argument('--channel',choices=('rehearsal','production'),required=True)
     parser.add_argument('--package',choices=('com.clemir.striker','com.clemir.scorerworld'),default='com.clemir.striker')
+    parser.add_argument('--expected-catalogue',type=Path)
     args=parser.parse_args()
-    print(json.dumps(verify(args.artifact,args.manifest.read_text(),args.channel,args.package),indent=2))
+    print(json.dumps(verify(args.artifact,args.manifest.read_text(),args.channel,args.package,args.expected_catalogue),indent=2))
