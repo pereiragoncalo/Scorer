@@ -1,3 +1,5 @@
+1030020 backend-only Repair1: accept exact original maintenance.py shipped by initial install_online, preserving source pinning and rollback. Original failed preflight changed nothing. Android AAB remains unchanged; backend repair published separately.
+
 1030020 final AAB regenerated after replacing the obsolete adult-controls startup clause with per-season consent in all9languages. Seven additional native publication/notice tests pass (32native total). Exact compiled online_safety/runtime/sprite verification rerun against this final artifact.
 
 2026-11-13 Android World1.0/code1030020 compiled and audited: eight stadium net variants, triangular cords without stanchions, causal ball-driven cloth, season-end review and per-season global Division1/2 leaderboard, v4calendar migration and softer goal spacing. Exact staged source/sprites, bundletool and118ELF16KB checks passed; owner signing/Play and v5backend deployment pending. Release payload and backend pinned; no new private key/credentials.

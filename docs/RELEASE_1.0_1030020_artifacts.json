@@ -174,5 +174,7 @@
   "publisher_skipped": 1,
   "audit_version_code": 1030020,
   "startup_notice_matches_per_season_choice": true,
-  "startup_notice_languages": 9
+  "startup_notice_languages": 9,
+  "season_leaderboard_backend_repair_sha256": "a63ffd36b221bd295122098fd157aa034fb8e66480c14e5206bc599d3951e94e",
+  "season_leaderboard_backend_current_asset": "Scorer-Season-Leaderboard-Backend-Repair-1.py"
 }

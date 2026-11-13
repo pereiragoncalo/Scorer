@@ -26,11 +26,16 @@ on:
         required: false
         default: false
         type: boolean
+      deliver_season_board_repair:
+        description: Deliver the pinned legacy-maintenance compatibility fix only
+        required: false
+        default: false
+        type: boolean
 permissions:
   contents: write
 jobs:
   deliver:
-    if: ${{ !inputs.deliver_names && !inputs.deliver_automation && !inputs.deliver_statistics_repair && !inputs.deliver_activity_dashboard }}
+    if: ${{ !inputs.deliver_names && !inputs.deliver_automation && !inputs.deliver_statistics_repair && !inputs.deliver_activity_dashboard && !inputs.deliver_season_board_repair }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -187,3 +192,20 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release upload stats-dashboard-v1 Scorer-Activity-Stats-Backend.py docs/RELEASE_ACTIVITY_STATS_V1.md --clobber
+
+  season_board_repair:
+    if: ${{ inputs.deliver_season_board_repair }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify known legacy maintenance upgrade and rollback
+        run: |
+          python3 -m unittest tests.test_season_board_legacy tests.test_division_board -q
+          python3 docs/data/server/Scorer-Season-Leaderboard-Backend-Repair-1.py --check
+          echo 'a63ffd36b221bd295122098fd157aa034fb8e66480c14e5206bc599d3951e94e  docs/data/server/Scorer-Season-Leaderboard-Backend-Repair-1.py' | sha256sum -c -
+      - name: Publish backend-only compatibility repair
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload world-1.0-1030020 docs/data/server/Scorer-Season-Leaderboard-Backend-Repair-1.py docs/play/NET_VARIANTS_1030020.md docs/RELEASE_1.0_1030020_artifacts.json --clobber
