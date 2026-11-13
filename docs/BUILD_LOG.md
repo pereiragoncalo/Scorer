@@ -3277,3 +3277,10 @@ across both sides of the welded seam. Syntax compilation and diff whitespace
 checks passed. Before/after frame inspection confirms a broad rounded pocket in
 place of the previous narrow spike; stills guide shape rather than calibrated
 physical timing.
+
+## 2026-11-13 — isolated hard side-first hexagonal-net replay
+
+Added lab-only `--side-shot` capture: 68 km/h at mid height, first left-sheet
+contact .125 s, then back .192 s, descending into the pocket and rolling to rest
+inside. Focused trajectory/anchor regression passed (1.753 s). Existing cloth,
+material and renderer physics retained. No Android build or production change.

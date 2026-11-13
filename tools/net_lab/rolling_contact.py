@@ -103,6 +103,14 @@ class RollingReplay:
             self.velocity=[0.,-speed,0.];self.ball=tuple(self.position)
         self.roll=0.;self.distance=0.;self.contacts=[];self.history=[];self.stop_time=None
 
+    @classmethod
+    def strong_side_shot(cls):
+        replay=cls('reference',18.,1.22)
+        replay.position=[-3.35,.60,1.27]
+        replay.velocity=[-6.,-18.,0.]
+        replay.ball=tuple(replay.position)
+        return replay
+
     def _contact(self,surface):
         g=self.geometry;c=self.cloth;b=self.position
         if b[1]>.02:return None

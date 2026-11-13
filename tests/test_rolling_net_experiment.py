@@ -97,3 +97,15 @@ class RollingExperiment(unittest.TestCase):
   participating={i for i,_ in support}
   self.assertTrue(participating & (side-back))
   self.assertTrue(participating & (back-side))
+ def test_strong_hex_demo_shot_touches_side_before_rear_and_stays_inside(self):
+  r=RollingReplay.strong_side_shot();height_at_side=None
+  for _ in range(600):
+   r.one_step()
+   if 'left' in r.contacts and height_at_side is None:height_at_side=r.ball[2]
+   for i in r.ground_anchors:self.assertEqual(r.cloth.positions[i],r.cloth.rest[i])
+  self.assertLess(r.first_contacts['left'],r.first_contacts['back'])
+  self.assertGreater(height_at_side,1.)
+  self.assertLess(height_at_side,1.4)
+  self.assertLess(r.ball[1],-2.)
+  self.assertEqual(r.ball[2],r.radius)
+  self.assertLess(math.hypot(*r.velocity[:2]),.03)

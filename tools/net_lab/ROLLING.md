@@ -74,3 +74,13 @@ shot moves at least 1.8 times as many vertices by 15 cm as the previous profile.
 The square/hexagonal grids still share one continuum material model. The stills
 provide shape references, not measured force, timing or damping calibration.
 Artifacts are in `docs/data/net_reference_drape/`. These are simulations only.
+
+### Single hard, mid-height shot against the side first
+
+    python tools/net_lab/rolling_demo.py --side-shot --capture /tmp/strong-side --frames 360 --playback .5
+
+One hexagonal reference net, initial velocity (-6,-18,0) m/s (68 km/h), enters
+near the left post at mid height. Verified first side contact at .125 s, rear
+contact at .192 s, then descent and rolling to rest inside the goal. Base pins
+and rear tie limits are unchanged. The video uses 50% playback and has no game
+build or integration side effects.
