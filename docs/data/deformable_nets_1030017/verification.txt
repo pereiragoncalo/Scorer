@@ -1,0 +1,40 @@
+Normal frame25 and25%frame100: pixel-identical.
+
+net17-pure-tests.log
+----------------------------------------------------------------------
+Ran 59 tests in 43.126s
+
+OK
+
+net17-native-tests.log
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+
+ ----------------------------------------------------------------------
+ Ran 30 tests in 43.250s
+ 
+ OK
+
+net17-publisher-tests.log
+Committed INTERNAL version1030017. Play availability/review timing is controlled by Google.
+Bundle and internal release validated; committing internal edit
+Uploaded 0 MiB
+Uploaded 0 MiB
+Uploaded 0 MiB
+----------------------------------------------------------------------
+Ran 25 tests in 1.517s
+
+OK (skipped=1)
+
+world-1.0-net17-build-audit.log
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/work/cache/java-cacerts -Dhttp.proxyHost=172.31.0.125 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=172.31.0.125 -Dhttps.proxyPort=8080
+PASS: AAB requests 16KiB native ZIP alignment
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/work/cache/java-cacerts -Dhttp.proxyHost=172.31.0.125 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=172.31.0.125 -Dhttps.proxyPort=8080
+Compiled edition verified: World
+Displayed version: 1.0
+Compiled edition/channel/public metadata/safety/transfer modules verified: world production
+PASS: original AAB remains unsigned; derived inspection APK is not a Play upload
+Unsigned candidate static audit passed. Owner signing and Play acceptance remain pending.
+Original revision2 base plus requested celebrations/high tip: 248 frames, 35 sheets, exact compiled rendering/runtime source; no sprite-lab build tools.

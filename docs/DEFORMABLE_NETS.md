@@ -136,8 +136,8 @@ finitos, impactos repetidos, costuras, JSON, A/B, pausa/passo, 30/60/120 FPS e
 (40 trajetórias físicas) com a apresentação ligada/desligada tiveram os mesmos
 estados físicos da bola, golos e pontos de passagem pela linha.
 
-No host Linux x86_64, o preset forte móvel atingiu ~1.00 m na caixa e ~1.11 m no
-véu, adormecendo cerca de 4.2 s após o disparo. A mediana CPU foi ~1.16–1.30 ms por
+No host Linux x86_64 partilhado, o preset forte móvel atingiu ~1.00 m na caixa e ~1.11 m no
+véu, adormecendo cerca de 4.2 s após o disparo. A mediana CPU foi ~1.34–2.30 ms por
 passo de 1/120 s; inclui a leitura de métricas do laboratório. Não é uma medição
 de FPS Android nem do custo total do jogo/GPU.
 

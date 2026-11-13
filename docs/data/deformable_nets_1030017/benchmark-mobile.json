@@ -1,0 +1,161 @@
+{
+  "platform": "Linux x86_64",
+  "python": "3.12.14",
+  "measurement": "CPU only on cloud host; no handset or Windows acceptance; physics step includes diagnostic max displacement scan",
+  "rows": [
+    {
+      "structure": "box",
+      "preset": "Near Post Strong",
+      "particles": 262,
+      "links": 969,
+      "peak_m": 0.9965105200232063,
+      "peak_time_s": 0.4083333333333333,
+      "settled_s": 4.158333333333333,
+      "physics_step_ms_median": 2.2968759876675904,
+      "physics_step_ms_p95": 3.844116989057511
+    },
+    {
+      "structure": "box",
+      "preset": "Near Post Medium",
+      "particles": 262,
+      "links": 969,
+      "peak_m": 0.909867312417709,
+      "peak_time_s": 0.45,
+      "settled_s": 4.075,
+      "physics_step_ms_median": 2.063617983367294,
+      "physics_step_ms_p95": 4.062731022713706
+    },
+    {
+      "structure": "box",
+      "preset": "Near Post Weak",
+      "particles": 262,
+      "links": 969,
+      "peak_m": 0.46264041520973076,
+      "peak_time_s": 0.49166666666666664,
+      "settled_s": 3.816666666666667,
+      "physics_step_ms_median": 1.5825214941287413,
+      "physics_step_ms_p95": 2.8596919728443027
+    },
+    {
+      "structure": "box",
+      "preset": "Far Post Strong",
+      "particles": 262,
+      "links": 969,
+      "peak_m": 0.9965105200232063,
+      "peak_time_s": 0.4083333333333333,
+      "settled_s": 4.158333333333333,
+      "physics_step_ms_median": 1.5902599843684584,
+      "physics_step_ms_p95": 2.8208799776621163
+    },
+    {
+      "structure": "box",
+      "preset": "Center Strong",
+      "particles": 262,
+      "links": 969,
+      "peak_m": 1.2933806207685932,
+      "peak_time_s": 0.425,
+      "settled_s": 4.233333333333333,
+      "physics_step_ms_median": 1.5565655048703775,
+      "physics_step_ms_p95": 2.7816499932669103
+    },
+    {
+      "structure": "box",
+      "preset": "Top Corner",
+      "particles": 262,
+      "links": 969,
+      "peak_m": 0.953487446354543,
+      "peak_time_s": 0.43333333333333335,
+      "settled_s": 4.166666666666667,
+      "physics_step_ms_median": 1.51419649773743,
+      "physics_step_ms_p95": 1.8974599952343851
+    },
+    {
+      "structure": "box",
+      "preset": "Low Shot",
+      "particles": 262,
+      "links": 969,
+      "peak_m": 0.7458955698974019,
+      "peak_time_s": 0.43333333333333335,
+      "settled_s": 3.841666666666667,
+      "physics_step_ms_median": 1.5310620074160397,
+      "physics_step_ms_p95": 2.584959991509095
+    },
+    {
+      "structure": "veil",
+      "preset": "Near Post Strong",
+      "particles": 223,
+      "links": 802,
+      "peak_m": 1.1135351855057487,
+      "peak_time_s": 0.44166666666666665,
+      "settled_s": 4.275,
+      "physics_step_ms_median": 1.3424920034594834,
+      "physics_step_ms_p95": 1.6342680028174073
+    },
+    {
+      "structure": "veil",
+      "preset": "Near Post Medium",
+      "particles": 223,
+      "links": 802,
+      "peak_m": 0.8577898923801596,
+      "peak_time_s": 0.475,
+      "settled_s": 4.166666666666667,
+      "physics_step_ms_median": 1.3594375050161034,
+      "physics_step_ms_p95": 3.036988986423239
+    },
+    {
+      "structure": "veil",
+      "preset": "Near Post Weak",
+      "particles": 223,
+      "links": 802,
+      "peak_m": 0.4137937864597779,
+      "peak_time_s": 0.5083333333333333,
+      "settled_s": 3.7333333333333334,
+      "physics_step_ms_median": 1.3866809895262122,
+      "physics_step_ms_p95": 2.903250977396965
+    },
+    {
+      "structure": "veil",
+      "preset": "Far Post Strong",
+      "particles": 223,
+      "links": 802,
+      "peak_m": 1.1135351855057487,
+      "peak_time_s": 0.44166666666666665,
+      "settled_s": 4.275,
+      "physics_step_ms_median": 1.3552810123655945,
+      "physics_step_ms_p95": 1.8324559787288308
+    },
+    {
+      "structure": "veil",
+      "preset": "Center Strong",
+      "particles": 223,
+      "links": 802,
+      "peak_m": 1.1207395690514723,
+      "peak_time_s": 0.44166666666666665,
+      "settled_s": 3.975,
+      "physics_step_ms_median": 1.3743609888479114,
+      "physics_step_ms_p95": 1.6596069908700883
+    },
+    {
+      "structure": "veil",
+      "preset": "Top Corner",
+      "particles": 223,
+      "links": 802,
+      "peak_m": 0.6246528948999417,
+      "peak_time_s": 0.48333333333333334,
+      "settled_s": 4.083333333333333,
+      "physics_step_ms_median": 1.3253424840513617,
+      "physics_step_ms_p95": 1.9577399943955243
+    },
+    {
+      "structure": "veil",
+      "preset": "Low Shot",
+      "particles": 223,
+      "links": 802,
+      "peak_m": 0.7480702157000909,
+      "peak_time_s": 0.475,
+      "settled_s": 3.8666666666666667,
+      "physics_step_ms_median": 1.381133493850939,
+      "physics_step_ms_p95": 1.7658239812590182
+    }
+  ]
+}
