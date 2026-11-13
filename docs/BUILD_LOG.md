@@ -3346,3 +3346,12 @@ net tests passed (23.294 s), including physical-state equivalence and reset.
 Syntax/whitespace checks pass. No Android build, version increment, signing,
 public release or update-policy change for this visual correction yet. Existing
 main/menu/badge/mode-state WIP preserved unstaged.
+
+## 2026-11-13 — World 1.0 / 1030019 build requested
+
+Owner requested a new Android version after approving the unloaded-shape
+correction. Fresh isolated source/worktree excludes unrelated main/menu/mode WIP.
+Production staging bumps only versionCode to 1030019, retaining package, original
+signing handoff, saves, fixed anchors and post-goal-only presentation. Runtime
+changes are the downward-only unloaded rest field and settled-ball cloth sleep
+fix committed in fb78e1c. Build/audit/test/delivery results follow below.
