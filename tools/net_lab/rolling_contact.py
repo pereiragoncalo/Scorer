@@ -21,12 +21,10 @@ class RollingReplay:
     def __init__(self,variant='slack',speed=6.8):
         self.material=MATERIALS[variant];self.geometry=NetGeometry('box')
         self.cloth=NetCloth(self.geometry,self.material.config,coarse=False)
-        if variant=='slack':
-            # A draped lower cord, not a continuously bolted ground rail.
-            # Keep the mouth posts and rear centre peg; allow the corner hem
-            # to slide on the turf and gather around the rolling ball.
-            for i,point in enumerate(self.cloth.rest):
-                if point[2]<.001 and point[1]<-.05 and abs(point[0])>.15:self.cloth.pinned[i]=False
+        # Every point touching the turf is an anchor, for both materials.
+        # Slack belongs to the suspended mesh, never a sliding ground hem.
+        self.ground_anchors=tuple(i for i,p in enumerate(self.cloth.rest) if abs(p[2])<1e-6)
+        for i in self.ground_anchors:self.cloth.pinned[i]=True
         self.tick=0;self.accumulator=0.;self.hit=False;self.preset=self.material.label;self.peak=0.;self.peak_time=0.;self.peak_ball=None;self.first_contacts={}
         self.radius=.115;self.mass=.43
         # A glancing ground shot, already through the mouth. It reaches the

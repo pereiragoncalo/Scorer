@@ -52,7 +52,7 @@ class Demo(App):
  def build(self):
   self.replays=[RollingReplay('tight'),RollingReplay('slack')];self.views=[];self.frame=0;self.acc=0.
   root=BoxLayout(orientation='vertical',padding=8,spacing=6)
-  root.add_widget(Label(text='MESMO REMATE · ROLAMENTO PELA LATERAL ATÉ À JUNÇÃO COM O FUNDO',size_hint_y=None,height=32,font_size=17))
+  root.add_widget(Label(text='BASE FIXA NA RELVA · FOLGA APENAS NA MALHA SUSPENSA',size_hint_y=None,height=32,font_size=17))
   panels=BoxLayout(spacing=10)
   for r in self.replays:
    column=BoxLayout(orientation='vertical');column.add_widget(Label(text=r.material.label,size_hint_y=None,height=36,font_size=22))
