@@ -6,6 +6,8 @@ Four stable UID-based net dressings: square/hexagon × legacy veil/stanchions or
 
 91 core regressions passed. Native training/save/geometry/mesh/balance checks and actual Kivy screenshots recorded with release evidence. Initial tests found a missing no-club fallback and zero-duration opportunity retaining prior buildup state; corrected. Focus fixture updated to use reserved session state. Android build/audit and public attachment verification follow.
 
+Android1030015 rebuilt successfully (118159992bytes; SHA256e25aaefc92d9c87bf96cf36422c6557d91228c21654038a4d7b55faeca342ebf). Production/bundletool/118ELF16KB/ZIP16KB/derived debug inspection and exact compiled runtime/assets audit all passed. 105core +28native cases passed;25publisher scenarios24pass/1existing hostJDKskip. Original248frames/35sheets unchanged. Four runtime screenshots and concise evidence in docs/data/training_nets_1030015. Runtime sourcefc537d1; subsequent source commits only update historical empty-training test expectations. Full source build never included unrelated main.py WIP. Old /workspace/deliverables archived to /tmp/scorer-deliverables-archive with its original path symlinked to recover temporary build space.
+
 ## 2026-11-12 — World1.0 / 1030014 calendar, locker room and accessibility
 
 Owner requests easier play, two-leg round robin in identical opponent order and

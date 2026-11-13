@@ -1,0 +1,66 @@
+training15-core.log
+----------------------------------------------------------------------
+Ran 91 tests in 31.594s
+
+OK
+
+training15-opportunity-core.log
+----------------------------------------------------------------------
+Ran 14 tests in 2.377s
+
+OK
+
+training15-native-complete-kivy.log
+[INFO   ] GL: Shading version <b'4.50'>
+[INFO   ] GL: Texture max size <16384>
+[INFO   ] GL: Texture max units <32>
+[INFO   ] Window: auto add sdl2 input provider
+[INFO   ] Window: virtual keyboard not allowed, single mode, not docked
+[INFO   ] Text: Provider: sdl2
+[INFO   ] Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+[INFO   ] GL: NPOT texture support is available
+[WARNING] stderr: ----------------------------------------------------------------------
+[WARNING] stderr: Ran 20 tests in 19.134s
+[WARNING] stderr: 
+[WARNING] stderr: OK
+
+training15-sprites-final-kivy.log
+[INFO   ] GL: Shading version <b'4.50'>
+[INFO   ] GL: Texture max size <16384>
+[INFO   ] GL: Texture max units <32>
+[INFO   ] Window: auto add sdl2 input provider
+[INFO   ] Window: virtual keyboard not allowed, single mode, not docked
+[INFO   ] Text: Provider: sdl2
+[INFO   ] Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+[INFO   ] GL: NPOT texture support is available
+[WARNING] stderr: ----------------------------------------------------------------------
+[WARNING] stderr: Ran 8 tests in 28.293s
+[WARNING] stderr: 
+[WARNING] stderr: OK
+
+training15-publisher.log
+Play API connected: com.clemir.scorerworld; internal versions: [1030001]
+Bundle and internal release validated; committing internal edit
+Bundle and internal release validated; committing internal edit
+Committed INTERNAL version1030015. Play availability/review timing is controlled by Google.
+Bundle and internal release validated; committing internal edit
+Uploaded 0 MiB
+Uploaded 0 MiB
+Uploaded 0 MiB
+----------------------------------------------------------------------
+Ran 25 tests in 1.674s
+
+OK (skipped=1)
+
+world-1.0-training15-inspection.log
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/work/cache/java-cacerts -Dhttp.proxyHost=172.31.0.125 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=172.31.0.125 -Dhttps.proxyPort=8080
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/work/cache/java-cacerts -Dhttp.proxyHost=172.31.0.125 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=172.31.0.125 -Dhttps.proxyPort=8080
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/work/cache/java-cacerts -Dhttp.proxyHost=172.31.0.125 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=172.31.0.125 -Dhttps.proxyPort=8080
+PASS: AAB requests 16KiB native ZIP alignment
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/work/cache/java-cacerts -Dhttp.proxyHost=172.31.0.125 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=172.31.0.125 -Dhttps.proxyPort=8080
+Compiled edition verified: World
+Displayed version: 1.0
+Compiled edition/channel/public metadata/safety/transfer modules verified: world production
+PASS: original AAB remains unsigned; derived inspection APK is not a Play upload
+Unsigned candidate static audit passed. Owner signing and Play acceptance remain pending.
+Original revision2 base plus requested celebrations/high tip: 248 frames, 35 sheets, exact compiled rendering/runtime source; no sprite-lab build tools.
