@@ -38,7 +38,7 @@ class TetheredCloth(NetCloth):
         for x in (-g.width/2,0.,g.width/2):
             index=min(range(len(self.rest)),key=lambda i:math.dist(self.rest[i],(x,-support_depth,g.height)))
             self.pinned[index]=False
-            endpoint=(x+(-.35 if x<0 else .35 if x>0 else 0),-support_depth-1,g.height+.6)
+            endpoint=(x+(-.35 if x<0 else .35 if x>0 else 0),-g.depth-1,g.height+.6)
             self.tethers.append((index,endpoint,math.dist(self.rest[index],endpoint)))
 
     def constrain_tethers(self):

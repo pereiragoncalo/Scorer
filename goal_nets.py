@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from functools import lru_cache
 import hashlib
 import math
-from career import GOAL_DEPTH, clamp
+from career import GOAL_DEPTH, VEIL_TOP_DEPTH, clamp
 
 @dataclass(frozen=True)
 class NetStyle:
@@ -104,22 +104,31 @@ def draw_net(g):
         # Single-pixel threads retain open cells on GLES2, no filled blue sheet.
         Mesh(vertices=vertices,indices=indices,mode='lines')
 
-def draw_box_frame(g):
+def draw_rear_supports(g):
     from kivy.graphics import Color,Line
     hw,h=g.goal_half_width,g.goal_height
     tube=max(1.4,g.pixels_per_meter(0,0,h*.5)*.055)
     def line(points,width):Line(points=[n for p in points for n in g.project(*p)],width=width)
-    # Exactly three separate poles, set behind the vertical back panel. Thin
+    depth=GOAL_DEPTH
+    net_depth=depth if g.goal_net_style.structure=='box' else VEIL_TOP_DEPTH
+    # Exactly three separate poles, set behind the upper net edge. Thin
     # cords tension the upper edge. No iron stanchions extend from the goal.
     for x in (-hw-.35,0.,hw+.35):
-        Color(.43,.48,.49,1);line(((x,-GOAL_DEPTH-1.,0),(x,-GOAL_DEPTH-1.,h+.65)),tube*.55)
+        Color(.43,.48,.49,1);line(((x,-depth-1.,0),(x,-depth-1.,h+.65)),tube*.55)
         Color(.85,.88,.82,.9)
         cloth=getattr(g,'_net_cloth',None)
         if cloth is not None and hasattr(cloth,'tethers'):
             index,endpoint,_=min(cloth.tethers,key=lambda tie:abs(tie[1][0]-x))
             end=tuple(cloth.positions[index]);mid=tuple((endpoint[i]+end[i])*.5-(.035 if i==2 else 0.) for i in range(3))
             line((endpoint,mid,end),max(.6,tube*.22))
-        else:line(((x,-GOAL_DEPTH-1.,h+.60),(clamp(x,-hw,hw),-GOAL_DEPTH,h)),max(.6,tube*.22))
+        else:line(((x,-depth-1.,h+.60),(clamp(x,-hw,hw),-net_depth,h)),max(.6,tube*.22))
+
+def draw_box_frame(g):
+    from kivy.graphics import Color,Line
+    hw,h=g.goal_half_width,g.goal_height
+    tube=max(1.4,g.pixels_per_meter(0,0,h*.5)*.055)
+    def line(points,width):Line(points=[n for p in points for n in g.project(*p)],width=width)
+    draw_rear_supports(g)
     Color(.94,.97,.98,1)
     line(((-hw,0,0),(-hw,0,h),(hw,0,h),(hw,0,0)),tube)
     Color(.89,.92,.86,.85)

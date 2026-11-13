@@ -1,3 +1,5 @@
+2026-11-13 source pending next build: remove rigid veil-net stanchions and support shadows in Android/Windows. Preserve triangular net geometry; add the same three rear support poles and flexible cords used by box nets. Rear pole endpoints lie beyond the net footprint and agree with cloth tethers. Native visual capture reviewed; 7 net-cloth + 11 rolling/anchor + 12 native training/geometry tests passed. No AAB/version/deployment.
+
 2026-11-13 source pending next build: global division leaderboard with one-season opt-in/name-only publication; read-only two-column tables. v5 records additive/moderated, historical APIs and removal retained; atomic local queue and installer rollback. Private tier ledger records league goals across country transfers, excluding cups and national teams. Soft spacing reduces goal bursts while retaining goal counts; 3000 four-goal fixtures: close gaps (<=2 minutes) 947 -> 67. 68 pure/HTTP/policy/installer tests and 12 native UI/match checks passed, including nine review languages. No Android build/version increment/deployment. Current delivered AAB remains1030019.
 
 

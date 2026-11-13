@@ -5167,6 +5167,8 @@ class StrikerGame(Widget):
         if self.goal_net_style.structure=="box":
             from goal_nets import draw_box_frame
             draw_box_frame(self);return
+        from goal_nets import draw_rear_supports
+        draw_rear_supports(self)
         if self.desktop_windows:
             self._draw_desktop_goal_frame()
             return
@@ -5175,52 +5177,26 @@ class StrikerGame(Widget):
         left_top = self.project(-hw, 0.0, self.goal_height)
         right_bottom = self.project(hw, 0.0, 0.0)
         right_top = self.project(hw, 0.0, self.goal_height)
-        left_support = self.project(-hw, -VEIL_TOP_DEPTH, self.goal_height)
-        right_support = self.project(hw, -VEIL_TOP_DEPTH, self.goal_height)
-
 
         Color(0.04, 0.08, 0.09, 0.38)
         Line(points=[left_bottom[0] + 3, left_bottom[1] - 3, left_top[0] + 3, left_top[1] - 3], width=5.6)
         Line(points=[right_bottom[0] + 3, right_bottom[1] - 3, right_top[0] + 3, right_top[1] - 3], width=5.6)
         Line(points=[left_top[0] + 3, left_top[1] - 3, right_top[0] + 3, right_top[1] - 3], width=5.6)
-        Line(
-            points=[left_top[0] + 2, left_top[1] - 2, left_support[0] + 2, left_support[1] - 2],
-            width=4.2,
-        )
-        Line(
-            points=[right_top[0] + 2, right_top[1] - 2, right_support[0] + 2, right_support[1] - 2],
-            width=4.2,
-        )
-
-
         Color(0.96, 0.98, 1.0, 1.0)
         Line(points=[*left_bottom, *left_top], width=4.0)
         Line(points=[*right_bottom, *right_top], width=4.0)
         Line(points=[*left_top, *right_top], width=4.0)
-
-
-        # Pequenos ferros superiores que afastam a rede antes da queda do véu.
-        Color(0.88, 0.93, 0.95, 1.0)
-        Line(points=[*left_top, *left_support], width=2.8)
-        Line(points=[*right_top, *right_support], width=2.8)
-
 
     def _draw_desktop_goal_frame(self):
         """Projected round white tubes with subtle depth, joints and turf shade."""
         hw,height=self.goal_half_width,self.goal_height
         lb,lt=self.project(-hw,0,0),self.project(-hw,0,height)
         rb,rt=self.project(hw,0,0),self.project(hw,0,height)
-        ls,rs=self.project(-hw,-VEIL_TOP_DEPTH,height),self.project(hw,-VEIL_TOP_DEPTH,height)
         tube=max(1.25,POST_RADIUS*self.pixels_per_meter(0,0,height*.5))
         # Ground contact/shadows stay on the turf; no opaque net surface.
         Color(0.01,0.035,0.025,0.35)
         for x in (-hw,hw):
             self._world_polyline([(x,0,.018),(x+.32,-.75,.018)],width=tube*1.5)
-        Color(0.40,0.50,0.54,0.9)
-        Line(points=[*lt,*ls],width=tube*.65,cap='round')
-        Line(points=[*rt,*rs],width=tube*.65,cap='round')
-        Color(0.73,0.80,0.82,1)
-        Line(points=[*ls,*lt,*rt,*rs],width=tube*.4,cap='round',joint='round')
         path=[*lb,*lt,*rt,*rb]
         Color(0.08,0.13,0.15,0.9)
         Line(points=path,width=tube+1,cap='round',joint='round')
