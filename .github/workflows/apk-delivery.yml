@@ -21,11 +21,16 @@ on:
         required: false
         default: false
         type: boolean
+      deliver_activity_dashboard:
+        description: Deliver the dashboard-only openings and closes patch
+        required: false
+        default: false
+        type: boolean
 permissions:
   contents: write
 jobs:
   deliver:
-    if: ${{ !inputs.deliver_names && !inputs.deliver_automation && !inputs.deliver_statistics_repair }}
+    if: ${{ !inputs.deliver_names && !inputs.deliver_automation && !inputs.deliver_statistics_repair && !inputs.deliver_activity_dashboard }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -164,3 +169,21 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh release upload world-1.0-1030005 docs/data/server/Scorer-Statistics-Agreement-Backend-Repair-1.py docs/play/STATISTICS_1030005.md --clobber
+
+  activity_dashboard:
+    if: ${{ inputs.deliver_activity_dashboard }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify activity report and transactional installer
+        run: |
+          python3 -m unittest tests.test_activity_stats tests.test_usage_collector tests.test_stats_agreement_installer tests.test_update_backend_installer -q
+          python3 tools/build_activity_installer.py Scorer-Activity-Stats-Backend.py
+          python3 Scorer-Activity-Stats-Backend.py --check
+          echo 'fe8d6f4d193347af66d57c441d2d104ec55567bb59efe2476878268a685d51ab  Scorer-Activity-Stats-Backend.py' | sha256sum -c -
+      - name: Publish dashboard-only patch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload stats-dashboard-v1 Scorer-Activity-Stats-Backend.py docs/RELEASE_ACTIVITY_STATS_V1.md --clobber
