@@ -19,7 +19,7 @@ class NetConfig:
     net_settle_threshold: float = .0025
 
     def __post_init__(self):
-        limits=((0,.45),(8,80),(.8,12),(0,20),(.05,.9),(1.15,2.5),(5,120),(.0005,.015))
+        limits=((0,1.0),(8,80),(.8,12),(0,20),(.05,.9),(1.15,2.5),(5,120),(.0005,.015))
         for (name,value),(lo,hi) in zip(asdict(self).items(),limits):
             if type(value) not in (int,float) or not math.isfinite(value) or not lo<=value<=hi:
                 raise ValueError('Invalid net parameter: '+name)
@@ -30,18 +30,23 @@ class NetGeometry:
     width: float = 7.32
     height: float = 2.44
     depth: float = 2.65
-    top_depth: float = .55
+    top_depth: float = None
     ground_slack: float = .50
     veil_sag: float = .28
 
     def __post_init__(self):
-        if self.structure not in ('box','veil'):raise ValueError('Unknown net structure')
+        if self.top_depth is None:object.__setattr__(self,'top_depth',1.15 if self.structure=='rounded' else .55)
+        if self.structure not in ('box','veil','rounded'):raise ValueError('Unknown net structure')
         if not all(math.isfinite(v) and v>0 for v in (self.width,self.height,self.depth)):raise ValueError('Invalid goal dimensions')
+        if self.structure=='rounded' and not 0<self.top_depth<self.touch:raise ValueError('Invalid rounded net depth')
 
     @property
     def touch(self):return self.depth-self.ground_slack
     @property
-    def slope(self):return math.hypot(self.touch-self.top_depth,self.height)
+    def slope(self):
+        a,b=self.touch-self.top_depth,self.height
+        if self.structure=='rounded':return math.pi*.25*(3*(a+b)-math.sqrt((3*a+b)*(a+3*b)))
+        return math.hypot(a,b)
     @property
     def path(self):return self.depth+self.height if self.structure=='box' else self.top_depth+self.slope+self.ground_slack
     @property
@@ -52,14 +57,33 @@ class NetGeometry:
         if self.structure=='box':return (-d,self.height) if d<=self.depth else (-self.depth,max(0,self.height-d+self.depth))
         if d<=self.top_depth:return -d,self.height
         t=(d-self.top_depth)/self.slope
+        if self.structure=='rounded' and t<=1:
+            angle=t*math.pi/2
+            return -self.top_depth-(self.touch-self.top_depth)*(1-math.cos(angle)),self.height*(1-math.sin(angle))
         if t<=1:return -self.top_depth-(self.touch-self.top_depth)*t,max(0,self.height*(1-t)-self.veil_sag*math.sin(math.pi*t))
         return -self.touch-(d-self.top_depth-self.slope),0.
 
+    def rounded_radius(self,z):
+        return min(.65,self.width*.12)*math.sqrt(max(0.,1.-z/self.height))
+
+    def rear_depth(self,z):
+        ratio=max(0.,min(1.,1.-z/self.height))
+        return self.top_depth+(self.touch-self.top_depth)*(1.-math.sqrt(max(0.,1.-ratio*ratio)))
+
     def point(self,surface,u,v):
         if surface=='back':
-            y,z=self.profile(v);return (-self.width/2+self.width*u,y,z)
+            y,z=self.profile(v)
+            half=self.width/2-(self.rounded_radius(z) if self.structure=='rounded' else 0.)
+            return (-half+2*half*u,y,z)
         y,top=(-self.depth*u,self.height) if self.structure=='box' else self.profile(u)
-        return ((-1 if surface=='left' else 1)*self.width/2,y,top*v)
+        z=top*v;half=self.width/2
+        if self.structure=='rounded':
+            radius=self.rounded_radius(z)
+            if radius>1e-8:
+                start=self.rear_depth(z)-radius
+                along=max(0.,min(radius,-y-start))
+                half-=radius-math.sqrt(max(0.,radius*radius-along*along))
+        return ((-1 if surface=='left' else 1)*half,y,z)
 
     def uv_at(self,surface,position):
         x,y,z=position
@@ -73,13 +97,25 @@ class NetGeometry:
                 if self.profile(mid)[0]>y:lo=mid
                 else:hi=mid
             amount=(lo+hi)/2
-            if surface=='back':u=(x+self.width/2)/self.width;v=amount
+            if surface=='back':
+                half=self.width/2-(self.rounded_radius(self.profile(amount)[1]) if self.structure=='rounded' else 0.)
+                u=(x+half)/(2*half);v=amount
             else:
                 u=amount;top=self.profile(u)[1];v=z/max(.001,top)
         return max(0,min(1,u)),max(0,min(1,v))
 
     def normal(self,surface,u,v):
-        if surface!='back':return (-1.,0.,0.) if surface=='left' else (1.,0.,0.)
+        if surface!='back':
+            if self.structure=='rounded':
+                a,b=self.point(surface,max(0,u-.001),v),self.point(surface,min(1,u+.001),v)
+                c,d=self.point(surface,u,max(0,v-.001)),self.point(surface,u,min(1,v+.001))
+                du,dv=tuple(y-x for x,y in zip(a,b)),tuple(y-x for x,y in zip(c,d))
+                n=(du[1]*dv[2]-du[2]*dv[1],du[2]*dv[0]-du[0]*dv[2],du[0]*dv[1]-du[1]*dv[0])
+                sign=-1 if surface=='left' else 1
+                if n[0]*sign<0:n=tuple(-x for x in n)
+                length=math.sqrt(sum(x*x for x in n))
+                if length>1e-10:return tuple(x/length for x in n)
+            return (-1.,0.,0.) if surface=='left' else (1.,0.,0.)
         if self.structure=='box':return (0.,0.,1.) if v<self.hinge else (0.,-1.,0.)
         a,b=self.profile(max(0,v-.001)),self.profile(min(1,v+.001));dy,dz=b[0]-a[0],b[1]-a[1];length=math.hypot(dy,dz)
         return (0.,dz/max(1e-9,length),-dy/max(1e-9,length))
@@ -94,7 +130,7 @@ class NetCloth:
         nu,nv,side_v=(12,8,5) if coarse else (18,12,7)
         # Include the roof/back hinge exactly, not a diagonal across a box corner.
         path=sorted(set([i/nv for i in range(nv+1)]+[geometry.hinge]))
-        if geometry.structure=='veil':path=sorted(set(path+[(geometry.top_depth+geometry.slope)/geometry.path]))
+        if geometry.structure in ('veil','rounded'):path=sorted(set(path+[(geometry.top_depth+geometry.slope)/geometry.path]))
         if geometry.structure=='box':
             # Conforming rear seam: side height rows must also be rows of the
             # unrolled roof/back sheet. No independent hanging edge particles.

@@ -17,14 +17,24 @@ class NetStyle:
     depth:float=GOAL_DEPTH
 
 BASE_STYLES=tuple(NetStyle(s,m) for s in ('veil','box') for m in ('square','hexagon'))
-STYLES=BASE_STYLES+tuple(NetStyle(s,m,d) for s,d in (('box',1.80),('veil',3.50)) for m in ('square','hexagon'))
+ROUNDED_STYLE=NetStyle('rounded','hexagon',3.50)
+STYLES=BASE_STYLES+tuple(NetStyle(s,m,d) for s,d in (('box',1.80),('veil',3.50)) for m in ('square','hexagon'))+(ROUNDED_STYLE,)
 
 @lru_cache(maxsize=4096)
 def for_stadium(uid):
     digest=hashlib.sha256(('scorer-net-v1:'+str(uid)).encode()).digest()
+    if digest[5]%6==0:return ROUNDED_STYLE
     base=BASE_STYLES[int.from_bytes(digest[:4],'big')%len(BASE_STYLES)]
     # Independent selector preserves most original stadium dressings.
     return NetStyle(base.structure,base.mesh,1.80 if base.structure=='box' else 3.50) if digest[4]%3==0 else base
+
+@lru_cache(maxsize=64)
+def geometry(structure,width,height,depth):
+    from net_cloth import NetGeometry
+    return NetGeometry(structure,width,height,depth)
+
+def geometry_for(g):return geometry(g.goal_net_style.structure,g.goal_width,g.goal_height,g.goal_net_depth)
+
 
 def stadium_style(g):
     override=getattr(g,'_goal_net_style_override',None)
@@ -114,7 +124,7 @@ def draw_rear_supports(g):
     tube=max(1.4,g.pixels_per_meter(0,0,h*.5)*.055)
     def line(points,width):Line(points=[n for p in points for n in g.project(*p)],width=width)
     depth=g.goal_net_depth
-    net_depth=depth if g.goal_net_style.structure=='box' else VEIL_TOP_DEPTH
+    net_depth=depth if g.goal_net_style.structure=='box' else geometry_for(g).top_depth
     # Exactly three separate poles, set behind the upper net edge. Thin
     # cords tension the upper edge. No iron stanchions extend from the goal.
     for x in (-hw-.35,0.,hw+.35):

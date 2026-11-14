@@ -99,25 +99,70 @@ class ClothContacts:
         hits=[h for s in self.triangles if (h:=self.query(s,end,radius,start))is not None]
         return min(hits,key=lambda h:h['t']) if hits else None
 
-    def escaped_contact(self,position,radius):
-        """Recover an exterior centre against its nearest finite sheet face.
+    def inside(self,position):
+        """Parity through the actual folded cloth and the open goal-mouth cap.
 
-        A moving/folding panel may sweep entirely past the sphere between
-        steps. Closest-face signed distance closes that gap without an infinite
-        side plane or a fixed invisible box outside the deforming fabric.
+        The cap only classifies containment: it is never a collision wall.
+        A horizontal ray needs no ground cap because the sphere stays above turf.
         """
+        x,y,z=position;x+=1.17e-8;z+=3.31e-8
+        hits=[]
+        g=self.cloth.geometry
+        if -g.width/2<x<g.width/2 and 0<z<g.height and y<0:hits.append(0.)
+        for surface,triangles in self.triangles.items():
+            for ids,b in zip(triangles,self.bounds[surface]):
+                if x<b[0] or x>b[1] or z<b[4] or z>b[5] or b[3]<y:continue
+                a,b,c=(self.cloth.positions[i]for i in ids)
+                denominator=(b[2]-c[2])*(a[0]-c[0])+(c[0]-b[0])*(a[2]-c[2])
+                if abs(denominator)<1e-12:continue
+                u=((b[2]-c[2])*(x-c[0])+(c[0]-b[0])*(z-c[2]))/denominator
+                v=((c[2]-a[2])*(x-c[0])+(a[0]-c[0])*(z-c[2]))/denominator
+                if u< -1e-9 or v< -1e-9 or u+v>1+1e-9:continue
+                height=a[1]*u+b[1]*v+c[1]*(1-u-v)
+                if height>y+1e-7:hits.append(height)
+        hits.sort();unique=[]
+        for value in hits:
+            if not unique or value-unique[-1]>1e-6:unique.append(value)
+        return bool(len(unique)%2)
+
+    def escaped_contact(self,position,radius):
+        """Recover an exterior centre against its nearest finite sheet face."""
         if position[1]>0:return None
+        rounded=self.cloth.geometry.structure=='rounded'
+        if rounded and self.inside(position):return None
         best=None;distance=float('inf')
         for surface,triangles in self.triangles.items():
             for ids,bounds in zip(triangles,self.bounds[surface]):
                 dx=max(bounds[0]+.25-position[0],0.,position[0]-bounds[1]+.25)
                 dy=max(bounds[2]+.25-position[1],0.,position[1]-bounds[3]+.25)
                 dz=max(bounds[4]+.25-position[2],0.,position[2]-bounds[5]+.25)
-                lower=dx*dx+dy*dy+dz*dz
-                if lower>distance*distance:continue
+                if dx*dx+dy*dy+dz*dz>distance*distance:continue
                 points=[self.cloth.positions[i]for i in ids];point,bary=closest(position,*points);d=math.dist(position,point)
                 if d>=distance:continue
                 n=normal(*points)
                 if dot(n,self.references[ids])<0:n=tuple(-x for x in n)
                 distance=d;best=dict(surface=surface,point=point,normal=n,weights=tuple(zip(ids,bary)),gap=radius+dot(sub(position,point),n))
-        return best if best is not None and best['gap']>radius+1e-6 else None
+        if best is None:return None
+        if not rounded:return best if best['gap']>radius+1e-6 else None
+        # A loose panel can fold past its original outward normal. Select the
+        # side that really lies inside the current mesh, not its rest orientation.
+        q,n=best['point'],best['normal']
+        for sign in (1.,-1.):
+            candidate=tuple(q[a]-sign*n[a]*radius for a in range(3))
+            candidate=(candidate[0],candidate[1],max(radius,candidate[2]))
+            if self.inside(candidate):
+                best['normal']=tuple(sign*x for x in n);best['recovered_position']=candidate;return best
+        # At a folded seam, bracket the true boundary from a confirmed interior
+        # point near the mouth. This still follows the finite deforming sheet.
+        g=self.cloth.geometry
+        core=next((p for p in ((0.,-.02,min(g.height*.5,max(radius,position[2]))),(-g.width*.2,-.02,g.height*.4),(g.width*.2,-.02,g.height*.4))if self.inside(p)),None)
+        if core is None:return None
+        lo,hi=0.,1.
+        for _ in range(24):
+            middle=(lo+hi)/2
+            if self.inside(mix(core,position,middle)):lo=middle
+            else:hi=middle
+        point=mix(core,position,lo);direction=sub(position,core);length=math.sqrt(dot(direction,direction))
+        n=tuple(x/max(1e-9,length)for x in direction)
+        best['normal']=n;best['recovered_position']=tuple(point[a]-n[a]*radius for a in range(3))
+        return best

@@ -14,6 +14,7 @@ class Material:
 MATERIALS={
  'tight':Material('REDE ESTICADA',NetConfig(net_slack=.015,net_stiffness=78,net_damping=2.,net_max_stretch=1.16,net_wave_propagation=115),.08,.25,.35),
  'reference':Material('REDE DRAPEADA · REFERÊNCIA',NetConfig(net_slack=.45,net_stiffness=8,net_damping=6.5,net_max_stretch=1.65,net_wave_propagation=95),.28,.015,.035),
+ 'rounded':Material('REDE HEXAGONAL ARREDONDADA',NetConfig(net_slack=.95,net_stiffness=8,net_damping=8.,net_max_stretch=2.4,net_wave_propagation=40),.32,.01,.025),
  'sagged':Material('REDE COM MAIS FOLGA',NetConfig(net_slack=.45,net_stiffness=8,net_damping=10.5,net_max_stretch=2.5,net_wave_propagation=8),.75,.025),
  'slack':Material('REDE SOLTA',NetConfig(net_slack=.38,net_stiffness=10,net_damping=11.5,net_max_stretch=2.0,net_wave_propagation=18),.75,.025),
 }
@@ -72,7 +73,7 @@ class ReferenceCloth(TetheredCloth):
         depth=max(0.,min(1.,-y/support_depth))
         across=(x+g.width/2)/g.width
         sag=(self.config.net_slack*.5*math.sin(math.pi*depth)
-             +.20*math.sin(2*math.pi*across)**2*depth)
+             +(.42 if g.structure=='rounded' else .20)*math.sin(2*math.pi*across)**2*depth)
         return (x,y,max(0.,z-sag*z/g.height))
 
 class RollingReplay:
@@ -80,7 +81,7 @@ class RollingReplay:
     def __init__(self,variant='slack',speed=6.8,height=None,geometry=None,coarse=False,cloth=None):
         self.airborne=height is not None
         self.material=MATERIALS[variant];self.geometry=geometry or NetGeometry('box')
-        self.cloth=cloth if cloth is not None else (ReferenceCloth if variant=='reference' else TetheredCloth if variant=='sagged' else NetCloth)(self.geometry,self.material.config,coarse=coarse)
+        self.cloth=cloth if cloth is not None else (ReferenceCloth if variant in ('reference','rounded') else TetheredCloth if variant=='sagged' else NetCloth)(self.geometry,self.material.config,coarse=coarse)
         # Every point touching the turf is an anchor, for both materials.
         # Slack belongs to the suspended mesh, never a sliding ground hem.
         self.ground_anchors=tuple(i for i,p in enumerate(self.cloth.rest) if abs(p[2])<1e-6)
@@ -180,7 +181,7 @@ class RollingReplay:
             escape=self.mesh.escaped_contact(b,self.radius)
             if escape is None:break
             normal=escape['normal']
-            b[:]=[escape['point'][a]-normal[a]*self.radius for a in range(3)]
+            b[:]=escape.get('recovered_position',[escape['point'][a]-normal[a]*self.radius for a in range(3)])
             b[2]=max(self.radius,b[2])
             contacts.append((escape['surface'],normal,escape['weights'],0.,0.))
         corrected=v[:]

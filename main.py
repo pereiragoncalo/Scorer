@@ -396,13 +396,24 @@ class StrikerGame(Widget):
     def veil_touch_depth(self):return self.goal_net_depth-(GOAL_DEPTH-VEIL_TOUCH_DEPTH)
 
     @property
-    def veil_slope_length(self):return math.hypot(self.veil_touch_depth-VEIL_TOP_DEPTH,self.goal_height)
+    def veil_slope_length(self):
+        if self.goal_net_style.structure=='rounded':
+            from goal_nets import geometry_for
+            return geometry_for(self).slope
+        return math.hypot(self.veil_touch_depth-VEIL_TOP_DEPTH,self.goal_height)
 
     @property
-    def veil_path_length(self):return VEIL_TOP_DEPTH+self.veil_slope_length+(GOAL_DEPTH-VEIL_TOUCH_DEPTH)
+    def veil_path_length(self):
+        if self.goal_net_style.structure=='rounded':
+            from goal_nets import geometry_for
+            return geometry_for(self).path
+        return VEIL_TOP_DEPTH+self.veil_slope_length+(GOAL_DEPTH-VEIL_TOUCH_DEPTH)
 
     def _veil_profile(self, amount: float) -> tuple[float, float]:
         """Perfil do teto curto e da queda do véu, medido pela malha."""
+        if self.goal_net_style.structure=='rounded':
+            from goal_nets import geometry_for
+            return geometry_for(self).profile(amount)
         if self.goal_net_style.structure=="box":
             from goal_nets import box_profile
             return box_profile(amount,self.goal_height,self.goal_net_depth)
@@ -431,6 +442,13 @@ class StrikerGame(Widget):
         """Altura superior da rede num corte lateral da baliza."""
         depth = clamp(-y, 0.0, self.goal_net_depth)
         if self.goal_net_style.structure=="box":return self.goal_height
+        if self.goal_net_style.structure=='rounded':
+            from goal_nets import geometry_for
+            geometry=geometry_for(self)
+            if depth<=geometry.top_depth:return self.goal_height
+            if depth>=geometry.touch:return 0.
+            angle=math.acos(1-(depth-geometry.top_depth)/(geometry.touch-geometry.top_depth))
+            return self.goal_height*(1-math.sin(angle))
         if depth <= VEIL_TOP_DEPTH:
             return self.goal_height
         if depth >= self.veil_touch_depth:
@@ -447,6 +465,9 @@ class StrikerGame(Widget):
     def _veil_amount_at_y(self, y: float) -> float:
         """Converte profundidade física na coordenada contínua da malha."""
         depth = clamp(-y, 0.0, self.goal_net_depth)
+        if self.goal_net_style.structure=='rounded':
+            from goal_nets import geometry_for
+            return geometry_for(self).uv_at('left',(0.,y,0.))[0]
         if depth <= VEIL_TOP_DEPTH:
             distance = depth
         elif depth >= self.veil_touch_depth:
@@ -1365,7 +1386,8 @@ class StrikerGame(Widget):
         # jogadores, postes ou redes entre duas atualizações.
         if self._exit_popup is not None or self._context_help is not None:
             return
-        frame_dt = clamp(dt, 0.0, 0.12)
+        from game_timing import simulation_dt
+        frame_dt = simulation_dt(dt,self.view)
         self.elapsed += frame_dt
         self.state_age += frame_dt
         from net_presentation import advance as advance_net
@@ -5094,6 +5116,9 @@ class StrikerGame(Widget):
 
 
     def _net_point(self, surface: str, u: float, v: float) -> tuple[float, float]:
+        if self.goal_net_style.structure=='rounded':
+            from net_presentation import ensure
+            return self.project(*ensure(self).sample(surface,u,v))
         if self.goal_net_style.structure=="box":
             from goal_nets import box_point
             return box_point(self,surface,u,v)
@@ -5330,7 +5355,8 @@ class StrikerGame(Widget):
     def _ball_behind_keeper(self):
         # Resting/scored balls keep their depth. A secured glove catch stays
         # in front of the keeper; activity is not a painter-order criterion.
-        return not self.goalkeeper_holding and self.ball.y < GOALKEEPER_Y-self.ball.radius
+        from net_presentation import ball_position
+        return not self.goalkeeper_holding and ball_position(self)[1] < GOALKEEPER_Y-self.ball.radius
 
     def _draw_ball(self) -> None:
         celebration=getattr(self,'goal_celebration',None)

@@ -4,8 +4,10 @@ from net_drape import MATERIALS,ReferenceCloth,RollingReplay
 
 
 def ensure(game):
-    config=getattr(game,'_net_config',MATERIALS['reference'].config)
-    geometry=NetGeometry(game.goal_net_style.structure,game.goal_width,game.goal_height,depth=game.goal_net_depth)
+    variant='rounded' if game.goal_net_style.structure=='rounded' else 'reference'
+    config=getattr(game,'_net_config',MATERIALS[variant].config)
+    from goal_nets import geometry_for
+    geometry=geometry_for(game)
     coarse=not game.desktop_windows
     key=(geometry,config,coarse)
     if getattr(game,'_net_cloth_key',None)!=key:
@@ -21,7 +23,7 @@ def impact(game,surface,position,velocity):
     # presentation trajectory owns the cloth until reset, never restart it from
     # the separately bouncing authoritative ball.
     if getattr(game,'_net_replay',None) is not None:return False
-    replay=RollingReplay('reference',height=max(game.ball.radius,position[2]),
+    replay=RollingReplay('rounded' if cloth.geometry.structure=='rounded' else 'reference',height=max(game.ball.radius,position[2]),
                          geometry=cloth.geometry,coarse=not game.desktop_windows,cloth=cloth)
     replay.radius=game.ball.radius
     replay.position=list(position);replay.velocity=list(velocity);replay.ball=tuple(position)
@@ -34,7 +36,7 @@ def impact(game,surface,position,velocity):
 def start(game,entry=None,remaining=0.):
     """Continuous post-goal flight starts before any authoritative net correction."""
     cloth=ensure(game)
-    replay=RollingReplay('reference',height=game.ball.z,geometry=cloth.geometry,coarse=not game.desktop_windows,cloth=cloth)
+    replay=RollingReplay('rounded' if cloth.geometry.structure=='rounded' else 'reference',height=game.ball.z,geometry=cloth.geometry,coarse=not game.desktop_windows,cloth=cloth)
     replay.radius=game.ball.radius
     replay.position=list(entry) if entry is not None else [game.ball.x,game.ball.y,game.ball.z]
     replay.velocity=[game.ball.vx,game.ball.vy,game.ball.vz];replay.ball=tuple(replay.position)
