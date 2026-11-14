@@ -10,18 +10,18 @@ from urllib.parse import urlencode,urlsplit,quote
 from urllib.request import Request,build_opener,HTTPRedirectHandler
 
 PACKAGE='com.clemir.scorerworld'
-VERSION=1030024
+VERSION=1030025
 TRACK='internal'
 BASE='https://androidpublisher.googleapis.com/androidpublisher/v3/applications/'+PACKAGE+'/edits'
 TOKEN_URL='https://oauth2.googleapis.com/token'
 SCOPE='https://www.googleapis.com/auth/androidpublisher'
 CERT='2259de229b49bb40e158d3c015fe1e0d2426becb4e1a4f110dbcd183b51e59a0'
-PAYLOAD='0095ca569c75e4c687d795d993f5a390f0242889304659c99f7c1bd3f80d26a3'
-SIGNED=Path('/home/clemir/Scorer-World-1.0-1030024.aab')
+PAYLOAD='1d7910aa1faf4bc7f3619ef20a73facbeba7504ea4fc20d3f66fc673b6bd5304'
+SIGNED=Path('/home/clemir/Scorer-World-1.0-1030025.aab')
 PRIVATE=Path('/root/scorer-signing')
 CREDENTIALS=PRIVATE/'google-play-service-account.json'
-BOOTSTRAP_URL='https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030024/bastion_bundle_1030024.py'
-BOOTSTRAP_SHA='73fab506c0ff8ca047a2f3769609b25c9d8376dee60000e8e0402375f7d22ddc'
+BOOTSTRAP_URL='https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030025/bastion_bundle_1030025.py'
+BOOTSTRAP_SHA='cd0c93a0486856f0239b2c3f8b45becbb4dcca415cd8a6e9286ab06ae7b01059'
 CHUNK=8*1024*1024  # Multiple of256KiB; never send an entire117MiB request.
 
 class Stop(RuntimeError):pass
@@ -138,7 +138,7 @@ def payload_digest(path):
 def verify_signed(path):
     path=Path(path)
     if not path.is_file() or path.is_symlink():raise Stop('Signed AAB not found: '+str(path))
-    if payload_digest(path)!=PAYLOAD:raise Stop('AAB payload is not the approved1030024 build')
+    if payload_digest(path)!=PAYLOAD:raise Stop('AAB payload is not the approved1030025 build')
     for tool in ('jarsigner','keytool'):
         if not shutil.which(tool):raise Stop('Full JDK required: missing '+tool)
     result=subprocess.run(['jarsigner','-verify',str(path)],capture_output=True,text=True)
@@ -211,11 +211,11 @@ def version_codes(track):
     return [int(code) for release in track.get('releases',[]) for code in release.get('versionCodes',[])]
 
 
-RELEASE_NAME='1.0 (1030024) - nets, pickup and pressure'
+RELEASE_NAME='1.0 (1030025) - contract years and club meetings'
 
 def internal_release():
     if not isinstance(RELEASE_NAME,str) or not 1<=len(RELEASE_NAME)<=50:raise Stop('Release name must contain 1 to 50 characters')
-    return {'track':TRACK,'releases':[{'name':RELEASE_NAME,'versionCodes':[str(VERSION)],'status':'completed','releaseNotes':[{'language':'en-US','text':'Moving-net containment and exact goal entry, retrieval at the stopped ball, and nearest-opponent pressure with the defensive block retained.'}]}]}
+    return {'track':TRACK,'releases':[{'name':RELEASE_NAME,'versionCodes':[str(VERSION)],'status':'completed','releaseNotes':[{'language':'en-US','text':'Contract years, explicit club meetings, agent advice and counter-offers, negotiated monthly wages, signing benefits, squad investment and renewal.'}]}]}
 
 
 def publish(client,path,signed_sha,check_only=False):
@@ -230,9 +230,9 @@ def publish(client,path,signed_sha,check_only=False):
         bundles=client.api('GET',edit_url+'/bundles').get('bundles',[])
         existing=next((row for row in bundles if int(row['versionCode'])==VERSION),None)
         if existing:
-            if existing.get('sha256','').lower()!=signed_sha:raise Stop('Version1030024 already exists with another SHA256; do not reuse a version code')
+            if existing.get('sha256','').lower()!=signed_sha:raise Stop('Version1030025 already exists with another SHA256; do not reuse a version code')
             if any(str(VERSION) in release.get('versionCodes',[]) and release.get('status')=='completed' for release in track.get('releases',[])):
-                print('Version1030024 is already committed to internal; no change made');return 'unchanged'
+                print('Version1030025 is already committed to internal; no change made');return 'unchanged'
             result=existing
         else:result=upload(client,edit,path)
         if int(result.get('versionCode',0))!=VERSION or result.get('sha256','').lower()!=signed_sha:
@@ -249,7 +249,7 @@ def publish(client,path,signed_sha,check_only=False):
         except (URLError,TimeoutError,OSError,APIError) as error:
             if isinstance(error,APIError) and error.status<500:raise
             raise Stop('Commit response was lost: outcome uncertain. Check internal track in Console before retrying') from None
-        print('Committed INTERNAL version1030024. Play availability/review timing is controlled by Google.')
+        print('Committed INTERNAL version1030025. Play availability/review timing is controlled by Google.')
         return 'committed'
     finally:
         if not commit_attempted:
