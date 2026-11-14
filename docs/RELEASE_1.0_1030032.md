@@ -23,3 +23,8 @@ screenshots reviewed. Physical Android acceptance remains pending.
 No save/physics/financial/backend/signing changes. Update without uninstalling.
 Keep minimum1030031 until Play offers1030032 to every intended player.
 Commands: docs/play/FIXES_1030032.md.
+
+Verified delivery:Actions43631885929 reassembled/hash-verified118322001-byte AAB;
+Actions43631789098 published uploader1.31. Public uploader/bootstrap/signer and
+four native preview hashes match. Private bastion upload and handset acceptance
+remain owner-side.
