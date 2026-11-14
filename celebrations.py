@@ -131,6 +131,7 @@ def draw(game):
             from retro_props import cache
             from kivy.graphics import Color,Rectangle
             from retro_sprites import projected_scale
+            pose=renderer.drawn_poses.get('celebration_0',pose)
             character,clip,frame=renderer.sample('celebration_0','players',pose)
             joints=clip['joints'][pose.view][frame];a,b=joints['wrist_0'],joints['wrist_1'];mx,my=(a[0]+b[0])/2,(a[1]+b[1])/2;ax,ay=character['anchor']
             if pose.flipped:mx=character['canvas'][0]-mx;ax=character['canvas'][0]-ax

@@ -3460,3 +3460,8 @@ leg left untouched, frozen v4 identity, and invalid variant rejection without
 replacing the active career. Native calendar/dashboard fixture agreement passed
 (1case/1.631s). Syntax/whitespace checks passed. Demonstrative C/F audit stored
 with old/new full34game sequences for all18slots. Primary unrelated WIP untouched.
+
+
+## 2026-11-14 —1030022 net contact and defensive shape
+
+Finite swept sphere contacts use the welded visible cloth triangles. Post-goal presentation starts continuously at the legal goal, with ground/air drag separated and passive contact energy. Resting occupied pockets settle without cloth snapping through the ball. Actual root displacement drives locomotion; open play has a cohesive back four and three midfielders, training has eight per team. Special penalties/free-kick walls/one-on-ones are retained. Native Kivy and pure physics checks recorded under /workspace/striker-runtime/net22-*. Physical Android acceptance pending.

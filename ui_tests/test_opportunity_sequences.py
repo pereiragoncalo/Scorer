@@ -17,7 +17,7 @@ class OpportunityScenes(unittest.TestCase):
                 score=(g.match_home_score,g.match_away_score,g.attempts,g.goals,g.match_player_misses)
                 minute=g.match_minute;clock=g.shot_time_left;start=(g.ball.x,g.ball.y,g.ball.z)
                 self.assertEqual(g.state,g.STATE_BUILDUP)
-                self.assertLessEqual(sum(p.team=='defender' for p in g.field_players+g.buildup_actors),5)
+                self.assertLessEqual(sum(p.team=='defender' for p in g.field_players+g.buildup_actors),7)
                 g.shoot(2.,1.)
                 self.assertEqual(g.state,g.STATE_BUILDUP)
                 g.on_touch_down(UnitTestTouch(*g.center));self.assertEqual(g.attempts,score[2])

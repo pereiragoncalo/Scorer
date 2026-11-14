@@ -1618,7 +1618,7 @@ class StrikerGame(Widget):
 
 
     def _generate_field_players(self) -> None:
-        """Cria equipas variáveis, com no máximo cinco jogadores de cada lado."""
+        """Organiza defesa em duas linhas, preservando paredes e duelos isolados."""
         if self.current_chance_difficulty in ("easy","penalty") and self.shot_context in ("match","training"):
             self.field_players = []
             return
@@ -1662,18 +1662,12 @@ class StrikerGame(Widget):
             return
 
 
-        if self.shot_context == "match" and self.current_chance_difficulty == "hard":
-            # Keep normal physical defenders, including one marking the central
-            # shooting lane. Corners and gaps remain available to a good shot.
-            profile=self._defensive_profile()
-            lane_y = self.shot_origin_y * 0.48
-            lane_x = self.shot_origin_x * 0.48 + self.career.rng.uniform(-profile.lane_jitter,profile.lane_jitter)
-            # A second marker covers the far-side lane before the target is chosen.
-            cover_fraction=.55+.05*profile.level
-            cover_y=self.shot_origin_y*cover_fraction
-            cover_x=self.shot_origin_x*cover_fraction-math.copysign(1.65,self.shot_origin_x)*(1-cover_fraction)
-            positions = [(lane_x,lane_y),(cover_x,cover_y)] + random.sample(list(defenders),profile.defenders-2)
-            self.field_players = [FieldPlayer(x, y, "defender", random.uniform(0.0, math.tau)) for x, y in positions]
+        if not self.one_on_one:
+            from defensive_shape import block
+            self.field_players=[]
+            for i,(x,y,line) in enumerate(block(self.shot_origin_x,self.shot_origin_y)):
+                player=FieldPlayer(x,y,'defender',i*.83);player.formation_line=line
+                self.field_players.append(player)
             return
         if self.one_on_one:
             # A genuine one-on-one contains only the shooter and goalkeeper.
@@ -2194,13 +2188,16 @@ class StrikerGame(Widget):
                 a,b=self.current_opportunity.points[:2];t=min(1.,self.buildup_progress*2)
                 return (a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t+.4)
             return (player.x,player.y+.4 if player.team=='attacker' else player.y)
+        if getattr(player,'formation_line',None):
+            if self.state==self.STATE_BUILDUP:
+                from defensive_shape import shift
+                dx,dy=shift(self.current_opportunity,self.buildup_progress)
+                return player.x+dx,player.y+dy
+            return player.x,player.y
         if self.state==self.STATE_BUILDUP:
             amount=1.-self.buildup_progress
             return (player.x+math.sin(player.phase)*.8*amount,player.y+1.2*amount)
-        return (
-            player.x + math.sin(elapsed * 1.15 + player.phase) * 0.07,
-            player.y + math.cos(elapsed * 0.92 + player.phase) * 0.045,
-        )
+        return player.x,player.y
 
 
     def _collide_field_players(
@@ -2825,6 +2822,8 @@ class StrikerGame(Widget):
         self.outcome_registered = True
         self.goals += 1
         self.result_text = "GOAL!"
+        from net_presentation import start as start_net_flight
+        start_net_flight(self)
         self.result_color = (0.25, 1.0, 0.50, 1.0)
         if self.shot_context == "match":
             self._record_player_match_goal()

@@ -13,7 +13,7 @@ class Material:
 
 MATERIALS={
  'tight':Material('REDE ESTICADA',NetConfig(net_slack=.015,net_stiffness=78,net_damping=2.,net_max_stretch=1.16,net_wave_propagation=115),.08,.25,.35),
- 'reference':Material('REDE DRAPEADA · REFERÊNCIA',NetConfig(net_slack=.45,net_stiffness=8,net_damping=6.5,net_max_stretch=1.65,net_wave_propagation=95),.85,.015,.035),
+ 'reference':Material('REDE DRAPEADA · REFERÊNCIA',NetConfig(net_slack=.45,net_stiffness=8,net_damping=6.5,net_max_stretch=1.65,net_wave_propagation=95),.28,.015,.035),
  'sagged':Material('REDE COM MAIS FOLGA',NetConfig(net_slack=.45,net_stiffness=8,net_damping=10.5,net_max_stretch=2.5,net_wave_propagation=8),.75,.025),
  'slack':Material('REDE SOLTA',NetConfig(net_slack=.38,net_stiffness=10,net_damping=11.5,net_max_stretch=2.0,net_wave_propagation=18),.75,.025),
 }
@@ -96,6 +96,8 @@ class RollingReplay:
             self.position=[-3.,-self.geometry.depth+.9,height+4.905*flight*flight]
             self.velocity=[0.,-speed,0.];self.ball=tuple(self.position)
         self.roll=0.;self.distance=0.;self.contacts=[];self.history=[];self.stop_time=None
+        from net_contact import ClothContacts
+        self.mesh=ClothContacts(self.cloth);self.sleeping=False;self.rest_age=0.
 
     @classmethod
     def strong_side_shot(cls):
@@ -105,25 +107,19 @@ class RollingReplay:
         replay.ball=tuple(replay.position)
         return replay
 
-    def _contact(self,surface):
-        g=self.geometry;c=self.cloth;b=self.position
+    def _contact(self,surface,hit=None):
+        c=self.cloth;b=self.position
         if b[1]>.02:return None
-        u,v=g.uv_at(surface,b);weights=c.weights(surface,u,v)
-        point=c.sample_weights(weights);normal=g.normal(surface,u,v)
-        # Don't let a sheet beyond its parameter boundary act as an infinite wall.
-        if surface!='back' and not -g.depth-1.0<b[1]<0:return None
-        gap=sum((b[i]-point[i])*normal[i] for i in range(3))+self.radius
-        if gap<=0:return None
-        free={}
-        for index,weight in weights:
-            if not c.pinned[index] and weight>0:free[index]=free.get(index,0)+weight
-        # Position correction may separate an idle ball, but must not create
-        # a new pocket without incoming ball motion. Only touched strands
-        # receive the load; neighboring fabric follows through its springs.
-        if sum(self.velocity[i]*normal[i] for i in range(3))<=.02:free={}
-        inv_ball=1/self.mass;inv_node=1/self.material.node_mass
+        hit=hit or self.mesh.query(surface,b,self.radius)
+        if hit is None:return None
+        normal,weights,gap=hit['normal'],hit['weights'],hit['gap']
+        incoming=sum(self.velocity[i]*normal[i]for i in range(3))
+        if gap<1e-7 and incoming<=.02:return None
+        held=self.hit and b[2]<=self.radius+.001 and sum(v*v for v in self.velocity)<.05**2
+        free={i:w for i,w in weights if not c.pinned[i] and w>0} if incoming>.02 or held else {}
+        inv_ball=0. if held and free else 1/self.mass;inv_node=1/self.material.node_mass
         denom=inv_ball+inv_node*sum(w*w for w in free.values())
-        impulse=gap/denom
+        impulse=gap/max(1e-12,denom)
         for axis in range(3):b[axis]-=normal[axis]*impulse*inv_ball
         for index,weight in free.items():
             for axis in range(3):
@@ -132,21 +128,36 @@ class RollingReplay:
         return (surface,normal,weights,gap,impulse/self.STEP)
 
     def one_step(self):
+        if self.sleeping:return
         dt=self.STEP;c=self.cloth;b=self.position;old=b[:];v=self.velocity
+        resting=self.stop_time is not None and sum(x*x for x in v)<.05**2
+        previous_shape=[p[:] for p in c.positions] if resting else None
         horizontal=math.hypot(v[0],v[1])
         # Rolling resistance, not an exponential animation to a target point.
         resistance=.55
-        if horizontal:
+        if horizontal and (not self.airborne or b[2]<=self.radius+.0001):
             scale=max(0.,1-resistance*dt/horizontal);v[0]*=scale;v[1]*=scale
         if self.airborne:v[2]-=9.81*dt
         for axis in range(3 if self.airborne else 2):b[axis]+=v[axis]*dt
         if b[2]<=self.radius:
             b[2]=self.radius
             if self.airborne:v[2]=max(0.,-v[2]*.12)
+            if v[2]<.03:v[2]=0.
         if not self.airborne:b[2]=self.radius
-        c.advance(dt)
+        if self.airborne:
+            drag=.996**(dt*60.)
+            for axis in range(3):v[axis]*=drag
+        energy=sum(x*x for x in v)+2*9.81*b[2]
+        was_active=c.active;c.advance(dt)
+        if was_active:self.mesh.refresh()
+        self.mesh.select(old,b,self.radius)
         contacts=[]
-        for _ in range(4):
+        hit=self.mesh.first(old,b,self.radius)
+        if hit is not None:
+            b[:]=hit['centre']
+            item=self._contact(hit['surface'],hit)
+            if item is not None:contacts.append(item)
+        for _ in range(2):
             for surface in ('left','right','back'):
                 item=self._contact(surface)
                 if item is not None:contacts.append(item)
@@ -174,6 +185,12 @@ class RollingReplay:
                 for axis in range(3 if self.airborne else 2):corrected[axis]-=tangent[axis]/length*friction/self.mass
                 for index,weight in free.items():
                     for axis in range(3 if self.airborne else 2):c.previous[index][axis]+=tangent[axis]/length*friction*weight/self.material.node_mass*dt
+        if contacts:
+            b[2]=max(self.radius,min(b[2],max(self.radius,energy/(2*9.81))))
+            # Cloth is passive: no solver/recovery impulse may add ball energy.
+            maximum=max(0.,energy-2*9.81*b[2]);kinetic=sum(x*x for x in corrected)
+            if kinetic>maximum and kinetic>0:
+                scale=math.sqrt(maximum/kinetic);corrected=[x*scale for x in corrected]
         self.velocity=[corrected[0],corrected[1],corrected[2] if self.airborne else 0.]
         if contacts:
             self.hit=True;c.active=True;c.quiet=0.
@@ -182,12 +199,22 @@ class RollingReplay:
             c.contact={'surface':surface,'u':u,'v':w,'normal':normal,'point':tuple(b),'time':c.time,'radius':self.radius,'speed':horizontal}
             c.generation+=1
         if isinstance(c,TetheredCloth):c.constrain_tethers()
+        b[2]=max(self.radius,b[2]) if self.airborne else self.radius
+        self.mesh.candidates=None
         self.tick+=1;self.ball=tuple(b);self.contacts=sorted(set(x[0] for x in contacts))
         travel=math.dist(old,b);self.distance+=travel;self.roll+=-(b[1]-old[1])/self.radius
         displacement=c.displacement
         if displacement>self.peak:self.peak=displacement;self.peak_time=self.tick*dt;self.peak_ball=self.ball
         for surface in self.contacts:self.first_contacts.setdefault(surface,self.tick*dt)
         if b[2]<=self.radius+.0001 and math.sqrt(sum(v*v for v in self.velocity))<.03 and self.stop_time is None and self.tick*dt>1:self.stop_time=self.tick*dt
+        if self.stop_time is not None and sum(x*x for x in self.velocity)<.05**2:
+            speed=max((math.dist(p,q)/dt for p,q in zip(c.positions,previous_shape or c.previous)),default=0.)
+            # A resting ball supports the fabric. Remove residual integration
+            # velocity after projecting that static contact, rather than
+            # repeatedly springing the sheet back through the occupied pocket.
+            for p,q in zip(c.positions,c.previous):q[:]=p
+            self.rest_age=self.rest_age+dt if speed<max(.03,c.config.net_settle_threshold*6) else 0.
+            if self.rest_age>.35:self.sleeping=True;c.active=False
         if self.tick%12==0:self.history.append({'t':self.tick*dt,'position':self.ball,'speed':math.hypot(*self.velocity[:2]),'contacts':self.contacts,'deformation':displacement})
 
     def advance(self,dt):

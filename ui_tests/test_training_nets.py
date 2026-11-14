@@ -30,8 +30,8 @@ class TrainingNets(unittest.TestCase):
     self.assertEqual(g.current_opportunity.kind,kind)
     self.assertEqual({p.team for p in g.field_players},{'attacker','defender'})
     actors=g.field_players+g.buildup_actors
-    self.assertEqual(sum(p.team=='attacker' for p in actors)+1,5)
-    self.assertEqual(sum(p.team=='defender' for p in actors)+1,5)
+    self.assertEqual(sum(p.team=='attacker' for p in actors)+1,8)
+    self.assertEqual(sum(p.team=='defender' for p in actors)+1,8)
     expected=make_delivery(kind,('test',kind))
     self.assertIn(g.current_opportunity,(expected,expected.mirrored()))
     if expected.duration:g._update_buildup(expected.duration)

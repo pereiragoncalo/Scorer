@@ -13,7 +13,7 @@ class DefensiveDifficultyUI(unittest.TestCase):
             self.assertEqual(g._defensive_profile().level,1)
             g.shot_origin_x=5;g.shot_origin_y=18;g.shot_type='kick'
             g.career.rng.seed(123);random.seed(123);g.aim_x=-3.4;g._generate_field_players();before=[(p.x,p.y) for p in g.field_players]
-            g.career.rng.seed(123);random.seed(123);g.aim_x=3.4;g._generate_field_players();self.assertEqual(before,[(p.x,p.y) for p in g.field_players]);self.assertEqual(len(before),5)
+            g.career.rng.seed(123);random.seed(123);g.aim_x=3.4;g._generate_field_players();self.assertEqual(before,[(p.x,p.y) for p in g.field_players]);self.assertEqual(len(before),7)
     def test_save_pose_reaches_both_high_and_low_and_collision_uses_same_pose(self):
         with isolated_game(saved=True) as g:
             if g.career.club is None:g.career.accept_starting_offer(g.career.offers[0]);g.career.attend_coach_meeting()

@@ -20,10 +20,12 @@ def impact(game,surface,position,velocity):
     # Original post-goal collisions can report several impacts. One independent
     # presentation trajectory owns the cloth until reset, never restart it from
     # the separately bouncing authoritative ball.
-    if getattr(game,'_net_replay',None) is not None and (cloth.active or cloth.time>0):return False
+    if getattr(game,'_net_replay',None) is not None:return False
     replay=RollingReplay('reference',height=max(game.ball.radius,position[2]),
                          geometry=cloth.geometry,coarse=not game.desktop_windows)
     replay.cloth=cloth;replay.radius=game.ball.radius
+    from net_contact import ClothContacts
+    replay.mesh=ClothContacts(cloth)
     replay.position=list(position);replay.velocity=list(velocity);replay.ball=tuple(position)
     replay.hit=True
     game._net_replay=replay
@@ -31,26 +33,30 @@ def impact(game,surface,position,velocity):
     return True
 
 
+def start(game):
+    """Continuous post-goal flight starts before any authoritative net correction."""
+    cloth=ensure(game)
+    replay=RollingReplay('reference',height=game.ball.z,geometry=cloth.geometry,coarse=not game.desktop_windows)
+    replay.cloth=cloth
+    from net_contact import ClothContacts
+    replay.mesh=ClothContacts(cloth);replay.radius=game.ball.radius
+    replay.position=[game.ball.x,game.ball.y,game.ball.z];replay.velocity=[game.ball.vx,game.ball.vy,game.ball.vz];replay.ball=tuple(replay.position)
+    game._net_replay=replay;game._net_replay_just_started=True
+
+
 def advance(game,dt):
     cloth=getattr(game,'_net_cloth',None)
     replay=getattr(game,'_net_replay',None)
     if replay is not None:
-        # A settled display ball must not keep waking the cloth on microscopic
-        # ground/net overlaps. Let the unloaded fabric recover and sleep.
-        resting=(replay.stop_time is not None
-                 and replay.ball[2]<=replay.radius+.0001
-                 and sum(v*v for v in replay.velocity)<.05**2)
-        if resting:
-            replay.position[2]=replay.radius;replay.ball=tuple(replay.position)
-            cloth.advance(dt)
-        else:replay.advance(dt)
+        if getattr(game,'_net_replay_just_started',False):game._net_replay_just_started=False;return
+        replay.advance(dt)
     elif cloth is not None:cloth.advance(dt)
 
 
 def reset(game):
     cloth=getattr(game,'_net_cloth',None)
     if cloth is not None:cloth.reset()
-    game._net_replay=None
+    game._net_replay=None;game._net_replay_just_started=False
 
 
 def ball_position(game):

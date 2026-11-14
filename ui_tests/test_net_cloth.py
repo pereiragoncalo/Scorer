@@ -29,7 +29,8 @@ class NetIntegration(unittest.TestCase):
       b=g.ball;b.reset(0,.1,1);b.vx=vx;b.vy=-30;b.vz=vz;b.active=True
       with ExitStack() as stack:
        stack.enter_context(patch.object(g,'_collide_goalkeeper',return_value=False));stack.enter_context(patch.object(g,'_collide_field_players'))
-       if not enabled:stack.enter_context(patch('net_presentation.impact',return_value=False))
+       if not enabled:
+        stack.enter_context(patch('net_presentation.impact',return_value=False));stack.enter_context(patch('net_presentation.start',return_value=None))
        for _ in range(240):g._update_ball(PHYSICS_STEP);advance(g,PHYSICS_STEP)
       states.append((copy.deepcopy(vars(b)),g.goals,g.result_text,g.last_goal_line_point))
      self.assertEqual(states[0],states[1])
@@ -39,7 +40,10 @@ class NetIntegration(unittest.TestCase):
    c=ensure(g);p=c.geometry.point('left',.24,.48)
    self.assertTrue(impact(g,'left',p,(-30,-10,0)))
    for _ in range(90):g.update(.1)
-   self.assertFalse(c.active);self.assertEqual(c.displacement,0.)
+   self.assertFalse(c.active);self.assertTrue(g._net_replay.sleeping)
+   pocket=copy.deepcopy(c.positions);position=ball_position(g)
+   for _ in range(10):g.update(.1)
+   self.assertEqual(c.positions,pocket);self.assertEqual(ball_position(g),position)
  def test_cached_groups_never_accumulate_across_canvas_clear(self):
   with isolated_game() as g:
    for _ in range(120):
@@ -74,7 +78,9 @@ class NetIntegration(unittest.TestCase):
       self.assertTrue(impact(g,'left',(b.x,b.y,b.z),(-28,-12,0)))
       advance(g,.1);g.draw();self.assertEqual(objects,[x[2] for x in r.batches]);ball_position(g)
       self.assertEqual(before,(vars(b),g.goals,g.attempts))
-      self.assertTrue(c.active);c.reset();g.result_text=''
+      self.assertTrue(c.active)
+      from net_presentation import reset
+      reset(g);g.result_text=''
   finally:Window.size=old
 
 class DrapedGameIntegration(unittest.TestCase):

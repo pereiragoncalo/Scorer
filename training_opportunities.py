@@ -35,17 +35,17 @@ def prepare(g):
     g._start_opportunity(plan(c)[index],(session_seed(c),index))
 
 def add_training_teams(g):
-    # Five per side in the visible exercise: hero + four supporting bibs,
-    # four opponents + keeper. Delivery actors count as teammates. Keep the
+    # Eight per side in the visible exercise: hero + seven supporting bibs,
+    # seven opponents + keeper. Delivery actors count as teammates. Keep the
     # wall/chasing marker/rebound blocker and fill spare places behind play.
     players=[]
     for team,xs in (('attacker',(-10.,10.,-13.,13.)),('defender',(-9.,9.,-13.,13.))):
-        target=4-sum(p.team==team for p in g.buildup_actors)
+        target=7-sum(p.team==team for p in g.buildup_actors)
         existing=[p for p in g.field_players if p.team==team]
         if g.buildup_blocker in existing:
             existing.remove(g.buildup_blocker);existing.insert(0,g.buildup_blocker)
         selected=existing[:target]
         for i in range(target-len(selected)):
-            selected.append(FieldPlayer(xs[i],max(15.,g.shot_origin_y+3.)+i*.7,team,float(i)))
+            selected.append(FieldPlayer(xs[i%len(xs)],max(15.,g.shot_origin_y+3.)+i*.7,team,float(i)))
         players.extend(selected)
     g.field_players=players

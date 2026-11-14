@@ -107,7 +107,22 @@ class RetroSprites:
     def __init__(self):
         self.manifest=load_manifest()
         self.cache=TextureCache(self.manifest,limit=24)
-        self.clocks={}
+        self.clocks={};self.motion={};self.drawn_poses={}
+
+    def motion_pose(self,game,key,pose,position):
+        now=game.elapsed;xy=tuple(position[:2]);epoch=(id(game.current_opportunity),id(getattr(game,'goal_celebration',None)) if isinstance(key,str) and key.startswith('celebration_') else None)
+        old=self.motion.get(key);clock=pose.age%1.;speed=0.;delta=(0.,0.)
+        if old and old[0]==epoch and 0<=now-old[1]<=.25:
+            clock=old[3];dt=now-old[1]
+            if dt>1e-8:
+                delta=(xy[0]-old[2][0],xy[1]-old[2][1]);distance=math.hypot(*delta)
+                speed=distance/dt;clock+=distance/3.5
+            else:speed=old[4];delta=old[5]
+        self.motion[key]=(epoch,now,xy,clock,speed,delta)
+        if pose.state not in ('RUN','DRIBBLE','BALL_RUN'):return pose
+        if speed<.12:return Pose('CARRY' if pose.state=='BALL_RUN' else 'IDLE',pose.age,view=pose.view,flipped=pose.flipped)
+        target=game.project(xy[0]+delta[0],xy[1]+delta[1],0);origin=game.project(*xy,0)
+        return Pose(pose.state,clock,view='back' if delta[1]<0 else 'front',flipped=target[0]<origin[0])
 
     def sample(self,key,role,pose):
         character=self.manifest['characters'][role]
@@ -124,9 +139,12 @@ class RetroSprites:
 
     def clear_field(self,live_keys):
         for key in list(self.clocks):
-            if isinstance(key,int) and key not in live_keys:del self.clocks[key]
+            if isinstance(key,int) and key not in live_keys:
+                del self.clocks[key];self.motion.pop(key,None);self.drawn_poses.pop(key,None)
 
     def draw(self,game,key,role,pose,position,world_height,colours,joint=None,target=None,rotation=0.,vertical_scale=1.):
+        if role=='players':pose=self.motion_pose(game,key,pose,position)
+        self.drawn_poses[key]=pose
         character,clip,frame=self.sample(key,role,pose)
         texture,uv=self.cache.frame(character,clip,pose.view,frame,colours)
         w,h=character['canvas'];ax,ay=character['anchor']
