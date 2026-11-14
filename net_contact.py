@@ -99,7 +99,7 @@ class ClothContacts:
         hits=[h for s in self.triangles if (h:=self.query(s,end,radius,start))is not None]
         return min(hits,key=lambda h:h['t']) if hits else None
 
-    def inside(self,position):
+    def inside(self,position,positions=None):
         """Parity through the actual folded cloth and the open goal-mouth cap.
 
         The cap only classifies containment: it is never a collision wall.
@@ -107,12 +107,14 @@ class ClothContacts:
         """
         x,y,z=position;x+=1.17e-8;z+=3.31e-8
         hits=[]
+        current=positions is None
+        positions=self.cloth.positions if current else positions
         g=self.cloth.geometry
         if -g.width/2<x<g.width/2 and 0<z<g.height and y<0:hits.append(0.)
         for surface,triangles in self.triangles.items():
             for ids,b in zip(triangles,self.bounds[surface]):
-                if x<b[0] or x>b[1] or z<b[4] or z>b[5] or b[3]<y:continue
-                a,b,c=(self.cloth.positions[i]for i in ids)
+                if current and (x<b[0] or x>b[1] or z<b[4] or z>b[5] or b[3]<y):continue
+                a,b,c=(positions[i]for i in ids)
                 denominator=(b[2]-c[2])*(a[0]-c[0])+(c[0]-b[0])*(a[2]-c[2])
                 if abs(denominator)<1e-12:continue
                 u=((b[2]-c[2])*(x-c[0])+(c[0]-b[0])*(z-c[2]))/denominator

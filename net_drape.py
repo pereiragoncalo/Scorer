@@ -64,27 +64,8 @@ class TetheredCloth(NetCloth):
 class ReferenceCloth(TetheredCloth):
     """Broad load transfer through hanging fabric, including the welded seam."""
     def reset(self):
-        self.retain_pocket=False
+        self.retain_pocket=False # rear-contact friction state, never a shape lock
         super().reset()
-
-    def _step(self):
-        loaded=[p[1]for p in self.positions] if self.retain_pocket and self.geometry.structure=='rounded' else None
-        super()._step()
-        if loaded is None:return
-        # Interlocked slack fibres retain the loaded rear fold while occupied.
-        # Only depth actually displaced by the ball is held; grass/cord anchors
-        # and the original unloaded shape never move. Release on collection.
-        ties={row[0]for row in self.tethers};cap=(self.config.net_max_stretch-1)*1.8
-        for i,p in enumerate(self.positions):
-            if self.pinned[i] or i in ties or loaded[i]>=self.rest[i][1]:continue
-            y=min(p[1],max(loaded[i],self.rest[i][1]-cap))
-            delta=y-p[1];p[1]=y;self.previous[i][1]+=delta
-            available=math.sqrt(max(0.,cap*cap-(p[1]-self.rest[i][1])**2))
-            lateral=math.hypot(p[0]-self.rest[i][0],p[2]-self.rest[i][2])
-            if lateral>available and lateral>0:
-                for axis in (0,2):
-                    value=self.rest[i][axis]+(p[axis]-self.rest[i][axis])*available/lateral
-                    self.previous[i][axis]+=value-p[axis];p[axis]=value
 
     def _rest_point(self,surface,u,v):
         g=self.geometry
@@ -139,7 +120,7 @@ class RollingReplay:
         normal,weights,gap=hit['normal'],hit['weights'],hit['gap']
         incoming=sum(self.velocity[i]*normal[i]for i in range(3))
         if gap<1e-7 and incoming<=.02:return None
-        held=self.hit and b[2]<=self.radius+.001 and sum(v*v for v in self.velocity)<.05**2
+        held=self.geometry.structure!='rounded' and self.hit and b[2]<=self.radius+.001 and sum(v*v for v in self.velocity)<.05**2
         free={i:w for i,w in weights if not c.pinned[i] and w>0} if incoming>.02 or held else {}
         inv_ball=0. if held and free else 1/self.mass;inv_node=1/self.material.node_mass
         denom=inv_ball+inv_node*sum(w*w for w in free.values())
@@ -276,12 +257,21 @@ class RollingReplay:
         if b[2]<=self.radius+.0001 and math.sqrt(sum(v*v for v in self.velocity))<.03 and self.stop_time is None and self.tick*dt>1:self.stop_time=self.tick*dt
         if self.stop_time is not None and sum(x*x for x in self.velocity)<.05**2:
             speed=max((math.dist(p,q)/dt for p,q in zip(c.positions,previous_shape or c.previous)),default=0.)
-            # A resting ball supports the fabric. Remove residual integration
-            # velocity after projecting that static contact, rather than
-            # repeatedly springing the sheet back through the occupied pocket.
-            for p,q in zip(c.positions,c.previous):q[:]=p
-            self.rest_age=self.rest_age+dt if speed<max(.03,c.config.net_settle_threshold*6) else 0.
-            if self.rest_age>.35:self.sleeping=True;c.active=False
+            # Rounded cloth keeps its damped recovery even after the ball stops.
+            # Only sleep after it regains its unloaded shape, not at the first
+            # quiet frame of a large pocket. Preserve legacy settling elsewhere.
+            rounded=self.geometry.structure=='rounded'
+            if not rounded:
+                for p,q in zip(c.positions,c.previous):q[:]=p
+            relaxed=not rounded or c.displacement<.01
+            self.rest_age=self.rest_age+dt if relaxed and speed<max(.03,c.config.net_settle_threshold*6) else 0.
+            if self.rest_age>.35 and (not rounded or self.mesh.inside(b,c.rest)):
+                if rounded:
+                    # Finish only the last sub-centimetre of normal settling,
+                    # and only when the original mesh still contains the ball.
+                    c.positions=[p[:]for p in c.rest];c.previous=[p[:]for p in c.rest]
+                    c.contact=None;c.generation+=1;self.mesh.refresh()
+                self.sleeping=True;c.active=False
         if self.tick%12==0:self.history.append({'t':self.tick*dt,'position':self.ball,'speed':math.hypot(*self.velocity[:2]),'contacts':self.contacts,'deformation':displacement})
 
     def advance(self,dt):
