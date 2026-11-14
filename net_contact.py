@@ -47,17 +47,25 @@ class ClothContacts:
             self.triangles[surface]=triangles
         self.candidates=None;self.refresh()
     def refresh(self):
-        self.bounds={s:[tuple((min(self.cloth.positions[k][a] for k in ids)-.25,max(self.cloth.positions[k][a] for k in ids)+.25)for a in range(3))for ids in tris]for s,tris in self.triangles.items()}
+        positions=self.cloth.positions;self.bounds={}
+        for surface,triangles in self.triangles.items():
+            bounds=[]
+            for ia,ib,ic in triangles:
+                a,b,c=positions[ia],positions[ib],positions[ic]
+                bounds.append((min(a[0],b[0],c[0])-.25,max(a[0],b[0],c[0])+.25,
+                               min(a[1],b[1],c[1])-.25,max(a[1],b[1],c[1])+.25,
+                               min(a[2],b[2],c[2])-.25,max(a[2],b[2],c[2])+.25))
+            self.bounds[surface]=bounds
     def select(self,start,end,radius):
         lo=[min(start[a],end[a])-radius for a in range(3)];hi=[max(start[a],end[a])+radius for a in range(3)]
-        self.candidates={s:[(ids,b)for ids,b in zip(self.triangles[s],self.bounds[s])if all(lo[a]<=b[a][1] and hi[a]>=b[a][0]for a in range(3))]for s in self.triangles}
+        self.candidates={s:[(ids,b)for ids,b in zip(self.triangles[s],self.bounds[s])if lo[0]<=b[1] and hi[0]>=b[0] and lo[1]<=b[3] and hi[1]>=b[2] and lo[2]<=b[5] and hi[2]>=b[4]]for s in self.triangles}
     def query(self,surface,end,radius,start=None):
         start=end if start is None else start
         lo=[min(start[a],end[a])-radius for a in range(3)];hi=[max(start[a],end[a])+radius for a in range(3)]
         length=math.dist(start,end);best=None
         candidates=self.candidates[surface] if self.candidates is not None else zip(self.triangles[surface],self.bounds[surface])
         for ids,bounds in candidates:
-            if any(lo[a]>bounds[a][1] or hi[a]<bounds[a][0] for a in range(3)):continue
+            if lo[0]>bounds[1] or hi[0]<bounds[0] or lo[1]>bounds[3] or hi[1]<bounds[2] or lo[2]>bounds[5] or hi[2]<bounds[4]:continue
             points=[self.cloth.positions[k] for k in ids];n=normal(*points)
             if length>1e-12 and dot(sub(end,start),n)<=1e-12:continue
             t=0. if length>1e-12 else 1.

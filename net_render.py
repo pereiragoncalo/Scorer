@@ -12,7 +12,7 @@ class NetRenderer:
         self.cloth=cloth;self.kind=mesh;self.low_detail=low_detail
         self.group=InstructionGroup();self.front=InstructionGroup()
         self.group.add(Color(.94,.97,.92,.76,noadd=True));self.front.add(Color(.97,.99,.95,.86,noadd=True))
-        self.batches=[];self._stamp=None;self.rebuilds=0
+        self.batches=[];self._stamp=None;self._geometry_stamp=None;self._world=[];self.rebuilds=0
         g=cloth.geometry;cell=.28 if low_detail else .20
         for surface in ('back','left','right'):
             width=g.width if surface=='back' else g.depth
@@ -49,17 +49,23 @@ class NetRenderer:
         # Kivy pos/size are mutable ObservableReferenceLists; retain values,
         # never aliases, or an idle mesh silently ignores resize/reposition.
         camera_key=(tuple(camera_key[0]),tuple(camera_key[1]),*camera_key[2:])
-        stamp=(self.cloth.generation,camera_key,ball)
+        geometry_stamp=(self.cloth.generation,camera_key)
+        stamp=(geometry_stamp,ball if self.cloth.contact else None)
         if stamp==self._stamp:return
-        self._stamp=stamp;self.rebuilds+=1
+        self._stamp=stamp
+        geometry_changed=geometry_stamp!=self._geometry_stamp
+        if geometry_changed:
+            self._geometry_stamp=geometry_stamp;self.rebuilds+=1;self._world=[]
         p=self.cloth.positions
-        for weights,edges,mesh,front in self.batches:
-            vertices=[];world=[]
-            for row in weights:
-                a,b,c,d=row
-                point=tuple(p[a[0]][axis]*a[1]+p[b[0]][axis]*b[1]+p[c[0]][axis]*c[1]+p[d[0]][axis]*d[1] for axis in (0,1,2))
-                world.append(point);x,y=project(*point);vertices.extend((x,y,0.,0.))
-            mesh.vertices=vertices
+        for index,(weights,edges,mesh,front) in enumerate(self.batches):
+            if geometry_changed:
+                vertices=[];world=[]
+                for row in weights:
+                    a,b,c,d=row
+                    point=tuple(p[a[0]][axis]*a[1]+p[b[0]][axis]*b[1]+p[c[0]][axis]*c[1]+p[d[0]][axis]*d[1] for axis in (0,1,2))
+                    world.append(point);x,y=project(*point);vertices.extend((x,y,0.,0.))
+                mesh.vertices=vertices;front.vertices=vertices;self._world.append(world)
+            else:world=self._world[index]
             overlay=[]
             if ball is not None and self.cloth.contact:
                 # Only real strands on the contact's outward hemisphere are
@@ -71,7 +77,7 @@ class NetRenderer:
                     for i in range(0,len(edges),2):
                         a,b=world[edges[i]],world[edges[i+1]];mid=tuple((x+y)/2 for x,y in zip(a,b))
                         if math.dist(mid,ball)<radius+.13:overlay.extend(edges[i:i+2])
-            front.vertices=vertices;front.indices=overlay
+            front.indices=overlay
 
     def draw(self,canvas,project,camera_key,ball=None,foreground=False):
         self.sync(project,camera_key,ball)

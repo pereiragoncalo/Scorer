@@ -22,10 +22,8 @@ def impact(game,surface,position,velocity):
     # the separately bouncing authoritative ball.
     if getattr(game,'_net_replay',None) is not None:return False
     replay=RollingReplay('reference',height=max(game.ball.radius,position[2]),
-                         geometry=cloth.geometry,coarse=not game.desktop_windows)
-    replay.cloth=cloth;replay.radius=game.ball.radius
-    from net_contact import ClothContacts
-    replay.mesh=ClothContacts(cloth)
+                         geometry=cloth.geometry,coarse=not game.desktop_windows,cloth=cloth)
+    replay.radius=game.ball.radius
     replay.position=list(position);replay.velocity=list(velocity);replay.ball=tuple(position)
     replay.hit=True
     game._net_replay=replay
@@ -36,10 +34,8 @@ def impact(game,surface,position,velocity):
 def start(game):
     """Continuous post-goal flight starts before any authoritative net correction."""
     cloth=ensure(game)
-    replay=RollingReplay('reference',height=game.ball.z,geometry=cloth.geometry,coarse=not game.desktop_windows)
-    replay.cloth=cloth
-    from net_contact import ClothContacts
-    replay.mesh=ClothContacts(cloth);replay.radius=game.ball.radius
+    replay=RollingReplay('reference',height=game.ball.z,geometry=cloth.geometry,coarse=not game.desktop_windows,cloth=cloth)
+    replay.radius=game.ball.radius
     replay.position=[game.ball.x,game.ball.y,game.ball.z];replay.velocity=[game.ball.vx,game.ball.vy,game.ball.vz];replay.ball=tuple(replay.position)
     game._net_replay=replay;game._net_replay_just_started=True
 

@@ -77,10 +77,10 @@ class ReferenceCloth(TetheredCloth):
 
 class RollingReplay:
     STEP=1/120
-    def __init__(self,variant='slack',speed=6.8,height=None,geometry=None,coarse=False):
+    def __init__(self,variant='slack',speed=6.8,height=None,geometry=None,coarse=False,cloth=None):
         self.airborne=height is not None
         self.material=MATERIALS[variant];self.geometry=geometry or NetGeometry('box')
-        self.cloth=(ReferenceCloth if variant=='reference' else TetheredCloth if variant=='sagged' else NetCloth)(self.geometry,self.material.config,coarse=coarse)
+        self.cloth=cloth if cloth is not None else (ReferenceCloth if variant=='reference' else TetheredCloth if variant=='sagged' else NetCloth)(self.geometry,self.material.config,coarse=coarse)
         # Every point touching the turf is an anchor, for both materials.
         # Slack belongs to the suspended mesh, never a sliding ground hem.
         self.ground_anchors=tuple(i for i,p in enumerate(self.cloth.rest) if abs(p[2])<1e-6)
@@ -154,7 +154,11 @@ class RollingReplay:
         contacts=[]
         hit=self.mesh.first(old,b,self.radius)
         if hit is not None:
-            b[:]=hit['centre']
+            # Stop only travel through the sheet, not travel along it. Moving
+            # the whole sphere back to the sweep time discarded the remainder
+            # of its tangential motion, producing slow motion on side contacts.
+            through=max(0.,sum((b[a]-hit['centre'][a])*hit['normal'][a] for a in range(3)))
+            for axis in range(3):b[axis]-=through*hit['normal'][axis]
             item=self._contact(hit['surface'],hit)
             if item is not None:contacts.append(item)
         for _ in range(2):
@@ -171,6 +175,13 @@ class RollingReplay:
                 if not c.pinned[index] and weight>0:free[index]=free.get(index,0)+weight
             denominator=1/self.mass+sum(w*w/self.material.node_mass for w in free.values())
             sheet_velocity=[sum((c.positions[idx][axis]-c.previous[idx][axis])*weight/dt for idx,weight in (free.items() if isinstance(c,ReferenceCloth) else weights)) for axis in range(3)]
+            # Loose fabric absorbs the incoming ball; its recovery must not
+            # act as a springboard that launches a spent ball out of the goal.
+            # Outward sheet motion can yield, but inward recovery is supported
+            # by the sphere constraint rather than injected as ball momentum.
+            if isinstance(c,ReferenceCloth):
+                recovery=min(0.,sum(sheet_velocity[i]*normal[i] for i in range(3)))
+                sheet_velocity=[sheet_velocity[i]-recovery*normal[i] for i in range(3)]
             relative=[corrected[i]-sheet_velocity[i] for i in range(3)]
             closing=sum(relative[i]*normal[i] for i in range(3))
             if closing<=0:continue
