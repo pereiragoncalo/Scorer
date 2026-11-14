@@ -251,5 +251,8 @@
   "previews": {
     "Scorer-Rounded-Hex-Net-1030026.png": "a2fd4d31d46c52f5a128d761d52e2e334c525caeebd57111495b88a936fc26d9",
     "Scorer-Rounded-Hex-Net-Impact-1030026.png": "76e8664425a8becf28d124411b4494338780b295107888a15bc2aa2b0bc1fa39"
-  }
+  },
+  "github_delivery_run": 43591392488,
+  "automation_delivery_run": 43591317020,
+  "public_helper_hashes_verified": true
 }

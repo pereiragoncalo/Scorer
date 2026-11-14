@@ -3496,3 +3496,4 @@ User references the earlier Brazil/Sweden goal frames: fabric drops from rope at
 
 1030026 unsigned AAB:118286759 bytes, SHA256 d42b8a731bceac2624819feba99bf393cc5c6babad21d7efe06a7e2bcdc7e98d. Publisher suite:25 checks, one host-JDK-dependent skip. Original certificate and private bastion signing preserved.
 Android audit passed:World production/code1030026, target36,118 ELF libraries at16KiB alignment, exact compiled runtime including game_timing and rounded geometry,248 sprite frames/35 sheets. Unsigned original retained; derived inspection APK is not the Play artifact.
+Delivery26 verified:Actions43591392488 AAB/previews and43591317020 uploader1.25 succeeded; public small-asset hashes verified and AAB size118286759. Main workspace unrelated main.py/test_menus.py/.gitignore/career_mode_state.py changes preserved.

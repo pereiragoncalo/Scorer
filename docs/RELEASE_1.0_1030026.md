@@ -23,3 +23,8 @@ minimum 1030022 until Play actually offers 1030026 to all intended players.
 Update without uninstalling or clearing data.
 
 Commands: docs/play/FIXES_1030026.md
+
+Verified delivery: Actions43591392488 reassembled/hash-verified the118286759-byte
+AAB and published it with both native previews. Actions43591317020 published
+uploader1.25. Public uploader/bootstrap/signer/preview hashes match. Private
+bastion signing/upload and handset acceptance remain owner-side.
