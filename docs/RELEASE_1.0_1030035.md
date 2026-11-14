@@ -19,3 +19,7 @@ Validation:54pure/HTTP/honours/installer/publisher tests (one hostJDK skip),5nat
 player-layout/title-history/training tests pass. Native screenshots reviewed.
 Physical Android acceptance and actual Play availability remain owner-side.
 Keep minimum1030032 until Play offers this update. Commands: docs/play/FIXES_1030035.md.
+
+Android AAB audit passed:118ELF16KiB, unsigned production metadata, exact compiled
+runtime source/resources and derived APK alignment. Final publisher25tests pass
+with one hostJDK skip. No direct Play upload or live server mutation from Cloud.

@@ -3633,3 +3633,12 @@ no retroactive invented wins. Main screen stays without scrolling. Nine locales.
 pass including compact/dense profile, full history, training/session behaviour.
 Initial new UI test lacked _profile_return and opened creation; fixed fixture.
 Native actual App screenshots inspected. Compilation and audit follow below.
+
+Android1030035 compiled and audited:123925752-byte AAB SHA256
+501a0ae37bb071ea7c2966ac9d43b4923fcd0e28215d80cb4769bd858e462281.
+World/production source/manifest verified;118ELF16KiB and derived APK ZIP alignment
+pass; exact compiled runtime sources including development_ui,248base frames,
+35sheets and all requested stadium art match. Publisher25tests pass (one hostJDK
+skip). Repair SHA65fc9a04122694f61e0f76672f4a75f1180a4028c07791b0c014e7deb5c3b9a1;
+--check passes, single-file source whitelist, DB unchanged by installer. New
+release keeps minimum1030032 and original private signing identity.
