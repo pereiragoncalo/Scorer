@@ -19,3 +19,8 @@ Coimbra Preto's rounded hexagonal net and the5% ball speed throughout deliveries
 and shots remain. Same package/save/signing identity. No backend deployment.
 Update without uninstalling. Keep minimum1030028 until Play offers1030029 to
 all intended players. Commands: docs/play/FIXES_1030029.md.
+
+Verified delivery:Actions43603723574 reassembled/hash-verified118289456-byte AAB;
+Actions43603635214 published uploader1.28. Public uploader/bootstrap/signer and
+both native preview hashes match. Private bastion upload and handset acceptance
+remain owner-side.

@@ -259,5 +259,8 @@
   "receiver_progress_multiplier": 1.0,
   "early_delivery_waits_for_receiver": true,
   "net_strands_clipped_to_physical_boundary": true,
-  "continuous_rendered_side_rear_seams": true
+  "continuous_rendered_side_rear_seams": true,
+  "github_delivery_run": 43603723574,
+  "automation_delivery_run": 43603635214,
+  "public_helper_hashes_verified": true
 }
