@@ -1,5 +1,0 @@
-Runtime source: 361b3a128c7026f523f6d87a4e9f81cbd1ae3740 (runtime identical to dd28ba5; test fixture correction only).
-117 core regression cases passed. 7 native finishing/placement cases passed. 3 native training cases passed, including actual atomic-save failure and four languages at three sizes.
-Production unsigned AAB: 118147588 bytes; SHA256 b13a5526b4263558c7d001ffc29db613d8876e3a9df2be3daaa097817725aa09.
-Full bundletool/static/118 ELF alignment audit passed. Derived debug-signed APK is inspection only.
-Physical paired shots measure exact target samples, not human conversion. Screenshot is desktop Kivy, not handset acceptance.
