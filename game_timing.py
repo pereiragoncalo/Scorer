@@ -1,6 +1,5 @@
-"""One gameplay clock: faster playback without changing shot physics ratios."""
-GAME_SPEED=1.05
+"""Shared real-time clock; shot speed is controlled at ball launch."""
+GAME_SPEED=1.0
 
 def simulation_dt(seconds,view):
-    elapsed=max(0.,min(seconds,.12))
-    return elapsed*(GAME_SPEED if view in ('shot','match') else 1.)
+    return max(0.,min(seconds,.12))

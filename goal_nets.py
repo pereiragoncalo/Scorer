@@ -18,10 +18,12 @@ class NetStyle:
 
 BASE_STYLES=tuple(NetStyle(s,m) for s in ('veil','box') for m in ('square','hexagon'))
 ROUNDED_STYLE=NetStyle('rounded','hexagon',3.50)
+COIMBRA_PRETO_UID='6d0a94b6d9d584ce77e0'
 STYLES=BASE_STYLES+tuple(NetStyle(s,m,d) for s,d in (('box',1.80),('veil',3.50)) for m in ('square','hexagon'))+(ROUNDED_STYLE,)
 
 @lru_cache(maxsize=4096)
 def for_stadium(uid):
+    if str(uid)==COIMBRA_PRETO_UID:return ROUNDED_STYLE
     digest=hashlib.sha256(('scorer-net-v1:'+str(uid)).encode()).digest()
     if digest[5]%6==0:return ROUNDED_STYLE
     base=BASE_STYLES[int.from_bytes(digest[:4],'big')%len(BASE_STYLES)]

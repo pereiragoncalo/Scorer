@@ -2056,8 +2056,8 @@ class StrikerGame(Widget):
         flight_time = self._shot_flight_time(horizontal_distance, self.shot_type == "header")
         if self.shot_context=='match':flight_time/=self.career.low_finish_speed(self.shot_type,destination_z)
 
-        from shot_trajectory import launch_velocity
-        self.ball.vx,self.ball.vy,self.ball.vz = launch_velocity(
+        from shot_trajectory import opportunity_velocity
+        self.ball.vx,self.ball.vy,self.ball.vz = opportunity_velocity(
             (self.ball.x,self.ball.y,self.ball.z),
             (destination_x,destination_z),flight_time)
 

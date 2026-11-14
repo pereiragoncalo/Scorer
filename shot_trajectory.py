@@ -13,3 +13,10 @@ def launch_velocity(start, target, duration):
         fall+=vertical*PHYSICS_STEP;vertical*=drag
     return ((target[0]-start[0])/factor, -start[1]/factor,
             (target[1]-start[2]-fall)/factor)
+
+
+OPPORTUNITY_BALL_SPEED = 1.05
+
+def opportunity_velocity(start, target, duration):
+    """Shorten the shot flight only, solving gravity/drag for the same aim."""
+    return launch_velocity(start, target, duration / OPPORTUNITY_BALL_SPEED)

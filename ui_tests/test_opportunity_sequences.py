@@ -31,7 +31,7 @@ class OpportunityScenes(unittest.TestCase):
                 self.assertEqual(g.match_minute,minute)
                 actor=g.field_players[0] if g.field_players else g.buildup_actors[0]
                 pose=g._field_player_position(actor);keeper=g.goalkeeper_x
-                g.update(.1);self.assertAlmostEqual(g.shot_time_left,clock-.105)
+                g.update(.1);self.assertAlmostEqual(g.shot_time_left,clock-.1)
                 self.assertEqual(g._field_player_position(actor),pose);self.assertEqual(g.goalkeeper_x,keeper)
                 g.shoot(2.8,1.);self.assertEqual(g.state,g.STATE_SHOT);self.assertEqual(g.attempts,score[2]+1)
     def test_match_notice_announces_planned_move_and_clears_after_shot(self):

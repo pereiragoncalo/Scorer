@@ -5,10 +5,10 @@ from net_cloth import NetGeometry
 from net_drape import MATERIALS,RollingReplay
 
 class GameplaySpeed(unittest.TestCase):
- def test_gameplay_clock_is_exactly_five_percent_faster(self):
+ def test_gameplay_clock_is_real_time(self):
   for fps in (30,60,120):
    for view in ('shot','match'):
-    self.assertAlmostEqual(sum(simulation_dt(1/fps,view)for _ in range(fps)),1.05)
+    self.assertAlmostEqual(sum(simulation_dt(1/fps,view)for _ in range(fps)),1.)
    self.assertAlmostEqual(sum(simulation_dt(1/fps,'hub')for _ in range(fps)),1.)
   self.assertEqual(simulation_dt(-1,'shot'),0.)
 
