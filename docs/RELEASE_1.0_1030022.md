@@ -20,3 +20,8 @@ offers1030022 to all intended players.
 
 Download: https://github.com/pereiragoncalo/Scorer/releases/tag/world-1.0-1030022
 Commands: docs/play/FIXES_1030022.md
+
+Verified delivery: Actions43539589031 reassembled, hash-verified and attached the
+118243983-byte AAB; Actions43539537550 delivered uploader1.21. Public bootstrap,
+signer and uploader downloads match the pinned SHA256 hashes. The private
+bastion sign/upload and actual Android Play acceptance remain owner-side.

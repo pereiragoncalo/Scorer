@@ -196,5 +196,8 @@
   "training_players_per_team": 8,
   "actual_motion_drives_running": true,
   "core_tests_log": "net22-pure-verified.log:16 pass",
-  "native_tests_log": "net22-native-verified.log:29 pass"
+  "native_tests_log": "net22-native-verified.log:29 pass",
+  "github_delivery_run": 43539589031,
+  "automation_delivery_run": 43539537550,
+  "public_helper_hashes_verified": true
 }
