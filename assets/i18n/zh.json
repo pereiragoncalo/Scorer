@@ -797,5 +797,7 @@
   "Contract: {years} years": "合同：{years}年",
   "Choose the contract years, monthly salary and signing benefits. Your agent advises you. Send demands to receive the club's answer; up to three rounds are available. Hear other clubs before deciding. Signing accepts only the displayed club offer. Accepted housing and cars become yours on signing; squad investment improves the club.": "选择合同年限、月薪和签约福利。经纪人会提供建议。提出要求后俱乐部会答复，最多可谈判三轮。决定前可以听取其他俱乐部的报价。签约只代表接受屏幕显示的俱乐部报价。双方同意的住房和汽车在签约时归你所有，阵容补强则会提升俱乐部实力。",
   "COUNTRY": "国家",
-  "LEAGUE": "联赛"
+  "LEAGUE": "联赛",
+  "COLLECTIVE TITLES": "集体荣誉",
+  "Collective titles: {count}": "集体荣誉：{count}"
 }

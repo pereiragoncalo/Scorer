@@ -18,7 +18,8 @@ class PortraitLayoutTests(unittest.TestCase):
      self.assertGreater(photo.height,dp(40));self.assertGreaterEqual(photo.x,stats.center_x)
      self.assertLessEqual(screen.name.top,photo.y+1);self.assertLessEqual(stats.age_info.top,screen.name.y+1)
      self.assertLessEqual(stats.contract_info.top,stats.age_info.y+1)
-     for w in (photo,screen.name,stats.age_info,stats.contract_info,screen.actions):
+     self.assertGreaterEqual(stats.titles_button.height,dp(48))
+     for w in (photo,screen.name,stats.age_info,stats.contract_info,screen.actions,stats.titles_button):
       self.assertGreaterEqual(w.y,-1);self.assertLessEqual(w.top,g.height+1)
      self.assertFalse(any(isinstance(w,ScrollView) for w in screen.walk()))
      before=c.goals,c.life['salary'],dict(c.life['owned']);screen.name.text='Portrait Name';screen.submit()

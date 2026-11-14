@@ -23,11 +23,12 @@ class ServerDivisionBoard(unittest.TestCase):
   self.assertEqual([(r['player'],r['goals'])for r in one],[('Bruno',15),('Ana',12)])
   self.assertEqual([(r['player'],r['goals'])for r in two],[('Carlos',30)])
   self.assertEqual(set(one[0]),{'player','goals','publisher'})
- def test_consent_exactness_idempotence_best_season_and_withdraw(self):
+ def test_consent_exactness_idempotence_all_seasons_and_withdraw(self):
   self.submit('a'*64);self.approve('a'*64);self.submit('a'*64)
   self.assertEqual(len(dbrecords.leaders(self.db,1)['entries']),1)
   self.submit('a'*64,season=2027,player='Other approved name',goals=5);self.approve('a'*64)
   self.assertEqual(dbrecords.leaders(self.db,1)['entries'][0]['player'],'Public name')
+  self.assertEqual([(r['player'],r['goals'])for r in dbrecords.leaders(self.db,1)['entries']],[('Public name',10),('Other approved name',5)])
   self.assertEqual(moderation.queue(self.db)['total'],2)
   moderation.withdraw(self.db,'a'*64);self.assertEqual(dbrecords.leaders(self.db,1)['entries'],[])
   with self.assertRaises(ValueError):dbrecords.submit(self.db,dict(token='a'*64,record=dict(division=1,season=2026,player='Name',goals=1)))

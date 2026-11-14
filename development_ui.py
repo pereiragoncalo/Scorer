@@ -31,6 +31,10 @@ class ObjectivesSummary(GridLayout):
         stat(career,loc.tr('Tracked club goals: {goals}',goals=d['career_goals']))
         stat(career,loc.tr('Transfers: {count}',count=d['transfers']))
         stat(career,loc.tr('International appearances: {count}',count=c.international_caps))
+        from title_events import collective
+        self.collective_titles=[dict(row)for row in c.honours['trophies']if collective(row)]
+        self.titles_button=MenuTile(loc.tr('Collective titles: {count}',count=len(self.collective_titles)),lambda:self.show_titles(menu),localize=False)
+        self.titles_button.height=dp(48);self.titles_button.font_size=sp(12);career.add_widget(self.titles_button)
         from player_portrait import PlayerPortrait
         from career_life import age
         photo_column=BoxLayout(orientation='vertical',spacing=dp(4))
@@ -47,6 +51,17 @@ class ObjectivesSummary(GridLayout):
         text=loc.tr('Monthly salary €{salary}',salary=c.life['salary'])+'\n'+years_text(c,loc,compact=True)
         self.contract_info=DashboardField(text=text,compact_text=text,localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(30),max_lines=2)
         photo_column.add_widget(self.contract_info)
+
+    def show_titles(self,menu):
+        loc=menu.game.i18n
+        body=BoxLayout(orientation='vertical',spacing=dp(8))
+        scroll=ScrollView(do_scroll_x=False);card=Card();scroll.add_widget(card);body.add_widget(scroll)
+        for row in sorted(self.collective_titles,key=lambda r:(r['season'],r['competition'],r['team_uid']),reverse=True):
+            title=loc.competition(menu.game.career,row['title'],row['country'])
+            card.label(f"{row['season']}/{str(row['season']+1)[-2:]} · {title}\n{row['team']}",localize=False)
+        if not self.collective_titles:card.label('None recorded')
+        self.titles_popup=popup=LocalizedPopup(title=loc.tr('COLLECTIVE TITLES'),content=body,size_hint=(.9,.86))
+        body.add_widget(MenuTile('BACK',popup.dismiss));popup.open()
 
 
 class DevelopmentScreen(BoxLayout):

@@ -797,5 +797,7 @@
   "Contract: {years} years": "Contrato: {years} anos",
   "Choose the contract years, monthly salary and signing benefits. Your agent advises you. Send demands to receive the club's answer; up to three rounds are available. Hear other clubs before deciding. Signing accepts only the displayed club offer. Accepted housing and cars become yours on signing; squad investment improves the club.": "Escolhe os anos de contrato, o salário mensal e os benefícios de assinatura. O agente aconselha-te. Apresenta as exigências para receber a resposta do clube; há até três rondas. Podes ouvir outros clubes antes de decidir. Ao assinar, aceitas apenas a proposta do clube apresentada no ecrã. A casa e o carro aceites tornam-se teus na assinatura; o reforço do plantel melhora a equipa.",
   "COUNTRY": "PAÍS",
-  "LEAGUE": "LIGA"
+  "LEAGUE": "LIGA",
+  "COLLECTIVE TITLES": "TÍTULOS COLETIVOS",
+  "Collective titles: {count}": "Títulos coletivos: {count}"
 }

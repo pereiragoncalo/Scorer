@@ -23,11 +23,11 @@ def submit(db,payload):
 def leaders(db,division):
     if type(division)is not int or division not in (1,2):raise ValueError('Invalid division')
     from server.moderation import public_id
-    rows=db.execute("SELECT owner,player,goals,season FROM division_records WHERE division=? AND state='approved' AND consent=1 ORDER BY goals DESC,season ASC,player ASC",(division,)).fetchall()
-    seen=set();entries=[]
+    rows=db.execute("SELECT owner,player,goals,season FROM division_records WHERE division=? AND state='approved' AND consent=1 ORDER BY goals DESC,season ASC,player ASC,owner ASC",(division,)).fetchall()
+    entries=[]
     for owner,player,goals,season in rows:
         publisher=public_id(owner)
-        if owner in seen or db.execute('SELECT 1 FROM banned_publishers WHERE publisher=?',(publisher,)).fetchone():continue
-        seen.add(owner);entries.append(dict(player=player,goals=goals,publisher=publisher))
+        if db.execute('SELECT 1 FROM banned_publishers WHERE publisher=?',(publisher,)).fetchone():continue
+        entries.append(dict(player=player,goals=goals,publisher=publisher))
         if len(entries)>=100:break
     return dict(schema=5,division=division,verified=False,entries=entries)

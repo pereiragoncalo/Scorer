@@ -3616,3 +3616,20 @@ verified), Actions43648002292 success (publisher1.33). Three public helpers and
 training preview hashes verified. Main worktree FF preserves unrelated main0/239,
 menu5/3, ignore and untracked career state changes. Private Play and handset
 availability remain pending; bastion command first rolls minimum back to1030032.
+
+## 2026-11-14 — World1030035 collective honours and season history
+
+Root cause: server leaders() read all saved seasons but deduplicated by owner.
+Removed display deduplication; retained per-owner/division/season DB identity,
+same-season retry idempotence, top100 score order and all bans/withdrawals. No
+DB mutation or republish needed for previously hidden saved seasons. Added
+single-file known-source repair backed by exact old module digest, transactional
+file backup/rollback, health/v5/v3/v4 checks. Payload --check passes.
+
+Player stats adds collective count and full season/competition/team history on
+tap. Reads saved observed honours only; excludes scorer/reserve/playoff entries,
+no retroactive invented wins. Main screen stays without scrolling. Nine locales.
+54pure/HTTP/installer/honours/publisher tests pass (one hostJDK skip);5native tests
+pass including compact/dense profile, full history, training/session behaviour.
+Initial new UI test lacked _profile_return and opened creation; fixed fixture.
+Native actual App screenshots inspected. Compilation and audit follow below.
