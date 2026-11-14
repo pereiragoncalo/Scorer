@@ -130,6 +130,7 @@ class RollingReplay:
     def one_step(self):
         if self.sleeping:return
         dt=self.STEP;c=self.cloth;b=self.position;old=b[:];v=self.velocity
+        entry_energy=sum(x*x for x in v)+19.62*b[2]
         resting=self.stop_time is not None and sum(x*x for x in v)<.05**2
         previous_shape=[p[:] for p in c.positions] if resting else None
         horizontal=math.hypot(v[0],v[1])
@@ -147,9 +148,12 @@ class RollingReplay:
         if self.airborne:
             drag=.996**(dt*60.)
             for axis in range(3):v[axis]*=drag
-        energy=sum(x*x for x in v)+2*9.81*b[2]
-        was_active=c.active;c.advance(dt)
-        if was_active:self.mesh.refresh()
+        energy=min(entry_energy,sum(x*x for x in v)+2*9.81*b[2])
+        was_active=c.active
+        previous_mesh=[p[:]for p in c.positions] if was_active else None
+        c.advance(dt)
+        if was_active:self.mesh.refresh(previous_mesh)
+        else:self.mesh.previous_positions=None
         self.mesh.select(old,b,self.radius)
         contacts=[]
         hit=self.mesh.first(old,b,self.radius)
@@ -157,14 +161,28 @@ class RollingReplay:
             # Stop only travel through the sheet, not travel along it. Moving
             # the whole sphere back to the sweep time discarded the remainder
             # of its tangential motion, producing slow motion on side contacts.
-            through=max(0.,sum((b[a]-hit['centre'][a])*hit['normal'][a] for a in range(3)))
+            sheet_motion=[sum(c.positions[i][a]*w for i,w in hit['weights'])-hit['point'][a] for a in range(3)]
+            through=max(0.,sum((b[a]-hit['centre'][a]-sheet_motion[a])*hit['normal'][a] for a in range(3)))
             for axis in range(3):b[axis]-=through*hit['normal'][axis]
             item=self._contact(hit['surface'],hit)
             if item is not None:contacts.append(item)
+            else:contacts.append((hit['surface'],hit['normal'],hit['weights'],0.,0.))
         for _ in range(2):
             for surface in ('left','right','back'):
                 item=self._contact(surface)
                 if item is not None:contacts.append(item)
+        # Endpoint containment covers a sheet that moves/folds completely
+        # past the ball within one step. Project against the actual nearest
+        # finite cloth face, never an undeformed/infinite goal boundary.
+        if isinstance(c,TetheredCloth):c.constrain_tethers()
+        self.mesh.refresh()
+        for _ in range(2):
+            escape=self.mesh.escaped_contact(b,self.radius)
+            if escape is None:break
+            normal=escape['normal']
+            b[:]=[escape['point'][a]-normal[a]*self.radius for a in range(3)]
+            b[2]=max(self.radius,b[2])
+            contacts.append((escape['surface'],normal,escape['weights'],0.,0.))
         corrected=v[:]
         handled=set()
         for surface,normal,weights,gap,_ in contacts:
@@ -209,8 +227,12 @@ class RollingReplay:
             surface,normal,weights,gap,_=item;u,w=self.geometry.uv_at(surface,b)
             c.contact={'surface':surface,'u':u,'v':w,'normal':normal,'point':tuple(b),'time':c.time,'radius':self.radius,'speed':horizontal}
             c.generation+=1
-        if isinstance(c,TetheredCloth):c.constrain_tethers()
         b[2]=max(self.radius,b[2]) if self.airborne else self.radius
+        if contacts:
+            b[2]=max(self.radius,min(b[2],energy/(2*9.81)))
+            maximum=max(0.,energy-2*9.81*b[2]);kinetic=sum(x*x for x in self.velocity)
+            if kinetic>maximum and kinetic>0:
+                scale=math.sqrt(maximum/kinetic);self.velocity=[x*scale for x in self.velocity]
         self.mesh.candidates=None
         self.tick+=1;self.ball=tuple(b);self.contacts=sorted(set(x[0] for x in contacts))
         travel=math.dist(old,b);self.distance+=travel;self.roll+=-(b[1]-old[1])/self.radius

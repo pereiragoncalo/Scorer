@@ -42,6 +42,7 @@ class GoalCelebration:
     slide_start:tuple
     retrieving:bool=False
     pickup:tuple=(0.,-.25)
+    retrieval:object=None
 
     @property
     def duration(self):return 6. if self.retrieving else self.run_seconds+(1.1 if self.decisive else 0.)+2.6
@@ -49,6 +50,7 @@ class GoalCelebration:
     def actor(self,age,index=0):
         age=max(0.,age)
         if self.retrieving:
+            if self.retrieval is not None:return self.retrieval.actor()
             if age<2.:return mix(self.origin,self.pickup,min(1.,age/2.)),'RUN',age
             if age<2.6:return self.pickup,'TACKLE',age-2.
             return mix(self.pickup,(0.,52.5),min(1.,(age-2.6)/7.)),'BALL_RUN',age-2.6
@@ -92,15 +94,36 @@ def start(game):
     slide_start=(target[0]-dx/distance*2.6,target[1]-dy/distance*2.6) if decisive else target
     run_distance=math.dist(origin,slide_start)
     run=max(1.3,min(5.8,run_distance/7.0))
-    celebration=GoalCelebration(game.elapsed,'home' if home else 'away',decisive,origin,target,fans,run,slide_start,retrieving,(game.ball.x,-.25))
+    from net_presentation import ball_position
+    from ball_retrieval import Retrieval
+    pickup=ball_position(game)[:2]
+    celebration=GoalCelebration(game.elapsed,'home' if home else 'away',decisive,origin,target,fans,run,slide_start,retrieving,pickup,Retrieval(origin,pickup) if retrieving else None)
     game.goal_celebration=celebration
     game._crowd_celebrate_until=game.elapsed+celebration.duration+.3
 
 def active(game):
     c=getattr(game,'goal_celebration',None)
-    return c is not None and game.view=='shot' and game.shot_context=='match' and game.elapsed<c.started+c.duration
+    if c is None or game.view!='shot' or game.shot_context!='match':return False
+    if c.retrieving and c.retrieval is not None:return not c.retrieval.done
+    return game.elapsed<c.started+c.duration
+
+def advance(game,dt):
+    c=getattr(game,'goal_celebration',None)
+    if c is None or not c.retrieving or c.retrieval is None:return
+    from net_presentation import ball_position
+    replay=getattr(game,'_net_replay',None)
+    velocity=replay.velocity if replay is not None else (game.ball.vx,game.ball.vy,game.ball.vz)
+    c.retrieval.advance(dt,ball_position(game),math.sqrt(sum(v*v for v in velocity)),game.ball.radius)
+    if c.retrieval.secured and replay is not None and not getattr(replay,'collected',False):
+        replay.collected=True;replay.cloth.contact=None;replay.cloth.active=True
+
+def has_ball(game):
+    c=getattr(game,'goal_celebration',None)
+    return bool(c and c.retrieving and (c.retrieval.secured if c.retrieval is not None else game.elapsed-c.started>=2.6))
 
 def motion(celebration,age,index=0):
+    if celebration.retrieving and celebration.retrieval is not None:
+        return celebration.retrieval.target,celebration.retrieval.moving
     position=celebration.actor(age,index)[0]
     before=celebration.actor(max(0.,age-.025),index)[0]
     after=celebration.actor(age+.025,index)[0]
@@ -126,7 +149,7 @@ def draw(game):
     for y,index,x,pose in sorted(actors):
         renderer.draw(game,'celebration_'+str(index),'players',pose,(x,y,0.),PLAYER_HEIGHT_METRES,colours)
 
-        if index==0 and celebration.retrieving and age>=2.6:
+        if index==0 and has_ball(game):
             # A cosmetic held-ball sprite follows the athlete; match physics stay frozen.
             from retro_props import cache
             from kivy.graphics import Color,Rectangle

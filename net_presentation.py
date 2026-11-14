@@ -31,12 +31,14 @@ def impact(game,surface,position,velocity):
     return True
 
 
-def start(game):
+def start(game,entry=None,remaining=0.):
     """Continuous post-goal flight starts before any authoritative net correction."""
     cloth=ensure(game)
     replay=RollingReplay('reference',height=game.ball.z,geometry=cloth.geometry,coarse=not game.desktop_windows,cloth=cloth)
     replay.radius=game.ball.radius
-    replay.position=[game.ball.x,game.ball.y,game.ball.z];replay.velocity=[game.ball.vx,game.ball.vy,game.ball.vz];replay.ball=tuple(replay.position)
+    replay.position=list(entry) if entry is not None else [game.ball.x,game.ball.y,game.ball.z]
+    replay.velocity=[game.ball.vx,game.ball.vy,game.ball.vz];replay.ball=tuple(replay.position)
+    if remaining>0:replay.advance(remaining)
     game._net_replay=replay;game._net_replay_just_started=True
 
 
@@ -44,6 +46,7 @@ def advance(game,dt):
     cloth=getattr(game,'_net_cloth',None)
     replay=getattr(game,'_net_replay',None)
     if replay is not None:
+        if getattr(replay,'collected',False):cloth.advance(dt);return
         if getattr(game,'_net_replay_just_started',False):game._net_replay_just_started=False;return
         replay.advance(dt)
     elif cloth is not None:cloth.advance(dt)

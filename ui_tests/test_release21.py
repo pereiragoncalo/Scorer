@@ -30,6 +30,8 @@ class Release21Gameplay(unittest.TestCase):
    g.draw=lambda:None;g._start_opportunity('rebound',1);g.state_age=3.
    self.assertEqual(field_pose(g,g.buildup_blocker).state,'IDLE')
    g._start_opportunity('through_ball',2)
+   from defensive_pressure import advance
+   advance(g,.1)
    self.assertEqual(field_pose(g,g.onside_defender).state,'RUN')
  def test_retrieval_faces_midfield_and_waiting_team_mates_do_not_run(self):
   c=GoalCelebration(0,'home',False,(0,10),(3,-2),(4,-5),2,(3,-2),True,(0,-.25))

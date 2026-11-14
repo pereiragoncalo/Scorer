@@ -32,7 +32,7 @@ def normal(a,b,c):
 
 class ClothContacts:
     def __init__(self,cloth):
-        self.cloth=cloth;self.triangles={}
+        self.cloth=cloth;self.triangles={};self.references={}
         for surface,(us,vs,grid) in cloth.grids.items():
             triangles=[]
             for j in range(len(vs)-1):
@@ -43,10 +43,11 @@ class ClothContacts:
                         if all(p[2]<1e-7 for p in points):continue
                         reference=cloth.geometry.normal(surface,(us[i]+us[i+1])/2,(vs[j]+vs[j+1])/2)
                         if dot(normal(*points),reference)<0:indices=(indices[0],indices[2],indices[1])
-                        triangles.append(indices)
+                        triangles.append(indices);self.references[indices]=reference
             self.triangles[surface]=triangles
-        self.candidates=None;self.refresh()
-    def refresh(self):
+        self.candidates=None;self.previous_positions=None;self.refresh()
+    def refresh(self,previous=None):
+        self.previous_positions=previous
         positions=self.cloth.positions;self.bounds={}
         for surface,triangles in self.triangles.items():
             bounds=[]
@@ -55,32 +56,68 @@ class ClothContacts:
                 bounds.append((min(a[0],b[0],c[0])-.25,max(a[0],b[0],c[0])+.25,
                                min(a[1],b[1],c[1])-.25,max(a[1],b[1],c[1])+.25,
                                min(a[2],b[2],c[2])-.25,max(a[2],b[2],c[2])+.25))
+            if previous is not None:
+                for j,(ia,ib,ic) in enumerate(triangles):
+                    a,b,c=previous[ia],previous[ib],previous[ic];row=bounds[j]
+                    bounds[j]=(min(row[0],a[0]-.25,b[0]-.25,c[0]-.25),max(row[1],a[0]+.25,b[0]+.25,c[0]+.25),
+                               min(row[2],a[1]-.25,b[1]-.25,c[1]-.25),max(row[3],a[1]+.25,b[1]+.25,c[1]+.25),
+                               min(row[4],a[2]-.25,b[2]-.25,c[2]-.25),max(row[5],a[2]+.25,b[2]+.25,c[2]+.25))
             self.bounds[surface]=bounds
     def select(self,start,end,radius):
         lo=[min(start[a],end[a])-radius for a in range(3)];hi=[max(start[a],end[a])+radius for a in range(3)]
         self.candidates={s:[(ids,b)for ids,b in zip(self.triangles[s],self.bounds[s])if lo[0]<=b[1] and hi[0]>=b[0] and lo[1]<=b[3] and hi[1]>=b[2] and lo[2]<=b[5] and hi[2]>=b[4]]for s in self.triangles}
     def query(self,surface,end,radius,start=None):
+        moving=start is not None and self.previous_positions is not None
         start=end if start is None else start
         lo=[min(start[a],end[a])-radius for a in range(3)];hi=[max(start[a],end[a])+radius for a in range(3)]
-        length=math.dist(start,end);best=None
+        travel=sub(end,start);length=math.dist(start,end);best=None
         candidates=self.candidates[surface] if self.candidates is not None else zip(self.triangles[surface],self.bounds[surface])
         for ids,bounds in candidates:
             if lo[0]>bounds[1] or hi[0]<bounds[0] or lo[1]>bounds[3] or hi[1]<bounds[2] or lo[2]>bounds[5] or hi[2]<bounds[4]:continue
-            points=[self.cloth.positions[k] for k in ids];n=normal(*points)
-            if length>1e-12 and dot(sub(end,start),n)<=1e-12:continue
-            t=0. if length>1e-12 else 1.
-            for _ in range(18):
+            final=[self.cloth.positions[k] for k in ids]
+            initial=[self.previous_positions[k] for k in ids] if moving else final
+            movement=[sub(b,a)for a,b in zip(initial,final)]
+            limit=length+max((math.dist(a,b)for a,b in zip(initial,final)),default=0.)
+            t=0. if length>1e-12 or moving else 1.
+            for _ in range(32):
+                points=[mix(a,b,t) for a,b in zip(initial,final)] if moving else final
                 centre=mix(start,end,t);point,bary=closest(centre,*points);distance=math.dist(centre,point)
                 if distance<=radius+1e-7:break
-                if length<1e-12:t=2.;break
-                t+=(distance-radius)/length
+                if limit<1e-12:t=2.;break
+                t+=(distance-radius)/limit
                 if t>1.+1e-8:break
             if t>1.+1e-8 or distance>radius+1e-6:continue
+            n=normal(*points)
+            if dot(n,self.references[ids])<0:n=tuple(-x for x in n)
+            relative=tuple(travel[a]-sum(movement[j][a]*bary[j]for j in range(3))for a in range(3))
+            if (length>1e-12 or moving) and dot(relative,n)<=1e-12:continue
             signed=dot(sub(centre,point),n)
-            # A separating sphere on the inner face is handled by the impulse solver.
-            hit=dict(surface=surface,t=min(1.,t),centre=centre,normal=n,weights=tuple((k,w)for k,w in zip(ids,bary)if w>1e-10),gap=max(0.,radius+signed))
+            hit=dict(surface=surface,t=min(1.,t),centre=centre,point=point,normal=n,weights=tuple((k,w)for k,w in zip(ids,bary)if w>1e-10),gap=max(0.,radius+signed))
             if best is None or hit['t']<best['t']-1e-8 or abs(hit['t']-best['t'])<1e-8 and hit['gap']>best['gap']:best=hit
         return best
     def first(self,start,end,radius):
         hits=[h for s in self.triangles if (h:=self.query(s,end,radius,start))is not None]
         return min(hits,key=lambda h:h['t']) if hits else None
+
+    def escaped_contact(self,position,radius):
+        """Recover an exterior centre against its nearest finite sheet face.
+
+        A moving/folding panel may sweep entirely past the sphere between
+        steps. Closest-face signed distance closes that gap without an infinite
+        side plane or a fixed invisible box outside the deforming fabric.
+        """
+        if position[1]>0:return None
+        best=None;distance=float('inf')
+        for surface,triangles in self.triangles.items():
+            for ids,bounds in zip(triangles,self.bounds[surface]):
+                dx=max(bounds[0]+.25-position[0],0.,position[0]-bounds[1]+.25)
+                dy=max(bounds[2]+.25-position[1],0.,position[1]-bounds[3]+.25)
+                dz=max(bounds[4]+.25-position[2],0.,position[2]-bounds[5]+.25)
+                lower=dx*dx+dy*dy+dz*dz
+                if lower>distance*distance:continue
+                points=[self.cloth.positions[i]for i in ids];point,bary=closest(position,*points);d=math.dist(position,point)
+                if d>=distance:continue
+                n=normal(*points)
+                if dot(n,self.references[ids])<0:n=tuple(-x for x in n)
+                distance=d;best=dict(surface=surface,point=point,normal=n,weights=tuple(zip(ids,bary)),gap=radius+dot(sub(position,point),n))
+        return best if best is not None and best['gap']>radius+1e-6 else None

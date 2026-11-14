@@ -51,7 +51,7 @@ class OpportunityScenes(unittest.TestCase):
             self.assertIn(g.state,(g.STATE_AIMING,g.STATE_BUILDUP));self.assertIsNotNone(g.current_opportunity)
             self.assertEqual({p.team for p in g.field_players},{'attacker','defender'})
             self.assertFalse(g._show_stadium_crowd())
-    def test_onside_defender_is_visible_at_release_and_stays_behind_at_reception(self):
+    def test_onside_defender_is_visible_at_release_and_closes_at_reception(self):
         with isolated_game() as g:
             self.sign(g)
             for seed in range(8):
@@ -63,7 +63,9 @@ class OpportunityScenes(unittest.TestCase):
                 self.assertLess(released[1],g.shot_origin_y+2)
                 while g.state==g.STATE_BUILDUP:g.update(.1)
                 chased=g._field_player_position(defender)
-                self.assertGreater(chased[1],g.shot_origin_y+2)
+                from defensive_pressure import player_position
+                self.assertGreater(chased[1],g.shot_origin_y)
+                self.assertGreaterEqual(__import__('math').dist(chased,player_position(g)),.94)
                 self.assertTrue(g.one_on_one)
                 self.assertEqual(g.attempts,0)
             g._start_opportunity('penalty',9)

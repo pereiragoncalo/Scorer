@@ -54,6 +54,9 @@ def hero_pose(game,flipped=False):
 
 
 def field_pose(game,player,flipped=False):
+    pressure=getattr(game,'_pressure',None)
+    if pressure is not None and pressure.actor is player:
+        return Pose('RUN' if pressure.moving else 'IDLE',game.elapsed,flipped=flipped)
     if game.state!=game.STATE_BUILDUP:
         # Existing match actors freeze during aiming. Do not invent tackles
         # or falls when the simulation has emitted no such action.

@@ -1101,7 +1101,7 @@ class StrikerGame(Widget):
                 penalty+=weight*(max(0,self.x+self.width*.06-px,px-self.right+self.width*.06)+max(0,self.y+self.height*.06-py,py-self.top+self.height*.06))
             return penalty
         delivery=min((delivery,delivery.mirrored()),key=visibility)
-        self.current_opportunity=delivery
+        self.current_opportunity=delivery;self._pressure=None
         self.current_chance_difficulty='penalty' if kind=='penalty' else 'easy' if kind=='through_ball' else 'hard'
         self.shot_type=delivery.shot_type
         self.penalty_dive_target=None
@@ -1145,6 +1145,8 @@ class StrikerGame(Widget):
         else:
             self.state=self.STATE_AIMING;self.state_age=0.
             self.frozen_scene_time=self.elapsed
+        from defensive_pressure import assign
+        assign(self)
 
     def _update_buildup(self,dt):
         delivery=self.current_opportunity
@@ -1376,7 +1378,9 @@ class StrikerGame(Widget):
 
 
         if self.state==self.STATE_BUILDUP:
-            self._update_buildup(frame_dt);self.draw();return
+            self._update_buildup(frame_dt)
+            from defensive_pressure import advance as advance_pressure
+            advance_pressure(self,frame_dt);self.draw();return
 
         if self.state == self.STATE_AIMING:
             self.player_kick_progress = 0.0
@@ -1391,6 +1395,8 @@ class StrikerGame(Widget):
 
 
         if self.state == self.STATE_AIMING:
+            from defensive_pressure import advance as advance_pressure
+            advance_pressure(self,frame_dt)
             self._update_aim(frame_dt)
             if self.current_opportunity is None:self._update_goalkeeper_idle(frame_dt)
         else:
@@ -1398,6 +1404,8 @@ class StrikerGame(Widget):
             while remaining > 1e-8:
                 physics_dt = min(PHYSICS_STEP, remaining)
                 self._update_goalkeeper_shot(physics_dt)
+                from defensive_pressure import advance as advance_pressure
+                advance_pressure(self,physics_dt)
                 if self.ball.active:
                     self._update_ball(physics_dt)
                 advance_net(self,physics_dt)
@@ -1412,6 +1420,8 @@ class StrikerGame(Widget):
         ]
 
 
+        from celebrations import advance as advance_celebration
+        advance_celebration(self,frame_dt)
         if self.state == self.STATE_RESULT and self.state_age > 2.55 and self.shot_context!="training":
             from celebrations import active
             if not active(self):self._advance_after_shot()
@@ -2126,7 +2136,7 @@ class StrikerGame(Widget):
                 abs(goal_line_x) < self.goal_half_width
                 and 0.0 < goal_line_z < self.goal_height
             ):
-                self._register_goal()
+                self._register_goal((goal_line_x,0.,goal_line_z),dt*(1.-crossing))
             else:
                 self._register_non_goal()
 
@@ -2179,6 +2189,8 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     def _field_player_position(self, player: FieldPlayer) -> tuple[float, float]:
         """Pequenos ajustes de apoio, partilhados pelo desenho e colisões."""
+        pressure=getattr(self,'_pressure',None)
+        if pressure is not None and pressure.actor is player:return pressure.position
         elapsed = self.frozen_scene_time if self.state==self.STATE_AIMING and self.frozen_scene_time is not None else getattr(self, "elapsed", 0.0)
         if self.state==self.STATE_BUILDUP and player is self.onside_defender:
             return self.current_opportunity.chasing_defender(self.buildup_progress)
@@ -2816,14 +2828,14 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     # Resultados e reinício
     # ------------------------------------------------------------------
-    def _register_goal(self) -> None:
+    def _register_goal(self,entry=None,remaining=0.) -> None:
         if self.outcome_registered:
             return
         self.outcome_registered = True
         self.goals += 1
         self.result_text = "GOAL!"
         from net_presentation import start as start_net_flight
-        start_net_flight(self)
+        start_net_flight(self,entry,remaining)
         self.result_color = (0.25, 1.0, 0.50, 1.0)
         if self.shot_context == "match":
             self._record_player_match_goal()
@@ -2870,7 +2882,7 @@ class StrikerGame(Widget):
         if getattr(self,'goal_celebration',None) is not None:
             self._crowd_celebrate_until=min(self._crowd_celebrate_until,self.elapsed+1.)
         self.goal_celebration=None
-        self.current_opportunity=None;self.buildup_actors=[];self.buildup_blocker=None;self.onside_defender=None;self.frozen_scene_time=None
+        self.current_opportunity=None;self.buildup_actors=[];self.buildup_blocker=None;self.onside_defender=None;self.frozen_scene_time=None;self._pressure=None
         self.goalkeeper_holding = False
         self.goalkeeper_catch_age = 0.0
         self.goalkeeper_tip_age = -1.0
@@ -5295,9 +5307,8 @@ class StrikerGame(Widget):
 
     def _draw_ball(self) -> None:
         celebration=getattr(self,'goal_celebration',None)
-        if celebration and celebration.retrieving and self.elapsed-celebration.started>=2.6:
-            from celebrations import active
-            if active(self):return
+        from celebrations import has_ball,active
+        if has_ball(self) and active(self):return
         ball = self.ball
         from net_presentation import ball_position
         x,y,z=ball_position(self)

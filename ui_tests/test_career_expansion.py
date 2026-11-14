@@ -29,7 +29,7 @@ class ExpansionTests(unittest.TestCase):
  def test_hat_trick_slide_and_losing_goal_retrieval_priority(self):
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
    self.prepare(g);g._match_shot_goal_counted=False;g.match_player_goals=2;home=g._player_match_is_home();g.match_home_score=g.match_away_score=2;g._record_player_match_goal();self.assertEqual(g.match_player_goals,3);self.assertTrue(g.goal_celebration.decisive);self.assertTrue(g.hattrick_feedback)
-   g._match_shot_goal_counted=False;g.match_home_score=0 if home else 5;g.match_away_score=5 if home else 0;g._record_player_match_goal();self.assertTrue(g.goal_celebration.retrieving);self.assertEqual(g.goal_celebration.actor(3)[1],'BALL_RUN');self.assertFalse(g.goal_celebration.decisive)
+   g._match_shot_goal_counted=False;g.match_home_score=0 if home else 5;g.match_away_score=5 if home else 0;g._record_player_match_goal();self.assertTrue(g.goal_celebration.retrieving);self.assertFalse(g.goal_celebration.retrieval.secured);self.assertFalse(g.goal_celebration.decisive)
  def test_coach_has_only_dressing_room_photo(self):
   with patch('edition.WORLD_BUILD',True),isolated_game() as g:
    c=self.prepare(g);c.week+=1;g.view='coach';g.draw();settle();images=[w for w in g._menu.body.walk() if isinstance(w,Image)];self.assertEqual(len(images),1);self.assertEqual(images[0].source,'assets/coaches/team_talk.png')
