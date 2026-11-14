@@ -24,3 +24,8 @@ Android acceptance remains pending. Other nets, Coimbra assignment, whole-ball
 speed+5%, saves and signing identity remain unchanged. No backend deployment.
 Keep minimum1030029 until Play offers1030030 to every intended player.
 Commands: docs/play/FIXES_1030030.md. Update without uninstalling.
+
+Verified delivery:Actions43620035892 reassembled/hash-verified118291698-byte AAB;
+Actions43619926231 published uploader1.29. Public uploader/bootstrap/signer and
+both native preview hashes match. Private bastion upload and handset acceptance
+remain owner-side.

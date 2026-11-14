@@ -266,5 +266,8 @@
   "pocket_released_on_collection": true,
   "rounded_contact_only_horizontal_damping": 12.0,
   "rounded_passive_return_snag": true,
-  "finite_recovery_respects_energy_height": true
+  "finite_recovery_respects_energy_height": true,
+  "github_delivery_run": 43620035892,
+  "automation_delivery_run": 43619926231,
+  "public_helper_hashes_verified": true
 }
