@@ -105,6 +105,8 @@ def build(g,ctx):
     seats=occupied_seats(g._crowd_specs,ctx['turnout'],lambda x,y,z,c:seat_noise(x,y,z,c,ctx['crowd_seed']))
     g.crowd_occupied_seats=tuple(seats);g.crowd_turnout=dict(ctx['turnout'])
     build_crowd(g,seats,ctx)
+    from stadium_architecture import build as build_architecture
+    build_architecture(g,ctx)
     build_stewards(g)
     g._crowd_specs=None
 

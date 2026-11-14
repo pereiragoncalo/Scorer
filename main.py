@@ -4486,6 +4486,8 @@ class StrikerGame(Widget):
         self._draw_stand_meshes()
         if draw_crowd and self._show_stadium_crowd():
             self._draw_crowd_meshes(celebrating=cheering(self) is not None)
+        from stadium_architecture import draw as draw_architecture
+        draw_architecture(self)
 
     def _draw_stand_meshes(self) -> None:
         """Desenha toda a bancada em poucos lotes gráficos já projetados."""

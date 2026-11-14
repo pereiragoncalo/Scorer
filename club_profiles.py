@@ -33,9 +33,19 @@ class Ground:
     upper_rows:int
     @property
     def tiers(self):return 2 if self.upper_rows else 1
+    @property
+    def has_roof(self):return self.capacity>10000
+    @property
+    def portrait_variant(self):return stadium_variant(self.capacity)
 
 def ground(capacity):
     capacity=max(250,min(150000,int(capacity)))
     lower=max(6,round(6+12*math.sqrt(min(capacity,40000)/40000)))
     upper=0 if capacity<=40000 else min(22,round(8+10*math.sqrt((capacity-40000)/60000)))
     return Ground(capacity,lower,upper)
+
+
+def stadium_variant(capacity):
+    for maximum,name in ((5000,'local'),(10000,'compact'),(25000,'covered'),(40000,'bowl'),(80000,'double')):
+        if capacity<=maximum:return name
+    return 'major'
