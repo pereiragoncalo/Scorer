@@ -211,5 +211,8 @@
   "retrieval_waits_for_pickup": true,
   "nearest_opponent_pressure": true,
   "pressure_position_shared_with_collision": true,
-  "penalty_wall_exceptions_preserved": true
+  "penalty_wall_exceptions_preserved": true,
+  "github_delivery_run": 43581121390,
+  "automation_delivery_run": 43581025746,
+  "public_helper_hashes_verified": true
 }
