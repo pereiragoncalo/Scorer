@@ -61,13 +61,13 @@ class DevelopmentUI(unittest.TestCase):
    g.view='hub';g._activate_ui('help');settle()
    self.assertNotIn('earn 12 XP',' '.join(w.text for w in g._context_help.walk() if isinstance(w,Label)))
    g._activate_ui('help_back')
- def test_actual_focus_drills_and_visible_bonus_criteria_are_preserved(self):
+ def test_training_teams_and_visible_bonus_criteria_are_preserved(self):
   with isolated_game() as g:
    c=self.sign(g)
    for focus in FOCI:
     c._consume_match_training();c.development['focus']=focus;g.view='training';g.start_training()
-    self.assertEqual(g.field_players,[]);self.assertIsNone(g.current_opportunity)
-    self.assertEqual(g.shot_type,'header' if focus=='heading' else 'penalty' if focus=='penalties' else 'kick')
+    self.assertEqual(sum(p.team=='attacker'for p in g.field_players+g.buildup_actors)+1,8);self.assertEqual(sum(p.team=='defender'for p in g.field_players+g.buildup_actors)+1,8);self.assertIsNotNone(g.current_opportunity)
+    self.assertEqual(g.shot_type,g.current_opportunity.shot_type);self.assertFalse(g._show_stadium_crowd())
    for focus,targets in (('low',((0.,.4),(0.,1.2),(0.,.9))),('placed',((1.5,1.),(0.,1.),(-2.5,1.)))):
     c._consume_match_training();c.development['focus']=focus;g.view='training';g.start_training()
     for x,z in targets:g.aim_x=x;g.aim_z=z;g.result_text='GOAL!';g._advance_after_shot()

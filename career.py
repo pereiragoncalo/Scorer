@@ -950,7 +950,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
     @property
     def transfer_window_open(self) -> bool:
-        return self.free_agent or self.current_date.month in (1, 2, 7, 8)
+        from contract_negotiation import expired
+        return self.free_agent or self.current_date.month in (1,2,7,8) or (hasattr(self,'life') and expired(self))
 
 
     @property
@@ -1562,15 +1563,26 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             raise ValueError('Could not save names. Previous names were kept.')
         return clean
 
-    def accept_starting_offer(self, club_name: str) -> None:
-        if self.life['retired']:return
-        if club_name not in self.offers:
-            return
-        self.club_name = club_name
+    def accept_starting_offer(self, club_name: str, contract_terms=None) -> bool:
+        if self.life['retired'] or self.club_name or club_name not in self.offers:return False
+        from contract_negotiation import apply,terms
+        from career_life import quote,sync
+        team=next(t for t in self.current_league.clubs if t.name==club_name)
+        offer=terms(contract_terms) if contract_terms is not None else dict(years=2,salary=quote(self,team),home='',car='',squad=False)
+        if offer is None:return False
+        before=(self.club_name,copy.deepcopy(self.life),copy.deepcopy(self.development),copy.deepcopy(self.coach_appearance),self.rng.getstate())
+        previous_rating=team.rating
+        sync(self);self.club_name=club_name
         self._ensure_development()
-        self.message = f"Contract signed with {club_name}."
+        apply(self,team,offer)
+        self.message=f"Contract signed with {club_name}."
         self._select_coach_appearance()
-        self.save()
+        if self.save() is False:
+            self.club_name,self.life,self.development,self.coach_appearance,state=before
+            self.rng.setstate(state);team.rating=previous_rating
+            self.message='Unable to save your career. Please try again.'
+            return False
+        return True
 
 
     def next_fixture(self) -> Optional[tuple[CareerClub, CareerClub]]:
@@ -2087,35 +2099,50 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 )
 
 
-    def accept_transfer(self, club_name: str, league_key: str) -> None:
+    def accept_transfer(self, club_name: str, league_key: str, contract_terms=None) -> bool:
         if self.life['retired']:return
-        if not self.transfer_window_open:
+        same=self.club is not None and self.club.name==club_name and self.league_key==league_key
+        from contract_negotiation import renewal
+        if same and not renewal(self):return False
+        if not self.transfer_window_open and not same:
             self.message = 'Transfers can only be completed during an open window.'
             return
         if not self.is_league_playable(league_key):
             self.message = 'That league requires Scorer World.'
             return
-        if (club_name, league_key) not in self.agent_offers or not any(c.name==club_name for c in self.leagues[league_key].clubs):
+        if (not same and (club_name, league_key) not in self.agent_offers) or not any(c.name==club_name for c in self.leagues[league_key].clubs):
             return
+        from contract_negotiation import apply,terms
+        from career_life import quote,sync
+        team=next(t for t in self.leagues[league_key].clubs if t.name==club_name)
+        offer=terms(contract_terms) if contract_terms is not None else dict(years=2,salary=quote(self,team),home='',car='',squad=False)
+        if offer is None:return False
+        previous_rating=team.rating;previous_rng=self.rng.getstate()
         self.activate_world_country(self.leagues[league_key].country)
         old_uid=self.club.uid if self.club else ''
         previous_development=copy.deepcopy(self.development)
         previous_life=copy.deepcopy(self.life)
         previous_contract=(self.club_name,self.league_key,self.free_agent,list(self.agent_offers),self.cup_active,copy.deepcopy(self.coach_appearance))
+        sync(self)
         new_season_contract=self.free_agent and self.week==0 and self.world_competitions is None
         self.club_name = club_name
         self.league_key = league_key
         self.free_agent=False
         self.agent_offers.clear()
-        self.cup_active = new_season_contract
+        self.cup_active = previous_contract[4] if same else new_season_contract
         self.message = f"Transfer completed to {club_name}."
-        self._select_coach_appearance()
+        if not same:self._select_coach_appearance()
         self._ensure_development()
         if self.club.uid!=old_uid:self.development['transfers']+=1
+        apply(self,team,offer)
         if self.save() is False:
+            team.rating=previous_rating;self.rng.setstate(previous_rng)
             self.life=previous_life
             self.development=previous_development
             self.club_name,self.league_key,self.free_agent,self.agent_offers,self.cup_active,self.coach_appearance=previous_contract
+            self.message='Unable to save your career. Please try again.'
+            return False
+        return True
 
 
     def _finish_world_season(self):

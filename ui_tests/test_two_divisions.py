@@ -13,7 +13,7 @@ class TwoDivisionUITests(unittest.TestCase):
             self.assertIn('FREE AGENT',{w.text for w in g._menu.walk() if isinstance(w,Label)})
             g.career.week=12;g._activate_ui('agent_refresh');self.assertEqual(len(g.career.agent_offers),5)
             g._request_exit();settle();self.assertIsNotNone(g._exit_popup);g._exit_popup.dismiss();settle()
-            name,key=g.career.agent_offers[0];g._activate_ui('transfer',(name,key));settle();self.assertFalse(g.career.free_agent);self.assertEqual(g.view,'coach');self.assertTrue(g.career.coach_meeting_required);self.assertEqual(g.career.club.name,name)
+            name,key=g.career.agent_offers[0];g._activate_ui('transfer',(name,key));g._activate_ui('contract_sign');settle();self.assertFalse(g.career.free_agent);self.assertEqual(g.view,'coach');self.assertTrue(g.career.coach_meeting_required);self.assertEqual(g.career.club.name,name)
     def test_country_page_only_opens_two_leagues_and_displays_ten_reserve_names(self):
         with patch('edition.WORLD_BUILD',True),isolated_game(saved=True) as g:
             g._activate_ui('world_country','Portugal');settle();self.assertEqual(g.view,'world_country')

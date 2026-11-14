@@ -14,6 +14,7 @@ def topics(game):
     view=game.view
     training=(base[1],*PROGRESSION_HELP_PAGES[1:6])
     special={
+        'contract_meeting':(('CONTRACT MEETING',CONTRACTS),),
         'start':(base[0],), 'offers':(('Your first contract',START),),
         'hub':(('HELP',HUB+' Injuries have a 1–3% risk per played match, depending on fitness, and last 1–3 missed fixtures. Use Simulate Match while recovering; no appearance or training is counted.'),), 'profile':(PROGRESSION_HELP_PAGES[0],),
         'training':(base[1],),'development':PROGRESSION_HELP_PAGES[-2:],
@@ -72,3 +73,5 @@ class ContextHelp(ModalView):
             if edition.is_world():actions.add_widget(MenuTile('LANGUAGE',lambda:navigate('language')))
         actions.add_widget(MenuTile('CLOSE',self.dismiss));panel.add_widget(actions);self.add_widget(panel)
         self.bind(on_dismiss=lambda *_:setattr(game,'_context_help',None))
+
+CONTRACTS="Choose the contract years, monthly salary and signing benefits. Your agent advises you. Send demands to receive the club's answer; up to three rounds are available. Hear other clubs before deciding. Signing accepts only the displayed club offer. Accepted housing and cars become yours on signing; squad investment improves the club."

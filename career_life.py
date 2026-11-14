@@ -5,7 +5,7 @@ ITEMS=(
  ('utility','car','Compact car',10000),('sedan','car','Executive sedan',35000),('sports','car','Sports car',140000),('supercar','car','Supercar',750000),
  ('rose','gift','A rose',25),('flowers','gift','Flower bouquet',80),('necklace','gift','Gold necklace',2500),('handbag','gift','Designer handbag',6000),
  ('casual','clothes','Casual outfit',60),('smart','clothes','Smart outfit',300),('suit','clothes','Tailored suit',1500),('designer','clothes','Designer wardrobe',12000))
-def fresh(c):return dict(version=2,paid_month=c.current_date.year*12+c.current_date.month,start_season=2026,balance=0,salary=0,contract_club='',paid_at=c.season*52+c.week,owned={},retired=False,retirement_seen=0,favourite='',private_meeting='',drought_talk=0,offer_talk='',injury_name='',injury_games=0,injury_fixture='')
+def fresh(c):return dict(version=2,contract=None,negotiations={},paid_month=c.current_date.year*12+c.current_date.month,start_season=2026,balance=0,salary=0,contract_club='',paid_at=c.season*52+c.week,owned={},retired=False,retirement_seen=0,favourite='',private_meeting='',drought_talk=0,offer_talk='',injury_name='',injury_games=0,injury_fixture='')
 def clean(raw,c):
  d=fresh(c)
  if not isinstance(raw,dict) or raw.get('version') not in (1,2):return d
@@ -19,6 +19,8 @@ def clean(raw,c):
  from injuries import NAMES
  if raw.get('injury_name') in NAMES and type(raw.get('injury_games')) is int and 0<=raw['injury_games']<=3:
   d['injury_name']=raw['injury_name'];d['injury_games']=raw['injury_games']
+ from contract_negotiation import clean_contract,clean_meetings
+ d['contract']=clean_contract(raw.get('contract'));d['negotiations']=clean_meetings(raw.get('negotiations'))
  d['retired']=raw.get('retired') is True
  if isinstance(raw.get('owned'),dict):d['owned']={k:v for k,v in raw['owned'].items() if k in {i[0] for i in ITEMS} and type(v)is int and 1<=v<=100000}
  return d
@@ -29,16 +31,23 @@ def quote(c,club):
  status=league_status(club.country,club.tier)
  return int(round((60+status**2*.9)*max(.35,(club.rating-35)/35)*(1+min(2.,c.goals/max(5,c.matches)))*52/12/10)*10)
 def salary(c):
- return 0 if not c.club or c.free_agent or c.life['retired'] else quote(c,c.club)
+ if not c.club or c.free_agent or c.life['retired']:return 0
+ record=c.life.get('contract')
+ if record and record['club_uid']==c.club.uid:return record['salary'] if record['end_date']>c.current_date.isoformat() else 0
+ return quote(c,c.club)
 def sync(c):
  """One payment per calendar month; fixtures and reloads never duplicate it."""
  if not hasattr(c,'life'):c.life=fresh(c)
  d=c.life;uid=c.club.uid if c.club and not c.free_agent and not d['retired'] else ''
  now=c.current_date.year*12+c.current_date.month
- elapsed=max(0,min(24,now-d.get('paid_month',now)))
+ from contract_negotiation import ensure
+ record=ensure(c)
+ until=min(now,int(record['end_date'][:4])*12+int(record['end_date'][5:7])) if record and record['club_uid']==d['contract_club'] else now
+ elapsed=max(0,min(24,until-d.get('paid_month',now)))
  if not d['retired']:d['balance']+=elapsed*d['salary']
  d['paid_month']=max(d.get('paid_month',now),now)
  if uid!=d['contract_club']:d['contract_club']=uid;d['salary']=salary(c)
+ if record and uid==record['club_uid']:d['salary']=record['salary'] if record['end_date']>c.current_date.isoformat() else 0
 def purchase(c,key):
  row=next((i for i in ITEMS if i[0]==key),None)
  if not row:return False

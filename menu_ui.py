@@ -38,7 +38,7 @@ INK = (0.91, 0.96, 0.95, 1)
 MUTED = (0.58, 0.72, 0.72, 1)
 GREEN = (0.30, 0.91, 0.65, 1)
 ZONE_COLOURS={'promotion':GREEN,'playoff':(1,.78,.30,1),'relegation':(1,.42,.40,1)}
-MENU_VIEWS = frozenset(('club','development','newspaper','coach','title_coach','private_coach','lifestyle','shopping','possessions','collection', 'offers', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
+MENU_VIEWS = frozenset(('club','development','newspaper','coach','title_coach','private_coach','lifestyle','shopping','possessions','collection', 'offers','contract_meeting', 'hub', 'training', 'standings', 'scorers', 'calendar', 'agent', 'world', 'splash', 'start', 'profile', 'privacy', 'help', 'upgrade', 'editor', 'world_country', 'world_league', 'language', 'leaderboard','data_notice','family','record_safety','competitions','competition'))
 MENU_ERROR_PREFIXES = ('Unable ', 'Could not ', 'Enter a name', 'A scorer already', 'Choose a valid', 'Player creation is only')
 
 
@@ -147,7 +147,7 @@ class CareerMenu(BoxLayout):
         self.pos, self.size = self.game.pos, self.game.size
         c = self.game.career
         from season_review import visible as review_visible
-        signature = (review_visible(self.game),tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,getattr(self.game,'standings_key',''),getattr(self.game,'standings_group',0),getattr(self.game,'standings_tab','auto'),getattr(self.game.leaderboard,'division',1),getattr(self.game.leaderboard,'category','season'),getattr(self.game.leaderboard,'career_enabled',False),self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision, self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
+        signature = (review_visible(self.game),tuple(self.game.size) if self.game.view=='hub' else None, self.game.competition_key,self.game.competition_group,self.game.competition_page,self.game.competition_tab,self.game.competition_list_page,getattr(self.game,'standings_key',''),getattr(self.game,'standings_group',0),getattr(self.game,'standings_tab','auto'),getattr(self.game.leaderboard,'division',1),getattr(self.game.leaderboard,'category','season'),getattr(self.game.leaderboard,'career_enabled',False),self.game.leaderboard.status,self.game.leaderboard.enabled,self.game.leaderboard.pending_withdrawal,tuple(str(e) for e in self.game.leaderboard.entries),self.game.i18n.language, self.game.i18n.revision,getattr(self.game,'_contract_uid',''), self.game.view, self.game._world_available, self.game._career_mode, c.player_name, c.club_name, c.season, c.week,
                      str(c.life),c.matches, c.goals, c.stamina, c.morale, c.message, self.game.usage.enabled, self.game.usage_notice,
                      c.current_league.name, tuple(c.agent_offers),
                      self.game.training_completed, self.game.training_goals, c.world_unlocked, c.training_used_this_week, c.trained_this_week, c.training_shots_taken, c.training_session_goals, c.coach_meeting_required,str(c.title_events), str(c.coach_state), str(c.press_state), str(c.development),getattr(self.game,'development_tab','objectives'),
@@ -268,7 +268,7 @@ class CareerMenu(BoxLayout):
                 group.add_widget(MenuTile(title,lambda a=action:self.action(a)))
             header.add_widget(group)
         if self.game.view not in ('hub', 'offers'):
-            back = self._button('BACK', 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view in ('world_country','editor') else 'development_back' if self.game.view=='development' else 'hub')
+            back = self._button('BACK', 'contract_back' if self.game.view=='contract_meeting' else 'notice_exit' if self.game.view=='data_notice' else 'safety_back' if self.game.view in ('family','record_safety') else 'competitions_back' if self.game.view in ('competitions','competition') else 'privacy_back' if self.game.view == 'privacy' else 'upgrade_back' if self.game.view == 'upgrade' else 'help_back' if self.game.view == 'help' else 'world' if self.game.view in ('world_country','editor') else 'development_back' if self.game.view=='development' else 'hub')
             back.size_hint_x, back.width = None, dp(88)
             header.add_widget(back)
         if self.game.view == 'offers':
@@ -335,6 +335,10 @@ class CareerMenu(BoxLayout):
         self.body.add_widget(card)
         return card
 
+    def _contract_meeting(self):
+        from contract_ui import build
+        build(self)
+
     def _offers(self):
         c = self.game.career
         card = self.card('Your first contract' + (' · ' + c.current_league.country if c.world_unlocked else ' · Scorer League'))
@@ -346,7 +350,10 @@ class CareerMenu(BoxLayout):
         for club in self.game.career.offers:
             from career_life import quote
             team=next(t for t in c.current_league.clubs if t.name==club)
-            label=c.display_text(club)+'\n'+self.game.i18n.tr('€{salary}/month',salary=quote(c,team))
+            from contract_negotiation import base_offer
+            from contract_ui import years_text
+            offer=base_offer(c,team)
+            label=c.display_text(club)+'\n'+self.game.i18n.tr('€{salary}/month',salary=offer['salary'])+'\n'+years_text(c,self.game.i18n,offer)
             grid.add_widget(self._button(label, 'accept_offer', club, accent=True))
 
     def _coach(self):
@@ -574,12 +581,19 @@ class CareerMenu(BoxLayout):
         c = self.game.career
         card = self.card('FREE AGENT' if c.free_agent else 'Your agent')
         card.label(c.display_text(c.message))
+        from contract_negotiation import renewal,expired,base_offer
+        from contract_ui import years_text
+        if c.club:
+            card.label(years_text(c,self.game.i18n),muted=True,localize=False)
+            if expired(c):card.label('Contract expired. Hear offers or renew before playing.')
+            if renewal(c):card.add_widget(self._button('Renew contract','contract_renew',accent=True))
         if c.free_agent:card.label('Sign for a club to continue your career.')
         card.label('Transfer window open' if c.transfer_window_open else 'Window closed · Jul/Aug and Jan/Feb', muted=True)
         for club, key in c.agent_offers:
             from career_life import quote
             team=next(t for t in c.leagues[key].clubs if t.name==club)
-            label=c.display_text(f'{club} · {c.leagues[key].name}',c.leagues[key].country)+'\n'+self.game.i18n.tr('€{salary}/month',salary=quote(c,team))
+            offer=base_offer(c,team)
+            label=c.display_text(f'{club} · {c.leagues[key].name}',c.leagues[key].country)+'\n'+self.game.i18n.tr('€{salary}/month',salary=offer['salary'])+'\n'+years_text(c,self.game.i18n,offer)
             card.add_widget(self._button(label,'transfer',(club,key)))
         card.add_widget(self._button('FIND OFFERS', 'agent_refresh'))
         if c.free_agent:card.add_widget(TouchButton('EXIT',self.game._request_exit))

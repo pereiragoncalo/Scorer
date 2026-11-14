@@ -43,7 +43,8 @@ class ObjectivesSummary(GridLayout):
         text=loc.tr('Age {age}',age=age(c))
         self.age_info=DashboardField(text=text,compact_text=text,localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(18))
         photo_column.add_widget(self.age_info)
-        text=loc.tr('Monthly salary €{salary}',salary=c.life['salary'])
+        from contract_ui import years_text
+        text=loc.tr('Monthly salary €{salary}',salary=c.life['salary'])+'\n'+years_text(c,loc,compact=True)
         self.contract_info=DashboardField(text=text,compact_text=text,localize=False,halign='center',font_size=sp(11),size_hint_y=None,height=dp(30),max_lines=2)
         photo_column.add_widget(self.contract_info)
 

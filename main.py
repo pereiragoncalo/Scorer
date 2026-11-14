@@ -846,6 +846,10 @@ class StrikerGame(Widget):
     # Ciclo de jogo
     # ------------------------------------------------------------------
     def start_career_match(self) -> None:
+        from contract_negotiation import expired
+        if expired(self.career):
+            self.career.message='Contract expired. Hear offers or renew before playing.'
+            self.view='agent';self.draw();return
         from title_events import view as title_view
         if title_view(self.career):
             self.view=title_view(self.career);self.draw();return
@@ -1274,6 +1278,10 @@ class StrikerGame(Widget):
 
 
     def start_training(self) -> None:
+        from contract_negotiation import expired
+        if expired(self.career):
+            self.career.message='Contract expired. Hear offers or renew before playing.'
+            self.view='agent';self.draw();return
         from title_events import view as title_view
         if title_view(self.career):
             self.view=title_view(self.career);self.draw();return
@@ -3040,6 +3048,8 @@ class StrikerGame(Widget):
             self._activate_ui('development_back');return True
         if key==27 and self.view=='newspaper':
             self._activate_ui('post_match_continue');return True
+        if key==27 and self.view=='contract_meeting':
+            self._activate_ui('contract_back');self.draw();return True
         if key==27 and self.view=='coach' and (self.career.coach_meeting_required or self.career.post_match_stage):return True
         if key==27 and self.view=='match' and self.match_finished:
             self._activate_ui('match_continue');return True
@@ -3364,13 +3374,25 @@ class StrikerGame(Widget):
         elif action == "exit":
             self._request_exit()
         elif action == "accept_offer":
-            had_club=bool(self.career.club_name)
-            self.career.accept_starting_offer(str(value))
-            if not had_club and self.career.club_name:self.usage.record('new_careers')
-            self._career_started = bool(self.career.club_name)
-            if self._career_started:
-                self.ads.start()
-            self.view = "hub"
+            from contract_negotiation import open_meeting
+            row=open_meeting(self.career,str(value),self.career.league_key,True)
+            if row:self._contract_uid=row['club_uid'];self.view='contract_meeting'
+        elif action=='contract_renew':
+            from contract_negotiation import open_meeting
+            if self.career.club:
+                row=open_meeting(self.career,self.career.club.name,self.career.league_key)
+                if row:self._contract_uid=row['club_uid'];self.view='contract_meeting'
+        elif action in ('contract_change','contract_propose','contract_sign','contract_back') and self.view=='contract_meeting':
+            from contract_negotiation import current,change,propose,sign
+            uid=getattr(self,'_contract_uid','');row=current(self.career,uid)
+            if action=='contract_back':self.view='offers' if not self.career.club_name and not self.career.free_agent else 'agent'
+            elif action=='contract_change':change(self.career,uid,str(value))
+            elif action=='contract_propose':propose(self.career,uid)
+            elif row:
+                first=row['starting']
+                if sign(self.career,uid):
+                    if first:self.usage.record('new_careers')
+                    self._career_started=True;self.ads.start();self.view='hub'
         elif action in ('hub','post_match_continue'):
             from title_events import view as title_view
             if title_view(self.career):self.view=title_view(self.career);return
@@ -3421,8 +3443,9 @@ class StrikerGame(Widget):
             self.career.generate_agent_offers()
         elif action == "transfer" and isinstance(value, tuple):
             club_name, league_key = value
-            self.career.accept_transfer(str(club_name), str(league_key))
-            self.view = "hub"
+            from contract_negotiation import open_meeting
+            row=open_meeting(self.career,str(club_name),str(league_key))
+            if row:self._contract_uid=row['club_uid'];self.view='contract_meeting'
         elif action == "world":
             if self.career.world_unlocked:
                 self.view = "world"
@@ -3458,7 +3481,7 @@ class StrikerGame(Widget):
             else:
                 self._language_error='Unable to save language. Please try again.'
         elif action == 'help':
-            self.help_origin = self.view if self.view in ('start', 'hub') else 'hub'
+            self.help_origin = self.view if self.view in ('start','hub','offers','agent','contract_meeting') else 'hub'
             self.help_page = 0
             self.view = 'help'
         elif action == 'help_back':
@@ -3529,7 +3552,8 @@ class StrikerGame(Widget):
     # ------------------------------------------------------------------
     @localized_call
     def draw(self) -> None:
-        if self.view in ('hub','coach') and self.career.club and not self.career.free_agent and not self.career.life['retired']:
+        from contract_negotiation import expired
+        if self.view in ('hub','coach') and not expired(self.career) and self.career.club and not self.career.free_agent and not self.career.life['retired']:
             self.career.next_match()
         if self.view=='hub':
             from title_events import view as title_view
@@ -3542,6 +3566,9 @@ class StrikerGame(Widget):
                 if retirement_due(self.career):
                     from lifestyle_ui import retirement_prompt
                     retirement_prompt(self)
+        if (self.career.free_agent or expired(self.career)) and self.view in ('hub','training','shot','coach'):
+            from season_review import visible as review_visible
+            if not review_visible(self):self.view='agent'
         if self.career.free_agent and self.view in ('hub','training','shot'):
             self.view='agent'
         if getattr(self,'_title_button',None) is not None and self.view!='trophy':

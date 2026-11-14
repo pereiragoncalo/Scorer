@@ -22,7 +22,7 @@ class PlayerCreationUITests(unittest.TestCase):
             self.assertEqual((g.career.nationality,g.career.league_key,g.career.offers,g.career.rng.getstate()),before)
             form.submit();self.assertEqual(g.view,'offers');self.assertEqual((g.career.player_name,g.career.nationality,g.career.current_league.country),('Marco Costa','Brazil','Mexico'))
             self.assertFalse(g.career.save_path.exists())
-            g._activate_ui('accept_offer',g.career.offers[0]);self.assertTrue(g.career.save_path.exists())
+            g._activate_ui('accept_offer',g.career.offers[0]);g._activate_ui('contract_sign');self.assertTrue(g.career.save_path.exists())
             g.view='start';g._load_career();self.assertEqual(g.view,'coach');self.assertTrue(g._career_started)
             self.assertEqual((g.career.nationality,g.career.current_league.country),('Brazil','Mexico'))
     def test_draft_survives_validation_and_rebuild_and_picker_cancel_does_not_apply(self):
