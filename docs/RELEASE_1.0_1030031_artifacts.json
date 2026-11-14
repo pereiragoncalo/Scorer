@@ -269,5 +269,8 @@
   "finite_recovery_respects_energy_height": true,
   "net_restores_before_collection": true,
   "net_final_original_shape": true,
-  "original_shape_contains_ball_before_sleep": true
+  "original_shape_contains_ball_before_sleep": true,
+  "github_delivery_run": 43622630223,
+  "automation_delivery_run": 43622539790,
+  "public_helper_hashes_verified": true
 }
