@@ -1176,7 +1176,8 @@ class StrikerGame(Widget):
     def _update_buildup(self,dt):
         delivery=self.current_opportunity
         self.buildup_progress=min(1.,self.buildup_progress+dt/delivery.duration)
-        self.ball.x,self.ball.y,self.ball.z=delivery.position(self.buildup_progress)
+        from shot_trajectory import delivery_ball_progress
+        self.ball.x,self.ball.y,self.ball.z=delivery.position(delivery_ball_progress(self.buildup_progress))
         self._update_goalkeeper_idle(dt)
         if self.buildup_progress>=1.:
             self.ball.reset(*delivery.contact)

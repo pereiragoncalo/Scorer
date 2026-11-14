@@ -3504,3 +3504,9 @@ Owner clarified5% applies to ball during opportunities, not the whole game. Rest
 Verification:10 pure geometry/clock/assignment/flight checks pass;14 native game checks pass across training/match penalties, long shots and header crosses, real-time aiming, goal geometry and opportunity sequences.
 1030027 AAB118286990 bytes SHA2561b4127381fcb53aff06b4b2ab106f364b821c7864dd7e5084ce4ddc582acf0a6. Android audit passed:World/code1030027, target36,118ELF16KiB, exact compiled source including opportunity launch solver,248frames/35sheets. Publisher25checks/one host-JDKskip. Handset acceptance pending.
 Delivery27:Actions43592176698 AAB and43592113808 uploader succeeded; public helper hashes and AAB size verified. Unrelated main.py/test_menus.py/.gitignore/career_mode_state.py work preserved.
+
+## 2026-11-14 —1030028 ball speed throughout delivery and shot
+
+Owner clarifies5% applies to the ball during all of the opportunity, not only the shot. Delivery ball now advances along its complete existing pass/cross/rebound/free-kick setup path at progress*1.05. Scene/receiver/defender/keeper clocks keep ordinary speed, receiver completion still unlocks aiming, ball waits at the exact contact after early arrival. Existing player shot duration/1.05 remains once; no cumulative10.25% boost. Coimbra Preto rounded hex assignment unchanged.
+Initial native assertion corrections: endpoint equality needed floating-point tolerance at early arrival; nearest pressure actor owns its position rather than the onside path, so path assertion excludes that override. No runtime failures found.
+Verification:5 pure ball-delivery/flight/clock/stadium tests and8 native journeys pass; full pass/cross/through-ball/free-kick/rebound set tested in both training/match. Receiver/keeper clocks and aim unlock retained; previous shot speed/Coimbra checks pass.

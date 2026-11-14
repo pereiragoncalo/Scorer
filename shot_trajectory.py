@@ -20,3 +20,8 @@ OPPORTUNITY_BALL_SPEED = 1.05
 def opportunity_velocity(start, target, duration):
     """Shorten the shot flight only, solving gravity/drag for the same aim."""
     return launch_velocity(start, target, duration / OPPORTUNITY_BALL_SPEED)
+
+
+def delivery_ball_progress(progress):
+    """Advance delivery ball only; receivers retain the ordinary scene clock."""
+    return min(1.,max(0.,progress)*OPPORTUNITY_BALL_SPEED)
