@@ -1,4 +1,0 @@
-Verified anonymous public download: world-1.0-1030015/Scorer-World-1.0-1030015-unsigned.aab 118159992 e25aaefc92d9c87bf96cf36422c6557d91228c21654038a4d7b55faeca342ebf
-Verified anonymous public download: world-1.0-1030015/bastion_bundle_1030015.py 2368 1f6bb4cb5c5763a81ee37dfc32034805e5dabe2bcf20c4612e98d18affd319c0
-Verified anonymous public download: world-1.0-1030015/sign_local_bundle.py 4668 5492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885fa6761
-Verified anonymous public download: play-automation-v1.14/bastion_play_internal.py 19297 dcfef717428c84ef9ced8bb689f6f4e6b652b45bea0c61648487c65a275d092d
