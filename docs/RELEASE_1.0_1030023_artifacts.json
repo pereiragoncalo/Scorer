@@ -200,5 +200,8 @@
   "tangential_contact_travel_preserved": true,
   "recovery_springboard_suppressed": true,
   "goal_handoff_reuses_cloth": true,
-  "net_overlay_geometry_cache_separate": true
+  "net_overlay_geometry_cache_separate": true,
+  "github_delivery_run": 43576375982,
+  "automation_delivery_run": 43576309964,
+  "public_helper_hashes_verified": true
 }

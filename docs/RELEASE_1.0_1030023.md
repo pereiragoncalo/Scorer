@@ -24,3 +24,8 @@ until Play offers1030023 to every intended player. Update without uninstalling.
 
 Download: https://github.com/pereiragoncalo/Scorer/releases/tag/world-1.0-1030023
 Commands: docs/play/FIXES_1030023.md
+
+Verified public delivery: Actions43576375982 reassembled/hash-verified and attached
+the118244501-byte AAB. Actions43576309964 delivered uploader1.22. Public uploader,
+bootstrap and signer download hashes match. Private bastion signing/upload and
+actual Play/Android availability remain owner-side.
