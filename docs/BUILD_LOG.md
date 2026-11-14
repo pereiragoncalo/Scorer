@@ -3642,3 +3642,9 @@ pass; exact compiled runtime sources including development_ui,248base frames,
 skip). Repair SHA65fc9a04122694f61e0f76672f4a75f1180a4028c07791b0c014e7deb5c3b9a1;
 --check passes, single-file source whitelist, DB unchanged by installer. New
 release keeps minimum1030032 and original private signing identity.
+
+Final delivery1030035: Actions43652313395 success (AAB123925752bytes/digest
+verified), Actions43652248659 success (publisher1.34). Public uploader/bootstrap/
+signer, backend repair and both native preview hashes verified. Primary FF
+preserves unrelated main0/239, menu5/3, ignore and untracked career state edits.
+Bastion deployment and actual Play/handset availability remain owner-side.

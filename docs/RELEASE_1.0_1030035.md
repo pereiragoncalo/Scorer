@@ -23,3 +23,7 @@ Keep minimum1030032 until Play offers this update. Commands: docs/play/FIXES_103
 Android AAB audit passed:118ELF16KiB, unsigned production metadata, exact compiled
 runtime source/resources and derived APK alignment. Final publisher25tests pass
 with one hostJDK skip. No direct Play upload or live server mutation from Cloud.
+
+Verified delivery: Actions43652313395 reassembled/hash-verified123925752-byte AAB
+and published the repair/previews; Actions43652248659 tested/published uploader1.34.
+Public three helper, backend repair and two native preview hashes match.

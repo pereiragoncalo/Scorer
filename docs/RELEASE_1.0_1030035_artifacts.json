@@ -322,5 +322,10 @@
   "backend_asset": "Scorer-All-Seasons-Backend.py",
   "backend_files": [
     "server/division_records.py"
-  ]
+  ],
+  "github_delivery_run": 43652313395,
+  "automation_delivery_run": 43652248659,
+  "public_helper_hashes_verified": true,
+  "public_previews_hashes_verified": true,
+  "public_backend_hash_verified": true
 }
