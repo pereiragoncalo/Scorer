@@ -1,9 +1,0 @@
-{
-  "alias": "scorer-upload",
-  "certificate_sha256": "2259de229b49bb40e158d3c015fe1e0d2426becb4e1a4f110dbcd183b51e59a0",
-  "source": "Owner bastion terminal screenshot",
-  "keystore_path_on_owner_machine": "/root/scorer-signing/scorer-upload.p12",
-  "private_key_received": false,
-  "password_received": false,
-  "play_console_enrollment_verified": false
-}
