@@ -3610,3 +3610,9 @@ ddc55653110bb3fce264e3cc2ace5eb7d09ff956a4853347deff2af9eb7fdbcf. Bundletool/man
 training_ui and stadium_portraits plus248base frames/35sheets and new stadium
 assets verified. Final25publisher tests pass (one hostJDK skip). Physical device
 and actual Play account availability pending; no live backend code mutation.
+
+Final delivery1030034: Actions43648080239 success (AAB123924208bytes/digest
+verified), Actions43648002292 success (publisher1.33). Three public helpers and
+training preview hashes verified. Main worktree FF preserves unrelated main0/239,
+menu5/3, ignore and untracked career state changes. Private Play and handset
+availability remain pending; bastion command first rolls minimum back to1030032.

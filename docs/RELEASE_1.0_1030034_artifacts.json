@@ -315,5 +315,9 @@
   "training_portrait_button_baseline": true,
   "minimum_version_policy": 1030032,
   "play_only_shows_play_reported": true,
-  "play_availability_not_assumed": true
+  "play_availability_not_assumed": true,
+  "github_delivery_run": 43648080239,
+  "automation_delivery_run": 43648002292,
+  "public_helper_hashes_verified": true,
+  "public_previews_hashes_verified": true
 }

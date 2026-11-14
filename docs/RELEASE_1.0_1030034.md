@@ -18,3 +18,7 @@ Validation:8native locker/localisation/density/touch/session/stadium tests pass;
 32pure/update/publisher tests pass with one hostJDK skip; final publisher25tests
 pass with one hostJDK skip. Actual native screenshot reviewed. Android AAB audit
 passes118ELF16KiB, exact compiled source/resources and production metadata.
+
+Verified delivery: Actions43648080239 reassembled and SHA256-verified the
+123924208-byte AAB; Actions43648002292 tested/published uploader1.33. Public
+uploader/bootstrap/signer and training preview hashes match expected values.
