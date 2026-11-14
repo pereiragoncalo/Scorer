@@ -1,2 +1,0 @@
-Real browser fixture only: 30daily rows,101opens/81closes; zeros, bad token, cleared password, mobile390px no horizontal overflow; moderation remains separate.
-HTTP/date/installer tests in tests/test_activity_stats.py. Full20case run19pass/1preexisting stale legal-policy assertion; focused current suite passes.

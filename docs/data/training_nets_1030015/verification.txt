@@ -1,5 +1,0 @@
-Runtime source fc537d1f4d2c99019f3f898b03fb5b9d5394d807; later commits only adapt historical test expectations.
-105 core cases passed; 28 native Kivy cases passed; 25 publisher cases:24pass/1existing host JDK skip.
-AAB118159992bytes SHA256e25aaefc92d9c87bf96cf36422c6557d91228c21654038a4d7b55faeca342ebf.
-Unsigned production World1.0/code1030015; full static/bundletool/118ELF16KB/ZIP16KB passed. Inspection debug APK is not a Play upload.
-Four original Kivy screenshots from actual runtime; not handset acceptance.
