@@ -16,3 +16,7 @@ Prior shot-speed and Coimbra assignment checks remain covered. Physical Android
 acceptance is pending. No backend deployment or signing identity change.
 Update without uninstalling. Keep minimum1030022 until Play actually offers the
 new build to all intended players. Commands: docs/play/FIXES_1030028.md.
+
+Verified delivery:Actions43592916721 reassembled/hash-verified118287079-byte AAB;
+Actions43592834612 published uploader1.27. Public uploader/bootstrap/signer hashes
+match. Private bastion upload and physical Play acceptance remain owner-side.
