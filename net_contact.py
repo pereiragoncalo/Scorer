@@ -125,10 +125,12 @@ class ClothContacts:
             if not unique or value-unique[-1]>1e-6:unique.append(value)
         return bool(len(unique)%2)
 
-    def escaped_contact(self,position,radius):
+    def escaped_contact(self,position,radius,interior=None,max_height=None):
         """Recover an exterior centre against its nearest finite sheet face."""
         if position[1]>0:return None
         rounded=self.cloth.geometry.structure=='rounded'
+        ceiling=float('inf') if max_height is None else max(radius,max_height)
+        if rounded:position=(position[0],position[1],min(ceiling,max(radius,position[2])))
         if rounded and self.inside(position):return None
         best=None;distance=float('inf')
         for surface,triangles in self.triangles.items():
@@ -149,13 +151,15 @@ class ClothContacts:
         q,n=best['point'],best['normal']
         for sign in (1.,-1.):
             candidate=tuple(q[a]-sign*n[a]*radius for a in range(3))
-            candidate=(candidate[0],candidate[1],max(radius,candidate[2]))
+            candidate=(candidate[0],candidate[1],min(ceiling,max(radius,candidate[2])))
             if self.inside(candidate):
                 best['normal']=tuple(sign*x for x in n);best['recovered_position']=candidate;return best
         # At a folded seam, bracket the true boundary from a confirmed interior
         # point near the mouth. This still follows the finite deforming sheet.
         g=self.cloth.geometry
-        core=next((p for p in ((0.,-.02,min(g.height*.5,max(radius,position[2]))),(-g.width*.2,-.02,g.height*.4),(g.width*.2,-.02,g.height*.4))if self.inside(p)),None)
+        level=min(ceiling,g.height*.5,max(radius,position[2]))
+        if interior is not None:interior=(interior[0],interior[1],min(ceiling,max(radius,interior[2])))
+        core=interior if interior is not None and self.inside(interior) else next((p for p in ((0.,-.02,level),(-g.width*.2,-.02,level),(g.width*.2,-.02,level))if self.inside(p)),None)
         if core is None:return None
         lo,hi=0.,1.
         for _ in range(24):
@@ -164,5 +168,5 @@ class ClothContacts:
             else:hi=middle
         point=mix(core,position,lo);direction=sub(position,core);length=math.sqrt(dot(direction,direction))
         n=tuple(x/max(1e-9,length)for x in direction)
-        best['normal']=n;best['recovered_position']=tuple(point[a]-n[a]*radius for a in range(3))
+        best['normal']=n;candidate=tuple(point[a]-n[a]*radius for a in range(3));best['recovered_position']=(candidate[0],candidate[1],min(ceiling,max(radius,candidate[2])))
         return best

@@ -48,7 +48,8 @@ def advance(game,dt):
     cloth=getattr(game,'_net_cloth',None)
     replay=getattr(game,'_net_replay',None)
     if replay is not None:
-        if getattr(replay,'collected',False):cloth.advance(dt);return
+        if getattr(replay,'collected',False):
+            cloth.retain_pocket=False;cloth.advance(dt);return
         if getattr(game,'_net_replay_just_started',False):game._net_replay_just_started=False;return
         replay.advance(dt)
     elif cloth is not None:cloth.advance(dt)

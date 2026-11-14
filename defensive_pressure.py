@@ -16,6 +16,10 @@ class Pressure:
     actor:object
     position:tuple
     moving:bool=False
+    origin:object=None
+
+    def __post_init__(self):
+        if self.origin is None:self.origin=tuple(self.position)
 
 
 def assign(game):
@@ -34,7 +38,11 @@ def advance(game,dt):
     pressure.moving=False
     if game.outcome_registered or game.state not in (game.STATE_BUILDUP,game.STATE_AIMING,game.STATE_SHOT):return
     if game.current_opportunity.kind=='free_kick' and game.state!=game.STATE_SHOT:return
-    target=player_position(game);distance=math.dist(pressure.position,target)
-    travel=min(max(0.,distance-.95),max(0.,dt)*3.4)
+    target=player_position(game);origin=pressure.origin
+    distance_from_line=math.dist(origin,target)
+    step=min(.9,max(0.,distance_from_line-3.))
+    target=tuple(a+(b-a)*step/max(1e-9,distance_from_line) for a,b in zip(origin,target))
+    distance=math.dist(pressure.position,target)
+    travel=min(distance,max(0.,dt)*1.8)
     if travel<=1e-7:return
     pressure.position=tuple(a+(b-a)*travel/distance for a,b in zip(pressure.position,target));pressure.moving=True

@@ -63,6 +63,29 @@ class TetheredCloth(NetCloth):
 
 class ReferenceCloth(TetheredCloth):
     """Broad load transfer through hanging fabric, including the welded seam."""
+    def reset(self):
+        self.retain_pocket=False
+        super().reset()
+
+    def _step(self):
+        loaded=[p[1]for p in self.positions] if self.retain_pocket and self.geometry.structure=='rounded' else None
+        super()._step()
+        if loaded is None:return
+        # Interlocked slack fibres retain the loaded rear fold while occupied.
+        # Only depth actually displaced by the ball is held; grass/cord anchors
+        # and the original unloaded shape never move. Release on collection.
+        ties={row[0]for row in self.tethers};cap=(self.config.net_max_stretch-1)*1.8
+        for i,p in enumerate(self.positions):
+            if self.pinned[i] or i in ties or loaded[i]>=self.rest[i][1]:continue
+            y=min(p[1],max(loaded[i],self.rest[i][1]-cap))
+            delta=y-p[1];p[1]=y;self.previous[i][1]+=delta
+            available=math.sqrt(max(0.,cap*cap-(p[1]-self.rest[i][1])**2))
+            lateral=math.hypot(p[0]-self.rest[i][0],p[2]-self.rest[i][2])
+            if lateral>available and lateral>0:
+                for axis in (0,2):
+                    value=self.rest[i][axis]+(p[axis]-self.rest[i][axis])*available/lateral
+                    self.previous[i][axis]+=value-p[axis];p[axis]=value
+
     def _rest_point(self,surface,u,v):
         g=self.geometry
         x,y,z=g.point(surface,u,v)
@@ -177,8 +200,9 @@ class RollingReplay:
         # finite cloth face, never an undeformed/infinite goal boundary.
         if isinstance(c,TetheredCloth):c.constrain_tethers()
         self.mesh.refresh()
+        if contacts and self.geometry.structure=='rounded':b[2]=max(self.radius,min(b[2],energy/19.62))
         for _ in range(2):
-            escape=self.mesh.escaped_contact(b,self.radius)
+            escape=self.mesh.escaped_contact(b,self.radius,old,energy/19.62)
             if escape is None:break
             normal=escape['normal']
             b[:]=escape.get('recovered_position',[escape['point'][a]-normal[a]*self.radius for a in range(3)])
@@ -221,9 +245,18 @@ class RollingReplay:
             maximum=max(0.,energy-2*9.81*b[2]);kinetic=sum(x*x for x in corrected)
             if kinetic>maximum and kinetic>0:
                 scale=math.sqrt(maximum/kinetic);corrected=[x*scale for x in corrected]
+        if self.geometry.structure=='rounded' and handled and ('back' in handled or c.retain_pocket):
+            # Loose rear mesh wraps the ball and dissipates sliding momentum.
+            # This acts only during real rear-sheet contact, never in free flight.
+            drag=math.exp(-12.*dt)
+            corrected[0]*=drag;corrected[1]*=drag
+            # A ball already wrapped by the rear fold loses return momentum
+            # in the fibres instead of being launched towards the goal line.
+            corrected[1]=min(0.,corrected[1])
         self.velocity=[corrected[0],corrected[1],corrected[2] if self.airborne else 0.]
         if contacts:
             self.hit=True;c.active=True;c.quiet=0.
+            if self.geometry.structure=='rounded' and any(item[0]=='back'for item in contacts):c.retain_pocket=True
             item=next((x for x in contacts if x[0]=='left'),contacts[-1])
             surface,normal,weights,gap,_=item;u,w=self.geometry.uv_at(surface,b)
             c.contact={'surface':surface,'u':u,'v':w,'normal':normal,'point':tuple(b),'time':c.time,'radius':self.radius,'speed':horizontal}
