@@ -38,3 +38,8 @@ player/track; update without uninstalling or clearing data.
 
 Download: https://github.com/pereiragoncalo/Scorer/releases/tag/world-1.0-1030025
 Commands: docs/play/FIXES_1030025.md
+
+Verified delivery: Actions43585129467 reassembled/hash-verified and attached the
+118280550-byte AAB. Actions43584999888 published uploader1.24. Public uploader,
+bootstrap and signer hashes match. Private bastion signing/upload and physical
+Android/Play availability remain owner-side.
