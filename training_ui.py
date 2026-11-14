@@ -44,15 +44,16 @@ from kivy.uix.widget import Widget
 class LockerPortrait(FloatLayout):
  def __init__(self,kit,**kwargs):
   super().__init__(**kwargs)
-  self.room=Image(source='assets/training/locker_room.png',fit_mode='contain');self.add_widget(self.room)
+  self.room=Image(source='assets/training/locker_room.png',fit_mode='contain',size_hint=(None,None));self.add_widget(self.room)
   self.player=ClubTrainingPlayer(kit,size_hint=(None,None));self.add_widget(self.player)
   self.bind(pos=self.fit,size=self.fit);self.room.bind(norm_image_size=self.fit);self.fit()
  def fit(self,*_):
-  self.room.pos=self.pos;self.room.size=self.size
-  rw,rh=self.room.norm_image_size
-  if not rw or not rh:return
+  texture=self.room.texture
+  if not texture:return
+  rw=min(self.width,self.height*texture.width/texture.height);rh=rw*texture.height/texture.width
+  self.room.size=(rw,rh);self.room.pos=(self.center_x-rw/2,self.y)
   ph=rh*.70;pw=ph*self.player.texture.width/self.player.texture.height if self.player.texture else ph*.6
-  self.player.size=(pw,ph);self.player.pos=(self.center_x-pw/2,self.center_y-rh/2+rh*.005)
+  self.player.size=(pw,ph);self.player.pos=(self.center_x-pw/2,self.y+rh*.005)
 
 class TrainingScreen(BoxLayout):
  def __init__(self,menu):
@@ -64,8 +65,7 @@ class TrainingScreen(BoxLayout):
   self.back=MenuTile('BACK',lambda:menu.action('hub'),size_hint=(None,None));self.back.width=dp(76);self.back.height=dp(48);self.header.add_widget(self.back)
   body=BoxLayout(spacing=dp(12));self.add_widget(body)
   left=BoxLayout(orientation='vertical',size_hint_x=.55,spacing=dp(4));body.add_widget(left)
-  portrait=LockerPortrait(c.kit_for_club(c.club) if c.club else ((.2,.4,.7,1),)*3);left.add_widget(portrait);self.room=portrait.room;self.player=portrait.player
-  self.name=self.label(c.player_name,16,INK,False);self.name.height=dp(32);left.add_widget(self.name)
+  self.portrait=portrait=LockerPortrait(c.kit_for_club(c.club) if c.club else ((.2,.4,.7,1),)*3);left.add_widget(portrait);self.room=portrait.room;self.player=portrait.player
   self.controls=BoxLayout(orientation='vertical',size_hint_x=.45,spacing=dp(8));body.add_widget(self.controls)
   self.focus=self.label(NAMES[c.training_focus],18,GREEN);self.controls.add_widget(self.focus)
   used=c.trained_this_week;resumable=c.training_session_week==c.week and not used

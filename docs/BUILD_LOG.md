@@ -3584,3 +3584,15 @@ and digest-verified); Actions43646083503 success (publisher1.32). Public three
 helper and four screenshot hashes checked. Primary worktree source merged while
 preserving exact main.py0/239 and test_menus5/3 edits, ignore diff and untracked
 career_mode_state.py. Private bastion/Play and handset acceptance remain pending.
+
+## 2026-11-14 — World1030034 training baseline
+
+Owner asks for new release after Play only shows Play. Confirmed live public
+policy minimum/latest1030033; supplied rollback to1030032. Do not raise minimum
+again before actual account/track availability. No unsupported promise to force
+Play propagation. Training removes name; explicit bottom-anchored contained room
+and player align with Start Training. Native screenshot exposed FloatLayout
+size_hint overriding room dimensions, so removed room size_hint and strengthened
+test to compare actual norm_image_size baseline rather than widget bounds.
+Eight native locker/localisation/density/touch/resume/save-failure/stadium tests
+and32pure/update/publisher tests (one hostJDK skip) run. Final preview/audit below.

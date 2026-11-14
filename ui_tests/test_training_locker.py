@@ -23,6 +23,10 @@ class TrainingLocker(unittest.TestCase):
       Metrics.density=d;Window.size=(w,h);g.size=(w,h);g.draw();settle();p=g._menu.body
       self.assertIsInstance(p,TrainingScreen);self.assertTrue(p.player.canvas.shader.success)
       self.assertTrue(p.room.texture);self.assertTrue(p.player.texture)
+      self.assertFalse(hasattr(p,'name'))
+      self.assertAlmostEqual(p.room.center_y-p.room.norm_image_size[1]/2,p.start.y,delta=1)
+      self.assertAlmostEqual(p.player.y,p.start.y,delta=2)
+      self.assertLessEqual(p.room.top,p.portrait.top+1)
       self.assertFalse(any(isinstance(v,ScrollView) for v in p.walk()))
       for v in (p.start,p.help,p.back):
        self.assertGreaterEqual(v.height,dp(48));self.assertGreaterEqual(v.y,p.y-1);self.assertLessEqual(v.top,p.top+1);self.assertGreaterEqual(v.x,p.x-1);self.assertLessEqual(v.right,p.right+1)
