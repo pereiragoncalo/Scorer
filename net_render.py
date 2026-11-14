@@ -5,7 +5,7 @@ cached; resting geometry is only reprojected on a camera/viewport change.
 """
 import math
 from kivy.graphics import Color,Mesh,InstructionGroup,Point,Line
-from goal_nets import lattice
+from net_strands import panel_strands,joining_seams
 
 class NetRenderer:
     def __init__(self,cloth,mesh='square',low_detail=False):
@@ -15,28 +15,14 @@ class NetRenderer:
         self.batches=[];self._stamp=None;self._geometry_stamp=None;self._world=[];self.rebuilds=0
         g=cloth.geometry;cell=.28 if low_detail else .20
         for surface in ('back','left','right'):
-            width=g.width if surface=='back' else g.depth
-            height=g.path if surface=='back' else g.height
             lookup={};weights=[];edges=[]
-            for a,b in lattice(width,height,mesh,cell):
-                # Subdivide long square strands; short hexagon edges need no
-                # extra vertices. Deformations never interpolate corner-to-corner.
-                steps=max(1,math.ceil(math.dist(a,b)/.16))
-                for i in range(steps):
-                    pair=[]
-                    for t in (i/steps,(i+1)/steps):
-                        x,z=a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t
-                        if surface=='back':uv=(x/width,z/height)
-                        else:
-                            if g.structure=='box':uv=(x/g.depth,z/g.height)
-                            else:
-                                u,_=g.uv_at(surface,(-g.width/2,-x,z));top=g.profile(u)[1]
-                                if z>top+.00001:break
-                                uv=(u,z/max(.00001,top))
-                        key=tuple(round(q,7) for q in uv)
-                        if key not in lookup:lookup[key]=len(weights);weights.append(cloth.weights(surface,*uv))
-                        pair.append(lookup[key])
-                    if len(pair)==2:edges.extend(pair)
+            strands=panel_strands(g,surface,mesh,cell,tuple(cloth.grids[surface][0]))
+            if surface=='back':strands+=joining_seams(cloth)
+            for pair in strands:
+                for uv in pair:
+                    key=tuple(round(q,7) for q in uv)
+                    if key not in lookup:lookup[key]=len(weights);weights.append(cloth.weights(surface,*uv))
+                    edges.append(lookup[key])
             # Kivy has a uint16/count limit. Current largest panel is <12000;
             # reject a future pathological topology before touching GLES.
             if len(edges)>24000 or len(weights)>16000:raise ValueError('Net mesh exceeds mobile batch budget')
