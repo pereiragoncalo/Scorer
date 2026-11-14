@@ -3560,3 +3560,21 @@ Focused native release31/32/33 tests:7 pass; dense-display Coimbra facts check:1
 pass. Full legacy MenuTests suite also attempted:9 failed subcases/2 errors in
 old balancing/training assertions (not silently treated as a pass); comparison
 against unchanged1030032 source is recorded below. Stadium-specific tests pass.
+
+Android1030033 AAB compiled. Audit passed: bundletool manifest/config, unsigned
+World/production metadata, 118 ELF files at16KiB, derived APK zip alignment,
+exact compiled runtime source including stadium_portraits, 248base frames and
+35sheets, exact new city/portrait assets. Final report-copy step alone failed
+because container overlay ran out of space AFTER all audit checks passed;
+container teardown restored2.8GB. The existing tested AAB was retained unchanged.
+Build/audit evidence: /workspace/striker-runtime/release33-build-audit.log.
+
+Baseline comparison at unchanged9887264 independently reproduces7failed legacy
+menu subcases and2errors. With fixed RNG seed331, both remaining balancing
+assertions fail identically in old/new source (paired baseline/current logs).
+These pre-existing tests were not weakened or falsely reported passing.
+
+Final uploader preflight caught a51-character release title; shortened to fit
+Play's50-character limit before any API call/publication. Re-ran25publisher tests:
+pass with one host-JDK skip. Uploader/code/payload hashes pinned to1030033;
+minimum policy remains1030032 until actual Play availability.

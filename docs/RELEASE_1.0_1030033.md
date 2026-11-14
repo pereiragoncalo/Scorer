@@ -15,3 +15,8 @@ No physics, gameplay, saves, financial, backend or signing changes. Update from
 Play without uninstalling. Keep minimum1030032 until Play offers1030033 to every
 intended player. Commands: docs/play/FIXES_1030033.md. Physical handset acceptance
 and private bastion publication remain owner-side.
+
+Validation:7focused native regression tests plus1dense-display test pass;
+28pure/publisher tests run with one host JDK skip. Full legacy menus retain
+known pre-existing failures reproduced on unchanged1030032. Android AAB audit
+passes including118ELF16KiB, exact source and new art; physical phone pending.
