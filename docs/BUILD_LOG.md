@@ -3578,3 +3578,9 @@ Final uploader preflight caught a51-character release title; shortened to fit
 Play's50-character limit before any API call/publication. Re-ran25publisher tests:
 pass with one host-JDK skip. Uploader/code/payload hashes pinned to1030033;
 minimum policy remains1030032 until actual Play availability.
+
+Final delivery1030033: Actions43646177897 success (123924091-byte AAB reassembled
+and digest-verified); Actions43646083503 success (publisher1.32). Public three
+helper and four screenshot hashes checked. Primary worktree source merged while
+preserving exact main.py0/239 and test_menus5/3 edits, ignore diff and untracked
+career_mode_state.py. Private bastion/Play and handset acceptance remain pending.

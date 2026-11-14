@@ -20,3 +20,7 @@ Validation:7focused native regression tests plus1dense-display test pass;
 28pure/publisher tests run with one host JDK skip. Full legacy menus retain
 known pre-existing failures reproduced on unchanged1030032. Android AAB audit
 passes including118ELF16KiB, exact source and new art; physical phone pending.
+
+Delivery verified: Actions43646177897 reassembled and SHA256-verified the
+123924091-byte AAB. Actions43646083503 tested/published uploader1.32. Public
+uploader/bootstrap/signer and four previews match expected hashes.

@@ -314,5 +314,9 @@
   "stadium_portrait_atlas": "1536x1024/3x2",
   "legacy_menu_suite": "pre-existing failures reproduced on unchanged9887264 and paired fixed-seed comparison",
   "android_audit_log": "release33-build-audit.log",
-  "report_copy": "disk exhausted after all checks passed; unchanged audited AAB retained"
+  "report_copy": "disk exhausted after all checks passed; unchanged audited AAB retained",
+  "github_delivery_run": 43646177897,
+  "automation_delivery_run": 43646083503,
+  "public_helper_hashes_verified": true,
+  "public_previews_hashes_verified": true
 }
