@@ -19,10 +19,20 @@ class SceneTextures:
             self.sources[name]=(t.size,bytes(t.pixels),t.tex_coords)
         size,source,coords=self.sources[name];pixels=bytearray(source)
         if palette:
-            mapping={a:bytes(round(max(0,min(1,x))*255) for x in b[:3]) for a,b in zip(((40,80,210),(240,240,220)),palette)}
-            for i in range(0,len(pixels),4):
-                value=mapping.get(tuple(pixels[i:i+3]))
-                if pixels[i+3] and value:pixels[i:i+3]=value
+            if name=='stadium_portraits.png':
+                # Team seating accents in the detailed atlas use shaded blue,
+                # not one exact index. Keep neutral roofs, turf and warm city.
+                primary=palette[0][:3]
+                for i in range(0,len(pixels),4):
+                    r,g,b=pixels[i:i+3]
+                    if b>=105 and b>g*1.3 and b>r*1.4:
+                        shade=min(1.2,max(.2,(r*.2+g*.5+b*.3)/100))
+                        pixels[i:i+3]=bytes(round(max(0,min(1,c*shade))*255)for c in primary)
+            else:
+                mapping={a:bytes(round(max(0,min(1,x))*255) for x in b[:3]) for a,b in zip(((40,80,210),(240,240,220)),palette)}
+                for i in range(0,len(pixels),4):
+                    value=mapping.get(tuple(pixels[i:i+3]))
+                    if pixels[i+3] and value:pixels[i:i+3]=value
         texture=Texture.create(size=size,colorfmt='rgba');payload=bytes(pixels);texture.blit_buffer(payload,colorfmt='rgba',bufferfmt='ubyte')
         if coords[1]>coords[5]:texture.flip_vertical()
         self.payloads[id(texture)]=payload;texture.add_reload_observer(self._reload);texture.mag_filter=texture.min_filter='nearest'

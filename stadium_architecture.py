@@ -1,6 +1,6 @@
 """Cached retro roof sprites and pitch-side low walls; visual geometry only."""
 import math
-from kivy.graphics import Color,Mesh
+from kivy.graphics import Color,Mesh,Rectangle
 from retro_props import cache
 
 def build(game,ctx):
@@ -40,9 +40,6 @@ def build(game,ctx):
             a=n*math.pi/24;b=(n+1)*math.pi/24
             quad('stadium_roof.png',(corner(inner,a,low),corner(inner,b,low),corner(outer,b,high),corner(outer,a,high)))
             quad('stadium_roof_fascia.png',(corner(inner,a,low-.4),corner(inner,b,low-.4),corner(inner,b,low),corner(inner,a,low)))
-        steel=(.27,.34,.38,1)
-        for x in (-30,-10,10,30):quad(None,((x-.09,back,0),(x+.09,back,0),(x+.09,back,high),(x-.09,back,high)),steel)
-        for y in (2,14,26):quad(None,((36.2+outer,y-.09,0),(36.2+outer,y+.09,0),(36.2+outer,y+.09,high),(36.2+outer,y-.09,high)),steel)
     game._stadium_architecture=(palette,tuple((asset,tint,vertices,indices)for (asset,tint),(vertices,indices)in batches.items()))
 
 def draw(game):
@@ -51,3 +48,14 @@ def draw(game):
         Color(*tint)
         if asset:Mesh(texture=cache(game).get(asset,palette),vertices=vertices,indices=indices,mode='triangles')
         else:Mesh(vertices=vertices,indices=indices,mode='triangles')
+
+
+def draw_city(game):
+    if game.stadium_has_roof:return
+    texture=cache(game).get('stadium_city.png')
+    height=game.height*.42;width=height*texture.width/texture.height
+    y=game.y+game.height*.60;x=game.x
+    Color(1,1,1,1)
+    while x<game.right:
+        Rectangle(texture=texture,pos=(x,y),size=(width,height))
+        x+=width

@@ -795,5 +795,7 @@
   "Yes": "はい",
   "No": "いいえ",
   "Contract: {years} years": "契約：{years}年",
-  "Choose the contract years, monthly salary and signing benefits. Your agent advises you. Send demands to receive the club's answer; up to three rounds are available. Hear other clubs before deciding. Signing accepts only the displayed club offer. Accepted housing and cars become yours on signing; squad investment improves the club.": "契約年数、月給、契約時の特典を選びます。代理人が助言します。要求を提示するとクラブが回答し、最大3回まで交渉できます。決める前に他のクラブの話も聞けます。署名で承諾するのは、画面に表示されたクラブの提示条件だけです。合意した住宅と車は署名時に自分の所有となり、戦力補強はチームを強化します。"
+  "Choose the contract years, monthly salary and signing benefits. Your agent advises you. Send demands to receive the club's answer; up to three rounds are available. Hear other clubs before deciding. Signing accepts only the displayed club offer. Accepted housing and cars become yours on signing; squad investment improves the club.": "契約年数、月給、契約時の特典を選びます。代理人が助言します。要求を提示するとクラブが回答し、最大3回まで交渉できます。決める前に他のクラブの話も聞けます。署名で承諾するのは、画面に表示されたクラブの提示条件だけです。合意した住宅と車は署名時に自分の所有となり、戦力補強はチームを強化します。",
+  "COUNTRY": "国",
+  "LEAGUE": "リーグ"
 }

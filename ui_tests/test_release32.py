@@ -43,7 +43,8 @@ class StadiumArchitecture(unittest.TestCase):
      Window.size=size;g.size=size;g.view='club';g.draw();settle()
      screen=g._menu.body;self.assertEqual(screen.stadium_variant,stadium_variant(stadium_capacity(club)))
      self.assertEqual(screen.facts,facts);self.assertEqual(screen.stadium_picture.texture.mag_filter,'nearest')
-     self.assertGreaterEqual(screen.stadium_picture.x,screen.facts_box.right)
+     if screen.overview.orientation=='horizontal':self.assertGreaterEqual(screen.stadium_picture.x,screen.facts_box.right)
+     else:self.assertLessEqual(screen.stadium_picture.top,screen.facts_box.y)
      self.assertLessEqual(screen.stadium_picture.right,screen.card.right)
      self.assertFalse(screen.scroll.do_scroll_x)
   finally:Window.size=old

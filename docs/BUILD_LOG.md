@@ -3543,3 +3543,20 @@ Owner requests roof above10k, small front wall in every stadium and capacity-var
 7 pure capacity/profile/resource checks and20 native threshold(through150k)/host/training/colour/cache/RNG/physics/menu/club-navigation/portrait/net-restoration journeys pass. Actual native open10k,covered12k,large150k and club-card screenshots inspected. Added exact compiled module and9asset verification to APK audit. No source save, goal/net/ball or financial changes; physical Android acceptance pending.
 1030032 unsigned AAB118322001 bytes SHA256c5dedd1cfb6bcd5d13316485714670887ae5795c072fed0f89ed7b8c81f7dfd7. Android audit passed:World/code1030032,target36,118ELF16KiB, exact compiled stadium/club modules,9new pixel assets and original248frames/35sheets. Publisher25checks/one host-JDKskip. Minimum31retained until32offered byPlay; same original signing identity/private bastion credentials.
 Delivery32:Actions43631885929 AAB/previews and43631789098 uploader succeeded; public helper/preview hashes and AAB size verified. Existing main.py/test_menus.py patches reapplied after FF with exact prior numstats; ignore/mode work preserved.
+
+## 2026-11-14 — World1030033 stadium revision
+
+Removed roof-support geometry, retained canopy/walls. Added original generated
+transparent city backdrop to uncovered grounds and six new detailed atlas
+portraits. Fixed club facts with explicit name/country/league and responsive
+facts-first rows. Native App previews reviewed: uncovered10k city, covered12k,
+large150k, Coimbra profile1887/29622 and major club palette recolouring.
+Syntax/diff checks pass. Initial new test had an incorrect cache attribute
+(`textures` vs actual `entries`); corrected the test. Host pure/publisher suite:
+28 tests, one JDK-related skip. Native regression and Android audit follow below.
+No live backend changes or gameplay/save/signing changes.
+
+Focused native release31/32/33 tests:7 pass; dense-display Coimbra facts check:1
+pass. Full legacy MenuTests suite also attempted:9 failed subcases/2 errors in
+old balancing/training assertions (not silently treated as a pass); comparison
+against unchanged1030032 source is recorded below. Stadium-specific tests pass.

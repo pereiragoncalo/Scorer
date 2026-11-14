@@ -4483,6 +4483,8 @@ class StrikerGame(Widget):
         if key!=self._stand_mesh_cache_key or key!=self._crowd_mesh_cache_key:
             build(self,context)
             self._stand_mesh_cache_key=self._crowd_mesh_cache_key=key
+        from stadium_architecture import draw_city
+        draw_city(self)
         self._draw_stand_meshes()
         if draw_crowd and self._show_stadium_crowd():
             self._draw_crowd_meshes(celebrating=cheering(self) is not None)

@@ -12,3 +12,14 @@ with the in-game ground model. They are illustrations, not factual venue plans.
 The 128×32 roof and 128×16 fascia/wall are mapped to cached scene quads.
 RGB(40,80,210) and RGB(240,240,220) are the existing runtime club-colour slots.
 The smaller props use neutral metal/concrete shading around these accents.
+
+## 1030033 revision
+
+The current club UI uses stadium_portraits.png, a new original image-generated
+1536x1024 atlas (three columns, two rows, 512px square cells in the same capacity
+order). Stadium_city.png is a new original transparent 2172x724 pixel panorama,
+drawn behind uncovered stands only. These originals are retained intact; runtime
+selects atlas regions and recolours blue seating accents. Nearest sampling,
+two-entry portrait palette cache. The older six files remain legacy assets only;
+the procedural builder does not reproduce these two new generated originals.
+Roof supporting poles removed; low walls and canopy surfaces retained.
