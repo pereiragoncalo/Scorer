@@ -3596,3 +3596,17 @@ size_hint overriding room dimensions, so removed room size_hint and strengthened
 test to compare actual norm_image_size baseline rather than widget bounds.
 Eight native locker/localisation/density/touch/resume/save-failure/stadium tests
 and32pure/update/publisher tests (one hostJDK skip) run. Final preview/audit below.
+
+Native final App screenshot reviewed: locker picture bottom and Start Training
+baseline aligned; no player-name caption. Eight native tests pass after the
+norm-image alignment correction.32pure/update/publisher tests pass (one hostJDK
+skip). First build stopped before packaging because disk full creating bin;
+retained previously published31/32/33 AABs with verified hashes in
+/tmp/scorer-published-bundles to free workspace, then retried same source.
+
+Retry completed successfully: World1030034 AAB123924208bytes, SHA256
+ddc55653110bb3fce264e3cc2ace5eb7d09ff956a4853347deff2af9eb7fdbcf. Bundletool/manifest/production source,
+118ELF16KiB and derived APK zip alignment pass. Exact compiled source including
+training_ui and stadium_portraits plus248base frames/35sheets and new stadium
+assets verified. Final25publisher tests pass (one hostJDK skip). Physical device
+and actual Play account availability pending; no live backend code mutation.

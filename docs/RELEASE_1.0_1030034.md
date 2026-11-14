@@ -13,3 +13,8 @@ Update. A new version cannot itself guarantee Google propagation/eligibility.
 No changes to gameplay, saves, stadium33 art, net physics or signing identity.
 
 Commands: docs/play/FIXES_1030034.md. Physical Play update acceptance pending.
+
+Validation:8native locker/localisation/density/touch/session/stadium tests pass;
+32pure/update/publisher tests pass with one hostJDK skip; final publisher25tests
+pass with one hostJDK skip. Actual native screenshot reviewed. Android AAB audit
+passes118ELF16KiB, exact compiled source/resources and production metadata.
