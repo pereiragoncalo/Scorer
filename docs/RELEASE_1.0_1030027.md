@@ -18,3 +18,7 @@ both training and matches. Physical Android acceptance remains pending.
 Same package, save format and owner signing identity. No backend deployment.
 Update via Play without uninstalling. Keep minimum1030022 until Play actually
 offers1030027 to all intended players. Commands: docs/play/FIXES_1030027.md.
+
+Verified delivery:Actions43592176698 reassembled/hash-verified118286990-byte AAB;
+Actions43592113808 published uploader1.26. Public uploader/bootstrap/signer hashes
+match. Private bastion upload and physical Play acceptance remain owner-side.

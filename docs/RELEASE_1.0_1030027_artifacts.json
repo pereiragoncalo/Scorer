@@ -254,5 +254,8 @@
   },
   "opportunity_ball_flight_speed": 1.05,
   "coimbra_preto_net": "rounded/hexagon/3.50m",
-  "coimbra_preto_uid": "6d0a94b6d9d584ce77e0"
+  "coimbra_preto_uid": "6d0a94b6d9d584ce77e0",
+  "github_delivery_run": 43592176698,
+  "automation_delivery_run": 43592113808,
+  "public_helper_hashes_verified": true
 }
