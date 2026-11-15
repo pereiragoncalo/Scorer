@@ -68,7 +68,7 @@ not a playback-speed multiplier or softer/less accurate net:
   retaining operation order and the original120Hz integration/coefficients.
 
 Same local profiling harness against exported38source: mean postgoal CPU frame
-35.05ms ->23.12ms; maximum65.75ms ->34.29ms in this short sample. Timings INCLUDE
+35.05ms ->22.34ms; maximum65.75ms ->33.99ms in this short sample. Timings INCLUDE
 cProfile overhead and are not phone FPS. New full-refit/partial-refit regression
 compares ball/velocity/cloth positions through120steps in all three net shapes.
 Handset outcome remains unverified until39is installed and tried by the owner.

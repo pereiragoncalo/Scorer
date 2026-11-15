@@ -1,7 +1,7 @@
 """Finite, welded cloth triangles: sphere contact and swept face/edge tests."""
 import math
 
-def dot(a,b):return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]
+def dot(a,b):return sum((a[0]*b[0],a[1]*b[1],a[2]*b[2]))
 def sub(a,b):return (a[0]-b[0],a[1]-b[1],a[2]-b[2])
 def mix(a,b,t):return (a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t)
 def closest(p,a,b,c):

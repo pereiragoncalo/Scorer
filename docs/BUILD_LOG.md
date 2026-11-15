@@ -3755,3 +3755,15 @@ Public delivery verified: AAB run43748632722 and automation v1.37 run43748599314
 succeeded. Public bootstrap/uploader/signing-helper SHA256 hashes match pins;
 AAB asset123951855bytes matches audited manifest. Private bastion signing,
 Play submission and handset performance acceptance remain pending.
+
+## 2026-11-15 —39follow-up to continued38net slowdown/stutters
+
+Full swept broad phase retained; subsequent refit limited to contact/tether-node
+incident triangles with conservative unchanged bounds. Freeze camera per batch;
+unroll equivalent3D/spring arithmetic. Retain120Hz and physical coefficients.
+Initial57core and27native tests passed, but full trajectory comparison caught
+rounding drift from replacing Python's float sum with ordinary addition. It grew
+through later cloth contacts, so that candidate was not published. Restored
+original sum semantics (tuple instead of generator), added a regression and
+reran1080samples: bit-identical to38. Rebuild final candidate from corrected source.
+Final local cProfile mean postgoal22.34ms vs38baseline35.05ms; not handset FPS.
