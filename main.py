@@ -1260,45 +1260,15 @@ class StrikerGame(Widget):
 
 
     def _play_goal_crowd_sound(self) -> None:
-        """Celebração de bancada sintetizada, sem ficheiros externos."""
+        """Only play an already prepared sound; no synthesis/IO on goal crossing."""
         if self.shot_context=='training':return
         try:
-            if not self._goal_crowd_sound_attempted:
-                self._goal_crowd_sound_attempted = True
-                sound_path = Path(__file__).resolve().parent / "striker_goal_crowd.wav"
-                if not sound_path.exists():
-                    sample_rate = 22050
-                    duration = 2.35
-                    count = int(sample_rate * duration)
-                    rng = random.Random(92831)
-                    samples: list[int] = []
-                    smooth = 0.0
-                    for index in range(count):
-                        t = index / sample_rate
-                        raw = rng.uniform(-1.0, 1.0)
-                        smooth = smooth * 0.86 + raw * 0.14
-                        voices = (
-                            0.34 * math.sin(2.0 * math.pi * 176.0 * t + 0.3)
-                            + 0.25 * math.sin(2.0 * math.pi * 223.0 * t + 1.7)
-                            + 0.18 * math.sin(2.0 * math.pi * 287.0 * t + 2.4)
-                        )
-                        attack = min(1.0, t / 0.11)
-                        decay = max(0.0, 1.0 - max(0.0, t - 0.55) / 2.0)
-                        pulse = 0.82 + 0.18 * math.sin(2.0 * math.pi * 3.2 * t)
-                        value = (smooth * 0.78 + voices) * attack * decay * pulse
-                        samples.append(int(clamp(value, -1.0, 1.0) * 14500))
-                    with wave.open(str(sound_path), "wb") as sound_file:
-                        sound_file.setnchannels(1)
-                        sound_file.setsampwidth(2)
-                        sound_file.setframerate(sample_rate)
-                        sound_file.writeframes(struct.pack("<" + "h" * len(samples), *samples))
-                self._goal_crowd_sound = SoundLoader.load(str(sound_path))
             if self._goal_crowd_sound is not None:
                 self._goal_crowd_sound.stop()
                 self._goal_crowd_sound.volume=.9 if self._player_match_is_home() else .3
                 self._goal_crowd_sound.play()
         except Exception:
-            self._goal_crowd_sound = None
+            self._goal_crowd_sound=None
 
 
     def start_training(self) -> None:
@@ -4511,9 +4481,18 @@ class StrikerGame(Widget):
 
     def _draw_stand_meshes(self) -> None:
         """Desenha toda a bancada em poucos lotes gráficos já projetados."""
-        for color, vertices, indices in self._stand_mesh_cache:
-            Color(*color)
-            Mesh(vertices=vertices, indices=indices, mode="triangles")
+        # Reattach immutable GPU buffers after canvas.clear(), rather than
+        # allocating/uploading every seat and concrete step on every frame.
+        from kivy.graphics import InstructionGroup
+        if getattr(self,'_stand_draw_source',None) is not self._stand_mesh_cache:
+            group=InstructionGroup()
+            for color,vertices,indices in self._stand_mesh_cache:
+                group.add(Color(*color,noadd=True))
+                group.add(Mesh(vertices=vertices,indices=indices,mode="triangles",noadd=True))
+            self._stand_draw_source=self._stand_mesh_cache;self._stand_draw_group=group
+        group=self._stand_draw_group
+        while group in self.canvas.children:self.canvas.remove(group)
+        self.canvas.add(group)
 
 
     def _draw_continuous_grandstand(self) -> None:
@@ -5609,6 +5588,8 @@ class StrikerApp(App):
         self._check_app_update()
         self._update_check_event=Clock.schedule_interval(lambda _:self._check_app_update() if self.root and self.root.view in ('start','hub','offers','world') else None,900)
         if self.root is not None:
+            from goal_audio import preload
+            preload(self.root)
             self.root.usage.begin_session()
             self.root.usage.flush_async()
         self._usage_flush_event=Clock.schedule_interval(lambda _:StrikerApp._flush_usage(self),10)

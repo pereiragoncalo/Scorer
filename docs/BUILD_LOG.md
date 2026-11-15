@@ -3718,3 +3718,18 @@ Public delivery verified: GitHub AAB run43746161441 and automation v1.36
 run43745836299 succeeded. Public bootstrap/uploader/signing-helper and both
 preview SHA256 hashes match the pinned metadata; AAB asset is123950155bytes.
 Private bastion signing, Play submission and handset acceptance remain pending.
+
+## 2026-11-15 — Opportunity/goal CPU investigation after1030037
+
+See OPPORTUNITY_PERFORMANCE.md for actual paired Kivy profiles and limitations.
+Reuse static seat/stand GPU buffers, collision topology and idle cloth bounds;
+unroll equivalent net projection arithmetic. Move first-goal audio synthesis/IO
+to App-start worker and load on Kivy thread; goals never prepare audio.
+23pure net tests,26native performance/net/header/training/stadium tests,8audio/
+opportunity/staging tests pass;1080postgoal trajectory/deformation samples match
+1030037 exactly. First native run found worker/widget cleanup race, fixed by
+starting the worker in App.on_start. Final added worker/main-thread ordering test
+recorded separately below. No Android build or Play/policy update in this task.
+
+Final4native performance regressions pass, including worker/main-thread audio
+ordering. Total27distinct native tests passed. Syntax and git diff checks pass.

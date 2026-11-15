@@ -48,7 +48,11 @@ class NetRenderer:
                 vertices=[];world=[]
                 for row in weights:
                     a,b,c,d=row
-                    point=tuple(p[a[0]][axis]*a[1]+p[b[0]][axis]*b[1]+p[c[0]][axis]*c[1]+p[d[0]][axis]*d[1] for axis in (0,1,2))
+                    pa,pb,pc,pd=p[a[0]],p[b[0]],p[c[0]],p[d[0]]
+                    wa,wb,wc,wd=a[1],b[1],c[1],d[1]
+                    point=(pa[0]*wa+pb[0]*wb+pc[0]*wc+pd[0]*wd,
+                           pa[1]*wa+pb[1]*wb+pc[1]*wc+pd[1]*wd,
+                           pa[2]*wa+pb[2]*wb+pc[2]*wc+pd[2]*wd)
                     world.append(point);x,y=project(*point);vertices.extend((x,y,0.,0.))
                 mesh.vertices=vertices;front.vertices=vertices;self._world.append(world)
             else:world=self._world[index]

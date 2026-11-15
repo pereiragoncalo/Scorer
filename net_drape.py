@@ -102,7 +102,12 @@ class RollingReplay:
             self.velocity=[0.,-speed,0.];self.ball=tuple(self.position)
         self.roll=0.;self.distance=0.;self.contacts=[];self.history=[];self.stop_time=None
         from net_contact import ClothContacts
-        self.mesh=ClothContacts(self.cloth);self.sleeping=False;self.rest_age=0.
+        self.mesh=getattr(self.cloth,'_contact_mesh',None)
+        if self.mesh is None:
+            self.mesh=ClothContacts(self.cloth);self.cloth._contact_mesh=self.mesh
+        else:
+            self.mesh.candidates=None;self.mesh.refresh()
+        self.sleeping=False;self.rest_age=0.
 
     @classmethod
     def strong_side_shot(cls):
@@ -180,7 +185,7 @@ class RollingReplay:
         # past the ball within one step. Project against the actual nearest
         # finite cloth face, never an undeformed/infinite goal boundary.
         if isinstance(c,TetheredCloth):c.constrain_tethers()
-        self.mesh.refresh()
+        if was_active or contacts:self.mesh.refresh()
         if contacts and self.geometry.structure=='rounded':b[2]=max(self.radius,min(b[2],energy/19.62))
         for _ in range(2):
             escape=self.mesh.escaped_contact(b,self.radius,old,energy/19.62)

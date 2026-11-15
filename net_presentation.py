@@ -1,5 +1,6 @@
 """Draped-net presentation after a legal goal; authoritative ball is read-only."""
 from net_cloth import NetGeometry
+from net_contact import ClothContacts
 from net_drape import MATERIALS,ReferenceCloth,RollingReplay
 
 
@@ -12,6 +13,8 @@ def ensure(game):
     key=(geometry,config,coarse)
     if getattr(game,'_net_cloth_key',None)!=key:
         game._net_cloth=ReferenceCloth(geometry,config,coarse)
+        # Prepare topology while dressing the goal, never on goal-line crossing.
+        game._net_cloth._contact_mesh=ClothContacts(game._net_cloth)
         game._net_cloth_key=key;game._net_renderer=None;game._net_replay=None
     return game._net_cloth
 
