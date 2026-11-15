@@ -3705,3 +3705,11 @@ skip),13native header/contact/keeper/render/training tests pass. Old immediate
 header assertions updated to wait for actual contact. Native ready/takeoff/
 contact/landing App captures reviewed; contact shows feet visibly above shadow.
 Final validation/build/audit below; handset acceptance remains pending.
+
+Final47pure/trajectory/staging/calendar/publisher tests pass (one hostJDK skip)
+after pinning the new uploader.13native jumping-header/keeper/renderer/training
+tests pass after the input lock and pressure-continuation adjustments. Actual
+ready/contact captures regenerated from final runtime. Android37 compilation and
+audit pass: unsigned World/production metadata,118ELF16KiB, derived inspection
+APK alignment, exact compiled heading/main/runtime source,248base frames/35sheets.
+Approved sprite bytes unchanged. Handset acceptance and private Play pending.

@@ -15,3 +15,7 @@ new chances/reset discard stale queued shots, pressure keeps advancing normally.
 Calendars, net physics, stats/leaderboard, saves and original signing retained.
 No new art/assets or backend patch. Exact existing art remains approved.
 Keep minimum1030032 until actual Play availability. Commands: FIXES_1030037.md.
+
+Validation:47pure/staging/calendar/publisher tests pass(one hostJDK skip),13native
+header/contact/renderer/keeper/training tests pass. Android AAB audit passes
+118ELF16KiB, exact compiled runtime source and approved resources/ZIP alignment.
