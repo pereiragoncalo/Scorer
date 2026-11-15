@@ -70,14 +70,14 @@ jobs:
                           raise
                       print('Retrying verified transfer part:', part['name'], flush=True)
           manifest = json.loads(read('manifest.json'))
-          expected = 'ee52b2e0993afbec96fa545631dae5ae8c08f7d8aa2a5c6a07fdfbb23f87f554'
-          assert manifest['version'] == '1.0-1030038-unsigned'
-          assert manifest['filename'] == 'Scorer-World-1.0-1030038-unsigned.aab'
-          assert manifest['sha256'] == expected and manifest['bytes'] == 123951855
+          expected = '48038df69d8ff5848eb730b2f11b598eed80866d6892953fde9953927df7adce'
+          assert manifest['version'] == '1.0-1030039-unsigned'
+          assert manifest['filename'] == 'Scorer-World-1.0-1030039-unsigned.aab'
+          assert manifest['sha256'] == expected and manifest['bytes'] == 123953016
           assert 1 <= len(manifest['parts']) <= 16
           digest = hashlib.sha256()
           total = 0
-          with open('Scorer-World-1.0-1030038-unsigned.aab', 'wb') as output:
+          with open('Scorer-World-1.0-1030039-unsigned.aab', 'wb') as output:
               for index, part in enumerate(manifest['parts']):
                   assert part['name'] == f'apk.part.{index:02d}'
                   content = read_part(part)
@@ -86,8 +86,8 @@ jobs:
                   output.write(content)
                   digest.update(content)
                   total += len(content)
-          assert total == 123951855 and digest.hexdigest() == expected
-          metadata = json.loads(pathlib.Path('docs/RELEASE_1.0_1030038_artifacts.json').read_text())
+          assert total == 123953016 and digest.hexdigest() == expected
+          metadata = json.loads(pathlib.Path('docs/RELEASE_1.0_1030039_artifacts.json').read_text())
           assert metadata['sha256'] == expected and metadata['bytes'] == total
           source = metadata['source_commit']
           assert re.fullmatch('[0-9a-f]{40}', source)
@@ -100,10 +100,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SOURCE_COMMIT: ${{ steps.download.outputs.source_commit }}
         run: |
-          if ! gh release view world-1.0-1030038 >/dev/null 2>&1; then
-            gh release create world-1.0-1030038 --target "$GITHUB_SHA" --prerelease --title "Scorer World 1.0 (1030038) - smoother opportunities" --notes-file docs/RELEASE_1.0_1030038.md
+          if ! gh release view world-1.0-1030039 >/dev/null 2>&1; then
+            gh release create world-1.0-1030039 --target "$GITHUB_SHA" --prerelease --title "Scorer World 1.0 (1030039) - faster net physics" --notes-file docs/RELEASE_1.0_1030039.md
           fi
-          gh release upload world-1.0-1030038 Scorer-World-1.0-1030038-unsigned.aab docs/RELEASE_1.0_1030038_artifacts.json tools/play/sign_local_bundle.py tools/play/bastion_bundle_1030038.py tools/play/bastion_play_internal.py docs/data/server/Scorer-All-Seasons-Backend.py docs/play/FIXES_1030038.md --clobber
+          gh release upload world-1.0-1030039 Scorer-World-1.0-1030039-unsigned.aab docs/RELEASE_1.0_1030039_artifacts.json tools/play/sign_local_bundle.py tools/play/bastion_bundle_1030039.py tools/play/bastion_play_internal.py docs/data/server/Scorer-All-Seasons-Backend.py docs/play/FIXES_1030039.md --clobber
 
   names:
     if: ${{ inputs.deliver_names }}
@@ -151,12 +151,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view play-automation-v1.37 >/dev/null 2>&1; then
-            gh release create play-automation-v1.37 --target "$GITHUB_SHA" --prerelease --title "Scorer - Play internal uploader for 1030038" --notes-file docs/RELEASE_PLAY_AUTOMATION_V1_37.md
+          if ! gh release view play-automation-v1.38 >/dev/null 2>&1; then
+            gh release create play-automation-v1.38 --target "$GITHUB_SHA" --prerelease --title "Scorer - Play internal uploader for 1030039" --notes-file docs/RELEASE_PLAY_AUTOMATION_V1_38.md
           fi
-          gh release upload play-automation-v1.37 tools/play/bastion_play_internal.py docs/play/BASTION_PLAY_AUTOMATION.md docs/play/BASTION_PLAY_AUTOMATION.sha256 --clobber
-          if gh release view world-1.0-1030038 >/dev/null 2>&1; then
-            gh release upload world-1.0-1030038 docs/play/FIXES_1030038.md --clobber
+          gh release upload play-automation-v1.38 tools/play/bastion_play_internal.py docs/play/BASTION_PLAY_AUTOMATION.md docs/play/BASTION_PLAY_AUTOMATION.sha256 --clobber
+          if gh release view world-1.0-1030039 >/dev/null 2>&1; then
+            gh release upload world-1.0-1030039 docs/play/FIXES_1030039.md --clobber
           fi
 
   statistics_repair:

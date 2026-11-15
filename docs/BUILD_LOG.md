@@ -3767,3 +3767,9 @@ through later cloth contacts, so that candidate was not published. Restored
 original sum semantics (tuple instead of generator), added a regression and
 reran1080samples: bit-identical to38. Rebuild final candidate from corrected source.
 Final local cProfile mean postgoal22.34ms vs38baseline35.05ms; not handset FPS.
+
+Final39source:58core/physics/staging/publisher tests pass(one hostJDK skip),27native
+UI tests pass; final pinned publisher25pass(one hostJDK skip). Corrected39AAB
+rebuilt and passed World/production metadata,16KiB native/ZIP/derived inspection
+APK checks and exact compiled runtime/art audit (248frames/35sheets). Signed
+Play upload and handset performance acceptance remain owner-side.
