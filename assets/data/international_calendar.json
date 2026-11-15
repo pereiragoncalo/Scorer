@@ -133,11 +133,26 @@
       "afcon": [
         "2027-06-19",
         "2027-07-17"
+      ],
+      "nations_a": [
+        "2027-06-09",
+        "2027-06-13"
+      ]
+    },
+    "2028": {
+      "euro": [
+        "2028-06-09",
+        "2028-07-09"
       ]
     }
   },
   "source": "https://digitalhub.fifa.com/m/3123d37097318f7f/original/Men-s-International-Match-Calendar-2023-2030_EN.pdf",
   "source_sha256": "f7a29476be88584f1a2eb0b0c3dc969bca96bb89fb6a2da1ddbdbed898f87564",
   "source_edition": "April 2026",
-  "unconfirmed_future": "Generated calendar projections beyond the published2030 window list are game dates, not announced FIFA dates."
+  "unconfirmed_future": "Generated calendar projections beyond the published2030 window list are game dates, not announced FIFA dates.",
+  "uefa_sources": [
+    "https://www.uefa.com/euro2028/news/028f-1b599fe02d18-0c758142f5e4-1000--euro-2028-all-you-need-to-know/",
+    "https://www.uefa.com/uefanationsleague/news/0298-1d6ef1acfaef-b54fcf1da859-1000--2026-27-uefa-nations-league-all-you-need-to-know/"
+  ],
+  "matchday_note": "Fictional draws use model matchdays within official windows/spans; unannounced future finals dates are projections."
 }

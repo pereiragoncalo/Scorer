@@ -641,7 +641,9 @@ class CareerMenu(BoxLayout):
             for f in rows:
                 score='–' if f['score'] is None else str(f['score'][0])+'–'+str(f['score'][1])
                 if f['penalties']:score+=' ('+str(f['penalties'][0])+'–'+str(f['penalties'][1])+')'
-                card.label(f"{f['week']}: {self._competition_team_name(cup.teams[f['home']])} {score} {self._competition_team_name(cup.teams[f['away']])}",localize=False)
+                from international_calendar import match_date
+                label_date=self.game.i18n.date(match_date(c.season,cup,f))
+                card.label(f"{label_date}: {self._competition_team_name(cup.teams[f['home']])} {score} {self._competition_team_name(cup.teams[f['away']])}",localize=False)
             controls=BoxLayout(size_hint_y=None,height=dp(48));controls.add_widget(self._button('PREVIOUS','competition_page',-1));controls.add_widget(self._button('NEXT','competition_page',1));card.add_widget(controls)
             card.label(str(page+1)+' / '+str(max(1,(len(cup.fixtures)+11)//12)),localize=False)
 
@@ -1069,9 +1071,10 @@ class MainDashboard(BoxLayout):
         self.add_widget(self.identity)
         self.hero = BoxLayout(spacing=dp(12))
         self.match = EdgePanel(orientation='vertical', size_hint_x=0.66)
-        self.match.add_widget(BoundedLabel(text='NEXT MATCH · ' + menu.game.i18n.date(c.current_date), color=GREEN, font_size=sp(10),
-                                          bold=True, size_hint_y=None, height=dp(16)))
         fixture = c.next_match()
+        from club_calendar import upcoming_date
+        self.match.add_widget(BoundedLabel(text='NEXT MATCH · ' + menu.game.i18n.date(upcoming_date(c,fixture)), color=GREEN, font_size=sp(10),
+                                          bold=True, size_hint_y=None, height=dp(16)))
         teams = BoxLayout(spacing=dp(8))
         home = c.display_club(fixture[1]) if fixture else 'Season complete'
         away = c.display_club(fixture[2]) if fixture else ''

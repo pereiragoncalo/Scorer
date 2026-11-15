@@ -109,8 +109,8 @@ class CalendarSourceTests(unittest.TestCase):
     def test_published_march_and_june_dates_do_not_use_fixed_month_projection(self):
         from international_calendar import window_dates,finals_dates,window_key
         from datetime import date
-        self.assertIn(date(2026,3,24),window_dates(2025));self.assertNotIn(date(2026,3,17),window_dates(2025))
-        self.assertIn(date(2028,5,30),window_dates(2027));self.assertEqual(finals_dates(2026,'asian')[0],date(2027,1,7))
+        self.assertIn(date(2026,3,27),window_dates(2025));self.assertNotIn(date(2026,3,17),window_dates(2025))
+        self.assertIn(date(2028,6,2),window_dates(2027));self.assertEqual(finals_dates(2026,'asian')[0],date(2027,1,7))
         self.assertNotEqual(window_key(2026,date(2027,1,10)),window_key(2026,date(2027,6,10)))
     def test_future_friday_national_match_does_not_preempt_thursday_club_match(self):
         from world_competitions import Tournament

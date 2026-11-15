@@ -1145,10 +1145,14 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 from domestic_formats import player_finished
                 ended=self.current_league.round_index>=self.current_league.total_rounds or player_finished(self.current_league,self.club.uid)
                 if ended:self._prepare_world_run_in()
-                pending=self.world_competitions.next_fixture(200 if ended else self.week,self.club.uid,self.nationality,self.national_team_eligible)
+                from club_calendar import league_date
+                day=league_date(self)if not ended else None
+                horizon=max(self.week,(day-date(self.season,7,12)).days//7)if day else(200 if ended else self.week)
+                pending=self.world_competitions.next_fixture(horizon,self.club.uid,self.nationality,self.national_team_eligible,until=day.isoformat()if day else None)
                 if pending:
                     key,f,home,away,national=pending
-                    self.week=max(self.week,f['week'])
+                    from club_calendar import set_week
+                    set_week(self,max(self.week,f['week']))
                     self.called_up=national
                     return ('world|'+key+'|'+f['id'],self._competition_club(home),self._competition_club(away))
                 if ended:
@@ -1156,7 +1160,11 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                     if self.free_agent:self.save();return None
                     self._ensure_competitions();continue
                 for home,away in self.current_league.pairings():
-                    if self.club_name in (home.name,away.name):return 'league',home,away
+                    if self.club_name in (home.name,away.name):
+                        if day:
+                            from club_calendar import set_week
+                            set_week(self,(day-date(self.season,7,12)).days//7)
+                        return 'league',home,away
                 raise ValueError('No personal league fixture')
             raise ValueError('Competition calendar could not progress')
         if (
@@ -1189,7 +1197,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         if self.world_competitions is None:
             from world_competitions import CompetitionBook
             entries=self.qualification_snapshot['entries'] if self.qualification_snapshot and self.qualification_snapshot['season']==self.season else None
-            self.world_competitions=CompetitionBook(self.season,self.world_seed,self.leagues,entries)
+            self.world_competitions=CompetitionBook(self.season,self.world_seed,self.leagues,entries,national_state=self.qualification_snapshot.get('national')if self.qualification_snapshot else None)
             self.world_competitions.legacy_actor=self.club.uid if self.club else ''
             self.world_competitions.add_domestic(self.current_league.country,self.leagues,self.cup_weeks,legacy_round=min(self.cup_round_index,7),exclude=self.club.uid if self.club and not self.cup_active else '')
             # Legacy saves simulate elapsed external matches without adding personal statistics.
@@ -1201,6 +1209,10 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             new=key not in self.world_competitions.tournaments
             cup=self.world_competitions.add_domestic(self.current_league.country,self.leagues,self.cup_weeks)
             if new:cup.advance(max(0,self.week-1))
+        from national_campaigns import upgrade
+        upgrade(self)
+        from club_calendar import ensure,schedule
+        ensure(self);schedule(self.world_competitions)
         self._refresh_competition_status()
 
     def _prepare_world_run_in(self):
@@ -1211,7 +1223,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 rng=random.Random(f'{self.world_seed}:{self.season}:{league.key}:{league.round_index}')
                 for home,away in league.pairings():league.simulate_fixture(home,away,rng)
                 league.advance_round()
-        start=max(self.week+1,max(l.total_rounds for l in self.domestic_leagues())+1)
+        start=self.week+1 if getattr(self.world_competitions,'league_dates',None)else max(self.week+1,max(l.total_rounds for l in self.domestic_leagues())+1)
         for country in WORLD_COUNTRIES:
             upper,lower=self.leagues[country+'|1'],self.leagues[country+'|2']
             for reserve in (False,True):
@@ -1304,13 +1316,16 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         move when a cup result changes. Pagination keeps the full list usable.
         """
         from international_calendar import is_national_friendly
+        if self.world_unlocked and self.club:self._ensure_competitions()
         start = date(self.season, 7, 12)
         entries = [dict(e) for e in self.fixture_history
                    if str(e.get('date', '')) >= start.isoformat() and not is_national_friendly(e)]
         future_week = self.week
         future_round = self.current_league.round_index
         while future_round < self.current_league.total_rounds:
-            match_date = start + timedelta(weeks=future_week)
+            from club_calendar import league_date
+            mapped=league_date(self,future_round)if self.world_unlocked else None
+            match_date = mapped or start + timedelta(weeks=future_week)
             if not self.world_unlocked and future_week in self.cup_weeks:
                 if (not self.world_unlocked and self.cup_active and self.cup_round_index < len(self.cup_weeks)
                         and future_week == self.cup_weeks[self.cup_round_index]):
@@ -1326,7 +1341,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                                 if self.club_name in (pair[0].name, pair[1].name)), None)
                 if fixture:
                     entries.append({
-                        "date": (match_date+timedelta(days=4 if self.world_unlocked else 0)).isoformat(), "competition": self.current_league.name,
+                        "date": (match_date+timedelta(days=4 if self.world_unlocked and not mapped else 0)).isoformat(), "competition": self.current_league.name,
                         "home": fixture[0].name, "away": fixture[1].name,
                         "status": f"Matchweek {future_round + 1}", "played": False,
                     })
@@ -1334,7 +1349,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                     from domestic_formats import specification,phase_rounds
                     phases=specification(self.current_league)['phases']
                     if len(phases)==2 and future_round>=phase_rounds(phases[0]):
-                        entries.append({'date':(match_date+timedelta(days=4)).isoformat(),'competition':self.current_league.name,'home':'—','away':'—','status':'League phase','played':False,'pending':True})
+                        entries.append({'date':(match_date+timedelta(days=0 if mapped else 4)).isoformat(),'competition':self.current_league.name,'home':'—','away':'—','status':'League phase','played':False,'pending':True})
                 future_round += 1
             future_week += 1
         if self.world_unlocked and self.club:
@@ -1707,7 +1722,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self._title_match_scene=match_scene(self,home,away)
         if competition.startswith('world|'):
             return self._finish_world_fixture(competition,home,away,player_goals,player_misses,forced_score,moments,coach_context,report_events,absent)
-        match_date = self.current_date+timedelta(days=4 if self.world_unlocked else 0)
+        from club_calendar import league_date
+        match_date = (league_date(self)if self.world_unlocked else None)or self.current_date+timedelta(days=4 if self.world_unlocked else 0)
         if is_international:
             if forced_score is None:
                 home_mean, away_mean = realistic_goal_means(home.rating, away.rating)
@@ -1802,6 +1818,10 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
 
         self.week += 1
+        if self.world_unlocked:
+            from club_calendar import league_date
+            day=league_date(self)
+            if day:self.week=(day-date(self.season,7,12)).days//7
         self._skip_reserved_cup_breaks()
         if not absent:
             self.matches += 1
@@ -2160,7 +2180,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         for country in WORLD_COUNTRIES:
             cup=book.add_domestic(country,self.leagues,self.cup_weeks);cup.finish()
             self.national_cup_winners[country]=cup.teams[cup.champion]['name']
-        self.qualification_snapshot={'season':self.season+1,'entries':book.entrants_for_next_season(self.leagues)}
+        from national_campaigns import carried
+        self.qualification_snapshot={'season':self.season+1,'entries':book.entrants_for_next_season(self.leagues),'national':carried(book)}
         from domestic_playoffs import movements,reserve_movements
         from two_divisions import rotate_reserve,RELEGATED_MESSAGE
         # Freeze both boundaries from final tables before any club changes division.
@@ -2185,10 +2206,12 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         self._repair_qualifiers()
         released=club.tier>2
         if not released:self.league_key=league.country+'|'+str(club.tier)
-        champions={k:cup.teams[cup.champion] for k,cup in book.tournaments.items() if cup.kind!='qualifying' and not k.startswith('domestic:')}
+        champions={k:cup.teams[cup.champion] for k,cup in book.tournaments.items() if cup.champion and cup.kind!='qualifying' and not k.startswith('domestic:')}
         self.competition_archive=(self.competition_archive+[{'season':self.season,'winners':champions,'movements':moves,'domestic_winners':dict(self.national_cup_winners)}])[-5:]
         self.world_membership={k:[c.uid for c in l.clubs] for k,l in self.leagues.items()}
-        self.world_competitions=None;self.world_run_in=False;self.season+=1;self.week=0
+        self.world_competitions=None;self.world_run_in=False;self.season+=1
+        latest=max((date.fromisoformat(e['date'])for e in self.fixture_history if e.get('played')),default=date(self.season,7,12))
+        self.week=max(0,((latest-date(self.season,7,12)).days+6)//7)
         self.morale_ad_week=-1;self.morale_ad_token='';self.last_training_week=-1;self.training_session_week=-1;self.training_shots_taken=0;self.training_session_goals=0
         self.cup_active=True;self.cup_round_index=0;self.cup_history.clear();self.agent_offers.clear();self.last_offer_week=-99
         self.morale=clamp(self.morale+(2 if club.tier<old_tier else -1 if club.tier>old_tier else 0),0,20);self.stamina=clamp(self.stamina+3,0,20)
@@ -2762,7 +2785,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             if type(self.world_run_in)is not bool:raise ValueError('Invalid run-in state')
             snapshot=data.get('qualification_snapshot')
             if snapshot is not None and self.world_unlocked:
-                if not isinstance(snapshot,dict) or set(snapshot)!={'season','entries'} or snapshot['season']!=self.season or not isinstance(snapshot['entries'],dict) or len(snapshot['entries'])>16:raise ValueError('Invalid qualification snapshot')
+                if not isinstance(snapshot,dict) or set(snapshot)-{'national'}!={'season','entries'} or snapshot['season']!=self.season or not isinstance(snapshot['entries'],dict) or len(snapshot['entries'])>16:raise ValueError('Invalid qualification snapshot')
                 if any(not isinstance(v,list) or len(v)>36 for v in snapshot['entries'].values()):raise ValueError('Invalid qualified entrants')
                 from world_competitions import CLUB_FIELDS,LEGACY_CLUB_FIELDS
                 expected=CLUB_FIELDS
@@ -2781,6 +2804,9 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                     if key in ('ucl','uel','uecl'):
                         if seen.intersection(ids):raise ValueError('Club qualified twice in Europe')
                         seen.update(ids)
+                if 'national'in snapshot:
+                    from national_campaigns import validate
+                    snapshot['national']=validate(snapshot['national'],self.season)
                 self.qualification_snapshot=snapshot
             if self.world_unlocked:self._restore_two_divisions(data)
 

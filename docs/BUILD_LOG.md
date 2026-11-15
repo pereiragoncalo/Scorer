@@ -3648,3 +3648,23 @@ verified), Actions43652248659 success (publisher1.34). Public uploader/bootstrap
 signer, backend repair and both native preview hashes verified. Primary FF
 preserves unrelated main0/239, menu5/3, ignore and untracked career state edits.
 Bastion deployment and actual Play/handset availability remain owner-side.
+
+##2026-11-15 — World1030036 international calendar
+
+Resumed unavailable environment successfully. Corrected FIFA4/2windows, real NL A
+March quarters/June2027finals, Euro2028span, cross-July Euro/World qualification
+state, club release breaks/midweek dates and UI date labels. No friendlies added.
+Legacy migration preserves played results/draws/IDs/caps; incompatible oversized
+campaigns defer rather than truncate. Initial regression caught empty lower-NL
+champion archiving, negative carried-qualifier weeks and an overbroad friendly
+validator replacement; corrected. New tests initially used an incorrect training
+method and missing UI i18n owner; fixtures corrected. Dated UI revealed coach key
+retiming needed, so current reserved preparation/focus now follows the appearance
+without bypassing ordinary preparation after completed games. Fixtures/source
+provenance and model limitations are documented separately.
+
+Preliminary130pure/HTTP/save/contract/publisher tests (one hostJDK skip),35extra
+schedule/presentation/domestic tests,20clock/coach tests and11native UI/training/
+player/competition journeys pass. Final combined regression and Android audit
+follow. Published previous35bundle preserved with verified hash in/tmp to free
+build space. Original signing and primary unrelated main/menu edits retained.

@@ -32,25 +32,52 @@ def calendar_source():
     import json
     return json.loads((Path(__file__).resolve().parent/'assets/data/international_calendar.json').read_text())
 
-def window_dates(season):
+@lru_cache(maxsize=64)
+def window_spans(season):
     source=calendar_source()['windows'];spans=[]
     for year in (season,season+1):
-        if str(year) in source:
-            spans += [(date.fromisoformat(a),date.fromisoformat(b)) for a,b in source[str(year)] if (year==season and date.fromisoformat(a).month>=8) or (year==season+1 and date.fromisoformat(a).month<8)]
+        if str(year)in source:
+            spans += [(date.fromisoformat(a),date.fromisoformat(b))for a,b in source[str(year)]if (year==season and date.fromisoformat(a).month>=8)or(year==season+1 and date.fromisoformat(a).month<8)]
         else:
-            # Post-2030 careers remain playable; dates are explicitly projections.
-            for month,day,length in ([(9,21,15),(11,9,8)] if year==season else [(3,22,8),(6,7,8)]):
+            for month,day,length in ([(9,21,15),(11,9,8)]if year==season else[(3,22,8),(6,7,8)]):
                 a=date(year,month,day);a-=timedelta(days=a.weekday());spans.append((a,a+timedelta(days=length)))
-    return [a+timedelta(days=n) for a,b in spans for n in range((b-a).days+1) if (a+timedelta(days=n)).weekday() in (1,4)]
+    return spans
 
+@lru_cache(maxsize=64)
+def window_dates(season):
+    dates=[]
+    for a,b in window_spans(season):
+        maximum=4 if (b-a).days>=14 else 2
+        # Release begins Monday; Friday/Tuesday matchdays allow travel/rest.
+        slots=[a+timedelta(days=n)for n in range((b-a).days+1)if(a+timedelta(days=n)).weekday()in(1,4)]
+        dates.extend(slots[-maximum:])
+    return dates
+
+@lru_cache(maxsize=256)
 def finals_dates(season,key):
     year=season+1;span=calendar_source()['finals'].get(str(year),{}).get(key)
-    if span:
-        a,b=map(date.fromisoformat,span)
-        dates=[a+timedelta(days=n) for n in range(0,(b-a).days+1,4)]
-        if dates[-1]!=b:dates.append(b)
-        return dates
-    return [date(year,6,3)+timedelta(days=4*i) for i in range(12)]
+    if span:a,b=map(date.fromisoformat,span)
+    else:
+        # Unannounced future fixtures are explicit game projections, not FIFA dates.
+        a,b=(date(year,6,9),date(year,6,13))if key.startswith('nations_')else(date(year,6,13),date(year,7,18))if key=='world_cup'else(date(year,6,9),date(year,7,9))
+    count=2 if key.startswith('nations_')else 8 if key=='world_cup'else 5 if key=='ofc_nations'else 7
+    return [a+timedelta(days=round(i*(b-a).days/(count-1)))for i in range(count)]
+
+def fixture_slots(book,cup,f):
+    if cup.kind=='qualifying'and cup.key.startswith(('euro_q','world_cup_q'))and getattr(book,'calendar_version',1)>=2:
+        from national_campaigns import qualifier_dates
+        return qualifier_dates(book,cup,f)
+    if cup.key.startswith('nations_')and f['stage']!='League phase':
+        if cup.key=='nations_a'and f['stage']=='Last 8':return [d for d in window_dates(book.season)if d.month==3]
+        slots=finals_dates(book.season,cup.key)
+    elif cup.key in FINALS:slots=finals_dates(book.season,cup.key)
+    else:return window_dates(book.season)
+    if f['stage']=='Final':return slots[-1:]
+    if f['stage']=='Third-place match':return [slots[-1]-timedelta(days=1)]
+    if f['stage'].startswith('Last '):
+        size=int(f['stage'].split()[-1]);index={32:-5,16:-4,8:-3,4:-2}[size]
+        return slots[index:index+1]if index!=-1 else slots[-1:]
+    return slots[:3]
 
 def match_date(season,cup,f):
     return date.fromisoformat(f['date']) if f.get('date') else date(season,7,12)+timedelta(weeks=f['week'],days=3 if cup and cup.key.startswith('nations_') else 2 if cup is None or cup.national else 0 if cup.key.startswith('domestic:') else 1)
@@ -77,12 +104,20 @@ def schedule_book(book):
             if f.get('date') or f['score'] is not None:continue
             pending.append((f['week'],cup.key,f['id'],cup,f))
     for _,_,_,cup,f in sorted(pending,key=lambda item:item[:3]):
-        finals=cup.key in FINALS or (cup.key.startswith('nations_') and f['stage']!='League phase')
-        slots=finals_dates(book.season,cup.key) if finals else window_dates(book.season)
+        slots=fixture_slots(book,cup,f)
         previous=[date.fromisoformat(p['date']) for p in cup.fixtures if p.get('date') and p['group']==f['group'] and (p['home'] in (f['home'],f['away']) or p['away'] in (f['home'],f['away']))]
-        floor=max(previous,default=date(book.season,7,12))
-        available=[d for d in slots if d>floor and all((uid,d) not in occupied for uid in (f['home'],f['away']))]
-        if not available:raise ValueError('National calendar exceeds available match dates')
+        floor=max(previous,default=date(book.season-1,7,12)if cup.kind=='qualifying'else date(book.season,7,12))
+        def free(d):
+            for uid in (f['home'],f['away']):
+                days=[day for actor,day in occupied if actor==uid]
+                if any(abs((d-p).days)<3 for p in days):return False
+                for a,b in window_spans(book.season-1)+window_spans(book.season)+window_spans(book.season+1):
+                    if a<=d<=b:
+                        maximum=4 if (b-a).days>=14 else 2
+                        if sum(a<=p<=b for p in days)>=maximum:return False
+            return True
+        available=[d for d in slots if d>floor and free(d)]
+        if not available:raise ValueError(f'National calendar exceeds available match dates: {cup.key} {f["id"]} after {floor}')
         d=available[0];f['date']=d.isoformat();f['week']=(d-date(book.season,7,12)).days//7
         for uid in (f['home'],f['away']):occupied[uid,d]=f['id']
     for cup in book.tournaments.values():
