@@ -19,3 +19,8 @@ Keep minimum1030032 until actual Play availability. Commands: FIXES_1030037.md.
 Validation:47pure/staging/calendar/publisher tests pass(one hostJDK skip),13native
 header/contact/renderer/keeper/training tests pass. Android AAB audit passes
 118ELF16KiB, exact compiled runtime source and approved resources/ZIP alignment.
+
+Public delivery verified: GitHub AAB run43746161441 and automation v1.36
+run43745836299 succeeded. Public bootstrap/uploader/signing-helper and both
+preview SHA256 hashes match the pinned metadata; AAB asset is123950155bytes.
+Private bastion signing, Play submission and handset acceptance remain pending.

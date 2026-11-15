@@ -346,5 +346,9 @@
   "header_single_contact_launch": true,
   "header_grounded_shadow": true,
   "header_landing": true,
-  "ordinary_kicks_immediate": true
+  "ordinary_kicks_immediate": true,
+  "github_delivery_run": 43746161441,
+  "automation_delivery_run": 43745836299,
+  "public_helper_hashes_verified": true,
+  "public_previews_hashes_verified": true
 }
