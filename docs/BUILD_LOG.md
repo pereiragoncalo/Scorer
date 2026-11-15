@@ -3750,3 +3750,8 @@ Android38 retry succeeded. Unsigned World/production code1030038 AAB generated;
 including goal_audio and all248approved sprite frames/35sheets passed audit.
 Final27native tests pass; updated pinned-uploader suite25tests passes(one hostJDK
 skip). Original signing key never received; handset/Play acceptance pending.
+
+Public delivery verified: AAB run43748632722 and automation v1.37 run43748599314
+succeeded. Public bootstrap/uploader/signing-helper SHA256 hashes match pins;
+AAB asset123951855bytes matches audited manifest. Private bastion signing,
+Play submission and handset performance acceptance remain pending.

@@ -350,5 +350,8 @@
   "goal_audio_writable_atomic_cache": true,
   "goal_frames_audio_io": false,
   "unchanged_physics_samples": 1080,
-  "performance_phone_verified": false
+  "performance_phone_verified": false,
+  "github_delivery_run": 43748632722,
+  "automation_delivery_run": 43748599314,
+  "public_helper_hashes_verified": true
 }

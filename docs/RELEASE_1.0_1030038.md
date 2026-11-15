@@ -27,3 +27,8 @@ skips);27native UI tests pass; final pinned-uploader suite25pass(one hostJDK ski
 Android build and unsigned audit pass:World/production code1030038,16KiB native
 alignment/ZIP request and derived inspection APK alignment. Exact compiled
 runtime (including goal_audio) and248approved frames/35sheets match staging.
+
+Public delivery verified: AAB run43748632722 and automation v1.37 run43748599314
+succeeded. Public bootstrap/uploader/signing-helper SHA256 hashes match pins;
+AAB asset123951855bytes matches audited manifest. Private bastion signing,
+Play submission and handset performance acceptance remain pending.
