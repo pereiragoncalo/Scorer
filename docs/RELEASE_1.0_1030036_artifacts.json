@@ -339,5 +339,9 @@
   "reserved_training_retimed": true,
   "national_calendar_source": "docs/INTERNATIONAL_CALENDAR_1030036.md",
   "future_exact_dates": "projections unless explicitly sourced",
-  "backend_required": false
+  "backend_required": false,
+  "github_delivery_run": 43718398536,
+  "automation_delivery_run": 43718321587,
+  "public_helper_hashes_verified": true,
+  "public_previews_hashes_verified": true
 }

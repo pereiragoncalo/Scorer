@@ -3684,3 +3684,9 @@ compiled runtime source including national_campaigns/club_calendar pass. Exact
 international calendar JSON plus248base frames/35sheets retained and verified.
 No backend change or Play API mutation from Cloud; owner-side signing/publication
 and actual handset/Play availability remain pending.
+
+Final delivery1030036: Actions43718398536 success (AAB123947753bytes and digest
+verified); Actions43718321587 success (publisher1.35). Public three helper and
+two calendar preview hashes verified. Primary FF preserves main0/239, menu5/3,
+ignore and untracked career state work. Private bastion publication and actual
+Play/handset availability remain owner-side. No new backend mutation required.

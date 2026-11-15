@@ -18,3 +18,7 @@ Bastion commands: docs/play/FIXES_1030036.md.
 Validation:176combined tests pass with2documented host/fixture skips;11native
 UI journeys pass. New AAB independently passes production metadata,118ELF16KiB,
 compiled-source/resource and ZIP alignment audits. Device acceptance pending.
+
+Verified delivery: Actions43718398536 reassembled/hash-verified123947753-byte AAB
+and published both previews; Actions43718321587 tested/published uploader1.35.
+Public uploader/bootstrap/signer and two native preview hashes match expected.
