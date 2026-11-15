@@ -24,3 +24,9 @@ to38after preserving original floating-point sum semantics.
 
 Corrected Android39build/audit pass:unsigned World/production metadata,16KiB
 native/ZIP/inspection alignment, exact compiled runtime and248frames/35sheets.
+
+Public delivery verified: AAB run43754644723 and automation v1.38 run43754586318
+succeeded. Public bootstrap/uploader/signing-helper SHA256 hashes match pins;
+AAB asset123953016bytes matches audited manifest. Transfer commit was resumed
+after publishing its source parent; existing immutable blobs/checksums reused.
+Private signing/Play submission and handset performance acceptance remain pending.

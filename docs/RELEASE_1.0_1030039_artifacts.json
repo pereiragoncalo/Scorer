@@ -356,5 +356,8 @@
   "cloth_step_hz": 120,
   "physical_coefficients_unchanged": true,
   "host_profile_previous_mean_ms": 35.05,
-  "host_profile_mean_ms": 22.34
+  "host_profile_mean_ms": 22.34,
+  "github_delivery_run": 43754644723,
+  "automation_delivery_run": 43754586318,
+  "public_helper_hashes_verified": true
 }
