@@ -1,9 +1,0 @@
-Verified anonymous public download: world-1.0-1030017/Scorer-World-1.0-1030017-unsigned.aab 118181377 e708652b1f075e5d41ddfe7b72618c07dacacd8aea42546681a5cf6a3619b7a5
-Verified anonymous public download: world-1.0-1030017/bastion_bundle_1030017.py 2368 eb31500fd2bdae1d2b5ef5e6c12ba4d7c06fc95911b46a2f21a707f1eae2b788
-Verified anonymous public download: world-1.0-1030017/sign_local_bundle.py 4668 5492d1fa8de0e3072960a0c34eaf05548cdaaa51c84f154d8ef579c885fa6761
-Verified anonymous public download: play-automation-v1.16/bastion_play_internal.py 19309 aea38ed31ac5e385d2f7a7a5e8f0239d74b27dbbf13cba469d7e996de926fedd
-Verified anonymous public download: world-1.0-1030017/near-post-normal.mp4 732046 41e5090ef0134fd2e3617f4b55a75c22ce1dfda92cea8f1ab8d0590320a3c7a0
-Verified anonymous public download: world-1.0-1030017/near-post-quarter-speed.mp4 822943 675ab172a914972f9622df6efbd2bf427645bddf988605958b71eb464222287a
-Verified anonymous public download: world-1.0-1030017/pocket.png 49692 403db19c123761b8693ba5035ce0b3760c95b1dd510dd447e4b1c3c2fd83bd85
-Verified anonymous public download: world-1.0-1030017/simulator.png 63939 234bc54e6ad41862f036d303df54ed7b5fda43dcb0138ead944c4a0f0de5668f
-Verified anonymous public download: world-1.0-1030017/DEFORMABLE_NETS.md 8378 11d604e9aee39459757361a8943279c9c4d03110bd9f5db4cfcb071045f04743
