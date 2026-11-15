@@ -3733,3 +3733,20 @@ recorded separately below. No Android build or Play/policy update in this task.
 
 Final4native performance regressions pass, including worker/main-thread audio
 ordering. Total27distinct native tests passed. Syntax and git diff checks pass.
+
+## 2026-11-15 — World1030038 requested Android build
+
+Owner requested compilation of the opportunity CPU fixes. Production staging
+uses the existing reviewed publication.world1.0.review.json; first attempted
+example config correctly refused unset assertions before creating staging.
+Initial container build ran out of workspace disk before packaging. Preserved
+published37 AAB in /tmp after SHA256 check, moved12obsolete generated staging
+directories (marker/no.git verified) into /tmp, retaining source worktrees.
+Retry uses the existing shared Android distribution and16KiB audit toolchain.
+Core/audio/opportunity/staging/publisher tests:33pass(two host-tool skips).
+
+Android38 retry succeeded. Unsigned World/production code1030038 AAB generated;
+16KiB native/ZIP/inspection APK and metadata checks passed. Exact compiled source
+including goal_audio and all248approved sprite frames/35sheets passed audit.
+Final27native tests pass; updated pinned-uploader suite25tests passes(one hostJDK
+skip). Original signing key never received; handset/Play acceptance pending.
