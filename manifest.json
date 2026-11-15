@@ -1,0 +1,98 @@
+{
+  "version": "1.0-1030036-unsigned",
+  "filename": "Scorer-World-1.0-1030036-unsigned.aab",
+  "bytes": 123947753,
+  "sha256": "b51fe6b8f3ed72d0e0a72fc770dbd3254299a948f6f71c88316f6a10753bd425",
+  "parts": [
+    {
+      "name": "apk.part.00",
+      "bytes": 8388608,
+      "sha256": "e19b155d0884590a4c34a16d12c44b934350627f855c4b1b11af562a8af35c63",
+      "blob": "c636510b4ee2c4dca50f8fae0c0ba9f95411802a"
+    },
+    {
+      "name": "apk.part.01",
+      "bytes": 8388608,
+      "sha256": "efc65ba555acbb0467f1abaeb3d9b20d9b5067f68781d3b2577ed8788ba8a2ea",
+      "blob": "64c4c0300a551b6f920265835175c0ab94818863"
+    },
+    {
+      "name": "apk.part.02",
+      "bytes": 8388608,
+      "sha256": "7e51852a75baeea97e681166778f6361491643d8d0c2bceaac61bfb57de55254",
+      "blob": "34e3991d9e9d55ba3070bc64446e92d054f2b9da"
+    },
+    {
+      "name": "apk.part.03",
+      "bytes": 8388608,
+      "sha256": "2d7eea9562b00b3cd30f6ddf3498c0d99b0249d3189af10377d46f7e47b9b38d",
+      "blob": "03eecd549531045d6b531a4bf38f31634f8700c8"
+    },
+    {
+      "name": "apk.part.04",
+      "bytes": 8388608,
+      "sha256": "801f3bfd4eefa7abfdc76521a5efa59cef16c20da02c1a55f979658308c5676c",
+      "blob": "51e342f475a7d43fbba1bc383f21b3b7c2116c05"
+    },
+    {
+      "name": "apk.part.05",
+      "bytes": 8388608,
+      "sha256": "17ae666489b3bf117d8d7453830ae9b27a33cb156b684f941e261879b6dd5652",
+      "blob": "a6be8336b8355db3de2786f07674882d2c9643de"
+    },
+    {
+      "name": "apk.part.06",
+      "bytes": 8388608,
+      "sha256": "a57984b52da762425b0ae5d73e35a2acf11f7146365d9982cd8a1925c8d56b1e",
+      "blob": "7120ec961f3d41ea54322aef894ac5ff7fb264b8"
+    },
+    {
+      "name": "apk.part.07",
+      "bytes": 8388608,
+      "sha256": "9a129c7f8cacdf49f2edaea6893c2c2f36675f651415ea37c1e9d752b2d104f1",
+      "blob": "9afcec568c82b3ec8dfefded7b592f23641874e9"
+    },
+    {
+      "name": "apk.part.08",
+      "bytes": 8388608,
+      "sha256": "7f52db691a1a07603d844ada5a0a1ef8a0589ffcff59f1f074d3d5eb265ca4fb",
+      "blob": "ffd7c2edc3194498b56bf64c6f7e33c04f9490e1"
+    },
+    {
+      "name": "apk.part.09",
+      "bytes": 8388608,
+      "sha256": "5c6be54a690ae0e9f41a486f2ce74a02b2b65cd1df4b28e9626459739f7493e5",
+      "blob": "afaac21d38ac4c28595a165ea3b417bc73f80757"
+    },
+    {
+      "name": "apk.part.10",
+      "bytes": 8388608,
+      "sha256": "6b5cc470b06cd7d3fd020bb385391e550d023f06efa657c09099cf9688692e6d",
+      "blob": "edaba5df86f6fcc0e3fd358c2e9a4bf0aef2235f"
+    },
+    {
+      "name": "apk.part.11",
+      "bytes": 8388608,
+      "sha256": "3748c2ff4a4291087cd7679e82ab94aca42dd2072488d2622ed07f6d4120242f",
+      "blob": "6f3703eedb638c65b552145ffdb295da4cb49aa7"
+    },
+    {
+      "name": "apk.part.12",
+      "bytes": 8388608,
+      "sha256": "1ad090d7f243b4c9afc940baac591d31691366caec25a109af5c1eb6a2c1a6a7",
+      "blob": "b2d8dc0ed0bd08758758e70153cb4431760f533b"
+    },
+    {
+      "name": "apk.part.13",
+      "bytes": 8388608,
+      "sha256": "1d5365b8a0599362329493310102afc6238957c62fcfb8884244118c2e7b17e8",
+      "blob": "2bfda6ac22c9de4f7e6afd899dcdafe1367e8e46"
+    },
+    {
+      "name": "apk.part.14",
+      "bytes": 6507241,
+      "sha256": "47a1ea3bc80fde6c2ab8e1956a13c19caf738ebba5321e4cdcd9b91d9745368d",
+      "blob": "65b6a04f4eca0e23e4540d5eb6ec9948b85deb32"
+    }
+  ]
+}
