@@ -1,7 +1,0 @@
-{
-  "source": "255d64a31eb0d359c5c3672409dcb1eec1baa030",
-  "files": {
-    "server/usage_collector.py": "e5f1d1c0f5203ad7efa90ebe8afca4ad0787f8f32cd2345c916507c023c305a3",
-    "server/dashboard.html": "cc55a0a9ef8a407898e37c34d1367df1b382151840c148e23fd1c9106553d609"
-  }
-}
