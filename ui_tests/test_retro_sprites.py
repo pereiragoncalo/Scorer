@@ -27,7 +27,7 @@ class RetroSpriteIntegration(unittest.TestCase):
             while g.state==g.STATE_BUILDUP:g.update(.1)
             g.state_age=.3
             self.assertEqual(hero_pose(g).frame,0)
-            height=g.ball.z;g.shoot(2.,1.)
+            height=g.ball.z;g.shoot(2.,1.);g.update(.11);g.update(.11)
             self.assertEqual(hero_pose(g).frame,3)
             self.assertEqual(g.ball.z,height)
 
@@ -70,6 +70,7 @@ class RetroSpriteIntegration(unittest.TestCase):
                 g.state=g.STATE_AIMING;g.state_age=.3;g.draw()
                 self.assertEqual(hero_pose(g).frame,0 if g.shot_type=='header' else 2)
                 g.shoot(2.,1.)
+                if g.shot_type=='header':g.update(.11);g.update(.11)
                 self.assertEqual(hero_pose(g).frame,3)
                 self.assertTrue(g.ball.active)
                 before=self.physics(g);g.draw();self.assertEqual(self.physics(g),before)

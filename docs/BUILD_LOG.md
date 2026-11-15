@@ -3690,3 +3690,18 @@ verified); Actions43718321587 success (publisher1.35). Public three helper and
 two calendar preview hashes verified. Primary FF preserves main0/239, menu5/3,
 ignore and untracked career state work. Private bastion publication and actual
 Play/handset availability remain owner-side. No new backend mutation required.
+
+##2026-11-15 — World1030037 jumping headers
+
+Root cause: every pre/post-contact header frame was forehead-pinned to a fixed
+ball position, cancelling most authored jump travel. Reused approved crouch/
+jump/landing art with fixed contact-frame calibration, grounded shadow and a
+smooth returning root. First input queues0.22s wind-up, locks selected aim and
+countdown, ignores repeated input; ball launches once at frame3. Shared header
+cross/launch height1.65->2m matches an airborne forehead; ordinary target solver,
+ball+5%, kick timing retained. Pressure continues; reset clears queue.
+47pure/trajectory/opportunity/calendar/staging/publisher tests pass(one hostJDK
+skip),13native header/contact/keeper/render/training tests pass. Old immediate
+header assertions updated to wait for actual contact. Native ready/takeoff/
+contact/landing App captures reviewed; contact shows feet visibly above shadow.
+Final validation/build/audit below; handset acceptance remains pending.

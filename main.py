@@ -1117,6 +1117,8 @@ class StrikerGame(Widget):
             self._start_opportunity(self.match_opportunities[index],(self.match_opportunity_seed,index))
 
     def _start_opportunity(self,kind,seed):
+        from heading_animation import reset as reset_heading
+        reset_heading(self)
         delivery=make_delivery(kind,seed)
         # Keep both the receiver and the distant delivery source in view.
         def visibility(candidate):
@@ -1413,6 +1415,11 @@ class StrikerGame(Widget):
             from defensive_pressure import advance as advance_pressure
             advance_pressure(self,frame_dt);self.draw();return
 
+        from heading_animation import advance as advance_heading
+        if advance_heading(self,frame_dt):
+            from defensive_pressure import advance as advance_pressure
+            advance_pressure(self,frame_dt)
+            self.draw();return
         if self.state == self.STATE_AIMING:
             self.player_kick_progress = 0.0
             if self.shot_context == "match":
@@ -2009,6 +2016,13 @@ class StrikerGame(Widget):
 
 
     def shoot(self, x: Optional[float] = None, z: Optional[float] = None) -> None:
+        if self._context_help is not None or self.state!=self.STATE_AIMING:return
+        if self.shot_type=='header':
+            from heading_animation import queue
+            queue(self,x,z);return
+        self._launch_shot(x,z)
+
+    def _launch_shot(self, x: Optional[float] = None, z: Optional[float] = None) -> None:
         if self._context_help is not None or self.state != self.STATE_AIMING:
             return
 
@@ -2910,6 +2924,8 @@ class StrikerGame(Widget):
 
 
     def _prepare_next_shot(self) -> None:
+        from heading_animation import reset as reset_heading
+        reset_heading(self)
         if getattr(self,'goal_celebration',None) is not None:
             self._crowd_celebrate_until=min(self._crowd_celebrate_until,self.elapsed+1.)
         self.goal_celebration=None
@@ -3092,6 +3108,7 @@ class StrikerGame(Widget):
             if self.state==self.STATE_BUILDUP:return True
             self.reset_statistics()
             return True
+        if self.view=='shot' and getattr(self,'_header_pending',None)is not None:return True
         if codepoint and codepoint.lower() == "c":
             self.auto_aim = True
             return True
@@ -3159,6 +3176,7 @@ class StrikerGame(Widget):
             return True
 
 
+        if getattr(self,'_header_pending',None)is not None:return True
         world_x, world_z = self.unproject_goal(touch.x, touch.y)
         inside_goal = (
             -self.goal_half_width <= world_x <= self.goal_half_width
@@ -5322,14 +5340,14 @@ class StrikerGame(Widget):
         player_kit,_=self._match_outfield_kits()
         facing=self.project(player_x+forward_x,player_y+forward_y,0.)[0]<self.project(player_x,player_y,0.)[0]
         joint=None;target=None
-        if is_header and (self.state==self.STATE_AIMING or (self.state==self.STATE_SHOT and self.player_kick_progress<.55)):
-            # Pause just before forehead contact, then meet the ball on release.
-            lead=self.ball.radius+(.025 if self.state==self.STATE_AIMING else 0.)
-            target=self.project(self.shot_origin_x-forward_x*lead,self.shot_origin_y-forward_y*lead,HEADER_BALL_HEIGHT)
-            joint='forehead'
-        self._retro_renderer().draw(self,'hero','players',hero_pose(self,facing),
-                                   (player_x,player_y,0.),PLAYER_HEIGHT_METRES,
-                                   kit_palette(player_kit),joint=joint,target=target)
+        renderer=self._retro_renderer();pose=hero_pose(self,facing)
+        if is_header and self.state!=self.STATE_BUILDUP:
+            from heading_animation import root_target
+            lead=self.ball.radius
+            contact=self.project(self.shot_origin_x-forward_x*lead,self.shot_origin_y-forward_y*lead,HEADER_BALL_HEIGHT)
+            target=root_target(self,renderer,pose,(player_x,player_y,0.),contact)
+        renderer.draw(self,'hero','players',pose,(player_x,player_y,0.),PLAYER_HEIGHT_METRES,
+                      kit_palette(player_kit),joint=joint,target=target)
 
 
     def _draw_goalkeeper(self) -> None:

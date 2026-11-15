@@ -45,7 +45,8 @@ def hero_pose(game,flipped=False):
     if game.state==game.STATE_AIMING:
         # Wind-up occurs before launch. Launch is still immediate at the real
         # physics event; the first post-launch frame is the authored contact.
-        frame=0 if state=='HEADER' else min(2,int(game.state_age*10))
+        from heading_animation import windup_frame
+        frame=windup_frame(game)if state=='HEADER'else min(2,int(game.state_age*10))
     else:
         # Authored contact frame; forehead is aligned to the real launch point.
         contact=3

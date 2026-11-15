@@ -34,5 +34,5 @@ class KeeperHeaderContactTests(unittest.TestCase):
    self.assertEqual(g.state,g.STATE_AIMING);self.assertEqual(g.ball.z,HEADER_BALL_HEIGHT);self.assertFalse(g.ball.active);self.assertEqual(hero_pose(g).frame,0)
    renderer=g._retro_renderer();before=copy.deepcopy(vars(g.ball))
    with patch.object(renderer,'draw') as draw:g._draw_player()
-   self.assertEqual(draw.call_args.kwargs['joint'],'forehead');self.assertEqual(vars(g.ball),before)
-   g.shoot(1.,1.);self.assertEqual(hero_pose(g).frame,3);self.assertTrue(g.ball.active);self.assertEqual(g.ball.z,HEADER_BALL_HEIGHT)
+   self.assertIsNone(draw.call_args.kwargs['joint']);self.assertEqual(vars(g.ball),before)
+   g.shoot(1.,1.);self.assertFalse(g.ball.active);g.update(.11);g.update(.11);self.assertEqual(hero_pose(g).frame,3);self.assertTrue(g.ball.active);self.assertEqual(g.ball.z,HEADER_BALL_HEIGHT)
