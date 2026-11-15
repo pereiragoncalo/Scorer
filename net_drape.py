@@ -185,7 +185,10 @@ class RollingReplay:
         # past the ball within one step. Project against the actual nearest
         # finite cloth face, never an undeformed/infinite goal boundary.
         if isinstance(c,TetheredCloth):c.constrain_tethers()
-        if was_active or contacts:self.mesh.refresh()
+        if was_active or contacts:
+            touched={node for item in contacts for node,weight in item[2]}
+            if isinstance(c,TetheredCloth):touched.update(index for index,endpoint,length in c.tethers)
+            self.mesh.refresh_contacts(touched)
         if contacts and self.geometry.structure=='rounded':b[2]=max(self.radius,min(b[2],energy/19.62))
         for _ in range(2):
             escape=self.mesh.escaped_contact(b,self.radius,old,energy/19.62)

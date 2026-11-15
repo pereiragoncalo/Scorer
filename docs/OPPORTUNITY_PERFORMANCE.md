@@ -52,3 +52,23 @@ across box/veil/rounded nets and12/30m/s shots. Syntax/diff checks pass.
 Initial native run found a test cleanup race when workers were started by widget
 construction; fixed by starting preload in the real App.on_start instead.
 Android compilation and owner handset acceptance remain pending.
+
+## Follow-up after1030038 handset feedback
+
+Owner reports both slow motion and stutters remain.38is therefore not accepted
+as a handset performance fix. Further source changes target the simulation,
+not a playback-speed multiplier or softer/less accurate net:
+- Full swept broad-phase refit remains once per moving cloth step. Subsequent
+  contact corrections only refit faces incident to touched/contact or tether
+  nodes. Other faces retain safe conservative swept bounds. Exact current cloth
+  triangles and moving-sheet CCD still decide all contacts/containment.
+- Freeze camera values once per dynamic net projection batch, instead of reading
+  widget camera properties for every strand vertex.
+- Scalar3D vector/spring arithmetic avoids inner generator/axis-loop overhead,
+  retaining operation order and the original120Hz integration/coefficients.
+
+Same local profiling harness against exported38source: mean postgoal CPU frame
+35.05ms ->23.12ms; maximum65.75ms ->34.29ms in this short sample. Timings INCLUDE
+cProfile overhead and are not phone FPS. New full-refit/partial-refit regression
+compares ball/velocity/cloth positions through120steps in all three net shapes.
+Handset outcome remains unverified until39is installed and tried by the owner.

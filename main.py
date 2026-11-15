@@ -5184,7 +5184,8 @@ class StrikerGame(Widget):
         if getattr(self,'_net_render_key',None)!=key:
             self._net_renderer=NetRenderer(cloth,self.goal_net_style.mesh,low);self._net_render_key=key
         ball=ball_position(self) if self.result_text=='GOAL!' and cloth.contact else None
-        self._net_renderer.draw(self.canvas,self.project,(self.pos,self.size,self.desktop_windows),ball)
+        from goal_projection import projector
+        self._net_renderer.draw(self.canvas,projector(*self.camera_values()),(self.pos,self.size,self.desktop_windows),ball)
 
     def _draw_net_foreground(self):
         renderer=getattr(self,'_net_renderer',None)

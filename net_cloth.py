@@ -252,8 +252,10 @@ class NetCloth:
             # goes slack before structural tension rises. Shear is softer.
             extension=max(0,distance-length*(1+c.net_slack*.12))
             spring=c.net_wave_propagation*strength*extension/max(.0001,distance)
-            for axis,delta in enumerate((dx,dy,dz)):
-                force=spring*delta;forces[a][axis]+=force;forces[b][axis]-=force
+            fa,fb=forces[a],forces[b]
+            force=spring*dx;fa[0]+=force;fb[0]-=force
+            force=spring*dy;fa[1]+=force;fb[1]-=force
+            force=spring*dz;fa[2]+=force;fb[2]-=force
         damping=math.exp(-c.net_damping*dt);max_move=0.;max_speed=0.
         cap=(c.net_max_stretch-1)*1.8
         for i,point in enumerate(p):
@@ -273,8 +275,9 @@ class NetCloth:
                 if distance2<=limit*limit or self.pinned[a] and self.pinned[b]:continue
                 distance=math.sqrt(distance2);factor=(distance-limit)/distance
                 wa=0 if self.pinned[a] else 1;wb=0 if self.pinned[b] else 1;factor/=wa+wb
-                for axis,delta in enumerate((dx,dy,dz)):
-                    pa[axis]+=delta*factor*wa;pb[axis]-=delta*factor*wb
+                pa[0]+=dx*factor*wa;pb[0]-=dx*factor*wb
+                pa[1]+=dy*factor*wa;pb[1]-=dy*factor*wb
+                pa[2]+=dz*factor*wa;pb[2]-=dz*factor*wb
         for i,point in enumerate(p):
             if self.pinned[i]:continue
             max_move=max(max_move,math.dist(point,self.rest[i]));max_speed=max(max_speed,math.dist(point,previous[i])/dt)

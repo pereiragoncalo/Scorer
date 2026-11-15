@@ -1,9 +1,9 @@
 """Finite, welded cloth triangles: sphere contact and swept face/edge tests."""
 import math
 
-def dot(a,b):return sum(x*y for x,y in zip(a,b))
-def sub(a,b):return tuple(x-y for x,y in zip(a,b))
-def mix(a,b,t):return tuple(x+(y-x)*t for x,y in zip(a,b))
+def dot(a,b):return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]
+def sub(a,b):return (a[0]-b[0],a[1]-b[1],a[2]-b[2])
+def mix(a,b,t):return (a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t)
 def closest(p,a,b,c):
     ab,ac,ap=sub(b,a),sub(c,a),sub(p,a);d1,d2=dot(ab,ap),dot(ac,ap)
     if d1<=0 and d2<=0:return a,(1.,0.,0.)
@@ -45,6 +45,10 @@ class ClothContacts:
                         if dot(normal(*points),reference)<0:indices=(indices[0],indices[2],indices[1])
                         triangles.append(indices);self.references[indices]=reference
             self.triangles[surface]=triangles
+        self.incident={}
+        for surface,triangles in self.triangles.items():
+            for index,ids in enumerate(triangles):
+                for node in ids:self.incident.setdefault(node,set()).add((surface,index))
         self.candidates=None;self.previous_positions=None;self.refresh()
     def refresh(self,previous=None):
         self.previous_positions=previous
@@ -63,6 +67,22 @@ class ClothContacts:
                                min(row[2],a[1]-.25,b[1]-.25,c[1]-.25),max(row[3],a[1]+.25,b[1]+.25,c[1]+.25),
                                min(row[4],a[2]-.25,b[2]-.25,c[2]-.25),max(row[5],a[2]+.25,b[2]+.25,c[2]+.25))
             self.bounds[surface]=bounds
+    def refresh_contacts(self,nodes):
+        """Refit only faces moved by contacts after the full swept-step refit.
+
+        Other faces retain conservative previous/current union bounds. Narrow
+        phase still uses exact current triangles, so broader bounds are safe.
+        """
+        self.previous_positions=None
+        faces=set()
+        for node in nodes:faces.update(self.incident.get(node,()))
+        positions=self.cloth.positions
+        for surface,index in faces:
+            ia,ib,ic=self.triangles[surface][index]
+            a,b,c=positions[ia],positions[ib],positions[ic]
+            self.bounds[surface][index]=(min(a[0],b[0],c[0])-.25,max(a[0],b[0],c[0])+.25,
+                                        min(a[1],b[1],c[1])-.25,max(a[1],b[1],c[1])+.25,
+                                        min(a[2],b[2],c[2])-.25,max(a[2],b[2],c[2])+.25)
     def select(self,start,end,radius):
         lo=[min(start[a],end[a])-radius for a in range(3)];hi=[max(start[a],end[a])+radius for a in range(3)]
         self.candidates={s:[(ids,b)for ids,b in zip(self.triangles[s],self.bounds[s])if lo[0]<=b[1] and hi[0]>=b[0] and lo[1]<=b[3] and hi[1]>=b[2] and lo[2]<=b[5] and hi[2]>=b[4]]for s in self.triangles}

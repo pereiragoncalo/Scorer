@@ -6,3 +6,10 @@ def project_point(x,y,z,center_x,center_y,focal):
     depth=max(.05,dx*CAMERA_FORWARD[0]+dy*CAMERA_FORWARD[1]+dz*CAMERA_FORWARD[2])
     return (center_x+focal*(dx*CAMERA_RIGHT[0]+dy*CAMERA_RIGHT[1]+dz*CAMERA_RIGHT[2])/depth,
             center_y+focal*(dx*CAMERA_UP[0]+dy*CAMERA_UP[1]+dz*CAMERA_UP[2])/depth)
+
+
+def projector(center_x,center_y,focal):
+    """Freeze camera values once for a batch of dynamic net vertices."""
+    def project(x,y,z):
+        return project_point(x,y,z,center_x,center_y,focal)
+    return project
