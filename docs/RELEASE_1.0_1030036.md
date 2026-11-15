@@ -14,3 +14,7 @@ and fictional draw/qualification formats remain game projections/models. See
 Validation and audit recorded in BUILD_LOG.md. Physical device and actual Play
 availability remain owner-side. Keep minimum1030032 until Play offers the update.
 Bastion commands: docs/play/FIXES_1030036.md.
+
+Validation:176combined tests pass with2documented host/fixture skips;11native
+UI journeys pass. New AAB independently passes production metadata,118ELF16KiB,
+compiled-source/resource and ZIP alignment audits. Device acceptance pending.

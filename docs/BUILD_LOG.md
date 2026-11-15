@@ -3668,3 +3668,19 @@ schedule/presentation/domestic tests,20clock/coach tests and11native UI/training
 player/competition journeys pass. Final combined regression and Android audit
 follow. Published previous35bundle preserved with verified hash in/tmp to free
 build space. Original signing and primary unrelated main/menu edits retained.
+
+Final combined suite:176tests in95.989s, pass with2skips (previous portable
+approved bundle not at its former path after space-preserving relocation, and
+host full-JDK signing fixture). The actual new Android build is independently
+audited. Final publisher25tests pass with one hostJDK skip.11native journeys
+pass, including real competition and dashboard date labels,9languages, compact
+controls, training and35title/history UI. Native NLA/Euro qualifying screenshots
+reviewed. Source:46447a1dec78bb0271c51964575afb0afa3081d9.
+
+Android1030036 AAB123947753bytes, SHA256
+b51fe6b8f3ed72d0e0a72fc770dbd3254299a948f6f71c88316f6a10753bd425.
+Unsigned World/production metadata,118ELF16KiB, derived APK ZIP alignment and exact
+compiled runtime source including national_campaigns/club_calendar pass. Exact
+international calendar JSON plus248base frames/35sheets retained and verified.
+No backend change or Play API mutation from Cloud; owner-side signing/publication
+and actual handset/Play availability remain pending.
