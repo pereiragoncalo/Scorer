@@ -78,6 +78,20 @@ build-tools 37.0.0; both installed versions were recorded, not represented as
 an exclusively 36.0.0 build. Actual packaging subsequently selected build-tools 37.0.0.
 Build outputs remain in `.buildozer/` and `bin/`; a development APK is now available; see verification below.
 
+### Limited local disk
+
+Use a shallow checkout when investigating or building only the current revision.
+The local Docker tool image uses pinned Debian slim and installs system and
+Python tools in one layer. This reduces temporary layer copies on Docker's VFS
+driver. The SDK installer checks the pinned command-line archive before
+extracting it, uses a temporary directory and keeps the installed tool for
+repeat runs.
+
+The SDK, NDK, native compilation and Gradle still require separate disk space.
+For environments with constrained local disk, use a GitHub-hosted runner for
+the release-format build and keep the local checkout for source tests. Keep
+one shared native cache when compiling editions sequentially.
+
 ### Build after publication — debug APK produced
 
 The user's publication applied runtime configuration revision 2. A fresh
