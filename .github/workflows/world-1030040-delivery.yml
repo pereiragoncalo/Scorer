@@ -1,0 +1,35 @@
+name: Deliver audited World 1030040 to GitHub
+on:
+  push:
+    branches: [codex/world-1030040-release]
+permissions:
+  actions: read
+  contents: write
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: scorer-world-1.0-1030040-unsigned
+          run-id: 44344853870
+          github-token: ${{ github.token }}
+          path: /tmp/scorer-audited
+      - name: Verify and deliver existing audited AAB
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          aab=/tmp/scorer-audited/bin/Scorer-World-1.0-1030040-unsigned.aab
+          printf '%s  %s\n' cd93d4dd0d42c0c555d7d4f959d70fc2a2bb79729e7387aeba0a6d666ec46ad0 "$aab" | sha256sum -c -
+          test "$(stat -c %s "$aab")" = 123962887
+          cp tools/play/bastion_publish_1030040.py /tmp/bastion_play_internal.py
+          cp /tmp/scorer-audited/qa-aab-report.json /tmp/Scorer-World-1.0-1030040-audit.json
+          (cd /tmp && sha256sum bastion_play_internal.py > Scorer-World-1.0-1030040-SHA256SUMS)
+          printf '%s  %s\n' cd93d4dd0d42c0c555d7d4f959d70fc2a2bb79729e7387aeba0a6d666ec46ad0 "${aab##*/}" >> /tmp/Scorer-World-1.0-1030040-SHA256SUMS
+          gh release create world-1.0-1030040 --target "$GITHUB_SHA" --prerelease --title 'Scorer World 1.0 (1030040)' \
+            --notes 'Unsigned, audited Android bundle and owner-side Google Play Internal publisher. Source build and audit: GitHub Actions run 44344853870. Google Play submission is performed separately by the owner.' \
+            "$aab" /tmp/bastion_play_internal.py /tmp/Scorer-World-1.0-1030040-audit.json /tmp/Scorer-World-1.0-1030040-SHA256SUMS

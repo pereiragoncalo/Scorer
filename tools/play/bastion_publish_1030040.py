@@ -13,6 +13,7 @@ import zipfile
 
 VERSION = 1030040
 BUNDLE = 'Scorer-World-1.0-1030040-unsigned.aab'
+RELEASE_URL = 'https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030040/'
 BUNDLE_SHA = 'cd93d4dd0d42c0c555d7d4f959d70fc2a2bb79729e7387aeba0a6d666ec46ad0'
 BUNDLE_BYTES = 123962887
 UPLOADER_SHA = 'bc0725dac5c1132ce4542d76e9d3777ade333ea2a83ba23cde457def0594e983'
@@ -57,7 +58,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument('--check', action='store_true')
-    mode.add_argument('--publish', type=Path, metavar='ZIP_OU_AAB')
+    mode.add_argument('--publish', nargs='?', const=True, type=Path, metavar='ZIP_OU_AAB')
     args = parser.parse_args()
 
     os.umask(0o077)
@@ -74,7 +75,21 @@ def main():
                 uploader.publish(client, None, '', check_only=True)
                 return
 
-            bundle = copy_bundle(args.publish, directory, uploader.sha)
+            if args.publish is True:
+                print('A descarregar o AAB 1030040 do GitHub…', flush=True)
+                bundle = directory / BUNDLE
+                with urlopen(RELEASE_URL + BUNDLE, timeout=90) as response, bundle.open('xb') as output:
+                    remaining = BUNDLE_BYTES + 1
+                    while remaining:
+                        data = response.read(min(remaining, 1024 * 1024))
+                        if not data:
+                            break
+                        output.write(data)
+                        remaining -= len(data)
+                if bundle.stat().st_size != BUNDLE_BYTES or uploader.sha(bundle) != BUNDLE_SHA:
+                    raise ValueError('O AAB descarregado não corresponde ao AAB 1030040 auditado')
+            else:
+                bundle = copy_bundle(args.publish, directory, uploader.sha)
             uploader.VERSION = VERSION
             uploader.PAYLOAD = uploader.payload_digest(bundle)
             uploader.internal_release = lambda: {
