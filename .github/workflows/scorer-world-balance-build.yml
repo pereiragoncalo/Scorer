@@ -1,4 +1,4 @@
-name: Scorer World season balance AAB QA
+name: Scorer World 1.0 (1030040) unsigned AAB
 
 on:
   push:
@@ -96,12 +96,22 @@ jobs:
             virtualenv==20.36.1 \
             packaging==26.3
 
-      - name: Stage World QA source outside the repository
+      - name: Stage World production source without credentials
         run: |
           set -euo pipefail
+          python - <<'PYCODE'
+          import json
+          from pathlib import Path
+
+          config = json.loads(Path("release/play.production.example.json").read_text())
+          config["version_code"] = 1030040
+          Path("/tmp/scorer-1030040-production.json").write_text(json.dumps(config))
+          PYCODE
           python tools/prepare_editions.py \
             --edition world \
-            --channel rehearsal \
+            --channel production \
+            --config /tmp/scorer-1030040-production.json \
+            --publication-config release/publication.world1.0.review.json \
             --output "$SCORER_STAGE"
           # The existing staging helper links to a shared Codex container.
           # That container does not exist on a GitHub-hosted runner.
@@ -124,11 +134,13 @@ jobs:
           assert app["android.release_artifact"] == "aab"
           assert app["android.ndk"] == "28c"
           assert app["p4a.extra_args"] == "--dist_name=striker"
+          assert app["android.numeric_version"] == "1030040"
+          assert app["version"] == "1.0"
           # SDK licences are accepted for the ephemeral CI build only.
           app["android.accept_sdk_license"] = "True"
           with spec.open("w", encoding="utf-8") as out:
               cfg.write(out)
-          print("Isolated World rehearsal configuration verified.")
+          print("Isolated World 1.0 production configuration verified.")
           PY
 
       - name: Build release-format AAB without production credentials
@@ -220,7 +232,8 @@ jobs:
             echo "Expected exactly one unsigned AAB; found ${#bundles[@]}." >&2
             exit 1
           fi
-          aab="${bundles[0]}"
+          aab="$SCORER_STAGE/bin/Scorer-World-1.0-1030040-unsigned.aab"
+          mv "${bundles[0]}" "$aab"
           curl --fail --location --retry 3 --silent --show-error \
             -o /tmp/bundletool-all-1.18.1.jar \
             https://github.com/google/bundletool/releases/download/1.18.1/bundletool-all-1.18.1.jar
@@ -232,12 +245,32 @@ jobs:
           cd "$SCORER_STAGE"
           python tools/play/verify.py "$aab" \
             --manifest "$SCORER_STAGE/bundle-manifest.xml" \
-            --channel rehearsal --package com.clemir.scorerworld \
+            --channel production --package com.clemir.scorerworld \
             --expected-catalogue "$SCORER_STAGE/assets/data/world_clubs.json" \
             > "$SCORER_STAGE/static-audit.json"
           python tools/android/verify_elf_alignment.py "$aab" \
             --readelf "$ANDROID_HOME/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-readelf" \
             > "$SCORER_STAGE/elf-audit.txt"
+          host_python="$(find .buildozer/android/platform -path '*/hostpython3/native-build/python' -type f -print -quit)"
+          test -x "$host_python"
+          "$host_python" tools/verify_release_payload.py "$aab" world production > "$SCORER_STAGE/compiled-audit.txt"
+          "$host_python" - "$aab" <<'PYCODE'
+          import io
+          import marshal
+          import sys
+          import tarfile
+          from pathlib import Path
+          from zipfile import ZipFile
+
+          with ZipFile(sys.argv[1]) as bundle:
+              payload = next(name for name in bundle.namelist() if name.endswith("assets/private.tar"))
+              with tarfile.open(fileobj=io.BytesIO(bundle.read(payload))) as archive:
+                  for filename in ("career.py", "main.py", "release_settings.py"):
+                      entry = next(item for item in archive if item.name.split("/")[-1] == filename + "c")
+                      code = marshal.loads(archive.extractfile(entry).read()[16:])
+                      expected = compile(Path(filename).read_bytes(), code.co_filename, "exec", optimize=2)
+                      assert code == expected, f"Compiled source differs for {filename}"
+          PYCODE
           AAB_PATH="$aab" python - <<'PY'
           import hashlib
           import json
@@ -256,14 +289,17 @@ jobs:
                   if n.upper().startswith("META-INF/")
                   and n.upper().endswith((".SF", ".RSA", ".DSA", ".EC"))
               ]
-              assert not signatures, "AAB unexpectedly signed; refusing QA release"
+              assert not signatures, "AAB unexpectedly signed; refusing unsigned artifact"
           config = json.loads(Path("bundle-config.json").read_text())
           alignment = config["optimizations"]["uncompressNativeLibraries"]["alignment"]
           assert alignment == "PAGE_ALIGNMENT_16K", f"Expected 16KB alignment: {alignment}"
           digest = hashlib.sha256(path.read_bytes()).hexdigest()
           report = {
-              "purpose": "unsigned QA AAB, not suitable for Google Play upload",
+              "purpose": "unsigned production AAB for owner-side signing",
               "package": "com.clemir.scorerworld",
+              "version_name": "1.0",
+              "version_code": 1030040,
+              "compiled_source_verified": True,
               "source_sha": os.environ["GITHUB_SHA"],
               "sha256": digest,
               "size_bytes": path.stat().st_size,
@@ -283,7 +319,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: scorer-world-season-balance-aab-qa
+          name: scorer-world-1.0-1030040-unsigned
           path: |
             /tmp/scorer-world-aab-stage/bin/*.aab
             /tmp/scorer-world-aab-stage/qa-aab-report.json
@@ -292,6 +328,7 @@ jobs:
             /tmp/scorer-world-aab-stage/bundle-config.json
             /tmp/scorer-world-aab-stage/static-audit.json
             /tmp/scorer-world-aab-stage/elf-audit.txt
+            /tmp/scorer-world-aab-stage/compiled-audit.txt
           if-no-files-found: warn
-          retention-days: 7
+          retention-days: 30
           compression-level: 0
