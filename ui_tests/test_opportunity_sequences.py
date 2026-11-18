@@ -10,6 +10,27 @@ class OpportunityScenes(unittest.TestCase):
         c=g.career;c.accept_starting_offer(c.offers[0]);c.attend_coach_meeting();c.last_training_week=c.week
         g.start_career_match();Clock.unschedule(g.update);g.view='shot';g.shot_context='match';g.current_chance_difficulty='hard'
         g._prepare_next_shot();g.shot_time_limit=g.shot_time_left=4.;return c
+    def test_world_match_schedules_and_opens_a_fifth_opportunity(self):
+        with patch('edition.WORLD_BUILD', True), isolated_game() as game:
+            career = game.career
+            self.assertTrue(career.accept_starting_offer(career.offers[0]))
+            career.attend_coach_meeting()
+            career.morale = career.stamina = 20
+            career.last_training_week = career.week
+            competition, home, away = career.next_match()
+            opponent = away if home.name == career.club_name else home
+            opponent.rating = 45
+            with patch.object(career, 'next_match', return_value=(competition, home, away)):
+                with patch.object(career.rng, 'gauss', return_value=5):
+                    game.start_career_match()
+            self.assertEqual(len(set(game.match_chance_minutes)), 5)
+            self.assertEqual(len(game.match_opportunities), 5)
+            game.match_chance_index = 4
+            game.awaiting_chance = True
+            game._begin_pending_chance()
+            self.assertEqual(game.match_chance_index, 5)
+            self.assertEqual(game.current_opportunity.kind, game.match_opportunities[4])
+
     def test_all_deliveries_freeze_on_arrival_before_timer_and_input(self):
         for kind in (*KINDS,'through_ball'):
             with self.subTest(kind=kind),isolated_game() as g:
