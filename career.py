@@ -1642,14 +1642,31 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
     def chance_count(self, opponent: Optional[CareerClub] = None) -> int:
         from injuries import active
         if active(self):return 0
-        factor = clamp((self.stamina + self.morale) / 40.0, 0.05, 1.0)
         profile = self.opponent_chance_profile(opponent)
-        # Morale floors supersede opponent quantity caps, without changing their quality mix.
-        # Boundary values are strict: 10 has no morale floor, 15 still has a floor of two.
         trained = self.trained_this_week
         training_goals = self.training_session_goals if trained and self.training_session_week == self.week else 0
         training_bonus = clamp(training_goals, 0, 3) * 0.15
         role_bonus=0. if opponent and (opponent.uid.startswith('nation:') or opponent.league=='National Team') else self.opportunity_role_bonus
+        if self.world_unlocked:
+            from career_life import decline
+
+            # Reuse saved club form. A short, recent window makes runs of goals and blanks matter.
+            form = sum(
+                weight * (min(goals, 2) - 0.8)
+                for weight, goals in zip((4, 3, 2, 1), reversed(self.form_goals[-4:]))
+            ) / 10.0
+            centre = (0.95 + self.morale * 0.055 + self.stamina * 0.065
+                      + form * 0.85 + training_bonus - profile.pressure * 1.55 + role_bonus)
+            ceiling = 4
+            if profile.max_chances == 1:
+                ceiling = 3
+            elif profile.max_chances == 3 and min(self.morale, self.stamina) >= 19:
+                ceiling = 5
+            amount = round(self.rng.gauss(centre / decline(self), 0.95))
+            return int(clamp(amount, int(trained), ceiling))
+
+        # Legacy Free morale floors can supersede opponent quantity caps.
+        factor = clamp((self.stamina + self.morale) / 40.0, 0.05, 1.0)
         centre = 0.4 + factor * 2.5 + training_bonus - profile.pressure * 1.5 + role_bonus
         floor = 3 if self.morale > 15 else 2 if self.morale > 10 else 1 if trained else 0
         ceiling = max(floor, profile.max_chances)
@@ -1874,7 +1891,14 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
 
     def _update_attributes(self, goals: int, misses: int) -> None:
-        self.morale = clamp(self.morale + goals * 1.20 - misses * 0.25, 0.0, 20.0)
+        morale_change = goals * 1.20 - misses * 0.25
+        if self.world_unlocked:
+            if goals:
+                morale_change = goals * 1.55 - misses * 0.25 + (20.0 - self.morale) * 0.08
+            else:
+                # A blank hurts most when confidence is high. A goal can lift a struggling player.
+                morale_change = -0.60 - self.morale * 0.075 - misses * 0.15
+        self.morale = clamp(self.morale + morale_change, 0.0, 20.0)
         self.stamina = clamp(
             self.stamina - 0.65 - misses * 0.08 + goals * 0.22,
             0.0,
@@ -1981,8 +2005,13 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         # Use persisted shots, never a caller-supplied score or an abandoned session.
         goals = self.training_session_goals
         previous = (self.stamina, self.morale, self.last_training_week, self.training_session_week,copy.deepcopy(self.development))
-        self.stamina = clamp(self.stamina + 1.25 + goals * 0.25, 0.0, 20.0)
-        self.morale = clamp(self.morale + max(0, goals - 1) * 0.20, 0.0, 20.0)
+        stamina_gain = 1.25 + goals * 0.25
+        morale_change = max(0, goals - 1) * 0.20
+        if self.world_unlocked:
+            stamina_gain = (1.0, 1.5, 1.9, 2.2)[goals]
+            morale_change = (-1.45, 0.15, 0.8, 1.45)[goals]
+        self.stamina = clamp(self.stamina + stamina_gain, 0.0, 20.0)
+        self.morale = clamp(self.morale + morale_change, 0.0, 20.0)
         self.last_training_week = self.week
         self.training_session_week = self.week
         self._reward_development_training()

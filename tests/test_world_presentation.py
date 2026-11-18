@@ -20,15 +20,57 @@ class WorldPresentationTests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         env=patch.dict(os.environ,STRIKER_SAVE_DIR=self.temp.name);env.start();self.addCleanup(env.stop)
 
-    def test_morale_floors_apply_at_strict_boundaries_even_against_elite_sides(self):
-        for provider in (None,Access()):
-            c=CareerMode(provider,autoload=False)
-            strong=CareerClub('Strong opponent','England','Test',1,95)
-            for morale,floor in ((10,0),(10.001,2),(15,2),(15.001,3),(20,3)):
-                c.morale=morale
-                with patch.object(c.rng,'gauss',return_value=-100):self.assertEqual(c.chance_count(strong),floor)
-                with patch.object(c.rng,'gauss',return_value=100):self.assertLessEqual(c.chance_count(strong),3)
-                self.assertEqual(c.opponent_chance_profile(strong).clear_chance_probability,0.08)
+    def test_free_retains_legacy_morale_floors(self):
+        career = CareerMode(autoload=False)
+        strong = CareerClub('Strong opponent', 'England', 'Test', 1, 95)
+        for morale, floor in ((10, 0), (10.001, 2), (15, 2), (15.001, 3), (20, 3)):
+            career.morale = morale
+            with patch.object(career.rng, 'gauss', return_value=-100):
+                self.assertEqual(career.chance_count(strong), floor)
+
+    def test_world_chance_limits_and_training_floor(self):
+        career = CareerMode(Access(), autoload=False)
+        weak = CareerClub('Weak opponent', 'England', 'Test', 1, 49)
+        strong = CareerClub('Strong opponent', 'England', 'Test', 1, 95)
+        career.morale = career.stamina = 20
+        career.last_training_week = career.week
+        with patch.object(career.rng, 'gauss', return_value=100):
+            self.assertEqual(career.chance_count(strong), 3)
+            self.assertEqual(career.chance_count(weak), 5)
+            career.stamina = 18
+            self.assertEqual(career.chance_count(weak), 4)
+        with patch.object(career.rng, 'gauss', return_value=-100):
+            self.assertEqual(career.chance_count(strong), 1)
+        self.assertEqual(career.opponent_chance_profile(strong).clear_chance_probability, 0.08)
+
+    def test_world_recent_goals_change_chance_distribution(self):
+        career = CareerMode(Access(), autoload=False)
+        career.morale = career.stamina = 15
+        with patch.object(career.rng, 'gauss', side_effect=lambda centre, spread: centre):
+            career.form_goals = [2, 2, 2, 2, 0, 0, 0, 0]
+            drought = career.chance_count()
+            career.form_goals.reverse()
+            self.assertGreater(career.chance_count(), drought)
+
+    def test_world_training_and_match_morale_can_recover(self):
+        career = CareerMode(Access(), autoload=False)
+        career.stamina, career.morale = 10, 10
+        career.training_session_week = career.week
+        career.training_shots_taken = 3
+        with patch.object(career, 'save', return_value=False):
+            self.assertEqual(career.complete_training(3), 0)
+        self.assertEqual((career.stamina, career.morale), (10, 10))
+        with patch.object(career, 'save', return_value=True):
+            self.assertEqual(career.complete_training(3), 1)
+            self.assertLess(career.morale, 10)
+            self.assertTrue(career.trained_this_week)
+            self.assertEqual(career.complete_training(3), 0)
+        morale = career.morale
+        career._update_attributes(0, 1)
+        self.assertLess(career.morale, morale - 0.25)
+        career.morale = 0
+        career._update_attributes(1, 1)
+        self.assertGreater(career.morale, 2)
 
     def test_world_aim_speed_increases_after_each_promotion_and_free_is_unchanged(self):
         world=CareerMode(Access(),autoload=False,starter_country='England',save_slot='world')
