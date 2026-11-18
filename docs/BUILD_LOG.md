@@ -4,7 +4,7 @@ World match opportunities use morale, stamina, recent club form, training and op
 
 Paired synthetic comparison used 350 seasons of 38 matches per finishing profile and revision (2,100 seasons total). Both revisions used the same opponent ratings, practice outcomes and per-slot finishing draws. The simulations exercised career training, opportunity and post-match attribute calculations with synthetic attempts and no league-table evolution. The 35% normal finishing profile moved from 41.45 to 37.02 mean goals per season and from 5.43 to 8.21 mean within-season morale range. Chances 1–5 occurred 2,117 / 3,734 / 4,903 / 2,152 / 394 times, respectively. The 25% profile averaged 22.87 goals, with morale under five in 7.1% of appearances, and the 50% profile averaged 59.32 goals. These are simulated distributions, with no cap on season goals.
 
-Focused World presentation tests passed, including training save rollback. A Kivy test scheduled and opened the fifth opportunity. Existing Kivy header-contact, delivery speed and opportunity performance checks passed. Four legacy opportunity assertions also failed on the unchanged 6cf4e4f baseline.
+Focused World presentation tests passed, including training save rollback. A Kivy test scheduled and opened the fifth opportunity. Existing Kivy header-contact, delivery speed and opportunity performance checks passed. Four legacy opportunity assertions also failed on the unchanged 6cf4e4f baseline. The full core run executed 635 tests with 7 skips. A targeted baseline comparison reproduced all six failures and all six errors.
 
 ## 2026-11-13 — rolling sphere comparison, simulation only
 
