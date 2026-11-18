@@ -6,7 +6,7 @@ cd /workspace/Scorer
 mkdir -p /workspace/striker-android-build/cache
 python3 - <<'PY'
 from pathlib import Path
-import urllib.request, xml.etree.ElementTree as ET, hashlib
+import hashlib, subprocess, tempfile, urllib.request, xml.etree.ElementTree as ET
 base = Path('/workspace/striker-android-build')
 url = 'https://dl.google.com/android/repository/'
 with urllib.request.urlopen(url + 'repository2-3.xml') as response:
@@ -17,33 +17,30 @@ terms = next(item.text for item in root.findall('license')
              if item.attrib.get('id') == 'android-sdk-license')
 if hashlib.sha256(terms.encode()).hexdigest() != '1f8729233617b193fd619213792ae16a41b95d2bbbf525dfe66998252ba68b16':
     raise SystemExit('Android SDK licence changed; owner must review new terms')
-for p in root.findall('remotePackage'):
-    if p.attrib.get('path') != 'cmdline-tools;19.0':
-        continue
-    for archive in p.findall('./archives/archive'):
-        if archive.findtext('host-os') != 'linux':
-            continue
-        complete = archive.find('complete')
-        target = base / complete.findtext('url')
-        if not target.exists():
-            urllib.request.urlretrieve(url + target.name, target)
-        digest = hashlib.new(complete.find('checksum').attrib['type'])
-        with target.open('rb') as source:
-            for chunk in iter(lambda: source.read(1024 * 1024), b''):
-                digest.update(chunk)
+destination = base / 'android-sdk/cmdline-tools/19.0'
+if not (destination / 'bin/sdkmanager').is_file():
+    archives = (
+        archive
+        for package in root.findall('remotePackage')
+        if package.attrib.get('path') == 'cmdline-tools;19.0'
+        for archive in package.findall('./archives/archive')
+        if archive.findtext('host-os') == 'linux'
+    )
+    archive = next(archives, None)
+    if archive is None:
+        raise SystemExit('Pinned SDK command line tools unavailable')
+    complete = archive.find('complete')
+    with tempfile.TemporaryDirectory(prefix='cli19-', dir=base) as temporary:
+        stage = Path(temporary)
+        download = stage / Path(complete.findtext('url')).name
+        urllib.request.urlretrieve(url + download.name, download)
+        with download.open('rb') as source:
+            digest = hashlib.file_digest(source, complete.find('checksum').attrib['type'])
         if digest.hexdigest() != complete.findtext('checksum'):
             raise SystemExit('SDK archive verification failed')
-        if not (base / 'android-sdk/cmdline-tools/19.0/bin/sdkmanager').exists():
-            import subprocess
-            stage = base / 'cli19-extracted'
-            subprocess.run(['unzip', '-q', str(target), '-d', str(stage)], check=True)
-            destination = base / 'android-sdk/cmdline-tools/19.0'
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            (stage / 'cmdline-tools').rename(destination)
-        break
-    break
-else:
-    raise SystemExit('Pinned SDK command line tools unavailable')
+        subprocess.run(['unzip', '-q', str(download), '-d', str(stage)], check=True)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        (stage / 'cmdline-tools').rename(destination)
 link = base / 'android-sdk/tools'
 if not link.exists():
     link.symlink_to('cmdline-tools/19.0')
