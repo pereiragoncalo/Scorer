@@ -1,3 +1,9 @@
+## 2026-11-20 — session openings and average foreground time
+
+The admin dashboard displays openings and weighted mean measured foreground duration for the existing 30 UTC receipt dates. Missing measurements display as an em dash. Previous clients still submit openings and normal closes. The database stores duration totals and sample counts in its existing daily aggregate table, with no per-session identifier or timestamp. The next client build records foreground intervals using a monotonic clock, finishes samples on pause or normal exit and updates the startup disclosure in nine languages. Historical daily open/close totals cannot reconstruct duration. Deploy the compatible backend before distributing the updated client.
+
+Focused checks cover legacy ingestion, authentication, malformed duration pairs, weighted averages, background exclusion, persistence, and installer rollback. No live deployment or app publication performed.
+
 ## 2026-11-13 — rolling sphere comparison, simulation only
 
 Owner explicitly requests only simulations and no compilation/new version. Added isolated tools/net_lab rolling-contact experiment with a moving sphere, impulse exchange/position stabilization, contact friction, turf resistance and travel-based spin. Same input for taut vs slack installation; side contact precedes rear contact, pocket peaks at the side/back junction and sphere continues rolling until stopped. Slack hem is free to gather at the ground corner, with fixed mouth/top/centre supports. Two checks pass: finite continuous ground trajectory/side→back ordering/material response/retention, and identical30/60capture-rate replay. Actual Kivy comparison exported at100%and50%, inspected near junction. No production code, app version, build/signing/publishing or update-policy change. Artifacts: docs/data/rolling_nets.

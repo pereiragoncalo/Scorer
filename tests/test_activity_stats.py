@@ -9,15 +9,15 @@ class ActivityTests(unittest.TestCase):
  def test_window_includes_today_and_29_prior_dates_with_zero_days(self):
   with sqlite3.connect(':memory:') as db:
    db.execute('CREATE TABLE totals(day TEXT,event TEXT,count INTEGER)')
-   db.executemany('INSERT INTO totals VALUES(?,?,?)', [('2026-10-14','sessions',99),('2026-10-15','sessions',2),('2026-10-15','sessions_ended',1),('2026-11-13','sessions',5),('2026-11-13','sessions_ended',4),('2026-11-14','sessions',99),('2026-11-13','goals_scored',800)])
+   db.executemany('INSERT INTO totals VALUES(?,?,?)', [('2026-10-14','sessions',99),('2026-10-15','sessions',2),('2026-10-15','sessions_ended',1),('2026-11-13','sessions',5),('2026-11-13','sessions_ended',4),('2026-11-14','sessions',99),('2026-11-13','session_duration_samples',2),('2026-11-13','session_duration_seconds',90),('2026-10-15','session_duration_samples',1),('2026-10-15','session_duration_seconds',60),('2026-11-13','goals_scored',800)])
    before=db.execute('SELECT * FROM totals').fetchall();data=activity(db,date(2026,11,13))
-   self.assertEqual((data['start'],data['end'],data['opens'],data['closes']),('2026-10-15','2026-11-13',7,5))
-   self.assertEqual(len(data['days']),30);self.assertEqual(data['days'][1],{'day':'2026-11-12','opens':0,'closes':0})
+   self.assertEqual((data['start'],data['end'],data['opens'],data['average_seconds']),('2026-10-15','2026-11-13',7,50))
+   self.assertEqual(len(data['days']),30);self.assertEqual(data['days'][1],{'day':'2026-11-12','opens':0,'average_seconds':None})
    self.assertEqual(db.execute('SELECT * FROM totals').fetchall(),before)
  def test_leap_day_empty_window(self):
   with sqlite3.connect(':memory:') as db:
    db.execute('CREATE TABLE totals(day TEXT,event TEXT,count INTEGER)');data=activity(db,date(2024,3,1))
-   self.assertEqual(data['start'],'2024-02-01');self.assertEqual(data['days'][1]['day'],'2024-02-29');self.assertEqual((data['opens'],data['closes']),(0,0))
+   self.assertEqual(data['start'],'2024-02-01');self.assertEqual(data['days'][1]['day'],'2024-02-29');self.assertEqual((data['opens'],data['average_seconds']),(0,None))
  def test_http_auth_and_panel_only_activity_management_retained(self):
   with tempfile.TemporaryDirectory() as directory:
    server=Collector(('127.0.0.1',0),Path(directory)/'counts.sqlite','fixture-token');thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
@@ -29,8 +29,18 @@ class ActivityTests(unittest.TestCase):
     with server.db() as db:db.execute('INSERT INTO totals VALUES(?,?,?)',(datetime.now(timezone.utc).date().isoformat(),'sessions',3))
     with urlopen(Request(base+'/v1/activity',headers={'Authorization':'Bearer fixture-token'})) as response:
      self.assertEqual(response.headers['Cache-Control'],'no-store');self.assertEqual(json.load(response)['opens'],3)
+    payload={'schema':1,'app':'scorer_free','counts':{'session_duration_samples':2,'session_duration_seconds':121}}
+    headers={'Content-Type':'application/json'}
+    with urlopen(Request(base+'/v1/usage',data=json.dumps(payload).encode(),headers=headers)) as response:
+     self.assertEqual(response.status,204)
+    payload['counts'].pop('session_duration_samples')
+    with self.assertRaises(HTTPError) as error:
+     urlopen(Request(base+'/v1/usage',data=json.dumps(payload).encode(),headers=headers))
+    self.assertEqual(error.exception.code,400)
+    with urlopen(Request(base+'/v1/activity',headers={'Authorization':'Bearer fixture-token'})) as response:
+     self.assertEqual(json.load(response)['average_seconds'],60.5)
     with urlopen(base+'/admin') as response:
-     html=response.read().decode();self.assertIn('Últimos 30 dias',html);self.assertNotIn('Load moderation',html);self.assertNotIn('goals_scored',html)
+     html=response.read().decode();self.assertIn('Últimos 30 dias',html);self.assertIn('Tempo médio',html);self.assertNotIn('>Fechos',html);self.assertNotIn('Load moderation',html);self.assertNotIn('goals_scored',html)
     with urlopen(base+'/admin/manage') as response:self.assertIn(b'Load moderation',response.read())
    finally:server.shutdown();server.server_close()
 

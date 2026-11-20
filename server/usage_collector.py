@@ -22,13 +22,25 @@ def activity(db,today=None):
     """Thirty UTC receipt dates, inclusive of today, with zero-filled rows."""
     today=today or datetime.now(timezone.utc).date()
     start=today-timedelta(days=29)
-    rows=db.execute("SELECT day,event,count FROM totals WHERE day BETWEEN ? AND ? AND event IN ('sessions','sessions_ended')",(start.isoformat(),today.isoformat())).fetchall()
+    rows=db.execute(
+        "SELECT day,event,count FROM totals WHERE day BETWEEN ? AND ? "
+        "AND event IN ('sessions','session_duration_samples','session_duration_seconds')",
+        (start.isoformat(),today.isoformat()),
+    ).fetchall()
     counts={(day,event):count for day,event,count in rows}
-    days=[{'day':(today-timedelta(days=i)).isoformat(),
-           'opens':counts.get(((today-timedelta(days=i)).isoformat(),'sessions'),0),
-           'closes':counts.get(((today-timedelta(days=i)).isoformat(),'sessions_ended'),0)} for i in range(30)]
-    return {'schema':1,'timezone':'UTC','start':start.isoformat(),'end':today.isoformat(),
-            'opens':sum(d['opens'] for d in days),'closes':sum(d['closes'] for d in days),'days':days}
+    days=[]
+    total_samples=total_seconds=0
+    for offset in range(30):
+        day=(today-timedelta(days=offset)).isoformat()
+        samples=counts.get((day,'session_duration_samples'),0)
+        seconds=counts.get((day,'session_duration_seconds'),0)
+        days.append({'day':day,'opens':counts.get((day,'sessions'),0),
+                     'average_seconds':seconds/samples if samples else None})
+        total_samples+=samples
+        total_seconds+=seconds
+    return {'schema':2,'timezone':'UTC','start':start.isoformat(),'end':today.isoformat(),
+            'opens':sum(d['opens'] for d in days),
+            'average_seconds':total_seconds/total_samples if total_samples else None,'days':days}
 
 class Collector(ThreadingHTTPServer):
     daemon_threads=True
