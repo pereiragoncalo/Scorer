@@ -13,6 +13,11 @@ World match opportunities use morale, stamina, recent club form, training and op
 Paired synthetic comparison used 350 seasons of 38 matches per finishing profile and revision (2,100 seasons total). Both revisions used the same opponent ratings, practice outcomes and per-slot finishing draws. The simulations exercised career training, opportunity and post-match attribute calculations with synthetic attempts and no league-table evolution. The 35% normal finishing profile moved from 41.45 to 37.02 mean goals per season and from 5.43 to 8.21 mean within-season morale range. Chances 1–5 occurred 2,117 / 3,734 / 4,903 / 2,152 / 394 times, respectively. The 25% profile averaged 22.87 goals, with morale under five in 7.1% of appearances, and the 50% profile averaged 59.32 goals. These are simulated distributions, with no cap on season goals.
 
 Focused World presentation tests passed, including training save rollback. A Kivy test scheduled and opened the fifth opportunity. Existing Kivy header-contact, delivery speed and opportunity performance checks passed. Four legacy opportunity assertions also failed on the unchanged 6cf4e4f baseline.
+## 2026-11-20 — session openings and average foreground time
+
+The admin dashboard displays openings and weighted mean measured foreground duration for the existing 30 UTC receipt dates. Missing measurements display as an em dash. Previous clients still submit openings and normal closes. The database stores duration totals and sample counts in its existing daily aggregate table, with no per-session identifier or timestamp. The next client build records foreground intervals using a monotonic clock, finishes samples on pause or normal exit and updates the startup disclosure in nine languages. Historical daily open/close totals cannot reconstruct duration. Deploy the compatible backend before distributing the updated client.
+
+Focused checks cover legacy ingestion, authentication, malformed duration pairs, weighted averages, background exclusion, persistence, and installer rollback. No live deployment or app publication performed.
 
 ## 2026-11-13 — rolling sphere comparison, simulation only
 

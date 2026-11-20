@@ -84,7 +84,7 @@ class AnonymousStatsTests(unittest.TestCase):
     def test_session_end_once_only_after_start_never_on_default_off(self):
         s=UsageStatistics(self.root);self.assertFalse(s.end_session());s.begin_session();self.assertFalse(s.end_session())
         s.set_enabled(True);self.assertTrue(s.end_session());self.assertFalse(s.end_session())
-        self.assertEqual(s.counts,{'sessions':1,'sessions_ended':1})
+        self.assertEqual(s.counts,{'sessions':1,'sessions_ended':1,'session_duration_samples':1,'session_duration_seconds':1})
         s.set_enabled(False);self.assertFalse(s.end_session());self.assertEqual(s.counts,{})
 
     def test_end_flush_during_start_upload_is_not_silently_dropped(self):
@@ -95,7 +95,7 @@ class AnonymousStatsTests(unittest.TestCase):
         s.end_session();s.flush_async();release.set()
         deadline=time.monotonic()+3
         while len(sent)<2 and time.monotonic()<deadline:threading.Event().wait(.01)
-        self.wait(s);self.assertEqual(len(sent),2);self.assertEqual(sent[1]['counts'],{'sessions_ended':1});self.assertEqual(s.counts,{})
+        self.wait(s);self.assertEqual(len(sent),2);self.assertEqual(sent[1]['counts'],{'sessions_ended':1,'session_duration_samples':1,'session_duration_seconds':1});self.assertEqual(s.counts,{})
 
     def test_two_foreground_entries_count_two_without_splash_or_resume_duplicates(self):
         s=UsageStatistics(self.root);s.set_enabled(True)
@@ -103,6 +103,36 @@ class AnonymousStatsTests(unittest.TestCase):
         s.pause_session();s.begin_session();s.begin_session()
         self.assertEqual(s.counts['sessions'],2)
         self.assertEqual(json.loads(s.path.read_text())['counts']['sessions'],2)
+
+    def test_foreground_samples_ignore_background_and_survive_reload(self):
+        stats=UsageStatistics(self.root)
+        stats.set_enabled(True)
+        with patch('anonymous_stats.time.monotonic',side_effect=(10,40,100,160)):
+            stats.begin_session()
+            stats.begin_session()
+            stats.pause_session()
+            stats.pause_session()
+            stats.begin_session()
+            self.assertTrue(stats.end_session())
+            self.assertFalse(stats.end_session())
+        restored=UsageStatistics(self.root)
+        self.assertEqual(restored.counts,{'sessions':2,'sessions_ended':1,
+                                        'session_duration_samples':2,'session_duration_seconds':90})
+
+    def test_duration_starts_after_notice_and_stops_when_disabled(self):
+        stats=UsageStatistics(self.root)
+        stats.delivery_ready=False
+        stats.set_enabled(True)
+        with patch('anonymous_stats.time.monotonic',side_effect=(100,115,200)):
+            stats.begin_session()
+            stats.delivery_ready=True
+            stats.begin_session()
+            stats.pause_session()
+            self.assertEqual(stats.counts['session_duration_seconds'],15)
+            stats.begin_session()
+            stats.set_enabled(False)
+            stats.pause_session()
+        self.assertEqual(stats.counts,{})
 
     def test_two_cold_launches_preserve_pending_openings_and_send_two(self):
         sent=[];endpoint='https://stats.example/v1/usage'

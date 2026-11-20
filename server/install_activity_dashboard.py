@@ -2,7 +2,7 @@
 import argparse,base64,hashlib,json,os,shutil,subprocess,tempfile,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-FILES=('server/usage_collector.py','server/dashboard.html','server/management.html')
+FILES=('server/usage_collector.py','server/dashboard.html','server/management.html','anonymous_stats.py')
 PAYLOAD=None
 BASELINE=None
 
@@ -27,18 +27,21 @@ def write(path,raw):
 
 def preflight(payload):
  if set(payload)!=set(FILES):raise ValueError('Incomplete dashboard patch')
- compile(payload['server/usage_collector.py'],'usage_collector.py','exec')
- for name in FILES[1:]:payload[name].decode('utf8')
+ for name in FILES:
+  if name.endswith('.py'):compile(payload[name],name,'exec')
+  else:payload[name].decode('utf8')
 
 def apply(root,payload,stop,start,check,baseline=None):
  root=Path(root).resolve();preflight(payload);previous={}
  for name,raw in payload.items():
   path=root/name
-  if path.is_symlink() or path.parent.resolve()!=root/'server':raise ValueError('Unsafe target')
+  if path.is_symlink() or path.parent.resolve()!=root/Path(name).parent:raise ValueError('Unsafe target')
   previous[name]=path.read_bytes() if path.exists() else None
   if baseline is not None and previous[name] is not None:
    digest=hashlib.sha256(previous[name]).hexdigest()
-   if digest not in (baseline.get(name),hashlib.sha256(raw).hexdigest()):raise ValueError('Installed file differs from known version; nothing changed: '+name)
+   known=baseline.get(name,())
+   if isinstance(known,str):known=(known,)
+   if digest not in (*known,hashlib.sha256(raw).hexdigest()):raise ValueError('Installed file differs from known version; nothing changed: '+name+' (SHA-256 '+digest+')')
  if any(previous[n] is None for n in FILES[:2]):raise ValueError('Existing Scorer service required')
  if all(previous[n]==payload[n] for n in FILES):check();return None
  backup=Path(tempfile.mkdtemp(prefix='scorer-activity-backup-',dir=root.parent));os.chmod(backup,0o700)
@@ -68,7 +71,7 @@ def verify(port):
    with client.open(f'http://127.0.0.1:{port}/health',timeout=2) as r:
     if json.load(r).get('ok') is not True:raise ValueError('Health check failed')
    with client.open(f'http://127.0.0.1:{port}/admin',timeout=2) as r:
-    if b'/v1/activity' not in r.read():raise ValueError('Wrong dashboard')
+    if b'average_seconds' not in r.read():raise ValueError('Wrong dashboard')
    with client.open(f'http://127.0.0.1:{port}/admin/manage',timeout=2) as r:
     if b'Load moderation' not in r.read():raise ValueError('Missing management')
    try:client.open(f'http://127.0.0.1:{port}/v1/activity',timeout=2)

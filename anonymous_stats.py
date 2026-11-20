@@ -6,12 +6,26 @@ from pathlib import Path
 import ssl
 import tempfile
 import threading
+import time
 from urllib.parse import urlsplit
 from urllib.request import Request, build_opener, HTTPRedirectHandler, HTTPSHandler
 
 EVENTS=frozenset(('sessions','sessions_ended','new_careers','careers_loaded','trainings_completed',
                  'matches_completed','goals_scored','load_failures','save_failures'))
 MAX_COUNT=10000
+MAX_SESSION_SECONDS=86400
+DURATION_EVENTS={'session_duration_samples','session_duration_seconds'}
+
+
+def valid_counts(counts):
+    if not isinstance(counts,dict) or set(counts) - EVENTS - DURATION_EVENTS:
+        return False
+    if any(type(value) is not int or value < 1 for value in counts.values()):
+        return False
+    samples=counts.get('session_duration_samples',0)
+    seconds=counts.get('session_duration_seconds',0)
+    return (samples <= MAX_COUNT and samples <= seconds <= samples*MAX_SESSION_SECONDS
+            and all(counts[event] <= MAX_COUNT for event in counts.keys() & EVENTS))
 MAX_FILE=16384
 APP_STATS_MANDATORY=False
 APP_NOTICE_REQUIRED=True
@@ -29,8 +43,7 @@ def valid_payload(data):
     return (isinstance(data,dict) and set(data)=={'schema','app','counts'}
             and type(data['schema']) is int and data['schema']==1 and data['app']=='scorer_free'
             and isinstance(data['counts'],dict) and bool(data['counts'])
-            and set(data['counts'])<=EVENTS
-            and all(type(n) is int and 0<n<=MAX_COUNT for n in data['counts'].values()))
+            and valid_counts(data['counts']))
 
 
 class NoStatistics:
@@ -73,6 +86,7 @@ class UsageStatistics(NoStatistics):
         self._scope=self.endpoint or 'local-v1'
         self._lock=threading.RLock();self._sender=sender;self._sending=False;self._generation=0
         self._foreground_active=False;self._session_seen=False;self._session_counted=False;self._session_ended=False;self._flush_requested=False
+        self._session_started_at=None
         self.notice_rejected=False;self.delivery_ready=True;self.enabled=self.mandatory;self.counts={};self.day=self._today();self.last_error=''
         self._load_state()
         if self.mandatory:self.enabled=True
@@ -86,8 +100,7 @@ class UsageStatistics(NoStatistics):
             if not isinstance(data,dict) or set(data)!=expected:return
             if self.consent_version and (type(data.get('consent_version')) is not int or data['consent_version']!=self.consent_version):return
             if type(data['schema']) is not int or data['schema']!=1 or type(data['enabled']) is not bool or data['scope']!=self._scope:return
-            if not isinstance(data['counts'],dict) or set(data['counts'])-EVENTS:return
-            if any(type(n) is not int or not 0<n<=MAX_COUNT for n in data['counts'].values()):return
+            if not valid_counts(data['counts']):return
             day=date.fromisoformat(data['day'])
             age=(date.fromisoformat(self._today())-day).days
             self.enabled=data['enabled'] or self.mandatory
@@ -120,7 +133,10 @@ class UsageStatistics(NoStatistics):
         with self._lock:
             old=(self.enabled,self.counts,self.day)
             self.enabled=enabled;self.counts={} if not enabled else dict(self.counts);self.day=self._today()
-            if not enabled:self._generation+=1
+            if not enabled:
+                self._generation+=1
+                self._session_started_at=None
+                self._session_counted=False
             if not self._save():
                 if enabled:
                     self.enabled,self.counts,self.day=old;return False
@@ -137,7 +153,7 @@ class UsageStatistics(NoStatistics):
     def reject_notice(self):
         with self._lock:
             self.notice_rejected=True;self.delivery_ready=False;self._generation+=1
-            self.counts={};self._session_counted=False;self._save()
+            self.counts={};self._session_counted=False;self._session_started_at=None;self._save()
 
     def begin_session(self):
         with self._lock:
@@ -146,30 +162,55 @@ class UsageStatistics(NoStatistics):
                 self._foreground_active=True
                 self._session_counted=False;self._session_ended=False
             if self.enabled and not self._session_counted:
-                if self.record('sessions'):self._session_counted=True
+                if self.record('sessions'):
+                    self._session_counted=True
+            if (self.delivery_ready and self._session_counted and not self._session_ended
+                    and self._session_started_at is None):
+                self._session_started_at=time.monotonic()
+
+    def _finish_foreground(self, normal_end=False):
+        started=self._session_started_at
+        self._session_started_at=None
+        updates={'sessions_ended':1} if normal_end else {}
+        if started is not None:
+            elapsed=time.monotonic()-started
+            if 0 <= elapsed <= MAX_SESSION_SECONDS:
+                updates['session_duration_samples']=1
+                updates['session_duration_seconds']=max(1,round(elapsed))
+        return bool(updates) and self._record_counts(updates)
 
     def pause_session(self):
         # A following resume is another opening; duplicate resume/splash isn't.
-        with self._lock:self._foreground_active=False
+        with self._lock:
+            self._foreground_active=False
+            self._finish_foreground()
 
     def end_session(self):
         # Android can kill a process without on_stop: never invent a completion.
         with self._lock:
             if not self._session_counted or self._session_ended:return False
-            if self.record('sessions_ended'):
+            if self._finish_foreground(normal_end=True):
                 self._session_ended=True;return True
             return False
 
     def record(self,event,amount=1):
         if not isinstance(event,str) or event not in EVENTS or type(amount) is not int or not 0<amount<=MAX_COUNT:return False
         with self._lock:
-            if not self.enabled or self.notice_rejected:return False
-            old=self.counts;old_day=self.day
-            age=(date.fromisoformat(self._today())-date.fromisoformat(self.day)).days
-            self.counts=dict(self.counts) if 0<=age<=7 else {};self.day=self._today() if age<0 or age>7 else self.day
-            self.counts[event]=min(MAX_COUNT,self.counts.get(event,0)+amount)
-            if not self._save():self.counts=old;self.day=old_day;return False
-            return True
+            return self._record_counts({event:amount})
+
+    def _record_counts(self,updates):
+        if not self.enabled or self.notice_rejected:return False
+        old=self.counts;old_day=self.day
+        age=(date.fromisoformat(self._today())-date.fromisoformat(self.day)).days
+        self.counts=dict(self.counts) if 0<=age<=7 else {}
+        self.day=self._today() if age<0 or age>7 else self.day
+        for event in updates.keys() & EVENTS:
+            self.counts[event]=min(MAX_COUNT,self.counts.get(event,0)+updates[event])
+        if DURATION_EVENTS <= updates.keys() and self.counts.get('session_duration_samples',0) < MAX_COUNT:
+            for event in DURATION_EVENTS:
+                self.counts[event]=self.counts.get(event,0)+updates[event]
+        if not self._save():self.counts=old;self.day=old_day;return False
+        return True
 
     def flush_async(self):
         with self._lock:
@@ -179,7 +220,7 @@ class UsageStatistics(NoStatistics):
             age=(date.fromisoformat(self._today())-date.fromisoformat(self.day)).days
             if age<0 or age>7:
                 self.counts={};self.day=self._today();self._save();return False
-            counts=dict(self.counts);generation=self._generation;self._sending=True
+            counts=dict(self.counts);generation=self._generation;batch_day=self.day;self._sending=True
         def upload():
             try:
                 with self._lock:
@@ -187,7 +228,7 @@ class UsageStatistics(NoStatistics):
                 payload={'schema':1,'app':'scorer_free','counts':counts}
                 ok=self._sender(self.endpoint,payload)
                 with self._lock:
-                    if ok and self.enabled and generation==self._generation:
+                    if ok and self.enabled and generation==self._generation and batch_day==self.day:
                         previous=self.counts
                         self.counts={key:value-counts.get(key,0) for key,value in self.counts.items() if value-counts.get(key,0)>0}
                         if not self._save():self.counts=previous
