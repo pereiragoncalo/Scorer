@@ -1,4 +1,4 @@
-"""Install only the 30-day activity dashboard on the existing bastion service."""
+"""Install the daily session dashboard on the existing bastion service."""
 import argparse,base64,hashlib,json,os,shutil,subprocess,tempfile,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -71,7 +71,8 @@ def verify(port):
    with client.open(f'http://127.0.0.1:{port}/health',timeout=2) as r:
     if json.load(r).get('ok') is not True:raise ValueError('Health check failed')
    with client.open(f'http://127.0.0.1:{port}/admin',timeout=2) as r:
-    if b'average_seconds' not in r.read():raise ValueError('Wrong dashboard')
+    html=r.read()
+    if b'average_seconds' not in html or b'/v1/activity?' not in html:raise ValueError('Wrong dashboard')
    with client.open(f'http://127.0.0.1:{port}/admin/manage',timeout=2) as r:
     if b'Load moderation' not in r.read():raise ValueError('Missing management')
    try:client.open(f'http://127.0.0.1:{port}/v1/activity',timeout=2)
