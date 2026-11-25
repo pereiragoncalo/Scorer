@@ -1334,7 +1334,7 @@ class StrikerGame(Widget):
                 if self.training_completed:self.usage.record('trainings_completed')
                 self.training_summary = (
                     f"{self.training_goals}/3 goals  |  "
-                    f"energy +{self.training_gain:.2f}"
+                    f"energy {self.training_gain:+.2f}"
                 )
                 self.view = "training"
                 self.shot_context = "career"
@@ -4102,11 +4102,11 @@ class StrikerGame(Widget):
                 content_width,
             )
             self._draw_text(
-                f"GAIN  +{self.training_gain:.2f}",
+                f"ENERGY  {self.training_gain:+.2f}",
                 self.center_x,
                 panel_top - 260,
                 max(13, int(self.height * 0.023)),
-                (0.42, 1.0, 0.69, 1.0),
+                (1.0, 0.62, 0.55, 1.0) if self.training_gain < 0 else (0.42, 1.0, 0.69, 1.0),
                 "center",
             )
             button_label = 'TRAINING'

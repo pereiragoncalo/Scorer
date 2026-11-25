@@ -1677,7 +1677,9 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 weight * (min(goals, 2) - 0.8)
                 for weight, goals in zip((4, 3, 2, 1), reversed(self.form_goals[-4:]))
             ) / 10.0
-            centre = (0.95 + self.morale * 0.055 + self.stamina * 0.065
+            morale_bonus = self.morale * 0.055 - max(0.0, self.morale - 12.0) * 0.025
+            stamina_bonus = self.stamina * 0.065 - max(0.0, self.stamina - 14.0) * 0.035
+            centre = (0.92 + morale_bonus + stamina_bonus
                       + form * 0.85 + training_bonus - profile.pressure * 1.55 + role_bonus)
             ceiling = 4
             if profile.max_chances == 1:
@@ -1922,18 +1924,17 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
     def _update_attributes(self, goals: int, misses: int) -> None:
         morale_change = goals * 1.20 - misses * 0.25
+        stamina_change = -0.65 - misses * 0.08 + goals * 0.22
         if self.world_unlocked:
             if goals:
-                morale_change = goals * 1.55 - misses * 0.25 + (20.0 - self.morale) * 0.08
+                morale_change = goals * 1.05 - misses * 0.25 + (20.0 - self.morale) * 0.085
             else:
-                # A blank hurts most when confidence is high. A goal can lift a struggling player.
-                morale_change = -0.60 - self.morale * 0.075 - misses * 0.15
+                # Blanks compound poor form. Ease physical losses near exhaustion.
+                morale_change = -1.10 - self.morale * 0.13 - misses * 0.20
+                stamina_change -= 0.30 + self.stamina * 0.050
         self.morale = clamp(self.morale + morale_change, 0.0, 20.0)
-        self.stamina = clamp(
-            self.stamina - 0.65 - misses * 0.08 + goals * 0.22,
-            0.0,
-            20.0,
-        )
+        self.stamina = clamp(self.stamina + stamina_change, 0.0, 20.0)
+
 
 
     def morale_ad_context(self) -> str:
@@ -2038,14 +2039,14 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         stamina_gain = 1.25 + goals * 0.25
         morale_change = max(0, goals - 1) * 0.20
         if self.world_unlocked:
-            stamina_gain = (1.0, 1.5, 1.9, 2.2)[goals]
-            morale_change = (-1.45, 0.15, 0.8, 1.45)[goals]
+            stamina_gain = (-0.85, -0.25, 2.6, 3.6)[goals]
+            morale_change = (-3.0, -1.55, 1.0, 2.15)[goals]
         self.stamina = clamp(self.stamina + stamina_gain, 0.0, 20.0)
         self.morale = clamp(self.morale + morale_change, 0.0, 20.0)
         self.last_training_week = self.week
         self.training_session_week = self.week
         self._reward_development_training()
-        self.message = f"Training complete: {goals}/3 goals. Energy increased."
+        self.message = f"Training complete: {goals}/3 goals."
         if self.save() is False:
             self.stamina, self.morale, self.last_training_week, self.training_session_week,self.development = previous
             return 0.0

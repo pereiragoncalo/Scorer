@@ -1,3 +1,9 @@
+## 2026-11-25 — stronger World form penalties
+
+World scoreless appearances now reduce morale and stamina more sharply. Training with either zero or one goal lowers both attributes; two or three restore them. Morale and stamina still increase opportunity counts with diminishing returns in high form, and completed training guarantees an opportunity when healthy. Training result text shows the signed energy change. No scoring quota or shot changes.
+
+Across 350 synthetic 38-game seasons using the same intermediate finishing and training assumptions as the 1030042 calibration, the mean fell from 34.59 to 24.51 goals. The 90th percentile was 34 and the highest sampled season was 44. These are scenario estimates, not targets enforced during play.
+
 ## 2026-11-25 — wide scoring duels and lifestyle catalogue (1030042)
 
 World match clear chances now select a wide through ball in 80% of seeded opportunities. The receiver is onside at release and the high line moves away from the goal, leaving only the keeper ahead at the lateral reception. Wide shots use ordinary open-play assistance. Training, central one-on-ones, penalties and ball physics retain their existing paths. Paired exact-target tests produced 73/80 central goals and 10/80 wide goals. These samples compare shot setups and do not forecast human or season totals.
