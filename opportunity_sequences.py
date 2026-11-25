@@ -19,16 +19,18 @@ TEXT={
  'rebound':('REBOUND','A blocked shot falls to you. React and find a gap.'),
  'free_kick':('FREE KICK','A direct free kick. Find a way around or over the wall.'),
  'through_ball':('THROUGH BALL','A through ball puts you one on one with the goalkeeper.'),
+ 'angled_through_ball':('THROUGH BALL','A through ball puts you one on one with the goalkeeper.'),
  'penalty':('PENALTY','You have been chosen to take the penalty.'),
 }
-TIMING={'cross':.95,'long_cross':1.0,'corner':1.0,'cutback':1.0,'first_time':.85,'rebound':.90,'free_kick':1.10,'through_ball':1.0,'penalty':1.0,'long_shot':1.0}
+TIMING={'cross':.95,'long_cross':1.0,'corner':1.0,'cutback':1.0,'first_time':.85,'rebound':.90,'free_kick':1.10,'through_ball':1.0,'angled_through_ball':.93,'penalty':1.0,'long_shot':1.0}
 
-def plan_opportunities(count,clear_index,penalty_index,seed):
+def plan_opportunities(count,clear_index,penalty_index,seed,*,wide=False):
     rng=random.Random('scorer-opportunities-v1:'+str(seed))
     # Weighted variety without repeated ordinary situations in a three-shot match.
     weights={'cross':3,'long_cross':3,'corner':2,'free_kick':3,'long_shot':4}
     pool=sorted(KINDS,key=lambda kind:rng.random()**(1/weights.get(kind,1)),reverse=True)
-    return tuple('penalty' if i==penalty_index else 'through_ball' if i==clear_index else pool[i%len(pool)] for i in range(max(0,count)))
+    duel='angled_through_ball' if wide and rng.random()<.80 else 'through_ball'
+    return tuple('penalty' if i==penalty_index else duel if i==clear_index else pool[i%len(pool)] for i in range(max(0,count)))
 
 @dataclass(frozen=True)
 class Delivery:
@@ -61,6 +63,15 @@ class Delivery:
         side=1 if x>=0 else -1
         return (x+side*(2.4+.4*p),y-.75+3.75*p)
 
+    def high_line_defender(self, slot, progress):
+        x,y,_=self.contact
+        side=1 if x>=0 else -1
+        p=max(0.,min(1.,progress))
+        # y grows towards midfield. The keeper and the wide defender
+        # play the receiver onside at release, then the whole line steps up.
+        return x+side*(1.6-6.4*slot), y+1.55+4.8*p+.24*slot
+
+
     def mirrored(self):
         return Delivery(self.kind,self.shot_type,tuple((-x,y,z) for x,y,z in self.points),self.duration,self.arcs)
 
@@ -91,5 +102,8 @@ def make_delivery(kind,seed):
     if kind=='free_kick':
         end=(side*rng.uniform(1.,6.),rng.uniform(18.5,23.),radius)
         return Delivery(kind,'free_kick',(end,end),1.1,(0.,))
+    if kind=='angled_through_ball':
+        end=(side*rng.uniform(10.,15.),rng.uniform(8.5,12.8),radius)
+        return Delivery(kind,'kick',((side*3.,22.,radius),end),2.25,(.1,))
     end=(side*rng.uniform(.5,1.8),rng.uniform(8.,11.),radius)
     return Delivery(kind,'kick',((-side*5.,18.,radius),end),2.1,(.10,))

@@ -799,5 +799,13 @@
   "COUNTRY": "LAND",
   "LEAGUE": "LIGA",
   "COLLECTIVE TITLES": "MANNSCHAFTSTITEL",
-  "Collective titles: {count}": "Mannschaftstitel: {count}"
+  "Collective titles: {count}": "Mannschaftstitel: {count}",
+  "City loft": "Stadtloft",
+  "Coastal villa": "Küstenvilla",
+  "Urban crossover": "Stadt-Crossover",
+  "Grand tourer": "Gran Turismo",
+  "Tulip bouquet": "Tulpenstrauß",
+  "Silver pendant": "Silberanhänger",
+  "Streetwear set": "Streetwear-Set",
+  "Linen outfit": "Leinenoutfit"
 }

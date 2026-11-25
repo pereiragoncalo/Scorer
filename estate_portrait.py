@@ -3,7 +3,7 @@ from functools import lru_cache
 from kivy.uix.widget import Widget
 from kivy.core.image import Image as CoreImage
 from kivy.graphics import Color,Rectangle,StencilPush,StencilUse,StencilUnUse,StencilPop
-from career_life import best_assets
+from career_life import best_assets,item_visual
 OUTFITS={None:0,'casual':1,'smart':2,'suit':3,'designer':4}
 @lru_cache(maxsize=24)
 def core_image(path):
@@ -23,9 +23,12 @@ class EstatePortrait(Widget):
     def __init__(self,career,**kwargs):
         super().__init__(**kwargs);self.selection=best_assets(career)
         self.scene_items={kind:row[0] if row else None for kind,row in self.selection.items()}
-        self.house=texture('assets/lifestyle/'+self.scene_items['home']+'.png') if self.scene_items['home'] else None
-        self.car=texture('assets/lifestyle/'+self.scene_items['car']+'.png') if self.scene_items['car'] else None
-        self.person=outfit_texture(OUTFITS[self.scene_items['clothes']]);self.background=background_texture()
+        home,self.home_tint=item_visual(self.scene_items['home'])
+        car,self.car_tint=item_visual(self.scene_items['car'])
+        outfit,self.outfit_tint=item_visual(self.scene_items['clothes'])
+        self.house=texture('assets/lifestyle/'+home+'.png') if home else None
+        self.car=texture('assets/lifestyle/'+car+'.png') if car else None
+        self.person=outfit_texture(OUTFITS[outfit]);self.background=background_texture()
         self.bind(pos=self.render,size=self.render);self.render()
     def render(self,*_):
         width=min(self.width,self.height*2.4);height=width/2.4;x=self.center_x-width/2;y=self.center_y-height/2
@@ -35,11 +38,12 @@ class EstatePortrait(Widget):
             Rectangle(texture=self.background,pos=(x,y),size=(width,height))
             house_height=height*.96;house_width=house_height*self.house.width/self.house.height if self.house else width*.5
             hx=x+width*.035;hy=y+height*.08
-            if self.house:Rectangle(texture=self.house,pos=(hx,hy),size=(house_width,house_height))
+            if self.house:
+                Color(*self.home_tint);Rectangle(texture=self.house,pos=(hx,hy),size=(house_width,house_height))
             if self.car:
                 cw=width*.39;ch=cw*self.car.height/self.car.width
-                Rectangle(texture=self.car,pos=(x+width*.56,y+height*.04),size=(cw,ch))
+                Color(*self.car_tint);Rectangle(texture=self.car,pos=(x+width*.56,y+height*.04),size=(cw,ch))
             ph=height*.46;pw=ph*self.person.width/self.person.height
             px=hx+house_width*.49-pw/2
-            Rectangle(texture=self.person,pos=(px,y+height*.075),size=(pw,ph))
+            Color(*self.outfit_tint);Rectangle(texture=self.person,pos=(px,y+height*.075),size=(pw,ph))
             StencilUnUse();Rectangle(pos=(x,y),size=(width,height));StencilPop()

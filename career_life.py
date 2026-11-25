@@ -5,6 +5,28 @@ ITEMS=(
  ('utility','car','Compact car',10000),('sedan','car','Executive sedan',35000),('sports','car','Sports car',140000),('supercar','car','Supercar',750000),
  ('rose','gift','A rose',25),('flowers','gift','Flower bouquet',80),('necklace','gift','Gold necklace',2500),('handbag','gift','Designer handbag',6000),
  ('casual','clothes','Casual outfit',60),('smart','clothes','Smart outfit',300),('suit','clothes','Tailored suit',1500),('designer','clothes','Designer wardrobe',12000))
+# Catalogue variants reuse the existing illustrated assets with their own palettes.
+CATALOGUE_VARIANTS = {
+    'loft': ('home', 'City loft', 135000, 'studio', (0.79, 0.91, 1.0, 1)),
+    'villa': ('home', 'Coastal villa', 1200000, 'mansion', (1.0, 0.92, 0.68, 1)),
+    'crossover': ('car', 'Urban crossover', 39000, 'utility', (0.63, 0.86, 1.0, 1)),
+    'gt': ('car', 'Grand tourer', 220000, 'sports', (1.0, 0.73, 0.52, 1)),
+    'tulips': ('gift', 'Tulip bouquet', 95, 'flowers', (1.0, 0.58, 0.78, 1)),
+    'pendant': ('gift', 'Silver pendant', 600, 'necklace', (0.7, 0.84, 1.0, 1)),
+    'streetwear': ('clothes', 'Streetwear set', 280, 'casual', (0.66, 0.84, 1.0, 1)),
+    'linen': ('clothes', 'Linen outfit', 550, 'smart', (1.0, 0.87, 0.7, 1)),
+}
+ITEMS = tuple(sorted(ITEMS + tuple(
+    (key, kind, title, price)
+    for key, (kind, title, price, _, _) in CATALOGUE_VARIANTS.items()
+), key=lambda item: item[3]))
+
+
+def item_visual(key):
+ variant = CATALOGUE_VARIANTS.get(key)
+ return variant[3:] if variant else (key, (1, 1, 1, 1))
+
+
 def fresh(c):return dict(version=2,contract=None,negotiations={},paid_month=c.current_date.year*12+c.current_date.month,start_season=2026,balance=0,salary=0,contract_club='',paid_at=c.season*52+c.week,owned={},squad_investments={},retired=False,retirement_seen=0,favourite='',private_meeting='',drought_talk=0,offer_talk='',injury_name='',injury_games=0,injury_fixture='')
 def clean(raw,c):
  d=fresh(c)

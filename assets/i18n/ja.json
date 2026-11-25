@@ -799,5 +799,13 @@
   "COUNTRY": "国",
   "LEAGUE": "リーグ",
   "COLLECTIVE TITLES": "チームタイトル",
-  "Collective titles: {count}": "チームタイトル: {count}"
+  "Collective titles: {count}": "チームタイトル: {count}",
+  "City loft": "街のロフト",
+  "Coastal villa": "海辺のヴィラ",
+  "Urban crossover": "街乗りクロスオーバー",
+  "Grand tourer": "グランドツアラー",
+  "Tulip bouquet": "チューリップの花束",
+  "Silver pendant": "銀のペンダント",
+  "Streetwear set": "ストリートウェアセット",
+  "Linen outfit": "リネンの装い"
 }

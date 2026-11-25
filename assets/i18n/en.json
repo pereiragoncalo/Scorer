@@ -799,5 +799,13 @@
   "COUNTRY": "COUNTRY",
   "LEAGUE": "LEAGUE",
   "COLLECTIVE TITLES": "COLLECTIVE TITLES",
-  "Collective titles: {count}": "Collective titles: {count}"
+  "Collective titles: {count}": "Collective titles: {count}",
+  "City loft": "City loft",
+  "Coastal villa": "Coastal villa",
+  "Urban crossover": "Urban crossover",
+  "Grand tourer": "Grand tourer",
+  "Tulip bouquet": "Tulip bouquet",
+  "Silver pendant": "Silver pendant",
+  "Streetwear set": "Streetwear set",
+  "Linen outfit": "Linen outfit"
 }

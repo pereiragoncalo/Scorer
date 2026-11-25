@@ -929,7 +929,7 @@ class StrikerGame(Widget):
         self.match_penalty_chance_index=self.career.rng.choice(penalty_slots) if penalty_slots and self.career.rng.random()<PENALTY_PROBABILITY else -1
         self._attendance_snapshot=None
         self.match_opportunity_seed=(self.career.world_seed,self.career.season,self.career.week,self.match_competition,self.match_home.uid,self.match_away.uid)
-        self.match_opportunities=plan_opportunities(chance_total,self.match_easy_chance_index,self.match_penalty_chance_index,self.match_opportunity_seed)
+        self.match_opportunities=plan_opportunities(chance_total,self.match_easy_chance_index,self.match_penalty_chance_index,self.match_opportunity_seed,wide=self.career.world_unlocked)
         self.current_chance_difficulty = "standard"
         self.match_player_goals = 0
         self.hattrick_until=0
@@ -944,7 +944,9 @@ class StrikerGame(Widget):
             home_mean, away_mean = self.career.fixture_goal_means(self.match_home, self.match_away)
         # Reserve the expected personal contribution from the team budget,
         # rather than adding it on top of a full team's simulated goals.
-        personal_mean = expected_highlight_goals(chance_total, chance_profile.clear_chance_probability, PENALTY_PROBABILITY)
+        reserve_options = {'clear_conversion': .20} if 'angled_through_ball' in self.match_opportunities else {}
+        personal_mean = expected_highlight_goals(chance_total, chance_profile.clear_chance_probability,
+                                                 PENALTY_PROBABILITY, **reserve_options)
         if player_home:
             home_mean = teammate_goal_mean(home_mean,personal_mean,world=self.career.world_unlocked)
         else:
@@ -1134,7 +1136,7 @@ class StrikerGame(Widget):
         self.penalty_dive_target=None
         if kind=='penalty':self.goalkeeper_x=0.;self.goalkeeper_vx=0.;self.goalkeeper_target_x=0.
         self.shot_origin_x,self.shot_origin_y,z=delivery.contact
-        self.one_on_one=kind in ('through_ball','penalty')
+        self.one_on_one=kind in ('through_ball','angled_through_ball','penalty')
         self.ball.reset(self.shot_origin_x,self.shot_origin_y,z)
         self._generate_field_players()
         if kind=='penalty' and self.shot_context in ('match','training'):
@@ -1155,6 +1157,12 @@ class StrikerGame(Widget):
             x,y=delivery.chasing_defender(1.)
             self.onside_defender=FieldPlayer(x,y,'defender',0.)
             self.field_players.append(self.onside_defender)
+        if kind=='angled_through_ball':
+            for slot in range(4):
+                x,y=delivery.high_line_defender(slot,1.)
+                actor=FieldPlayer(x,y,'defender',float(slot))
+                actor.high_line_slot=slot
+                self.field_players.append(actor)
         if kind not in ('free_kick','penalty'):
             x,y,_=delivery.points[0]
             self.buildup_actors=[FieldPlayer(x,y,'attacker',0.)]
@@ -1763,7 +1771,8 @@ class StrikerGame(Widget):
     def _finishing_balance(self):
         from finishing_balance import finishing_balance,NEUTRAL
         if self.shot_context not in ('match','training'):return NEUTRAL
-        return finishing_balance(self.shot_type,self.one_on_one,math.hypot(self.shot_origin_x,self.shot_origin_y))
+        wide_duel=self.current_opportunity is not None and self.current_opportunity.kind=='angled_through_ball'
+        return finishing_balance(self.shot_type,self.one_on_one and not wide_duel,math.hypot(self.shot_origin_x,self.shot_origin_y))
 
     def _defensive_profile(self):
         from defensive_difficulty import defensive_profile
@@ -2207,6 +2216,8 @@ class StrikerGame(Widget):
         pressure=getattr(self,'_pressure',None)
         if pressure is not None and pressure.actor is player:return pressure.position
         elapsed = self.frozen_scene_time if self.state==self.STATE_AIMING and self.frozen_scene_time is not None else getattr(self, "elapsed", 0.0)
+        if self.state==self.STATE_BUILDUP and hasattr(player,'high_line_slot'):
+            return self.current_opportunity.high_line_defender(player.high_line_slot,self.buildup_progress)
         if self.state==self.STATE_BUILDUP and player is self.onside_defender:
             return self.current_opportunity.chasing_defender(self.buildup_progress)
         if self.state==self.STATE_BUILDUP and player is self.buildup_blocker:return (player.x,player.y)

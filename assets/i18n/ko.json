@@ -799,5 +799,13 @@
   "COUNTRY": "국가",
   "LEAGUE": "리그",
   "COLLECTIVE TITLES": "팀 우승",
-  "Collective titles: {count}": "팀 우승: {count}"
+  "Collective titles: {count}": "팀 우승: {count}",
+  "City loft": "도심 로프트",
+  "Coastal villa": "해안 빌라",
+  "Urban crossover": "도심형 크로스오버",
+  "Grand tourer": "그랜드 투어러",
+  "Tulip bouquet": "튤립 꽃다발",
+  "Silver pendant": "은 펜던트",
+  "Streetwear set": "스트리트웨어 세트",
+  "Linen outfit": "리넨 의상"
 }

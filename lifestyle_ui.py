@@ -5,7 +5,7 @@ from kivy.uix.image import Image
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp,sp
 from menu_ui import MenuTile,BoundedLabel,DashboardField,LocalizedPopup,GREEN
-from career_life import ITEMS,age,purchase,retirement
+from career_life import ITEMS,age,item_visual,purchase,retirement
 class LifestyleScreen(BoxLayout):
  def __init__(self,menu):
   super().__init__(orientation='vertical',spacing=dp(10));self.menu=menu
@@ -45,7 +45,10 @@ class CatalogueScreen(BoxLayout):
   index=getattr(menu.game,'_shop_pos',0)%max(1,len(rows));menu.game._shop_pos=index
   panel=BoxLayout(spacing=dp(10));self.add_widget(panel)
   if rows:
-   key,_,name,price=rows[index];image=Image(source='assets/lifestyle/'+key+'.png',fit_mode='contain');image.texture.mag_filter=image.texture.min_filter='nearest';panel.add_widget(image)
+   key,_,name,price=rows[index]
+   artwork,tint=item_visual(key)
+   image=Image(source='assets/lifestyle/'+artwork+'.png',fit_mode='contain',color=tint)
+   image.texture.mag_filter=image.texture.min_filter='nearest';panel.add_widget(image)
    info=BoxLayout(orientation='vertical');panel.add_widget(info)
    info.add_widget(BoundedLabel(text=name,font_size=sp(21),halign='center'))
    info.add_widget(BoundedLabel(text='€ '+f'{price:,}'.replace(',',' '),localize=False,font_size=sp(22),halign='center',color=GREEN))

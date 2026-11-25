@@ -528,13 +528,13 @@ def realistic_goal_means(home_rating: float, away_rating: float, *, rating_scale
     return total * home_share, total * (1.0 - home_share)
 
 
-def expected_highlight_goals(chances: int, clear_probability: float, penalty_probability: float = 0.0) -> float:
+def expected_highlight_goals(chances: int, clear_probability: float, penalty_probability: float = 0.0, *, clear_conversion: float = CLEAR_CHANCE_CONVERSION) -> float:
     if chances <= 0:
         return 0.0
     penalty = clamp(penalty_probability, 0.0, 1.0)
     clear = clamp(clear_probability, 0.0, 1.0) * (1.0-penalty if chances==1 else 1.0)
     return (chances * HARD_CHANCE_CONVERSION
-            + clear * (CLEAR_CHANCE_CONVERSION - HARD_CHANCE_CONVERSION)
+            + clear * (clear_conversion - HARD_CHANCE_CONVERSION)
             + penalty * (0.65 - HARD_CHANCE_CONVERSION))
 
 

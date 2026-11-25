@@ -31,6 +31,25 @@ class OpportunityScenes(unittest.TestCase):
             self.assertEqual(game.match_chance_index, 5)
             self.assertEqual(game.current_opportunity.kind, game.match_opportunities[4])
 
+    def test_wide_duel_defensive_line_steps_up_after_an_onside_release(self):
+        from defensive_pressure import player_position
+        from finishing_balance import OPEN_PLAY
+        with isolated_game() as game:
+            self.sign(game)
+            game._start_opportunity('angled_through_ball', 40)
+            self.assertTrue(game.one_on_one)
+            self.assertEqual(game._finishing_balance(), OPEN_PLAY)
+            self.assertGreaterEqual(abs(game.shot_origin_x), 10)
+            defenders = [player for player in game.field_players if player.team=='defender']
+            self.assertEqual(len(defenders), 4)
+            initial = [game._field_player_position(actor)[1] for actor in defenders]
+            self.assertLess(min(initial), player_position(game)[1])
+            game._update_buildup(game.current_opportunity.duration)
+            self.assertEqual(game.state, game.STATE_AIMING)
+            reception = [game._field_player_position(actor)[1] for actor in defenders]
+            self.assertTrue(all(end > start for start, end in zip(initial, reception)))
+            self.assertTrue(all(end > player_position(game)[1] for end in reception))
+
     def test_all_deliveries_freeze_on_arrival_before_timer_and_input(self):
         for kind in (*KINDS,'through_ball'):
             with self.subTest(kind=kind),isolated_game() as g:

@@ -24,7 +24,7 @@ class Pressure:
 
 def assign(game):
     game._pressure=None
-    if game.current_opportunity is None or game.current_opportunity.kind=='penalty':return
+    if game.current_opportunity is None or game.current_opportunity.kind in ('penalty','angled_through_ball'):return
     opponents=[p for p in game.field_players if p.team=='defender']
     if not opponents:return
     target=player_position(game)

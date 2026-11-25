@@ -1,3 +1,9 @@
+## 2026-11-25 — wide scoring duels and lifestyle catalogue (1030042)
+
+World match clear chances now select a wide through ball in 80% of seeded opportunities. The receiver is onside at release and the high line moves away from the goal, leaving only the keeper ahead at the lateral reception. Wide shots use ordinary open-play assistance. Training, central one-on-ones, penalties and ball physics retain their existing paths. Paired exact-target tests produced 73/80 central goals and 10/80 wide goals. These samples compare shot setups and do not forecast human or season totals.
+
+The lifestyle catalogue contains six items in each of its four categories. Eight new items use palette variants of existing illustrations, with shop, inventory, portrait and existing save support. The release integrates the earlier club-investment/teammate/Euro corrections and the published duration-notice and measurement code.
+
 ## 2026-11-25 — World squad investment, teammate scoring and Euro realism
 
 World club ratings are restored from their current baseline plus the squad investment saved for the club UID. Legacy saves with a recorded squad clause and no investment ledger restore that clause once. Negotiated investment raises squad strength by up to four rating points per signing and uses the existing transactional save rollback. Existing team strength now remains effective across reloads. The World league form term carries less weight in expected goals, and the World scorer can use up to 40% of the team's expected-goal budget rather than exhausting teammate opportunities. The score fallback reserves expected contribution from attempts, without subtracting actual player goals from teammate scoring. Player shot physics and Free's interactive budget are retained.

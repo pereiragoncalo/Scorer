@@ -799,5 +799,13 @@
   "COUNTRY": "PAÍS",
   "LEAGUE": "LIGA",
   "COLLECTIVE TITLES": "TÍTULOS COLECTIVOS",
-  "Collective titles: {count}": "Títulos colectivos: {count}"
+  "Collective titles: {count}": "Títulos colectivos: {count}",
+  "City loft": "Loft urbano",
+  "Coastal villa": "Villa costera",
+  "Urban crossover": "Crossover urbano",
+  "Grand tourer": "Gran turismo",
+  "Tulip bouquet": "Ramo de tulipanes",
+  "Silver pendant": "Colgante de plata",
+  "Streetwear set": "Conjunto urbano",
+  "Linen outfit": "Conjunto de lino"
 }
