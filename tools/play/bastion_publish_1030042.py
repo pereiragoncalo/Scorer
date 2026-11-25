@@ -13,7 +13,8 @@ import zipfile
 
 VERSION = 1030042
 BUNDLE = 'Scorer-World-1.0-1030042-unsigned.aab'
-RELEASE_URL = 'https://github.com/pereiragoncalo/Scorer/releases/download/world-1.0-1030042/'
+TRANSFER_URL = 'https://raw.githubusercontent.com/pereiragoncalo/Scorer/transfer-world-1030042/'
+PART_BYTES = 8 * 1024 * 1024
 BUNDLE_SHA = 'c834291b379a8159fd46ec15bbcd44253e58f007baa9cafdd8b7cd9b5d9ad2da'
 BUNDLE_BYTES = 123969780
 UPLOADER_SHA = 'bc0725dac5c1132ce4542d76e9d3777ade333ea2a83ba23cde457def0594e983'
@@ -78,14 +79,15 @@ def main():
             if args.publish is True:
                 print('A descarregar o AAB 1030042 do GitHub…', flush=True)
                 bundle = directory / BUNDLE
-                with urlopen(RELEASE_URL + BUNDLE, timeout=90) as response, bundle.open('xb') as output:
-                    remaining = BUNDLE_BYTES + 1
-                    while remaining:
-                        data = response.read(min(remaining, 1024 * 1024))
-                        if not data:
-                            break
+                with bundle.open('xb') as output:
+                    for part, offset in enumerate(range(0, BUNDLE_BYTES, PART_BYTES)):
+                        size = min(PART_BYTES, BUNDLE_BYTES - offset)
+                        url = TRANSFER_URL + f'aab.part.{part:02d}'
+                        with urlopen(url, timeout=90) as response:
+                            data = response.read(size + 1)
+                        if len(data) != size:
+                            raise ValueError(f'Tamanho inválido na parte {part:02d} do AAB')
                         output.write(data)
-                        remaining -= len(data)
                 if bundle.stat().st_size != BUNDLE_BYTES or uploader.sha(bundle) != BUNDLE_SHA:
                     raise ValueError('O AAB descarregado não corresponde ao AAB 1030042 auditado')
             else:
