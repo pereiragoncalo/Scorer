@@ -143,6 +143,23 @@ jobs:
           print("Isolated World 1.0 production configuration verified.")
           PY
 
+      - name: Use the Google-hosted Maven Central mirror
+        run: |
+          mkdir -p "$HOME/.gradle/init.d"
+          cat > "$HOME/.gradle/init.d/scorer-central-mirror.gradle" <<'GRADLE'
+          import org.gradle.api.artifacts.repositories.MavenArtifactRepository
+
+          gradle.beforeProject { project ->
+              [project.buildscript.repositories, project.repositories].each { repositories ->
+                  repositories.withType(MavenArtifactRepository).all { repository ->
+                      if (repository.url?.host in ['repo.maven.apache.org', 'repo1.maven.org']) {
+                          repository.url = URI.create('https://maven-central.storage-download.googleapis.com/maven2')
+                      }
+                  }
+              }
+          }
+          GRADLE
+
       - name: Build release-format AAB without production credentials
         env:
           APP_ANDROID_SKIP_UPDATE: "1"
