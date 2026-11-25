@@ -1,20 +1,21 @@
 {
-  "source": "6cf4e4f",
+  "source": "6cf4e4f and 99c9e96",
   "files": {
     "server/usage_collector.py": [
-      "6b7f160951657ca6a85838e8390a59d816f46ebcbf555a2f2bf0137071b76fd9"
+      "6b7f160951657ca6a85838e8390a59d816f46ebcbf555a2f2bf0137071b76fd9",
+      "66b3b25068be79be8fd007f1dcf3899985ba9a7d759f671bb532ba565c4da563"
     ],
     "server/dashboard.html": [
       "018c20ad01f2b6bf7d37f205fa23ed323ca5d25fb20a172fe9d01a5996d0468c",
       "cc55a0a9ef8a407898e37c34d1367df1b382151840c148e23fd1c9106553d609",
-      "018c20ad01f2b6bf7d37f205fa23ed323ca5d25fb20a172fe9d01a5996d0468c"
+      "44ec8bf8c80ba9bf5ecd0da6b3ef5fb53a2943dde3a7bfedac46959beab408d9"
     ],
     "server/management.html": [
       "e1fd46a389b842c72c40bfce98f13eea1f1a78f0f630b0a7beaa1cb45337e60f"
     ],
     "anonymous_stats.py": [
       "737fbdb2cf20b08480c2cfb2556d2d799a89ec549e9aeb7630e77893d2c7f2c5",
-      "737fbdb2cf20b08480c2cfb2556d2d799a89ec549e9aeb7630e77893d2c7f2c5"
+      "f4fb7743a1546b346c01dd82c9576b8b2c3099ecb2649595bbc198dea49ac5ca"
     ]
   }
 }

@@ -23,9 +23,10 @@ class ActivityTests(unittest.TestCase):
    server=Collector(('127.0.0.1',0),Path(directory)/'counts.sqlite','fixture-token');thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
    try:
     base='http://127.0.0.1:'+str(server.server_port)
-    for headers in ({},{'Authorization':'Bearer wrong'}):
-     with self.assertRaises(HTTPError) as error:urlopen(Request(base+'/v1/activity',headers=headers))
-     self.assertEqual(error.exception.code,404)
+    for endpoint in ('/v1/activity','/v1/activity?day=2024-02-29'):
+     for headers in ({},{'Authorization':'Bearer wrong'}):
+      with self.assertRaises(HTTPError) as error:urlopen(Request(base+endpoint,headers=headers))
+      self.assertEqual(error.exception.code,404)
     with server.db() as db:db.execute('INSERT INTO totals VALUES(?,?,?)',(datetime.now(timezone.utc).date().isoformat(),'sessions',3))
     with urlopen(Request(base+'/v1/activity',headers={'Authorization':'Bearer fixture-token'})) as response:
      self.assertEqual(response.headers['Cache-Control'],'no-store');self.assertEqual(json.load(response)['opens'],3)
@@ -39,8 +40,18 @@ class ActivityTests(unittest.TestCase):
     self.assertEqual(error.exception.code,400)
     with urlopen(Request(base+'/v1/activity',headers={'Authorization':'Bearer fixture-token'})) as response:
      self.assertEqual(json.load(response)['average_seconds'],60.5)
+    today=datetime.now(timezone.utc).date().isoformat()
+    auth={'Authorization':'Bearer fixture-token'}
+    with urlopen(Request(base+'/v1/activity?day='+today,headers=auth)) as response:
+     self.assertEqual(json.load(response),{'day':today,'opens':3,'average_seconds':60.5})
+    with urlopen(Request(base+'/v1/activity?day=2024-02-29',headers=auth)) as response:
+     self.assertEqual(json.load(response),{'day':'2024-02-29','opens':0,'average_seconds':None})
+    for query in ('day=2025-02-29','day=20260201','day=9999-12-31','day=',
+                  'day=2024-02-29&day=2024-03-01','date=2024-02-29'):
+     with self.assertRaises(HTTPError) as error:urlopen(Request(base+'/v1/activity?'+query,headers=auth))
+     self.assertEqual(error.exception.code,400)
     with urlopen(base+'/admin') as response:
-     html=response.read().decode();self.assertIn('Últimos 30 dias',html);self.assertIn('Tempo médio',html);self.assertNotIn('>Fechos',html);self.assertNotIn('Load moderation',html);self.assertNotIn('goals_scored',html)
+     html=response.read().decode();self.assertIn('type="date"',html);self.assertNotIn('<table',html);self.assertIn('Tempo médio',html);self.assertNotIn('>Fechos',html);self.assertNotIn('Load moderation',html);self.assertNotIn('goals_scored',html)
     with urlopen(base+'/admin/manage') as response:self.assertIn(b'Load moderation',response.read())
    finally:server.shutdown();server.server_close()
 

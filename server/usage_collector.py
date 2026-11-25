@@ -1,6 +1,6 @@
 """Minimal aggregate-only collector. Place behind HTTPS with access logs disabled."""
 import argparse
-from datetime import datetime,timezone,timedelta
+from datetime import date,datetime,timezone,timedelta
 import hmac
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 import json
@@ -18,26 +18,29 @@ from server import moderation,privacy_cases
 from server import division_records as division_boards
 from urllib.parse import urlsplit,parse_qs
 
-def activity(db,today=None):
-    """Thirty UTC receipt dates, inclusive of today, with zero-filled rows."""
+def activity(db,today=None,selected_day=None):
+    """Aggregate one selected UTC receipt date or the original 30-day window."""
     today=today or datetime.now(timezone.utc).date()
-    start=today-timedelta(days=29)
+    start=selected_day or today-timedelta(days=29)
+    end=selected_day or today
     rows=db.execute(
         "SELECT day,event,count FROM totals WHERE day BETWEEN ? AND ? "
         "AND event IN ('sessions','session_duration_samples','session_duration_seconds')",
-        (start.isoformat(),today.isoformat()),
+        (start.isoformat(),end.isoformat()),
     ).fetchall()
     counts={(day,event):count for day,event,count in rows}
     days=[]
     total_samples=total_seconds=0
-    for offset in range(30):
-        day=(today-timedelta(days=offset)).isoformat()
+    for offset in range((end-start).days+1):
+        day=(end-timedelta(days=offset)).isoformat()
         samples=counts.get((day,'session_duration_samples'),0)
         seconds=counts.get((day,'session_duration_seconds'),0)
         days.append({'day':day,'opens':counts.get((day,'sessions'),0),
                      'average_seconds':seconds/samples if samples else None})
         total_samples+=samples
         total_seconds+=seconds
+    if selected_day is not None:
+        return days[0]
     return {'schema':2,'timezone':'UTC','start':start.isoformat(),'end':today.isoformat(),
             'opens':sum(d['opens'] for d in days),
             'average_seconds':total_seconds/total_samples if total_samples else None,'days':days}
@@ -166,11 +169,22 @@ class Handler(BaseHTTPRequestHandler):
             except ValueError:self.reply(400,{'error':'invalid'})
             except Exception:self.reply(503,{'error':'unavailable'})
             return
-        if self.path=='/v1/activity':
+        if self.path=='/v1/activity' or self.path.startswith('/v1/activity?'):
             if not self.authorized():self.reply(404,{'error':'not_found'});return
             try:
-                with self.server.db() as db:data=activity(db)
+                today=datetime.now(timezone.utc).date()
+                selected_day=None
+                if self.path!='/v1/activity':
+                    query=parse_qs(urlsplit(self.path).query,strict_parsing=True)
+                    if set(query)!={'day'} or len(query['day'])!=1:
+                        raise ValueError('Expected one day')
+                    value=query['day'][0]
+                    selected_day=date.fromisoformat(value)
+                    if selected_day.isoformat()!=value or selected_day>today:
+                        raise ValueError('Invalid UTC date')
+                with self.server.db() as db:data=activity(db,today,selected_day)
                 self.reply(200,data)
+            except ValueError:self.reply(400,{'error':'invalid_day'})
             except Exception:self.reply(503,{'error':'unavailable'})
             return
         if self.path in ('/admin','/admin/manage'):

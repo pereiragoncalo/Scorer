@@ -1,3 +1,7 @@
+## 2026-11-25 — daily session dashboard
+
+The admin date picker opens on the current UTC day and shows only openings and mean measured foreground duration for the selected receipt date. Missing measurements are shown as an em dash. The authenticated API accepts an explicit ISO calendar day and preserves the original response when omitted. The installer recognises the previous duration dashboard as an upgrade baseline.
+
 ## 2026-11-20 — session openings and average foreground time
 
 The admin dashboard displays openings and weighted mean measured foreground duration for the existing 30 UTC receipt dates. Missing measurements display as an em dash. Previous clients still submit openings and normal closes. The database stores duration totals and sample counts in its existing daily aggregate table, with no per-session identifier or timestamp. The next client build records foreground intervals using a monotonic clock, finishes samples on pause or normal exit and updates the startup disclosure in nine languages. Historical daily open/close totals cannot reconstruct duration. Deploy the compatible backend before distributing the updated client.

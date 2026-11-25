@@ -5,17 +5,14 @@
 body{font:17px system-ui;max-width:760px;margin:32px auto;padding:16px;background:#071820;color:#eef}
 h1{font-size:1.7rem}button,input{font:inherit;padding:12px;box-sizing:border-box}form{display:flex;gap:8px;flex-wrap:wrap}input{flex:1;min-width:180px}button{cursor:pointer}
 .cards{display:flex;gap:16px;flex-wrap:wrap}.card{flex:1;background:#173742;border-radius:12px;padding:20px;min-width:170px}.value{display:block;font-size:2.4rem;font-weight:700}
-table{width:100%;border-collapse:collapse;margin-top:24px}td,th{padding:12px 8px;border-bottom:1px solid #34515a;text-align:right}td:first-child,th:first-child{text-align:left}small{color:#b9cbd0}a{color:#b9cbd0}
+label{display:flex;align-items:center;gap:8px}input[type=date]{min-width:0}small{color:#b9cbd0}a{color:#b9cbd0}
 </style>
 <h1>Sessões do jogo</h1>
-<p>Últimos 30 dias, incluindo hoje.</p>
-<form id="form"><input id="token" type="password" autocomplete="off" placeholder="Token de administrador" aria-label="Token de administrador" required><button>Carregar</button></form>
+<form id="form"><label>Dia (UTC) <input id="day" type="date" required></label><input id="token" type="password" autocomplete="off" placeholder="Token de administrador" aria-label="Token de administrador" required><button>Carregar</button></form>
 <p id="status" role="status"></p>
 <section id="stats" hidden>
 <div class="cards"><div class="card">Sessões abertas <span class="value" id="opens"></span></div><div class="card">Tempo médio <span class="value" id="average"></span></div></div>
-<p id="period"></p>
-<table><thead><tr><th scope="col">Dia</th><th scope="col">Sessões abertas</th><th scope="col">Tempo médio</th></tr></thead><tbody id="rows"></tbody></table>
-<p><small>Datas em UTC pelo dia de receção. A média inclui apenas sessões com duração medida em primeiro plano. — indica que ainda não há medições.</small></p>
+<p><small>Dia de receção em UTC. A média inclui sessões com duração medida em primeiro plano. — indica que ainda não há medições.</small></p>
 </section>
 <p><small><a href="/admin/manage">Gestão</a></small></p>
 <script>
@@ -25,19 +22,47 @@ const duration=seconds=>{
  const rounded=Math.round(seconds), hours=Math.floor(rounded/3600), minutes=Math.floor(rounded/60)%60, rest=rounded%60;
  return (hours ? hours+' h ' : '')+(hours||minutes ? minutes+' min ' : '')+rest+' s';
 };
-const day=s=>{const [y,m,d]=s.split('-');return d+'/'+m+'/'+y};
-document.getElementById('form').onsubmit=async e=>{
- e.preventDefault();const token=document.getElementById('token');const secret=token.value;token.value='';
- const status=document.getElementById('status');const stats=document.getElementById('stats');stats.hidden=true;status.textContent='A carregar…';
+const form=document.getElementById('form');
+const day=document.getElementById('day');
+const token=document.getElementById('token');
+const button=form.querySelector('button');
+const status=document.getElementById('status');
+const stats=document.getElementById('stats');
+day.value=day.max=new Date().toISOString().slice(0,10);
+let authorization='';
+day.onchange=()=>{stats.hidden=true;status.textContent='';};
+form.onsubmit=async event=>{
+ event.preventDefault();
+ if(button.disabled)return;
+ const selected=day.value;
+ const secret=token.value || authorization;
+ token.value='';
+ button.disabled=true;
+ stats.hidden=true;
+ status.textContent='A carregar…';
  try{
-  const r=await fetch('/v1/activity',{headers:{Authorization:'Bearer '+secret},cache:'no-store'});
-  if(!r.ok)throw Error();const data=await r.json();
+  const response=await fetch('/v1/activity?'+new URLSearchParams({day:selected}),{
+   headers:{Authorization:'Bearer '+secret},cache:'no-store'
+  });
+  if(response.status===404){
+   authorization='';
+   token.required=true;
+   status.textContent='Verifica o token de administrador.';
+   return;
+  }
+  if(!response.ok)throw Error();
+  const data=await response.json();
+  authorization=secret;
+  token.required=false;
+  if(day.value!==selected)return;
   document.getElementById('opens').textContent=number.format(data.opens);
   document.getElementById('average').textContent=duration(data.average_seconds);
-  document.getElementById('period').textContent=day(data.start)+' a '+day(data.end)+' · UTC';
-  const rows=document.getElementById('rows');rows.replaceChildren();
-  for(const item of data.days){const tr=document.createElement('tr');for(const value of [day(item.day),number.format(item.opens),duration(item.average_seconds)]){const td=document.createElement('td');td.textContent=value;tr.append(td)}rows.append(tr)}
-  stats.hidden=false;status.textContent='';
- }catch(_){status.textContent='Não foi possível carregar. Verifica o token e tenta novamente.'}
+  stats.hidden=false;
+  status.textContent='';
+ }catch(_){
+  status.textContent='Não foi possível carregar os dados deste dia.';
+ }finally{
+  button.disabled=false;
+ }
 };
 </script></html>
