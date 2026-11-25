@@ -2,13 +2,13 @@ name: Scorer World 1.0 (1030042) unsigned AAB
 
 on:
   push:
-    branches: [codex/world-1030042-build]
+    branches: [codex/world-1030042-r2-build]
 
 permissions:
   contents: read
 
 concurrency:
-  group: scorer-world-1030042-aab
+  group: scorer-world-1030042-r2-aab
   cancel-in-progress: false
 
 jobs:
@@ -336,7 +336,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: scorer-world-1.0-1030042-unsigned
+          name: scorer-world-1.0-1030042-r2-unsigned
           path: |
             /tmp/scorer-world-aab-stage/bin/*.aab
             /tmp/scorer-world-aab-stage/qa-aab-report.json
@@ -351,60 +351,36 @@ jobs:
           compression-level: 0
 
   deliver:
-    name: Deliver audited AAB and owner-side scripts to GitHub
+    name: Transfer verified 1030042 revision
     needs: build-world-aab
     runs-on: ubuntu-24.04
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/download-artifact@v4
         with:
-          name: scorer-world-1.0-1030042-unsigned
+          name: scorer-world-1.0-1030042-r2-unsigned
           path: /tmp/scorer-delivery
-      - name: Prepare and verify release assets
+      - name: Prepare bastion scripts and verified transfer
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          cd /tmp/scorer-delivery
-          curl -fsSL --retry 2 https://raw.githubusercontent.com/pereiragoncalo/Scorer/4824c0c509e57856172b859cfb885524decf8e4c/tools/play/bastion_publish_1030040.py -o uploader-template.py
-          curl -fsSL --retry 2 https://raw.githubusercontent.com/pereiragoncalo/Scorer/00cd265a00ee3c887259d5980659438c3380d449/tools/play/promote_alpha_1030041.py -o alpha-template.py
-          printf '%s  %s\n' \
-            93e3c76c78db4318a9fdec54b72d41075a20c09fd1368d8e30c521c2fd29277b uploader-template.py \
-            9e15b99974e953ffd4765632d328c2d0b056d0d125e671bf2aa8ed64d30a2dd5 alpha-template.py | sha256sum -c -
-          python - <<'PY'
-          import hashlib
-          import json
-          from pathlib import Path
-          import re
-          import xml.etree.ElementTree as ET
-
-          bundle = Path('bin/Scorer-World-1.0-1030042-unsigned.aab')
-          with bundle.open('rb') as source:
-              digest = hashlib.file_digest(source, 'sha256').hexdigest()
-          size = bundle.stat().st_size
-          report = json.loads(Path('qa-aab-report.json').read_text())
-          assert report['sha256'] == digest and report['size_bytes'] == size
-          assert report['compiled_source_verified'] and report['bundletool_validated']
-          xml = ET.parse('bundle-manifest.xml').getroot()
-          android = '{http://schemas.android.com/apk/res/android}'
-          assert xml.attrib['package'] == 'com.clemir.scorerworld'
-          assert xml.attrib[android + 'versionCode'] == '1030042'
-          assert xml.attrib[android + 'versionName'] == '1.0'
-          source = Path('uploader-template.py').read_text().replace('1030040', '1030042')
-          source = re.sub(r"^BUNDLE_SHA = .*$", 'BUNDLE_SHA = '+repr(digest), source, flags=re.M)
-          source = re.sub(r'^BUNDLE_BYTES = .*$', 'BUNDLE_BYTES = '+str(size), source, flags=re.M)
-          source = source.replace('season balance', 'wide chances and lifestyle')
-          source = source.replace('Match opportunities now vary with form, morale, fitness and opposition. Training and scoreless matches affect morale more.',
-                                  'Added angled one-on-ones and more lifestyle purchases. Squad investment persists and European results better reflect team strength.')
-          Path('bastion_play_internal.py').write_text(source)
-          Path('promote_alpha_1030042.py').write_text(Path('alpha-template.py').read_text().replace('1030041', '1030042'))
-          bundle.rename(bundle.name)
-          PY
+          transfer=$(mktemp -d)
+          python tools/play/prepare_1030042_r2_transfer.py /tmp/scorer-delivery "$transfer"
+          cd "$transfer"
           python -m py_compile bastion_play_internal.py promote_alpha_1030042.py
-          sha256sum Scorer-World-1.0-1030042-unsigned.aab bastion_play_internal.py promote_alpha_1030042.py > SHA256SUMS
+          rm -r __pycache__
+          sha256sum aab.part.* *.py qa-aab-report.json bundle-manifest.xml > SHA256SUMS
           sha256sum -c SHA256SUMS
-          gh release create world-1.0-1030042 --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease \
-            --title 'Scorer World 1.0 (1030042)' \
-            --notes 'Audited unsigned Android bundle with wide one-on-ones, a larger lifestyle catalogue and career realism fixes. Owner-side scripts for Play Internal and Alpha. Google Play publication is separate.' \
-            Scorer-World-1.0-1030042-unsigned.aab bastion_play_internal.py promote_alpha_1030042.py SHA256SUMS qa-aab-report.json
+          git init -b transfer-world-1030042-r2
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          gh auth setup-git
+          git add .
+          git commit -m 'Transfer verified Scorer World 1030042 revised bundle'
+          git push origin HEAD:refs/heads/transfer-world-1030042-r2
