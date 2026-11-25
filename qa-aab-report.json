@@ -1,0 +1,16 @@
+{
+  "purpose": "unsigned production AAB for owner-side signing",
+  "package": "com.clemir.scorerworld",
+  "version_name": "1.0",
+  "version_code": 1030043,
+  "compiled_source_verified": true,
+  "source_sha": "043ba8484bafb08c29bf7a0a35e4ff1f3ed27bde",
+  "sha256": "b15feeedf13dce0b1f85f2fb878b4548d181b4acdcdbb21abf7084a65429f09f",
+  "size_bytes": 123970238,
+  "bundletool_validated": true,
+  "alignment": "PAGE_ALIGNMENT_16K",
+  "native_elf_alignment": "see elf-audit.txt",
+  "production_signed": false,
+  "tested_on_real_device": false,
+  "google_play_uploaded": false
+}
