@@ -1930,8 +1930,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                 morale_change = goals * 1.05 - misses * 0.25 + (20.0 - self.morale) * 0.085
             else:
                 # Blanks compound poor form. Ease physical losses near exhaustion.
-                morale_change = -1.10 - self.morale * 0.13 - misses * 0.20
-                stamina_change -= 0.30 + self.stamina * 0.050
+                morale_change = -1.25 - self.morale * 0.13 - misses * 0.20
+                stamina_change -= 0.40 + self.stamina * 0.050
         self.morale = clamp(self.morale + morale_change, 0.0, 20.0)
         self.stamina = clamp(self.stamina + stamina_change, 0.0, 20.0)
 
@@ -2039,8 +2039,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         stamina_gain = 1.25 + goals * 0.25
         morale_change = max(0, goals - 1) * 0.20
         if self.world_unlocked:
-            stamina_gain = (-0.85, -0.25, 2.6, 3.6)[goals]
-            morale_change = (-3.0, -1.55, 1.0, 2.15)[goals]
+            stamina_gain = (-1.0, -0.35, 2.6, 3.6)[goals]
+            morale_change = (-3.25, -1.75, 1.0, 2.15)[goals]
         self.stamina = clamp(self.stamina + stamina_gain, 0.0, 20.0)
         self.morale = clamp(self.morale + morale_change, 0.0, 20.0)
         self.last_training_week = self.week

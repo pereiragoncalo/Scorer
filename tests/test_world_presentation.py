@@ -61,20 +61,22 @@ class WorldPresentationTests(unittest.TestCase):
             self.assertEqual(career.complete_training(3), 0)
         self.assertEqual((career.stamina, career.morale), (10, 10))
         with patch.object(career, 'save', return_value=True):
-            self.assertAlmostEqual(career.complete_training(3), -.85)
-            self.assertLess(career.morale, 10)
+            self.assertAlmostEqual(career.complete_training(3), -1.0)
+            self.assertAlmostEqual(career.morale, 6.75)
             self.assertTrue(career.trained_this_week)
             self.assertEqual(career.complete_training(3), 0)
         morale, stamina = career.morale, career.stamina
         career._update_attributes(0, 1)
-        self.assertLess(career.morale, morale - 2)
-        self.assertLess(career.stamina, stamina - 1)
+        self.assertAlmostEqual(morale - career.morale, 2.3275)
+        self.assertAlmostEqual(stamina - career.stamina, 1.58)
         career._consume_match_training()
         career.training_session_week = career.week
         career.training_shots_taken = 3
         career.training_session_goals = 1
+        morale = career.morale
         with patch.object(career, 'save', return_value=True):
-            self.assertAlmostEqual(career.complete_training(1), -.25)
+            self.assertAlmostEqual(career.complete_training(1), -.35)
+        self.assertAlmostEqual(morale - career.morale, 1.75)
         self.assertTrue(career.trained_this_week)
         with patch.object(career.rng, 'gauss', return_value=-100):
             self.assertEqual(career.chance_count(), 1)

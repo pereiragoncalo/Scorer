@@ -4,6 +4,8 @@ World scoreless appearances now reduce morale and stamina more sharply. Training
 
 Across 350 synthetic 38-game seasons using the same intermediate finishing and training assumptions as the 1030042 calibration, the mean fell from 34.59 to 24.51 goals. The 90th percentile was 34 and the highest sampled season was 44. These are scenario estimates, not targets enforced during play.
 
+Follow-up tune: scoreless matches lose another 0.15 morale and 0.10 stamina. Zero-goal training costs 3.25 morale and 1.00 stamina; one-goal training costs 1.75 morale and 0.35 stamina. In the same 350-season simulation, the mean dropped from 24.51 to 23.75, the 90th percentile from 34 to 33, and the highest sample from 44 to 40.
+
 ## 2026-11-25 — wide scoring duels and lifestyle catalogue (1030042)
 
 World match clear chances now select a wide through ball in 80% of seeded opportunities. The receiver is onside at release and the high line moves away from the goal, leaving only the keeper ahead at the lateral reception. Wide shots use ordinary open-play assistance. Training, central one-on-ones, penalties and ball physics retain their existing paths. Paired exact-target tests produced 73/80 central goals and 10/80 wide goals. These samples compare shot setups and do not forecast human or season totals.
