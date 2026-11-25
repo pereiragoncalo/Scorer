@@ -194,6 +194,10 @@ def propose(c,uid):
     return True
 
 
+SQUAD_INVESTMENT = 4
+MAX_SQUAD_INVESTMENT = 100
+
+
 def apply(c,club,offer):
     """Called within the existing atomic club-signing transaction."""
     offer=terms(offer)
@@ -201,7 +205,14 @@ def apply(c,club,offer):
     c.life.update(contract_club=club.uid,salary=offer['salary'],contract=dict(offer,club_uid=club.uid,start_season=c.season,end_season=c.season+offer['years'],start_date=c.current_date.isoformat(),end_date=expiry_date(c.current_date,offer['years']).isoformat()),negotiations={})
     for key in ('home','car'):
         if offer[key]:c.life['owned'][offer[key]]=c.life['owned'].get(offer[key],0)+1
-    if offer['squad']:club.rating=max(club.rating,min(99.,club.rating+2.))
+    if offer['squad']:
+        increase=2
+        if c.world_unlocked:
+            investments=c.life['squad_investments']
+            previous=investments.get(club.uid,0)
+            investments[club.uid]=min(MAX_SQUAD_INVESTMENT,previous+SQUAD_INVESTMENT)
+            increase=investments[club.uid]-previous
+        club.rating=max(club.rating,min(99.,club.rating+increase))
 
 
 def sign(c,uid):

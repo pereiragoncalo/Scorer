@@ -8,6 +8,8 @@ import hashlib
 import math
 import random
 
+from national_strength import euro_goal_means, euro_rating, last_sixteen, seeded_order
+
 MODEL_VERSION=2
 
 # Initial fields only: Libertadores transfers join Sudamericana during the season.
@@ -59,9 +61,12 @@ def fixture_day(cup):
     return 2 if cup.national else 1
 
 
-def simulate_score(seed, home, away, neutral=False):
+def simulate_score(seed, home, away, neutral=False, competition=""):
     rng=rng_for(seed)
     from career import realistic_goal_means,poisson_goal
+    european=euro_goal_means(competition,home['country'],away['country']) if competition.startswith('euro') else None
+    if european is not None:
+        return [poisson_goal(rng,mean) for mean in european]
     a,b=realistic_goal_means(home['rating'],away['rating'])
     if neutral:
         ra,rb=realistic_goal_means(away['rating'],home['rating']);a,b=(a+rb)/2,(b+ra)/2
@@ -152,7 +157,7 @@ class Tournament:
                 total[f['home']]+=f['score'][0];total[f['away']]+=f['score'][1]
             if total[a]==total[b]:
                 rng=rng_for(self.seed,self.key,tie,'penalties')
-                strength=(self.teams[a]['rating']-self.teams[b]['rating'])/100
+                strength=(euro_rating(self.key,self.teams[a])-euro_rating(self.key,self.teams[b]))/100
                 winner=a if rng.random()<max(.25,min(.75,.5+strength)) else b
                 legs[-1]['penalties']=[5,4] if legs[-1]['home']==winner else [4,5]
             else:winner=max(total,key=total.get)
@@ -188,6 +193,8 @@ class Tournament:
                 thirds=[rows[2] for rows in tables if len(rows)>2]
                 thirds.sort(key=lambda r:(-r['pts'],-(r['gf']-r['ga']),-r['gf'],r['uid']))
                 qualified += [r['uid'] for r in thirds[:self.best_thirds]]
+            if self.key=='euro' and len(tables)==6 and len(qualified)==16:
+                qualified=last_sixteen(tables,qualified)
             self._knockout(qualified);return
         winners=self._winners()
         if self.stage=='Final':
@@ -211,7 +218,7 @@ class Tournament:
             if not active:return None  # A cross-competition draw may still be pending.
             for f in active:
                 if f['score'] is None and due(f) and not is_protected(f):
-                    self.record(f,simulate_score(f'{self.seed}:{f["id"]}',self.teams[f['home']],self.teams[f['away']],neutral=f.get('neutral',False)))
+                    self.record(f,simulate_score(f'{self.seed}:{f["id"]}',self.teams[f['home']],self.teams[f['away']],neutral=f.get('neutral',False),competition=self.key))
             pending=[f for f in active if f['score'] is None and due(f) and is_protected(f)]
             if pending:return min(pending,key=lambda f:(f['week'],f.get('date',''),f['id']))
             if any(f['score'] is None for f in active):return None
@@ -375,9 +382,17 @@ class CompetitionBook:
                 self.tournaments[qkey]=Tournament(qkey,title+' qualifying',pool,f'{seed}:{season}',kind='qualifying',groups=max(1,math.ceil(len(pool)/4)),rounds=0,national=True,slots=slots,start_week=1)
                 if key in ('euro','world_cup')and index==0:
                     cup=self.tournaments[qkey]
-                    cup.groups=[]
-                    ids=list(cup.teams);rng_for(seed,path['year'],key,'qualifying').shuffle(ids)
-                    cup.groups=[ids[i::12]for i in range(12)]
+                    draw_rng=rng_for(seed,path['year'],key,'qualifying')
+                    if key=='euro':
+                        # Four-team groups fit the existing release windows even
+                        # when strong teams also reach the Nations League finals.
+                        group_count=math.ceil(len(pool)/4)
+                        ids=[team['uid'] for team in seeded_order(pool,group_count,draw_rng)]
+                    else:
+                        group_count=12
+                        ids=list(cup.teams)
+                        draw_rng.shuffle(ids)
+                    cup.groups=[ids[i::group_count] for i in range(group_count)]
                     from national_campaigns import prepare_groups
                     top={t['uid']for t in ((entrants or{}).get('nations_a')or european[:16])}
                     prepare_groups(cup,top)
@@ -431,7 +446,10 @@ class CompetitionBook:
                 rest.extend((row,cup.teams[row['uid']]) for i in range(len(cup.groups)) for row in cup.table(i) if row['uid'] not in cup.qualified)
             rest.sort(key=lambda pair:(-pair[0]['pts']/max(1,pair[0]['p']),-(pair[0]['gf']-pair[0]['ga'])/max(1,pair[0]['p']),-pair[0]['gf']/max(1,pair[0]['p']),pair[0]['uid']))
             selected.extend(t for row,t in rest[:path['wildcards']])
-            self.tournaments[path['key']]=Tournament(path['key'],path['title'],selected,f'{self.seed}:{self.season}',groups=path['groups'],rounds=3,qualifiers=2,best_thirds=path['thirds'],national=True,knockout_legs=1,start_week=last+3)
+            euro=path['key']=='euro'
+            if euro:
+                selected=seeded_order(selected,path['groups'],rng_for(self.seed,path['year'],'euro','finals'))
+            self.tournaments[path['key']]=Tournament(path['key'],path['title'],selected,f'{self.seed}:{self.season}',groups=path['groups'],rounds=3,qualifiers=2,best_thirds=path['thirds'],national=True,knockout_legs=1,start_week=last+3,seeded=euro)
             path['created']=True;changed=True
         if changed:
             from international_calendar import schedule_book

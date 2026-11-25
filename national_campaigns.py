@@ -33,7 +33,7 @@ def qualifier_dates(book,cup,fixture):
     if not top:
         from career import EUROPE_COUNTRIES
         top={t['uid']for t in sorted((t for t in book.nations.values()if t['country']in EUROPE_COUNTRIES),key=lambda t:(-t['rating'],t['uid']))[:16]}
-    if len(group)==4:
+    if len(group)==4 or cup.key.startswith('euro_q') and len(group)<4:
         if top.intersection(group):dates=[d for d in dates if d.month>=9]
         else:dates=[d for d in dates if d.month in (3,6,11)]
     return dates

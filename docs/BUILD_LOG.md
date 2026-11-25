@@ -1,3 +1,11 @@
+## 2026-11-25 — World squad investment, teammate scoring and Euro realism
+
+World club ratings are restored from their current baseline plus the squad investment saved for the club UID. Legacy saves with a recorded squad clause and no investment ledger restore that clause once. Negotiated investment raises squad strength by up to four rating points per signing and uses the existing transactional save rollback. Existing team strength now remains effective across reloads. The World league form term carries less weight in expected goals, and the World scorer can use up to 40% of the team's expected-goal budget rather than exhausting teammate opportunities. The score fallback reserves expected contribution from attempts, without subtracting actual player goals from teammate scoring. Player shot physics and Free's interactive budget are retained.
+
+Euro national ratings are explicit game estimates for the 55 European selections. Qualifying pots distribute the strongest teams across fourteen groups of three or four, preserving the game calendar's overlapping Nations League and UEFA qualifying windows. The game retains 24 finalists, six groups, neutral finals, and a ranked first knockout draw without same-group rematches. Existing saved draws, results and histories are kept, with the improved strength model taking effect in future Euro fixtures. The fourteen-group qualification format is a game model. Twelve simulated editions from seeds 30–41 increased representation of the twelve highest-rated teams from 6.25 to 10.67 in the last sixteen, 4.00 to 6.42 in the quarter-finals, and 2.58 to 3.67 in the semi-finals.
+
+The 1030041 delivery draft identifies source 4701b6b, which is unavailable from the connected repository. This branch uses the published season-balance source as its implementation base. No build or Play changes were performed.
+
 ## 2026-11-18 — Scorer World season balance
 
 World match opportunities use morale, stamina, recent club form, training and opponent pressure. Completed three-shot training guarantees one opportunity. Strong opponents cap the plan at three, most other fixtures can reach four, and favourable fixtures can reach five with both morale and stamina at least 19/20. Existing shot parameters, delivery types and save data are reused.

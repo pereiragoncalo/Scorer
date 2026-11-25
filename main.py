@@ -100,7 +100,7 @@ Window.clearcolor = (0.025, 0.055, 0.075, 1.0)
 
 
 
-from career import realistic_goal_means, expected_highlight_goals, GRAVITY, GOAL_WIDTH, GOAL_HEIGHT, GOAL_DEPTH, VEIL_TOP_DEPTH, VEIL_TOUCH_DEPTH, VEIL_SAG, VEIL_SLOPE_LENGTH, VEIL_PATH_LENGTH, NET_RIPPLE_DURATION, PHYSICS_STEP, POST_RADIUS, BALL_RADIUS, START_Y, GOALKEEPER_Y, GOALKEEPER_SCALE, PLAYER_SCALE, FIELD_PLAYER_SCALE, HEADER_BALL_HEIGHT, STAND_CONCRETE, STAND_RISER, STAND_TREAD, STAND_EDGE, STAND_RAIL, STAND_ROOF, STAND_ROWS, STAND_CORNER_X, STAND_FRONT_Y, STAND_ROW_DEPTH, STAND_TREAD_DEPTH, STAND_ROW_RISE, SHOT_ORIGINS, HEADER_ORIGINS, PENALTY_ORIGIN, FREE_KICK_ORIGINS, CAMERA_POSITION, CAMERA_VERTICAL_FOV, clamp, length3, dot3, subtract3, normalize3, CAMERA_FORWARD, CAMERA_RIGHT, CAMERA_UP, Ball, NetRipple, FieldPlayer, EUROPE_PYRAMID_DEPTH, EUROPE_COUNTRIES, WORLD_COUNTRIES, club_kit, poisson_goal, CareerClub, CareerMode
+from career import realistic_goal_means, expected_highlight_goals, teammate_goal_mean, GRAVITY, GOAL_WIDTH, GOAL_HEIGHT, GOAL_DEPTH, VEIL_TOP_DEPTH, VEIL_TOUCH_DEPTH, VEIL_SAG, VEIL_SLOPE_LENGTH, VEIL_PATH_LENGTH, NET_RIPPLE_DURATION, PHYSICS_STEP, POST_RADIUS, BALL_RADIUS, START_Y, GOALKEEPER_Y, GOALKEEPER_SCALE, PLAYER_SCALE, FIELD_PLAYER_SCALE, HEADER_BALL_HEIGHT, STAND_CONCRETE, STAND_RISER, STAND_TREAD, STAND_EDGE, STAND_RAIL, STAND_ROOF, STAND_ROWS, STAND_CORNER_X, STAND_FRONT_Y, STAND_ROW_DEPTH, STAND_TREAD_DEPTH, STAND_ROW_RISE, SHOT_ORIGINS, HEADER_ORIGINS, PENALTY_ORIGIN, FREE_KICK_ORIGINS, CAMERA_POSITION, CAMERA_VERTICAL_FOV, clamp, length3, dot3, subtract3, normalize3, CAMERA_FORWARD, CAMERA_RIGHT, CAMERA_UP, Ball, NetRipple, FieldPlayer, EUROPE_PYRAMID_DEPTH, EUROPE_COUNTRIES, WORLD_COUNTRIES, club_kit, poisson_goal, CareerClub, CareerMode
 
 def force_android_landscape() -> None:
     """Pede landscape ao Android, tanto em APK como no Pydroid/Kivy Launcher."""
@@ -946,9 +946,9 @@ class StrikerGame(Widget):
         # rather than adding it on top of a full team's simulated goals.
         personal_mean = expected_highlight_goals(chance_total, chance_profile.clear_chance_probability, PENALTY_PROBABILITY)
         if player_home:
-            home_mean = max(0.05, home_mean - personal_mean)
+            home_mean = teammate_goal_mean(home_mean,personal_mean,world=self.career.world_unlocked)
         else:
-            away_mean = max(0.05, away_mean - personal_mean)
+            away_mean = teammate_goal_mean(away_mean,personal_mean,world=self.career.world_unlocked)
         home_ai = poisson_goal(self.career.rng, home_mean)
         away_ai = poisson_goal(self.career.rng, away_mean)
         self.match_stakes = match_stakes(self.career, self.match_competition, self.match_home, self.match_away)

@@ -519,9 +519,10 @@ CLEAR_CHANCE_CONVERSION = 0.51
 HARD_CHANCE_CONVERSION = 0.20
 
 
-def realistic_goal_means(home_rating: float, away_rating: float) -> tuple[float, float]:
+def realistic_goal_means(home_rating: float, away_rating: float, *, rating_scale=18.0, neutral=False) -> tuple[float, float]:
     """Share an empirical goal budget by quality without capping actual scores."""
-    advantage = math.log(MATCH_HOME_GOALS / MATCH_AWAY_GOALS) + (home_rating - away_rating) / 18.0
+    home_advantage = 0.0 if neutral else math.log(MATCH_HOME_GOALS / MATCH_AWAY_GOALS)
+    advantage = home_advantage + (home_rating - away_rating) / rating_scale
     home_share = 1.0 / (1.0 + math.exp(-clamp(advantage, -4.0, 4.0)))
     total = MATCH_HOME_GOALS + MATCH_AWAY_GOALS
     return total * home_share, total * (1.0 - home_share)
@@ -535,6 +536,13 @@ def expected_highlight_goals(chances: int, clear_probability: float, penalty_pro
     return (chances * HARD_CHANCE_CONVERSION
             + clear * (CLEAR_CHANCE_CONVERSION - HARD_CHANCE_CONVERSION)
             + penalty * (0.65 - HARD_CHANCE_CONVERSION))
+
+
+def teammate_goal_mean(team_mean: float, personal_mean: float, *, world: bool) -> float:
+    # Interactive chances represent one player. In World they can replace only
+    # that player's share of the attack, even when the team is an underdog.
+    reservation=min(personal_mean,team_mean*.40) if world else personal_mean
+    return max(.05,team_mean-reservation)
 
 
 def ensure_club_uid(club):
@@ -1154,7 +1162,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
                     from club_calendar import set_week
                     set_week(self,max(self.week,f['week']))
                     self.called_up=national
-                    return ('world|'+key+'|'+f['id'],self._competition_club(home),self._competition_club(away))
+                    return ('world|'+key+'|'+f['id'],self._competition_club(home,key),self._competition_club(away,key))
                 if ended:
                     self._finish_season()
                     if self.free_agent:self.save();return None
@@ -1181,10 +1189,12 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         return None
 
 
-    def _competition_club(self,team):
+    def _competition_club(self,team,competition=''):
         current=next((c for l in self.leagues.values() for c in l.clubs if c.uid==team['uid']),None)
         if current:return current
-        return CareerClub(team['name'],team['country'],'World competition',int(team.get('tier',1)),float(team['rating']),uid=team['uid'])
+        from national_strength import euro_rating
+        rating=euro_rating(competition,team)
+        return CareerClub(team['name'],team['country'],'World competition',int(team.get('tier',1)),float(rating),uid=team['uid'])
 
     @property
     def national_team_eligible(self):
@@ -1233,6 +1243,11 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
     def world_fixture_goal_means(self,token,home,away):
         means=realistic_goal_means(home.rating,away.rating)
+        if token.startswith('world|'):
+            from national_strength import euro_goal_means
+            european=euro_goal_means(token.split('|',2)[1],home.country,away.country)
+            if european is not None:
+                return european
         if self.world_competitions and token.startswith('world|'):
             _,key,fixture_id=token.split('|',2)
             cup=self.world_competitions.tournaments.get(key)
@@ -1254,7 +1269,14 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         if actor not in (home.uid,away.uid):raise ValueError('Player does not participate in this fixture')
         if score is None:
             means=self.world_fixture_goal_means(token,home,away)
-            score=tuple(poisson_goal(self.rng,max(0.,m-(max(float(player_goals),.65) if (home if i==0 else away).uid==actor else 0)))+ (player_goals if (home if i==0 else away).uid==actor else 0) for i,m in enumerate(means))
+            player_home=home.uid==actor
+            opponent=away if player_home else home
+            personal=self._fallback_highlight_mean(opponent,player_goals,player_misses)
+            score=tuple(
+                poisson_goal(self.rng,teammate_goal_mean(mean,personal,world=True))+player_goals
+                if (i==0)==player_home else poisson_goal(self.rng,mean)
+                for i,mean in enumerate(means)
+            )
         if player_goals<0 or player_misses<0 or score[0 if home.uid==actor else 1]<player_goals:raise ValueError('Personal goals exceed the team score')
         f=self.world_competitions.record(key,fixture_id,score)
         score=tuple(f['score'])
@@ -1675,6 +1697,13 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
         return max(1 if trained else 0,round(amount/decline(self)))
 
 
+    def _fallback_highlight_mean(self, opponent, goals, misses):
+        if not self.world_unlocked:
+            return max(float(goals),.65)
+        profile=self.opponent_chance_profile(opponent)
+        return expected_highlight_goals(goals+misses,profile.clear_chance_probability)
+
+
     def fixture_goal_means(
         self, home: CareerClub, away: CareerClub
     ) -> tuple[float, float]:
@@ -1709,7 +1738,7 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
 
 
         difference = competitive_strength(home) - competitive_strength(away)
-        advantage = math.log(MATCH_HOME_GOALS / MATCH_AWAY_GOALS) + (home.rating-away.rating)/18. + difference*.65
+        advantage = math.log(MATCH_HOME_GOALS / MATCH_AWAY_GOALS) + (home.rating-away.rating)/18. + difference*(.30 if self.world_unlocked else .65)
         share = 1.0 / (1.0 + math.exp(-advantage))
         total = MATCH_HOME_GOALS + MATCH_AWAY_GOALS
         return total * share, total * (1.0 - share)
@@ -1783,7 +1812,8 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             home_mean, away_mean = self.fixture_goal_means(home, away)
             player_mean = home_mean if player_home else away_mean
             opponent_mean = away_mean if player_home else home_mean
-            player_base = poisson_goal(self.rng, max(0.0, player_mean-max(float(player_goals),.65)))
+            personal_mean = self._fallback_highlight_mean(away if player_home else home,player_goals,player_misses)
+            player_base = poisson_goal(self.rng, teammate_goal_mean(player_mean,personal_mean,world=self.world_unlocked))
             opponent_base = poisson_goal(self.rng, opponent_mean)
             if player_home:
                 score = (player_base + player_goals, opponent_base)
@@ -2860,7 +2890,10 @@ class CareerMode(DevelopmentCareer, CoachCareer, TwoDivisionCareer):
             if self.world_unlocked:
                 from league_status import club_rating
                 for league in self.leagues.values():
-                    for team in league.clubs:team.rating=club_rating(team)
+                    for team in league.clubs:
+                        baseline=club_rating(team)
+                        bonus=self.life['squad_investments'].get(team.uid,0)
+                        team.rating=max(baseline,min(99.,baseline+bonus))
             return True
         except (OSError, ValueError, TypeError, KeyError, AttributeError, OverflowError):
             # Keep both the original file and all pre-load state intact.

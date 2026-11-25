@@ -5,7 +5,7 @@ ITEMS=(
  ('utility','car','Compact car',10000),('sedan','car','Executive sedan',35000),('sports','car','Sports car',140000),('supercar','car','Supercar',750000),
  ('rose','gift','A rose',25),('flowers','gift','Flower bouquet',80),('necklace','gift','Gold necklace',2500),('handbag','gift','Designer handbag',6000),
  ('casual','clothes','Casual outfit',60),('smart','clothes','Smart outfit',300),('suit','clothes','Tailored suit',1500),('designer','clothes','Designer wardrobe',12000))
-def fresh(c):return dict(version=2,contract=None,negotiations={},paid_month=c.current_date.year*12+c.current_date.month,start_season=2026,balance=0,salary=0,contract_club='',paid_at=c.season*52+c.week,owned={},retired=False,retirement_seen=0,favourite='',private_meeting='',drought_talk=0,offer_talk='',injury_name='',injury_games=0,injury_fixture='')
+def fresh(c):return dict(version=2,contract=None,negotiations={},paid_month=c.current_date.year*12+c.current_date.month,start_season=2026,balance=0,salary=0,contract_club='',paid_at=c.season*52+c.week,owned={},squad_investments={},retired=False,retirement_seen=0,favourite='',private_meeting='',drought_talk=0,offer_talk='',injury_name='',injury_games=0,injury_fixture='')
 def clean(raw,c):
  d=fresh(c)
  if not isinstance(raw,dict) or raw.get('version') not in (1,2):return d
@@ -19,8 +19,15 @@ def clean(raw,c):
  from injuries import NAMES
  if raw.get('injury_name') in NAMES and type(raw.get('injury_games')) is int and 0<=raw['injury_games']<=3:
   d['injury_name']=raw['injury_name'];d['injury_games']=raw['injury_games']
- from contract_negotiation import clean_contract,clean_meetings
+ from contract_negotiation import clean_contract,clean_meetings,MAX_SQUAD_INVESTMENT,SQUAD_INVESTMENT
  d['contract']=clean_contract(raw.get('contract'));d['negotiations']=clean_meetings(raw.get('negotiations'))
+ investments=raw.get('squad_investments')
+ if isinstance(investments,dict):
+  d['squad_investments']={uid:value for uid,value in investments.items()
+                          if isinstance(uid,str) and 0<len(uid)<=100 and uid.isprintable()
+                          and type(value)is int and 0<value<=MAX_SQUAD_INVESTMENT}
+ elif 'squad_investments' not in raw and c.world_unlocked and d['contract'] and d['contract']['squad']:
+  d['squad_investments'][d['contract']['club_uid']]=SQUAD_INVESTMENT
  d['retired']=raw.get('retired') is True
  if isinstance(raw.get('owned'),dict):d['owned']={k:v for k,v in raw['owned'].items() if k in {i[0] for i in ITEMS} and type(v)is int and 1<=v<=100000}
  return d
